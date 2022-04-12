@@ -1,0 +1,43 @@
+# docker-compose.yml
+version: '2.2'
+services:
+  db:
+    image: mysql:5.7
+    ports:
+      - 33306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=csatar
+    networks:
+      csatar-network:
+        aliases:
+          - db
+
+  web:
+    # image: csatar-docker:1
+    build:
+      context: .
+      dockerfile: setup/dev/Dockerfile
+    container_name: october
+    ports:
+      - 8085:80
+    volumes:
+      - ./dev-config:/var/www/html/config/csatar-dev:delegated
+      - ./csatar-plugins:/var/www/html/plugins/csatar:delegated
+      - ./csatar-theme:/var/www/html/themes/csatar:delegated
+    environment:
+    - DB_TYPE=mysql
+    - DB_HOST=db #DB_HOST should match the service name of the database container
+    - DB_DATABASE=csatar
+    - DB_USERNAME=root
+    - DB_PASSWORD=root
+    networks:
+      csatar-network:
+        aliases:
+          - web-server
+    depends_on:
+      - "db"
+
+networks:
+  csatar-network:
+    driver: bridge
