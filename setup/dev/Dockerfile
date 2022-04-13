@@ -105,13 +105,5 @@ USER www-data
 # Returns to root user
 USER root
 
-# Copies init scripts
-COPY /setup/dev/docker-entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
 # Provides container inside image for data persistence
 VOLUME ["/var/www/html"]
-
-ENTRYPOINT ["/entrypoint.sh"]
-# CMD ["apache2-foreground"]
-CMD ["sh", "-c", "cron && apache2-foreground"]

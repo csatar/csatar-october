@@ -14,7 +14,6 @@ services:
           - db
 
   web:
-    # image: csatar-docker:1
     build:
       context: .
       dockerfile: setup/dev/Dockerfile
