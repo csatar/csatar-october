@@ -1,5 +1,8 @@
 description = "Default layout"
 
+[cookieBanner cookiebannerOverRide]
+include_css = 1
+cookie_manager_page = "index"
 ==
 <!DOCTYPE html>
 <html class='h-100'>
@@ -21,6 +24,7 @@ description = "Default layout"
         <!-- Footer -->
         <footer id="layout-footer">
             {% partial 'site/footer' %}
+            {% component 'cookiebannerOverRide' %}
         </footer>
 
     </body>
