@@ -1,0 +1,7 @@
+1.0.1: 'First version of CSATÁR'
+1.0.2:
+    - 'Created table csatar_csatar_scouts'
+    - builder_table_create_csatar_csatar_scouts.php
+1.0.3:
+    - 'Updated table csatar_csatar_scouts'
+    - builder_table_update_csatar_csatar_scouts.php

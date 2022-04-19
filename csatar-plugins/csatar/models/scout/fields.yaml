@@ -1,0 +1,31 @@
+fields:
+    user_id:
+        label: 'User id'
+        span: auto
+        disabled: 1
+        readOnly: 1
+        type: number
+    scoutData:
+        label: 'Scout data'
+        span: full
+        type: section
+    family_name:
+        label: 'Family name'
+        span: auto
+        type: text
+    given_name:
+        label: 'Given name'
+        span: auto
+        type: text
+    email:
+        label: Email
+        span: auto
+        type: text
+    personal_identification_number:
+        label: 'Personal identification number'
+        span: auto
+        type: number
+    gender:
+        label: Gender
+        span: auto
+        type: number

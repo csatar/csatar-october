@@ -1,0 +1,11 @@
+plugin:
+    name: CSATÁR
+    description: 'Plugin for the RMCSSZ''s CSATÁR project'
+    author: 'CSATÁR team'
+    icon: icon-leaf
+    homepage: ''
+navigation:
+    main-menu-item-scout:
+        label: Scout
+        url: csatar/csatar/scouts
+        icon: icon-life-ring
