@@ -1,0 +1,12 @@
+list: $/csatar/csatar/models/religion/columns.yaml
+modelClass: Csatar\Csatar\Models\Religion
+title: Religions
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'csatar/csatar/religions/update/:id'

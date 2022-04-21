@@ -29,7 +29,10 @@ class Scout extends Model
      * Relations
      */
     public $hasOne = [
-        'legal_relationship' => '\Csatar\Csatar\Models\LegalRelationship'
+        'legal_relationship' => '\Csatar\Csatar\Models\LegalRelationship',
+        'special_diet' => '\Csatar\Csatar\Models\SpecialDiet',
+        'religion' => '\Csatar\Csatar\Models\Religion',
+        'tshirt_size' => '\Csatar\Csatar\Models\TShirtSize'
     ];
 
     public $belongsToMany = [

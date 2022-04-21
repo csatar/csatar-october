@@ -22,6 +22,18 @@ navigation:
                 label: 'Allergy Categories'
                 url: csatar/csatar/allergies
                 icon: icon-sitemap
+            side-menu-special-item-categories:
+                label: 'Special Diet Categories'
+                url: csatar/csatar/specialdiets
+                icon: icon-sitemap
+            side-menu-religion-categories:
+                label: 'Religion Categories'
+                url: csatar/csatar/religions
+                icon: icon-sitemap
+            side-menu-tshirt-size-categies:
+                label: 'T-Shirt Size Categories'
+                url: csatar/csatar/tshirtsizes
+                icon: icon-sitemap
     main-menu-scout-data:
         label: 'Scout Data'
         url: /csatar/csatar/scouts

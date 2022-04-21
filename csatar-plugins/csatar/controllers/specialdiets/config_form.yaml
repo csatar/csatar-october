@@ -1,0 +1,10 @@
+name: SpecialDiets
+form: $/csatar/csatar/models/specialdiet/fields.yaml
+modelClass: Csatar\Csatar\Models\SpecialDiet
+defaultRedirect: csatar/csatar/specialdiets
+create:
+    redirect: 'csatar/csatar/specialdiets/update/:id'
+    redirectClose: csatar/csatar/specialdiets
+update:
+    redirect: csatar/csatar/specialdiets
+    redirectClose: csatar/csatar/specialdiets

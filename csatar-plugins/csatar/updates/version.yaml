@@ -53,3 +53,27 @@
 1.0.20:
     - 'Added seeder for Allergies'
     - seeder_1020.php
+1.0.21:
+    - 'Created table csatar_csatar_special_diet'
+    - builder_table_create_csatar_csatar_special_diet.php
+1.0.22:
+    - 'Created table csatar_csatar_religion'
+    - builder_table_create_csatar_csatar_religion.php
+1.0.23:
+    - 'Created table csatar_csatar_tshirt_size'
+    - builder_table_create_csatar_csatar_tshirt_size.php
+1.0.24:
+    - 'Updated table csatar_csatar_religion'
+    - builder_table_update_csatar_csatar_religions.php
+1.0.25:
+    - 'Updated table csatar_csatar_special_diet'
+    - builder_table_update_csatar_csatar_special_diets.php
+1.0.26:
+    - 'Updated table csatar_csatar_tshirt_size'
+    - builder_table_update_csatar_csatar_tshirt_sizes.php
+1.0.27:
+    - 'Updated table csatar_csatar_scouts'
+    - builder_table_update_csatar_csatar_scouts_5.php
+1.0.28:
+    - 'Added seeder for Special Diets, Religions, T-Shirt Sizes'
+    - seeder_1028.php
