@@ -5,7 +5,7 @@ use Model;
 /**
  * Model
  */
-class Scout extends Model
+class Allergy extends Model
 {
     use \October\Rain\Database\Traits\Validation;
     
@@ -17,7 +17,7 @@ class Scout extends Model
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'csatar_csatar_scouts';
+    public $table = 'csatar_csatar_allergies';
 
     /**
      * @var array Validation rules
@@ -26,22 +26,21 @@ class Scout extends Model
     ];
 
     /**
-     * Relations
+     * @var array Fillable values
      */
-    public $hasOne = [
-        'legal_relationship' => '\Csatar\Csatar\Models\LegalRelationship'
+    public $fillable = [
+        'title'
     ];
 
+    /**
+     * Relations
+     */
+
     public $belongsToMany = [
-        'chronic_illnesses' => [
-            '\Csatar\Csatar\Models\ChronicIllness',
-            'table' => 'csatar_csatar_scouts_chronic_illnesses',
-            'order' => 'title'
-        ],
-        'allergies' => [
-            '\Csatar\Csatar\Models\Allergy',
+        'scouts' => [
+            '\Csatar\Csatar\Models\Scout',
             'table' => 'csatar_csatar_scouts_allergies',
-            'order' => 'title'
+            'order' => 'user_id'
         ]
     ];
 }

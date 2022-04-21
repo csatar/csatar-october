@@ -5,7 +5,24 @@ plugin:
     icon: icon-leaf
     homepage: ''
 navigation:
-    main-menu-item-scout:
-        label: Scout
-        url: csatar/csatar/scouts
-        icon: icon-life-ring
+    main-menu-item-scout-system-data:
+        label: 'Scout System Data'
+        url: /
+        icon: icon-sitemap
+        sideMenu:
+            side-menu-legal-relationship-categories:
+                label: 'Legal Relationship Categories'
+                url: csatar/csatar/legalrelationships
+                icon: icon-sitemap
+            side-menu-chronic-illness-categories:
+                label: 'Chronic Illness Categories'
+                url: /csatar/csatar/chronicillnesses
+                icon: icon-sitemap
+            side-menu-allergy-categories:
+                label: 'Allergy Categories'
+                url: csatar/csatar/allergies
+                icon: icon-sitemap
+    main-menu-scout-data:
+        label: 'Scout Data'
+        url: /csatar/csatar/scouts
+        icon: icon-bell

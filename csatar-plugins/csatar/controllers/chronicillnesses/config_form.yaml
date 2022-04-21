@@ -1,0 +1,10 @@
+name: ChronicIllness
+form: $/csatar/csatar/models/chronicillness/fields.yaml
+modelClass: Csatar\Csatar\Models\ChronicIllness
+defaultRedirect: csatar/csatar/chronicillnesses
+create:
+    redirect: 'csatar/csatar/chronicillnesses/update/:id'
+    redirectClose: csatar/csatar/chronicillnesses
+update:
+    redirect: csatar/csatar/chronicillnesses
+    redirectClose: csatar/csatar/chronicillnesses

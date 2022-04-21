@@ -29,3 +29,26 @@ fields:
         label: Gender
         span: auto
         type: number
+    is_active:
+        label: Active
+        span: auto
+        default: 1
+        type: checkbox
+    legal_relationship:
+        label: 'Legal Relationship'
+        nameFrom: title
+        descriptionFrom: description
+        span: auto
+        type: relation
+    chronic_illnesses:
+        label: 'Chronic Illnesses'
+        nameFrom: title
+        descriptionFrom: description
+        span: auto
+        type: relation
+    allergies:
+        label: Allergies
+        nameFrom: title
+        descriptionFrom: description
+        span: auto
+        type: relation

@@ -43,3 +43,23 @@ columns:
         type: number
         searchable: true
         sortable: true
+    is_active:
+        label: is_active
+        type: switch
+        searchable: true
+        sortable: true
+    legal_relationship:
+        label: legal_relationship
+        type: number
+        searchable: true
+        sortable: true
+    chronic_illnesses:
+        label: chronic_illnesses
+        type: text
+        searchable: true
+        sortable: true
+    allergies:
+        label: chronic_illnesses
+        type: text
+        searchable: true
+        sortable: true

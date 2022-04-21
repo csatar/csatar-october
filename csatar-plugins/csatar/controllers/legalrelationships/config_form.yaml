@@ -1,0 +1,11 @@
+name: LegalRelationship
+modelClass: Csatar\Csatar\Models\LegalRelationship
+form: $/csatar/csatar/models/legalrelationship/fields.yaml
+defaultRedirect: csatar/csatar/legalrelationships
+create:
+    redirect: 'csatar/csatar/legalrelationships/update/:id'
+    redirectClose: csatar/csatar/legalrelationships
+update:
+    redirect: csatar/csatar/legalrelationships
+    redirectClose: csatar/csatar/legalrelationships
+preview: {  }
