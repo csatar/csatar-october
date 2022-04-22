@@ -1,0 +1,14 @@
+plugin:
+    name: 'Forms'
+    description: 'Forms...'
+    author: 'Csatar'
+navigation:
+    main-menu-item:
+        label: Forms
+        url: csatar/forms/forms
+        icon: icon-paperclip
+        sideMenu:
+            forms-menu-item:
+                label: Forms
+                url: csatar/forms/forms
+                icon: icon-file-text-o
