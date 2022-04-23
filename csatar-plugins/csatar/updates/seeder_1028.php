@@ -1,6 +1,7 @@
 <?php namespace Csatar\Csatar\Updates;
 
 use Seeder;
+use Csatar\Csatar\Models\ChronicIllness;
 use Csatar\Csatar\Models\SpecialDiet;
 use Csatar\Csatar\Models\Religion;
 use Csatar\Csatar\Models\TShirtSize;
@@ -64,6 +65,26 @@ class Seeder1028 extends Seeder
         
         foreach($tshirtSizes as $title) {
             $tshirtSizes = TShirtSize::create([
+                'title' => $title
+            ]);
+        }
+        
+        $chronicIllnesses = [
+            'Magas vérnyomás',
+            'Szívelégtelenség',
+            'Allergia',
+            'Cukorbetegség',
+            'Mozgásszervi betegségek',
+            'Pajzsmirigy működési zavar',
+            'Schizophrenia, schizotypiás és paranoid zavarok',
+            'Daganatos betegség',
+            'Krónikus légzési elégtelenség',
+            'Veseelégtelenség',
+            'HIV/SIDA'
+        ];
+        
+        foreach($chronicIllnesses as $title) {
+            $chronicIllness = ChronicIllness::create([
                 'title' => $title
             ]);
         }

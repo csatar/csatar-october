@@ -24,17 +24,14 @@
     - 'Updated table csatar_csatar_scouts'
     - builder_table_update_csatar_csatar_scouts_4.php
 1.0.10:
-    - 'Added seeder for LegalRelationShip'
-    - seeder_1010.php
+    - 'Updated table csatar_csatar_legal_relationship'
+    - builder_table_update_csatar_csatar_legal_relationships.php
 1.0.11:
     - 'Created table csatar_csatar_chronic_illness'
     - builder_table_create_csatar_csatar_chronic_illness.php
-1.0.12:
-    - 'Added seeder for csatar_csatar_chronic_illness'
-    - seeder_1012.php
 1.0.13:
-    - 'Updated table csatar_csatar_legal_relationship'
-    - builder_table_update_csatar_csatar_legal_relationships.php
+    - 'Added seeder for LegalRelationShip'
+    - seeder_1010.php
 1.0.14:
     - 'Updated table csatar_csatar_chronic_illness'
     - builder_table_update_csatar_csatar_chronic_illnesses.php
@@ -77,3 +74,6 @@
 1.0.28:
     - 'Added seeder for Special Diets, Religions, T-Shirt Sizes'
     - seeder_1028.php
+1.0.29:
+    - 'Updated table csatar_csatar_scouts_chronic_illnesses'
+    - builder_table_update_csatar_csatar_scouts_chronic_illnesses.php
