@@ -1,0 +1,8 @@
+fields:
+    title:
+        label: Title
+        span: auto
+        required: 1
+        type: text
+    pivot[details]:
+        label: Details

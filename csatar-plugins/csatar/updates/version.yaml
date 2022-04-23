@@ -77,3 +77,6 @@
 1.0.29:
     - 'Updated table csatar_csatar_scouts_chronic_illnesses'
     - builder_table_update_csatar_csatar_scouts_chronic_illnesses.php
+1.0.30:
+    - 'Updated table csatar_csatar_scouts_chronic_illnesses'
+    - builder_table_update_csatar_csatar_scouts_chronic_illnesses_2.php
