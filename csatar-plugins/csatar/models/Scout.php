@@ -44,7 +44,8 @@ class Scout extends Model
         'allergies' => [
             '\Csatar\Csatar\Models\Allergy',
             'table' => 'csatar_csatar_scouts_allergies',
-            'order' => 'title'
+            'order' => 'title',
+            'pivot' => ['details']
         ]
     ];
 }

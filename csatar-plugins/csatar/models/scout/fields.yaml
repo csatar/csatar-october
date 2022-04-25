@@ -46,8 +46,20 @@ fields:
         descriptionFrom: description
         span: auto
         type: relation
-    allergies:
-        label: Allergies
+    special_diet:
+        label: 'Special Diet'
+        nameFrom: title
+        descriptionFrom: description
+        span: auto
+        type: relation
+    religion:
+        label: Religion
+        nameFrom: title
+        descriptionFrom: description
+        span: auto
+        type: relation
+    tshirt_size:
+        label: 'T-Shirt Size'
         nameFrom: title
         descriptionFrom: description
         span: auto

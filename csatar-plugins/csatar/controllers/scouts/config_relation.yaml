@@ -1,0 +1,9 @@
+allergies:
+  label: Allergies
+  view:
+    list: $/csatar/csatar/models/allergy/columnsPivot.yaml
+    toolbarButtons: add|remove|create
+  manage:
+    form: $/csatar/csatar/models/allergy/fields.yaml
+  pivot:
+    form: $/csatar/csatar/models/allergy/fieldsPivot.yaml
