@@ -8,4 +8,3 @@ create:
 update:
     redirect: csatar/csatar/legalrelationships
     redirectClose: csatar/csatar/legalrelationships
-preview: {  }

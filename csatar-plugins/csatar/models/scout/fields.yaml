@@ -38,6 +38,7 @@ fields:
         label: 'Legal Relationship'
         nameFrom: title
         descriptionFrom: description
+        emptyOption: '--- Select Legal Relationship ---'
         span: auto
         type: relation
     chronic_illnesses:
@@ -50,17 +51,20 @@ fields:
         label: 'Special Diet'
         nameFrom: title
         descriptionFrom: description
+        emptyOption: '--- Select Special Diet ---'
         span: auto
         type: relation
     religion:
         label: Religion
         nameFrom: title
         descriptionFrom: description
+        emptyOption: '--- Select Religion ---'
         span: auto
         type: relation
     tshirt_size:
         label: 'T-Shirt Size'
         nameFrom: title
         descriptionFrom: description
+        emptyOption: '--- Select T-Shirt Size ---'
         span: auto
         type: relation
