@@ -38,13 +38,11 @@ class Scout extends Model
     public $belongsToMany = [
         'chronic_illnesses' => [
             '\Csatar\Csatar\Models\ChronicIllness',
-            'table' => 'csatar_csatar_scouts_chronic_illnesses',
-            'order' => 'title'
+            'table' => 'csatar_csatar_scouts_chronic_illnesses'
         ],
         'allergies' => [
             '\Csatar\Csatar\Models\Allergy',
             'table' => 'csatar_csatar_scouts_allergies',
-            'order' => 'title',
             'pivot' => ['details']
         ]
     ];

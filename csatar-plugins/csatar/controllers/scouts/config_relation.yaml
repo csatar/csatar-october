@@ -7,3 +7,4 @@ allergies:
     form: $/csatar/csatar/models/allergy/fields.yaml
   pivot:
     form: $/csatar/csatar/models/allergy/fieldsPivot.yaml
+    
