@@ -94,12 +94,6 @@ class BasicForm extends ComponentBase  {
         $this->addJs('/plugins/csatar/forms/assets/vendor/dropzone/dropzone.js');
         $this->addJs('/plugins/csatar/forms/assets/js/uploader.js');
 
-//        if ($this->property('embedded')) {
-//            $this->app = $this->renderPartial('@app/index');
-//        } else {
-//            return $this->renderPartial('@app/wrapper');
-//        }
-//        return $this->renderPartial('@app/wrapper');
         $model_id = $this->param('model_id', 'new');
         $this->renderedComponent = $this->createForm($this->getForm(), $model_id);
 
