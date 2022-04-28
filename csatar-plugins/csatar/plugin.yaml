@@ -1,11 +1,11 @@
 plugin:
-    name: CSATÁR
-    description: 'Plugin for the RMCSSZ''s CSATÁR project'
-    author: 'CSATÁR team'
+    name: 'csatar.csatar::lang.plugin.name'
+    description: 'csatar.csatar::lang.plugin.description'
+    author: 'csatar.csatar::lang.plugin.author'
     icon: icon-leaf
     homepage: ''
 navigation:
     main-menu-item-scout:
-        label: Scout
+        label: 'csatar.csatar::lang.plugin.admin.admin.menu.scout'
         url: csatar/csatar/scouts
         icon: icon-life-ring

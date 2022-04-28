@@ -5,3 +5,6 @@
 1.0.3:
     - 'Updated table csatar_csatar_scouts'
     - builder_table_update_csatar_csatar_scouts.php
+1.0.32:
+    - 'Updated table csatar_csatar_scouts'
+    - builder_table_update_csatar_csatar_scouts_7.php

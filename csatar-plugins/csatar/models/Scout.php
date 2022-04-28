@@ -8,7 +8,7 @@ use Model;
 class Scout extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-    
+
     use \October\Rain\Database\Traits\SoftDelete;
 
     protected $dates = ['deleted_at'];
@@ -23,5 +23,9 @@ class Scout extends Model
      * @var array Validation rules
      */
     public $rules = [
+        'family_name' => 'required',
+        'given_name' => 'required',
+        'personal_identification_number' => 'required',
+        'email' => 'email'
     ];
 }
