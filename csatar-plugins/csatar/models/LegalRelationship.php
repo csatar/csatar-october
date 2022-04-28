@@ -38,7 +38,7 @@ class LegalRelationship extends Model
     /** 
      * Relations 
      */
-    public $hasMany = [
+    public $belongsToMany = [
         'scouts' => '\Csatar\Csatar\Models\Scouts'
     ];
 }

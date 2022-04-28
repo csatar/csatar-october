@@ -80,3 +80,6 @@
 1.0.30:
     - 'Updated table csatar_csatar_scouts_chronic_illnesses'
     - builder_table_update_csatar_csatar_scouts_chronic_illnesses_2.php
+1.0.31:
+    - 'Updated table csatar_csatar_scouts'
+    - builder_table_update_csatar_csatar_scouts_6.php

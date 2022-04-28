@@ -48,11 +48,6 @@ columns:
         type: switch
         searchable: true
         sortable: true
-    legal_relationship:
-        label: legal_relationship
-        type: number
-        searchable: true
-        sortable: true
     chronic_illnesses:
         label: chronic_illnesses
         type: text
@@ -61,5 +56,27 @@ columns:
     allergies:
         label: chronic_illnesses
         type: text
+        searchable: true
+        sortable: true
+    legal_relationship_id:
+        label: legal_relationship_id
+        type: text
+        searchable: true
+        sortable: true
+        relation: legal_relationship
+        valueFrom: title
+    special_diet_id:
+        label: special_diet_id
+        type: text
+        searchable: true
+        sortable: true
+    religion_id:
+        label: religion_id
+        type: text
+        searchable: true
+        sortable: true
+    tshirt_size_id:
+        label: tshirt_size_id
+        type: switch
         searchable: true
         sortable: true

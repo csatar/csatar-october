@@ -28,7 +28,7 @@ class Scout extends Model
     /**
      * Relations
      */
-    public $hasOne = [
+    public $belongsTo = [
         'legal_relationship' => '\Csatar\Csatar\Models\LegalRelationship',
         'special_diet' => '\Csatar\Csatar\Models\SpecialDiet',
         'religion' => '\Csatar\Csatar\Models\Religion',
