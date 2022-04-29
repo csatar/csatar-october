@@ -33,7 +33,7 @@ fields:
         options:
             1: 'csatar.csatar::lang.plugin.admin.scout.gender.male'
             2: 'csatar.csatar::lang.plugin.admin.scout.gender.female'
-        emptyOption: 'csatar.csatar::lang.plugin.admin.scout.gender.female'
+        emptyOption: 'csatar.csatar::lang.plugin.admin.scout.gender.select'
         showSearch: true
         span: auto
         required: 1
