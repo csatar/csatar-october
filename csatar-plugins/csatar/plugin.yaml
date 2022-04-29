@@ -1,7 +1,7 @@
 plugin:
-    name: CSATÁR
-    description: 'Plugin for the RMCSSZ''s CSATÁR project'
-    author: 'CSATÁR team'
+    name: 'csatar.csatar::lang.plugin.name'
+    description: 'csatar.csatar::lang.plugin.description'
+    author: 'csatar.csatar::lang.plugin.author'
     icon: icon-leaf
     homepage: ''
 navigation:
@@ -35,6 +35,6 @@ navigation:
                 url: csatar/csatar/tshirtsizes
                 icon: icon-sitemap
     main-menu-scout-data:
-        label: 'Scout Data'
+        label: 'csatar.csatar::lang.plugin.admin.admin.menu.scout'
         url: /csatar/csatar/scouts
         icon: icon-bell

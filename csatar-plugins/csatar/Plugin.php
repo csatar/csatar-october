@@ -16,9 +16,9 @@ class Plugin extends PluginBase
     public function pluginDetails()
     {
         return [
-            'name'        => 'CSATÁR',
-            'description' => "Plugin for the RMCSSZ's CSATÁR project",
-            'author'      => 'CSATÁR team',
+            'name'        => 'csatar.csatar::lang.plugin.name',
+            'description' => 'csatar.csatar::lang.plugin.description',
+            'author'      => 'csatar.csatar::lang.plugin.author',
             'icon'        => 'icon-leaf'
         ];
     }

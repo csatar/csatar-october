@@ -1,34 +1,42 @@
 fields:
     user_id:
-        label: 'User id'
+        label: 'csatar.csatar::lang.plugin.admin.scout.userId'
         span: auto
         disabled: 1
         readOnly: 1
         type: number
     scoutData:
-        label: 'Scout data'
+        label: 'csatar.csatar::lang.plugin.admin.scout.scoutData'
         span: full
         type: section
     family_name:
-        label: 'Family name'
+        label: 'csatar.csatar::lang.plugin.admin.scout.familyName'
         span: auto
+        required: 1
         type: text
     given_name:
-        label: 'Given name'
+        label: 'csatar.csatar::lang.plugin.admin.scout.givenName'
         span: auto
+        required: 1
         type: text
     email:
-        label: Email
+        label: 'csatar.csatar::lang.plugin.admin.scout.email'
         span: auto
         type: text
     personal_identification_number:
-        label: 'Personal identification number'
+        label: 'csatar.csatar::lang.plugin.admin.scout.personalIdentificationNumber'
         span: auto
-        type: number
+        required: 1
+        type: text
     gender:
-        label: Gender
+        label: 'csatar.csatar::lang.plugin.admin.scout.gender.gender'
+        options:
+            1: 'csatar.csatar::lang.plugin.admin.scout.gender.male'
+            2: 'csatar.csatar::lang.plugin.admin.scout.gender.female'
+        emptyOption: 'csatar.csatar::lang.plugin.admin.scout.gender.select'
+        showSearch: true
         span: auto
-        type: number
+        type: dropdown
     is_active:
         label: Active
         span: auto
