@@ -1,5 +1,5 @@
 <p class="lead">
-    {{ 'Az e-mail, amely tartalmazza az aktiválási kódot, el lett küldve.' | _ }}
+    {{ 'Az e-mail, amely tartalmazza az aktiváló kódot, el lett küldve. Kérjük, add meg az új jelszavad (a biztonságod érdekében kérjük, hogy használj erős jelszót, amely legalább 8 karakterből áll és tartalmaz kis-, és nagybetűt, valamint számot/szimbólumot.)' | _ }}
 </p>
 
 <form
@@ -8,16 +8,16 @@
     data-request-validate=""
     data-request-flash>
     <div class="form-group">
-        <label for="resetCode"> {{ 'Aktiválási kód' | _ }}</label>
-        <input name="code" type="text" class="form-control" id="resetCode" placeholder="{{ 'Írd be az aktiválási kódot' | _ }}" value="{{ __SELF__.code }}">
-        <span data-validate-for="code">{{ 'Az aktiválási kód kötelező és érvényesnek kell lennie.' | _ }}</span>
+        <label for="resetCode"> {{ 'Aktiváló kód' | _ }}</label>
+        <input name="code" type="text" class="form-control" id="resetCode" placeholder="{{ 'Másold be az aktiváló kódot' | _ }}" value="{{ __SELF__.code }}">
+        <span data-validate-for="code">{{ 'Az aktiváló kód kötelező és érvényesnek kell lennie.' | _ }}</span>
     </div>
 
     <div class="form-group">
         <label for="resetPassword">{{ 'Új jelszó' | _ }}</label>
         <input name="password" type="password" class="form-control" id="resetPassword" placeholder="{{ 'Add meg az új jelszót' | _ }}">
-        <span data-validate-for="password">{{ 'A jelszó 8 - 255 karakter hosszú kell legyen.' | _ }}</span>
+        <span data-validate-for="password">{{ 'A jelszó kell tartalmazzon legalább 8 karaktert, kis-, és nagybetűt, valamint számot vagy szimbólumot.' | _ }}</span>
     </div>
 
-    <button type="submit" class="btn btn-default">{{ 'Jelszó megváltoztatása' | _ }}</button>
+    <button type="submit" class="btn btn-default">{{ 'Hozd létre a jelszót' | _ }}</button>
 </form>
