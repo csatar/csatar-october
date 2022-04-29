@@ -1,0 +1,45 @@
+columns:
+    id:
+        label: id
+        type: number
+        searchable: true
+        sortable: true
+    created_at:
+        label: created_at
+        type: datetime
+    updated_at:
+        label: updated_at
+        type: datetime
+    deleted_at:
+        label: deleted_at
+        type: datetime
+    user_id:
+        label: user_id
+        type: number
+        searchable: true
+        sortable: true
+    family_name:
+        label: family_name
+        type: text
+        searchable: true
+        sortable: true
+    given_name:
+        label: given_name
+        type: text
+        searchable: true
+        sortable: true
+    email:
+        label: email
+        type: text
+        searchable: true
+        sortable: true
+    gender:
+        label: gender
+        type: text
+        searchable: true
+        sortable: true
+    personal_identification_number:
+        label: personal_identification_number
+        type: number
+        searchable: true
+        sortable: true

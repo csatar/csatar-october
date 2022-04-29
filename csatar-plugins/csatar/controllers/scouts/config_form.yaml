@@ -1,0 +1,10 @@
+name: Scouts
+form: $/csatar/csatar/models/scout/fields.yaml
+modelClass: Csatar\Csatar\Models\Scout
+defaultRedirect: csatar/csatar/scouts
+create:
+    redirect: 'csatar/csatar/scouts/update/:id'
+    redirectClose: csatar/csatar/scouts
+update:
+    redirect: csatar/csatar/scouts
+    redirectClose: csatar/csatar/scouts

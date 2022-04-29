@@ -1,0 +1,8 @@
+{
+    "name": "csatar/csatar",
+    "type": "october-plugin",
+    "description": "Plugin for the RMCSSZ's CSATÁR project",
+    "require": {
+        "composer/installers": "~1.0"
+    }
+}
