@@ -53,16 +53,19 @@ columns:
         type: text
         searchable: true
         sortable: false
+        relation: chronic_illnesses
+        valueFrom: title
     allergies:
         label: Allergies
         type: text
         searchable: true
         sortable: false
+        relation: allergies
+        valueFrom: title
     legal_relationship_id:
-        label: 'Legal relationship'
+        label: 'csatar.csatar::lang.plugin.admin.scout.legalRelationship'
         type: text
         searchable: true
-        sortable: false
         relation: legal_relationship
         valueFrom: title
     special_diet_id:

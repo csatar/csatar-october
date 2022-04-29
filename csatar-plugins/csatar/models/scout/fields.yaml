@@ -35,7 +35,7 @@ fields:
         default: 1
         type: checkbox
     legal_relationship:
-        label: 'Legal Relationship'
+        label: 'csatar.csatar::lang.plugin.admin.scout.legalRelationship'
         nameFrom: title
         descriptionFrom: description
         emptyOption: '--- Select Legal Relationship ---'
