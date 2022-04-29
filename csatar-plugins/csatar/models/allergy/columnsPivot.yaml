@@ -1,14 +1,14 @@
 columns:
     id:
-        label: id
+        label: Id
         type: number
         searchable: true
         sortable: true
     title:
-        label: title
+        label: Title
         type: text
         searchable: true
         sortable: true
     'pivot[details]':
-        label: details
+        label: Details
         type: text

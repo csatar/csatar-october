@@ -1,82 +1,91 @@
 columns:
     id:
-        label: id
+        label: Id
         type: number
         searchable: true
         sortable: true
     created_at:
-        label: created_at
+        label: 'Created at'
         type: datetime
     updated_at:
-        label: updated_at
+        label: 'Updated at'
         type: datetime
     deleted_at:
-        label: deleted_at
+        label: 'Deleted at'
         type: datetime
     user_id:
-        label: user_id
+        label: 'User id'
         type: number
         searchable: true
         sortable: true
     family_name:
-        label: family_name
+        label: 'Family name'
         type: text
         searchable: true
         sortable: true
     given_name:
-        label: given_name
+        label: 'Given name'
         type: text
         searchable: true
         sortable: true
     email:
-        label: email
+        label: Email
         type: text
         searchable: true
         sortable: true
     gender:
-        label: gender
+        label: Gender
         type: text
         searchable: true
         sortable: true
     personal_identification_number:
-        label: personal_identification_number
+        label: 'Personal identification number'
         type: number
         searchable: true
         sortable: true
     is_active:
-        label: is_active
+        label: 'Is active'
         type: switch
         searchable: true
         sortable: true
     chronic_illnesses:
-        label: chronic_illnesses
+        label: 'Chronic illnesses'
         type: text
         searchable: true
-        sortable: true
+        sortable: false
+        relation: chronic_illnesses
+        valueFrom: title
     allergies:
-        label: chronic_illnesses
+        label: Allergies
         type: text
         searchable: true
-        sortable: true
+        sortable: false
+        relation: allergies
+        valueFrom: title
     legal_relationship_id:
-        label: legal_relationship_id
+        label: 'csatar.csatar::lang.plugin.admin.scout.legalRelationship'
         type: text
         searchable: true
-        sortable: true
         relation: legal_relationship
         valueFrom: title
     special_diet_id:
-        label: special_diet_id
+        label: 'Special diet'
         type: text
         searchable: true
-        sortable: true
+        sortable: false
+        relation: special_diet
+        valueFrom: title
     religion_id:
-        label: religion_id
+        label: Religion
         type: text
         searchable: true
-        sortable: true
+        sortable: false
+        relation: religion
+        valueFrom: title
     tshirt_size_id:
-        label: tshirt_size_id
-        type: switch
+        label: 'T-shirt size'
+        type: text
         searchable: true
-        sortable: true
+        sortable: false
+        relation: tshirt_size
+        valueFrom: title
