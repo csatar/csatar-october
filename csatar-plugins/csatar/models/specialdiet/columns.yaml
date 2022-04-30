@@ -14,7 +14,7 @@ columns:
         label: 'Deleted at'
         type: datetime
     title:
-        label: Title
+        label: 'csatar.csatar::lang.plugin.admin.specialDiet.title'
         type: text
         searchable: true
         sortable: true

@@ -38,7 +38,7 @@ fields:
         span: auto
         type: dropdown
     is_active:
-        label: Active
+        label: 'csatar.csatar::lang.plugin.admin.scout.isActive'
         span: auto
         default: 1
         type: checkbox
@@ -50,27 +50,27 @@ fields:
         span: auto
         type: relation
     chronic_illnesses:
-        label: 'Chronic Illnesses'
+        label: 'csatar.csatar::lang.plugin.admin.scout.chronicIllnesses'
         nameFrom: title
         descriptionFrom: description
         span: auto
         type: relation
     special_diet:
-        label: 'Special Diet'
+        label: 'csatar.csatar::lang.plugin.admin.scout.specialDiet'
         nameFrom: title
         descriptionFrom: description
         emptyOption: '--- Select Special Diet ---'
         span: auto
         type: relation
     religion:
-        label: Religion
+        label: 'csatar.csatar::lang.plugin.admin.scout.religion'
         nameFrom: title
         descriptionFrom: description
         emptyOption: '--- Select Religion ---'
         span: auto
         type: relation
     tshirt_size:
-        label: 'T-Shirt Size'
+        label: 'csatar.csatar::lang.plugin.admin.scout.tShirtSize'
         nameFrom: title
         descriptionFrom: description
         emptyOption: '--- Select T-Shirt Size ---'

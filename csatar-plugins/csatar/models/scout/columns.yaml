@@ -14,45 +14,44 @@ columns:
         label: 'Deleted at'
         type: datetime
     user_id:
-        label: 'User id'
+        label: 'csatar.csatar::lang.plugin.admin.scout.userId'
         type: number
         searchable: true
         sortable: true
     family_name:
-        label: 'Family name'
+        label: 'csatar.csatar::lang.plugin.admin.scout.familyName'
         type: text
         searchable: true
         sortable: true
     given_name:
-        label: 'Given name'
+        label: 'csatar.csatar::lang.plugin.admin.scout.givenName'
         type: text
         searchable: true
         sortable: true
     email:
-        label: Email
+        label: 'csatar.csatar::lang.plugin.admin.scout.email'
         type: text
         searchable: true
         sortable: true
     gender:
-        label: Gender
+        label: 'csatar.csatar::lang.plugin.admin.scout.gender.gender'
         type: text
         searchable: true
         sortable: true
     personal_identification_number:
-        label: 'Personal identification number'
+        label: 'csatar.csatar::lang.plugin.admin.scout.personalIdentificationNumber'
         type: number
         searchable: true
         sortable: true
     is_active:
-        label: 'Is active'
+        label: 'csatar.csatar::lang.plugin.admin.scout.isActive'
         type: switch
         searchable: true
         sortable: true
     chronic_illnesses:
-        label: 'Chronic illnesses'
+        label: 'csatar.csatar::lang.plugin.admin.scout.chronicIllnesses'
         type: text
         searchable: true
-        sortable: false
         relation: chronic_illnesses
         valueFrom: title
     allergies:
@@ -69,23 +68,20 @@ columns:
         relation: legal_relationship
         valueFrom: title
     special_diet_id:
-        label: 'Special diet'
+        label: 'csatar.csatar::lang.plugin.admin.scout.specialDiet'
         type: text
         searchable: true
-        sortable: false
         relation: special_diet
         valueFrom: title
     religion_id:
-        label: Religion
+        label: 'csatar.csatar::lang.plugin.admin.scout.religion'
         type: text
         searchable: true
-        sortable: false
         relation: religion
         valueFrom: title
     tshirt_size_id:
-        label: 'T-shirt size'
+        label: 'csatar.csatar::lang.plugin.admin.scout.tShirtSize'
         type: text
         searchable: true
-        sortable: false
         relation: tshirt_size
         valueFrom: title

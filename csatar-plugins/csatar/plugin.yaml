@@ -6,32 +6,32 @@ plugin:
     homepage: ''
 navigation:
     main-menu-item-scout-system-data:
-        label: 'Scout System Data'
+        label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.scoutSystemData'
         url: /
         icon: icon-sitemap
         sideMenu:
             side-menu-legal-relationship-categories:
-                label: 'Legal Relationship Categories'
+                label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.legalRelationshipCategories'
                 url: csatar/csatar/legalrelationships
                 icon: icon-sitemap
             side-menu-chronic-illness-categories:
-                label: 'Chronic Illness Categories'
+                label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.chronicIllnessCategories'
                 url: /csatar/csatar/chronicillnesses
                 icon: icon-sitemap
             side-menu-allergy-categories:
-                label: 'Allergy Categories'
+                label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.allergyCategories'
                 url: csatar/csatar/allergies
                 icon: icon-sitemap
             side-menu-special-item-categories:
-                label: 'Special Diet Categories'
+                label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.specialDietCategories'
                 url: csatar/csatar/specialdiets
                 icon: icon-sitemap
             side-menu-religion-categories:
-                label: 'Religion Categories'
+                label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.religionCategories'
                 url: csatar/csatar/religions
                 icon: icon-sitemap
             side-menu-tshirt-size-categies:
-                label: 'T-Shirt Size Categories'
+                label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.tShirtSizeCategories'
                 url: csatar/csatar/tshirtsizes
                 icon: icon-sitemap
     main-menu-scout-data:

@@ -1,20 +1,20 @@
 columns:
     id:
-        label: Id
+        label: 'csatar.csatar::lang.plugin.admin.tShirtSize.id'
         type: number
         searchable: true
         sortable: true
     created_at:
-        label: Created_at
+        label: 'csatar.csatar::lang.plugin.admin.tShirtSize.createdAt'
         type: datetime
     updated_at:
-        label: Updated_at
+        label: 'csatar.csatar::lang.plugin.admin.tShirtSize.updatedAt'
         type: datetime
     deleted_at:
-        label: Deleted_at
+        label: 'csatar.csatar::lang.plugin.admin.tShirtSize.deletedAt'
         type: datetime
     title:
-        label: Title
+        label: 'csatar.csatar::lang.plugin.admin.tShirtSize.title'
         type: text
         searchable: true
         sortable: true

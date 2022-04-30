@@ -1,6 +1,6 @@
 fields:
     title:
-        label: Title
+        label: 'csatar.csatar::lang.plugin.admin.specialDiet.title'
         span: auto
         required: 1
         type: text
