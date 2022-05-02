@@ -12,8 +12,8 @@ class Plugin extends PluginBase
     public function componentDetails()
     {
         return [
-            'name'        => 'Forms',
-            'description' => 'Front end form generator',
+            'name'        => 'csatar.forms::lang.plugin.name',
+            'description' => 'csatar.forms::lang.plugin.description',
             'icon'        => 'icon-paperclip',
         ];
     }

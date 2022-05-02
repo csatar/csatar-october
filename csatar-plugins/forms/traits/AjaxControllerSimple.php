@@ -24,13 +24,6 @@ trait AjaxControllerSimple {
     }
 
     /**
-     * Auth middleware
-     */
-//    public function middleware() {
-//
-//    }
-
-    /**
      * Registers backend widgets for frontend use
      */
     public function loadBackendFormWidgets() {
@@ -67,10 +60,16 @@ trait AjaxControllerSimple {
 
         $model = null;
 
+        if (empty($form)) {
+            $error = e(trans('csatar.forms::lang.errors.formNotFound'));
+            throw new ApplicationException($error);
+        }
+
         $modelName = '\\' . $form->model;
 
         if(!$model = $modelName::find($model_id)) {
             if($model = $modelName::withTrashed()->find($model_id)){
+                // TOOO: in v2 render partial here.
                 return 'The item was deleted...';
             }
         }
@@ -126,7 +125,8 @@ trait AjaxControllerSimple {
         }
 
         if (! $data = Input::get('data')) {
-            throw new ApplicationException("Error: The form could not be saved.");
+            $error = e(trans('csatar.forms::lang.errors.canNotSave'));
+            throw new ApplicationException($error);
         }
 
         // Resolve belongsTo relations
@@ -140,12 +140,12 @@ trait AjaxControllerSimple {
             unset($data[$name]);
         }
 
-//        $this->deactivateModelValidation($model);
         if($isNew) {
             $model = $model->create($data);
         }
         if (! $model->update($data) && !$isNew) {
-            throw new ApplicationException("Error: The form could not be saved.");
+            $error = e(trans('csatar.forms::lang.errors.canNotSave'));
+            throw new ApplicationException($error);
         }
 
         if (Input::get('close')) {
@@ -155,26 +155,6 @@ trait AjaxControllerSimple {
         return [
             '#renderedFormArea' => $this->renderPartial('@partials/saved')
         ];
-    }
-
-    /**
-     * Deactivates the validation of a given model
-     * @param mixed $model
-     */
-    private function deactivateModelValidation($model) {
-        $closure = function($model) {
-            if (isset($model->rules)) {
-                $model->rules = [];
-            }
-        };
-
-        if (is_string($model)) {
-            $model::extend($closure);
-        }
-
-        if (is_object($model)) {
-            $closure($model);
-        }
     }
 
 }

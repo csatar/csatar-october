@@ -1,4 +1,7 @@
 <form>
+
+    {{ form | raw }}
+
     <div class="fs-nav">
         <div class="control-toolbar">
             <div class="toolbar-item toolbar-primary">
@@ -6,14 +9,14 @@
                     <div id="fs-saving-loader" style="float:left; display:none; width: 150px;" class="loading-indicator-container">
                         <div class="loading-indicator size-small" style="background:none;">
                             <span></span>
-                            <div>Saving ...</div>
+                            <div>{{ 'Saving...'|_ }}</div>
                         </div>
                     </div>
 
                     <div id="fs-closing-loader" style="float:left; display:none; width: 150px;" class="loading-indicator-container">
                         <div class="loading-indicator size-small" style="background:none;">
                             <span></span>
-                            <div>Closing ...</div>
+                            <div>{{ 'Closing ...'|_ }}</div>
                         </div>
                     </div>
 
@@ -22,14 +25,14 @@
                             data-request-data="close: 1"
                             data-request-loading="#fs-saving-loader"
                             data-request="{{ __SELF__ }}::onSave">
-                        Save & Close
+                        {{ 'Save & Close'|_ }}
                     </button>
 
                     <button class="btn btn-default btn-success oc-icon-floppy-o"
                            data-request="{{ __SELF__ }}::onSave"
                            data-request-loading="#fs-saving-loader"
                            data-hotkey="ctrl+s, cmd+s">
-                       Save
+                       {{ 'Save'|_ }}
                     </button>
 
                     <button class="btn btn-default btn-danger oc-icon-times"
@@ -39,7 +42,7 @@
                            data-request-confirm="Unsaved changes will be lost. Are you sure?"
                            {% endif %}
                            >
-                       Close
+                       {{ 'Close'|_ }}
                     </button>
                 </div>
             </div>
@@ -53,32 +56,4 @@
         <input type="hidden" name="data_id" value="{{ data_id }}" />
     {% endif %}
 
-    {{ form | raw }}
-
 </form>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-        // grab the initial top offset of the navigation
-        var stickyNavTop = $('.fs-nav').offset().top;
-
-        // our function that decides weather the navigation bar should have "fixed" css position or not.
-        var stickyNav = function() {
-            var scrollTop = $(window).scrollTop(); // our current vertical position from the top
-
-            // if we've scrolled more than the navigation, change its position to fixed to stick to top,
-            // otherwise change it back to relative
-            if (scrollTop > stickyNavTop) {
-                $('.fs-nav').addClass('sticky');
-            } else {
-                $('.fs-nav').removeClass('sticky');
-            }
-        };
-
-        stickyNav();
-        // and run it again every time you scroll
-        $(window).scroll(function() {
-            stickyNav();
-        });
-    });
-</script>

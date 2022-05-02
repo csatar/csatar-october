@@ -1,39 +1,18 @@
 fields:
     title:
-        label: Title
-        oc.commentPosition: ''
+        label: 'csatar.forms::lang.plugin.admin.form.title'
         span: full
         type: text
     model:
-        label: Model
+        label: 'csatar.forms::lang.plugin.admin.form.model'
         span: full
         placeholder: ''
         default: ''
         type: text
-        commentAbove: 'Namespace path to model e.g. Rainlab\Blog\Models\Post'
+        commentAbove: 'csatar.forms::lang.plugin.admin.form.modelComment'
     fields_config:
-        label: Fields
+        label: 'csatar.forms::lang.plugin.admin.form.fields'
         span: full
         default: fields.yaml
         type: text
-        commentAbove: 'Relative or absolute path to the fields YAML config file e.g. forms_fields.yaml or $\Rainlab\Blog\Models\Post\fields.yaml'
-tabs:
-    fields:
-        validation:
-            label: Rules
-            prompt: 'Add new item'
-            span: full
-            type: repeater
-            commentAbove: 'Validation rules that will be checked before submission (see https://octobercms.com/docs/services/validation for more details)'
-            tab: Validation
-            form:
-                fields:
-                    field:
-                        label: Field
-                        span: full
-                        type: text
-                    rule:
-                        label: Rule
-                        oc.commentPosition: above
-                        span: full
-                        type: text
+        commentAbove: 'csatar.forms::lang.plugin.admin.form.fieldsComment'

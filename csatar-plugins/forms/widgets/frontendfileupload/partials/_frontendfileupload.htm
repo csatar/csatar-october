@@ -26,7 +26,7 @@
 
         <?php
          if (count($fileList) == 0): ?>
-            No files
+            {{ 'No files'|_ }}
         <?php endif; ?>
     </div>
 
@@ -73,14 +73,14 @@
                         href="javascript:;"
                         class="upload-remove-button"
                         data-request="<?= $this->getEventHandler('onRemoveAttachment') ?>"
-                        data-request-confirm="Are you sure?"
+                        data-request-confirm="{{ 'Are you sure?'|_ }}"
                         data-request-data="file_id: <?= $file->id ?>, field: '<?= $fieldName ?>'"
                         >&times;</a>
                 </div>
             </div>
         <?php endforeach; ?>
     </div>
-    
+
     <?php if(! $isMulti): ?>
         <?php  if ($mode == 'file'): ?>
             <div class="upload-empty-message">
@@ -116,7 +116,7 @@
                 class="upload-remove-button"
                 onclick="$(this).request('<?= $this->getEventHandler('onRemoveAttachment') ?>', {
                     data: {field: '<?= $fieldName ?>'},
-                    confirm: 'Are you sure?'
+                    confirm: "{{ 'Are you sure?'|_ }}"
                 }); return false;"
                 >&times;</a>
             <div class="progress-bar"><span class="upload-progress" data-dz-uploadprogress></span></div>

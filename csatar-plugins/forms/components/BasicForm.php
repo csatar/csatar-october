@@ -1,9 +1,11 @@
 <?php namespace Csatar\Forms\Components;
 
+use Lang;
 use Cms\Classes\ComponentBase;
 use Csatar\Forms\Models\Form;
 use Csatar\Forms\Traits\ManagesUploads;
 use Csatar\Forms\Traits\AjaxControllerSimple;
+use October\Rain\Exception\ApplicationException;
 
 class BasicForm extends ComponentBase  {
 
@@ -44,8 +46,8 @@ class BasicForm extends ComponentBase  {
     public function componentDetails()
     {
         return [
-            'name'        => 'Basic Form',
-            'description' => 'Creates form'
+            'name'        => 'csatar.forms::lang.components.basicForm.name',
+            'description' => 'csatar.forms::lang.components.basicForm.description',
         ];
     }
 
@@ -57,8 +59,8 @@ class BasicForm extends ComponentBase  {
     {
         return [
             'form_id' => [
-                'title'             => 'Form',
-                'description'       => 'Select from',
+                'title'             => 'csatar.forms::lang.components.basicForm.properties.form_id.title',
+                'description'       => 'csatar.forms::lang.components.basicForm.properties.form_id.description',
                 'type'              => 'dropdown',
                 'options'           => Form::lists('title', 'id'),
                 'default'           => null
@@ -106,7 +108,8 @@ class BasicForm extends ComponentBase  {
             $this->form_id = $form->id;
             return $form;
         } else {
-            // TODO: exception
+            $error = e(trans('csatar.forms::lang.errors.formNotFound'));
+            throw new ApplicationException($error);
         }
     }
 

@@ -1,6 +1,7 @@
 <?php namespace Csatar\Forms\Models;
 
 use File;
+use Lang;
 use Model;
 use Validator;
 use October\Rain\Exception\ApplicationException;
@@ -29,9 +30,8 @@ class Form extends Model
     {
         $model = '\\' . $this->model;
         if (! class_exists($model)) {
-            $error = "Error: The form's model could not be found.\n"."\t Please make sure you enter correct path and model name.";
+            $error = e(trans('csatar.forms::lang.errors.formModelNotFound'));
             throw new ApplicationException($error);
-//            throw new ValidationException(['model' => $error ]);
         }
 
         //TODO in v2: before save check if yaml file exists...
