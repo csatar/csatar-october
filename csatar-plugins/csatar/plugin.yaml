@@ -1,0 +1,11 @@
+plugin:
+    name: 'csatar.csatar::lang.plugin.name'
+    description: 'csatar.csatar::lang.plugin.description'
+    author: 'csatar.csatar::lang.plugin.author'
+    icon: icon-leaf
+    homepage: ''
+navigation:
+    main-menu-item-scout:
+        label: 'csatar.csatar::lang.plugin.admin.admin.menu.scout'
+        url: csatar/csatar/scouts
+        icon: icon-life-ring
