@@ -95,6 +95,7 @@ class BasicForm extends ComponentBase  {
         $this->addJs('/modules/system/assets/ui/storm-min.js');
         $this->addJs('/plugins/csatar/forms/assets/vendor/dropzone/dropzone.js');
         $this->addJs('/plugins/csatar/forms/assets/js/uploader.js');
+        $this->addJs('/plugins/csatar/forms/assets/js/positionValidationTags.js');
 
         $model_id = $this->param('model_id', 'new');
         $this->renderedComponent = $this->createForm($this->getForm(), $model_id);

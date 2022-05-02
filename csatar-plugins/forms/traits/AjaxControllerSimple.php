@@ -88,6 +88,7 @@ trait AjaxControllerSimple {
         $this->loadBackendFormWidgets();
 
         $html = $this->widget->render();
+        $html .= $this->renderValidationTags($model);
 
         $this->page['form_id'] = $form->id;
         $this->form_id = $form->id;
@@ -155,6 +156,16 @@ trait AjaxControllerSimple {
         return [
             '#renderedFormArea' => $this->renderPartial('@partials/saved')
         ];
+    }
+
+    public function renderValidationTags($model) {
+        $html = "<div id='validationTags'>";
+        foreach($model->rules as $fieldName => $rule) {
+            $html .= "<span data-validate-for='" . $fieldName . "'></span>";
+        }
+        $html .= "</div";
+
+        return $html;
     }
 
 }

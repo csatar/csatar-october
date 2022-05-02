@@ -1,4 +1,7 @@
-<form>
+<form data-request="{{ __SELF__ }}::onSave"
+      data-request-loading="#fs-saving-loader"
+      data-request-validate
+      data-request-flash>
 
     {{ form | raw }}
 
