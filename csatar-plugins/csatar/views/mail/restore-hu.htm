@@ -1,0 +1,16 @@
+subject = "Jelszó-visszaállítás kérés"
+description = "A felhasználó jelszó-visszaállítást kérés"
+==
+Szia!
+
+Valaki jelszó-visszaállítást kért a fiókodhoz, ha ez nem te voltál, kérjük, hagyd figyelmen kívül ezt az e-mailt.
+
+Ezzel az aktiválási kóddal állíthatod vissza a jelszavadat:
+
+{% partial 'promotion' body %} {{ code }} {% endpartial %}
+
+A következő hivatkozást használhatod:
+
+{% partial 'button' url=link type='positive' body %}Jelszó visszaállítása{% endpartial %}
+
+{% partial 'subcopy' body %}Ez egy automatikus üzenet. Kérjük, ne válaszolj rá.{% endpartial %}

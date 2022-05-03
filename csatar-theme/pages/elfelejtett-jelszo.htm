@@ -1,14 +1,8 @@
-title = "Elfelejtett Jelszó"
-layout = "default"
 url = "/elfelejtett-jelszo"
+layout = "default"
+title = "Elfelejtett Jelszó"
 
-[resetPassword resetpasswordOverRide]
+[resetpasswordOverRide]
 paramCode = "code"
 ==
-<div id="partialUserResetForm">
-    {% if resetPassword.code == null %}
-        {% partial resetPassword ~ '::restore' %}
-    {% else %}
-        {% partial resetPassword ~ '::reset' %}
-    {% endif %}
-</div>
+{% component 'resetpasswordOverRide' %}
