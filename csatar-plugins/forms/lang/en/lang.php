@@ -27,8 +27,8 @@
         ]
     ],
     'errors' => [
-        'formModelNotFound' => "Error: The form model could not be found. Please make sure you enter correct path and model name.",
+        'formModelNotFound' => "The model could not be found. Please make sure you enter an existing model name and correct path.",
         'formNotFound' => "The form doesn't exist.",
-        'canNotSave' => 'Error: The form could not be saved.',
+        'canNotSave' => 'The form could not be saved.',
     ]
 ];

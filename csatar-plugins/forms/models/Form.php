@@ -15,8 +15,6 @@ class Form extends Model
 {
     use \October\Rain\Database\Traits\Validation;
 
-    protected $jsonable = ['validation'];
-
     /*
      * Validation
      */
@@ -31,7 +29,7 @@ class Form extends Model
         $model = '\\' . $this->model;
         if (! class_exists($model)) {
             $error = e(trans('csatar.forms::lang.errors.formModelNotFound'));
-            throw new ApplicationException($error);
+            throw new ValidationException(['model' => $error]);
         }
 
         //TODO in v2: before save check if yaml file exists...
@@ -47,30 +45,6 @@ class Form extends Model
      * @var string The database table used by the model.
      */
     public $table = 'csatar_forms_forms';
-
-    /**
-     * Returns validation errors
-     * @param array $data
-     * @return array Error messages
-     */
-    public function getErrors($data) {
-        if (empty($this->validation)) {
-            return [];
-        }
-
-        $rules = [];
-        foreach($this->validation as $validation) {
-            $rules[$validation['field']] = $validation['rule'];
-        }
-
-        $validator = Validator::make($data, $rules);
-
-        if ($validator->fails()) {
-            return $validator->messages()->all();
-        }
-
-        return [];
-    }
 
     public function getFieldsConfig() {
         if ($this->fields_config[0] != '$') {
