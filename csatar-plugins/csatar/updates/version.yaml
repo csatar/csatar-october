@@ -8,3 +8,6 @@
 1.0.32:
     - 'Updated table csatar_csatar_scouts'
     - builder_table_update_csatar_csatar_scouts_7.php
+1.0.33:
+    - 'Created table csatar_csatar_hierarchy'
+    - builder_table_create_csatar_csatar_hierarchy.php
