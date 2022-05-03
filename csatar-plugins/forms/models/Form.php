@@ -1,11 +1,11 @@
 <?php namespace Csatar\Forms\Models;
 
+use Cache;
 use File;
 use Lang;
 use Model;
 use Validator;
-use October\Rain\Exception\ApplicationException;
-use \October\Rain\Exception\ValidationException;
+use October\Rain\Exception\ValidationException;
 
 
 /**
@@ -26,11 +26,7 @@ class Form extends Model
 
     public function beforeSave()
     {
-        $model = '\\' . $this->model;
-        if (! class_exists($model)) {
-            $error = e(trans('csatar.forms::lang.errors.formModelNotFound'));
-            throw new ValidationException(['model' => $error]);
-        }
+        $this->getModelName();
 
         //TODO in v2: before save check if yaml file exists...
     }
@@ -52,6 +48,21 @@ class Form extends Model
         }
 
         return $this->fields_config;
+    }
+
+    public function getModelName(){
+
+        $modelName = $this->model;
+        if(substr( $modelName, 0, 1 ) !== "\\"){
+            $modelName = '\\' . $modelName;
+        }
+
+        if (! class_exists($modelName)) {
+            $error = e(trans('csatar.forms::lang.errors.formModelNotFound'));
+            throw new ValidationException(['model' => $error]);
+        }
+
+        return $modelName;
     }
 
 }

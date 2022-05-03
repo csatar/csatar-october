@@ -63,7 +63,12 @@ class BasicForm extends ComponentBase  {
                 'description'       => 'csatar.forms::lang.components.basicForm.properties.form_id.description',
                 'type'              => 'dropdown',
                 'options'           => Form::lists('title', 'id'),
-                'default'           => null
+                'default'           => null,
+                'validation'  => [
+                    'required' => [
+                        'message' => Lang::get('csatar.forms::lang.components.componentValidation.formNotSelected')
+                    ]
+                ]
             ]
         ];
     }
@@ -110,7 +115,7 @@ class BasicForm extends ComponentBase  {
             return $form;
         } else {
             $error = e(trans('csatar.forms::lang.errors.formNotFound'));
-            throw new ApplicationException($error);
+            throw new ApplicationException($error . $this->page->title);
         }
     }
 

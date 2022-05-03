@@ -24,11 +24,16 @@
                     'description'       => 'Select from',
                 ]
             ]
+        ],
+        'componentValidation' => [
+            'formNotSelected' => "Please select a form from the dropdown list. If list is empty, you need to create a form in From menu."
         ]
     ],
     'errors' => [
         'formModelNotFound' => "The model could not be found. Please make sure you enter an existing model name and correct path.",
-        'formNotFound' => "The form doesn't exist.",
-        'canNotSave' => 'The form could not be saved.',
-    ]
+        'formNotFound' => "The selected form doesn't exist, please check 'Basic Form' component settings on page: ",
+        'noDataArray' => 'Data array is missing. Check form validation and see how could this happen.',
+        'canNotSaveValidated' => 'Can not save validated data. Check form validation and see how could this happen.'
+    ],
+
 ];

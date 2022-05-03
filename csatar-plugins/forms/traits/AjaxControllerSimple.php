@@ -60,12 +60,7 @@ trait AjaxControllerSimple {
 
         $model = null;
 
-        if (empty($form)) {
-            $error = e(trans('csatar.forms::lang.errors.formNotFound'));
-            throw new ApplicationException($error);
-        }
-
-        $modelName = '\\' . $form->model;
+        $modelName = $form->getModelName();
 
         if(!$model = $modelName::find($model_id)) {
             if($model = $modelName::withTrashed()->find($model_id)){
@@ -120,13 +115,13 @@ trait AjaxControllerSimple {
 
         $form_id = Input::get('form_id');
         $form = Form::find($form_id);
-        $modelName = '\\' . $form->model;
+        $modelName = $form->getModelName();
         if(!($model = $modelName::find(Input::get('data_id'))) && $isNew) {
             $model = new $modelName;
         }
 
         if (! $data = Input::get('data')) {
-            $error = e(trans('csatar.forms::lang.errors.canNotSave'));
+            $error = e(trans('csatar.forms::lang.errors.noDataArray'));
             throw new ApplicationException($error);
         }
 
@@ -145,7 +140,7 @@ trait AjaxControllerSimple {
             $model = $model->create($data);
         }
         if (! $model->update($data) && !$isNew) {
-            $error = e(trans('csatar.forms::lang.errors.canNotSave'));
+            $error = e(trans('csatar.forms::lang.errors.canNotSaveValidated'));
             throw new ApplicationException($error);
         }
 
