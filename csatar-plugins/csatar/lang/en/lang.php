@@ -28,6 +28,7 @@
                 'updatedAt' => 'Updated at',
                 'deletedAt' => 'Deleted at',
                 'allergies' => 'Allergies',
+                'allergiesInfo' => 'Allergies can be added after the Scout has been created. Click Create button after other information is filled.',
             ],
             'admin' => [
                 'menu' => [
