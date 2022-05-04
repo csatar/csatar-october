@@ -1,0 +1,10 @@
+name: TShirtSizes
+form: $/csatar/csatar/models/tshirtsize/fields.yaml
+modelClass: Csatar\Csatar\Models\TShirtSize
+defaultRedirect: csatar/csatar/tshirtsizes
+create:
+    redirect: 'csatar/csatar/tshirtsizes/update/:id'
+    redirectClose: csatar/csatar/tshirtsizes
+update:
+    redirect: csatar/csatar/tshirtsizes
+    redirectClose: csatar/csatar/tshirtsizes

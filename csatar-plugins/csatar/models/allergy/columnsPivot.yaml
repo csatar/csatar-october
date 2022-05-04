@@ -1,0 +1,14 @@
+columns:
+    id:
+        label: 'csatar.csatar::lang.plugin.admin.allergy.id'
+        type: number
+        searchable: true
+        sortable: true
+    title:
+        label: 'csatar.csatar::lang.plugin.admin.allergy.title'
+        type: text
+        searchable: true
+        sortable: true
+    'pivot[details]':
+        label: 'csatar.csatar::lang.plugin.admin.allergy.details'
+        type: text

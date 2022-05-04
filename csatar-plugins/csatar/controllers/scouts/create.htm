@@ -1,6 +1,6 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
-        <li><a href="<?= Backend::url('csatar/csatar/scouts') ?>">Scouts</a></li>
+        <li><a href="<?= Backend::url('csatar/csatar/scouts') ?>"><?= e(trans('csatar.csatar::lang.plugin.admin.scout.breadcrumb')) ?></a></li>
         <li><?= e($this->pageTitle) ?></li>
     </ul>
 <?php Block::endPut() ?>
@@ -11,6 +11,14 @@
 
         <div class="layout-row">
             <?= $this->formRender() ?>
+        </div>
+        <div class="layout-row">
+        <div class="callout fade in callout-info no-subheader">
+            <div class="header">
+                <i class="icon-info"></i>
+                <h3><?= e(trans('csatar.csatar::lang.plugin.admin.scout.allergiesInfo')) ?></h3>
+            </div>
+        </div>
         </div>
 
         <div class="form-buttons">

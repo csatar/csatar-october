@@ -28,4 +28,26 @@ class Scout extends Model
         'personal_identification_number' => 'required',
         'email' => 'email'
     ];
+
+    /**
+     * Relations
+     */
+    public $belongsTo = [
+        'legal_relationship' => '\Csatar\Csatar\Models\LegalRelationship',
+        'special_diet' => '\Csatar\Csatar\Models\SpecialDiet',
+        'religion' => '\Csatar\Csatar\Models\Religion',
+        'tshirt_size' => '\Csatar\Csatar\Models\TShirtSize'
+    ];
+
+    public $belongsToMany = [
+        'chronic_illnesses' => [
+            '\Csatar\Csatar\Models\ChronicIllness',
+            'table' => 'csatar_csatar_scouts_chronic_illnesses'
+        ],
+        'allergies' => [
+            '\Csatar\Csatar\Models\Allergy',
+            'table' => 'csatar_csatar_scouts_allergies',
+            'pivot' => ['details']
+        ]
+    ];
 }

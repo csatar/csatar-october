@@ -6,6 +6,90 @@
 1.0.3:
     - 'Updated table csatar_csatar_scouts'
     - builder_table_update_csatar_csatar_scouts.php
+1.0.4:
+    - 'Updated table csatar_csatar_scouts'
+    - builder_table_update_csatar_csatar_scouts_2.php
+1.0.5:
+    - 'Created table csatar_csatar_legal_relationship'
+    - builder_table_create_csatar_csatar_legal_relationship.php
+1.0.6:
+    - 'Updated table csatar_csatar_scouts'
+    - builder_table_update_csatar_csatar_scouts_3.php
+1.0.7:
+    - 'Updated table csatar_csatar_legal_relationship'
+    - builder_table_update_csatar_csatar_legal_relationship.php
+1.0.8:
+    - 'Updated table csatar_csatar_legal_relationship'
+    - builder_table_update_csatar_csatar_legal_relationship_2.php
+1.0.9:
+    - 'Updated table csatar_csatar_scouts'
+    - builder_table_update_csatar_csatar_scouts_4.php
+1.0.10:
+    - 'Updated table csatar_csatar_legal_relationship'
+    - builder_table_update_csatar_csatar_legal_relationships.php
+1.0.11:
+    - 'Created table csatar_csatar_chronic_illness'
+    - builder_table_create_csatar_csatar_chronic_illness.php
+1.0.13:
+    - 'Added seeder for LegalRelationShip'
+    - seeder_1010.php
+1.0.14:
+    - 'Updated table csatar_csatar_chronic_illness'
+    - builder_table_update_csatar_csatar_chronic_illnesses.php
+1.0.15:
+    - 'Added table csatar_csatar_scouts_chronic_illnesses'
+    - migration_1015.php
+1.0.16:
+    - 'Created table csatar_csatar_allergies'
+    - builder_table_create_csatar_csatar_allergies.php
+1.0.17:
+    - 'Created table csatar_csatar_scouts_allergies'
+    - migration_1017.php
+1.0.19:
+    - 'Updated table csatar_csatar_allergies'
+    - builder_table_update_csatar_csatar_allergies.php
+1.0.20:
+    - 'Added seeder for Allergies'
+    - seeder_1020.php
+1.0.21:
+    - 'Created table csatar_csatar_special_diet'
+    - builder_table_create_csatar_csatar_special_diet.php
+1.0.22:
+    - 'Created table csatar_csatar_religion'
+    - builder_table_create_csatar_csatar_religion.php
+1.0.23:
+    - 'Created table csatar_csatar_tshirt_size'
+    - builder_table_create_csatar_csatar_tshirt_size.php
+1.0.24:
+    - 'Updated table csatar_csatar_religion'
+    - builder_table_update_csatar_csatar_religions.php
+1.0.25:
+    - 'Updated table csatar_csatar_special_diet'
+    - builder_table_update_csatar_csatar_special_diets.php
+1.0.26:
+    - 'Updated table csatar_csatar_tshirt_size'
+    - builder_table_update_csatar_csatar_tshirt_sizes.php
+1.0.27:
+    - 'Updated table csatar_csatar_scouts'
+    - builder_table_update_csatar_csatar_scouts_5.php
+1.0.28:
+    - 'Added seeder for Special Diets, Religions, T-Shirt Sizes'
+    - seeder_1028.php
+1.0.29:
+    - 'Updated table csatar_csatar_scouts_chronic_illnesses'
+    - builder_table_update_csatar_csatar_scouts_chronic_illnesses.php
+1.0.30:
+    - 'Updated table csatar_csatar_scouts_chronic_illnesses'
+    - builder_table_update_csatar_csatar_scouts_chronic_illnesses_2.php
+1.0.31:
+    - 'Updated table csatar_csatar_scouts'
+    - builder_table_update_csatar_csatar_scouts_6.php
 1.0.32:
     - 'Updated table csatar_csatar_scouts'
     - builder_table_update_csatar_csatar_scouts_7.php
+1.0.33:
+    - 'Updated table csatar_csatar_scouts_allergies'
+    - builder_table_update_csatar_csatar_scouts_allergies.php
+1.0.34:
+    - 'Updated table csatar_csatar_scouts'
+    - builder_table_update_csatar_csatar_scouts_8.php

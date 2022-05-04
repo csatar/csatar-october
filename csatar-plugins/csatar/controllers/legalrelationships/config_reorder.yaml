@@ -1,0 +1,5 @@
+title: LegalRelationship
+modelClass: Csatar\Csatar\Models\LegalRelationship
+nameFrom: title
+toolbar:
+    buttons: reorder_toolbar
