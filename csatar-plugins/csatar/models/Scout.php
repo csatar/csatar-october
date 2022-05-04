@@ -29,6 +29,25 @@ class Scout extends Model
         'email' => 'email'
     ];
 
-    protected $fillable = ['user_id', 'family_name', 'given_name', 'email', 'gender', 'personal_identification_number',
-        'is_active', 'legal_relationship_id', 'special_diet_id', 'religion_id', 'tshirt_size_id'];
+    /**
+     * Relations
+     */
+    public $belongsTo = [
+        'legal_relationship' => '\Csatar\Csatar\Models\LegalRelationship',
+        'special_diet' => '\Csatar\Csatar\Models\SpecialDiet',
+        'religion' => '\Csatar\Csatar\Models\Religion',
+        'tshirt_size' => '\Csatar\Csatar\Models\TShirtSize'
+    ];
+
+    public $belongsToMany = [
+        'chronic_illnesses' => [
+            '\Csatar\Csatar\Models\ChronicIllness',
+            'table' => 'csatar_csatar_scouts_chronic_illnesses'
+        ],
+        'allergies' => [
+            '\Csatar\Csatar\Models\Allergy',
+            'table' => 'csatar_csatar_scouts_allergies',
+            'pivot' => ['details']
+        ]
+    ];
 }

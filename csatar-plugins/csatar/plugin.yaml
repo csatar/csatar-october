@@ -5,7 +5,36 @@ plugin:
     icon: icon-leaf
     homepage: ''
 navigation:
-    main-menu-item-scout:
+    main-menu-item-scout-system-data:
+        label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.scoutSystemData'
+        url: /
+        icon: icon-sitemap
+        sideMenu:
+            side-menu-legal-relationship-categories:
+                label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.legalRelationshipCategories'
+                url: csatar/csatar/legalrelationships
+                icon: icon-sitemap
+            side-menu-chronic-illness-categories:
+                label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.chronicIllnessCategories'
+                url: /csatar/csatar/chronicillnesses
+                icon: icon-sitemap
+            side-menu-allergy-categories:
+                label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.allergyCategories'
+                url: csatar/csatar/allergies
+                icon: icon-sitemap
+            side-menu-special-item-categories:
+                label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.specialDietCategories'
+                url: csatar/csatar/specialdiets
+                icon: icon-sitemap
+            side-menu-religion-categories:
+                label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.religionCategories'
+                url: csatar/csatar/religions
+                icon: icon-sitemap
+            side-menu-tshirt-size-categies:
+                label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.tShirtSizeCategories'
+                url: csatar/csatar/tshirtsizes
+                icon: icon-sitemap
+    main-menu-scout-data:
         label: 'csatar.csatar::lang.plugin.admin.admin.menu.scout'
-        url: csatar/csatar/scouts
-        icon: icon-life-ring
+        url: /csatar/csatar/scouts
+        icon: icon-bell

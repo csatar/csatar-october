@@ -1,0 +1,6 @@
+fields:
+    title:
+        label: 'csatar.csatar::lang.plugin.admin.chronicIllness.title'
+        span: auto
+        required: 1
+        type: text
