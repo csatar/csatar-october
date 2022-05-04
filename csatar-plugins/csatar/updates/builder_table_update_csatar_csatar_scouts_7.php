@@ -14,7 +14,7 @@ class BuilderTableUpdateCsatarCsatarScouts2 extends Migration
             $table->string('personal_identification_number', 20)->nullable(false)->unsigned(false)->default(null)->comment(null)->change();
         });
     }
-    
+
     public function down()
     {
         Schema::table('csatar_csatar_scouts', function($table)
