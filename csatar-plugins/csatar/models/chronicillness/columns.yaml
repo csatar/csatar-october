@@ -1,0 +1,20 @@
+columns:
+    id:
+        label: Id
+        type: number
+        searchable: true
+        sortable: true
+    created_at:
+        label: 'Created at'
+        type: datetime
+    updated_at:
+        label: 'Updated at'
+        type: datetime
+    deleted_at:
+        label: 'Deleted at'
+        type: datetime
+    title:
+        label: 'csatar.csatar::lang.plugin.admin.chronicIllness.title'
+        type: text
+        searchable: true
+        sortable: true

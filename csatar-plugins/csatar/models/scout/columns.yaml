@@ -1,45 +1,87 @@
 columns:
     id:
-        label: id
+        label: Id
         type: number
         searchable: true
         sortable: true
     created_at:
-        label: created_at
+        label: 'Created at'
         type: datetime
     updated_at:
-        label: updated_at
+        label: 'Updated at'
         type: datetime
     deleted_at:
-        label: deleted_at
+        label: 'Deleted at'
         type: datetime
     user_id:
-        label: user_id
+        label: 'csatar.csatar::lang.plugin.admin.scout.userId'
         type: number
         searchable: true
         sortable: true
     family_name:
-        label: family_name
+        label: 'csatar.csatar::lang.plugin.admin.scout.familyName'
         type: text
         searchable: true
         sortable: true
     given_name:
-        label: given_name
+        label: 'csatar.csatar::lang.plugin.admin.scout.givenName'
         type: text
         searchable: true
         sortable: true
     email:
-        label: email
+        label: 'csatar.csatar::lang.plugin.admin.scout.email'
         type: text
         searchable: true
         sortable: true
     gender:
-        label: gender
+        label: 'csatar.csatar::lang.plugin.admin.scout.gender.gender'
         type: text
         searchable: true
         sortable: true
     personal_identification_number:
-        label: personal_identification_number
+        label: 'csatar.csatar::lang.plugin.admin.scout.personalIdentificationNumber'
         type: number
         searchable: true
         sortable: true
+    is_active:
+        label: 'csatar.csatar::lang.plugin.admin.scout.isActive'
+        type: switch
+        searchable: true
+        sortable: true
+    chronic_illnesses:
+        label: 'csatar.csatar::lang.plugin.admin.scout.chronicIllnesses'
+        type: text
+        searchable: true
+        relation: chronic_illnesses
+        valueFrom: title
+    allergies:
+        label: Allergies
+        type: text
+        searchable: true
+        sortable: false
+        relation: allergies
+        valueFrom: title
+    legal_relationship_id:
+        label: 'csatar.csatar::lang.plugin.admin.scout.legalRelationship'
+        type: text
+        searchable: true
+        relation: legal_relationship
+        valueFrom: title
+    special_diet_id:
+        label: 'csatar.csatar::lang.plugin.admin.scout.specialDiet'
+        type: text
+        searchable: true
+        relation: special_diet
+        valueFrom: title
+    religion_id:
+        label: 'csatar.csatar::lang.plugin.admin.scout.religion'
+        type: text
+        searchable: true
+        relation: religion
+        valueFrom: title
+    tshirt_size_id:
+        label: 'csatar.csatar::lang.plugin.admin.scout.tShirtSize'
+        type: text
+        searchable: true
+        relation: tshirt_size
+        valueFrom: title
