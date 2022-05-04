@@ -29,6 +29,7 @@
                 'deletedAt' => 'Deleted at',
                 'allergies' => 'Allergies',
                 'allergiesInfo' => 'Allergies can be added after the Scout has been created. Click Create button after other information is filled.',
+                'breadcrumb' => 'Scouts',
             ],
             'admin' => [
                 'menu' => [
@@ -51,6 +52,7 @@
                 'createdAt' => 'Created at',
                 'updatedAt' => 'Updated at',
                 'deletedAt' => 'Deleted at',
+                'breadcrumb' => 'Allergies',
             ],
             'chronicIllness' => [
                 'title' => 'Title',
@@ -58,6 +60,7 @@
                 'createdAt' => 'Created at',
                 'updatedAt' => 'Updated at',
                 'deletedAt' => 'Deleted at',
+                'breadcrumb' => 'Chronic Illnesses',
             ],
             'legalRelationship' => [
                 'title' => 'Title',
@@ -66,6 +69,7 @@
                 'updatedAt' => 'Updated at',
                 'deletedAt' => 'Deleted at',
                 'sortOrder' => 'Sort order',
+                'breadcrumb' => 'Legal Relationships',
             ],
             'religion' => [
                 'title' => 'Title',
@@ -73,6 +77,7 @@
                 'createdAt' => 'Created at',
                 'updatedAt' => 'Updated at',
                 'deletedAt' => 'Deleted at',
+                'breadcrumb' => 'Religions',
             ],
             'specialDiet' => [
                 'title' => 'Title',
@@ -80,6 +85,7 @@
                 'createdAt' => 'Created at',
                 'updatedAt' => 'Updated at',
                 'deletedAt' => 'Deleted at',
+                'breadcrumb' => 'Special Diets',
             ],
             'tShirtSize' => [
                 'title' => 'Title',
@@ -87,6 +93,7 @@
                 'createdAt' => 'Created at',
                 'updatedAt' => 'Updated at',
                 'deletedAt' => 'Deleted at',
+                'breadcrumb' => 'T-Shirt Sizes',
             ],
         ],
     ],
