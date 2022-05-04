@@ -1,4 +1,4 @@
-url = "/tag"
+url = "/tag/:id/:action?"
 layout = "default"
 title = "Tag"
 
@@ -7,6 +7,14 @@ redirect = "tag"
 paramCode = "code"
 forceSecure = 0
 requirePassword = 0
+
+[basicForm]
+formId = 1
+recordKeyParam = "id"
+createRecordKeyword = "create"
+recordActionParam = "action"
+actionUpdateKeyword = "update"
+actionDeleteKeyword = "delete"
 ==
 <div class="container">
     {% if not user %}
@@ -29,4 +37,8 @@ requirePassword = 0
         {% partial account ~ '::deactivate_link' %}
 
     {% endif %}
+
+    <hr>
+
+    {% component 'basicForm' %}
 </div>

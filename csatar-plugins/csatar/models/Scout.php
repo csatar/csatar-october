@@ -28,4 +28,7 @@ class Scout extends Model
         'personal_identification_number' => 'required',
         'email' => 'email'
     ];
+
+    protected $fillable = ['user_id', 'family_name', 'given_name', 'email', 'gender', 'personal_identification_number',
+        'is_active', 'legal_relationship_id', 'special_diet_id', 'religion_id', 'tshirt_size_id'];
 }
