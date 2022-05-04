@@ -1,7 +1,7 @@
 plugin:
-    name: 'Forms'
-    description: 'Forms...'
-    author: 'Csatar'
+    name: 'csatar.forms::lang.plugin.name'
+    description: 'csatar.forms::lang.plugin.description'
+    author: 'csatar.forms::lang.plugin.author'
 navigation:
     main-menu-item:
         label: Forms

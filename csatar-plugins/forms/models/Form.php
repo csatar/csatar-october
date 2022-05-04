@@ -1,10 +1,11 @@
 <?php namespace Csatar\Forms\Models;
 
+use Cache;
 use File;
+use Lang;
 use Model;
 use Validator;
-use October\Rain\Exception\ApplicationException;
-use \October\Rain\Exception\ValidationException;
+use October\Rain\Exception\ValidationException;
 
 
 /**
@@ -13,8 +14,6 @@ use \October\Rain\Exception\ValidationException;
 class Form extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-
-    protected $jsonable = ['validation'];
 
     /*
      * Validation
@@ -27,12 +26,7 @@ class Form extends Model
 
     public function beforeSave()
     {
-        $model = '\\' . $this->model;
-        if (! class_exists($model)) {
-            $error = "Error: The form's model could not be found.\n"."\t Please make sure you enter correct path and model name.";
-            throw new ApplicationException($error);
-//            throw new ValidationException(['model' => $error ]);
-        }
+        $this->getModelName();
 
         //TODO in v2: before save check if yaml file exists...
     }
@@ -48,36 +42,27 @@ class Form extends Model
      */
     public $table = 'csatar_forms_forms';
 
-    /**
-     * Returns validation errors
-     * @param array $data
-     * @return array Error messages
-     */
-    public function getErrors($data) {
-        if (empty($this->validation)) {
-            return [];
-        }
-
-        $rules = [];
-        foreach($this->validation as $validation) {
-            $rules[$validation['field']] = $validation['rule'];
-        }
-
-        $validator = Validator::make($data, $rules);
-
-        if ($validator->fails()) {
-            return $validator->messages()->all();
-        }
-
-        return [];
-    }
-
     public function getFieldsConfig() {
         if ($this->fields_config[0] != '$') {
             return '$/' . str_replace('\\', '/', strtolower($this->model)) . '/' . $this->fields_config;
         }
 
         return $this->fields_config;
+    }
+
+    public function getModelName(){
+
+        $modelName = $this->model;
+        if(substr( $modelName, 0, 1 ) !== "\\"){
+            $modelName = '\\' . $modelName;
+        }
+
+        if (! class_exists($modelName)) {
+            $error = e(trans('csatar.forms::lang.errors.formModelNotFound'));
+            throw new ValidationException(['model' => $error]);
+        }
+
+        return $modelName;
     }
 
 }

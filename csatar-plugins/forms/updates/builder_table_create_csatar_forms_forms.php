@@ -13,7 +13,6 @@ class BuilderTableCreateCsatarFormsForms extends Migration
             $table->increments('id')->unsigned();
             $table->string('model');
             $table->string('fields_config')->default('fields.yaml');
-            $table->text('validation');
             $table->string('title');
             $table->text('description')->nullable();
         });

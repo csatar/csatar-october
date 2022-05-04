@@ -1,9 +1,11 @@
 <?php namespace Csatar\Forms\Components;
 
+use Lang;
 use Cms\Classes\ComponentBase;
 use Csatar\Forms\Models\Form;
 use Csatar\Forms\Traits\ManagesUploads;
 use Csatar\Forms\Traits\AjaxControllerSimple;
+use October\Rain\Exception\ApplicationException;
 
 class BasicForm extends ComponentBase  {
 
@@ -44,8 +46,8 @@ class BasicForm extends ComponentBase  {
     public function componentDetails()
     {
         return [
-            'name'        => 'Basic Form',
-            'description' => 'Creates form'
+            'name'        => 'csatar.forms::lang.components.basicForm.name',
+            'description' => 'csatar.forms::lang.components.basicForm.description',
         ];
     }
 
@@ -57,11 +59,16 @@ class BasicForm extends ComponentBase  {
     {
         return [
             'form_id' => [
-                'title'             => 'Form',
-                'description'       => 'Select from',
+                'title'             => 'csatar.forms::lang.components.basicForm.properties.form_id.title',
+                'description'       => 'csatar.forms::lang.components.basicForm.properties.form_id.description',
                 'type'              => 'dropdown',
                 'options'           => Form::lists('title', 'id'),
-                'default'           => null
+                'default'           => null,
+                'validation'  => [
+                    'required' => [
+                        'message' => Lang::get('csatar.forms::lang.components.componentValidation.formNotSelected')
+                    ]
+                ]
             ]
         ];
     }
@@ -93,13 +100,8 @@ class BasicForm extends ComponentBase  {
         $this->addJs('/modules/system/assets/ui/storm-min.js');
         $this->addJs('/plugins/csatar/forms/assets/vendor/dropzone/dropzone.js');
         $this->addJs('/plugins/csatar/forms/assets/js/uploader.js');
+        $this->addJs('/plugins/csatar/forms/assets/js/positionValidationTags.js');
 
-//        if ($this->property('embedded')) {
-//            $this->app = $this->renderPartial('@app/index');
-//        } else {
-//            return $this->renderPartial('@app/wrapper');
-//        }
-//        return $this->renderPartial('@app/wrapper');
         $model_id = $this->param('model_id', 'new');
         $this->renderedComponent = $this->createForm($this->getForm(), $model_id);
 
@@ -112,7 +114,8 @@ class BasicForm extends ComponentBase  {
             $this->form_id = $form->id;
             return $form;
         } else {
-            // TODO: exception
+            $error = e(trans('csatar.forms::lang.errors.formNotFound'));
+            throw new ApplicationException($error . $this->page->title);
         }
     }
 

@@ -24,13 +24,6 @@ trait AjaxControllerSimple {
     }
 
     /**
-     * Auth middleware
-     */
-//    public function middleware() {
-//
-//    }
-
-    /**
      * Registers backend widgets for frontend use
      */
     public function loadBackendFormWidgets() {
@@ -67,10 +60,11 @@ trait AjaxControllerSimple {
 
         $model = null;
 
-        $modelName = '\\' . $form->model;
+        $modelName = $form->getModelName();
 
         if(!$model = $modelName::find($model_id)) {
             if($model = $modelName::withTrashed()->find($model_id)){
+                // TOOO: in v2 render partial here.
                 return 'The item was deleted...';
             }
         }
@@ -89,6 +83,7 @@ trait AjaxControllerSimple {
         $this->loadBackendFormWidgets();
 
         $html = $this->widget->render();
+        $html .= $this->renderValidationTags($model);
 
         $this->page['form_id'] = $form->id;
         $this->form_id = $form->id;
@@ -120,13 +115,14 @@ trait AjaxControllerSimple {
 
         $form_id = Input::get('form_id');
         $form = Form::find($form_id);
-        $modelName = '\\' . $form->model;
+        $modelName = $form->getModelName();
         if(!($model = $modelName::find(Input::get('data_id'))) && $isNew) {
             $model = new $modelName;
         }
 
         if (! $data = Input::get('data')) {
-            throw new ApplicationException("Error: The form could not be saved.");
+            $error = e(trans('csatar.forms::lang.errors.noDataArray'));
+            throw new ApplicationException($error);
         }
 
         // Resolve belongsTo relations
@@ -140,12 +136,12 @@ trait AjaxControllerSimple {
             unset($data[$name]);
         }
 
-//        $this->deactivateModelValidation($model);
         if($isNew) {
             $model = $model->create($data);
         }
         if (! $model->update($data) && !$isNew) {
-            throw new ApplicationException("Error: The form could not be saved.");
+            $error = e(trans('csatar.forms::lang.errors.canNotSaveValidated'));
+            throw new ApplicationException($error);
         }
 
         if (Input::get('close')) {
@@ -157,24 +153,14 @@ trait AjaxControllerSimple {
         ];
     }
 
-    /**
-     * Deactivates the validation of a given model
-     * @param mixed $model
-     */
-    private function deactivateModelValidation($model) {
-        $closure = function($model) {
-            if (isset($model->rules)) {
-                $model->rules = [];
-            }
-        };
-
-        if (is_string($model)) {
-            $model::extend($closure);
+    public function renderValidationTags($model) {
+        $html = "<div id='validationTags'>";
+        foreach($model->rules as $fieldName => $rule) {
+            $html .= "<span data-validate-for='" . $fieldName . "'></span>";
         }
+        $html .= "</div";
 
-        if (is_object($model)) {
-            $closure($model);
-        }
+        return $html;
     }
 
 }
