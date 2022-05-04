@@ -1,0 +1,5 @@
+1.0.1:
+    - 'Initialize plugin.'
+1.0.2:
+    - 'Created table csatar_forms_forms'
+    - builder_table_create_csatar_forms_forms.php

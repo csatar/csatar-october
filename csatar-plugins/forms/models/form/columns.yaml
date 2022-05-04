@@ -1,0 +1,17 @@
+columns:
+    id:
+        label: ID
+        type: number
+        invisible: true
+    model:
+        label: 'csatar.forms::lang.plugin.admin.form.model'
+        type: text
+        searchable: true
+    fields_config:
+        label: 'csatar.forms::lang.plugin.admin.form.fields'
+        type: text
+        invisible: true
+    title:
+        label: 'csatar.forms::lang.plugin.admin.form.title'
+        type: text
+        searchable: true
