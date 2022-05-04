@@ -1,0 +1,10 @@
+name: Forms
+form: $/csatar/forms/models/form/fields.yaml
+modelClass: Csatar\Forms\Models\Form
+defaultRedirect: csatar/forms/forms
+create:
+    redirect: 'csatar/forms/forms/update/:id'
+    redirectClose: csatar/forms/forms
+update:
+    redirect: csatar/forms/forms
+    redirectClose: csatar/forms/forms

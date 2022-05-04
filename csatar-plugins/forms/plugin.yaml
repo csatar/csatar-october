@@ -1,0 +1,14 @@
+plugin:
+    name: 'csatar.forms::lang.plugin.name'
+    description: 'csatar.forms::lang.plugin.description'
+    author: 'csatar.forms::lang.plugin.author'
+navigation:
+    main-menu-item:
+        label: Forms
+        url: csatar/forms/forms
+        icon: icon-paperclip
+        sideMenu:
+            forms-menu-item:
+                label: Forms
+                url: csatar/forms/forms
+                icon: icon-file-text-o

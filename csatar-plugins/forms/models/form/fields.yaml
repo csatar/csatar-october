@@ -1,0 +1,18 @@
+fields:
+    title:
+        label: 'csatar.forms::lang.plugin.admin.form.title'
+        span: full
+        type: text
+    model:
+        label: 'csatar.forms::lang.plugin.admin.form.model'
+        span: full
+        placeholder: ''
+        default: ''
+        type: text
+        commentAbove: 'csatar.forms::lang.plugin.admin.form.modelComment'
+    fields_config:
+        label: 'csatar.forms::lang.plugin.admin.form.fields'
+        span: full
+        default: fields.yaml
+        type: text
+        commentAbove: 'csatar.forms::lang.plugin.admin.form.fieldsComment'
