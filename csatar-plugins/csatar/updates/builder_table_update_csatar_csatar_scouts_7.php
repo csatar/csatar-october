@@ -15,7 +15,7 @@ class BuilderTableUpdateCsatarCsatarScouts7 extends Migration
             $table->integer('tshirt_size_id')->nullable()->change();
         });
     }
-    
+
     public function down()
     {
         Schema::table('csatar_csatar_scouts', function($table)

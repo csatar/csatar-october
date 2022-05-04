@@ -1,0 +1,18 @@
+<p class="lead">
+    {{ 'Új jelszó létrehozásához írd be az e-mail címedet.' | _ }}
+</p>
+
+<form
+    data-request="{{ __SELF__ }}::onRestorePassword"
+    data-request-update="'{{ __SELF__ }}::reset': '#partialUserResetForm'"
+    data-request-validate=""
+    novalidate
+    data-request-flash>
+    <div class="form-group">
+        <label for="userRestoreEmail">{{ 'E-mail' | _ }}</label>
+        <input name="email" type="email" class="form-control" id="userRestoreEmail" placeholder="{{ 'Írd be az e-mail címedet' | _ }}">
+        <span data-validate-for="email">{{ 'Helytelen az e-mail címed.' | _ }}</span>
+    </div>
+
+    <button type="submit" class="btn btn-default">{{ 'Küldj e-mailt' | _ }}</button>
+</form>

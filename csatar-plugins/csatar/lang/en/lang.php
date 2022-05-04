@@ -96,5 +96,11 @@
                 'breadcrumb' => 'T-Shirt Sizes',
             ],
         ],
+        'component' => [
+            'resetPassword' => [
+                'name' => 'Reset Password',
+                'description' => 'Enables restoring the user\'s password.'
+            ]
+        ]
     ],
 ];

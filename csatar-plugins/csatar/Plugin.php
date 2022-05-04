@@ -50,7 +50,20 @@ class Plugin extends PluginBase
      */
     public function registerComponents()
     {
-
+        return [
+            \Csatar\Csatar\Components\ResetPassword::class => 'resetpasswordOverRide'
+        ];
     }
 
+    /**
+     * Registers any mail templates.
+     *
+     * @return array
+     */
+    public function registerMailTemplates()
+    {
+        return [
+            'csatar.csatar::mail.restore'
+        ];
+    }
 }
