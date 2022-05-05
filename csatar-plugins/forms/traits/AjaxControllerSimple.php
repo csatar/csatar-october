@@ -157,12 +157,14 @@ trait AjaxControllerSimple {
     }
 
     public function onDelete() {
-        dd($this->page->url);
+
         $record = $this->getRecord();
         if($record){
             $record->delete();
+        } else {
+            throw new NotFoundException();
         }
-        throw new NotFoundException();
+
     }
 
     public function renderValidationTags($model) {
