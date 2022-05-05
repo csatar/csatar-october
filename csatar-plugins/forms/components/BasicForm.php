@@ -18,7 +18,22 @@ class BasicForm extends ComponentBase  {
      */
     public $relation = null;
 
-    public $form_id = null;
+    public $formId = null;
+
+    public $recordKeyParam = null;
+
+    public $recordKeyValue = null;
+
+    public $readOnly = null;
+
+    public $createRecordKeyword = null;
+
+    public $recordActionParam = null;
+
+    public $actionUpdateKeyword = null;
+
+    public $actionDeleteKeyword = null;
+
 
     /**
      * Data model
@@ -58,18 +73,70 @@ class BasicForm extends ComponentBase  {
     public function defineProperties()
     {
         return [
-            'form_id' => [
-                'title'             => 'csatar.forms::lang.components.basicForm.properties.form_id.title',
-                'description'       => 'csatar.forms::lang.components.basicForm.properties.form_id.description',
+            'formId' => [
+                'title'             => 'csatar.forms::lang.components.basicForm.properties.formId.title',
+                'description'       => 'csatar.forms::lang.components.basicForm.properties.formId.description',
                 'type'              => 'dropdown',
                 'options'           => Form::lists('title', 'id'),
                 'default'           => null,
                 'validation'  => [
                     'required' => [
-                        'message' => Lang::get('csatar.forms::lang.components.componentValidation.formNotSelected')
+                        'message' => Lang::get('csatar.forms::lang.components.basicForm.properties.propertiesValidation.formNotSelected')
                     ]
                 ]
-            ]
+            ],
+            'recordKeyParam' => [
+                'title'             => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.recordKeyParam',
+                'description'       => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.recordKeyParamDescr',
+                'type'              => 'string',
+                'default'           => 'id',
+                'showExternalParam' => false,
+                'group'             => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.groupName',
+                'validation'  => [
+                    'required' => [
+                        'message' => Lang::get('csatar.forms::lang.components.basicForm.properties.propertiesValidation.recordKeyNotSelected')
+                    ]
+                ]
+            ],
+            'readOnly' => [
+                'title'             => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.readOnly',
+                'description'       => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.readOnlyDescr',
+                'type'              => 'checkbox',
+                'showExternalParam' => false,
+                'group'             => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.groupName',
+            ],
+            'createRecordKeyword' => [
+                'title'             => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.createRecordKeyword',
+                'description'       => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.createRecordKeywordDescr',
+                'type'              => 'string',
+                'default'           => 'create',
+                'showExternalParam' => false,
+                'group'             => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.groupName',
+            ],
+            'recordActionParam' => [
+                'title'             => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.recordActionParam',
+                'description'       => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.recordlActionParamDescr',
+                'type'              => 'text',
+                'default'           => 'action',
+                'showExternalParam' => false,
+                'group'             => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.groupName',
+            ],
+            'actionUpdateKeyword' => [
+                'title'             => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.actionUpdateKeyword',
+                'description'       => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.actionUpdateKeywordDescr',
+                'type'              => 'text',
+                'default'           => 'update',
+                'showExternalParam' => false,
+                'group'             => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.groupName',
+            ],
+            'actionDeleteKeyword' => [
+                'title'             => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.actionDeleteKeyword',
+                'description'       => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.actionDeleteKeywordDescr',
+                'type'              => 'text',
+                'default'           => 'delete',
+                'showExternalParam' => false,
+                'group'             => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.groupName',
+            ],
         ];
     }
 
@@ -87,13 +154,12 @@ class BasicForm extends ComponentBase  {
      */
     public function onRun() {
 
-        // Run application
-
-
         // Handle file upload requests
         if ($handler = $this->processUploads()) {
             return $handler;
         }
+
+        $this->getComponentSettings();
 
         // Render frontend
         $this->addCss('/modules/system/assets/ui/storm.css');
@@ -102,20 +168,55 @@ class BasicForm extends ComponentBase  {
         $this->addJs('/plugins/csatar/forms/assets/js/uploader.js');
         $this->addJs('/plugins/csatar/forms/assets/js/positionValidationTags.js');
 
-        $model_id = $this->param('model_id', 'new');
-        $this->renderedComponent = $this->createForm($this->getForm(), $model_id);
+        $form = $this->getForm();
+        $this->recordKeyValue = $this->param($this->recordKeyParam);
+
+        if($this->readOnly){
+            $this->renderedComponent = $this->createForm($form, true);
+        }
+
+        if($this->recordKeyValue === $this->createRecordKeyword && !$this->readOnly) {
+            $this->renderedComponent = $this->createForm();
+        }
+
+        if($this->recordKeyValue !== $this->createRecordKeyword && !$this->readOnly && $this->recordActionParam) {
+            $action = $this->param($this->recordActionParam);
+
+            switch ($action) {
+                case $this->actionUpdateKeyword:
+                    $this->renderedComponent = $this->createForm();
+                    break;
+                case $this->actionDeleteKeyword:
+                    $this->renderedComponent = $this->onDelete();
+                    break;
+                default:
+                    $this->renderedComponent = $this->createForm(true);
+            }
+        }
+
 
     }
 
     private function getForm() {
-        $form_id_param = $this->property('form');
-        $form = Form::find($this->property('form_id'));
+        $form = Form::find($this->property('formId'));
         if (!empty($form)) {
-            $this->form_id = $form->id;
+            $this->formId = $form->id;
             return $form;
         } else {
             $error = e(trans('csatar.forms::lang.errors.formNotFound'));
             throw new ApplicationException($error . $this->page->title);
+        }
+    }
+
+    private function getComponentSettings() {
+        $this->recordKeyParam   = $this->property('recordKeyParam');
+        $this->readOnly         = $this->property('readOnly');
+
+        if(!$this->readOnly){
+            $this->createRecordKeyword  = $this->property('createRecordKeyword');
+            $this->recordActionParam    = $this->property('recordActionParam');
+            $this->actionUpdateKeyword  = $this->property('actionUpdateKeyword');
+            $this->actionDeleteKeyword  = $this->property('actionDeleteKeyword');
         }
     }
 
