@@ -18,20 +18,54 @@ class BasicForm extends ComponentBase  {
      */
     public $relation = null;
 
+    /**
+     * The Id of the form
+     * @var type
+     */
     public $formId = null;
 
+    /**
+     * The URL parameter and DB column
+     * to identify a record(id, slug etc.)
+     * @var int
+     */
     public $recordKeyParam = null;
 
+    /**
+     * The value of the key parameter
+     * @var string
+     */
     public $recordKeyValue = null;
 
+    /**
+     * Component property, if true, form is displayed in preview mode
+     * @var mixed
+     */
     public $readOnly = null;
 
+    /**
+     * If value of $recordKeyValue == $createRecordKeyword
+     * an empty form will be rendered to create new record
+     * @var boolean
+     */
     public $createRecordKeyword = null;
 
+    /**
+     * The URL parameter to specify update/delete action
+     * @var string
+     */
     public $recordActionParam = null;
 
+    /**
+     * Keyword for update action
+     * @var string
+     */
     public $actionUpdateKeyword = null;
 
+    /**
+     * Keyword for delete action
+     * @var string
+     */
     public $actionDeleteKeyword = null;
 
 
@@ -98,6 +132,14 @@ class BasicForm extends ComponentBase  {
                     ]
                 ]
             ],
+            'recordActionParam' => [
+                'title'             => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.recordActionParam',
+                'description'       => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.recordlActionParamDescr',
+                'type'              => 'text',
+                'default'           => 'action',
+                'showExternalParam' => false,
+                'group'             => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.groupName',
+            ],
             'readOnly' => [
                 'title'             => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.readOnly',
                 'description'       => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.readOnlyDescr',
@@ -113,18 +155,10 @@ class BasicForm extends ComponentBase  {
                 'showExternalParam' => false,
                 'group'             => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.groupName',
             ],
-            'recordActionParam' => [
-                'title'             => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.recordActionParam',
-                'description'       => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.recordlActionParamDescr',
-                'type'              => 'text',
-                'default'           => 'action',
-                'showExternalParam' => false,
-                'group'             => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.groupName',
-            ],
             'actionUpdateKeyword' => [
                 'title'             => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.actionUpdateKeyword',
                 'description'       => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.actionUpdateKeywordDescr',
-                'type'              => 'text',
+                'type'              => 'string',
                 'default'           => 'update',
                 'showExternalParam' => false,
                 'group'             => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.groupName',
@@ -132,7 +166,7 @@ class BasicForm extends ComponentBase  {
             'actionDeleteKeyword' => [
                 'title'             => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.actionDeleteKeyword',
                 'description'       => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.actionDeleteKeywordDescr',
-                'type'              => 'text',
+                'type'              => 'string',
                 'default'           => 'delete',
                 'showExternalParam' => false,
                 'group'             => 'csatar.forms::lang.components.basicForm.properties.groupCRUD.groupName',
@@ -172,7 +206,7 @@ class BasicForm extends ComponentBase  {
         $this->recordKeyValue = $this->param($this->recordKeyParam);
 
         if($this->readOnly){
-            $this->renderedComponent = $this->createForm($form, true);
+            $this->renderedComponent = $this->createForm(true);
         }
 
         if($this->recordKeyValue === $this->createRecordKeyword && !$this->readOnly) {
