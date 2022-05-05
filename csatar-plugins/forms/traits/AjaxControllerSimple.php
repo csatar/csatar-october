@@ -85,14 +85,14 @@ trait AjaxControllerSimple {
             $html .= $this->renderValidationTags($record);
         }
 
-        $variableToPass = [
+        $variablesToPass = [
             'form' => $html,
             'recordKeyParam' => $this->recordKeyParam,
             'recordKeyValue' => $record->id ?? 'new',
             'from_id' => $form->id,
             'preview' => $preview ];
 
-        return $this->renderPartial('@partials/form', $variableToPass);
+        return $this->renderPartial('@partials/form', $variablesToPass);
     }
 
     /**
@@ -186,10 +186,8 @@ trait AjaxControllerSimple {
         $record      = $modelName::where($key, $value)->first();
 
         if(!$record) {
-            if($record = $modelName::withTrashed()->where($key, $value)->first()){
-                // TOOO: in v2 render partial here.
-                return null;
-            }
+            //TODO handle trashed records
+            return null;
         }
 
         return $record;
