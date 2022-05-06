@@ -1,0 +1,50 @@
+columns:
+    id:
+        label: id
+        type: number
+        searchable: true
+        sortable: true
+    created_at:
+        label: created_at
+        type: datetime
+    updated_at:
+        label: updated_at
+        type: datetime
+    deleted_at:
+        label: deleted_at
+        type: datetime
+    name:
+        label: name
+        type: text
+        searchable: true
+        sortable: true
+    coordinates:
+        label: coordinates
+        type: text
+        searchable: true
+        sortable: false
+    contact_name:
+        label: contact_name
+        type: text
+        searchable: true
+        sortable: true
+    contact_email:
+        label: contact_email
+        type: text
+        searchable: true
+        sortable: true
+    address:
+        label: address
+        type: text
+        searchable: true
+        sortable: true
+    bank_account:
+        label: bank_account
+        type: text
+        searchable: true
+        sortable: false
+    description:
+        label: description
+        type: text
+        searchable: true
+        sortable: false

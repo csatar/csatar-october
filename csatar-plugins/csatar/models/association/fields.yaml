@@ -1,0 +1,35 @@
+fields:
+    name:
+        label: Name
+        span: auto
+        required: 1
+        type: text
+    coordinates:
+        label: Coordinates
+        span: auto
+        type: textarea
+    contact_name:
+        label: 'Contact name'
+        span: auto
+        required: 1
+        type: text
+    contact_email:
+        label: 'Contact email'
+        span: auto
+        required: 1
+        type: text
+    address:
+        label: Address
+        span: auto
+        required: 1
+        type: text
+    bank_account:
+        label: 'Bank account'
+        span: auto
+        type: text
+    description:
+        label: Description
+        size: ''
+        span: auto
+        required: 1
+        type: textarea

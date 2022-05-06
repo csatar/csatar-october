@@ -111,3 +111,6 @@
 1.0.40:
     - 'Added seeder for Hierarchy'
     - seeder_1040.php
+1.0.41:
+    - 'Created table csatar_csatar_association'
+    - builder_table_create_csatar_csatar_association.php
