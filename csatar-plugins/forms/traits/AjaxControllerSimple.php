@@ -9,6 +9,7 @@ use Cookie;
 use Redirect;
 use Backend\Classes\WidgetManager;
 use October\Rain\Exception\ApplicationException;
+use October\Rain\Exception\NotFoundException;
 
 trait AjaxControllerSimple {
 
@@ -56,40 +57,42 @@ trait AjaxControllerSimple {
         }
     }
 
-    public function createForm($form, $model_id) {
+    public function createForm($preview = false) {
 
-        $model = null;
+        $form  = Form::find($this->formId);
+        $record = $this->getRecord();
 
-        $modelName = $form->getModelName();
-
-        if(!$model = $modelName::find($model_id)) {
-            if($model = $modelName::withTrashed()->find($model_id)){
-                // TOOO: in v2 render partial here.
-                return 'The item was deleted...';
-            }
+        if(!$record && $this->recordKeyValue == $this->createRecordKeyword) {
+            $modelName  = $form->getModelName();
+            $record      = new $modelName;
         }
 
-        if($model_id == 'new') {
-            $model = new $modelName;
+        if(!$record) {
+            throw new NotFoundException();
         }
 
         $config = $this->makeConfig($form->getFieldsConfig());
         $config->arrayName = 'data';
         $config->alias = $this->alias;
-        $config->model = $model;
+        $config->model = $record;
 
         $this->widget = new \Backend\Widgets\Form($this, $config);
 
         $this->loadBackendFormWidgets();
 
-        $html = $this->widget->render();
-        $html .= $this->renderValidationTags($model);
+        $html = $this->widget->render(['preview' => $preview]);
+        if(!$preview){
+            $html .= $this->renderValidationTags($record);
+        }
 
-        $this->page['form_id'] = $form->id;
-        $this->form_id = $form->id;
-        $this->model = $model;
-        return $this->renderPartial('@partials/form',
-            ['form' => $html, 'data_id' => $model->id ?? 'new', 'from_id' => $form->id]);
+        $variablesToPass = [
+            'form' => $html,
+            'recordKeyParam' => $this->recordKeyParam,
+            'recordKeyValue' => $record->id ?? 'new',
+            'from_id' => $form->id,
+            'preview' => $preview ];
+
+        return $this->renderPartial('@partials/form', $variablesToPass);
     }
 
     /**
@@ -101,7 +104,7 @@ trait AjaxControllerSimple {
             return $response;
         }
 
-        if (! $model = $this->submission->getDataField($this->relation->field)->find(Input('data_id'))) {
+        if (!$model = $this->submission->getDataField($this->relation->field)->find(Input('recordKeyValue'))) {
            return false;
         }
 
@@ -110,14 +113,14 @@ trait AjaxControllerSimple {
 
     public function onSave() {
 
-        $isNew = Input::get('data_id') == 'new' ? true : false;
-        $model = null;
+        $isNew = Input::get('recordKeyValue') == 'new' ? true : false;
+        $record = $this->getRecord();
 
-        $form_id = Input::get('form_id');
-        $form = Form::find($form_id);
+        $form = Form::find(Input::get('formId'));
         $modelName = $form->getModelName();
-        if(!($model = $modelName::find(Input::get('data_id'))) && $isNew) {
-            $model = new $modelName;
+
+        if(!$record && $isNew) {
+            $record = new $modelName;
         }
 
         if (! $data = Input::get('data')) {
@@ -126,7 +129,7 @@ trait AjaxControllerSimple {
         }
 
         // Resolve belongsTo relations
-        foreach($model->belongsTo as $name => $definition) {
+        foreach($record->belongsTo as $name => $definition) {
             if (! isset($data[$name])) {
                 continue;
             }
@@ -137,9 +140,9 @@ trait AjaxControllerSimple {
         }
 
         if($isNew) {
-            $model = $model->create($data);
+            $record = $record->create($data);
         }
-        if (! $model->update($data) && !$isNew) {
+        if (!$record->update($data) && !$isNew) {
             $error = e(trans('csatar.forms::lang.errors.canNotSaveValidated'));
             throw new ApplicationException($error);
         }
@@ -153,6 +156,17 @@ trait AjaxControllerSimple {
         ];
     }
 
+    public function onDelete() {
+
+        $record = $this->getRecord();
+        if($record){
+            $record->delete();
+        } else {
+            throw new NotFoundException();
+        }
+
+    }
+
     public function renderValidationTags($model) {
         $html = "<div id='validationTags'>";
         foreach($model->rules as $fieldName => $rule) {
@@ -161,6 +175,22 @@ trait AjaxControllerSimple {
         $html .= "</div";
 
         return $html;
+    }
+
+    private function getRecord() {
+        $form       = Form::find($this->formId ?? Input::get('formId'));
+        $modelName  = $form->getModelName();
+        $key        = $this->recordKeyParam ?? Input::get('recordKeyParam');
+        $value      = $this->recordKeyValue ?? Input::get('recordKeyValue');
+
+        $record      = $modelName::where($key, $value)->first();
+
+        if(!$record) {
+            //TODO handle trashed records
+            return null;
+        }
+
+        return $record;
     }
 
 }

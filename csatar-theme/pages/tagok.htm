@@ -1,0 +1,18 @@
+url = "/tagok"
+layout = "default"
+title = "Tagok"
+
+[builderList]
+modelClass = "Csatar\Csatar\Models\Scout"
+scope = "-"
+scopeValue = "{{ :scope }}"
+displayColumn = "family_name"
+noRecordsMessage = "No records found"
+detailsPage = "tag"
+detailsKeyColumn = "id"
+detailsUrlParameter = "id"
+pageNumber = "{{ :page }}"
+==
+<div class="container">
+    {% component 'builderList' %}
+</div>
