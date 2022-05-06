@@ -5,6 +5,7 @@
         'author' => 'CSATÁR team',
         'admin' => [
             'scout' => [
+                'scout' => 'Scout',
                 'scoutData' => 'Scout data',
                 'userId' => 'User Id',
                 'familyName' => 'Family name',
@@ -18,6 +19,7 @@
                     'select' => 'Select...',
                 ],
                 'isActive' => 'Is active',
+                'allergy' => 'Allergies',
                 'legalRelationship' => 'Legal relationship',
                 'chronicIllnesses' => 'Chronic illnesses',
                 'specialDiet' => 'Special diet',
@@ -43,9 +45,14 @@
                         'religionCategories' => 'Religion Categories',
                         'tShirtSizeCategories' => 'T-Shirt Size Categories',
                     ],
+                    'organizationSystemData' => [
+                        'organizationSystemData' => 'Organization System Data',
+                        'hierarchy' => 'Hierarchy',
+                    ],
                 ],
             ],
             'allergy' => [
+                'allergy' => 'Allergy',
                 'title' => 'Title',
                 'details' => 'Details',
                 'id' => 'Id',
@@ -55,6 +62,7 @@
                 'breadcrumb' => 'Allergies',
             ],
             'chronicIllness' => [
+                'chronicIllness' => 'Chronic Illness',
                 'title' => 'Title',
                 'id' => 'Id',
                 'createdAt' => 'Created at',
@@ -63,6 +71,7 @@
                 'breadcrumb' => 'Chronic Illnesses',
             ],
             'legalRelationship' => [
+                'legalRelationship' => 'Legal Relationship',
                 'title' => 'Title',
                 'id' => 'Id',
                 'createdAt' => 'Created at',
@@ -70,37 +79,53 @@
                 'deletedAt' => 'Deleted at',
                 'sortOrder' => 'Sort order',
                 'breadcrumb' => 'Legal Relationships',
+                'select' => 'Select...',
             ],
             'religion' => [
+                'religion' => 'Religion',
                 'title' => 'Title',
                 'id' => 'Id',
                 'createdAt' => 'Created at',
                 'updatedAt' => 'Updated at',
                 'deletedAt' => 'Deleted at',
                 'breadcrumb' => 'Religions',
+                'select' => 'Select...',
             ],
             'specialDiet' => [
+                'specialDiet' => 'Special Diet',
                 'title' => 'Title',
                 'id' => 'Id',
                 'createdAt' => 'Created at',
                 'updatedAt' => 'Updated at',
                 'deletedAt' => 'Deleted at',
                 'breadcrumb' => 'Special Diets',
+                'select' => 'Select...',
             ],
             'tShirtSize' => [
+                'tShirtSize' => 'T-Shirt Size',
                 'title' => 'Title',
                 'id' => 'Id',
                 'createdAt' => 'Created at',
                 'updatedAt' => 'Updated at',
                 'deletedAt' => 'Deleted at',
                 'breadcrumb' => 'T-Shirt Sizes',
+                'select' => 'Select...',
+            ],
+            'hierarchy' => [
+                'hierarchy' => 'Hierarchy',
+                'id' => 'Id',
+                'name' => 'Name',
+                'parent' => 'Parent',
+                'sortOrder' => 'Sort order',
+                'breadcrumb' => 'Hierarchy',
+                'select' => 'Select...',
             ],
         ],
         'component' => [
             'resetPassword' => [
                 'name' => 'Reset Password',
-                'description' => 'Enables restoring the user\'s password.'
-            ]
-        ]
+                'description' => 'Enables restoring the user\'s password.',
+            ],
+        ],
     ],
 ];

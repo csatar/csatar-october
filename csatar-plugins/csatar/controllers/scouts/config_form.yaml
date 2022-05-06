@@ -1,4 +1,4 @@
-name: Scouts
+name: 'csatar.csatar::lang.plugin.admin.scout.scout'
 form: $/csatar/csatar/models/scout/fields.yaml
 modelClass: Csatar\Csatar\Models\Scout
 defaultRedirect: csatar/csatar/scouts

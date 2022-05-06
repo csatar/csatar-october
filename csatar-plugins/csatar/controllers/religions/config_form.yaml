@@ -1,4 +1,4 @@
-name: Religions
+name: 'csatar.csatar::lang.plugin.admin.religion.religion'
 form: $/csatar/csatar/models/religion/fields.yaml
 modelClass: Csatar\Csatar\Models\Religion
 defaultRedirect: csatar/csatar/religions

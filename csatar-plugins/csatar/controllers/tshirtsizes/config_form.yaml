@@ -1,4 +1,4 @@
-name: TShirtSizes
+name: 'csatar.csatar::lang.plugin.admin.tShirtSize.tShirtSize'
 form: $/csatar/csatar/models/tshirtsize/fields.yaml
 modelClass: Csatar\Csatar\Models\TShirtSize
 defaultRedirect: csatar/csatar/tshirtsizes

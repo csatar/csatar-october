@@ -8,6 +8,10 @@ use Model;
 class Hierarchy extends Model
 {
     use \October\Rain\Database\Traits\Validation;
+
+    use \October\Rain\Database\Traits\Sortable;
+
+    use \October\Rain\Database\Traits\NestedTree;
     
     /*
      * Disable timestamps by default.
@@ -25,5 +29,39 @@ class Hierarchy extends Model
      * @var array Validation rules
      */
     public $rules = [
+        'name' => 'required'
+    ];
+
+    /**
+     * @var array Fillable values
+     */
+    public $fillable = [
+        'name',
+        'parent_id',
+        'sort_order',
+    ];
+
+    /**
+     * Relations
+     */
+    public $belongsTo = [
+        'parent' => [
+            '\Csatar\Csatar\Models\Hierarchy',
+            'key' => 'parent_id',
+            'otherKey' => 'id',
+        ],
+    ];
+
+    public $hasMany = [
+        'children' => [
+            '\Csatar\Csatar\Models\Hierarchy', 
+            'key' => 'parent_id',
+            'order' => 'weight asc',
+        ],
+        'child_count' => [
+            '\Csatar\Csatar\Models\Hierarchy', 
+            'key' => 'parent_id',
+            'count' => true,
+        ],
     ];
 }

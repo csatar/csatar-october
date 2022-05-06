@@ -1,4 +1,4 @@
-name: LegalRelationship
+name: 'csatar.csatar::lang.plugin.admin.legalRelationship.legalRelationship'
 modelClass: Csatar\Csatar\Models\LegalRelationship
 form: $/csatar/csatar/models/legalrelationship/fields.yaml
 defaultRedirect: csatar/csatar/legalrelationships

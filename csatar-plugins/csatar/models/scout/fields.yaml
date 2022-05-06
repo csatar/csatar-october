@@ -46,7 +46,7 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.scout.legalRelationship'
         nameFrom: title
         descriptionFrom: description
-        emptyOption: '--- Select Legal Relationship ---'
+        emptyOption: 'csatar.csatar::lang.plugin.admin.legalRelationship.select'
         span: auto
         type: relation
     chronic_illnesses:
@@ -59,20 +59,20 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.scout.specialDiet'
         nameFrom: title
         descriptionFrom: description
-        emptyOption: '--- Select Special Diet ---'
+        emptyOption: 'csatar.csatar::lang.plugin.admin.specialDiet.select'
         span: auto
         type: relation
     religion:
         label: 'csatar.csatar::lang.plugin.admin.scout.religion'
         nameFrom: title
         descriptionFrom: description
-        emptyOption: '--- Select Religion ---'
+        emptyOption: 'csatar.csatar::lang.plugin.admin.religion.select'
         span: auto
         type: relation
     tshirt_size:
         label: 'csatar.csatar::lang.plugin.admin.scout.tShirtSize'
         nameFrom: title
         descriptionFrom: description
-        emptyOption: '--- Select T-Shirt Size ---'
+        emptyOption: 'csatar.csatar::lang.plugin.admin.tShirtSize.select'
         span: auto
         type: relation

@@ -1,4 +1,4 @@
-name: Allergies
+name: 'csatar.csatar::lang.plugin.admin.allergy.allergy'
 form: $/csatar/csatar/models/allergy/fields.yaml
 modelClass: Csatar\Csatar\Models\Allergy
 defaultRedirect: csatar/csatar/allergies

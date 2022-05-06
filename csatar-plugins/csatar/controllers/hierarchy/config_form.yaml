@@ -1,0 +1,11 @@
+name: 'csatar.csatar::lang.plugin.admin.hierarchy.hierarchy'
+modelClass: Csatar\Csatar\Models\Hierarchy
+form: $/csatar/csatar/models/hierarchy/fields.yaml
+defaultRedirect: csatar/csatar/hierarchy
+create:
+    redirect: 'csatar/csatar/hierarchy/update/:id'
+    redirectClose: csatar/csatar/hierarchy
+update:
+    redirect: csatar/csatar/hierarchy
+    redirectClose: csatar/csatar/hierarchy
+preview: {  }

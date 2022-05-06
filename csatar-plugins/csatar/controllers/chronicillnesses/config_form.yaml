@@ -1,4 +1,4 @@
-name: ChronicIllness
+name: 'csatar.csatar::lang.plugin.admin.chronicIllness.chronicIllness'
 form: $/csatar/csatar/models/chronicillness/fields.yaml
 modelClass: Csatar\Csatar\Models\ChronicIllness
 defaultRedirect: csatar/csatar/chronicillnesses
