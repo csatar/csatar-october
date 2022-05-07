@@ -41,5 +41,6 @@ fields:
         thumbOptions:
             mode: crop
             extension: auto
+        maxFilesize: '5'
         span: auto
         type: fileupload

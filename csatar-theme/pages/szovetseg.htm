@@ -1,0 +1,16 @@
+url = "/szovetseg/:id/:action?"
+layout = "default"
+title = "Szövetség"
+
+[basicForm]
+formId = 1
+recordKeyParam = "id"
+recordActionParam = "action"
+readOnly = 1
+createRecordKeyword = "create"
+actionUpdateKeyword = "update"
+actionDeleteKeyword = "delete"
+==
+<div class="container">
+    {% component 'basicForm' %}
+</div>
