@@ -17,11 +17,36 @@ class Association extends Model
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'csatar_csatar_association';
+    public $table = 'csatar_csatar_associations';
 
     /**
      * @var array Validation rules
      */
     public $rules = [
+        'name' => 'required',
+        'contact_name' => 'required|min:5',
+        'contact_email' => 'required|email',
+        'address' => 'required|min:5',
+        'bank_account' => 'min:5',
+        'description' => 'required',
+    ];
+
+    /**
+     * @var array Fillable values
+     */
+    public $fillable = [
+        'name',
+        'contact_name',
+        'contact_email',
+        'address',
+        'description',
+    ];
+    
+    /**
+     * Relations
+     */
+
+    public $attachOne = [
+        'logo' => 'System\Models\File'
     ];
 }

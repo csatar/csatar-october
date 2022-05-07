@@ -1,35 +1,45 @@
 fields:
     name:
-        label: Name
+        label: 'csatar.csatar::lang.plugin.admin.association.name'
         span: auto
         required: 1
         type: text
     coordinates:
-        label: Coordinates
+        label: 'csatar.csatar::lang.plugin.admin.association.coordinates'
+        size: ''
         span: auto
         type: textarea
     contact_name:
-        label: 'Contact name'
+        label: 'csatar.csatar::lang.plugin.admin.association.contactName'
         span: auto
         required: 1
         type: text
     contact_email:
-        label: 'Contact email'
+        label: 'csatar.csatar::lang.plugin.admin.association.contactEmail'
         span: auto
         required: 1
         type: text
     address:
-        label: Address
+        label: 'csatar.csatar::lang.plugin.admin.association.address'
         span: auto
         required: 1
         type: text
     bank_account:
-        label: 'Bank account'
+        label: 'csatar.csatar::lang.plugin.admin.association.bankAccount'
         span: auto
         type: text
     description:
-        label: Description
+        label: 'csatar.csatar::lang.plugin.admin.association.description'
         size: ''
         span: auto
         required: 1
         type: textarea
+    logo:
+        label: 'csatar.csatar::lang.plugin.admin.association.logo'
+        mode: file
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        span: auto
+        type: fileupload

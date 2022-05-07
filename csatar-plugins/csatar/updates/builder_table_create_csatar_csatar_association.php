@@ -7,7 +7,7 @@ class BuilderTableCreateCsatarCsatarAssociation extends Migration
 {
     public function up()
     {
-        Schema::create('csatar_csatar_association', function($table)
+        Schema::create('csatar_csatar_associations', function($table)
         {
             $table->engine = 'InnoDB';
             $table->increments('id')->unsigned();
@@ -26,6 +26,6 @@ class BuilderTableCreateCsatarCsatarAssociation extends Migration
     
     public function down()
     {
-        Schema::dropIfExists('csatar_csatar_association');
+        Schema::dropIfExists('csatar_csatar_associations');
     }
 }
