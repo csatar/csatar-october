@@ -36,5 +36,43 @@ fields:
         emptyOption: 'csatar.csatar::lang.plugin.admin.scout.gender.select'
         showSearch: true
         span: auto
-        required: 1
         type: dropdown
+    is_active:
+        label: 'csatar.csatar::lang.plugin.admin.scout.isActive'
+        span: auto
+        default: 1
+        type: checkbox
+    legal_relationship:
+        label: 'csatar.csatar::lang.plugin.admin.scout.legalRelationship'
+        nameFrom: title
+        descriptionFrom: description
+        emptyOption: 'csatar.csatar::lang.plugin.admin.legalRelationship.select'
+        span: auto
+        type: relation
+    chronic_illnesses:
+        label: 'csatar.csatar::lang.plugin.admin.scout.chronicIllnesses'
+        nameFrom: title
+        descriptionFrom: description
+        span: auto
+        type: relation
+    special_diet:
+        label: 'csatar.csatar::lang.plugin.admin.scout.specialDiet'
+        nameFrom: title
+        descriptionFrom: description
+        emptyOption: 'csatar.csatar::lang.plugin.admin.specialDiet.select'
+        span: auto
+        type: relation
+    religion:
+        label: 'csatar.csatar::lang.plugin.admin.scout.religion'
+        nameFrom: title
+        descriptionFrom: description
+        emptyOption: 'csatar.csatar::lang.plugin.admin.religion.select'
+        span: auto
+        type: relation
+    tshirt_size:
+        label: 'csatar.csatar::lang.plugin.admin.scout.tShirtSize'
+        nameFrom: title
+        descriptionFrom: description
+        emptyOption: 'csatar.csatar::lang.plugin.admin.tShirtSize.select'
+        span: auto
+        type: relation

@@ -1,0 +1,11 @@
+name: 'csatar.csatar::lang.plugin.admin.association.association'
+modelClass: Csatar\Csatar\Models\Association
+form: $/csatar/csatar/models/association/fields.yaml
+defaultRedirect: csatar/csatar/associations
+create:
+    redirect: 'csatar/csatar/associations/update/:id'
+    redirectClose: csatar/csatar/associations
+update:
+    redirect: csatar/csatar/associations
+    redirectClose: csatar/csatar/associations
+preview: {  }

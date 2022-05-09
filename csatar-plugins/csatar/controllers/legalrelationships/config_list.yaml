@@ -1,0 +1,12 @@
+title: LegalRelationship
+modelClass: Csatar\Csatar\Models\LegalRelationship
+list: $/csatar/csatar/models/legalrelationship/columns.yaml
+recordUrl: 'csatar/csatar/legalrelationships/update/:id'
+noRecordsMessage: 'backend::lang.list.no_records'
+recordsPerPage: 20
+showSetup: true
+showCheckboxes: true
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'

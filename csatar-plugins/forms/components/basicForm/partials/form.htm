@@ -1,0 +1,66 @@
+<form data-request="{{ __SELF__ }}::onSave"
+      data-request-loading="#fs-saving-loader"
+      data-request-validate
+      data-request-flash>
+
+    {{ form | raw }}
+
+    {% if not preview %}
+        <div class="fs-nav">
+            <div class="control-toolbar">
+                <div class="toolbar-item toolbar-primary">
+                    <div data-control="toolbar">
+                        <div id="fs-saving-loader" style="float:left; display:none; width: 150px;" class="loading-indicator-container">
+                            <div class="loading-indicator size-small" style="background:none;">
+                                <span></span>
+                                <div>{{ 'Saving...'|_ }}</div>
+                            </div>
+                        </div>
+
+                        <div id="fs-closing-loader" style="float:left; display:none; width: 150px;" class="loading-indicator-container">
+                            <div class="loading-indicator size-small" style="background:none;">
+                                <span></span>
+                                <div>{{ 'Closing ...'|_ }}</div>
+                            </div>
+                        </div>
+
+                        <button type="button"
+                                class="btn btn-default oc-icon-reply"
+                                data-request-data="close: 1"
+                                data-request-loading="#fs-saving-loader"
+                                data-request="{{ __SELF__ }}::onSave">
+                            {{ 'Save & Close'|_ }}
+                        </button>
+
+                        <button class="btn btn-default btn-success oc-icon-floppy-o"
+                               data-request="{{ __SELF__ }}::onSave"
+                               data-request-loading="#fs-saving-loader"
+                               data-hotkey="ctrl+s, cmd+s">
+                           {{ 'Save'|_ }}
+                        </button>
+
+                        <button class="btn btn-default btn-danger oc-icon-times"
+                               data-request="{{ __SELF__ }}::onCloseForm"
+                                data-request-loading="#fs-closing-loader"
+                               {% if writable %}
+                               data-request-confirm="Unsaved changes will be lost. Are you sure?"
+                               {% endif %}
+                               >
+                           {{ 'Close'|_ }}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <input type="hidden" name="submission" value="{{ __SELF__.readOnly }}" />
+        <input type="hidden" name="formId" value="{{ __SELF__.formId }}" />
+        <input type="hidden" name="recordKeyParam" value="{{ __SELF__.recordKeyParam }}" />
+        <input type="hidden" name="recordKeyValue" value="{{ recordKeyValue }}" />
+        {% if __SELF__.relation is defined %}
+            <input type="hidden" name="relation" value="{{ __SELF__.relation.id }}" />
+            <input type="hidden" name="data_id" value="{{ data_id }}" />
+        {% endif %}
+    {% endif %}
+
+</form>

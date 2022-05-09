@@ -1,0 +1,18 @@
+title = "Szövetségek"
+layout = "default"
+url = "/szovetsegek"
+
+[builderList]
+modelClass = "Csatar\Csatar\Models\Association"
+scope = "-"
+scopeValue = "{{ :scope }}"
+displayColumn = "name"
+noRecordsMessage = "No records found"
+detailsPage = "szovetseg"
+detailsKeyColumn = "id"
+detailsUrlParameter = "id"
+pageNumber = "{{ :page }}"
+==
+<div class="container">
+    {% component 'builderList' %}
+</div>

@@ -1,0 +1,23 @@
+<?php namespace Csatar\Csatar\Updates;
+
+use Schema;
+use October\Rain\Database\Updates\Migration;
+
+class BuilderTableUpdateCsatarCsatarHierarchy2 extends Migration
+{
+    public function up()
+    {
+        Schema::table('csatar_csatar_hierarchy', function($table)
+        {
+            $table->smallInteger('sort_order')->default(1)->change();
+        });
+    }
+    
+    public function down()
+    {
+        Schema::table('csatar_csatar_hierarchy', function($table)
+        {
+            $table->smallInteger('sort_order')->default(null)->change();
+        });
+    }
+}

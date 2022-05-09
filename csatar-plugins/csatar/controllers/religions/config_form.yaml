@@ -1,0 +1,10 @@
+name: 'csatar.csatar::lang.plugin.admin.religion.religion'
+form: $/csatar/csatar/models/religion/fields.yaml
+modelClass: Csatar\Csatar\Models\Religion
+defaultRedirect: csatar/csatar/religions
+create:
+    redirect: 'csatar/csatar/religions/update/:id'
+    redirectClose: csatar/csatar/religions
+update:
+    redirect: csatar/csatar/religions
+    redirectClose: csatar/csatar/religions
