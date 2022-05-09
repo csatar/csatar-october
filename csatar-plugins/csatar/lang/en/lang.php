@@ -129,7 +129,7 @@
                 'contactEmail' => 'Contact email',
                 'address' => 'Address',
                 'bankAccount' => 'Bank account',
-                'description' => 'Description',
+                'leadershipPresentation' => 'Leadership Presentation',
                 'id' => 'Id',
                 'createdAt' => 'Created at',
                 'updatedAt' => 'Updated at',

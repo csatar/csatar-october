@@ -41,7 +41,7 @@ columns:
         label: 'csatar.csatar::lang.plugin.admin.association.bankAccount'
         type: text
         searchable: true
-    description:
-        label: 'csatar.csatar::lang.plugin.admin.association.description'
+    leadership_presentation:
+        label: 'csatar.csatar::lang.plugin.admin.association.leadershipPresentation'
         type: text
         searchable: true

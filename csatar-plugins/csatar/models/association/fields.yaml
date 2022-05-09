@@ -28,15 +28,15 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.association.bankAccount'
         span: auto
         type: text
-    description:
-        label: 'csatar.csatar::lang.plugin.admin.association.description'
+    leadership_presentation:
+        label: 'csatar.csatar::lang.plugin.admin.association.leadershipPresentation'
         size: ''
         span: auto
         required: 1
         type: textarea
     logo:
         label: 'csatar.csatar::lang.plugin.admin.association.logo'
-        mode: file
+        mode: image
         useCaption: true
         thumbOptions:
             mode: crop

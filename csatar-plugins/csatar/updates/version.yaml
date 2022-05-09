@@ -115,5 +115,8 @@
     - 'Created table csatar_csatar_associations'
     - builder_table_create_csatar_csatar_association.php
 1.0.42:
+    - 'Updated table csatar_csatar_associations'
+    - builder_table_update_csatar_csatar_associations.php
+1.0.43:
     - 'Added seeder for Associations'
     - seeder_1042.php

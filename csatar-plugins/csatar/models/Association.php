@@ -28,8 +28,7 @@ class Association extends Model
         'contact_email' => 'required|email',
         'address' => 'required|min:5',
         'bank_account' => 'min:5',
-        'description' => 'required',
-        'logo' => 'image',
+        'leadership_presentation' => 'required',
     ];
 
     /**
@@ -40,7 +39,7 @@ class Association extends Model
         'contact_name',
         'contact_email',
         'address',
-        'description',
+        'leadership_presentation',
     ];
     
     /**
