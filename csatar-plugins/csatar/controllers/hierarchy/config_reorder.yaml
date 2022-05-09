@@ -1,0 +1,5 @@
+title: Hierarchy
+modelClass: Csatar\Csatar\Models\Hierarchy
+nameFrom: name
+toolbar:
+    buttons: reorder_toolbar

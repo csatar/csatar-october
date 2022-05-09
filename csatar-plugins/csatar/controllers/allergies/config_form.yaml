@@ -1,0 +1,10 @@
+name: 'csatar.csatar::lang.plugin.admin.allergy.allergy'
+form: $/csatar/csatar/models/allergy/fields.yaml
+modelClass: Csatar\Csatar\Models\Allergy
+defaultRedirect: csatar/csatar/allergies
+create:
+    redirect: 'csatar/csatar/allergies/update/:id'
+    redirectClose: csatar/csatar/allergies
+update:
+    redirect: csatar/csatar/allergies
+    redirectClose: csatar/csatar/allergies

@@ -1,0 +1,12 @@
+list: $/csatar/forms/models/form/columns.yaml
+modelClass: Csatar\Forms\Models\Form
+title: Forms
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+recordsPerPage: '8'
+showCheckboxes: true
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'csatar/forms/forms/update/:id'
