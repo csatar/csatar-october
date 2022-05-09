@@ -1,0 +1,13 @@
+fields:
+    name:
+        label: 'csatar.csatar::lang.plugin.admin.hierarchy.name'
+        span: auto
+        required: 1
+        type: text
+    parent:
+        label: 'csatar.csatar::lang.plugin.admin.hierarchy.parent'
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+        emptyOption: 'csatar.csatar::lang.plugin.admin.hierarchy.select'

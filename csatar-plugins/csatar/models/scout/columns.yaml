@@ -1,17 +1,17 @@
 columns:
     id:
-        label: Id
+        label: 'csatar.csatar::lang.plugin.admin.scout.id'
         type: number
         searchable: true
         sortable: true
     created_at:
-        label: 'Created at'
+        label: 'csatar.csatar::lang.plugin.admin.scout.createdAt'
         type: datetime
     updated_at:
-        label: 'Updated at'
+        label: 'csatar.csatar::lang.plugin.admin.scout.updatedAt'
         type: datetime
     deleted_at:
-        label: 'Deleted at'
+        label: 'csatar.csatar::lang.plugin.admin.scout.deletedAt'
         type: datetime
     user_id:
         label: 'csatar.csatar::lang.plugin.admin.scout.userId'
@@ -55,7 +55,7 @@ columns:
         relation: chronic_illnesses
         valueFrom: title
     allergies:
-        label: Allergies
+        label: 'csatar.csatar::lang.plugin.admin.scout.allergy'
         type: text
         searchable: true
         sortable: false

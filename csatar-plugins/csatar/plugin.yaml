@@ -5,6 +5,15 @@ plugin:
     icon: icon-leaf
     homepage: ''
 navigation:
+    main-menu-item-organization-system-data:
+        label: 'csatar.csatar::lang.plugin.admin.admin.menu.organizationSystemData.organizationSystemData'
+        url: /
+        icon: icon-sitemap
+        sideMenu:
+            side-menu-item-hierarchy:
+                label: 'csatar.csatar::lang.plugin.admin.admin.menu.organizationSystemData.hierarchy'
+                url: csatar/csatar/hierarchy
+                icon: icon-sitemap
     main-menu-item-scout-system-data:
         label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.scoutSystemData'
         url: /

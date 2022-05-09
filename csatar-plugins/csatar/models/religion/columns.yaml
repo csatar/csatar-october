@@ -1,17 +1,17 @@
 columns:
     id:
-        label: Id
+        label: 'csatar.csatar::lang.plugin.admin.religion.id'
         type: number
         searchable: true
         sortable: true
     created_at:
-        label: 'Created at'
+        label: 'csatar.csatar::lang.plugin.admin.religion.createdAt'
         type: datetime
     updated_at:
-        label: 'Updated at'
+        label: 'csatar.csatar::lang.plugin.admin.religion.updatedAt'
         type: datetime
     deleted_at:
-        label: 'Deleted at'
+        label: 'csatar.csatar::lang.plugin.admin.religion.deletedAt'
         type: datetime
     title:
         label: 'csatar.csatar::lang.plugin.admin.religion.title'

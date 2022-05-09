@@ -93,3 +93,21 @@
 1.0.34:
     - 'Updated table csatar_csatar_scouts'
     - builder_table_update_csatar_csatar_scouts_8.php
+1.0.35:
+    - 'Created table csatar_csatar_hierarchy'
+    - builder_table_create_csatar_csatar_hierarchy.php
+1.0.36:
+    - 'Updated table csatar_csatar_hierarchy'
+    - builder_table_update_csatar_csatar_hierarchy.php
+1.0.37:
+    - 'Updated table csatar_csatar_hierarchy'
+    - builder_table_update_csatar_csatar_hierarchy_3.php
+1.0.38:
+    - 'Updated table csatar_csatar_legal_relationships'
+    - builder_table_update_csatar_csatar_legal_relationships_2.php
+1.0.39:
+    - 'Updated table csatar_csatar_hierarchy'
+    - builder_table_update_csatar_csatar_hierarchy_2.php
+1.0.40:
+    - 'Added seeder for Hierarchy'
+    - seeder_1040.php

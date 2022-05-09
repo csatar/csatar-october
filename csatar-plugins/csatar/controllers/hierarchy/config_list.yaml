@@ -1,0 +1,14 @@
+title: Hierarchy
+modelClass: Csatar\Csatar\Models\Hierarchy
+list: $/csatar/csatar/models/hierarchy/columns.yaml
+recordUrl: 'csatar/csatar/hierarchy/update/:id'
+noRecordsMessage: 'backend::lang.list.no_records'
+recordsPerPage: 20
+showSetup: true
+showCheckboxes: true
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+showTree: 1
+treeExpanded: 1
