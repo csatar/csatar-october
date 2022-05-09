@@ -3,3 +3,6 @@
 1.0.2:
     - 'Created table csatar_forms_forms'
     - builder_table_create_csatar_forms_forms.php
+1.0.3:
+    - 'Added seeder for Scout and Association'
+    - seeder_103.php

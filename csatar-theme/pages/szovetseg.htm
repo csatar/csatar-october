@@ -1,15 +1,15 @@
-url = "/szovetseg/:id/:action?"
+url = "/szovetseg/:id"
 layout = "default"
 title = "Szövetség"
 
 [basicForm]
-formId = 1
+formId = 3
 recordKeyParam = "id"
 recordActionParam = "action"
 readOnly = 1
-createRecordKeyword = "create"
-actionUpdateKeyword = "update"
-actionDeleteKeyword = "delete"
+createRecordKeyword = "letrehozas"
+actionUpdateKeyword = "modositas"
+actionDeleteKeyword = "torles"
 ==
 <div class="container">
     {% component 'basicForm' %}
