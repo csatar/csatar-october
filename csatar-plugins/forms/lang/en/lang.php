@@ -51,7 +51,8 @@
         'formModelNotFound' => "The model could not be found. Please make sure you enter an existing model name and correct path.",
         'formNotFound' => "The selected form doesn't exist, please check 'Basic Form' component settings on page: ",
         'noDataArray' => 'Data array is missing. Check form validation and see how could this happen.',
-        'canNotSaveValidated' => 'Can not save validated data. Check form validation and see how could this happen.'
+        'canNotSaveValidated' => 'Can not save validated data. Check form validation and see how could this happen.',
+        'noFiles' => 'No files'
     ],
 
 ];

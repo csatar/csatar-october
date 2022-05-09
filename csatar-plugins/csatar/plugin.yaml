@@ -14,6 +14,10 @@ navigation:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.organizationSystemData.hierarchy'
                 url: csatar/csatar/hierarchy
                 icon: icon-sitemap
+            side-menu-item-associations:
+                label: 'csatar.csatar::lang.plugin.admin.association.associations'
+                url: /csatar/csatar/associations
+                icon: icon-sitemap
     main-menu-item-scout-system-data:
         label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.scoutSystemData'
         url: /
