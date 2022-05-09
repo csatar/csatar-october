@@ -116,77 +116,81 @@ h1 {
 
 h2 {
     font-family: geomanist !important;
-    font-weight: 700;
-    font-size: 1.5625rem;
+    font-weight: 700 !important;
+    font-size: 1.5625rem !important;
 }
 
 h3 {
     font-family: geomanist !important;
-    font-weight: 700;
-    font-size: 1.1875rem;
+    font-weight: 700 !important;
+    font-size: 1.1875rem !important;
 }
 
 h4 {
     font-family: geomanist !important;
-    font-weight: 400;
-    font-size: 1.1875rem;
+    font-weight: 400 !important;
+    font-size: 1.1875rem !important;
 }
 
 h5 {
     font-family: geomanist !important;
-    font-weight: 500;
-    font-size: 1.0625rem;
+    font-weight: 500 !important;
+    font-size: 1.0625rem !important;
 }
 
 h6 {
     font-family: geomanist !important;
-    font-weight: 500;
-    font-size: 1.3125rem;
+    font-weight: 500 !important;
+    font-size: 1.3125rem !important;
 }
 
 p {
     font-family: geomanist !important;
-    font-size: 1.0625rem;
-    line-height: 1.3;
+    font-size: 1.0625rem !important;
+    line-height: 1.3 !important;
 }
 
 .p-light {
     font-family: geomanist !important;
-    font-weight: 300;
-    font-size: 1.0625rem;
-    line-height: 1.3;
+    font-weight: 300 !important;
+    font-size: 1.0625rem !important;
+    line-height: 1.3 !important;
 }
 
 .p-bold {
     font-family: geomanist !important;
-    font-weight: 700;
-    font-size: 1.0625rem;
-    line-height: 1.3;
+    font-weight: 700 !important;
+    font-size: 1.0625rem !important;
+    line-height: 1.3 !important;
 }
 
 .p-small {
     font-family: geomanist !important;
-    font-weight: 300;
-    font-size: .9375rem;
-    line-height: 1.3;
+    font-weight: 300 !important;
+    font-size: .9375rem !important;
+    line-height: 1.1 !important;
 }
 
 .p-title {
     font-family: geomanist !important;
-    font-weight: 500;
-    font-size: .9375rem;
-    line-height: 1.3;
+    font-weight: 500 !important;
+    font-size: .9375rem !important;
+    line-height: 1.3 !important;
 }
 
 a {
     font-family: geomanist !important;
-    font-size: 1.0625rem;
+    font-size: 1.0625rem !important;
 }
 
 /* Color settings */
     
 .bg-primary {
     background-color: #78863F !important; 
+}
+
+.text-primary {
+    color: #78863F !important;
 }
 
 .bg-primary-hover {
@@ -197,6 +201,10 @@ a {
     background-color: #FFCE00 !important;
 }
 
+.text-secondary {
+    color: #FFCE00 !important;
+}
+
 .bg-secondary-hover {
     background-color: #FFF0B2;
 }
@@ -205,12 +213,20 @@ a {
     background-color: #63511C !important;
 }
 
+.text-info {
+    color: #63511C !important;
+}
+
 .bg-info-hover {
     background-color: #9D802F;
 }
 
 .bg-danger {
     background-color: #B83222 !important;
+}
+
+.text-danger {
+    color: #B83222 !important;
 }
 
 .bg-danger-hover {
@@ -223,6 +239,10 @@ a {
 
 .bg-gray {
     background-color: #DDDDDD;
+}
+
+.text-gray {
+    color: #DDDDDD;
 }
 
 .subtitle {
@@ -239,6 +259,10 @@ a {
 
 .bg-light {
     background-color: #F5F5F5 !important;
+}
+
+.text-light {
+    color: #F5F5F5 !important;;
 }
 
 a:link, a:visited, a:active {
