@@ -1,0 +1,15 @@
+url = "/korzet/:id/:action?"
+layout = "default"
+title = "Körzet"
+
+[basicForm]
+formId = 4
+recordKeyParam = "id"
+recordActionParam = "action"
+createRecordKeyword = "letrehozas"
+actionUpdateKeyword = "modositas"
+actionDeleteKeyword = "torles"
+==
+<div class="container">
+    {% component 'basicForm' %}
+</div>

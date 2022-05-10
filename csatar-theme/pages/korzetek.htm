@@ -1,0 +1,18 @@
+title = "Körzetek"
+layout = "default"
+url = "/korzetek"
+
+[builderList]
+modelClass = "Csatar\Csatar\Models\District"
+scope = "-"
+scopeValue = "{{ :scope }}"
+displayColumn = "name"
+noRecordsMessage = "No records found"
+detailsPage = "korzet"
+detailsKeyColumn = "id"
+detailsUrlParameter = "id"
+pageNumber = "{{ :page }}"
+==
+<div class="container">
+    {% component 'builderList' %}
+</div>

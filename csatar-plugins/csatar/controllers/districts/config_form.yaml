@@ -1,0 +1,10 @@
+name: 'csatar.csatar::lang.plugin.admin.district.district'
+form: $/csatar/csatar/models/district/fields.yaml
+modelClass: Csatar\Csatar\Models\District
+defaultRedirect: csatar/csatar/districts
+create:
+    redirect: 'csatar/csatar/districts/update/:id'
+    redirectClose: csatar/csatar/districts
+update:
+    redirect: csatar/csatar/districts
+    redirectClose: csatar/csatar/districts

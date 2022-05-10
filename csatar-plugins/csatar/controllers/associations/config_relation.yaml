@@ -1,0 +1,7 @@
+districts:
+  label: 'csatar.csatar::lang.plugin.admin.district.district'
+  view:
+    list: $/csatar/csatar/models/district/columns.yaml
+    toolbarButtons: create|delete
+  manage:
+    form: $/csatar/csatar/models/district/fields.yaml

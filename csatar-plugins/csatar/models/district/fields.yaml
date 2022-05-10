@@ -1,0 +1,78 @@
+fields:
+    name:
+        label: 'csatar.csatar::lang.plugin.admin.district.name'
+        span: auto
+        required: 1
+        type: text
+    address:
+        label: 'csatar.csatar::lang.plugin.admin.district.address'
+        span: auto
+        required: 1
+        type: text
+    phone:
+        label: 'csatar.csatar::lang.plugin.admin.district.phone'
+        span: auto
+        required: 1
+        type: text
+    email:
+        label: 'csatar.csatar::lang.plugin.admin.district.email'
+        span: auto
+        required: 1
+        type: text
+    website:
+        label: 'csatar.csatar::lang.plugin.admin.district.website'
+        span: auto
+        type: text
+    facebook_page:
+        label: 'csatar.csatar::lang.plugin.admin.district.facebookPage'
+        span: auto
+        type: text
+    coordinates:
+        label: 'csatar.csatar::lang.plugin.admin.district.coordinates'
+        size: ''
+        span: auto
+        type: textarea
+    contact_name:
+        label: 'csatar.csatar::lang.plugin.admin.district.contactName'
+        span: auto
+        required: 1
+        type: text
+    contact_email:
+        label: 'csatar.csatar::lang.plugin.admin.district.contactEmail'
+        span: auto
+        required: 1
+        type: text
+    leadership_presentation:
+        label: 'csatar.csatar::lang.plugin.admin.district.leadershipPresentation'
+        size: ''
+        span: auto
+        required: 1
+        type: textarea
+    description:
+        label: 'csatar.csatar::lang.plugin.admin.district.description'
+        size: ''
+        span: auto
+        required: 1
+        type: textarea
+    bank_account:
+        label: 'csatar.csatar::lang.plugin.admin.district.bankAccount'
+        span: auto
+        type: text
+    logo:
+        label: 'csatar.csatar::lang.plugin.admin.district.logo'
+        mode: image
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        maxFilesize: '5'
+        span: auto
+        type: fileupload
+    association:
+        label: 'csatar.csatar::lang.plugin.admin.district.association'
+        nameFrom: name
+        descriptionFrom: description
+        emptyOption: 'csatar.csatar::lang.plugin.admin.district.select'
+        span: auto
+        required: 1
+        type: relation

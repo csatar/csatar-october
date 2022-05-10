@@ -6,3 +6,6 @@
 1.0.3:
     - 'Added seeder for Scout and Association'
     - seeder_103.php
+1.0.4:
+    - 'Added seeder for District'
+    - seeder_104.php
