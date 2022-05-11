@@ -97,6 +97,10 @@ class Team extends Model
         'district' => '\Csatar\Csatar\Models\District',
     ];
 
+    public $hasMany = [
+        'troops' => '\Csatar\Csatar\Models\Troop',
+    ];
+
     public $attachOne = [
         'logo' => 'System\Models\File'
     ];

@@ -1,0 +1,22 @@
+title = "Rajok"
+layout = "default"
+url = "/rajok"
+
+[builderList]
+modelClass = "Csatar\Csatar\Models\Troop"
+scope = "-"
+scopeValue = "{{ :scope }}"
+displayColumn = "name"
+noRecordsMessage = "backend::lang.list.no_records"
+detailsPage = "raj"
+detailsKeyColumn = "id"
+detailsUrlParameter = "id"
+pageNumber = "{{ :page }}"
+
+[viewBag]
+localeTitle[en] = "Troops"
+localeTitle[hu] = "Rajok"
+==
+<div class="container">
+    {% component 'builderList' %}
+</div>
