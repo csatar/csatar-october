@@ -1,6 +1,6 @@
 list: $/csatar/csatar/models/chronicillness/columns.yaml
 modelClass: Csatar\Csatar\Models\ChronicIllness
-title: ChronicIllness
+title: 'csatar.csatar::lang.plugin.admin.chronicIllness.chronicIllnesses'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: true

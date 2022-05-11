@@ -1,8 +1,12 @@
 url = "/elfelejtett-jelszo"
 layout = "default"
-title = "Elfelejtett Jelszó"
+title = "Password Reset"
 
 [resetpasswordOverRide]
 paramCode = "code"
+
+[viewBag]
+localeTitle[en] = "Password Reset"
+localeTitle[hu] = "Elfelejtett Jelszó"
 ==
 {% component 'resetpasswordOverRide' %}

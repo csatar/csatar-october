@@ -10,7 +10,27 @@ readOnly = 1
 createRecordKeyword = "letrehozas"
 actionUpdateKeyword = "modositas"
 actionDeleteKeyword = "torles"
+
+[builderList]
+modelClass = "Csatar\Csatar\Models\District"
+scope = "scopeAssociationId"
+scopeValue = "{{ :id }}"
+displayColumn = "name"
+noRecordsMessage = "No records found"
+detailsPage = "korzet"
+detailsKeyColumn = "id"
+detailsUrlParameter = "id"
+pageNumber = "{{ :page }}"
+
+[viewBag]
+localeTitle[en] = "Association"
+localeTitle[hu] = "Szövetség"
 ==
 <div class="container">
     {% component 'basicForm' %}
+
+    <p>{{ 'Districts' | _ }}</p>
+    {% component 'builderList' %}
+
+    <p><a href="/korzet/letrehozas" class="btn btn-default">{{ 'Add district' | _ }}</a></p>
 </div>

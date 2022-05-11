@@ -6,6 +6,7 @@
         'admin' => [
             'scout' => [
                 'scout' => 'Scout',
+                'scouts' => 'Scouts',
                 'scoutData' => 'Scout data',
                 'userId' => 'User Id',
                 'familyName' => 'Family name',
@@ -53,6 +54,7 @@
             ],
             'allergy' => [
                 'allergy' => 'Allergy',
+                'allergies' => 'Allergies',
                 'title' => 'Title',
                 'details' => 'Details',
                 'id' => 'Id',
@@ -63,6 +65,7 @@
             ],
             'chronicIllness' => [
                 'chronicIllness' => 'Chronic Illness',
+                'chronicIllnesses' => 'Chronic Illnesses',
                 'title' => 'Title',
                 'id' => 'Id',
                 'createdAt' => 'Created at',
@@ -72,6 +75,7 @@
             ],
             'legalRelationship' => [
                 'legalRelationship' => 'Legal Relationship',
+                'legalRelationships' => 'Legal Relationships',
                 'title' => 'Title',
                 'id' => 'Id',
                 'createdAt' => 'Created at',
@@ -83,6 +87,7 @@
             ],
             'religion' => [
                 'religion' => 'Religion',
+                'religions' => 'Religions',
                 'title' => 'Title',
                 'id' => 'Id',
                 'createdAt' => 'Created at',
@@ -93,6 +98,7 @@
             ],
             'specialDiet' => [
                 'specialDiet' => 'Special Diet',
+                'specialDiets' => 'Special Diets',
                 'title' => 'Title',
                 'id' => 'Id',
                 'createdAt' => 'Created at',
@@ -103,6 +109,7 @@
             ],
             'tShirtSize' => [
                 'tShirtSize' => 'T-Shirt Size',
+                'tShirtSizes' => 'T-Shirt Sizes',
                 'title' => 'Title',
                 'id' => 'Id',
                 'createdAt' => 'Created at',
@@ -129,12 +136,36 @@
                 'contactEmail' => 'Contact email',
                 'address' => 'Address',
                 'bankAccount' => 'Bank account',
-                'description' => 'Description',
+                'leadershipPresentation' => 'Leadership Presentation',
                 'id' => 'Id',
                 'createdAt' => 'Created at',
                 'updatedAt' => 'Updated at',
                 'deletedAt' => 'Deleted at',
+                'districtsInfo' => 'Districts can be added after the Association has been created. Click Create button after other information is filled.',
                 'breadcrumb' => 'Associations',
+                'logo' => 'Logo',
+            ],
+            'district' => [
+                'district' => 'District',
+                'districts' => 'Districts',
+                'name' => 'Name',
+                'phone' => 'Phone',
+                'website' => 'Website',
+                'coordinates' => 'Coordinates',
+                'contactEmail' => 'Contact email',
+                'description' => 'Description',
+                'address' => 'Address',
+                'email' => 'Email',
+                'facebookPage' => 'Facebook page',
+                'contactName' => 'Contact name',
+                'leadershipPresentation' => 'Leadership presentation',
+                'bankAccount' => 'Bank account',
+                'id' => 'Id',
+                'createdAt' => 'Created at',
+                'updatedAt' => 'Updated at',
+                'deletedAt' => 'Deleted at',
+                'breadcrumb' => 'Districts',
+                'association' => 'Association',
                 'select' => 'Select...',
                 'logo' => 'Logo',
             ],
@@ -144,6 +175,6 @@
                 'name' => 'Reset Password',
                 'description' => 'Enables restoring the user\'s password.',
             ],
-        ],
+        ]
     ],
 ];

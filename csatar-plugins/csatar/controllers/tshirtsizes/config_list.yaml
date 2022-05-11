@@ -1,6 +1,6 @@
 list: $/csatar/csatar/models/tshirtsize/columns.yaml
 modelClass: Csatar\Csatar\Models\TShirtSize
-title: TShirtSizes
+title: 'csatar.csatar::lang.plugin.admin.tShirtSize.tShirtSize'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: true

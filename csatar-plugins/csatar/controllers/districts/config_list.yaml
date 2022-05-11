@@ -1,6 +1,6 @@
-list: $/csatar/csatar/models/allergy/columns.yaml
-modelClass: Csatar\Csatar\Models\Allergy
-title: 'csatar.csatar::lang.plugin.admin.allergy.allergies'
+list: $/csatar/csatar/models/district/columns.yaml
+modelClass: Csatar\Csatar\Models\District
+title: 'csatar.csatar::lang.plugin.admin.district.districts'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: true
@@ -9,4 +9,4 @@ toolbar:
     buttons: list_toolbar
     search:
         prompt: 'backend::lang.list.search_prompt'
-recordUrl: 'csatar/csatar/allergies/update/:id'
+recordUrl: 'csatar/csatar/districts/update/:id'

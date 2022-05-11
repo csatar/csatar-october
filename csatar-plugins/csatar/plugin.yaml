@@ -18,6 +18,10 @@ navigation:
                 label: 'csatar.csatar::lang.plugin.admin.association.associations'
                 url: /csatar/csatar/associations
                 icon: icon-sitemap
+            side-menu-item-districts:
+                label: 'csatar.csatar::lang.plugin.admin.district.districts'
+                url: csatar/csatar/districts
+                icon: icon-sitemap
     main-menu-item-scout-system-data:
         label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.scoutSystemData'
         url: /
