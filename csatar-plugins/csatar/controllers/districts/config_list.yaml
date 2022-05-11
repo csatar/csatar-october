@@ -1,6 +1,6 @@
 list: $/csatar/csatar/models/district/columns.yaml
 modelClass: Csatar\Csatar\Models\District
-title: Districts
+title: 'csatar.csatar::lang.plugin.admin.district.districts'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: true

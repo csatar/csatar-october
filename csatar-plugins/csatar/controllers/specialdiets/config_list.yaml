@@ -1,6 +1,6 @@
 list: $/csatar/csatar/models/specialdiet/columns.yaml
 modelClass: Csatar\Csatar\Models\SpecialDiet
-title: SpecialDiets
+title: 'csatar.csatar::lang.plugin.admin.specialDiet.specialDiets'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: true

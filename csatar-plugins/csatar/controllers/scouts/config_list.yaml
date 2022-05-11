@@ -1,6 +1,6 @@
 list: $/csatar/csatar/models/scout/columns.yaml
 modelClass: Csatar\Csatar\Models\Scout
-title: Scouts
+title: 'csatar.csatar::lang.plugin.admin.scout.scouts'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: true

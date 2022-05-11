@@ -6,6 +6,7 @@
         'admin' => [
             'scout' => [
                 'scout' => 'Scout',
+                'scouts' => 'Scouts',
                 'scoutData' => 'Scout data',
                 'userId' => 'User Id',
                 'familyName' => 'Family name',
@@ -53,6 +54,7 @@
             ],
             'allergy' => [
                 'allergy' => 'Allergy',
+                'allergies' => 'Allergies',
                 'title' => 'Title',
                 'details' => 'Details',
                 'id' => 'Id',
@@ -63,6 +65,7 @@
             ],
             'chronicIllness' => [
                 'chronicIllness' => 'Chronic Illness',
+                'chronicIllnesses' => 'Chronic Illnesses',
                 'title' => 'Title',
                 'id' => 'Id',
                 'createdAt' => 'Created at',
@@ -72,6 +75,7 @@
             ],
             'legalRelationship' => [
                 'legalRelationship' => 'Legal Relationship',
+                'legalRelationships' => 'Legal Relationships',
                 'title' => 'Title',
                 'id' => 'Id',
                 'createdAt' => 'Created at',
@@ -83,6 +87,7 @@
             ],
             'religion' => [
                 'religion' => 'Religion',
+                'religions' => 'Religions',
                 'title' => 'Title',
                 'id' => 'Id',
                 'createdAt' => 'Created at',
@@ -93,6 +98,7 @@
             ],
             'specialDiet' => [
                 'specialDiet' => 'Special Diet',
+                'specialDiets' => 'Special Diets',
                 'title' => 'Title',
                 'id' => 'Id',
                 'createdAt' => 'Created at',
@@ -103,6 +109,7 @@
             ],
             'tShirtSize' => [
                 'tShirtSize' => 'T-Shirt Size',
+                'tShirtSizes' => 'T-Shirt Sizes',
                 'title' => 'Title',
                 'id' => 'Id',
                 'createdAt' => 'Created at',
@@ -168,6 +175,6 @@
                 'name' => 'Reset Password',
                 'description' => 'Enables restoring the user\'s password.',
             ],
-        ],
+        ]
     ],
 ];

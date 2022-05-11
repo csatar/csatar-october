@@ -1,4 +1,4 @@
-title: Hierarchy
+title: 'csatar.csatar::lang.plugin.admin.hierarchy.hierarchy'
 modelClass: Csatar\Csatar\Models\Hierarchy
 list: $/csatar/csatar/models/hierarchy/columns.yaml
 recordUrl: 'csatar/csatar/hierarchy/update/:id'
