@@ -40,6 +40,7 @@ class Team extends Model
         'juridical_person_tax_number' => 'required',
         'juridical_person_bank_account' => 'required|min:5',
         'district_id' => 'required',
+        'logo' => 'image|nullable',
     ];
 
     /**
