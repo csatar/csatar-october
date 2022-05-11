@@ -29,6 +29,7 @@ class Association extends Model
         'address' => 'required|min:5',
         'bank_account' => 'min:5',
         'leadership_presentation' => 'required',
+        'logo' => 'image|nullable',
     ];
 
     /**

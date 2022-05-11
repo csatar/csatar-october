@@ -35,6 +35,7 @@ class District extends Model
         'leadership_presentation' => 'required',
         'description' => 'required',
         'association_id' => 'required',
+        'logo' => 'image|nullable',
     ];
 
     /**
