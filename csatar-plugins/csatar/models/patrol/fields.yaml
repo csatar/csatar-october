@@ -59,6 +59,6 @@ fields:
         nameFrom: name
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.patrol.select'
-        span: auto
-        type: relation
         dependsOn: team
+        span: auto
+        type: dropdown

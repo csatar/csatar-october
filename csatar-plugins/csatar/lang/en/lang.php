@@ -243,7 +243,7 @@
                 'breadcrumb' => 'Patrols',
                 'select' => 'Select...',
                 'logo' => 'Logo',
-                'troopNotInTheTeamError' => 'The selected Troop is not in the selected Team.',
+                'troopNotInTheTeamError' => 'The selected Troop does not belong to the selected Team.',
             ],
         ],
         'component' => [

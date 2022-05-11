@@ -48,7 +48,7 @@ class Team extends Model
      */
     public function beforeValidate() {
         // if we don't have all the data for this validation, then return. The 'required' validation rules will be triggered
-        if (!$this->district || !$this->team_number) {
+        if (!isset($this->district) || !isset($this->team_number)) {
             return;
         }
 

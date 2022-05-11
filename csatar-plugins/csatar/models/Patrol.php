@@ -40,7 +40,7 @@ class Patrol extends Model
      */
     public function beforeValidate() {
         // if we don't have all the data for this validation, then return. The 'required' validation rules will be triggered
-        if (!$this->team_id) {
+        if (!isset($this->team_id)) {
             return;
         }
         
@@ -48,6 +48,21 @@ class Patrol extends Model
         if ($this->troop_id && $this->troop->team->id != $this->team_id) {
             throw new \ValidationException(['troop' => \Lang::get('csatar.csatar::lang.plugin.admin.patrol.troopNotInTheTeamError')]);
         }
+    }
+    
+    /**
+     * Handle the team-troop dependency
+     */
+    public function filterFields($fields, $context = null) {
+        // select team on the basis of the troop
+        if (!isset($this->team) && isset($this->troop_id)) {
+            $this->team_id = $this->troop->team_id;
+            $fields->team->value = $this->team_id;
+        }
+
+        // populate the Troop dropdown with troops that belong to the selected team
+        $team_id = $this->team_id;
+        $fields->troop->options = $team_id ? \Csatar\Csatar\Models\Troop::teamId($team_id)->lists('name', 'id') : [];
     }
 
     /**
