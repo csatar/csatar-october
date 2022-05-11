@@ -1,6 +1,6 @@
 fields:
     name:
-        label: 'csatar.csatar::lang.plugin.admin.team.name'
+        label: 'csatar.csatar::lang.plugin.admin.general.name'
         span: auto
         required: 1
         type: text
@@ -10,7 +10,7 @@ fields:
         required: 1
         type: text
     address:
-        label: 'csatar.csatar::lang.plugin.admin.team.address'
+        label: 'csatar.csatar::lang.plugin.admin.general.address'
         span: auto
         required: 1
         type: text
@@ -21,12 +21,12 @@ fields:
         required: 1
         type: datepicker
     phone:
-        label: 'csatar.csatar::lang.plugin.admin.team.phone'
+        label: 'csatar.csatar::lang.plugin.admin.general.phone'
         span: auto
         required: 1
         type: text
     email:
-        label: 'csatar.csatar::lang.plugin.admin.team.email'
+        label: 'csatar.csatar::lang.plugin.admin.general.email'
         span: auto
         required: 1
         type: text
@@ -44,7 +44,7 @@ fields:
         required: 1
         type: text
     contact_email:
-        label: 'csatar.csatar::lang.plugin.admin.team.contactEmail'
+        label: 'csatar.csatar::lang.plugin.admin.general.contactEmail'
         span: auto
         required: 1
         type: text
@@ -54,7 +54,7 @@ fields:
         span: auto
         type: textarea
     coordinates:
-        label: 'csatar.csatar::lang.plugin.admin.team.coordinates'
+        label: 'csatar.csatar::lang.plugin.admin.general.coordinates'
         size: ''
         span: auto
         type: textarea
@@ -95,7 +95,7 @@ fields:
         span: auto
         type: text
     logo:
-        label: 'csatar.csatar::lang.plugin.admin.team.logo'
+        label: 'csatar.csatar::lang.plugin.admin.general.logo'
         mode: image
         useCaption: true
         thumbOptions:
@@ -108,7 +108,7 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.team.district'
         nameFrom: name
         descriptionFrom: description
-        emptyOption: 'csatar.csatar::lang.plugin.admin.team.select'
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
         required: 1
         type: relation

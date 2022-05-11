@@ -1,25 +1,25 @@
 columns:
     id:
-        label: 'csatar.csatar::lang.plugin.admin.troop.id'
+        label: 'csatar.csatar::lang.plugin.admin.general.id'
         type: number
         searchable: true
         sortable: true
     created_at:
-        label: 'csatar.csatar::lang.plugin.admin.troop.createdAt'
+        label: 'csatar.csatar::lang.plugin.admin.general.createdAt'
         type: datetime
     updated_at:
-        label: 'csatar.csatar::lang.plugin.admin.troop.updatedAt'
+        label: 'csatar.csatar::lang.plugin.admin.general.updatedAt'
         type: datetime
     deleted_at:
-        label: 'csatar.csatar::lang.plugin.admin.troop.deletedAt'
+        label: 'csatar.csatar::lang.plugin.admin.general.deletedAt'
         type: datetime
     name:
-        label: 'csatar.csatar::lang.plugin.admin.troop.name'
+        label: 'csatar.csatar::lang.plugin.admin.general.name'
         type: text
         searchable: true
         sortable: true
     email:
-        label: 'csatar.csatar::lang.plugin.admin.troop.email'
+        label: 'csatar.csatar::lang.plugin.admin.general.email'
         type: text
         searchable: true
         sortable: true
