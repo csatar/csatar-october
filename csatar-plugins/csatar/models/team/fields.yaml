@@ -16,7 +16,7 @@ fields:
         type: text
     foundation_date:
         label: 'csatar.csatar::lang.plugin.admin.team.foundationDate'
-        mode: datetime
+        mode: date
         span: auto
         required: 1
         type: datepicker
