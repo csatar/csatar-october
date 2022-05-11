@@ -1,0 +1,10 @@
+name: 'csatar.csatar::lang.plugin.admin.patrol.patrol'
+form: $/csatar/csatar/models/patrol/fields.yaml
+modelClass: Csatar\Csatar\Models\Patrol
+defaultRedirect: csatar/csatar/patrols
+create:
+    redirect: 'csatar/csatar/patrols/update/:id'
+    redirectClose: csatar/csatar/patrols
+update:
+    redirect: csatar/csatar/patrols
+    redirectClose: csatar/csatar/patrols

@@ -99,6 +99,7 @@ class Team extends Model
 
     public $hasMany = [
         'troops' => '\Csatar\Csatar\Models\Troop',
+        'patrols' => '\Csatar\Csatar\Models\Patrol',
     ];
 
     public $attachOne = [

@@ -1,0 +1,67 @@
+columns:
+    id:
+        label: 'csatar.csatar::lang.plugin.admin.patrol.id'
+        type: number
+        searchable: true
+        sortable: true
+    created_at:
+        label: 'csatar.csatar::lang.plugin.admin.patrol.createdAt'
+        type: datetime
+    updated_at:
+        label: 'csatar.csatar::lang.plugin.admin.patrol.updatedAt'
+        type: datetime
+    deleted_at:
+        label: 'csatar.csatar::lang.plugin.admin.patrol.deletedAt'
+        type: datetime
+    name:
+        label: 'csatar.csatar::lang.plugin.admin.patrol.name'
+        type: text
+        searchable: true
+        sortable: true
+    email:
+        label: 'csatar.csatar::lang.plugin.admin.patrol.email'
+        type: text
+        searchable: true
+        sortable: true
+    website:
+        label: 'csatar.csatar::lang.plugin.admin.patrol.website'
+        type: text
+        searchable: true
+        sortable: true
+    facebook_page:
+        label: 'csatar.csatar::lang.plugin.admin.patrol.facebookPage'
+        type: text
+        searchable: true
+        sortable: true
+    patrol_leader_name:
+        label: 'csatar.csatar::lang.plugin.admin.patrol.patrolLeaderName'
+        type: text
+        searchable: true
+        sortable: true
+    patrol_leader_phone:
+        label: 'csatar.csatar::lang.plugin.admin.patrol.patrolLeaderPhone'
+        type: text
+        searchable: true
+        sortable: true
+    patrol_leader_email:
+        label: 'csatar.csatar::lang.plugin.admin.patrol.patrolLeaderEmail'
+        type: text
+        searchable: true
+        sortable: true
+    age_group:
+        label: 'csatar.csatar::lang.plugin.admin.patrol.ageGroup'
+        type: text
+        searchable: true
+        sortable: true
+    team_id:
+        label: 'csatar.csatar::lang.plugin.admin.patrol.team'
+        type: number
+        searchable: true
+        select: 'concat(team_number, ''. '', name)'
+        relation: team
+    troop_id:
+        label: 'csatar.csatar::lang.plugin.admin.patrol.troop'
+        type: number
+        searchable: true
+        relation: troop
+        valueFrom: name

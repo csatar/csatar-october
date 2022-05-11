@@ -39,7 +39,6 @@ class Troop extends Model
      */
     public $fillable = [
         'name',
-        'email',
         'troop_leader_name',
         'troop_leader_phone',
         'troop_leader_email',
@@ -52,6 +51,10 @@ class Troop extends Model
     
     public $belongsTo = [
         'team' => '\Csatar\Csatar\Models\Team',
+    ];
+
+    public $hasMany = [
+        'patrols' => '\Csatar\Csatar\Models\Patrol',
     ];
 
     public $attachOne = [
