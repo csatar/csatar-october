@@ -7,11 +7,15 @@ modelClass = "Csatar\Csatar\Models\Team"
 scope = "-"
 scopeValue = "{{ :scope }}"
 displayColumn = "name"
-noRecordsMessage = "No records found"
+noRecordsMessage = "backend::lang.list.no_records"
 detailsPage = "csapat"
 detailsKeyColumn = "id"
 detailsUrlParameter = "id"
 pageNumber = "{{ :page }}"
+
+[viewBag]
+localeTitle[en] = "Teams"
+localeTitle[hu] = "Csapatok"
 ==
 <div class="container">
     {% component 'builderList' %}

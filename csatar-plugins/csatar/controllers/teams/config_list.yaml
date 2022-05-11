@@ -1,6 +1,6 @@
 list: $/csatar/csatar/models/team/columns.yaml
 modelClass: Csatar\Csatar\Models\Team
-title: Teams
+title: 'csatar.csatar::lang.plugin.admin.team.teams'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: true
