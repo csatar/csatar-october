@@ -1,0 +1,7 @@
+teams:
+  label: 'csatar.csatar::lang.plugin.admin.team.team'
+  view:
+    list: $/csatar/csatar/models/team/columns.yaml
+    toolbarButtons: create|delete
+  manage:
+    form: $/csatar/csatar/models/team/fields.yaml

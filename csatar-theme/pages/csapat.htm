@@ -1,0 +1,15 @@
+url = "/csapat/:id/:action?"
+layout = "default"
+title = "Csapat"
+
+[basicForm]
+formId = 5
+recordKeyParam = "id"
+recordActionParam = "action"
+createRecordKeyword = "letrehozas"
+actionUpdateKeyword = "modositas"
+actionDeleteKeyword = "torles"
+==
+<div class="container">
+    {% component 'basicForm' %}
+</div>

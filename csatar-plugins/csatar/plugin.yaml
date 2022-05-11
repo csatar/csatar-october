@@ -22,6 +22,10 @@ navigation:
                 label: 'csatar.csatar::lang.plugin.admin.district.districts'
                 url: csatar/csatar/districts
                 icon: icon-sitemap
+            side-menu-item-teams:
+                label: 'csatar.csatar::lang.plugin.admin.team.teams'
+                url: csatar/csatar/teams
+                icon: icon-sitemap
     main-menu-item-scout-system-data:
         label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.scoutSystemData'
         url: /

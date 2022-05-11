@@ -9,3 +9,6 @@
 1.0.4:
     - 'Added seeder for District'
     - seeder_104.php
+1.0.5:
+    - 'Added seeder for Team'
+    - seeder_105.php
