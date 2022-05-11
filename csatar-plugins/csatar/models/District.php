@@ -61,8 +61,12 @@ class District extends Model
         'association' => '\Csatar\Csatar\Models\Association',
     ];
 
+    public $hasMany = [
+        'teams' => '\Csatar\Csatar\Models\Team',
+    ];
+
     public $attachOne = [
-        'logo' => 'System\Models\File'
+        'logo' => 'System\Models\File',
     ];
     
     /**

@@ -126,3 +126,9 @@
 1.0.45:
     - 'Updated table csatar_csatar_districts'
     - builder_table_update_csatar_csatar_districts.php
+1.0.46:
+    - 'Created table csatar_csatar_team'
+    - builder_table_create_csatar_csatar_team.php
+1.0.47:
+    - 'Updated table csatar_csatar_team'
+    - builder_table_update_csatar_csatar_teams.php

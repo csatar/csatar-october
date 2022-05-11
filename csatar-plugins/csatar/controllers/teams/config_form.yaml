@@ -1,0 +1,10 @@
+name: 'csatar.csatar::lang.plugin.admin.team.team'
+form: $/csatar/csatar/models/team/fields.yaml
+modelClass: Csatar\Csatar\Models\Team
+defaultRedirect: csatar/csatar/teams
+create:
+    redirect: 'csatar/csatar/teams/update/:id'
+    redirectClose: csatar/csatar/teams
+update:
+    redirect: csatar/csatar/teams
+    redirectClose: csatar/csatar/teams

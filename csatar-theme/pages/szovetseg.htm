@@ -16,7 +16,7 @@ modelClass = "Csatar\Csatar\Models\District"
 scope = "scopeAssociationId"
 scopeValue = "{{ :id }}"
 displayColumn = "name"
-noRecordsMessage = "No records found"
+noRecordsMessage = "backend::lang.list.no_records"
 detailsPage = "korzet"
 detailsKeyColumn = "id"
 detailsUrlParameter = "id"
@@ -32,5 +32,5 @@ localeTitle[hu] = "Szövetség"
     <p>{{ 'Districts' | _ }}</p>
     {% component 'builderList' %}
 
-    <p><a href="/korzet/letrehozas" class="btn btn-default">{{ 'Add district' | _ }}</a></p>
+    <p><a href="/korzet/letrehozas" class="btn btn-default">{{ 'Add District' | _ }}</a></p>
 </div>
