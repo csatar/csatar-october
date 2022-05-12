@@ -132,3 +132,6 @@
 1.0.47:
     - 'Updated table csatar_csatar_team'
     - builder_table_update_csatar_csatar_teams.php
+1.0.48:
+    - 'Created table csatar_csatar_troops'
+    - builder_table_create_csatar_csatar_troops.php

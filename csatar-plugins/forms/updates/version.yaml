@@ -12,3 +12,6 @@
 1.0.5:
     - 'Added seeder for Team'
     - seeder_105.php
+1.0.6:
+    - 'Added seeder for Troop'
+    - seeder_106.php

@@ -1,20 +1,20 @@
 columns:
     id:
-        label: 'csatar.csatar::lang.plugin.admin.religion.id'
+        label: 'csatar.csatar::lang.plugin.admin.general.id'
         type: number
         searchable: true
         sortable: true
     created_at:
-        label: 'csatar.csatar::lang.plugin.admin.religion.createdAt'
+        label: 'csatar.csatar::lang.plugin.admin.general.createdAt'
         type: datetime
     updated_at:
-        label: 'csatar.csatar::lang.plugin.admin.religion.updatedAt'
+        label: 'csatar.csatar::lang.plugin.admin.general.updatedAt'
         type: datetime
     deleted_at:
-        label: 'csatar.csatar::lang.plugin.admin.religion.deletedAt'
+        label: 'csatar.csatar::lang.plugin.admin.general.deletedAt'
         type: datetime
     title:
-        label: 'csatar.csatar::lang.plugin.admin.religion.title'
+        label: 'csatar.csatar::lang.plugin.admin.general.title'
         type: text
         searchable: true
         sortable: true
