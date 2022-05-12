@@ -111,82 +111,112 @@ body {
 h1 {
     font-family: geomanist !important;
     font-weight: 700;
-    font-size: 2.5625rem;
+    font-size: calc(1.5rem + 1.5vw);
 }
 
 h2 {
     font-family: geomanist !important;
     font-weight: 700;
-    font-size: 1.5625rem;
+    font-size: calc(1rem + 1.5vw);
 }
 
 h3 {
     font-family: geomanist !important;
     font-weight: 700;
-    font-size: 1.1875rem;
+    font-size: calc(0.8rem + 1.2vw);
 }
 
 h4 {
     font-family: geomanist !important;
     font-weight: 400;
-    font-size: 1.1875rem;
+    font-size: calc(0.8rem + 1.2vw);
 }
 
 h5 {
     font-family: geomanist !important;
     font-weight: 500;
-    font-size: 1.0625rem;
+    font-size: calc(1rem + 0.1vw)
 }
 
 h6 {
     font-family: geomanist !important;
     font-weight: 500;
-    font-size: 1.3125rem;
+    font-size: calc(1.2rem + 0.1vw)
 }
 
 p {
     font-family: geomanist !important;
-    font-size: 1.0625rem;
+    font-size: calc(0.9rem + 0.2vw);
     line-height: 1.3;
 }
 
 .p-light {
     font-family: geomanist !important;
     font-weight: 300;
-    font-size: 1.0625rem;
+    font-size: calc(0.9rem + 0.2vw);
     line-height: 1.3;
 }
 
 .p-bold {
     font-family: geomanist !important;
     font-weight: 700;
-    font-size: 1.0625rem;
+    font-size: calc(0.9rem + 0.2vw);
     line-height: 1.3;
 }
 
 .p-small {
     font-family: geomanist !important;
     font-weight: 300;
-    font-size: .9375rem;
+    font-size: calc(0.8rem + 0.2vw);
     line-height: 1.3;
 }
 
 .p-title {
     font-family: geomanist !important;
     font-weight: 500;
-    font-size: .9375rem;
+    font-size: calc(0.8rem + 0.2vw);
     line-height: 1.3;
 }
 
 a {
     font-family: geomanist !important;
-    font-size: 1.0625rem;
+    font-size: calc(0.9rem + 0.2vw);
+}
+
+.font-pw-700 {
+    font-weight: 700;
+}
+
+.font-pw-500 {
+    font-weight: 500;
+}
+
+.font-pw-400 {
+    font-weight: 400;
+}
+
+.font-pw-300 {
+    font-weight: 300;
 }
 
 /* Color settings */
+
+.swatch {
+    width: 140px;
+    height: 70px;
+}
+
+.swatch-narrow {
+    width: 140px;
+    height: 50px;
+}
     
 .bg-primary {
     background-color: #78863F !important; 
+}
+
+.text-primary {
+    color: #78863F;
 }
 
 .bg-primary-hover {
@@ -197,12 +227,20 @@ a {
     background-color: #FFCE00 !important;
 }
 
+.text-secondary {
+    color: #FFCE00;
+}
+
 .bg-secondary-hover {
     background-color: #FFF0B2;
 }
 
 .bg-info {
     background-color: #63511C !important;
+}
+
+.text-info {
+    color: #63511C;
 }
 
 .bg-info-hover {
@@ -213,16 +251,29 @@ a {
     background-color: #B83222 !important;
 }
 
+.text-danger {
+    color: #B83222;
+}
+
 .bg-danger-hover {
     background-color: #FFC5C1;
 }
+
 
 .bg-background2 {
     background-color: #E0C89D;
 }
 
+.text-background2 {
+    color: #E0C89D;
+}
+
 .bg-gray {
     background-color: #DDDDDD;
+}
+
+.text-gray {
+    color: #DDDDDD;
 }
 
 .subtitle {
@@ -241,12 +292,28 @@ a {
     background-color: #F5F5F5 !important;
 }
 
+.text-light {
+    color: #F5F5F5;
+}
+
 a:link, a:visited, a:active {
     color:#FFCE00;
 }
 
 a:hover {
     color:#FFF0B2;
+}
+
+.code-blue {
+    color:#2f6f9f;
+}
+
+.code-bluel {
+    color:#006ee0;
+}
+
+.code-red {
+    color:#d73038;
 }
 
 /* Button color and font settings */
@@ -276,7 +343,7 @@ a:hover {
 .btn {
     font-family: geomanist !important;
     font-weight: 500 !important;
-    font-size: .9375rem !important;
+    font-size: calc(1rem + 0.1vw) !important;
     padding: 2;
     margin: 2;
   }
@@ -314,17 +381,26 @@ a:hover {
 /* ICONS */
 
 /* paths */
+.adduser-fill:before, .adduser-fill-md:before, .adduser-fill-lg:before {content: url(../images/symbols/adduser_green_fill.svg);}
+.adduser-out:before, .adduser-out-md:before, .adduser-out-lg:before {content: url(../images/symbols/adduser_green_out.svg);}
+.exit-fill-sm:before, .exit-fill-md:before, .exit-fill-lg:before {content: url(../images/symbols/exit_green_fill.svg);}
+.exit-out-sm:before, .exit-out-md:before, .exit-out-lg:before {content: url(../images/symbols/exit_green_out.svg);}
+.f-fill-sm:before, .f-fill-md:before, .f-fill-lg:before {content: url(../images/symbols/f_green_fill.svg);}
+.f-out-sm:before, .f-out-md:before, .f-out-lg:before {content: url(../images/symbols/f_green_out.svg);}
+.g-fill-sm:before, .g-fill-md:before, .g-fill-lg:before {content: url(../images/symbols/g_green_fill.svg);}
+.g-out-sm:before, .g-out-md:before, .g-out-lg:before {content: url(../images/symbols/g_green_out.svg);}
 .gear-fill-sm:before, .gear-fill-md:before, .gear-fill-lg:before {content: url(../images/symbols/gear_green_fill.svg);}
 .gear-out-sm:before, .gear-out-md:before, .gear-out-lg:before {content: url(../images/symbols/gear_green_out.svg);}
 .key-fill-sm:before, .key-fill-md:before, .key-fill-lg:before {content: url(../images/symbols/key_green_fill.svg);}
 .key-out-sm:before, .key-out-md:before, .key-out-lg:before {content: url(../images/symbols/key_green_out.svg);}
 .magnifier-fill-sm:before, .magnifier-fill-md:before, .magnifier-fill-lg:before {content: url(../images/symbols/magnifier_green_fill.svg);}
 .magnifier-out-sm:before, .magnifier-out-md:before, .magnifier-out-lg:before {content: url(../images/symbols/magnifier_green_out.svg);}
-.exit-fill-sm:before, .exit-fill-md:before, .exit-fill-lg:before {content: url(../images/symbols/exit_green_fill.svg);}
-.exit-out-sm:before, .exit-out-md:before, .exit-out-lg:before {content: url(../images/symbols/exit_green_out.svg);}
+.user-fill-sm:before, .user-fill-md:before, .user-fill-lg:before {content: url(../images/symbols/user_green_fill.svg);}
+.user-out-sm:before, .user-out-md:before, .user-out-lg:before {content: url(../images/symbols/user_green_out.svg);}
+
 
 /* small size */
-.gear-fill-sm:before, .gear-out-sm:before, .key-fill-sm:before, .key-out-sm:before, .magnifier-fill-sm:before, .magnifier-out-sm:before, .exit-fill-sm:before, .exit-out-sm:before {
+.adduser-fill-sm:before, .adduser-out-sm:before, .exit-fill-sm:before, .exit-out-sm:before, .f-fill-sm:before, .f-out-sm:before, .g-fill-sm:before, .g-out-sm:before, .gear-fill-sm:before, .gear-out-sm:before, .key-fill-sm:before, .key-out-sm:before, .magnifier-fill-sm:before, .magnifier-out-sm:before, .user-fill-sm, .user-out-sm {
     display: inline-block;
     height: 20px;
     width: 20px;
@@ -333,16 +409,16 @@ a:hover {
 }
 
 /* medium size */
-.gear-fill-md:before, .gear-out-md:before, .key-fill-md:before, .key-out-md:before, .magnifier-fill-md:before, .magnifier-out-md:before, .exit-fill-md:before, .exit-out-md:before {
+.adduser-fill-md:before, .adduser-out-md:before,  .exit-fill-md:before, .exit-out-md:before, .f-fill-md:before, .f-out-md:before, .g-fill-md:before, .g-out-md:before, .gear-fill-md:before, .gear-out-md:before, .key-fill-md:before, .key-out-md:before, .magnifier-fill-md:before, .magnifier-out-md:before, .user-fill-md, .user-out-md  {
     display: inline-block;
-    height: 35px;
+    height: 25px;
     width: 35px;
     padding: 0;
     margin: 0;
 }
 
 /* large size */
-.gear-fill-lg:before, .gear-out-lg:before, .key-fill-lg:before, .key-out-lg:before, .magnifier-fill-lg:before, .magnifier-out-lg:before, .exit-fill-lg:before, .exit-out-lg:before {
+.adduser-fill-lg:before, .adduser-out-lg:before, .exit-fill-lg:before, .exit-out-lg:before, .f-fill-lg:before, .f-out-lg:before, .g-fill-lg:before, .g-out-lg:before, .gear-fill-lg:before, .gear-out-lg:before, .key-fill-lg:before, .key-out-lg:before, .magnifier-fill-lg:before, .magnifier-out-lg:before, .user-fill-lg, .user-out-lg   {
     display: inline-block;
     height: 50px;
     width: 50px;
@@ -378,4 +454,20 @@ a:hover {
 .form-check-input[type=checkbox]:indeterminate {
     background-color: #78863F;
     border-color: #78863F;
+}
+
+.form-check-input:checked[type=radio] {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='0' /%3e%3c/svg%3e") !important;
+}
+
+/* Other elements */
+
+.hr-single {
+    border-top: 2px solid;
+    border-radius: 2px;
+}
+
+.separator {
+    width:100px;
+    height:8px;
 }

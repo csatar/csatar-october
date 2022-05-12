@@ -6,20 +6,20 @@
         
         <div class="col-lg-8 col-md-12">  
             <div class="row align-items-start">
-                <h5>Sizes</h5>
+                <h5>{{ 'Méretek' | _ }}</h5>
                 {# small #}
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="card text-center mt-2">
                         <div class="card-header p-2">
-                            <h5>Small</h5>
+                            <h5>{{ 'Kicsi' | _ }}</h5>
                         </div>
                         <div class="card-body" style="height: 80px;">
                             <i class="gear-fill-sm"></i>
                         </div>
                         <div class="card-footer bg-gray">
                         <code>
-                            <span style="color: #2f6f9f;">&lti</span>
-                            <span style="color: #006ee0;">class=</span><span style="color: #d73038;">"gear-fill-sm"</span><span style="color: #2f6f9f;">&gt</span><span style="color: #2f6f9f;">&lt;/i&gt;</span>
+                            <span class="code-blue">&lt;i</span>
+                            <span class="code-bluel">class=</span><span class="code-red">"gear-fill-sm"</span><span class="code-blue">&gt;</span><span class="code-blue">&lt;;/i&gt;</span>
                         </code>
                         </div>
                     </div>                    
@@ -29,15 +29,15 @@
                 <div class="col-lg-4 col-md-6 col-sm-12">
                     <div class="card text-center mt-2">
                         <div class="card-header p-2">
-                            <h5>Medium</h5>
+                            <h5>{{ 'Közepes' | _ }}</h5>
                         </div>
                         <div class="card-body" style="height: 80px;">
                             <i class="gear-fill-md"></i>
                         </div>
                         <div class="card-footer bg-gray">
                         <code>
-                            <span style="color: #2f6f9f;">&lti</span>
-                            <span style="color: #006ee0;">class=</span><span style="color: #d73038;">"gear-fill-md"</span><span style="color: #2f6f9f;">&gt</span><span style="color: #2f6f9f;">&lt;/i&gt;</span>
+                            <span class="code-blue">&lt;i</span>
+                            <span class="code-bluel">class=</span><span class="code-red">"gear-fill-md"</span><span class="code-blue">&gt;</span><span class="code-blue">&lt;;/i&gt;</span>
                         </code>
                         </div>
                     </div>  
@@ -47,15 +47,15 @@
                 <div class="col-lg-4 col-md-12 col-sm-12">
                     <div class="card text-center mt-2">
                         <div class="card-header p-2">
-                            <h5>Large</h5>
+                            <h5>{{ 'Nagy' | _ }}</h5>
                         </div>
                         <div class="card-body" style="height: 80px;">
                             <i class="gear-fill-lg"></i>
                         </div>
                         <div class="card-footer bg-gray">
                         <code>
-                            <span style="color: #2f6f9f;">&lti</span>
-                            <span style="color: #006ee0;">class=</span><span style="color: #d73038;">"gear-fill-lg"</span><span style="color: #2f6f9f;">&gt</span><span style="color: #2f6f9f;">&lt;/i&gt;</span>
+                            <span class="code-blue">&lt;i</span>
+                            <span class="code-bluel">class=</span><span class="code-red">"gear-fill-lg"</span><span class="code-blue">&gt;</span><span class="code-blue">&lt;;/i&gt;</span>
                         </code>
                         </div>
                     </div>  
@@ -64,10 +64,86 @@
 
             {# List of icons #}
             <div class="row align-items-start mt-3 py-2">
-            <h5>List of icons:</h5>
+            <h5>{{ 'Ikonok listája' | _ }}</h5>
                 <div class="container">
                     <ul class="row row-cols-sm-3 row-cols-md-4 row-cols-lg-6 list-unstyled list text-center">
                         
+                        {# add user #}
+                        <li class="col mb-4">
+                        <div class="d-block text-dark text-decoration-none">
+                            <div class="p-3 py-4 mb-2 bg-light text-center rounded">
+                            <i class="adduser-fill-md"></i>
+                            </div>
+                            <p class="small">adduser-fill</p>
+                        </div>
+                        </li>
+
+                        <li class="col mb-4">
+                        <div class="d-block text-dark text-decoration-none">
+                            <div class="p-3 py-4 mb-2 bg-light text-center rounded">
+                            <i class="adduser-out-md"></i>
+                            </div>
+                            <p class="small">adduser-out</p>
+                        </div>
+                        </li>
+
+                        {# exit #}
+                        <li class="col mb-4">
+                        <div class="d-block text-dark text-decoration-none">
+                            <div class="p-3 py-4 mb-2 bg-light text-center rounded">
+                            <i class="exit-fill-md"></i>
+                            </div>
+                            <p class="small">exit-fill</p>
+                        </div>
+                        </li>
+
+                        <li class="col mb-4">
+                        <div class="d-block text-dark text-decoration-none">
+                            <div class="p-3 py-4 mb-2 bg-light text-center rounded">
+                            <i class="exit-out-md"></i>
+                            </div>
+                            <p class="small">exit-out</p>
+                        </div>
+                        </li>
+
+                        {# F #}
+                        <li class="col mb-4">
+                        <div class="d-block text-dark text-decoration-none">
+                            <div class="p-3 py-4 mb-2 bg-light text-center rounded">
+                            <i class="f-fill-md"></i>
+                            </div>
+                            <p class="small">f-fill</p>
+                        </div>
+                        </li>
+
+                        <li class="col mb-4">
+                        <div class="d-block text-dark text-decoration-none">
+                            <div class="p-3 py-4 mb-2 bg-light text-center rounded">
+                            <i class="f-out-md"></i>
+                            </div>
+                            <p class="small">f-out</p>
+                        </div>
+                        </li>
+
+                        {# G #}
+                        <li class="col mb-4">
+                        <div class="d-block text-dark text-decoration-none">
+                            <div class="p-3 py-4 mb-2 bg-light text-center rounded">
+                            <i class="g-fill-md"></i>
+                            </div>
+                            <p class="small">g-fill</p>
+                        </div>
+                        </li>
+
+                        <li class="col mb-4">
+                        <div class="d-block text-dark text-decoration-none">
+                            <div class="p-3 py-4 mb-2 bg-light text-center rounded">
+                            <i class="g-out-md"></i>
+                            </div>
+                            <p class="small">g-out</p>
+                        </div>
+                        </li>
+
                         {# gear #}
                         <li class="col mb-4">
                         <div class="d-block text-dark text-decoration-none">
@@ -125,26 +201,24 @@
                         </div>
                         </li>
 
-                        {# exit #}
+                        {# user #}
                         <li class="col mb-4">
                         <div class="d-block text-dark text-decoration-none">
                             <div class="p-3 py-4 mb-2 bg-light text-center rounded">
-                            <i class="exit-fill-md"></i>
+                            <i class="user-fill-md"></i>
                             </div>
-                            <p class="small">exit-fill</p>
+                            <p class="small">user-fill</p>
                         </div>
                         </li>
 
                         <li class="col mb-4">
                         <div class="d-block text-dark text-decoration-none">
                             <div class="p-3 py-4 mb-2 bg-light text-center rounded">
-                            <i class="exit-out-md"></i>
+                            <i class="user-out-md"></i>
                             </div>
-                            <p class="small">exit-out</p>
+                            <p class="small">user-out</p>
                         </div>
                         </li>
-
-                        {#  #}
 
                     </ul>
                 </div>
@@ -152,4 +226,3 @@
         </div>
     </div>
 </div>
-
