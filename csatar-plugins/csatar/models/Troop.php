@@ -39,6 +39,9 @@ class Troop extends Model
      */
     public $fillable = [
         'name',
+        'email',
+        'website',
+        'facebook_page',
         'troop_leader_name',
         'troop_leader_phone',
         'troop_leader_email',

@@ -70,11 +70,16 @@ class Patrol extends Model
      */
     public $fillable = [
         'name',
+        'email',
+        'website',
+        'facebook_page',
         'patrol_leader_name',
         'patrol_leader_phone',
         'patrol_leader_email',
         'age_group',
         'team_id',
+        'troop_id',
+        'logo',
     ];
     
     /**
