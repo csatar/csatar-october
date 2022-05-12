@@ -20,7 +20,7 @@ fields:
         required: 1
         type: text
     email:
-        label: 'csatar.csatar::lang.plugin.admin.scout.email'
+        label: 'csatar.csatar::lang.plugin.admin.general.email'
         span: auto
         type: text
     personal_identification_number:
@@ -33,7 +33,7 @@ fields:
         options:
             1: 'csatar.csatar::lang.plugin.admin.scout.gender.male'
             2: 'csatar.csatar::lang.plugin.admin.scout.gender.female'
-        emptyOption: 'csatar.csatar::lang.plugin.admin.scout.gender.select'
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         showSearch: true
         span: auto
         type: dropdown
@@ -46,7 +46,7 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.scout.legalRelationship'
         nameFrom: title
         descriptionFrom: description
-        emptyOption: 'csatar.csatar::lang.plugin.admin.legalRelationship.select'
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
         type: relation
     chronic_illnesses:
@@ -59,20 +59,20 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.scout.specialDiet'
         nameFrom: title
         descriptionFrom: description
-        emptyOption: 'csatar.csatar::lang.plugin.admin.specialDiet.select'
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
         type: relation
     religion:
         label: 'csatar.csatar::lang.plugin.admin.scout.religion'
         nameFrom: title
         descriptionFrom: description
-        emptyOption: 'csatar.csatar::lang.plugin.admin.religion.select'
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
         type: relation
     tshirt_size:
         label: 'csatar.csatar::lang.plugin.admin.scout.tShirtSize'
         nameFrom: title
         descriptionFrom: description
-        emptyOption: 'csatar.csatar::lang.plugin.admin.tShirtSize.select'
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
         type: relation

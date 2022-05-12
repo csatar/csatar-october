@@ -1,30 +1,30 @@
 columns:
     id:
-        label: 'csatar.csatar::lang.plugin.admin.district.id'
+        label: 'csatar.csatar::lang.plugin.admin.general.id'
         type: number
         searchable: true
         sortable: true
     created_at:
-        label: 'csatar.csatar::lang.plugin.admin.district.createdAt'
+        label: 'csatar.csatar::lang.plugin.admin.general.createdAt'
         type: datetime
     updated_at:
-        label: 'csatar.csatar::lang.plugin.admin.district.updatedAt'
+        label: 'csatar.csatar::lang.plugin.admin.general.updatedAt'
         type: datetime
     deleted_at:
-        label: 'csatar.csatar::lang.plugin.admin.district.deletedAt'
+        label: 'csatar.csatar::lang.plugin.admin.general.deletedAt'
         type: datetime
     name:
-        label: 'csatar.csatar::lang.plugin.admin.district.name'
+        label: 'csatar.csatar::lang.plugin.admin.general.name'
         type: text
         searchable: true
         sortable: true
     address:
-        label: 'csatar.csatar::lang.plugin.admin.district.address'
+        label: 'csatar.csatar::lang.plugin.admin.general.address'
         type: text
         searchable: true
         sortable: true
     phone:
-        label: 'csatar.csatar::lang.plugin.admin.district.phone'
+        label: 'csatar.csatar::lang.plugin.admin.general.phone'
         type: text
         searchable: true
         sortable: true
@@ -44,7 +44,7 @@ columns:
         searchable: true
         sortable: true
     coordinates:
-        label: 'csatar.csatar::lang.plugin.admin.district.coordinates'
+        label: 'csatar.csatar::lang.plugin.admin.general.coordinates'
         type: text
         searchable: true
     contact_name:
@@ -53,7 +53,7 @@ columns:
         searchable: true
         sortable: true
     contact_email:
-        label: 'csatar.csatar::lang.plugin.admin.district.contactEmail'
+        label: 'csatar.csatar::lang.plugin.admin.general.contactEmail'
         type: text
         searchable: true
         sortable: true

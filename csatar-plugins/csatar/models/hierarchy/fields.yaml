@@ -10,4 +10,4 @@ fields:
         descriptionFrom: description
         span: auto
         type: relation
-        emptyOption: 'csatar.csatar::lang.plugin.admin.hierarchy.select'
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'

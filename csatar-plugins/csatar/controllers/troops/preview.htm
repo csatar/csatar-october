@@ -1,6 +1,6 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
-        <li><a href="<?= Backend::url('csatar/csatar/teams') ?>"><?= e(trans('csatar.csatar::lang.plugin.admin.team.breadcrumb')) ?></a></li>
+        <li><a href="<?= Backend::url('csatar/csatar/troops') ?>"><?= e(trans('csatar.csatar::lang.plugin.admin.troop.breadcrumb')) ?></a></li>
         <li><?= e($this->pageTitle) ?></li>
     </ul>
 <?php Block::endPut() ?>
@@ -10,16 +10,13 @@
     <div class="form-preview">
         <?= $this->formRenderPreview() ?>
     </div>
-    <div class="layout-row">
-        <?= $this->relationRender('troops') ?>
-    </div>
 
 <?php else: ?>
     <p class="flash-message static error"><?= e($this->fatalError) ?></p>
 <?php endif ?>
 
 <p>
-    <a href="<?= Backend::url('csatar/csatar/teams') ?>" class="btn btn-default oc-icon-chevron-left">
+    <a href="<?= Backend::url('csatar/csatar/troops') ?>" class="btn btn-default oc-icon-chevron-left">
         <?= e(trans('backend::lang.form.return_to_list')) ?>
     </a>
 </p>
