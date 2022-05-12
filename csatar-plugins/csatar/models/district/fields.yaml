@@ -28,7 +28,7 @@ fields:
         span: auto
         type: text
     coordinates:
-        label: 'csatar.csatar::lang.plugin.admin.district.coordinates'
+        label: 'csatar.csatar::lang.plugin.admin.general.coordinates'
         size: ''
         span: auto
         type: textarea
@@ -38,7 +38,7 @@ fields:
         required: 1
         type: text
     contact_email:
-        label: 'csatar.csatar::lang.plugin.admin.district.contactEmail'
+        label: 'csatar.csatar::lang.plugin.admin.general.contactEmail'
         span: auto
         required: 1
         type: text
