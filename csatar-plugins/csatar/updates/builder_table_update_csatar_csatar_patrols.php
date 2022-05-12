@@ -13,6 +13,10 @@ class BuilderTableUpdateCsatarCsatarPatrols extends Migration
             $table->integer('special_diet_id')->index('special_diet_id')->change();
             $table->integer('religion_id')->index('religion_id')->change();
             $table->integer('tshirt_size_id')->index('tshirt_size_id')->change();
+            
+            $table->foreign('user_id', 'user_foreign')
+                ->references('id')
+                ->on('users');
         });
         Schema::table('csatar_csatar_districts', function($table)
         {
