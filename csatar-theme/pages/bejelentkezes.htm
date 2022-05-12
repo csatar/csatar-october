@@ -2,31 +2,24 @@ url = "/bejelentkezes"
 layout = "default"
 title = "Bejelentkezés"
 
+[sociallogin]
+
 [account]
 redirect = "index"
 paramCode = "code"
 forceSecure = 0
 requirePassword = 0
 ==
-<h1>Belépés</h1>
-
-Ez egy ideiglenes oldal, a CS-88 feladat elkészültekor felülíródik!
-
-<hr>
-
+<?php
+public function onStart(){
+    if(Auth::user()){
+        return Redirect::to('/');
+    }
+}
+?>
+==
 {% if not user %}
 
-<div class="row">
-
-    <div class="col-md-6">
-        <h3>Sign in</h3>
-        {% partial account ~ '::signin' %}
-    </div>
-
-</div>
-
-{% else %}
-
-    Belépve
+    {% partial account ~ '::signin' %}
 
 {% endif %}
