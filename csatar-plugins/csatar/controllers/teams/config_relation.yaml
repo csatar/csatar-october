@@ -1,0 +1,7 @@
+troops:
+  label: 'csatar.csatar::lang.plugin.admin.troop.troop'
+  view:
+    list: $/csatar/csatar/models/troop/columns.yaml
+    toolbarButtons: create|delete
+  manage:
+    form: $/csatar/csatar/models/troop/fields.yaml

@@ -1,0 +1,22 @@
+title = "Körzetek"
+layout = "default"
+url = "/korzetek"
+
+[builderList]
+modelClass = "Csatar\Csatar\Models\District"
+scope = "-"
+scopeValue = "{{ :scope }}"
+displayColumn = "name"
+noRecordsMessage = "backend::lang.list.no_records"
+detailsPage = "korzet"
+detailsKeyColumn = "id"
+detailsUrlParameter = "id"
+pageNumber = "{{ :page }}"
+
+[viewBag]
+localeTitle[en] = "Districts"
+localeTitle[hu] = "Körzetek"
+==
+<div class="container">
+    {% component 'builderList' %}
+</div>

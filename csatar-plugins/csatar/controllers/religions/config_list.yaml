@@ -1,6 +1,6 @@
 list: $/csatar/csatar/models/religion/columns.yaml
 modelClass: Csatar\Csatar\Models\Religion
-title: Religions
+title: 'csatar.csatar::lang.plugin.admin.religion.religions'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: true

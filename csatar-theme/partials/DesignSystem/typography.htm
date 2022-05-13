@@ -1,24 +1,24 @@
 <div class="container">
     <div class="row align-items-start">
         <div class="col-lg-2 col-md-12">
-            <h5 class="pb-3">Typography</h5>
+            <h5 class="pb-3">{{ 'Tipográfia' | _ }}</h5>
         </div>
         <div class="col-lg-8 col-md-12">
 
             {# Geomanist font family #}
             <div class="row">
                 <div class="col-6">
-                    <p class="m-0">Geomanist font family</p>
+                    <p class="m-0">{{ 'Geomanist betűtípus család' | _ }}</p>
                 </div>
                 <div class="col-6">
-                    <p class="m-0" style="font-weight: 700;">Geomanist Bold</p>
-                    <p class="m-0" style="font-weight: 700; font-style: italic;">Geomanist Bold Italic</p>
-                    <p class="m-0" style="font-weight: 500;">Geomanist Medium</p>
-                    <p class="m-0" style="font-weight: 500; font-style: italic;">Geomanist Medium Italic</p>
-                    <p class="m-0" style="font-weight: 400;">Geomanist Regular</p>
-                    <p class="m-0" style="font-weight: 400; font-style: italic;">Geomanist Regular Italic</p>
-                    <p class="m-0" style="font-weight: 300;">Geomanist Light</p>
-                    <p class="m-0" style="font-weight: 300; font-style: italic;">Geomanist Regular Italic</p>
+                    <p class="m-0 font-pw-700">Geomanist Bold</p>
+                    <p class="m-0 font-pw-700 fst-italic">Geomanist Bold Italic</p>
+                    <p class="m-0 font-pw-500">Geomanist Medium</p>
+                    <p class="m-0 font-pw-500 fst-italic">Geomanist Medium Italic</p>
+                    <p class="m-0 font-pw-400">Geomanist Regular</p>
+                    <p class="m-0 font-pw-400 fst-italic">Geomanist Regular Italic</p>
+                    <p class="m-0 font-pw-300">Geomanist Light</p>
+                    <p class="m-0 font-pw-300 fst-italic">Geomanist Regular Italic</p>
                     
                 </div>                        
             </div>
@@ -26,14 +26,13 @@
             {# h1 #}
             <div class="row mt-5">
                 <div class="col-lg-3 col-md-12">
-                    <p class="m-0">Title/Header 1</p>
+                    <p class="m-0">{{ 'Cím/Fejléc 1' | _ }}</p>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6 text-start text-lg-end text-md-end text-sm-end">
                     <p class="m-0 lh-sm">
-                        Weight: Bold<br/>
-                        Size: 2.5625 rem<br/>
+                        {{ 'Betűvastagság: Vastag' | _ }}<br/>
                         <code>
-                        <span class="bg-gray" style="color: #2f6f9f;">&lt;h1&gt;</span>
+                        <span class="bg-gray code-blue">&lt;h1&gt;</span>
                         </code>
                     </p>
                 </div>
@@ -47,14 +46,13 @@
             {# h2 #}
             <div class="row pt-3">
                 <div class="col-lg-3 col-md-12">
-                    <p class="m-0">Header 2</p>
+                    <p class="m-0">{{ 'Fejléc 2' | _ }}</p>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6 text-start text-lg-end text-md-end text-sm-end">
                     <p class="m-0 lh-sm">
-                        Weight: Bold<br/>
-                        Size: 1.5625 rem<br/>
+                        {{ 'Betűvastagság: Vastag' | _ }}<br/>
                         <code>
-                        <span class="bg-gray" style="color: #2f6f9f;">&lt;h2&gt;</span>
+                        <span class="bg-gray code-blue">&lt;h2&gt;</span>
                         </code>
                     </p>
                 </div>
@@ -66,14 +64,13 @@
             {# h3 #}
             <div class="row pt-3">
                 <div class="col-lg-3 col-md-12">
-                    <p class="m-0">Header 3</p>
+                    <p class="m-0">{{ 'Fejléc 3' | _ }}</p>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6 text-start text-lg-end text-md-end text-sm-end">
                     <p class="m-0 lh-sm">
-                        Weight: Bold<br/>
-                        Size: 1.1875 rem<br/>
+                        {{ 'Betűvastagság: Vastag' | _ }}<br/>
                         <code>
-                        <span class="bg-gray" style="color: #2f6f9f;">&lt;h3&gt;</span>
+                        <span class="bg-gray code-blue">&lt;h3&gt;</span>
                         </code>
                     </p>
                 </div>
@@ -85,14 +82,13 @@
             {# Subtitle / body large / h4 #}
             <div class="row pt-3">
                 <div class="col-lg-3 col-md-12">
-                    <p class="m-0">Subtitle/ Body large</p>
+                    <p class="m-0">{{ 'Alcím / Törzs nagy' | _ }}</p>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6 text-start text-lg-end text-md-end text-sm-end">
                     <p class="m-0 lh-sm">
-                        Weight: Regular<br/>
-                        Size: 1.1875 rem<br/>
+                        {{ 'Betűvastagság: Normál' | _ }}<br/>
                         <code>
-                        <span class="bg-gray" style="color: #2f6f9f;">&lt;h4&gt;</span>
+                        <span class="bg-gray code-blue">&lt;h4&gt;</span>
                         </code>
                     </p>
                 </div>
@@ -104,15 +100,14 @@
             {# Body / p #}
             <div class="row pt-3">
                 <div class="col-lg-3 col-md-12">
-                    <p class="m-0">Body</p>
+                    <p class="m-0">{{ 'Törzs' | _ }}</p>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6 text-start text-lg-end text-md-end text-sm-end">
                     <p class="m-0 lh-sm">
-                        Weight: Regular<br/>
-                        Size: 1.0625 rem<br/>
-                        Line height: 1.3<br/>
+                        {{ 'Betűvastagság: Normál' | _ }}<br/>
+                        {{ 'Sormagasság: 1.3' | _ }}<br/>
                         <code>
-                        <span class="bg-gray" style="color: #2f6f9f;">&lt;p&gt;</span>
+                        <span class="bg-gray code-blue">&lt;p&gt;</span>
                         </code>
                     </p>
                 </div>
@@ -126,15 +121,14 @@
             {# Body light / p #}
             <div class="row pt-3">
                 <div class="col-lg-3 col-md-12">
-                    <p class="m-0">Body light</p>
+                    <p class="m-0">{{ 'Vékony' | _ }}</p>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6 text-start text-lg-end text-md-end text-sm-end">
                     <p class="m-0 lh-sm">
-                        Weight: Light<br/>
-                        Size: 1.0625 rem<br/>
-                        Line height: 1.3<br/>
+                        {{ 'Betűvastagság: Vékony' | _ }}<br/>
+                        {{ 'Sormagasság: 1.3' | _ }}<br/>
                         <code class="bg-gray">
-                        <span style="color: #2f6f9f;">&lt;p </span><span style="color: #006ee0;">class=</span><span style="color: #d73038">"p-light"</span><span style="color: #2f6f9f;">&gt;</span>
+                        <span class="code-blue">&lt;p </span><span class="code-bluel">class=</span><span class="code-red">"p-light"</span><span class="code-blue">&gt;</span>
                         </code>
                     </p>
                 </div>
@@ -148,15 +142,14 @@
             {# Body bold / p #}
             <div class="row pt-3">
                 <div class="col-lg-3 col-md-12">
-                    <p class="m-0">Bold</p>
+                    <p class="m-0">{{ 'Vastag' | _ }}</p>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6 text-start text-lg-end text-md-end text-sm-end">
                     <p class="m-0 lh-sm">
-                        Weight: Bold<br/>
-                        Size: 1.0625 rem<br/>
-                        Line height: 1.3<br/>
+                        {{ 'Betűvastagság: Vastag' | _ }}<br/>
+                        {{ 'Sormagasság: 1.3' | _ }}<br/>
                         <code class="bg-gray">
-                        <span style="color: #2f6f9f;">&lt;p </span><span style="color: #006ee0;">class=</span><span style="color: #d73038">"p-bold"</span><span style="color: #2f6f9f;">&gt;</span>
+                        <span class="code-blue">&lt;p </span><span class="code-bluel">class=</span><span class="code-red">"p-bold"</span><span class="code-blue">&gt;</span>
                         </code>
                     </p>
                 </div>
@@ -170,15 +163,14 @@
             {# Small / p #}
             <div class="row pt-3">
                 <div class="col-lg-3 col-md-12">
-                    <p class="m-0">Small</p>
+                    <p class="m-0">{{ 'Kicsi' | _ }}</p>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6 text-start text-lg-end text-md-end text-sm-end">
                     <p class="m-0 lh-sm">
-                        Weight: Light<br/>
-                        Size: .9375 rem<br/>
-                        Line height: 1.1<br/>
+                        {{ 'Betűvastagság: Vákony' | _ }}<br/>
+                        {{ 'Sormagasság: 1.3' | _ }}<br/>
                         <code class="bg-gray">
-                        <span style="color: #2f6f9f;">&lt;p </span><span style="color: #006ee0;">class=</span><span style="color: #d73038">"p-small"</span><span style="color: #2f6f9f;">&gt;</span>
+                        <span class="code-blue">&lt;p </span><span class="code-bluel">class=</span><span class="code-red">"p-small"</span><span class="code-blue">&gt;</span>
                         </code>
                     </p>
                 </div>
@@ -192,14 +184,13 @@
             {# Pre title / p #}
             <div class="row pt-3">
                 <div class="col-lg-3 col-md-12">
-                    <p class="m-0">Pre title</p>
+                    <p class="m-0">{{ 'Cím előtt' | _ }}</p>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6 text-start text-lg-end text-md-end text-sm-end">
                     <p class="m-0 lh-sm">
-                        Weight: Bold<br/>
-                        Size: .9375 rem<br/>
+                        {{ 'Betűvastagság: Vastag' | _ }}<br/>
                         <code class="bg-gray">
-                        <span style="color: #2f6f9f;">&lt;p </span><span style="color: #006ee0;">class=</span><span style="color: #d73038">"p-title"</span><span style="color: #2f6f9f;">&gt;</span>
+                        <span class="code-blue">&lt;p </span><span class="code-bluel">class=</span><span class="code-red">"p-title"</span><span class="code-blue">&gt;</span>
                         </code>
                     </p>
                 </div>
@@ -211,14 +202,13 @@
             {# Button text / h5 #}
             <div class="row pt-3">
                 <div class="col-lg-3 col-md-12">
-                    <p class="m-0">Button text</p>
+                    <p class="m-0">{{ 'Gomb szövege' | _ }}</p>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6 text-start text-lg-end text-md-end text-sm-end">
                     <p class="m-0 lh-sm">
-                        Weight: Medium<br/>
-                        Size: 1.0625 rem<br/>
+                        {{ 'Betűvastagság: Közepes' | _ }}<br/>
                         <code>
-                        <span class="bg-gray" style="color: #2f6f9f;">&lt;h5&gt;</span>
+                        <span class="bg-gray code-blue">&lt;h5&gt;</span>
                         </code>
                     </p>
                 </div>
@@ -230,14 +220,13 @@
             {# Button text 2 / h6 #}
             <div class="row pt-3">
                 <div class="col-lg-3 col-md-12">
-                    <p class="m-0">Button text 2</p>
+                    <p class="m-0">{{ 'Gomb szövege 2' | _ }}</p>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6 text-start text-lg-end text-md-end text-sm-end">
                     <p class="m-0 lh-sm">
-                        Weight: Medium<br/>
-                        Size: 1.3125 rem<br/>
+                        {{ 'Betűvastagság: Közepes' | _ }}<br/>
                         <code>
-                        <span class="bg-gray" style="color: #2f6f9f;">&lt;h6&gt;</span>
+                        <span class="bg-gray code-blue">&lt;h6&gt;</span>
                         </code>
                     </p>
                 </div>
@@ -249,14 +238,13 @@
             {# Links / a #}
             <div class="row pt-3">
                 <div class="col-lg-3 col-md-12">
-                    <p class="m-0">Links</p>
+                    <p class="m-0">{{ 'Hivatkozások' | _ }}</p>
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6 text-start text-lg-end text-md-end text-sm-end">
                     <p class="m-0 lh-sm">
-                        Weight: Regular<br/>
-                        Size: 1.0625 rem<br/>
+                        {{ 'Betűvastagság: Normál' | _ }}<br/>
                         <code class="bg-gray">
-                        <span style="color: #2f6f9f;">&lt;p </span><span style="color: #006ee0;">href=</span><span style="color: #d73038">"#"</span><span style="color: #2f6f9f;">&gt;</span>
+                        <span class="code-blue">&lt;p </span><span class="code-bluel">href=</span><span class="code-red">"#"</span><span class="code-blue">&gt;</span>
                         </code>
                     </p>
                 </div>
@@ -264,7 +252,6 @@
                     <a href="#">Lorem</a>
                 </div>                        
             </div>
-
         </div>
     </div>
 </div>

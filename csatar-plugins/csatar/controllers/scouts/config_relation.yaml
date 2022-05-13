@@ -1,5 +1,5 @@
 allergies:
-  label: Allergies
+  label: 'csatar.csatar::lang.plugin.admin.allergy.allergy'
   view:
     list: $/csatar/csatar/models/allergy/columnsPivot.yaml
     toolbarButtons: add|remove|create

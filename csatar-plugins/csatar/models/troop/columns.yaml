@@ -1,0 +1,56 @@
+columns:
+    id:
+        label: 'csatar.csatar::lang.plugin.admin.general.id'
+        type: number
+        searchable: true
+        sortable: true
+    created_at:
+        label: 'csatar.csatar::lang.plugin.admin.general.createdAt'
+        type: datetime
+    updated_at:
+        label: 'csatar.csatar::lang.plugin.admin.general.updatedAt'
+        type: datetime
+    deleted_at:
+        label: 'csatar.csatar::lang.plugin.admin.general.deletedAt'
+        type: datetime
+    name:
+        label: 'csatar.csatar::lang.plugin.admin.general.name'
+        type: text
+        searchable: true
+        sortable: true
+    email:
+        label: 'csatar.csatar::lang.plugin.admin.general.email'
+        type: text
+        searchable: true
+        sortable: true
+    website:
+        label: 'csatar.csatar::lang.plugin.admin.troop.website'
+        type: text
+        searchable: true
+        sortable: true
+    facebook_page:
+        label: 'csatar.csatar::lang.plugin.admin.troop.facebookPage'
+        type: text
+        searchable: true
+        sortable: true
+    troop_leader_name:
+        label: 'csatar.csatar::lang.plugin.admin.troop.troopLeaderName'
+        type: text
+        searchable: true
+        sortable: true
+    troop_leader_phone:
+        label: 'csatar.csatar::lang.plugin.admin.troop.troopLeaderPhone'
+        type: text
+        searchable: true
+        sortable: true
+    troop_leader_email:
+        label: 'csatar.csatar::lang.plugin.admin.troop.troopLeaderEmail'
+        type: text
+        searchable: true
+        sortable: true
+    team_id:
+        label: 'csatar.csatar::lang.plugin.admin.troop.team'
+        type: number
+        searchable: true
+        relation: team
+        select: concat(team_number, '. ', name)

@@ -7,11 +7,15 @@ modelClass = "Csatar\Csatar\Models\Association"
 scope = "-"
 scopeValue = "{{ :scope }}"
 displayColumn = "name"
-noRecordsMessage = "No records found"
+noRecordsMessage = "backend::lang.list.no_records"
 detailsPage = "szovetseg"
 detailsKeyColumn = "id"
 detailsUrlParameter = "id"
 pageNumber = "{{ :page }}"
+
+[viewBag]
+localeTitle[en] = "Associations"
+localeTitle[hu] = "Szövetségek"
 ==
 <div class="container">
     {% component 'builderList' %}

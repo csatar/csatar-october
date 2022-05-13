@@ -115,5 +115,23 @@
     - 'Created table csatar_csatar_associations'
     - builder_table_create_csatar_csatar_association.php
 1.0.42:
+    - 'Updated table csatar_csatar_associations'
+    - builder_table_update_csatar_csatar_associations.php
+1.0.43:
     - 'Added seeder for Associations'
     - seeder_1042.php
+1.0.44:
+    - 'Created table csatar_csatar_districts'
+    - builder_table_create_csatar_csatar_districts.php
+1.0.45:
+    - 'Updated table csatar_csatar_districts'
+    - builder_table_update_csatar_csatar_districts.php
+1.0.46:
+    - 'Created table csatar_csatar_team'
+    - builder_table_create_csatar_csatar_team.php
+1.0.47:
+    - 'Updated table csatar_csatar_team'
+    - builder_table_update_csatar_csatar_teams.php
+1.0.48:
+    - 'Created table csatar_csatar_troops'
+    - builder_table_create_csatar_csatar_troops.php

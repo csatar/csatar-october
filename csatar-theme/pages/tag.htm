@@ -1,12 +1,6 @@
 url = "/tag/:id/:action?"
-layout = "default"
+layout = "basicAuth"
 title = "Tag"
-
-[account]
-redirect = "tag"
-paramCode = "code"
-forceSecure = 0
-requirePassword = 0
 
 [basicForm]
 formId = 2
@@ -15,23 +9,13 @@ recordActionParam = "action"
 createRecordKeyword = "letrehozas"
 actionUpdateKeyword = "modositas"
 actionDeleteKeyword = "torles"
+
+[viewBag]
+localeTitle[en] = "Scout"
+localeTitle[hu] = "Tag"
 ==
 <div class="container">
-    {% if not user %}
 
-        <div class="row">
-
-            <div class="col-md-6">
-                <h3>Sign in</h3>
-                {% partial account ~ '::signin' %}
-            </div>
-
-        </div>
-
-    {% else %}
-
-        {% component 'basicForm' %}
-
-    {% endif %}
+    {% component 'basicForm' %}
 
 </div>

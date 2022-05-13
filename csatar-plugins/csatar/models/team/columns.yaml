@@ -1,0 +1,111 @@
+columns:
+    id:
+        label: 'csatar.csatar::lang.plugin.admin.general.id'
+        type: number
+        searchable: true
+        sortable: true
+    created_at:
+        label: 'csatar.csatar::lang.plugin.admin.general.createdAt'
+        type: datetime
+    updated_at:
+        label: 'csatar.csatar::lang.plugin.admin.general.updatedAt'
+        type: datetime
+    deleted_at:
+        label: 'csatar.csatar::lang.plugin.admin.general.deletedAt'
+        type: datetime
+    name:
+        label: 'csatar.csatar::lang.plugin.admin.general.name'
+        type: text
+        searchable: true
+        sortable: true
+    team_number:
+        label: 'csatar.csatar::lang.plugin.admin.team.teamNumber'
+        type: text
+        searchable: true
+        sortable: true
+    address:
+        label: 'csatar.csatar::lang.plugin.admin.general.address'
+        type: text
+        searchable: true
+        sortable: true
+    foundation_date:
+        label: 'csatar.csatar::lang.plugin.admin.team.foundationDate'
+        type: text
+        searchable: true
+        sortable: true
+    phone:
+        label: 'csatar.csatar::lang.plugin.admin.general.phone'
+        type: text
+        searchable: true
+        sortable: true
+    email:
+        label: 'csatar.csatar::lang.plugin.admin.general.email'
+        type: text
+        searchable: true
+        sortable: true
+    website:
+        label: 'csatar.csatar::lang.plugin.admin.team.website'
+        type: text
+        searchable: true
+        sortable: true
+    facebook_page:
+        label: 'csatar.csatar::lang.plugin.admin.team.facebookPage'
+        type: text
+        searchable: true
+        sortable: true
+    contact_name:
+        label: 'csatar.csatar::lang.plugin.admin.team.contactName'
+        type: text
+        searchable: true
+        sortable: true
+    contact_email:
+        label: 'csatar.csatar::lang.plugin.admin.general.contactEmail'
+        type: text
+        searchable: true
+        sortable: true
+    history:
+        label: 'csatar.csatar::lang.plugin.admin.team.history'
+        type: text
+        searchable: true
+    coordinates:
+        label: 'csatar.csatar::lang.plugin.admin.general.coordinates'
+        type: text
+        searchable: true
+    leadership_presentation:
+        label: 'csatar.csatar::lang.plugin.admin.team.leadershipPresentation'
+        type: text
+        searchable: true
+    description:
+        label: 'csatar.csatar::lang.plugin.admin.team.description'
+        type: text
+        searchable: true
+    juridical_person_name:
+        label: 'csatar.csatar::lang.plugin.admin.team.juridicalPersonName'
+        type: text
+        searchable: true
+        sortable: true
+    juridical_person_address:
+        label: 'csatar.csatar::lang.plugin.admin.team.juridicalPersonAddress'
+        type: text
+        searchable: true
+        sortable: true
+    juridical_person_tax_number:
+        label: 'csatar.csatar::lang.plugin.admin.team.juridicalPersonTaxNumber'
+        type: text
+        searchable: true
+        sortable: true
+    juridical_person_bank_account:
+        label: 'csatar.csatar::lang.plugin.admin.team.juridicalPersonBankAccount'
+        type: text
+        searchable: true
+    home_supplier_name:
+        label: 'csatar.csatar::lang.plugin.admin.team.homeSupplierName'
+        type: text
+        searchable: true
+        sortable: true
+    district_id:
+        label: 'csatar.csatar::lang.plugin.admin.team.district'
+        type: number
+        searchable: true
+        relation: district
+        valueFrom: name

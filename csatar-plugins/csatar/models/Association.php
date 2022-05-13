@@ -28,8 +28,8 @@ class Association extends Model
         'contact_email' => 'required|email',
         'address' => 'required|min:5',
         'bank_account' => 'min:5',
-        'description' => 'required',
-        'logo' => 'image',
+        'leadership_presentation' => 'required',
+        'logo' => 'image|nullable',
     ];
 
     /**
@@ -40,12 +40,18 @@ class Association extends Model
         'contact_name',
         'contact_email',
         'address',
-        'description',
+        'leadership_presentation',
     ];
     
     /**
      * Relations
      */
+
+    public $hasMany = [
+        'districts' => [
+            '\Csatar\Csatar\Models\District',
+        ]
+    ];
 
     public $attachOne = [
         'logo' => 'System\Models\File'

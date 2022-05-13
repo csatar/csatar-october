@@ -1,0 +1,35 @@
+url = "/korzet/:id/:action?"
+layout = "default"
+title = "Körzet"
+
+[basicForm]
+formId = 4
+recordKeyParam = "id"
+recordActionParam = "action"
+createRecordKeyword = "letrehozas"
+actionUpdateKeyword = "modositas"
+actionDeleteKeyword = "torles"
+
+[builderList]
+modelClass = "Csatar\Csatar\Models\Team"
+scope = "scopeDistrictId"
+scopeValue = "{{ :id }}"
+displayColumn = "name"
+noRecordsMessage = "backend::lang.list.no_records"
+detailsPage = "csapat"
+detailsKeyColumn = "id"
+detailsUrlParameter = "id"
+pageNumber = "{{ :page }}"
+
+[viewBag]
+localeTitle[en] = "District"
+localeTitle[hu] = "Körzet"
+==
+<div class="container">
+    {% component 'basicForm' %}
+
+    <p>{{ 'Teams' | _ }}</p>
+    {% component 'builderList' %}
+
+    <p><a href="/csapat/letrehozas" class="btn btn-default">{{ 'Add Team' | _ }}</a></p>
+</div>

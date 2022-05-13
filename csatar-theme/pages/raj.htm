@@ -1,0 +1,19 @@
+url = "/raj/:id/:action?"
+layout = "default"
+title = "Raj"
+
+[basicForm]
+formId = 6
+recordKeyParam = "id"
+recordActionParam = "action"
+createRecordKeyword = "letrehozas"
+actionUpdateKeyword = "modositas"
+actionDeleteKeyword = "torles"
+
+[viewBag]
+localeTitle[en] = "Troop"
+localeTitle[hu] = "Raj"
+==
+<div class="container">
+    {% component 'basicForm' %}
+</div>

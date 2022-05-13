@@ -1,4 +1,4 @@
-title: Associations
+title: 'csatar.csatar::lang.plugin.admin.association.associations'
 modelClass: Csatar\Csatar\Models\Association
 list: $/csatar/csatar/models/association/columns.yaml
 recordUrl: 'csatar/csatar/associations/update/:id'

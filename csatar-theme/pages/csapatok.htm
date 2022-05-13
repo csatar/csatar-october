@@ -1,0 +1,22 @@
+title = "Csapatok"
+layout = "default"
+url = "/csapatok"
+
+[builderList]
+modelClass = "Csatar\Csatar\Models\Team"
+scope = "-"
+scopeValue = "{{ :scope }}"
+displayColumn = "name"
+noRecordsMessage = "backend::lang.list.no_records"
+detailsPage = "csapat"
+detailsKeyColumn = "id"
+detailsUrlParameter = "id"
+pageNumber = "{{ :page }}"
+
+[viewBag]
+localeTitle[en] = "Teams"
+localeTitle[hu] = "Csapatok"
+==
+<div class="container">
+    {% component 'builderList' %}
+</div>

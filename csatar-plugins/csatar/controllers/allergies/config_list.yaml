@@ -1,6 +1,6 @@
 list: $/csatar/csatar/models/allergy/columns.yaml
 modelClass: Csatar\Csatar\Models\Allergy
-title: Allergies
+title: 'csatar.csatar::lang.plugin.admin.allergy.allergies'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: true

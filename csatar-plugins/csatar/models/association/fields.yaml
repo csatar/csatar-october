@@ -5,7 +5,7 @@ fields:
         required: 1
         type: text
     coordinates:
-        label: 'csatar.csatar::lang.plugin.admin.association.coordinates'
+        label: 'csatar.csatar::lang.plugin.admin.general.coordinates'
         size: ''
         span: auto
         type: textarea
@@ -15,12 +15,12 @@ fields:
         required: 1
         type: text
     contact_email:
-        label: 'csatar.csatar::lang.plugin.admin.association.contactEmail'
+        label: 'csatar.csatar::lang.plugin.admin.general.contactEmail'
         span: auto
         required: 1
         type: text
     address:
-        label: 'csatar.csatar::lang.plugin.admin.association.address'
+        label: 'csatar.csatar::lang.plugin.admin.general.address'
         span: auto
         required: 1
         type: text
@@ -28,15 +28,15 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.association.bankAccount'
         span: auto
         type: text
-    description:
-        label: 'csatar.csatar::lang.plugin.admin.association.description'
+    leadership_presentation:
+        label: 'csatar.csatar::lang.plugin.admin.association.leadershipPresentation'
         size: ''
         span: auto
         required: 1
         type: textarea
     logo:
-        label: 'csatar.csatar::lang.plugin.admin.association.logo'
-        mode: file
+        label: 'csatar.csatar::lang.plugin.admin.general.logo'
+        mode: image
         useCaption: true
         thumbOptions:
             mode: crop

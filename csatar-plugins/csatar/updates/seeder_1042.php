@@ -23,7 +23,7 @@ class Seeder1042 extends Seeder
                 'contact_name' => 'Abcde',
                 'contact_email' => 'ab@ab.ab',
                 'address' => 'Abcde',
-                'description' => 'A'
+                'leadership_presentation' => 'A',
             ]);
         }
     }
