@@ -21,6 +21,17 @@ detailsKeyColumn = "id"
 detailsUrlParameter = "id"
 pageNumber = "{{ :page }}"
 
+[builderList builderList2]
+modelClass = "Csatar\Csatar\Models\Patrol"
+scope = "-"
+scopeValue = "{{ teamId }}"
+displayColumn = "name"
+noRecordsMessage = "No records found"
+detailsPage = "ors"
+detailsKeyColumn = "id"
+detailsUrlParameter = "id"
+pageNumber = "{{ :page }}"
+
 [viewBag]
 localeTitle[en] = "Team"
 localeTitle[hu] = "Csapat"
@@ -32,4 +43,9 @@ localeTitle[hu] = "Csapat"
     {% component 'builderList' %}
 
     <p><a href="/raj/letrehozas" class="btn btn-default">{{ 'Add Troop' | _ }}</a></p>
+
+    <p>{{ 'Patrols' | _ }}</p>
+    {% component 'builderList2' %}
+
+    <p><a href="/ors/letrehozas" class="btn btn-default">{{ 'Add Patrol' | _ }}</a></p>
 </div>

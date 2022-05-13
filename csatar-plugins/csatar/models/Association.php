@@ -37,10 +37,13 @@ class Association extends Model
      */
     public $fillable = [
         'name',
+        'coordinates',
         'contact_name',
         'contact_email',
         'address',
+        'bank_account',
         'leadership_presentation',
+        'logo',
     ];
     
     /**

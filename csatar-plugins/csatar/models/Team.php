@@ -48,7 +48,7 @@ class Team extends Model
      */
     public function beforeValidate() {
         // if we don't have all the data for this validation, then return. The 'required' validation rules will be triggered
-        if (!$this->district || !$this->team_number) {
+        if (!isset($this->district) || !isset($this->team_number)) {
             return;
         }
 
@@ -74,18 +74,23 @@ class Team extends Model
     public $fillable = [
         'name',
         'team_number',
+        'address',
         'foundation_date',
         'phone',
         'email',
+        'website',
+        'facebook_page',
         'contact_name',
         'contact_email',
-        'address',
+        'history',
+        'coordinates',
         'leadership_presentation',
         'description',
         'juridical_person_name',
         'juridical_person_address',
         'juridical_person_tax_number',
         'juridical_person_bank_account',
+        'home_supplier_name',
         'district_id',
     ];
     
@@ -99,6 +104,7 @@ class Team extends Model
 
     public $hasMany = [
         'troops' => '\Csatar\Csatar\Models\Troop',
+        'patrols' => '\Csatar\Csatar\Models\Patrol',
     ];
 
     public $attachOne = [
