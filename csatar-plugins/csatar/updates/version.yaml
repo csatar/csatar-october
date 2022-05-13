@@ -139,5 +139,5 @@
     - 'Created table csatar_csatar_patrols'
     - builder_table_create_csatar_csatar_patrols.php
 1.0.50:
-    - 'Updated table csatar_csatar_patrols'
-    - builder_table_update_csatar_csatar_patrols.php
+    - 'Added indexing to all foreign keys'
+    - builder_add_indexing_to_all_foreign_keys.php
