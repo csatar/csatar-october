@@ -1,0 +1,81 @@
+<div class="container">
+    <div class="row align-items-start">
+        <div class="col-lg-2 col-md-12">
+            <h5 class="pb-3">{{ 'Űrlapok' | _ }}</h5>
+        </div>
+
+        <div class="col-lg-4 col-md-4">
+            <form>
+                {# Field #}
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">{{ 'Szöveges mező' | _ }}</label>
+                    <input type="text" class="form-control rounded" id="exampleFormControlInput1">
+                </div>
+
+                {# Email #}
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">{{ 'Email' | _ }}</label>
+                    <input type="email" class="form-control rounded" id="exampleFormControlInput1">
+                </div>
+
+                {# Password #}
+                 <div class="mb-3">
+                    <label for="exampleInputPassword1" class="form-label">{{ 'Jelszó' | _ }}</label>
+                    <input type="password" class="form-control rounded" id="exampleInputPassword1">
+                </div>
+
+                {# Number #}
+                <div class="mb-3">
+                    <label for="exampleFormControlInput1" class="form-label">{{ 'Szám' | _ }}</label>
+                    <input type="number" class="form-control rounded" id="exampleFormControlInput1">
+                </div>
+
+                {# Text area #}
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">{{ 'Szöveges doboz' | _ }}</label>
+                    <textarea class="form-control rounded" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+
+                {# Dropdown #}
+                <div class="dropdown mb-3">
+                    <button class="btn btn-secondary btn-sm dropdown-toggle rounded" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                        {{ 'Legördülő' | _ }}
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">{{ '1. elem' | _ }}</a></li>
+                        <li><a class="dropdown-item" href="#">{{ '2. elem' | _ }}</a></li>
+                        <li><a class="dropdown-item" href="#">{{ '3. elem' | _ }}</a></li>
+                    </ul>
+                </div>
+
+                <div class="container mb-4">
+                    {# Checkbox #}
+                    <div class="form-check d-flex mb-4">
+                        <input class="form-check-input me-2" type="checkbox" value="" id="form-check">
+                        <label class="form-check-label" for="form-check"> {{ 'Jelölőnégyzet' | _ }} </label>
+                    </div>
+
+                    {# Radio #}
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="form-radio" id="form-radio1">
+                        <label class="form-check-label" for="form-radio1"> {{ 'Választógomb' | _ }} </label>
+                        
+                    </div>
+                    
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="form-radio" id="form-radio2">
+                        <label class="form-check-label" for="form-radio2"> {{ 'Választógomb' | _ }} </label>
+                    </div>
+                </div>
+
+                {# Upload #}
+                <div class="mb-3">
+                    <input class="form-control" type="file" id="formFile">
+                </div>
+
+                {# Submit button #}
+                <button type="submit" class="btn btn-primary btn-block mb-4">{{ 'Beküldés' | _ }}</button>
+                </form>
+        </div>
+    </div>
+</div>
