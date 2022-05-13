@@ -30,6 +30,10 @@ navigation:
                 label: 'csatar.csatar::lang.plugin.admin.troop.troops'
                 url: /csatar/csatar/troops
                 icon: icon-sitemap
+            side-menu-item-patrols:
+                label: 'csatar.csatar::lang.plugin.admin.patrol.patrols'
+                url: /csatar/csatar/patrols
+                icon: icon-sitemap
     main-menu-item-scout-system-data:
         label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.scoutSystemData'
         url: /
