@@ -5,6 +5,38 @@ fields:
         disabled: 1
         readOnly: 1
         type: number
+    ecset_code:
+        label: 'csatar.csatar::lang.plugin.admin.general.ecsetCode'
+        span: auto
+        disabled: 1
+        readOnly: 1
+        type: text
+    relations:
+        label: 'csatar.csatar::lang.plugin.admin.general.relations'
+        span: full
+        type: section
+    team:
+        label: 'csatar.csatar::lang.plugin.admin.scout.team'
+        nameFrom: name
+        descriptionFrom: description
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        span: auto
+        required: 1
+        type: relation
+    troop:
+        label: 'csatar.csatar::lang.plugin.admin.scout.troop'
+        nameFrom: name
+        descriptionFrom: description
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        span: auto
+        type: relation
+    patrol:
+        label: 'csatar.csatar::lang.plugin.admin.scout.patrol'
+        nameFrom: name
+        descriptionFrom: description
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        span: auto
+        type: relation
     scoutData:
         label: 'csatar.csatar::lang.plugin.admin.scout.scoutData'
         span: full
@@ -36,6 +68,7 @@ fields:
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         showSearch: true
         span: auto
+        required: 1
         type: dropdown
     is_active:
         label: 'csatar.csatar::lang.plugin.admin.scout.isActive'
