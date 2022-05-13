@@ -1,0 +1,28 @@
+description = "Default layout"
+
+==
+<!DOCTYPE html>
+<html class='h-100'>
+<head>
+    {% partial 'site/meta' %}
+</head>
+<body class="{{ 'page-'~this.page.id }} h-100 d-flex flex-column">
+
+<!-- Header -->
+<header id="layout-header">
+    {% partial 'site/header' %}
+</header>
+
+<!-- Content -->
+<section id="layout-content" class="flex-grow-1" style="padding-top: 60px;"> {# temp fix, remove when design is applied #}
+    {% page %}
+</section>
+
+<!-- Footer -->
+<footer id="layout-footer">
+    {% partial 'site/footer' %}
+    {% component 'cookiebannerOverRide' %}
+</footer>
+
+</body>
+</html>
