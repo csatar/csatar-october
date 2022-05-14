@@ -1,14 +1,15 @@
-title = "Főoldal"
 url = "/"
 layout = "default"
+title = "Főoldal"
 
 [viewBag]
 localeTitle[en] = "Index"
 localeTitle[hu] = "Főoldal"
 ==
-<div class="h-100">
-    <div class='h-100 text-success align-middle' style="display: flex; justify-content: center; align-items: center;">
-        <img src="{{ 'assets/images/epites-alatt.jpg' | theme }}" alt="">
-    </div>
+<div class="container">
+    {% partial "home/description" %}
+    {% partial "home/structure" %}
+    {% partial "home/sponsors" %}
+    {% partial "home/discounts" %}
+    {% partial "home/partners" %}
 </div>
-
