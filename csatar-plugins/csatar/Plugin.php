@@ -1,7 +1,10 @@
 <?php namespace Csatar\Csatar;
 
+use App;
 use Backend;
 use System\Classes\PluginBase;
+use ValidationException;
+use Lang;
 
 /**
  * csatar Plugin Information File
@@ -40,7 +43,9 @@ class Plugin extends PluginBase
      */
     public function boot()
     {
-
+        App::error(function(\October\Rain\Auth\AuthException $exception) {
+            return Lang::get('csatar.csatar::lang.frontEnd.authException');
+        });
     }
 
     /**
