@@ -45,6 +45,7 @@ class Association extends Model
         'bank_account',
         'leadership_presentation',
         'logo',
+        'ecset_code_suffix',
     ];
 
     /**
