@@ -12,7 +12,11 @@ requirePassword = 0
 <?php
 public function onStart(){
     if(Auth::user()){
-        return Redirect::to('/tag/'. Auth::user()->id);
+        if(!empty(Auth::user()->scout->ecset_code)) {
+            return Redirect::to('/tag/'. Auth::user()->scout->ecset_code);
+        } else {
+            return Redirect::to('/');
+        }
     }
 }
 ?>

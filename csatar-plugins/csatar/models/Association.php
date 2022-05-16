@@ -30,7 +30,7 @@ class Association extends Model
         'bank_account' => 'min:5',
         'leadership_presentation' => 'required',
         'logo' => 'image|nullable',
-        'ecset_code_suffix' => 'required|max:2|alpha'
+        'ecset_code_suffix' => 'max:2|alpha'
     ];
 
     /**

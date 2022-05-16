@@ -5,6 +5,7 @@ use Backend;
 use System\Classes\PluginBase;
 use ValidationException;
 use Lang;
+use RainLab\User\Models\User;
 
 /**
  * csatar Plugin Information File
@@ -43,6 +44,8 @@ class Plugin extends PluginBase
      */
     public function boot()
     {
+        $this->extendUser();
+
         App::error(function(\October\Rain\Auth\AuthException $exception) {
             return Lang::get('csatar.csatar::lang.frontEnd.authException');
         });
@@ -70,5 +73,14 @@ class Plugin extends PluginBase
         return [
             'csatar.csatar::mail.restore'
         ];
+    }
+
+    protected function extendUser()
+    {
+        User::extend(function($model) {
+            $model->hasOne['scout'] = [
+                \Csatar\Csatar\Models\Scout::class
+            ];
+        });
     }
 }
