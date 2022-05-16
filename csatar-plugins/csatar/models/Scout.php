@@ -81,7 +81,7 @@ class Scout extends Model
         $team = Team::find($this->team_id);
 
         if(empty($team)){
-            throw new \ValidationException(['troop_id' => \Lang::get('csatar.csatar::lang.plugin.admin.patrol.troopNotInTheTeamError')]);
+            throw new \ValidationException(['team_id' => \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.noTeamSelected')]);
         }
 
         $sufix = $team->district->association->ecset_code_suffix ?? substr($team->district->association->name, 0, 2);
