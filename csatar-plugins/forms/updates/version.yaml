@@ -15,3 +15,6 @@
 1.0.6:
     - 'Added seeder for Troop'
     - seeder_106.php
+1.0.7:
+    - 'Added seeder for Patrol'
+    - seeder_107.php

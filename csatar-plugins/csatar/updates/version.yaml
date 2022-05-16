@@ -135,3 +135,15 @@
 1.0.48:
     - 'Created table csatar_csatar_troops'
     - builder_table_create_csatar_csatar_troops.php
+1.0.49:
+    - 'Created table csatar_csatar_patrols'
+    - builder_table_create_csatar_csatar_patrols.php
+1.0.50:
+    - 'Added indexing to all foreign keys'
+    - builder_add_indexing_to_all_foreign_keys.php
+1.0.51:
+    - 'Updated table csatar_csatar_scouts'
+    - builder_table_update_csatar_csatar_scouts_9.php
+1.0.52:
+    - 'Updated table csatar_csatar_associations'
+    - builder_table_update_csatar_csatar_associations_2.php

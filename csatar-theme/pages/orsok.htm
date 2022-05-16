@@ -1,0 +1,22 @@
+title = "Őrsök"
+layout = "default"
+url = "/rajok"
+
+[builderList]
+modelClass = "Csatar\Csatar\Models\Patrol"
+scope = "-"
+scopeValue = "{{ :scope }}"
+displayColumn = "name"
+noRecordsMessage = "backend::lang.list.no_records"
+detailsPage = "ors"
+detailsKeyColumn = "id"
+detailsUrlParameter = "id"
+pageNumber = "{{ :page }}"
+
+[viewBag]
+localeTitle[en] = "Patrols"
+localeTitle[hu] = "Őrsök"
+==
+<div class="container">
+    {% component 'builderList' %}
+</div>

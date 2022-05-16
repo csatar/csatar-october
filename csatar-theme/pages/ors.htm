@@ -1,21 +1,19 @@
-url = "/tag/:ecset_code/:action?"
-layout = "basicAuth"
-title = "Tag"
+url = "/ors/:id/:action?"
+layout = "default"
+title = "Őrs"
 
 [basicForm]
-formId = 1
-recordKeyParam = "ecset_code"
+formId = 7
+recordKeyParam = "id"
 recordActionParam = "action"
 createRecordKeyword = "letrehozas"
 actionUpdateKeyword = "modositas"
 actionDeleteKeyword = "torles"
 
 [viewBag]
-localeTitle[en] = "Scout"
-localeTitle[hu] = "Tag"
+localeTitle[en] = "Patrol"
+localeTitle[hu] = "Őrs"
 ==
 <div class="container">
-
     {% component 'basicForm' %}
-
 </div>

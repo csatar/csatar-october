@@ -45,12 +45,17 @@ class District extends Model
         'name',
         'phone',
         'email',
+        'website',
+        'facebook_page',
+        'coordinates',
         'contact_name',
         'contact_email',
         'address',
         'leadership_presentation',
         'description',
+        'bank_account',
         'association_id',
+        'logo',
     ];
     
     /**
