@@ -8,7 +8,7 @@ use Model;
 class Association extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-    
+
     use \October\Rain\Database\Traits\SoftDelete;
 
     protected $dates = ['deleted_at'];
@@ -30,6 +30,7 @@ class Association extends Model
         'bank_account' => 'min:5',
         'leadership_presentation' => 'required',
         'logo' => 'image|nullable',
+        'ecset_code_suffix' => 'max:2|alpha'
     ];
 
     /**
@@ -44,8 +45,9 @@ class Association extends Model
         'bank_account',
         'leadership_presentation',
         'logo',
+        'ecset_code_suffix',
     ];
-    
+
     /**
      * Relations
      */

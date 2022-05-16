@@ -1,8 +1,12 @@
 fields:
     name:
-        label: 'csatar.csatar::lang.plugin.admin.association.name'
+        label: 'csatar.csatar::lang.plugin.admin.association.association'
         span: auto
         required: 1
+        type: text
+    ecset_code_suffix:
+        label: 'csatar.csatar::lang.plugin.admin.association.ecsetCode.suffix'
+        span: auto
         type: text
     coordinates:
         label: 'csatar.csatar::lang.plugin.admin.general.coordinates'

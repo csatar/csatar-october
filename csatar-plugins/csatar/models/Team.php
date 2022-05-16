@@ -8,7 +8,7 @@ use Model;
 class Team extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-    
+
     use \October\Rain\Database\Traits\SoftDelete;
 
     protected $dates = ['deleted_at'];
@@ -93,11 +93,11 @@ class Team extends Model
         'home_supplier_name',
         'district_id',
     ];
-    
+
     /**
      * Relations
      */
-    
+
     public $belongsTo = [
         'district' => '\Csatar\Csatar\Models\District',
     ];
@@ -105,12 +105,13 @@ class Team extends Model
     public $hasMany = [
         'troops' => '\Csatar\Csatar\Models\Troop',
         'patrols' => '\Csatar\Csatar\Models\Patrol',
+        'scouts' => '\Csatar\Csatar\Models\Scout',
     ];
 
     public $attachOne = [
         'logo' => 'System\Models\File'
     ];
-    
+
     /**
      * Scope a query to only include teams with a given district id.
      */

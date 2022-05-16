@@ -8,7 +8,7 @@ use Model;
 class Patrol extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-    
+
     use \October\Rain\Database\Traits\SoftDelete;
 
     protected $dates = ['deleted_at'];
@@ -43,13 +43,13 @@ class Patrol extends Model
         if (!isset($this->team_id)) {
             return;
         }
-        
+
         // if the selected troop does not belong to the selected team, then throw and exception
         if ($this->troop_id && $this->troop->team->id != $this->team_id) {
             throw new \ValidationException(['troop' => \Lang::get('csatar.csatar::lang.plugin.admin.patrol.troopNotInTheTeamError')]);
         }
     }
-    
+
     /**
      * Handle the team-troop dependency
      */
@@ -81,20 +81,24 @@ class Patrol extends Model
         'troop_id',
         'logo',
     ];
-    
+
     /**
      * Relations
      */
-    
+
     public $belongsTo = [
         'team' => '\Csatar\Csatar\Models\Team',
         'troop' => '\Csatar\Csatar\Models\Troop',
     ];
 
+    public $hasMany = [
+        'scouts' => '\Csatar\Csatar\Models\Scout',
+    ];
+
     public $attachOne = [
         'logo' => 'System\Models\File'
     ];
-    
+
     /**
      * Scope a query to only include patrols with a given team id.
      */
@@ -102,7 +106,7 @@ class Patrol extends Model
     {
         return $query->where('team_id', $id);
     }
-    
+
     /**
      * Scope a query to only include patrols with a given troop id.
      */
