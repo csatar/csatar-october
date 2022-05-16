@@ -40,7 +40,7 @@
                     <input
                         type="checkbox"
                         id="showPassword"
-                        onclick="togglePassword()"
+                        onclick="togglePasswordField()"
                         class="custom-control-input radio"
                     />
                     <label
@@ -64,12 +64,15 @@
 </div>
 
 <script>
-    function togglePassword() {
-        var passField = document.getElementById("userSigninPassword");
-        if (passField.type === "password") {
-            passField.type = "text";
+    $(document).ready(function() {
+        togglePasswordField();
+    });
+
+    function togglePasswordField() {
+        if ($("#showPassword").is(':checked')) {
+            $("#userSigninPassword").prop("type", "text")
         } else {
-            passField.type = "password";
+            $("#userSigninPassword").prop("type", "password")
         }
     }
 </script>
