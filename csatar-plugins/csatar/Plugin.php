@@ -59,7 +59,9 @@ class Plugin extends PluginBase
     public function registerComponents()
     {
         return [
-            \Csatar\Csatar\Components\ResetPassword::class => 'resetpasswordOverRide'
+            \Csatar\Csatar\Components\ResetPassword::class => 'resetpasswordOverRide',
+            \Csatar\Csatar\Components\Structure::class => 'structure',
+            \Csatar\Csatar\Components\Logos::class => 'logos',
         ];
     }
 
