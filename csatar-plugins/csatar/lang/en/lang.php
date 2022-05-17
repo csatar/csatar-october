@@ -19,6 +19,8 @@
                 'select' => 'Select...',
                 'logo' => 'Logo',
                 'coordinates' => 'Coordinates',
+                'ecsetCode' => 'ECSET code',
+                'relations' => 'Relations',
             ],
             'scout' => [
                 'scout' => 'Scout',
@@ -43,6 +45,12 @@
                 'allergies' => 'Allergies',
                 'allergiesInfo' => 'Allergies can be added after the Scout has been created. Click the Create button after other information is filled.',
                 'breadcrumb' => 'Scouts',
+                'team' => 'Team',
+                'troop' => 'Troop',
+                'patrol' => 'Patrol',
+                'validationExceptions' => [
+                    'noTeamSelected' => 'Please select a team!'
+                ]
             ],
             'admin' => [
                 'menu' => [
@@ -107,6 +115,9 @@
                 'leadershipPresentation' => 'Leadership Presentation',
                 'districtsInfo' => 'Districts can be added after the Association has been created. Click the Create button after other information is filled.',
                 'breadcrumb' => 'Associations',
+                'ecsetCode' => [
+                    'suffix' => 'ECSET code suffix',
+                ],
             ],
             'district' => [
                 'district' => 'District',

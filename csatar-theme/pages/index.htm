@@ -2,14 +2,19 @@ url = "/"
 layout = "default"
 title = "Főoldal"
 
+[logos]
+paramCode = "mode"
+
+[structure]
+
 [viewBag]
 localeTitle[en] = "Index"
 localeTitle[hu] = "Főoldal"
 ==
 <div class="container">
     {% partial "home/description" %}
-    {% partial "home/structure" %}
-    {% partial "home/sponsors" %}
-    {% partial "home/discounts" %}
-    {% partial "home/partners" %}
+    {% component "structure" %}
+    {% component "logos" mode="sponsors" %}
+    {% component "logos" mode="discounts" %}
+    {% component "logos" mode="partners" %}
 </div>

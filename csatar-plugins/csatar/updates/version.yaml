@@ -141,3 +141,9 @@
 1.0.50:
     - 'Added indexing to all foreign keys'
     - builder_add_indexing_to_all_foreign_keys.php
+1.0.51:
+    - 'Updated table csatar_csatar_scouts'
+    - builder_table_update_csatar_csatar_scouts_9.php
+1.0.52:
+    - 'Updated table csatar_csatar_associations'
+    - builder_table_update_csatar_csatar_associations_2.php
