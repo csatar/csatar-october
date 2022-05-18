@@ -2,9 +2,12 @@
 
 use Lang;
 use Cms\Classes\ComponentBase;
+use Csatar\Csatar\Models\Association;
 
 class Structure extends ComponentBase
 {
+    public $associations;
+
     public function componentDetails()
     {
         return [
@@ -15,5 +18,6 @@ class Structure extends ComponentBase
 
     public function onRun()
     {
+        $this->associations = Association::all();
     }
 }
