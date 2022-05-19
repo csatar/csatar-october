@@ -10,10 +10,26 @@ createRecordKeyword = "letrehozas"
 actionUpdateKeyword = "modositas"
 actionDeleteKeyword = "torles"
 
+[builderList]
+modelClass = "Csatar\Csatar\Models\Patrol"
+scope = "scopeTroopId"
+scopeValue = "{{ :id }}"
+displayColumn = "name"
+noRecordsMessage = "backend::lang.list.no_records"
+detailsPage = "ors"
+detailsKeyColumn = "id"
+detailsUrlParameter = "id"
+pageNumber = "{{ :page }}"
+
 [viewBag]
 localeTitle[en] = "Troop"
 localeTitle[hu] = "Raj"
 ==
 <div class="container">
     {% component 'basicForm' %}
+
+    <p>{{ 'Patrols' | _ }}</p>
+    {% component 'builderList' %}
+
+    <p><a href="/ors/letrehozas" class="btn btn-default">{{ 'Add Patrol' | _ }}</a></p>
 </div>

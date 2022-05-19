@@ -8,7 +8,7 @@ use Model;
 class Troop extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-    
+
     use \October\Rain\Database\Traits\SoftDelete;
 
     protected $dates = ['deleted_at'];
@@ -40,24 +40,31 @@ class Troop extends Model
     public $fillable = [
         'name',
         'email',
+        'website',
+        'facebook_page',
         'troop_leader_name',
         'troop_leader_phone',
         'troop_leader_email',
         'team_id',
     ];
-    
+
     /**
      * Relations
      */
-    
+
     public $belongsTo = [
         'team' => '\Csatar\Csatar\Models\Team',
+    ];
+
+    public $hasMany = [
+        'patrols' => '\Csatar\Csatar\Models\Patrol',
+        'scouts' => '\Csatar\Csatar\Models\Scout',
     ];
 
     public $attachOne = [
         'logo' => 'System\Models\File'
     ];
-    
+
     /**
      * Scope a query to only include troops with a given team id.
      */

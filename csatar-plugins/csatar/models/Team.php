@@ -8,7 +8,7 @@ use Model;
 class Team extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-    
+
     use \October\Rain\Database\Traits\SoftDelete;
 
     protected $dates = ['deleted_at'];
@@ -24,7 +24,7 @@ class Team extends Model
      */
     public $rules = [
         'name' => 'required',
-        'team_number' => 'required|numeric|max:4',
+        'team_number' => 'required|numeric|min:1|max:9999',
         'address' => 'required|min:5',
         'foundation_date' => 'required',
         'phone' => 'required|regex:(^[0-9+-.()]{5,}$)',
@@ -48,7 +48,7 @@ class Team extends Model
      */
     public function beforeValidate() {
         // if we don't have all the data for this validation, then return. The 'required' validation rules will be triggered
-        if (!$this->district || !$this->team_number) {
+        if (!isset($this->district) || !isset($this->team_number)) {
             return;
         }
 
@@ -66,6 +66,11 @@ class Team extends Model
                 throw new \ValidationException(['team_number' => \Lang::get('csatar.csatar::lang.plugin.admin.team.teamNumberTakenError')]);
             }
         }
+
+        // check that the foundation date is not in the future
+        if (isset($this->foundation_date) && (new \DateTime($this->foundation_date) > new \DateTime())) {
+            throw new \ValidationException(['foundation_date' => \Lang::get('csatar.csatar::lang.plugin.admin.team.dateInTheFutureError')]);
+        }
     }
 
     /**
@@ -74,37 +79,44 @@ class Team extends Model
     public $fillable = [
         'name',
         'team_number',
+        'address',
         'foundation_date',
         'phone',
         'email',
+        'website',
+        'facebook_page',
         'contact_name',
         'contact_email',
-        'address',
+        'history',
+        'coordinates',
         'leadership_presentation',
         'description',
         'juridical_person_name',
         'juridical_person_address',
         'juridical_person_tax_number',
         'juridical_person_bank_account',
+        'home_supplier_name',
         'district_id',
     ];
-    
+
     /**
      * Relations
      */
-    
+
     public $belongsTo = [
         'district' => '\Csatar\Csatar\Models\District',
     ];
 
     public $hasMany = [
         'troops' => '\Csatar\Csatar\Models\Troop',
+        'patrols' => '\Csatar\Csatar\Models\Patrol',
+        'scouts' => '\Csatar\Csatar\Models\Scout',
     ];
 
     public $attachOne = [
         'logo' => 'System\Models\File'
     ];
-    
+
     /**
      * Scope a query to only include teams with a given district id.
      */

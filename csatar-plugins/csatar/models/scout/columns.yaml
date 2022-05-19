@@ -85,3 +85,8 @@ columns:
         searchable: true
         relation: tshirt_size
         valueFrom: title
+    ecset_code:
+        label: 'csatar.csatar::lang.plugin.admin.general.ecsetCode'
+        type: text
+        searchable: true
+        sortable: true

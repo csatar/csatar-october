@@ -13,6 +13,9 @@
     <div class="layout-row">
         <?= $this->relationRender('troops') ?>
     </div>
+    <div class="layout-row">
+        <?= $this->relationRender('patrols') ?>
+    </div>
 
 <?php else: ?>
     <p class="flash-message static error"><?= e($this->fatalError) ?></p>

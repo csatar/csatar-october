@@ -1,0 +1,7 @@
+patrols:
+  label: 'csatar.csatar::lang.plugin.admin.patrol.patrol'
+  view:
+    list: $/csatar/csatar/models/patrol/columns.yaml
+    toolbarButtons: create|delete
+  manage:
+    form: $/csatar/csatar/models/patrol/fields.yaml

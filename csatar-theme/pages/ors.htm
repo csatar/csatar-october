@@ -1,0 +1,19 @@
+url = "/ors/:id/:action?"
+layout = "default"
+title = "Őrs"
+
+[basicForm]
+formId = 7
+recordKeyParam = "id"
+recordActionParam = "action"
+createRecordKeyword = "letrehozas"
+actionUpdateKeyword = "modositas"
+actionDeleteKeyword = "torles"
+
+[viewBag]
+localeTitle[en] = "Patrol"
+localeTitle[hu] = "Őrs"
+==
+<div class="container">
+    {% component 'basicForm' %}
+</div>

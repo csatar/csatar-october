@@ -1,0 +1,13 @@
+<div class="row">
+    <h2>{{ __SELF__.title }}</h2>
+
+    <div class="row row-cols-auto">
+        {% for logo in __SELF__.logos %}
+            <div class="col">
+                <a href="{{ logo.address }}" target="_blank">
+                    <img src="{{ ('assets/images' ~ logo.logo) | theme }}" alt="{{ logo.name }}">
+                </a>
+            </div>
+        {% endfor %}
+    </div>
+</div>

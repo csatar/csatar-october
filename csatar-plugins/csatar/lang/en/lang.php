@@ -19,6 +19,8 @@
                 'select' => 'Select...',
                 'logo' => 'Logo',
                 'coordinates' => 'Coordinates',
+                'ecsetCode' => 'ECSET code',
+                'relations' => 'Relations',
             ],
             'scout' => [
                 'scout' => 'Scout',
@@ -43,6 +45,12 @@
                 'allergies' => 'Allergies',
                 'allergiesInfo' => 'Allergies can be added after the Scout has been created. Click the Create button after other information is filled.',
                 'breadcrumb' => 'Scouts',
+                'team' => 'Team',
+                'troop' => 'Troop',
+                'patrol' => 'Patrol',
+                'validationExceptions' => [
+                    'noTeamSelected' => 'Please select a team!'
+                ]
             ],
             'admin' => [
                 'menu' => [
@@ -107,6 +115,9 @@
                 'leadershipPresentation' => 'Leadership Presentation',
                 'districtsInfo' => 'Districts can be added after the Association has been created. Click the Create button after other information is filled.',
                 'breadcrumb' => 'Associations',
+                'ecsetCode' => [
+                    'suffix' => 'ECSET code suffix',
+                ],
             ],
             'district' => [
                 'district' => 'District',
@@ -141,6 +152,7 @@
                 'troopsPatrolsScoutsInfo' => 'Troops, Patrols and Scouts can be added after the Team has been created. Click the Create button after other information is filled.',
                 'breadcrumb' => 'Teams',
                 'teamNumberTakenError' => 'This Team number is already taken.',
+                'dateInTheFutureError' => 'The selected date is in the future.',
             ],
             'troop' => [
                 'troop' => 'Troop',
@@ -151,13 +163,62 @@
                 'troopLeaderPhone' => 'Troop leader phone',
                 'troopLeaderEmail' => 'Troop leader email',
                 'team' => 'Team',
+                'patrolsInfo' => 'Patrols can be added after the Troop has been created. Click the Create button after other information is filled.',
                 'breadcrumb' => 'Troops',
+            ],
+            'patrol' => [
+                'patrol' => 'Patrol',
+                'patrols' => 'Patrols',
+                'website' => 'Website',
+                'facebookPage' => 'Facebook page',
+                'patrolLeaderName' => 'Patrol leader name',
+                'patrolLeaderPhone' => 'Patrol leader phone',
+                'patrolLeaderEmail' => 'Patrol leader email',
+                'ageGroup' => 'Age group',
+                'team' => 'Team',
+                'troop' => 'Troop',
+                'breadcrumb' => 'Patrols',
+                'troopNotInTheTeamError' => 'The selected Troop does not belong to the selected Team.',
             ],
         ],
         'component' => [
             'resetPassword' => [
                 'name' => 'Reset Password',
                 'description' => 'Enables restoring the user\'s password.',
+            ],
+            'structure' => [
+                'name' => 'Organization Structure',
+                'description' => 'Displays the organization structure in a tree view.',
+            ],
+            'logos' => [
+                'name' => 'Logos',
+                'description' => 'Logos and corresponding links shown in grid view.',
+                'sponsors' => [
+                    'title' => 'List of Sponsors', // 'Támogatók listája'
+                    'hungarianGovernment' => 'Hungarian Government', // 'Magyar Kormány'
+                    'harghitaCountyCouncil' => 'Harghita County Council', // 'Hargita Megye Tanácsa'
+                    'communitasFoundation' => 'Communitas Foundation', // 'Communitas Alapítvány'
+                    'toyota' => 'Toyota', // 'Toyota'
+                ],
+                'discounts' => [
+                    'title' => 'Companies offering discounts', // 'Kedvezményeket kínáló cégek'
+                    'mormotaLand' => 'Mormota Land', // 'Mormota Land'
+                    'tiboo' => 'Tiboo', // 'Tiboo'
+                    'giftyShop' => 'Gifty Shop', // 'Gifty Shop'
+                    'zergeSpecialtyStore' => 'Zerge Specialt Store', // 'Zerge Szakbolt'
+                ],
+                'partners' => [
+                    'title' => 'Partners', // 'Partnerek'
+                    'forumOfHungarianScoutAssociations' => 'Forum of Hungarian Scout Associations', // 'Magyar Cserkészszövetségek Fóruma'
+                    'transcarpathianHungarianScoutAssociation' => 'Transcarpathian Hungarian Scout Association', // 'Kárpátaljai Magyar Cserkészszövetség'
+                    'hungarianScoutAssociation' => 'Hungarian Scout Association', // 'Magyar Cserkészszövetség'
+                    'slovakHungarianScoutAssociation' => 'Slovak Hungarian Scout Association', // 'Szlovákiai Magyar Cserkészszövetség'
+                    'hungarianScoutAssociationOfVojvodina' => 'Hungarian Scout Association of Vojvodina', // 'Vajdasági Magyar Cserkészszövetség'
+                    'archdiocesanYouthHeadquarters' => 'Archdiocesan Youth Headquarters', // 'Főegyházmegyei Ifjúsági Főlelkészség'
+                    'marySWayTransylvania' => 'Mary\'s Way - Transylvania', // 'Mária út - Erdély'
+                    'proEducatione' => 'Pro Educatione', // 'Pro Educatione'
+                    'scoutsOfRomania' => 'Scouts Of Romania', // 'Románia Cserkészei'
+                ],
             ],
         ],
     ],
