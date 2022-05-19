@@ -17,7 +17,7 @@ fields:
         type: section
     team:
         label: 'csatar.csatar::lang.plugin.admin.scout.team'
-        nameFrom: name
+        select: 'concat(team_number, ''. '', name)'
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
@@ -28,15 +28,17 @@ fields:
         nameFrom: name
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        dependsOn: team
         span: auto
-        type: relation
+        type: dropdown
     patrol:
         label: 'csatar.csatar::lang.plugin.admin.scout.patrol'
         nameFrom: name
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        dependsOn: [team, troop]
         span: auto
-        type: relation
+        type: dropdown
     scoutData:
         label: 'csatar.csatar::lang.plugin.admin.scout.scoutData'
         span: full

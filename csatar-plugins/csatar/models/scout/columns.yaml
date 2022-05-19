@@ -90,3 +90,22 @@ columns:
         type: text
         searchable: true
         sortable: true
+    team_id:
+        label: 'csatar.csatar::lang.plugin.admin.scout.team'
+        type: number
+        searchable: true
+        select: 'concat(team_number, ''. '', name)'
+        relation: team
+    troop_id:
+        label: 'csatar.csatar::lang.plugin.admin.scout.troop'
+        type: number
+        searchable: true
+        relation: troop
+        valueFrom: name
+    patrol_id:
+        label: 'csatar.csatar::lang.plugin.admin.scout.patrol'
+        type: number
+        searchable: true
+        relation: patrol
+        valueFrom: name
+
