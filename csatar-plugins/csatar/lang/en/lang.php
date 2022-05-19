@@ -152,6 +152,7 @@
                 'troopsPatrolsScoutsInfo' => 'Troops, Patrols and Scouts can be added after the Team has been created. Click the Create button after other information is filled.',
                 'breadcrumb' => 'Teams',
                 'teamNumberTakenError' => 'This Team number is already taken.',
+                'dateInTheFutureError' => 'The selected date is in the future.',
             ],
             'troop' => [
                 'troop' => 'Troop',
