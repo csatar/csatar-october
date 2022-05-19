@@ -24,7 +24,7 @@ class Team extends Model
      */
     public $rules = [
         'name' => 'required',
-        'team_number' => 'required|numeric|min:0|max:9999',
+        'team_number' => 'required|numeric|min:1|max:9999',
         'address' => 'required|min:5',
         'foundation_date' => 'required',
         'phone' => 'required|regex:(^[0-9+-.()]{5,}$)',
