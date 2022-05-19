@@ -1,0 +1,5 @@
+{% set associations = __SELF__.associations %}
+
+<div class="row">
+    {% partial __SELF__ ~ '::accordionItems' array=associations level=1 headingId='flush-heading-' collapseId='flush-collapse-' %}
+</div>
