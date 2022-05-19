@@ -24,7 +24,7 @@ class Team extends Model
      */
     public $rules = [
         'name' => 'required',
-        'team_number' => 'required|numeric|max:4',
+        'team_number' => 'required|numeric|min:1|max:9999',
         'address' => 'required|min:5',
         'foundation_date' => 'required',
         'phone' => 'required|regex:(^[0-9+-.()]{5,}$)',
@@ -65,6 +65,11 @@ class Team extends Model
             if ($team->id != $this->id && $team->team_number == $this->team_number) {
                 throw new \ValidationException(['team_number' => \Lang::get('csatar.csatar::lang.plugin.admin.team.teamNumberTakenError')]);
             }
+        }
+
+        // check that the foundation date is not in the future
+        if (isset($this->foundation_date) && (new \DateTime($this->foundation_date) > new \DateTime())) {
+            throw new \ValidationException(['foundation_date' => \Lang::get('csatar.csatar::lang.plugin.admin.team.dateInTheFutureError')]);
         }
     }
 
