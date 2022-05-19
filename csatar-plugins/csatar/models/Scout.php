@@ -13,7 +13,6 @@ class Scout extends Model
 
     protected $dates = ['deleted_at'];
 
-
     /**
      * @var string The database table used by the model.
      */
@@ -28,6 +27,45 @@ class Scout extends Model
         'personal_identification_number' => 'required',
         'email' => 'email'
     ];
+
+    /**
+     * Add custom validation
+     */
+    public function beforeValidate() {
+        // if we don't have all the data for this validation, then return. The 'required' validation rules will be triggered
+        if (!isset($this->team_id)) {
+            return;
+        }
+
+        // if the selected troop does not belong to the selected team, then throw and exception
+        if ($this->troop_id && $this->troop->team->id != $this->team_id) {
+            throw new \ValidationException(['troop' => \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.troopNotInTheTeam')]);
+        }
+
+        // if the selected patrol does not belong to the selected team or to the selected troop, then throw and exception
+        if ($this->patrol_id &&                                             // a Patrol is set
+                ($this->patrol->team->id != $this->team_id ||               // the Patrol does not belong to the selected Team
+                    ($this->troop_id &&                                     // a Troop is set as well
+                        (!$this->patrol->troop ||                           // the Patrol does not belong to any Troop
+                        $this->patrol->troop->id != $this->troop_id)))) {   // the Patrol belongs to a different Troop than the one selected
+            throw new \ValidationException(['troop' => \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.troopNotInTheTeamOrTroop')]);
+        }
+    }
+
+    /**
+     * Handle the team-troop-patrol dependencies
+     */
+    /*public function filterFields($fields, $context = null) {
+        // select team on the basis of the troop
+        if (!isset($this->team) && isset($this->troop_id)) {
+            $this->team_id = $this->troop->team_id;
+            $fields->team->value = $this->team_id;
+        }
+
+        // populate the Troop dropdown with troops that belong to the selected team
+        $team_id = $this->team_id;
+        $fields->troop->options = $team_id ? \Csatar\Csatar\Models\Troop::teamId($team_id)->lists('name', 'id') : [];
+    }*/
 
     protected $fillable = [
         'user_id',
