@@ -107,11 +107,11 @@ class BasicForm extends ComponentBase  {
     public function defineProperties()
     {
         return [
-            'formId' => [
+            'formSlug' => [
                 'title'             => 'csatar.forms::lang.components.basicForm.properties.formId.title',
                 'description'       => 'csatar.forms::lang.components.basicForm.properties.formId.description',
                 'type'              => 'dropdown',
-                'options'           => Form::lists('title', 'id'),
+                'options'           => Form::lists('title', 'slug'),
                 'default'           => null,
                 'validation'  => [
                     'required' => [
@@ -175,14 +175,6 @@ class BasicForm extends ComponentBase  {
     }
 
     /**
-     * Returns a list of forms
-     * @return type
-     */
-    public function getForms() {
-        return Form::findMany($this->property('form'));
-    }
-
-    /**
      * Renders the frontend
      * @return mixed
      */
@@ -196,7 +188,7 @@ class BasicForm extends ComponentBase  {
         $this->getComponentSettings();
 
         // Render frontend
-        $this->addCss('/modules/system/assets/ui/storm.css');
+        $this->addCss('/plugins/csatar/forms/assets/css/storm.css');
         $this->addJs('/modules/system/assets/ui/storm-min.js');
         $this->addJs('/plugins/csatar/forms/assets/vendor/dropzone/dropzone.js');
         $this->addJs('/plugins/csatar/forms/assets/js/uploader.js');
@@ -232,7 +224,7 @@ class BasicForm extends ComponentBase  {
     }
 
     private function getForm() {
-        $form = Form::find($this->property('formId'));
+        $form = Form::where('slug', $this->property('formSlug'))->first();
         if (!empty($form)) {
             $this->formId = $form->id;
             return $form;

@@ -18,3 +18,9 @@
 1.0.7:
     - 'Added seeder for Patrol'
     - seeder_107.php
+1.0.8:
+    - 'Updated table csatar_forms_forms'
+    - builder_table_update_csatar_forms_forms.php
+1.0.9:
+    - 'Seeder to update existing forms with a slug'
+    - seeder_109.php

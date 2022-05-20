@@ -14,7 +14,7 @@ use October\Rain\Exception\ValidationException;
 class Form extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-
+    use \October\Rain\Database\Traits\Sluggable;
     /*
      * Validation
      */
@@ -22,7 +22,7 @@ class Form extends Model
         'title' => 'required',
     ];
 
-
+    protected $slugs = ['slug' => 'title'];
 
     public function beforeSave()
     {
