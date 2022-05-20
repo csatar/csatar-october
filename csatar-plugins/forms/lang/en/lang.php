@@ -42,7 +42,7 @@
                     'actionDeleteKeywordDescr'  => 'Specify a keyword for deleting record. The default keyword is "delete", for example "/teams/123/delete" will team with id 123.',
                 ],
                 'propertiesValidation' => [
-                    'formNotSelected'       => "Please select a form from the dropdown list. If list is empty, you need to create a form in From menu.",
+                    'formNotSelected'       => "Please select a form from the dropdown list. If the form you're looking for is not there, you need to create it in the Forms menu.",
                     'recordKeyNotSelected'  => "Record key parameter is not specified."
                 ]
             ]
