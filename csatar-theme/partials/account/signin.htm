@@ -7,11 +7,11 @@
         <div class="col-10 col-md-8 col-lg-8 py-5">
             <div class="flex-grow-1 flex-md-row-reverse row g-2">
                 <div class="col-lg-6">
-                    <div class="card bg-light text-primary rounded">
+                    <div class="card bg-light text-primary rounded h-100">
                         <div class="card-body">
                         <div class="d-flex flex-column align-items-center">
                             <i class="key-out-lg"></i>
-                            <h4>{{ 'Belépés jelszóval'|_ }}</h4>
+                            <h4 class="text-center">{{ 'Belépés jelszóval'|_ }}</h4>
                             <form
                                 class="text-center"
                                 data-request="onSignin"
@@ -44,10 +44,9 @@
                                         </button>
                                     </span>
                                     </div>
-                                </div>
-
-   
+                                </div>   
                                 <span data-validate-for="password" class="text-danger">{{ 'A jelszó mezőt kötelező kitöltened!' | _ }}</span>
+
                                 <a class="login" href="{{ url('/elfelejtett-jelszo') }}" rel="noopener noreferrer"><h5>{{ 'Elfeljettem a jelszavamat'|_ }}</h5></a>
                                 <button type="submit" class="btn rounded btn-primary my-3">{{ 'Bejelentkezés'|_ }}</button>
                                 <a class="login" href="{{ url('/adatvedelmi-iranyelvek') }}" rel="noopener noreferrer"><h5>{{ 'A belépéssel elfogadod az adatvédelmi tájékoztatót'|_ }}</h5></a>
@@ -59,9 +58,9 @@
                 </div>
 
                 <div class="col-lg-6">
-                    <div class="card bg-primary text-light rounded">
+                    <div class="card bg-primary text-light rounded h-100">
                         <div class="card-body">
-                        <div class="d-flex flex-column align-items-center">
+                        <div class="d-flex flex-column align-items-center pt-2">
                         
                             {% for name, link in social_login_links %}
                                 
@@ -74,7 +73,7 @@
                                     {{ 'Belépés Google fiókkal'|_ }}
                                     </a>
                                     </div>
-                                    <div class="separator bg-secondary rounded my-3"></div>
+                                    <div class="separator bg-light rounded my-4"></div>
                                 {% elseif name == "Facebook"%}
                                     <div>
                                     <i class="f-fill-w-lg"></i>
@@ -102,19 +101,13 @@
 </div>
 
 <script>
-const togglePassword = document
-            .querySelector('#togglePassword');
-  
-        const password = document.querySelector('#userSigninPassword');
-  
-        togglePassword.addEventListener('click', () => {
-  
-            const type = password
-                .getAttribute('type') === 'password' ?
-                'text' : 'password';
-                  
-            password.setAttribute('type', type);
-  
-            this.classList.toggle('bi-eye-slash');
+    $(document).ready(function() {        
+    $( "#togglePassword" ).on( "click", function() {
+                $( this ).toggleClass( "bi-eye bi-eye-slash" );
+                $("#userSigninPassword").attr('type') === 'password' ? 
+                    $("#userSigninPassword").attr('type', 'text') : 
+                    $("#userSigninPassword").attr('type', 'password' )  
+            });
         });
 </script>
+            
