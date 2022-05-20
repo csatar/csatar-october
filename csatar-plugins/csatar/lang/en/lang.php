@@ -10,8 +10,7 @@
                 'contactEmail' => 'Contact email',
                 'phone' => 'Phone',
                 'address' => 'Address',
-                'title' => 'Title',
-                'details' => 'Details',
+                'comment' => 'Comment',
                 'id' => 'Id',
                 'createdAt' => 'Created at',
                 'updatedAt' => 'Updated at',
@@ -49,7 +48,9 @@
                 'troop' => 'Troop',
                 'patrol' => 'Patrol',
                 'validationExceptions' => [
-                    'noTeamSelected' => 'Please select a team!'
+                    'noTeamSelected' => 'Please select a team!',
+                    'troopNotInTheTeam' => 'The selected Troop does not belong to the selected Team.',
+                    'troopNotInTheTeamOrTroop' => 'The selected Patrol does not belong to the selected Team or to the selected Troop.',
                 ]
             ],
             'admin' => [

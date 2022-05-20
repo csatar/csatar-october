@@ -4,11 +4,11 @@ columns:
         type: number
         searchable: true
         sortable: true
-    title:
-        label: 'csatar.csatar::lang.plugin.admin.general.title'
+    name:
+        label: 'csatar.csatar::lang.plugin.admin.general.name'
         type: text
         searchable: true
         sortable: true
-    'pivot[details]':
-        label: 'csatar.csatar::lang.plugin.admin.general.details'
+    'pivot[comment]':
+        label: 'csatar.csatar::lang.plugin.admin.general.comment'
         type: text

@@ -18,6 +18,29 @@ columns:
         type: number
         searchable: true
         sortable: true
+    ecset_code:
+        label: 'csatar.csatar::lang.plugin.admin.general.ecsetCode'
+        type: text
+        searchable: true
+        sortable: true
+    team_id:
+        label: 'csatar.csatar::lang.plugin.admin.scout.team'
+        type: number
+        searchable: true
+        select: 'concat(team_number, ''. '', name)'
+        relation: team
+    troop_id:
+        label: 'csatar.csatar::lang.plugin.admin.scout.troop'
+        type: number
+        searchable: true
+        relation: troop
+        valueFrom: name
+    patrol_id:
+        label: 'csatar.csatar::lang.plugin.admin.scout.patrol'
+        type: number
+        searchable: true
+        relation: patrol
+        valueFrom: name
     family_name:
         label: 'csatar.csatar::lang.plugin.admin.scout.familyName'
         type: text
@@ -33,14 +56,14 @@ columns:
         type: text
         searchable: true
         sortable: true
-    gender:
-        label: 'csatar.csatar::lang.plugin.admin.scout.gender.gender'
-        type: text
-        searchable: true
-        sortable: true
     personal_identification_number:
         label: 'csatar.csatar::lang.plugin.admin.scout.personalIdentificationNumber'
         type: number
+        searchable: true
+        sortable: true
+    gender:
+        label: 'csatar.csatar::lang.plugin.admin.scout.gender.gender'
+        type: text
         searchable: true
         sortable: true
     is_active:
@@ -48,11 +71,23 @@ columns:
         type: switch
         searchable: true
         sortable: true
+    legal_relationship_id:
+        label: 'csatar.csatar::lang.plugin.admin.scout.legalRelationship'
+        type: text
+        searchable: true
+        relation: legal_relationship
+        valueFrom: title
     chronic_illnesses:
         label: 'csatar.csatar::lang.plugin.admin.scout.chronicIllnesses'
         type: text
         searchable: true
         relation: chronic_illnesses
+        valueFrom: title
+    special_diet_id:
+        label: 'csatar.csatar::lang.plugin.admin.scout.specialDiet'
+        type: text
+        searchable: true
+        relation: special_diet
         valueFrom: title
     allergies:
         label: 'csatar.csatar::lang.plugin.admin.scout.allergy'
@@ -60,18 +95,6 @@ columns:
         searchable: true
         sortable: false
         relation: allergies
-        valueFrom: title
-    legal_relationship_id:
-        label: 'csatar.csatar::lang.plugin.admin.scout.legalRelationship'
-        type: text
-        searchable: true
-        relation: legal_relationship
-        valueFrom: title
-    special_diet_id:
-        label: 'csatar.csatar::lang.plugin.admin.scout.specialDiet'
-        type: text
-        searchable: true
-        relation: special_diet
         valueFrom: title
     religion_id:
         label: 'csatar.csatar::lang.plugin.admin.scout.religion'
@@ -85,8 +108,4 @@ columns:
         searchable: true
         relation: tshirt_size
         valueFrom: title
-    ecset_code:
-        label: 'csatar.csatar::lang.plugin.admin.general.ecsetCode'
-        type: text
-        searchable: true
-        sortable: true
+
