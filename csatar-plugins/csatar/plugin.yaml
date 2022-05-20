@@ -51,7 +51,11 @@ navigation:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.allergyCategories'
                 url: csatar/csatar/allergies
                 icon: icon-sitemap
-            side-menu-special-item-categories:
+            side-menu-food-sensitivity-categories:
+                label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.foodSensitivityCategories'
+                url: csatar/csatar/foodsensitivities
+                icon: icon-sitemap
+            side-menu-special-diet-categories:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.specialDietCategories'
                 url: csatar/csatar/specialdiets
                 icon: icon-sitemap

@@ -3,7 +3,7 @@
 use Backend\Classes\Controller;
 use BackendMenu;
 
-class SpecialDiets extends Controller
+class FoodSensitivities extends Controller
 {
     public $implement = [        'Backend\Behaviors\ListController',        'Backend\Behaviors\FormController'    ];
     
@@ -13,6 +13,6 @@ class SpecialDiets extends Controller
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('Csatar.Csatar', 'main-menu-item-scout-system-data', 'side-menu-special-diet-categories');
+        BackendMenu::setContext('Csatar.Csatar', 'main-menu-item-scout-system-data', 'side-menu-food-sensitivity-categories');
     }
 }

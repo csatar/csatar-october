@@ -7,4 +7,12 @@ allergies:
     form: $/csatar/csatar/models/allergy/fields.yaml
   pivot:
     form: $/csatar/csatar/models/allergy/fieldsPivot.yaml
-    
+food_sensitivities:
+  label: 'csatar.csatar::lang.plugin.admin.foodSensitivity.foodSensitivity'
+  view:
+    list: $/csatar/csatar/models/foodsensitivity/columnsPivot.yaml
+    toolbarButtons: add|remove|create
+  manage:
+    form: $/csatar/csatar/models/foodsensitivity/fields.yaml
+  pivot:
+    form: $/csatar/csatar/models/foodsensitivity/fieldsPivot.yaml

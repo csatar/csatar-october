@@ -150,3 +150,12 @@
 1.0.53:
     - 'Updated table csatar_csatar_allergies'
     - builder_table_update_csatar_csatar_allergies_2.php
+1.0.54:
+    - 'Created table csatar_csatar_food_sensitivity'
+    - builder_table_create_csatar_csatar_food_sensitivities.php
+1.0.55:
+    - 'Created table csatar_csatar_scouts_food_sensitivities'
+    - builder_table_create_csatar_csatar_scouts_food_sensitivities.php
+1.0.56:
+    - 'Added seeder for Food Sensitivities'
+    - seeder_1056.php

@@ -76,36 +76,42 @@ columns:
         type: text
         searchable: true
         relation: legal_relationship
-        valueFrom: title
+        valueFrom: name
     chronic_illnesses:
         label: 'csatar.csatar::lang.plugin.admin.scout.chronicIllnesses'
         type: text
         searchable: true
         relation: chronic_illnesses
-        valueFrom: title
+        valueFrom: name
     special_diet_id:
         label: 'csatar.csatar::lang.plugin.admin.scout.specialDiet'
         type: text
         searchable: true
         relation: special_diet
-        valueFrom: title
+        valueFrom: name
     allergies:
         label: 'csatar.csatar::lang.plugin.admin.scout.allergy'
         type: text
         searchable: true
         sortable: false
         relation: allergies
-        valueFrom: title
+        valueFrom: name
+    food_sensitivities:
+        label: 'csatar.csatar::lang.plugin.admin.scout.foodSensitivity'
+        type: text
+        searchable: true
+        sortable: false
+        relation: food_sensitivities
+        valueFrom: name
     religion_id:
         label: 'csatar.csatar::lang.plugin.admin.scout.religion'
         type: text
         searchable: true
         relation: religion
-        valueFrom: title
+        valueFrom: name
     tshirt_size_id:
         label: 'csatar.csatar::lang.plugin.admin.scout.tShirtSize'
         type: text
         searchable: true
         relation: tshirt_size
-        valueFrom: title
-
+        valueFrom: name

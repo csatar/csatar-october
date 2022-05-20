@@ -105,6 +105,11 @@ class Scout extends Model
             '\Csatar\Csatar\Models\Allergy',
             'table' => 'csatar_csatar_scouts_allergies',
             'pivot' => ['comment']
+        ],
+        'food_sensitivities' => [
+            '\Csatar\Csatar\Models\FoodSensitivity',
+            'table' => 'csatar_csatar_scouts_food_sensitivities',
+            'pivot' => ['comment']
         ]
     ];
 
