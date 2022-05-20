@@ -79,34 +79,34 @@ fields:
         type: checkbox
     legal_relationship:
         label: 'csatar.csatar::lang.plugin.admin.scout.legalRelationship'
-        nameFrom: title
+        nameFrom: name
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
         type: relation
     chronic_illnesses:
         label: 'csatar.csatar::lang.plugin.admin.scout.chronicIllnesses'
-        nameFrom: title
+        nameFrom: name
         descriptionFrom: description
         span: auto
         type: relation
     special_diet:
         label: 'csatar.csatar::lang.plugin.admin.scout.specialDiet'
-        nameFrom: title
+        nameFrom: name
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
         type: relation
     religion:
         label: 'csatar.csatar::lang.plugin.admin.scout.religion'
-        nameFrom: title
+        nameFrom: name
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
         type: relation
     tshirt_size:
         label: 'csatar.csatar::lang.plugin.admin.scout.tShirtSize'
-        nameFrom: title
+        nameFrom: name
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto

@@ -1,4 +1,4 @@
-title: Hierarchy
+title: 'csatar.csatar::lang.plugin.admin.hierarchy.hierarchy'
 modelClass: Csatar\Csatar\Models\Hierarchy
 nameFrom: name
 toolbar:
