@@ -3,7 +3,7 @@ layout = "default"
 title = "Csapat"
 
 [basicForm]
-formId = 5
+formSlug = "csapat"
 recordKeyParam = "id"
 recordActionParam = "action"
 createRecordKeyword = "letrehozas"
@@ -39,13 +39,13 @@ localeTitle[hu] = "Csapat"
 <div class="container">
     {% component 'basicForm' %}
 
-    <p>{{ 'Troops' | _ }}</p>
+    <p>{{ 'Rajok' | _ }}</p>
     {% component 'builderList' %}
 
-    <p><a href="/raj/letrehozas" class="btn btn-default">{{ 'Add Troop' | _ }}</a></p>
+    <p><a href="/raj/letrehozas" class="btn btn-default">{{ 'Raj hozzáadása' | _ }}</a></p>
 
-    <p>{{ 'Patrols' | _ }}</p>
+    <p>{{ 'Őrsök' | _ }}</p>
     {% component 'builderList2' %}
 
-    <p><a href="/ors/letrehozas" class="btn btn-default">{{ 'Add Patrol' | _ }}</a></p>
+    <p><a href="/ors/letrehozas" class="btn btn-default">{{ 'Őrs hozzáadása' | _ }}</a></p>
 </div>

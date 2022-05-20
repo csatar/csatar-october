@@ -28,7 +28,7 @@ columns:
         searchable: true
         sortable: true
     contact_email:
-        label: 'csatar.csatar::lang.plugin.admin.association.contactEmail'
+        label: 'csatar.csatar::lang.plugin.admin.general.contactEmail'
         type: text
         searchable: true
         sortable: true

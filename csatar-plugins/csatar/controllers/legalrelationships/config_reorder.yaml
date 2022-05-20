@@ -1,5 +1,5 @@
-title: LegalRelationship
+title: 'csatar.csatar::lang.plugin.admin.legalRelationship.legalRelationships'
 modelClass: Csatar\Csatar\Models\LegalRelationship
-nameFrom: title
+nameFrom: name
 toolbar:
     buttons: reorder_toolbar

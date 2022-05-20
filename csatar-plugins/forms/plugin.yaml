@@ -2,6 +2,8 @@ plugin:
     name: 'csatar.forms::lang.plugin.name'
     description: 'csatar.forms::lang.plugin.description'
     author: 'csatar.forms::lang.plugin.author'
+    icon: oc-icon-file-text
+    homepage: ''
 navigation:
     main-menu-item:
         label: Forms

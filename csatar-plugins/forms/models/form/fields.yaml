@@ -1,7 +1,13 @@
 fields:
     title:
         label: 'csatar.forms::lang.plugin.admin.form.title'
-        span: full
+        span: left
+        type: text
+    slug:
+        label: 'csatar.forms::lang.plugin.admin.form.slug'
+        span: auto
+        disabled: 1
+        readOnly: 1
         type: text
     model:
         label: 'csatar.forms::lang.plugin.admin.form.model'

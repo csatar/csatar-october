@@ -17,7 +17,7 @@ fields:
         type: section
     team:
         label: 'csatar.csatar::lang.plugin.admin.scout.team'
-        nameFrom: name
+        select: 'concat(team_number, ''. '', name)'
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
@@ -28,15 +28,17 @@ fields:
         nameFrom: name
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        dependsOn: team
         span: auto
-        type: relation
+        type: dropdown
     patrol:
         label: 'csatar.csatar::lang.plugin.admin.scout.patrol'
         nameFrom: name
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        dependsOn: [team, troop]
         span: auto
-        type: relation
+        type: dropdown
     scoutData:
         label: 'csatar.csatar::lang.plugin.admin.scout.scoutData'
         span: full
@@ -77,34 +79,34 @@ fields:
         type: checkbox
     legal_relationship:
         label: 'csatar.csatar::lang.plugin.admin.scout.legalRelationship'
-        nameFrom: title
+        nameFrom: name
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
         type: relation
     chronic_illnesses:
         label: 'csatar.csatar::lang.plugin.admin.scout.chronicIllnesses'
-        nameFrom: title
+        nameFrom: name
         descriptionFrom: description
         span: auto
         type: relation
     special_diet:
         label: 'csatar.csatar::lang.plugin.admin.scout.specialDiet'
-        nameFrom: title
+        nameFrom: name
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
         type: relation
     religion:
         label: 'csatar.csatar::lang.plugin.admin.scout.religion'
-        nameFrom: title
+        nameFrom: name
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
         type: relation
     tshirt_size:
         label: 'csatar.csatar::lang.plugin.admin.scout.tShirtSize'
-        nameFrom: title
+        nameFrom: name
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
