@@ -10,8 +10,7 @@
                 'contactEmail' => 'Contact email',
                 'phone' => 'Phone',
                 'address' => 'Address',
-                'title' => 'Title',
-                'details' => 'Details',
+                'comment' => 'Comment',
                 'id' => 'Id',
                 'createdAt' => 'Created at',
                 'updatedAt' => 'Updated at',
@@ -49,7 +48,9 @@
                 'troop' => 'Troop',
                 'patrol' => 'Patrol',
                 'validationExceptions' => [
-                    'noTeamSelected' => 'Please select a team!'
+                    'noTeamSelected' => 'Please select a team!',
+                    'troopNotInTheTeam' => 'The selected Troop does not belong to the selected Team.',
+                    'troopNotInTheTeamOrTroop' => 'The selected Patrol does not belong to the selected Team or to the selected Troop.',
                 ]
             ],
             'admin' => [
@@ -152,6 +153,7 @@
                 'troopsPatrolsScoutsInfo' => 'Troops, Patrols and Scouts can be added after the Team has been created. Click the Create button after other information is filled.',
                 'breadcrumb' => 'Teams',
                 'teamNumberTakenError' => 'This Team number is already taken.',
+                'dateInTheFutureError' => 'The selected date is in the future.',
             ],
             'troop' => [
                 'troop' => 'Troop',
@@ -184,6 +186,40 @@
             'resetPassword' => [
                 'name' => 'Reset Password',
                 'description' => 'Enables restoring the user\'s password.',
+            ],
+            'structure' => [
+                'name' => 'Organization Structure',
+                'description' => 'Displays the organization structure in a tree view.',
+            ],
+            'logos' => [
+                'name' => 'Logos',
+                'description' => 'Logos and corresponding links shown in grid view.',
+                'sponsors' => [
+                    'title' => 'List of Sponsors', // 'Támogatók listája'
+                    'hungarianGovernment' => 'Hungarian Government', // 'Magyar Kormány'
+                    'harghitaCountyCouncil' => 'Harghita County Council', // 'Hargita Megye Tanácsa'
+                    'communitasFoundation' => 'Communitas Foundation', // 'Communitas Alapítvány'
+                    'toyota' => 'Toyota', // 'Toyota'
+                ],
+                'discounts' => [
+                    'title' => 'Companies offering discounts', // 'Kedvezményeket kínáló cégek'
+                    'mormotaLand' => 'Mormota Land', // 'Mormota Land'
+                    'tiboo' => 'Tiboo', // 'Tiboo'
+                    'giftyShop' => 'Gifty Shop', // 'Gifty Shop'
+                    'zergeSpecialtyStore' => 'Zerge Specialt Store', // 'Zerge Szakbolt'
+                ],
+                'partners' => [
+                    'title' => 'Partners', // 'Partnerek'
+                    'forumOfHungarianScoutAssociations' => 'Forum of Hungarian Scout Associations', // 'Magyar Cserkészszövetségek Fóruma'
+                    'transcarpathianHungarianScoutAssociation' => 'Transcarpathian Hungarian Scout Association', // 'Kárpátaljai Magyar Cserkészszövetség'
+                    'hungarianScoutAssociation' => 'Hungarian Scout Association', // 'Magyar Cserkészszövetség'
+                    'slovakHungarianScoutAssociation' => 'Slovak Hungarian Scout Association', // 'Szlovákiai Magyar Cserkészszövetség'
+                    'hungarianScoutAssociationOfVojvodina' => 'Hungarian Scout Association of Vojvodina', // 'Vajdasági Magyar Cserkészszövetség'
+                    'archdiocesanYouthHeadquarters' => 'Archdiocesan Youth Headquarters', // 'Főegyházmegyei Ifjúsági Főlelkészség'
+                    'marySWayTransylvania' => 'Mary\'s Way - Transylvania', // 'Mária út - Erdély'
+                    'proEducatione' => 'Pro Educatione', // 'Pro Educatione'
+                    'scoutsOfRomania' => 'Scouts Of Romania', // 'Románia Cserkészei'
+                ],
             ],
         ],
     ],

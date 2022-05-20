@@ -2,14 +2,18 @@ url = "/"
 layout = "default"
 title = "Főoldal"
 
+[logos]
+
+[structure]
+
 [viewBag]
 localeTitle[en] = "Index"
 localeTitle[hu] = "Főoldal"
 ==
 <div class="container">
-    <div class="text-primary text-center">
-        <i class="gear-out-lg"></i>
-        <h1>{{ 'Az oldal építés alatt áll&#33;' | _ }}</h1>
-        <img src="{{ 'assets/images/under_construction.svg' | theme }}" alt="{{ 'Az oldal építés alatt áll&#33;' | _ }}" class="img-fluid w-50">
-    </div>
+    {% partial "home/description" %}
+    {% component "structure" %}
+    {% component "logos" mode="sponsors" %}
+    {% component "logos" mode="discounts" %}
+    {% component "logos" mode="partners" %}
 </div>
