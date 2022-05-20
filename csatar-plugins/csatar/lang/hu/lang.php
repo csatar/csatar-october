@@ -22,6 +22,8 @@
                 'logo' => 'Logo',
                 'coordinates' => 'Coordinates',
                 'ecsetCode' => 'ECSET code',
+                'date' => 'Dátum',
+                'location' => 'Helyszín',
                 'relations' => 'Relations',
             ],
             'scout' => [
@@ -45,9 +47,11 @@
                 'specialDiet' => 'Special diet',
                 'religion' => 'Religion',
                 'tShirtSize' => 'T-shirt size',
+                'promise' => 'Fogadalom, ígéret',
                 'allergies' => 'Allergies',
+                'promises' => 'Fogadalmak, ígéretek',
                 'foodSensitivities' => 'Ételérzékenységek',
-                'additionalDetailsInfo' => 'Allergies, Food Sensitivities can be added after the Scout has been created. Click the Create button after other information is filled.',
+                'additionalDetailsInfo' => 'Allergies, Food Sensitivities, Promises can be added after the Scout has been created. Click the Create button after other information is filled.',
                 'breadcrumb' => 'Scouts',
                 'team' => 'Team',
                 'troop' => 'Troop',
@@ -70,6 +74,7 @@
                         'specialDietCategories' => 'Special Diet Categories',
                         'religionCategories' => 'Religion Categories',
                         'tShirtSizeCategories' => 'T-Shirt Size Categories',
+                        'promiseCategories' => 'Fogadalom, ígéret típusok',
                     ],
                     'organizationSystemData' => [
                         'organizationSystemData' => 'Organization System Data',
@@ -112,6 +117,11 @@
                 'tShirtSize' => 'T-Shirt Size',
                 'tShirtSizes' => 'T-Shirt Sizes',
                 'breadcrumb' => 'T-Shirt Sizes',
+            ],
+            'promise' => [
+                'promise' => 'Fogadalom, ígéret',
+                'promises' => 'Fogadalmak, ígéretek',
+                'breadcrumb' => 'Fogadalmak, ígéretek',
             ],
             'hierarchy' => [
                 'hierarchy' => 'Hierarchy',

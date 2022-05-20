@@ -16,3 +16,13 @@ food_sensitivities:
     form: $/csatar/csatar/models/foodsensitivity/fields.yaml
   pivot:
     form: $/csatar/csatar/models/foodsensitivity/fieldsPivot.yaml
+promises:
+  label: 'csatar.csatar::lang.plugin.admin.promise.promise'
+  view:
+    list: $/csatar/csatar/models/promise/columnsPivot.yaml
+    toolbarButtons: add|remove|create
+  manage:
+    form: $/csatar/csatar/models/promise/fields.yaml
+  pivot:
+    form: $/csatar/csatar/models/promise/fieldsPivot.yaml
+

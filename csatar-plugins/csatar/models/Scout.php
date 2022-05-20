@@ -110,6 +110,11 @@ class Scout extends Model
             '\Csatar\Csatar\Models\FoodSensitivity',
             'table' => 'csatar_csatar_scouts_food_sensitivities',
             'pivot' => ['comment']
+        ],
+        'promises' => [
+            '\Csatar\Csatar\Models\Promise',
+            'table' => 'csatar_csatar_scouts_promises',
+            'pivot' => ['date', 'location']
         ]
     ];
 

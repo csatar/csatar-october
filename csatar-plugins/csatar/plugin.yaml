@@ -67,6 +67,10 @@ navigation:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.tShirtSizeCategories'
                 url: csatar/csatar/tshirtsizes
                 icon: icon-sitemap
+            side-menu-promise-categories:
+                label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.promiseCategories'
+                url: csatar/csatar/promises
+                icon: icon-sitemap
     main-menu-scout-data:
         label: 'csatar.csatar::lang.plugin.admin.admin.menu.scout'
         url: /csatar/csatar/scouts

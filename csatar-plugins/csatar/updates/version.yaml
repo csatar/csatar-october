@@ -159,3 +159,12 @@
 1.0.56:
     - 'Added seeder for Food Sensitivities'
     - seeder_1056.php
+1.0.57:
+    - 'Created table csatar_csatar_promises'
+    - builder_table_create_csatar_csatar_promises.php
+1.0.58:
+    - 'Created table csatar_csatar_scouts_promises'
+    - builder_table_create_csatar_csatar_scouts_promises.php
+1.0.59:
+    - 'Added seeder for Promises'
+    - seeder_1059.php

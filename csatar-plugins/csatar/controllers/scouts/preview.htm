@@ -16,6 +16,9 @@
     <div class="layout-row">
         <?= $this->relationRender('food_sensitivities') ?>
     </div>
+    <div class="layout-row">
+        <?= $this->relationRender('promises') ?>
+    </div>
 
 <?php else: ?>
     <p class="flash-message static error"><?= e($this->fatalError) ?></p>

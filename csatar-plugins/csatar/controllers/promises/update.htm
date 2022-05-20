@@ -1,6 +1,6 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
-        <li><a href="<?= Backend::url('csatar/csatar/scouts') ?>"><?= e(trans('csatar.csatar::lang.plugin.admin.scout.breadcrumb')) ?></a></li>
+        <li><a href="<?= Backend::url('csatar/csatar/promises') ?>"><?= e(trans('csatar.csatar::lang.plugin.admin.promise.breadcrumb')) ?></a></li>
         <li><?= e($this->pageTitle) ?></li>
     </ul>
 <?php Block::endPut() ?>
@@ -11,15 +11,6 @@
 
         <div class="layout-row">
             <?= $this->formRender() ?>
-        </div>
-        <div class="layout-row">
-            <?= $this->relationRender('allergies') ?>
-        </div>
-        <div class="layout-row">
-            <?= $this->relationRender('food_sensitivities') ?>
-        </div>
-        <div class="layout-row">
-            <?= $this->relationRender('promises') ?>
         </div>
 
         <div class="form-buttons">
@@ -51,7 +42,7 @@
                 </button>
 
                 <span class="btn-text">
-                    <?= e(trans('backend::lang.form.or')) ?> <a href="<?= Backend::url('csatar/csatar/scouts') ?>"><?= e(trans('backend::lang.form.cancel')) ?></a>
+                    <?= e(trans('backend::lang.form.or')) ?> <a href="<?= Backend::url('csatar/csatar/promises') ?>"><?= e(trans('backend::lang.form.cancel')) ?></a>
                 </span>
             </div>
         </div>
@@ -59,5 +50,5 @@
 
 <?php else: ?>
     <p class="flash-message static error"><?= e(trans($this->fatalError)) ?></p>
-    <p><a href="<?= Backend::url('csatar/csatar/scouts') ?>" class="btn btn-default"><?= e(trans('backend::lang.form.return_to_list')) ?></a></p>
+    <p><a href="<?= Backend::url('csatar/csatar/promises') ?>" class="btn btn-default"><?= e(trans('backend::lang.form.return_to_list')) ?></a></p>
 <?php endif ?>
