@@ -1,4 +1,7 @@
 <?php return [
+    'frontEnd' => [
+        'authException' => 'The email address, the ECSET code or the password is incorrect.'
+    ],
     'plugin' => [
         'name' => 'CSATÁR',
         'description' => 'Plugin for the RMCSSZ\'s CSATÁR project',
