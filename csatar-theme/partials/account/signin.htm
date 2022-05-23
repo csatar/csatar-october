@@ -1,78 +1,113 @@
-<div class="row">
+<div class="container">
+    <div class="row">
 
-    <div class="col-md-6">
-        {% for name, link in social_login_links %}
-            <a href="{{ link }}">{{ name }}</a>
-        {% endfor %}
-    </div>
+        <div class="col-1 col-md-2 col-lg-2">
+        </div>
 
-    <div class="col-md-6">
+        <div class="col-10 col-md-8 col-lg-8 py-5">
+            <div class="flex-grow-1 flex-md-row-reverse row g-2">
+                <div class="col-lg-6">
+                    <div class="card bg-light text-primary rounded h-100">
+                        <div class="card-body">
+                        <div class="d-flex flex-column align-items-center">
+                            <i class="key-out-lg"></i>
+                            <h4 class="text-center">{{ 'Belépés jelszóval'|_ }}</h4>
+                            <form
+                                class="text-center"
+                                data-request="onSignin"
+                                data-request-validate
+                                novalidate
+                                data-request-flash>
 
-        <h1>{{ 'Belépés jelszóval'|_ }}</h1>
+                                <div class="form-group my-2 px-5">
+                                    <input
+                                        name="login"
+                                        type="text"
+                                        class="form-control rounded bg-white"
+                                        id="userSigninLogin"
+                                        placeholder="{{ 'ECSET kód vagy e-mail cím'|_ }} "/>
+                                </div>
+                                <span data-validate-for="login" class="text-danger">{{ 'Az e-mail mezőt kötelező kitöltened. Az e-mail cím e-mail formájú kell legyen.' | _ }}</span>
 
-        <form
-            data-request="onSignin"
-            data-request-validate
-            novalidate
-            data-request-flash>
+                                <div class="my-2 px-5">
+                                    <div class="input-group rounded bg-white">
+                                    <input
+                                    name="password"
+                                    type="password"
+                                    class="form-control rounded bg-white border-0"
+                                    id="userSigninPassword"
+                                    placeholder="{{ 'Jelszó'|_ }}" />
+                                    <span>
+                                        <button class="search-btn" type="button">
+                                        <i class="bi bi-eye text-primary" 
+                                        id="togglePassword"></i>
+                                        </button>
+                                    </span>
+                                    </div>
+                                </div>   
+                                <span data-validate-for="password" class="text-danger">{{ 'A jelszó mezőt kötelező kitöltened!' | _ }}</span>
 
-            <div class="form-group">
-                <input
-                    name="login"
-                    type="text"
-                    class="form-control"
-                    id="userSigninLogin"
-                    placeholder="{{ 'ECSET kód vagy e-mail cím'|_ }} "/>
-            </div>
-            <span data-validate-for="login" class="text-danger">{{ 'Az e-mail mezőt kötelező kitöltened. Az e-mail cím e-mail formájú kell legyen.' | _ }}</span>
+                                <a class="login" href="{{ url('/elfelejtett-jelszo') }}" rel="noopener noreferrer"><h5>{{ 'Elfeljettem a jelszavamat'|_ }}</h5></a>
+                                <button type="submit" class="btn rounded btn-primary my-3">{{ 'Bejelentkezés'|_ }}</button>
+                                <a class="login" href="{{ url('/adatvedelmi-iranyelvek') }}" rel="noopener noreferrer"><h5>{{ 'A belépéssel elfogadod az adatvédelmi tájékoztatót'|_ }}</h5></a>
 
-            <div class="form-group">
-                <input
-                    name="password"
-                    type="password"
-                    class="form-control"
-                    id="userSigninPassword"
-                    placeholder="{{ 'Jelszó'|_ }}" />
-            </div>
+                            </form>
+                        </div>
+                        </div>
+                    </div>
+                </div>
 
-            <div class="form-group">
-                <div class="custom-control custom-checkbox small">
-                    <input
-                        type="checkbox"
-                        id="showPassword"
-                        onclick="togglePasswordField()"
-                        class="custom-control-input radio"
-                    />
-                    <label
-                        for="showPassword"
-                        class="custom-control-label">{{ 'Jelszó megjelenítése'|_ }}</label>
+                <div class="col-lg-6">
+                    <div class="card bg-primary text-light rounded h-100">
+                        <div class="card-body">
+                        <div class="d-flex flex-column align-items-center pt-2">
+                        
+                            {% for name, link in social_login_links %}
+                                
+                                {% if name == "Google" %}
+                                    <div>
+                                    <i class="g-fill-w-lg"></i>
+                                    </div>
+                                    <div>
+                                    <a href="{{ link }}" class="btn rounded btn-light mt-3">
+                                    {{ 'Belépés Google fiókkal'|_ }}
+                                    </a>
+                                    </div>
+                                    <div class="separator bg-light rounded my-4"></div>
+                                {% elseif name == "Facebook"%}
+                                    <div>
+                                    <i class="f-fill-w-lg"></i>
+                                    </div>
+                                    <div>
+                                    <a href="{{ link }}" class="btn rounded btn-light mt-3">
+                                    {{ 'Belépés Facebook fiókkal'|_ }}
+                                    </a>
+                                    </div>
+                                {% endif %}
+                            
+                            {% endfor %}
+
+                        </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <span data-validate-for="password" class="text-danger">{{ 'A jelszó mezőt kötelező kitöltened!' | _ }}</span>
+        </div>
 
-            <button type="submit" class="btn btn-default">{{ 'Bejelentkezés'|_ }}</button>
-
-            <br>
-            <a href="{{ url('/elfelejtett-jelszo') }}" rel="noopener noreferrer">{{ 'Elfeljettem a jelszavamat'|_ }}</a>
-            <br>
-            <a href="{{ url('/adatvedelmi-iranyelvek') }}" rel="noopener noreferrer">{{ 'A belépéssel elfogadod az adatvédelmi tájékoztatót'|_ }}</a>
-
-        </form>
+        <div class="col-1 col-md-2 col-lg-2">
+        </div>
 
     </div>
-
 </div>
 
 <script>
-    $(document).ready(function() {
-        togglePasswordField();
-    });
-
-    function togglePasswordField() {
-        if ($("#showPassword").is(':checked')) {
-            $("#userSigninPassword").prop("type", "text")
-        } else {
-            $("#userSigninPassword").prop("type", "password")
-        }
-    }
+    $(document).ready(function() {        
+    $( "#togglePassword" ).on( "click", function() {
+                $( this ).toggleClass( "bi-eye bi-eye-slash" );
+                $("#userSigninPassword").attr('type') === 'password' ? 
+                    $("#userSigninPassword").attr('type', 'text') : 
+                    $("#userSigninPassword").attr('type', 'password' )  
+            });
+        });
 </script>
+            

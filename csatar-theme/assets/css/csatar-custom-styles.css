@@ -300,6 +300,10 @@ a:link, a:visited, a:active {
     color:#FFCE00 !important;
 }
 
+a.btn:link, a.btn:visited, a.btn:active {
+    color:#78863F !important;
+}
+
 a:hover {
     color: #FFF0B2 !important;
 }
@@ -320,7 +324,7 @@ a:hover {
     color: #78863F;
 }
 
-.form-control:-ms-input-placeholder {
+.form-control::-ms-input-placeholder {
     color: #78863F;
 }
 
@@ -438,14 +442,20 @@ a.dropdown-item {
 /* paths */
 .adduser-fill:before, .adduser-fill-md:before, .adduser-fill-lg:before {content: url(../images/symbols/adduser_green_fill.svg);}
 .adduser-out:before, .adduser-out-md:before, .adduser-out-lg:before {content: url(../images/symbols/adduser_green_out.svg);}
+.arrow-fill-sm:before, .arrow-fill-md:before, .arrow-fill-lg:before {content: url(../images/symbols/arrow_green_fill.svg);}
+.arrow-out-sm:before, .arrow-out-md:before, .arrow-out-lg:before {content: url(../images/symbols/arrow_green_out.svg);}
 .exit-fill-sm:before, .exit-fill-md:before, .exit-fill-lg:before {content: url(../images/symbols/exit_green_fill.svg);}
 .exit-fill-w-sm:before, .exit-fill-w-md:before, .exit-fill-w-lg:before {content: url(../images/symbols/exit_white_fill.svg);}
 .exit-out-sm:before, .exit-out-md:before, .exit-out-lg:before {content: url(../images/symbols/exit_green_out.svg);}
 .exit-out-w-sm:before, .exit-out-w-md:before, .exit-out-w-lg:before {content: url(../images/symbols/exit_white_out.svg);}
 .f-fill-sm:before, .f-fill-md:before, .f-fill-lg:before {content: url(../images/symbols/f_green_fill.svg);}
+.f-fill-w-sm:before, .f-fill-w-md:before, .f-fill-w-lg:before {content: url(../images/symbols/f_white_fill.svg);}
 .f-out-sm:before, .f-out-md:before, .f-out-lg:before {content: url(../images/symbols/f_green_out.svg);}
+.f-out-w-sm:before, .f-out-w-md:before, .f-out-w-lg:before {content: url(../images/symbols/f_white_out.svg);}
 .g-fill-sm:before, .g-fill-md:before, .g-fill-lg:before {content: url(../images/symbols/g_green_fill.svg);}
+.g-fill-w-sm:before, .g-fill-w-md:before, .g-fill-w-lg:before {content: url(../images/symbols/g_white_fill.svg);}
 .g-out-sm:before, .g-out-md:before, .g-out-lg:before {content: url(../images/symbols/g_green_out.svg);}
+.g-out-w-sm:before, .g-out-w-md:before, .g-out-w-lg:before {content: url(../images/symbols/g_white_out.svg);}
 .gear-fill-sm:before, .gear-fill-md:before, .gear-fill-lg:before {content: url(../images/symbols/gear_green_fill.svg);}
 .gear-fill-w-sm:before, .gear-fill-w-md:before, .gear-fill-w-lg:before {content: url(../images/symbols/gear_white_fill.svg);}
 .gear-out-sm:before, .gear-out-md:before, .gear-out-lg:before {content: url(../images/symbols/gear_green_out.svg);}
@@ -461,9 +471,8 @@ a.dropdown-item {
 .x-fill-sm:before, .x-fill-md:before, .x-fill-lg:before {content: url(../images/symbols/x_green_fill.svg);}
 .x-out-sm:before, .x-out-md:before, .x-out-lg:before {content: url(../images/symbols/x_green_out.svg);}
 
-
 /* small size */
-.adduser-fill-sm:before, .adduser-out-sm:before, .exit-fill-sm:before, .exit-fill-w-sm:before, .exit-out-sm:before, .exit-out-w-sm:before, .f-fill-sm:before, .f-out-sm:before, .g-fill-sm:before, .g-out-sm:before, .gear-fill-sm:before, .gear-fill-w-sm:before, .gear-out-sm:before, .gear-out-w-sm:before, .key-fill-sm:before, .key-out-sm:before, .magnifier-fill-sm:before, .magnifier-out-sm:before, .user-fill-sm, .user-fill-w-sm, .user-out-sm, .user-out-w-sm, .x-fill-sm, .x-out-sm {
+.adduser-fill-sm:before, .adduser-out-sm:before, .arrow-fill-sm:before, .arrow-out-sm:before, .exit-fill-sm:before, .exit-fill-w-sm:before, .exit-out-sm:before, .exit-out-w-sm:before, .f-fill-sm:before, .f-fill-w-sm:before, .f-out-sm:before, .f-out-w-sm:before, .g-fill-sm:before, .g-fill-w-sm:before, .g-out-sm:before, .g-out-w-sm:before, .gear-fill-sm:before, .gear-fill-w-sm:before, .gear-out-sm:before, .gear-out-w-sm:before, .key-fill-sm:before, .key-out-sm:before, .magnifier-fill-sm:before, .magnifier-out-sm:before, .user-fill-sm, .user-fill-w-sm, .user-out-sm, .user-out-w-sm, .x-fill-sm, .x-out-sm {
     display: inline-block;
     height: 20px;
     width: 20px;
@@ -472,7 +481,7 @@ a.dropdown-item {
 }
 
 /* medium size */
-.adduser-fill-md:before, .adduser-out-md:before, .exit-fill-md:before, .exit-fill-w-md:before, .exit-out-md:before, .exit-out-w-md:before, .f-fill-md:before, .f-out-md:before, .g-fill-md:before, .g-out-md:before, .gear-fill-md:before, .gear-fill-w-md:before, .gear-out-md:before, .gear-out-w-md:before, .key-fill-md:before, .key-out-md:before, .magnifier-fill-md:before, .magnifier-out-md:before, .user-fill-md, .user-fill-w-md, .user-out-md, .user-out-w-md, .x-fill-md, .x-out-md {
+.adduser-fill-md:before, .adduser-out-md:before, .arrow-fill-md:before, .arrow-out-md:before, .exit-fill-md:before, .exit-fill-w-md:before, .exit-out-md:before, .exit-out-w-md:before, .f-fill-md:before, .f-fill-w-md:before, .f-out-md:before, .f-out-w-md:before, .g-fill-md:before, .g-fill-w-md:before, .g-out-md:before, .g-out-w-md:before, .gear-fill-md:before, .gear-fill-w-md:before, .gear-out-md:before, .gear-out-w-md:before, .key-fill-md:before, .key-out-md:before, .magnifier-fill-md:before, .magnifier-out-md:before, .user-fill-md, .user-fill-w-md, .user-out-md, .user-out-w-md, .x-fill-md, .x-out-md {
     display: inline-block;
     height: 30px;
     width: 30px;
@@ -481,7 +490,7 @@ a.dropdown-item {
 }
 
 /* large size */
-.adduser-fill-lg:before, .adduser-out-lg:before, .exit-fill-lg:before, .exit-fill-w-lg:before, .exit-out-lg:before, .exit-out-w-lg:before, .f-fill-lg:before, .f-out-lg:before, .g-fill-lg:before, .g-out-lg:before, .gear-fill-lg:before, .gear-fill-w-lg:before, .gear-out-lg:before, .gear-out-w-lg:before, .key-fill-lg:before, .key-out-lg:before, .magnifier-fill-lg:before, .magnifier-out-lg:before, .user-fill-lg, .user-fill-w-lg, .user-out-lg, .user-out-w-lg, .x-fill-lg, .x-out-lg {
+.adduser-fill-lg:before, .adduser-out-lg:before, .arrow-fill-lg:before, .arrow-out-lg:before, .exit-fill-lg:before, .exit-fill-w-lg:before, .exit-out-lg:before, .exit-out-w-lg:before, .f-fill-lg:before, .f-fill-w-lg:before, .f-out-lg:before, .f-out-w-lg:before, .g-fill-lg:before, .g-fill-w-lg:before, .g-out-lg:before, .g-out-w-lg:before, .gear-fill-lg:before, .gear-fill-w-lg:before, .gear-out-lg:before, .gear-out-w-lg:before, .key-fill-lg:before, .key-out-lg:before, .magnifier-fill-lg:before, .magnifier-out-lg:before, .user-fill-lg, .user-fill-w-lg, .user-out-lg, .user-out-w-lg, .x-fill-lg, .x-out-lg {
     display: inline-block;
     height: 40px;
     width: 40px;
@@ -498,7 +507,7 @@ a.dropdown-item {
 }
 
 .form-control {
-    background-color: #DDDDDD;
+    background-color: #F5F5F5;
     border-color: #DDDDDD;
 }
 
@@ -527,6 +536,16 @@ a.dropdown-item {
 
 .form-check-input:checked[type=radio] {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='0' /%3e%3c/svg%3e") !important;
+}
+
+.input-group {
+    border-style: solid;
+    border-color: #DDDDDD;
+    border-width: 1px;
+}
+
+a.login:link, a.login:visited, a.login:active {
+    color:#78863F !important;
 }
 
 /* Other elements */
