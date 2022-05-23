@@ -23,6 +23,25 @@
                     <input type="text" class="form-control rounded" id="exampleFormControlInput1">
                 </div>
 
+                {# Required #}
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">{{ 'Kötelező Szöveges mező' | _ }}<span class="text-danger"> &#9679;</span></label>
+                    <input type="text" class="form-control rounded" id="exampleFormControlInput1">
+                </div>
+
+                {# Error #}
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label text-danger">{{ 'Hibásan kitöltött mező' | _ }}</label>
+                    <input type="text" class="form-control rounded is-invalid" id="exampleFormControlInput1">
+                    <div class="invalid-feedback">{{ 'Hiba információ!' | _ }}</div>
+                </div>
+
+                {# Disabled #}
+                <div class="mb-3">
+                    <label for="exampleFormControlTextarea1" class="form-label">{{ 'Letiltott mező' | _ }}</label>
+                    <input type="text" class="form-control rounded bg-background2" id="exampleFormControlInput1" placeholder="{{ 'Letiltva' | _ }}" disabled="true">
+                </div>
+
                 {# Email #}
                 <div class="mb-3">
                     <label for="exampleFormControlInput1" class="form-label">{{ 'Email' | _ }}</label>
@@ -60,22 +79,47 @@
                 </div>
 
                 <div class="container mb-4">
+                
                     {# Checkbox #}
-                    <div class="form-check d-flex mb-4">
+                    <div class="form-check d-flex">
                         <input class="form-check-input me-2" type="checkbox" value="" id="form-check">
                         <label class="form-check-label" for="form-check"> {{ 'Jelölőnégyzet' | _ }} </label>
+                    </div>
+
+                    <div class="form-check d-flex">
+                        <input class="form-check-input invalid me-2" type="checkbox" value="" id="validationFormCheck1" oninvalid="this.setCustomValidity(' {{ 'Kötelezően ki kell jelölni legalább 1 opciót!' | _ }} ')" oninput="setCustomValidity('')" required>
+                        <label class="form-check-label" for="validationFormCheck1"> {{ 'Kötelező jelölőnégyzet' | _ }} </label>
+                    </div>
+
+                    <div class="form-check d-flex mb-4">
+                        <input class="form-check-input me-2" type="checkbox" value="" id="form-check" disabled="true">
+                        <label class="form-check-label" for="form-check"> {{ 'Letiltott Jelölőnégyzet' | _ }} </label>
                     </div>
 
                     {# Radio #}
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="form-radio" id="form-radio1">
                         <label class="form-check-label" for="form-radio1"> {{ 'Választógomb' | _ }} </label>
-                        
                     </div>
                     
                     <div class="form-check">
                         <input class="form-check-input" type="radio" name="form-radio" id="form-radio2">
                         <label class="form-check-label" for="form-radio2"> {{ 'Választógomb' | _ }} </label>
+                    </div>
+                
+                    <div class="form-check">
+                        <input class="form-check-input invalid" type="radio" id="validationFormCheck2" name="radio-stacked"  oninvalid="this.setCustomValidity(' {{ 'Kötelezően ki kell jelölni legalább 1 opciót!' | _ }} ')" oninput="setCustomValidity('')" required>
+                        <label class="form-check-label" for="validationFormCheck2"> {{ 'Kötelező választógomb' | _ }} </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input invalid" type="radio" id="validationFormCheck3" name="radio-stacked" required>
+                        <label class="form-check-label" for="validationFormCheck3"> {{ 'Kötelező választógomb' | _ }} </label>
+                    </div>
+
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="form-radio" id="form-radio1" disabled="true">
+                        <label class="form-check-label" for="form-radio1"> {{ 'Letiltott választógomb' | _ }} </label>
                     </div>
                 </div>
 

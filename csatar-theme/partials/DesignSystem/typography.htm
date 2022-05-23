@@ -36,7 +36,7 @@
                         </code>
                     </p>
                 </div>
-                <div class="col-lg-6 col-md-6 col-sm-6">
+                <div class="col-6">
                     <h1>
                         Lorem ipsum
                     </h1>
@@ -188,7 +188,7 @@
                 </div>
                 <div class="col-lg-3 col-md-6 col-sm-6 text-start text-lg-end text-md-end text-sm-end">
                     <p class="m-0 lh-sm">
-                        {{ 'Betűvastagság: Vastag' | _ }}<br/>
+                        {{ 'Betűvastagság: Közepes' | _ }}<br/>
                         <code class="bg-gray">
                         <span class="code-blue">&lt;p </span><span class="code-bluel">class=</span><span class="code-red">"p-title"</span><span class="code-blue">&gt;</span>
                         </code>
@@ -197,6 +197,29 @@
                 <div class="col-6">
                     <p class="p-title">Lorem ipsum</p>
                 </div>                     
+            </div>
+
+            {# Body / p error / invalid form #}
+            <div class="row pt-3">
+                <div class="col-lg-3 col-md-12">
+                    <p class="m-0">{{ 'Hiba üzenet' | _ }}</p>
+                </div>
+                <div class="col-lg-3 col-md-6 col-sm-6 text-start text-lg-end text-md-end text-sm-end">
+                    <p class="m-0 lh-sm">
+                        {{ 'Betűvastagság: Közepes' | _ }}<br/>
+                        <code class="bg-gray">
+                        <span class="code-blue">&lt;p </span><span class="code-bluel">class=</span><span class="code-red">"errormsg"</span><span class="code-blue">&gt;</span>
+                        </code><br/>
+                        <code class="bg-gray">
+                        <span class="code-blue">&lt;</span><span class="code-bluel">class=</span><span class="code-red">"invalid-feedback"</span><span class="code-blue">&gt;</span>
+                        </code>
+                    </p>
+                </div>
+                <div class="col-6">
+                    <span class="errormsg">
+                    Lorem ipsum dolor sit amet!
+                    </span>
+                </div>                        
             </div>
 
             {# Button text / h5 #}
