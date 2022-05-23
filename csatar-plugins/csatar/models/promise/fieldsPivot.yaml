@@ -8,7 +8,11 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.general.date'
         mode: date
         maxDate: now
+        span: auto
+        required: 1
         type: datepicker
     'pivot[location]':
         label: 'csatar.csatar::lang.plugin.admin.general.location'
+        span: auto
+        required: 1
         type: text

@@ -60,6 +60,9 @@
                     'noTeamSelected' => 'Please select a team!',
                     'troopNotInTheTeam' => 'The selected Troop does not belong to the selected Team.',
                     'troopNotInTheTeamOrTroop' => 'The selected Patrol does not belong to the selected Team or to the selected Troop.',
+                    'dateRequiredError' => 'The Date for the %name %category is required.',
+                    'locationRequiredError' => 'The Location for the %name %category is required.',
+                    'dateInTheFutureError' => 'The selected Date for the %name %category is in the future.',
                 ]
             ],
             'admin' => [

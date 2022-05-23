@@ -4,6 +4,7 @@ allergies:
     list: $/csatar/csatar/models/allergy/columnsPivot.yaml
     toolbarButtons: add|remove|create
   manage:
+    list: $/csatar/csatar/models/allergy/columns.yaml
     form: $/csatar/csatar/models/allergy/fields.yaml
   pivot:
     form: $/csatar/csatar/models/allergy/fieldsPivot.yaml
@@ -13,6 +14,7 @@ food_sensitivities:
     list: $/csatar/csatar/models/foodsensitivity/columnsPivot.yaml
     toolbarButtons: add|remove|create
   manage:
+    list: $/csatar/csatar/models/foodsensitivity/columns.yaml
     form: $/csatar/csatar/models/foodsensitivity/fields.yaml
   pivot:
     form: $/csatar/csatar/models/foodsensitivity/fieldsPivot.yaml
@@ -22,7 +24,7 @@ promises:
     list: $/csatar/csatar/models/promise/columnsPivot.yaml
     toolbarButtons: add|remove|create
   manage:
+    list: $/csatar/csatar/models/promise/columns.yaml
     form: $/csatar/csatar/models/promise/fields.yaml
   pivot:
     form: $/csatar/csatar/models/promise/fieldsPivot.yaml
-

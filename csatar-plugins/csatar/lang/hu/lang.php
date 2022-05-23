@@ -60,6 +60,9 @@
                     'noTeamSelected' => 'Please select a team!',
                     'troopNotInTheTeam' => 'The selected Troop does not belong to the selected Team.',
                     'troopNotInTheTeamOrTroop' => 'The selected Patrol does not belong to the selected Team or to the selected Troop.',
+                    'dateRequiredError' => 'A Dátum megadása a %name %category esetén kötelező.',
+                    'locationRequiredError' => 'A Helyszín megadása a %name %category esetén kötelező.',
+                    'dateInTheFutureError' => 'A Dátum a %name %category esetén nem lehet a jövőben.',
                 ]
             ],
             'admin' => [
@@ -174,7 +177,7 @@
                 'troopsPatrolsScoutsInfo' => 'Troops, Patrols and Scouts can be added after the Team has been created. Click the Create button after other information is filled.',
                 'breadcrumb' => 'Teams',
                 'teamNumberTakenError' => 'This Team number is already taken.',
-                'dateInTheFutureError' => 'The selected date is in the future.',
+                'dateInTheFutureError' => 'A dátum nem lehet a jövőben.',
             ],
             'troop' => [
                 'troop' => 'Troop',

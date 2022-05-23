@@ -25,7 +25,7 @@ class Scout extends Model
         'family_name' => 'required',
         'given_name' => 'required',
         'personal_identification_number' => 'required',
-        'email' => 'email'
+        'email' => 'email',
     ];
 
     /**
@@ -50,6 +50,9 @@ class Scout extends Model
                         $this->patrol->troop->id != $this->troop_id)))) {   // the Patrol belongs to a different Troop than the one selected
             throw new \ValidationException(['troop' => \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.troopNotInTheTeamOrTroop')]);
         }
+
+        // the Date and Location pivot fields are required and the Date cannot be in the future
+        $this->validatePivotDateAndLocationFields($this->promises, \Lang::get('csatar.csatar::lang.plugin.admin.promise.promise'));
     }
 
     /**
@@ -123,8 +126,8 @@ class Scout extends Model
         $this->ecset_code = strtoupper($this->generateEcsetCode());
     }
 
-    private function generateEcsetCode(){
-
+    private function generateEcsetCode()
+    {
         $team = Team::find($this->team_id);
 
         if(empty($team)){
@@ -140,5 +143,22 @@ class Scout extends Model
         }
 
         return $ecset_code;
+    }
+
+    private function validatePivotDateAndLocationFields($fields, $category)
+    {
+        if ($fields) {
+            foreach ($fields as $field) {
+                if (!isset($field->pivot->date)) {
+                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.dateRequiredError'))]);
+                }
+                if (!isset($field->pivot->location) || $field->pivot->location == '') {
+                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.locationRequiredError'))]);
+                }
+                if (new \DateTime($field->pivot->date) > new \DateTime()) {
+                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.dateInTheFutureError'))]);
+                }
+            }
+        }        
     }
 }
