@@ -53,6 +53,12 @@ class Scout extends Model
 
         // the Date and Location pivot fields are required and the Date cannot be in the future
         $this->validatePivotDateAndLocationFields($this->promises, \Lang::get('csatar.csatar::lang.plugin.admin.promise.promise'));
+        $this->validatePivotDateAndLocationFields($this->tests, \Lang::get('csatar.csatar::lang.plugin.admin.test.test'));
+        $this->validatePivotDateAndLocationFields($this->special_tests, \Lang::get('csatar.csatar::lang.plugin.admin.specialTest.specialTest'));
+        $this->validatePivotDateAndLocationFields($this->professional_qualifications, \Lang::get('csatar.csatar::lang.plugin.admin.professionalQualification.professionalQualification'));
+        $this->validatePivotDateAndLocationFields($this->special_qualifications, \Lang::get('csatar.csatar::lang.plugin.admin.specialQualification.specialQualification'));
+        $this->validatePivotQualificationFields($this->leadership_qualifications, \Lang::get('csatar.csatar::lang.plugin.admin.leadershipQualification.leadershipQualification'));
+        $this->validatePivotQualificationFields($this->training_qualifications, \Lang::get('csatar.csatar::lang.plugin.admin.trainingQualification.trainingQualification'));
     }
 
     /**
@@ -102,23 +108,53 @@ class Scout extends Model
     public $belongsToMany = [
         'chronic_illnesses' => [
             '\Csatar\Csatar\Models\ChronicIllness',
-            'table' => 'csatar_csatar_scouts_chronic_illnesses'
+            'table' => 'csatar_csatar_scouts_chronic_illnesses',
         ],
         'allergies' => [
             '\Csatar\Csatar\Models\Allergy',
             'table' => 'csatar_csatar_scouts_allergies',
-            'pivot' => ['comment']
+            'pivot' => ['comment'],
         ],
         'food_sensitivities' => [
             '\Csatar\Csatar\Models\FoodSensitivity',
             'table' => 'csatar_csatar_scouts_food_sensitivities',
-            'pivot' => ['comment']
+            'pivot' => ['comment'],
         ],
         'promises' => [
             '\Csatar\Csatar\Models\Promise',
             'table' => 'csatar_csatar_scouts_promises',
-            'pivot' => ['date', 'location']
-        ]
+            'pivot' => ['date', 'location'],
+        ],
+        'tests' => [
+            '\Csatar\Csatar\Models\Test',
+            'table' => 'csatar_csatar_scouts_tests',
+            'pivot' => ['date', 'location'],
+        ],
+        'special_tests' => [
+            '\Csatar\Csatar\Models\SpecialTest',
+            'table' => 'csatar_csatar_scouts_special_tests',
+            'pivot' => ['date', 'location'],
+        ],
+        'professional_qualifications' => [
+            '\Csatar\Csatar\Models\ProfessionalQualification',
+            'table' => 'csatar_csatar_scouts_professional_qualifications',
+            'pivot' => ['date', 'location'],
+        ],
+        'special_qualifications' => [
+            '\Csatar\Csatar\Models\SpecialQualification',
+            'table' => 'csatar_csatar_scouts_special_qualifications',
+            'pivot' => ['date', 'location'],
+        ],
+        'leadership_qualifications' => [
+            '\Csatar\Csatar\Models\LeadershipQualification',
+            'table' => 'csatar_csatar_scouts_leadership_qualifications',
+            'pivot' => ['date', 'location', 'qualification_certificate_number', 'qualification', 'qualification_leader'],
+        ],
+        'training_qualifications' => [
+            '\Csatar\Csatar\Models\TrainingQualification',
+            'table' => 'csatar_csatar_scouts_training_qualifications',
+            'pivot' => ['date', 'location', 'qualification_certificate_number', 'qualification', 'qualification_leader'],
+        ],
     ];
 
     public function beforeCreate()
@@ -157,6 +193,24 @@ class Scout extends Model
                 }
                 if (new \DateTime($field->pivot->date) > new \DateTime()) {
                     throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.dateInTheFutureError'))]);
+                }
+            }
+        }        
+    }
+
+    private function validatePivotQualificationFields($fields, $category)
+    {
+        if ($fields) {
+            $this->validatePivotDateAndLocationFields($fields, $category);
+            foreach ($fields as $field) {
+                if (!isset($field->pivot->qualification_certificate_number) || $field->pivot->qualification_certificate_number == '') {
+                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.qualificationCertificateNumberRequiredError'))]);
+                }
+                if (!isset($field->pivot->qualification) || $field->pivot->qualification == '') {
+                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.qualificationRequiredError'))]);
+                }
+                if (!isset($field->pivot->qualification_leader) || $field->pivot->qualification_leader == '') {
+                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.qualificationLeaderRequiredError'))]);
                 }
             }
         }        

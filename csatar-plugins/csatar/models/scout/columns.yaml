@@ -115,3 +115,52 @@ columns:
         searchable: true
         relation: tshirt_size
         valueFrom: name
+    promises:
+        label: 'csatar.csatar::lang.plugin.admin.scout.promise'
+        type: text
+        searchable: true
+        sortable: false
+        relation: promises
+        valueFrom: name
+    tests:
+        label: 'csatar.csatar::lang.plugin.admin.scout.test'
+        type: text
+        searchable: true
+        sortable: false
+        relation: tests
+        valueFrom: name
+    special_tests:
+        label: 'csatar.csatar::lang.plugin.admin.scout.specialTest'
+        type: text
+        searchable: true
+        sortable: false
+        relation: special_tests
+        valueFrom: name
+    professional_qualifications:
+        label: 'csatar.csatar::lang.plugin.admin.scout.professionalQualification'
+        type: text
+        searchable: true
+        sortable: false
+        relation: professional_qualifications
+        valueFrom: name
+    special_qualifications:
+        label: 'csatar.csatar::lang.plugin.admin.scout.specialQualification'
+        type: text
+        searchable: true
+        sortable: false
+        relation: special_qualifications
+        valueFrom: name
+    leadership_qualifications:
+        label: 'csatar.csatar::lang.plugin.admin.scout.leadershipQualification'
+        type: text
+        searchable: true
+        sortable: false
+        relation: leadership_qualifications
+        valueFrom: name
+    training_qualifications:
+        label: 'csatar.csatar::lang.plugin.admin.scout.trainingQualification'
+        type: text
+        searchable: true
+        sortable: false
+        relation: training_qualifications
+        valueFrom: name

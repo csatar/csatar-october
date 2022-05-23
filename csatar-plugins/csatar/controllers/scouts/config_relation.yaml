@@ -28,3 +28,63 @@ promises:
     form: $/csatar/csatar/models/promise/fields.yaml
   pivot:
     form: $/csatar/csatar/models/promise/fieldsPivot.yaml
+tests:
+  label: 'csatar.csatar::lang.plugin.admin.test.test'
+  view:
+    list: $/csatar/csatar/models/test/columnsPivot.yaml
+    toolbarButtons: add|remove|create
+  manage:
+    list: $/csatar/csatar/models/test/columns.yaml
+    form: $/csatar/csatar/models/test/fields.yaml
+  pivot:
+    form: $/csatar/csatar/models/test/fieldsPivot.yaml
+special_tests:
+  label: 'csatar.csatar::lang.plugin.admin.specialTest.specialTest'
+  view:
+    list: $/csatar/csatar/models/specialtest/columnsPivot.yaml
+    toolbarButtons: add|remove|create
+  manage:
+    list: $/csatar/csatar/models/specialtest/columns.yaml
+    form: $/csatar/csatar/models/specialtest/fields.yaml
+  pivot:
+    form: $/csatar/csatar/models/specialtest/fieldsPivot.yaml
+professional_qualifications:
+  label: 'csatar.csatar::lang.plugin.admin.professionalQualification.professionalQualification'
+  view:
+    list: $/csatar/csatar/models/professionalqualification/columnsPivot.yaml
+    toolbarButtons: add|remove|create
+  manage:
+    list: $/csatar/csatar/models/professionalqualification/columns.yaml
+    form: $/csatar/csatar/models/professionalqualification/fields.yaml
+  pivot:
+    form: $/csatar/csatar/models/professionalqualification/fieldsPivot.yaml
+special_qualifications:
+  label: 'csatar.csatar::lang.plugin.admin.specialQualification.specialQualification'
+  view:
+    list: $/csatar/csatar/models/specialqualification/columnsPivot.yaml
+    toolbarButtons: add|remove|create
+  manage:
+    list: $/csatar/csatar/models/specialqualification/columns.yaml
+    form: $/csatar/csatar/models/specialqualification/fields.yaml
+  pivot:
+    form: $/csatar/csatar/models/specialqualification/fieldsPivot.yaml
+leadership_qualifications:
+  label: 'csatar.csatar::lang.plugin.admin.leadershipQualification.leadershipQualification'
+  view:
+    list: $/csatar/csatar/models/leadershipqualification/columnsPivot.yaml
+    toolbarButtons: add|remove|create
+  manage:
+    list: $/csatar/csatar/models/leadershipqualification/columns.yaml
+    form: $/csatar/csatar/models/leadershipqualification/fields.yaml
+  pivot:
+    form: $/csatar/csatar/models/leadershipqualification/fieldsPivot.yaml
+training_qualifications:
+  label: 'csatar.csatar::lang.plugin.admin.trainingQualification.trainingQualification'
+  view:
+    list: $/csatar/csatar/models/trainingqualification/columnsPivot.yaml
+    toolbarButtons: add|remove|create
+  manage:
+    list: $/csatar/csatar/models/trainingqualification/columns.yaml
+    form: $/csatar/csatar/models/trainingqualification/fields.yaml
+  pivot:
+    form: $/csatar/csatar/models/trainingqualification/fieldsPivot.yaml

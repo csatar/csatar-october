@@ -168,3 +168,48 @@
 1.0.59:
     - 'Added seeder for Promises'
     - seeder_1059.php
+1.0.60:
+    - 'Created table csatar_csatar_tests'
+    - builder_table_create_csatar_csatar_tests.php
+1.0.61:
+    - 'Created table csatar_csatar_special_tests'
+    - builder_table_create_csatar_csatar_special_tests.php
+1.0.62:
+    - 'Created table csatar_csatar_professional_qualifications'
+    - builder_table_create_csatar_csatar_professional_qualifications.php
+1.0.63:
+    - 'Created table csatar_csatar_special_qualifications'
+    - builder_table_create_csatar_csatar_special_qualifications.php
+1.0.64:
+    - 'Created table csatar_csatar_leadership_qualifications'
+    - builder_table_create_csatar_csatar_leadership_qualifications.php
+1.0.65:
+    - 'Created table csatar_csatar_training_qualifications'
+    - builder_table_create_csatar_csatar_training_qualifications.php
+1.0.66:
+    - 'Created table csatar_csatar_scouts_tests'
+    - builder_table_create_csatar_csatar_scouts_tests.php
+1.0.67:
+    - 'Created table csatar_csatar_scouts_special_tests'
+    - builder_table_create_csatar_csatar_scouts_special_tests.php
+1.0.68:
+    - 'Created table csatar_csatar_scouts_professional_qualifications'
+    - builder_table_create_csatar_csatar_scouts_professional_qualifications.php
+1.0.69:
+    - 'Created table csatar_csatar_scouts_special_qualifications'
+    - builder_table_create_csatar_csatar_scouts_special_qualifications.php
+1.0.70:
+    - 'Created table csatar_csatar_scouts_leadership_qualifications'
+    - builder_table_create_csatar_csatar_scouts_leadership_qualifications.php
+1.0.71:
+    - 'Created table csatar_csatar_scouts_training_qualifications'
+    - builder_table_create_csatar_csatar_scouts_training_qualifications.php
+1.0.72:
+    - 'Added seeder for SpecialTests'
+    - seeder_1072.php
+1.0.73:
+    - 'Added seeder for ProfessionalQualification'
+    - seeder_1073.php
+1.0.74:
+    - 'Added seeder for LeadershipQualification'
+    - seeder_1074.php

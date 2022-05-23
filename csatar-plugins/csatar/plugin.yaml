@@ -71,6 +71,30 @@ navigation:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.promiseCategories'
                 url: csatar/csatar/promises
                 icon: icon-sitemap
+            side-menu-test-categories:
+                label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.testCategories'
+                url: csatar/csatar/tests
+                icon: icon-sitemap
+            side-menu-special-test-categories:
+                label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.specialTestCategories'
+                url: csatar/csatar/specialtests
+                icon: icon-sitemap
+            side-menu-professional-qualification-categories:
+                label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.professionalQualificationCategories'
+                url: csatar/csatar/professionalqualifications
+                icon: icon-sitemap
+            side-menu-special-qualification-categories:
+                label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.specialQualificationCategories'
+                url: csatar/csatar/specialqualifications
+                icon: icon-sitemap
+            side-menu-leadership-qualification-categories:
+                label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.leadershipQualificationCategories'
+                url: csatar/csatar/leadershipqualifications
+                icon: icon-sitemap
+            side-menu-training-qualification-categories:
+                label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.trainingQualificationCategories'
+                url: csatar/csatar/trainingqualifications
+                icon: icon-sitemap
     main-menu-scout-data:
         label: 'csatar.csatar::lang.plugin.admin.admin.menu.scout'
         url: /csatar/csatar/scouts

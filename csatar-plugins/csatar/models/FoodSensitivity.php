@@ -41,7 +41,7 @@ class FoodSensitivity extends Model
         'scouts' => [
             '\Csatar\Csatar\Models\Scout',
             'table' => 'csatar_csatar_scouts_food_sensitivities',
-            'order' => 'user_id'
+            'pivot' => ['comment'],
         ]
     ];
 }

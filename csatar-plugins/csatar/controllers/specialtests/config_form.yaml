@@ -1,0 +1,10 @@
+name: 'csatar.csatar::lang.plugin.admin.specialTest.specialTest'
+form: $/csatar/csatar/models/specialtest/fields.yaml
+modelClass: Csatar\Csatar\Models\SpecialTest
+defaultRedirect: csatar/csatar/specialtests
+create:
+    redirect: 'csatar/csatar/specialtests/update/:id'
+    redirectClose: csatar/csatar/specialtests
+update:
+    redirect: csatar/csatar/specialtests
+    redirectClose: csatar/csatar/specialtests
