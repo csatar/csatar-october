@@ -213,3 +213,6 @@
 1.0.74:
     - 'Added seeder for LeadershipQualification'
     - seeder_1074.php
+1.0.75:
+    - 'Updated table csatar_csatar_scouts'
+    - builder_table_update_csatar_csatar_scouts_10.php

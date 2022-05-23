@@ -97,6 +97,7 @@ class Team extends Model
         'juridical_person_bank_account',
         'home_supplier_name',
         'district_id',
+        'logo',
     ];
 
     /**

@@ -24,8 +24,29 @@ class Scout extends Model
     public $rules = [
         'family_name' => 'required',
         'given_name' => 'required',
-        'personal_identification_number' => 'required',
         'email' => 'email',
+        'phone' => 'required|regex:(^[0-9+-.()]{5,}$)',
+        'personal_identification_number' => 'required',
+        'is_active' => 'required',
+        'legal_relationship_id' => 'required',
+        'religion_id' => 'required',
+        'tshirt_size' => 'required',
+        'birthdate' => 'required',
+        'birthplace' => 'required',
+        'address_country' => 'required',
+        'address_zipcode' => 'required',
+        'address_county' => 'required',
+        'address_location' => 'required',
+        'address_street' => 'required',
+        'address_number' => 'required',
+        'mothers_phone' => 'regex:(^[0-9+-.()]{5,}$)',
+        'mothers_email' => 'email',
+        'fathers_phone' => 'regex:(^[0-9+-.()]{5,}$)',
+        'fathers_email' => 'email',
+        'legal_representative_phone' => 'regex:(^[0-9+-.()]{5,}$)',
+        'legal_representative_email' => 'email',
+        'logo' => 'image|nullable',
+        'registration_form' => 'mimes:jpg,png,pdf|nullable',
     ];
 
     /**
@@ -49,6 +70,18 @@ class Scout extends Model
                         (!$this->patrol->troop ||                           // the Patrol does not belong to any Troop
                         $this->patrol->troop->id != $this->troop_id)))) {   // the Patrol belongs to a different Troop than the one selected
             throw new \ValidationException(['troop' => \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.troopNotInTheTeamOrTroop')]);
+        }
+
+        // check that the birthdate is not in the future
+        if (isset($this->birthdate) && (new \DateTime($this->birthdate) > new \DateTime())) {
+            throw new \ValidationException(['birthdate' => \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.dateInTheFuture')]);
+        }
+
+        // the registration form is required
+        $registration_form = $this->registration_form()->withDeferred($this->sessionKey)->first();
+       // throw new \ValidationException(['registration_form' => $registration_form]);
+        if (!isset($registration_form)) {
+            throw new \ValidationException(['registration_form' => \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.registrationFormRequired')]);
         }
 
         // the Date and Location pivot fields are required and the Date cannot be in the future
@@ -76,19 +109,55 @@ class Scout extends Model
 
     protected $fillable = [
         'user_id',
+        'team_id',
+        'troop_id',
+        'patrol_id',
+        'name_prefix',
         'family_name',
         'given_name',
+        'nickname',
         'email',
-        'gender',
+        'phone',
         'personal_identification_number',
+        'gender',
         'is_active',
         'legal_relationship_id',
         'special_diet_id',
         'religion_id',
+        'nationality',
         'tshirt_size_id',
-        'team_id',
-        'troop_id',
-        'patrol_id',
+        'birthdate',
+        'nameday',
+        'maiden_name',
+        'birthplace',
+        'address_country',
+        'address_zipcode',
+        'address_county',
+        'address_location',
+        'address_street',
+        'address_number',
+        'mothers_name',
+        'mothers_phone',
+        'mothers_email',
+        'fathers_name',
+        'fathers_phone',
+        'fathers_email',
+        'legal_representative_name',
+        'legal_representative_phone',
+        'legal_representative_email',
+        'elementary_school',
+        'primary_school',
+        'secondary_school',
+        'post_secondary_school',
+        'college',
+        'university',
+        'other_trainings',
+        'foreign_language_knowledge',
+        'occupation',
+        'workplace',
+        'comment',
+        'logo',
+        'registration_form',
     ];
 
     /**
@@ -155,6 +224,11 @@ class Scout extends Model
             'table' => 'csatar_csatar_scouts_training_qualifications',
             'pivot' => ['date', 'location', 'qualification_certificate_number', 'qualification', 'qualification_leader'],
         ],
+    ];
+
+    public $attachOne = [
+        'logo' => 'System\Models\File',
+        'registration_form' => 'System\Models\File',
     ];
 
     public function beforeCreate()
