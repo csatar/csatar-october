@@ -111,6 +111,8 @@
                     'mothersData' => 'Anyja adatai',
                     'fathersData' => 'Apja adatai',
                     'legalRepresentativeData' => 'Törvényes képviselő adatai',
+                    'schoolData' => 'Tanulmányok',
+                    'occupation' => 'Foglalkozás',
                     'otherData' => 'Egyéb adatok',
                 ],
                 'validationExceptions' => [

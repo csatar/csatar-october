@@ -111,8 +111,8 @@
                     'mothersData' => 'Mother\'s data',
                     'fathersData' => 'Father\'s data',
                     'legalRepresentativeData' => 'Legal representative data',
-                    'schoolData' => 'Tanulmányok',
-                    'occupation' => 'Foglalkozás',
+                    'schoolData' => 'School data',
+                    'occupation' => 'Occupation',
                     'otherData' => 'Other data',
                 ],
                 'validationExceptions' => [
@@ -120,6 +120,7 @@
                     'troopNotInTheTeam' => 'The selected Troop does not belong to the selected Team.',
                     'troopNotInTheTeamOrTroop' => 'The selected Patrol does not belong to the selected Team or to the selected Troop.',
                     'dateInTheFuture' => 'The selected Date is in the future.',
+                    'registrationFormRequired' => 'The Registration form is required.',
                     'dateRequiredError' => 'The Date for the %name %category is required.',
                     'locationRequiredError' => 'The Location for the %name %category is required.',
                     'qualificationCertificateNumberRequiredError' => 'The Qualification Certificate Number for the %name %category is required.',
