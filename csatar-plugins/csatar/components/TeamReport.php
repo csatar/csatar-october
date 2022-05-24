@@ -5,7 +5,7 @@ use Cms\Classes\ComponentBase;
 
 class TeamReport extends ComponentBase
 {
-    public $associationId, $teamNumber;
+    public $associationId, $teamNumber, $team;
 
     public function componentDetails()
     {
@@ -17,7 +17,18 @@ class TeamReport extends ComponentBase
 
     public function onRender()
     {
+        // retrieve the parameters
         $this->associationId = $this->property('associationId');
         $this->teamNumber = $this->property('teamNumber');
+
+        // get all district ids, which belong to the association
+        $districts_ids = District::where('association_id', $this->associationId)->map(function ($district) {
+            return $district['id'];
+        });
+
+        // retrieve the team
+        $this->team = Team::where('team_number', $this->teamNumber)->whereIn('district_id', $districts_ids)->get();
+
+        // if the team cannot be found, then display an error message
     }
 }
