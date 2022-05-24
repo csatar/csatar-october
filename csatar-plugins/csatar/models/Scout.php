@@ -79,7 +79,6 @@ class Scout extends Model
 
         // the registration form is required
         $registration_form = $this->registration_form()->withDeferred($this->sessionKey)->first();
-       // throw new \ValidationException(['registration_form' => $registration_form]);
         if (!isset($registration_form)) {
             throw new \ValidationException(['registration_form' => \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.registrationFormRequired')]);
         }
