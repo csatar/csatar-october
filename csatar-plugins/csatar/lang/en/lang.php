@@ -345,6 +345,10 @@
                     'scoutsOfRomania' => 'Scouts Of Romania', // 'Románia Cserkészei'
                 ],
             ],
+            'teamReport' => [
+                'name' => 'Team Report',
+                'description' => 'Enables creating yearly reports for the teams.',
+            ],
         ],
     ],
 ];
