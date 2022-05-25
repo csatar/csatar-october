@@ -26,11 +26,16 @@ pageNumber = "{{ :page }}"
 localeTitle[en] = "Association"
 localeTitle[hu] = "Szövetség"
 ==
+function onStart()
+{
+    $this['association_id'] = $this->param('id');
+}
+==
 <div class="container">
     {% component 'basicForm' %}
 
     <p>{{ 'Körzetek' | _ }}</p>
     {% component 'builderList' %}
 
-    <p><a href="/korzet/letrehozas" class="btn btn-default">{{ 'Körzet hozzáadása' | _ }}</a></p>
+    <p><a href="/korzet/letrehozas?association={{ association_id }}" class="btn btn-default">{{ 'Körzet hozzáadása' | _ }}</a></p>
 </div>

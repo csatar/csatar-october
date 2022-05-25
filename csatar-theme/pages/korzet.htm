@@ -25,11 +25,16 @@ pageNumber = "{{ :page }}"
 localeTitle[en] = "District"
 localeTitle[hu] = "Körzet"
 ==
+function onStart()
+{
+    $this['district_id'] = $this->param('id');
+}
+==
 <div class="container">
     {% component 'basicForm' %}
 
     <p>{{ 'Csapatok' | _ }}</p>
     {% component 'builderList' %}
 
-    <p><a href="/csapat/letrehozas" class="btn btn-default">{{ 'Csapat hozzáadása' | _ }}</a></p>
+    <p><a href="/csapat/letrehozas?district={{ district_id }}" class="btn btn-default">{{ 'Csapat hozzáadása' | _ }}</a></p>
 </div>
