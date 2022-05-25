@@ -150,3 +150,6 @@
 1.0.53:
     - 'Updated table csatar_csatar_allergies'
     - builder_table_update_csatar_csatar_allergies_2.php
+1.0.54:
+    - 'Added ECSET code suffix seeder'
+    - seeder_1054.php
