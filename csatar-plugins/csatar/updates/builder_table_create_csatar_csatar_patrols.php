@@ -22,8 +22,8 @@ class BuilderTableCreateCsatarCsatarPatrols extends Migration
             $table->string('patrol_leader_phone', 255);
             $table->string('patrol_leader_email', 255);
             $table->string('age_group', 255);
-            $table->integer('team_id');
-            $table->integer('troop_id')->nullable();
+            $table->integer('team_id')->index('team_id')->unsigned();
+            $table->integer('troop_id')->index('troop_id')->nullable()->unsigned();
         });
     }
     

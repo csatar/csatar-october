@@ -12,7 +12,7 @@ class Migration1017 extends Migration
             $table->engine = 'InnoDB';
             $table->integer('scout_id')->unsigned();
             $table->integer('allergy_id')->unsigned();
-            $table->string('details', 255);
+            $table->string('comment', 255)->nullable();
             $table->primary(['scout_id','allergy_id'], 'csatar_csatar_scout_id_allergy_id_primary');
         });
     }
