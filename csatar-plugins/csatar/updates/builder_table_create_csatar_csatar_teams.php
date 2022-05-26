@@ -3,11 +3,11 @@
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
-class BuilderTableCreateCsatarCsatarTeam extends Migration
+class BuilderTableCreateCsatarCsatarTeams extends Migration
 {
     public function up()
     {
-        Schema::create('csatar_csatar_team', function($table)
+        Schema::create('csatar_csatar_teams', function($table)
         {
             $table->engine = 'InnoDB';
             $table->increments('id')->unsigned();
@@ -33,12 +33,12 @@ class BuilderTableCreateCsatarCsatarTeam extends Migration
             $table->string('juridical_person_tax_number', 255);
             $table->string('juridical_person_bank_account', 255);
             $table->string('home_supplier_name', 255)->nullable();
-            $table->integer('district_id')->unsigned();
+            $table->integer('district_id')->index('district_id')->unsigned();
         });
     }
     
     public function down()
     {
-        Schema::dropIfExists('csatar_csatar_team');
+        Schema::dropIfExists('csatar_csatar_teams');
     }
 }
