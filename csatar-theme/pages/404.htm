@@ -6,9 +6,35 @@ layout = "default"
 localeTitle[en] = "Page Not Found (404)"
 localeTitle[hu] = "Nem Található (404)"
 ==
-<div class="jumbotron">
-    <div class="container">
-        <h1>{{ 'Nem található oldal' | _ }}</h1>
-        <p>{{ 'Sajnáljuk, az oldal nem található.' | _ }}</p>
+
+<div class="container">
+    <div class="row">
+        <div class="col-1 col-md-2 col-lg-2">
+        </div>
+
+        <div class="col-10 col-md-8 col-lg-8">
+            <div class="flex-md-row-reverse row">
+                <div class="col-lg-6">
+                    <div class="d-flex justify-content-center align-items-end h-100">
+                        <div>
+                            <h1 class="text-center text-lg-start text-danger">{{ '404' | _ }}</h1>
+                            <h1 class="text-center text-lg-start text-primary">{{ 'Nem található oldal' | _ }}</h1>
+                            <p class="text-center text-primary">{{ 'Sajnáljuk, az oldal nem található.' | _ }}</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+                    
+                    <div class="svg-container">
+                    <img src="{{ ('assets/images/404.svg') | theme }}" alt="{{ 404 }}" class="svg-content">
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+        <div class="col-1 col-md-2 col-lg-2">
+        </div>
     </div>
 </div>
