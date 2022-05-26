@@ -14,18 +14,24 @@
                         <div class="container-fluid">
                             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
                             <span class="navbar-toggler-icon"></span>
-                            </button>  
+                            </button>
                             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                             <ul class="navbar-nav">
+                                {% if user %}
                                 <li class="nav-item">
-                                <a class="nav" href="#">{{ 'Tagnyilvántartás' | _ }}</a>
+                                <a class="nav" href="/tag/id">{{ 'Tagnyilvántartás' | _ }}</a>
                                 </li>
+                                {% else %}
                                 <li class="nav-item">
+                                    <a class="nav" href="/tagok">{{ 'Tagnyilvántartás' | _ }}</a>
+                                </li>
+                                {% endif %}
+                                <!--<li class="nav-item">
                                 <a class="nav" href="#">{{ 'Link' | _ }}</a>
                                 </li>
                                 <li class="nav-item">
                                 <a class="nav" href="#">{{ 'Link' | _ }}</a>
-                                </li>  
+                                </li>
                                 <li class="nav-item dropdown">
                                 <a class="nav dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">{{ 'Al-linkek' | _ }}</a>
                                 <ul class="dropdown-menu bg-primary">
@@ -33,7 +39,7 @@
                                     <li><a class="dropdown-item" href="#">{{ 'Al-link' | _ }}</a></li>
                                     <li><a class="dropdown-item" href="#">{{ 'Al-link' | _ }}</a></li>
                                 </ul>
-                                </li>
+                                </li>-->
                             </ul>
                             </div>
                         </div>
@@ -56,15 +62,21 @@
 
                 {# controls #}
                 <div class="col-10 col-lg-2 order-3 d-flex order-lg-4 pe-4 text-light justify-content-end">
-                    <button class="btn controls" type="button">
+                    {% if user %}
+                    <a href="/elfelejtett-jelszo" class="btn controls" type="button">
                     <i class="gear-out-w-md"></i>
-                    </button>
+                    </a>
                     <button class="btn controls" type="button">
                     <i class="user-out-w-md"></i>
                     </button>
                     <button class="btn controls" type="button">
                     <i class="exit-out-w-md"></i>
                     </button>
+                    {% else %}
+                    <a href="/bejelentkezes" class="btn controls" type="button">
+                        <i class="user-out-w-md"></i>
+                    </a>
+                    {% endif %}
                 </div>
 
             </div>
