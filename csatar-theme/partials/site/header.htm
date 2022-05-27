@@ -1,7 +1,7 @@
 ==
 function onStart()
 {
-$this['ecset_code'] = Auth::user()->scout->ecset_code;
+    $this['ecset_code'] = isset(Auth::user()->scout->ecset_code) ? Auth::user()->scout->ecset_code : null;
 }
 ==
 <div id="header">
@@ -75,9 +75,9 @@ $this['ecset_code'] = Auth::user()->scout->ecset_code;
                     <button class="btn controls" type="button">
                     <i class="user-out-w-md"></i>
                     </button>
-                    <button class="btn controls" type="button">
+                    <a data-request="onLogout" class="btn controls" type="button">
                     <i class="exit-out-w-md"></i>
-                    </button>
+                    </a>
                     {% else %}
                     <a href="/bejelentkezes" class="btn controls" type="button">
                         <i class="user-out-w-md"></i>
