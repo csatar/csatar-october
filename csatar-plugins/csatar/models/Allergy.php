@@ -41,7 +41,7 @@ class Allergy extends Model
         'scouts' => [
             '\Csatar\Csatar\Models\Scout',
             'table' => 'csatar_csatar_scouts_allergies',
-            'order' => 'user_id'
+            'pivot' => ['comment'],
         ]
     ];
 }

@@ -21,7 +21,7 @@ class BuilderTableCreateCsatarCsatarTroops extends Migration
             $table->string('troop_leader_name', 255);
             $table->string('troop_leader_phone', 255);
             $table->string('troop_leader_email', 255);
-            $table->integer('team_id')->unsigned();
+            $table->integer('team_id')->index('team_id')->unsigned();
         });
     }
     

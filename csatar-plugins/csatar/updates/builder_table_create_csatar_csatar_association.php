@@ -20,7 +20,8 @@ class BuilderTableCreateCsatarCsatarAssociation extends Migration
             $table->string('contact_email', 255);
             $table->string('address', 255);
             $table->string('bank_account', 255)->nullable();
-            $table->text('description');
+            $table->text('leadership_presentation');
+            $table->string('ecset_code_suffix', 2)->nullable()->unique();
         });
     }
     

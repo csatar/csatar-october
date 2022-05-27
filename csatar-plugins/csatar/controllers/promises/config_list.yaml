@@ -1,0 +1,12 @@
+list: $/csatar/csatar/models/promise/columns.yaml
+modelClass: Csatar\Csatar\Models\Promise
+title: 'csatar.csatar::lang.plugin.admin.promise.promises'
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'csatar/csatar/promises/update/:id'
