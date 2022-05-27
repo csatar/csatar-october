@@ -47,10 +47,16 @@ function onStart()
     <p>{{ 'Rajok' | _ }}</p>
     {% component 'builderList' %}
 
-    <p><a href="/raj/letrehozas?team={{ team_id }}" class="btn btn-default">{{ 'Raj hozzáadása' | _ }}</a></p>
+    <form action="/raj/letrehozas" method="post">
+        <input type="hidden" name="team" value="{{ team_id }}">
+        <input type="submit" class="btn btn-default" value="{{ 'Raj hozzáadása' | _ }}">
+    </form>
 
     <p>{{ 'Őrsök' | _ }}</p>
     {% component 'builderList2' %}
 
-    <p><a href="/ors/letrehozas?team={{ team_id }}" class="btn btn-default">{{ 'Őrs hozzáadása' | _ }}</a></p>
+    <form action="/ors/letrehozas" method="post">
+        <input type="hidden" name="team" value="{{ team_id }}">
+        <input type="submit" class="btn btn-default" value="{{ 'Őrs hozzáadása' | _ }}">
+    </form>
 </div>
