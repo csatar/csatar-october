@@ -631,3 +631,22 @@ a.login:link, a.login:visited, a.login:active {
 	top: 0;
 	left: 0;
 }
+
+/* Removing form, input, btn, etc. highlighting */
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus,
+a,
+a:hover,
+a:focus,
+a:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Hide password reveal button in MS Edge */
+::-ms-reveal {
+    display: none;
+}
