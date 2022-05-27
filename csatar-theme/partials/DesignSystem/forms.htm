@@ -25,7 +25,7 @@
 
                 {# Required #}
                 <div class="mb-3">
-                    <label for="exampleFormControlTextarea1" class="form-label">{{ 'Kötelező Szöveges mező' | _ }}<span class="text-danger"> &#9679;</span></label>
+                    <label for="exampleFormControlTextarea1" class="form-label">{{ 'Kötelező Szöveges mező' | _ }}<span class="text-danger"> *</span></label>
                     <input type="text" class="form-control rounded" id="exampleFormControlInput1">
                 </div>
 
@@ -39,7 +39,7 @@
                 {# Disabled #}
                 <div class="mb-3">
                     <label for="exampleFormControlTextarea1" class="form-label">{{ 'Letiltott mező' | _ }}</label>
-                    <input type="text" class="form-control rounded bg-background2" id="exampleFormControlInput1" placeholder="{{ 'Letiltva' | _ }}" disabled="true">
+                    <input type="text" class="form-control rounded" id="exampleFormControlInput1" placeholder="{{ 'Letiltva' | _ }}" disabled="true">
                 </div>
 
                 {# Email #}
