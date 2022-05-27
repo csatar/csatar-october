@@ -27,7 +27,7 @@ class Association extends Model
         'contact_name' => 'required|min:5',
         'contact_email' => 'required|email',
         'address' => 'required|min:5',
-        'bank_account' => 'min:5',
+        'bank_account' => 'min:5|nullable',
         'leadership_presentation' => 'required',
         'logo' => 'image|nullable',
         'ecset_code_suffix' => 'max:2|alpha'
