@@ -1,0 +1,10 @@
+name: 'csatar.csatar::lang.plugin.admin.professionalQualification.professionalQualification'
+form: $/csatar/csatar/models/professionalqualification/fields.yaml
+modelClass: Csatar\Csatar\Models\ProfessionalQualification
+defaultRedirect: csatar/csatar/professionalqualifications
+create:
+    redirect: 'csatar/csatar/professionalqualifications/update/:id'
+    redirectClose: csatar/csatar/professionalqualifications
+update:
+    redirect: csatar/csatar/professionalqualifications
+    redirectClose: csatar/csatar/professionalqualifications

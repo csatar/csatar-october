@@ -1,0 +1,5 @@
+title: 'csatar.csatar::lang.plugin.admin.test.test'
+modelClass: Csatar\Csatar\Models\Test
+nameFrom: name
+toolbar:
+    buttons: reorder_toolbar

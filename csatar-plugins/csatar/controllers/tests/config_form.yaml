@@ -1,0 +1,10 @@
+name: 'csatar.csatar::lang.plugin.admin.test.test'
+form: $/csatar/csatar/models/test/fields.yaml
+modelClass: Csatar\Csatar\Models\Test
+defaultRedirect: csatar/csatar/tests
+create:
+    redirect: 'csatar/csatar/tests/update/:id'
+    redirectClose: csatar/csatar/tests
+update:
+    redirect: csatar/csatar/tests
+    redirectClose: csatar/csatar/tests

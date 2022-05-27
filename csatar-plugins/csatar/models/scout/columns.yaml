@@ -33,14 +33,21 @@ columns:
         label: 'csatar.csatar::lang.plugin.admin.scout.troop'
         type: number
         searchable: true
+        sortable: false
         relation: troop
         valueFrom: name
     patrol_id:
         label: 'csatar.csatar::lang.plugin.admin.scout.patrol'
         type: number
         searchable: true
+        sortable: false
         relation: patrol
         valueFrom: name
+    name_prefix:
+        label: 'csatar.csatar::lang.plugin.admin.scout.namePrefix'
+        type: text
+        searchable: true
+        sortable: true
     family_name:
         label: 'csatar.csatar::lang.plugin.admin.scout.familyName'
         type: text
@@ -51,8 +58,18 @@ columns:
         type: text
         searchable: true
         sortable: true
+    nickname:
+        label: 'csatar.csatar::lang.plugin.admin.scout.nickname'
+        type: text
+        searchable: true
+        sortable: true
     email:
         label: 'csatar.csatar::lang.plugin.admin.general.email'
+        type: text
+        searchable: true
+        sortable: true
+    phone:
+        label: 'csatar.csatar::lang.plugin.admin.general.phone'
         type: text
         searchable: true
         sortable: true
@@ -75,37 +92,251 @@ columns:
         label: 'csatar.csatar::lang.plugin.admin.scout.legalRelationship'
         type: text
         searchable: true
+        sortable: false
         relation: legal_relationship
-        valueFrom: title
+        valueFrom: name
+    religion_id:
+        label: 'csatar.csatar::lang.plugin.admin.scout.religion'
+        type: text
+        searchable: true
+        sortable: false
+        relation: religion
+        valueFrom: name
+    nationality:
+        label: 'csatar.csatar::lang.plugin.admin.scout.nationality'
+        type: text
+        searchable: true
+        sortable: true
+    tshirt_size_id:
+        label: 'csatar.csatar::lang.plugin.admin.scout.tShirtSize'
+        type: text
+        searchable: true
+        sortable: false
+        relation: tshirt_size
+        valueFrom: name
+    birthdate:
+        label: 'csatar.csatar::lang.plugin.admin.scout.birthdate'
+        type: text
+        searchable: true
+        sortable: true
+    nameday:
+        label: 'csatar.csatar::lang.plugin.admin.scout.nameday'
+        type: text
+        searchable: true
+        sortable: true
+    maiden_name:
+        label: 'csatar.csatar::lang.plugin.admin.scout.maidenName'
+        type: text
+        searchable: true
+        sortable: true
+    birthplace:
+        label: 'csatar.csatar::lang.plugin.admin.scout.birthplace'
+        type: text
+        searchable: true
+        sortable: true
+    address_country:
+        label: 'csatar.csatar::lang.plugin.admin.scout.addressCountry'
+        type: text
+        searchable: true
+        sortable: true
+    address_zipcode:
+        label: 'csatar.csatar::lang.plugin.admin.scout.addressZipcode'
+        type: text
+        searchable: true
+        sortable: true
+    address_county:
+        label: 'csatar.csatar::lang.plugin.admin.scout.addressCounty'
+        type: text
+        searchable: true
+        sortable: true
+    address_location:
+        label: 'csatar.csatar::lang.plugin.admin.scout.addressLocation'
+        type: text
+        searchable: true
+        sortable: true
+    address_street:
+        label: 'csatar.csatar::lang.plugin.admin.scout.addressStreet'
+        type: text
+        searchable: true
+        sortable: true
+    address_number:
+        label: 'csatar.csatar::lang.plugin.admin.scout.addressNumber'
+        type: text
+        searchable: true
+        sortable: true
+    mothers_name:
+        label: 'csatar.csatar::lang.plugin.admin.scout.mothersName'
+        type: text
+        searchable: true
+        sortable: true
+    mothers_phone:
+        label: 'csatar.csatar::lang.plugin.admin.scout.mothersPhone'
+        type: text
+        searchable: true
+        sortable: true
+    mothers_email:
+        label: 'csatar.csatar::lang.plugin.admin.scout.mothersEmail'
+        type: text
+        searchable: true
+        sortable: true
+    fathers_name:
+        label: 'csatar.csatar::lang.plugin.admin.scout.fathersName'
+        type: text
+        searchable: true
+        sortable: true
+    fathers_phone:
+        label: 'csatar.csatar::lang.plugin.admin.scout.fathersPhone'
+        type: text
+        searchable: true
+        sortable: true
+    fathers_email:
+        label: 'csatar.csatar::lang.plugin.admin.scout.fathersEmail'
+        type: text
+        searchable: true
+        sortable: true
+    legal_representative_name:
+        label: 'csatar.csatar::lang.plugin.admin.scout.legalRepresentativeName'
+        type: text
+        searchable: true
+        sortable: true
+    legal_representative_phone:
+        label: 'csatar.csatar::lang.plugin.admin.scout.legalRepresentativePhone'
+        type: text
+        searchable: true
+        sortable: true
+    legal_representative_email:
+        label: 'csatar.csatar::lang.plugin.admin.scout.legalRepresentativeEmail'
+        type: text
+        searchable: true
+        sortable: true
+    elementary_school:
+        label: 'csatar.csatar::lang.plugin.admin.scout.elementarySchool'
+        type: text
+        searchable: true
+        sortable: true
+    primary_school:
+        label: 'csatar.csatar::lang.plugin.admin.scout.primarySchool'
+        type: text
+        searchable: true
+        sortable: true
+    secondary_school:
+        label: 'csatar.csatar::lang.plugin.admin.scout.secondarySchool'
+        type: text
+        searchable: true
+        sortable: true
+    post_secondary_school:
+        label: 'csatar.csatar::lang.plugin.admin.scout.postSecondarySchool'
+        type: text
+        searchable: true
+        sortable: true
+    college:
+        label: 'csatar.csatar::lang.plugin.admin.scout.college'
+        type: text
+        searchable: true
+        sortable: true
+    university:
+        label: 'csatar.csatar::lang.plugin.admin.scout.university'
+        type: text
+        searchable: true
+        sortable: true
+    other_trainings:
+        label: 'csatar.csatar::lang.plugin.admin.scout.otherTrainings'
+        type: text
+        searchable: true
+        sortable: true
+    foreign_language_knowledge:
+        label: 'csatar.csatar::lang.plugin.admin.scout.foreignLanguageKnowledge'
+        type: text
+        searchable: true
+        sortable: true
+    occupation:
+        label: 'csatar.csatar::lang.plugin.admin.scout.occupation'
+        type: text
+        searchable: true
+        sortable: true
+    workplace:
+        label: 'csatar.csatar::lang.plugin.admin.scout.workplace'
+        type: text
+        searchable: true
+        sortable: true
+    comment:
+        label: 'csatar.csatar::lang.plugin.admin.scout.comment'
+        type: text
+        searchable: true
     chronic_illnesses:
         label: 'csatar.csatar::lang.plugin.admin.scout.chronicIllnesses'
         type: text
         searchable: true
+        sortable: false
         relation: chronic_illnesses
-        valueFrom: title
+        valueFrom: name
     special_diet_id:
         label: 'csatar.csatar::lang.plugin.admin.scout.specialDiet'
         type: text
         searchable: true
+        sortable: false
         relation: special_diet
-        valueFrom: title
+        valueFrom: name
     allergies:
         label: 'csatar.csatar::lang.plugin.admin.scout.allergy'
         type: text
         searchable: true
         sortable: false
         relation: allergies
-        valueFrom: title
-    religion_id:
-        label: 'csatar.csatar::lang.plugin.admin.scout.religion'
+        valueFrom: name
+    food_sensitivities:
+        label: 'csatar.csatar::lang.plugin.admin.scout.foodSensitivity'
         type: text
         searchable: true
-        relation: religion
-        valueFrom: title
-    tshirt_size_id:
-        label: 'csatar.csatar::lang.plugin.admin.scout.tShirtSize'
+        sortable: false
+        relation: food_sensitivities
+        valueFrom: name
+    promises:
+        label: 'csatar.csatar::lang.plugin.admin.scout.promise'
         type: text
         searchable: true
-        relation: tshirt_size
-        valueFrom: title
-
+        sortable: false
+        relation: promises
+        valueFrom: name
+    tests:
+        label: 'csatar.csatar::lang.plugin.admin.scout.test'
+        type: text
+        searchable: true
+        sortable: false
+        relation: tests
+        valueFrom: name
+    special_tests:
+        label: 'csatar.csatar::lang.plugin.admin.scout.specialTest'
+        type: text
+        searchable: true
+        sortable: false
+        relation: special_tests
+        valueFrom: name
+    professional_qualifications:
+        label: 'csatar.csatar::lang.plugin.admin.scout.professionalQualification'
+        type: text
+        searchable: true
+        sortable: false
+        relation: professional_qualifications
+        valueFrom: name
+    special_qualifications:
+        label: 'csatar.csatar::lang.plugin.admin.scout.specialQualification'
+        type: text
+        searchable: true
+        sortable: false
+        relation: special_qualifications
+        valueFrom: name
+    leadership_qualifications:
+        label: 'csatar.csatar::lang.plugin.admin.scout.leadershipQualification'
+        type: text
+        searchable: true
+        sortable: false
+        relation: leadership_qualifications
+        valueFrom: name
+    training_qualifications:
+        label: 'csatar.csatar::lang.plugin.admin.scout.trainingQualification'
+        type: text
+        searchable: true
+        sortable: false
+        relation: training_qualifications
+        valueFrom: name
