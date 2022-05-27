@@ -1,0 +1,26 @@
+columns:
+    id:
+        label: 'csatar.csatar::lang.plugin.admin.general.id'
+        type: number
+        searchable: true
+        sortable: true
+    name:
+        label: 'csatar.csatar::lang.plugin.admin.general.name'
+        type: text
+        searchable: true
+        sortable: true
+    'pivot[date]':
+        label: 'csatar.csatar::lang.plugin.admin.general.date'
+        type: text
+    'pivot[location]':
+        label: 'csatar.csatar::lang.plugin.admin.general.location'
+        type: text
+    'pivot[qualification_certificate_number]':
+        label: 'csatar.csatar::lang.plugin.admin.general.qualificationCertificateNumber'
+        type: text
+    'pivot[qualification]':
+        label: 'csatar.csatar::lang.plugin.admin.general.qualification'
+        type: text
+    'pivot[qualification_leader]':
+        label: 'csatar.csatar::lang.plugin.admin.general.qualificationLeader'
+        type: text
