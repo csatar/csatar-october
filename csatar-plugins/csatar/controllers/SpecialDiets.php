@@ -13,6 +13,6 @@ class SpecialDiets extends Controller
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('Csatar.Csatar', 'main-menu-item-scout-system-data', 'side-menu-special-item-categories');
+        BackendMenu::setContext('Csatar.Csatar', 'main-menu-item-scout-system-data', 'side-menu-special-diet-categories');
     }
 }

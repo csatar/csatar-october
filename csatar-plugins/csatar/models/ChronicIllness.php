@@ -41,7 +41,6 @@ class ChronicIllness extends Model
         'scouts' => [
             '\Csatar\Csatar\Models\Scout',
             'table' => 'csatar_csatar_scouts_chronic_illnesses',
-            'order' => 'user_id'
         ]
     ];
 }

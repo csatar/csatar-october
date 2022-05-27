@@ -26,6 +26,7 @@ class BuilderTableCreateCsatarCsatarDistricts extends Migration
             $table->text('leadership_presentation');
             $table->text('description');
             $table->string('bank_account', 255)->nullable();
+            $table->integer('association_id')->index('association_id')->unsigned();
         });
     }
     

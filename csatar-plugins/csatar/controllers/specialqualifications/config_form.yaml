@@ -1,0 +1,10 @@
+name: 'csatar.csatar::lang.plugin.admin.specialQualification.specialQualification'
+form: $/csatar/csatar/models/specialqualification/fields.yaml
+modelClass: Csatar\Csatar\Models\SpecialQualification
+defaultRedirect: csatar/csatar/specialqualifications
+create:
+    redirect: 'csatar/csatar/specialqualifications/update/:id'
+    redirectClose: csatar/csatar/specialqualifications
+update:
+    redirect: csatar/csatar/specialqualifications
+    redirectClose: csatar/csatar/specialqualifications
