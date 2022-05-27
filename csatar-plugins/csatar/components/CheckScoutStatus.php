@@ -6,6 +6,7 @@ use Lang;
 use Input;
 use Cms\Classes\ComponentBase;
 use Redirect;
+use Response;
 use Validator;
 use ValidationException;
 
@@ -68,7 +69,7 @@ class CheckScoutStatus extends ComponentBase
         ];
 
         if ($this->json) {
-            return json_encode($variablesToPass);
+            return Redirect::refresh()->with('ecset_json', $variablesToPass);
         }
 
         return $this->renderPartial('@default', $variablesToPass);

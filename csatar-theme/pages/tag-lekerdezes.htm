@@ -5,6 +5,13 @@ title = "Tag lekérdezés"
 [checkscoutstatus]
 scoutCode = "{{ :ecset_code }}"
 ==
+function onStart()
+{
+    if (Session::get('ecset_json')) {
+        return Session::get('ecset_json');
+    }
+}
+==
 <div class="container">
     {% component 'checkscoutstatus' %}
 </div>
