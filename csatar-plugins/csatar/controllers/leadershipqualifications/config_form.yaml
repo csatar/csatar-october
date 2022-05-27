@@ -1,0 +1,10 @@
+name: 'csatar.csatar::lang.plugin.admin.leadershipQualification.leadershipQualification'
+form: $/csatar/csatar/models/leadershipqualification/fields.yaml
+modelClass: Csatar\Csatar\Models\LeadershipQualification
+defaultRedirect: csatar/csatar/leadershipqualifications
+create:
+    redirect: 'csatar/csatar/leadershipqualifications/update/:id'
+    redirectClose: csatar/csatar/leadershipqualifications
+update:
+    redirect: csatar/csatar/leadershipqualifications
+    redirectClose: csatar/csatar/leadershipqualifications
