@@ -1,0 +1,10 @@
+name: 'csatar.csatar::lang.plugin.admin.promise.promise'
+form: $/csatar/csatar/models/promise/fields.yaml
+modelClass: Csatar\Csatar\Models\Promise
+defaultRedirect: csatar/csatar/promises
+create:
+    redirect: 'csatar/csatar/promises/update/:id'
+    redirectClose: csatar/csatar/promises
+update:
+    redirect: csatar/csatar/promises
+    redirectClose: csatar/csatar/promises

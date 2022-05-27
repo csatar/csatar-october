@@ -4,149 +4,95 @@
     - 'Created table csatar_csatar_scouts'
     - builder_table_create_csatar_csatar_scouts.php
 1.0.3:
-    - 'Updated table csatar_csatar_scouts'
-    - builder_table_update_csatar_csatar_scouts.php
+    - 'Created table csatar_csatar_legal_relationships'
+    - builder_table_create_csatar_csatar_legal_relationships.php
 1.0.4:
-    - 'Updated table csatar_csatar_scouts'
-    - builder_table_update_csatar_csatar_scouts_2.php
+    - 'Created table csatar_csatar_chronic_illnesses'
+    - builder_table_create_csatar_csatar_chronic_illnesses.php
 1.0.5:
-    - 'Created table csatar_csatar_legal_relationship'
-    - builder_table_create_csatar_csatar_legal_relationship.php
+    - 'Created table csatar_csatar_scouts_chronic_illnesses'
+    - builder_table_create_csatar_csatar_scouts_chronic_illnesses.php
 1.0.6:
-    - 'Updated table csatar_csatar_scouts'
-    - builder_table_update_csatar_csatar_scouts_3.php
-1.0.7:
-    - 'Updated table csatar_csatar_legal_relationship'
-    - builder_table_update_csatar_csatar_legal_relationship.php
-1.0.8:
-    - 'Updated table csatar_csatar_legal_relationship'
-    - builder_table_update_csatar_csatar_legal_relationship_2.php
-1.0.9:
-    - 'Updated table csatar_csatar_scouts'
-    - builder_table_update_csatar_csatar_scouts_4.php
-1.0.10:
-    - 'Updated table csatar_csatar_legal_relationship'
-    - builder_table_update_csatar_csatar_legal_relationships.php
-1.0.11:
-    - 'Created table csatar_csatar_chronic_illness'
-    - builder_table_create_csatar_csatar_chronic_illness.php
-1.0.13:
-    - 'Added seeder for LegalRelationShip'
-    - seeder_1010.php
-1.0.14:
-    - 'Updated table csatar_csatar_chronic_illness'
-    - builder_table_update_csatar_csatar_chronic_illnesses.php
-1.0.15:
-    - 'Added table csatar_csatar_scouts_chronic_illnesses'
-    - migration_1015.php
-1.0.16:
     - 'Created table csatar_csatar_allergies'
     - builder_table_create_csatar_csatar_allergies.php
-1.0.17:
+1.0.7:
     - 'Created table csatar_csatar_scouts_allergies'
-    - migration_1017.php
-1.0.19:
-    - 'Updated table csatar_csatar_allergies'
-    - builder_table_update_csatar_csatar_allergies.php
-1.0.20:
-    - 'Added seeder for Allergies'
-    - seeder_1020.php
-1.0.21:
-    - 'Created table csatar_csatar_special_diet'
-    - builder_table_create_csatar_csatar_special_diet.php
-1.0.22:
-    - 'Created table csatar_csatar_religion'
-    - builder_table_create_csatar_csatar_religion.php
-1.0.23:
-    - 'Created table csatar_csatar_tshirt_size'
-    - builder_table_create_csatar_csatar_tshirt_size.php
-1.0.24:
-    - 'Updated table csatar_csatar_religion'
-    - builder_table_update_csatar_csatar_religions.php
-1.0.25:
-    - 'Updated table csatar_csatar_special_diet'
-    - builder_table_update_csatar_csatar_special_diets.php
-1.0.26:
-    - 'Updated table csatar_csatar_tshirt_size'
-    - builder_table_update_csatar_csatar_tshirt_sizes.php
-1.0.27:
-    - 'Updated table csatar_csatar_scouts'
-    - builder_table_update_csatar_csatar_scouts_5.php
-1.0.28:
-    - 'Added seeder for Special Diets, Religions, T-Shirt Sizes'
-    - seeder_1028.php
-1.0.29:
-    - 'Updated table csatar_csatar_scouts_chronic_illnesses'
-    - builder_table_update_csatar_csatar_scouts_chronic_illnesses.php
-1.0.30:
-    - 'Updated table csatar_csatar_scouts_chronic_illnesses'
-    - builder_table_update_csatar_csatar_scouts_chronic_illnesses_2.php
-1.0.31:
-    - 'Updated table csatar_csatar_scouts'
-    - builder_table_update_csatar_csatar_scouts_6.php
-1.0.32:
-    - 'Updated table csatar_csatar_scouts'
-    - builder_table_update_csatar_csatar_scouts_7.php
-1.0.33:
-    - 'Updated table csatar_csatar_scouts_allergies'
-    - builder_table_update_csatar_csatar_scouts_allergies.php
-1.0.34:
-    - 'Updated table csatar_csatar_scouts'
-    - builder_table_update_csatar_csatar_scouts_8.php
-1.0.35:
+    - builder_table_create_csatar_csatar_scouts_allergies.php
+1.0.8:
+    - 'Created table csatar_csatar_special_diets'
+    - builder_table_create_csatar_csatar_special_diets.php
+1.0.9:
+    - 'Created table csatar_csatar_religions'
+    - builder_table_create_csatar_csatar_religions.php
+1.0.10:
+    - 'Created table csatar_csatar_tshirt_sizes'
+    - builder_table_create_csatar_csatar_tshirt_sizes.php
+1.0.11:
     - 'Created table csatar_csatar_hierarchy'
     - builder_table_create_csatar_csatar_hierarchy.php
-1.0.36:
-    - 'Updated table csatar_csatar_hierarchy'
-    - builder_table_update_csatar_csatar_hierarchy.php
-1.0.37:
-    - 'Updated table csatar_csatar_hierarchy'
-    - builder_table_update_csatar_csatar_hierarchy_3.php
-1.0.38:
-    - 'Updated table csatar_csatar_legal_relationships'
-    - builder_table_update_csatar_csatar_legal_relationships_2.php
-1.0.39:
-    - 'Updated table csatar_csatar_hierarchy'
-    - builder_table_update_csatar_csatar_hierarchy_2.php
-1.0.40:
-    - 'Added seeder for Hierarchy'
-    - seeder_1040.php
-1.0.41:
+1.0.12:
     - 'Created table csatar_csatar_associations'
     - builder_table_create_csatar_csatar_association.php
-1.0.42:
-    - 'Updated table csatar_csatar_associations'
-    - builder_table_update_csatar_csatar_associations.php
-1.0.43:
-    - 'Added seeder for Associations'
-    - seeder_1042.php
-1.0.44:
+1.0.13:
     - 'Created table csatar_csatar_districts'
     - builder_table_create_csatar_csatar_districts.php
-1.0.45:
-    - 'Updated table csatar_csatar_districts'
-    - builder_table_update_csatar_csatar_districts.php
-1.0.46:
-    - 'Created table csatar_csatar_team'
-    - builder_table_create_csatar_csatar_team.php
-1.0.47:
-    - 'Updated table csatar_csatar_team'
-    - builder_table_update_csatar_csatar_teams.php
-1.0.48:
+1.0.14:
+    - 'Created table csatar_csatar_teams'
+    - builder_table_create_csatar_csatar_teams.php
+1.0.15:
     - 'Created table csatar_csatar_troops'
     - builder_table_create_csatar_csatar_troops.php
-1.0.49:
+1.0.16:
     - 'Created table csatar_csatar_patrols'
     - builder_table_create_csatar_csatar_patrols.php
-1.0.50:
-    - 'Added indexing to all foreign keys'
-    - builder_add_indexing_to_all_foreign_keys.php
-1.0.51:
-    - 'Updated table csatar_csatar_scouts'
-    - builder_table_update_csatar_csatar_scouts_9.php
-1.0.52:
-    - 'Updated table csatar_csatar_associations'
-    - builder_table_update_csatar_csatar_associations_2.php
-1.0.53:
-    - 'Updated table csatar_csatar_allergies'
-    - builder_table_update_csatar_csatar_allergies_2.php
+1.0.17:
+    - 'Created table csatar_csatar_food_sensitivities'
+    - builder_table_create_csatar_csatar_food_sensitivities.php
+1.0.18:
+    - 'Created table csatar_csatar_scouts_food_sensitivities'
+    - builder_table_create_csatar_csatar_scouts_food_sensitivities.php
+1.0.19:
+    - 'Created table csatar_csatar_promises'
+    - builder_table_create_csatar_csatar_promises.php
+1.0.20:
+    - 'Created table csatar_csatar_scouts_promises'
+    - builder_table_create_csatar_csatar_scouts_promises.php
+1.0.21:
+    - 'Created table csatar_csatar_tests'
+    - builder_table_create_csatar_csatar_tests.php
+1.0.22:
+    - 'Created table csatar_csatar_special_tests'
+    - builder_table_create_csatar_csatar_special_tests.php
+1.0.23:
+    - 'Created table csatar_csatar_professional_qualifications'
+    - builder_table_create_csatar_csatar_professional_qualifications.php
+1.0.24:
+    - 'Created table csatar_csatar_special_qualifications'
+    - builder_table_create_csatar_csatar_special_qualifications.php
+1.0.25:
+    - 'Created table csatar_csatar_leadership_qualifications'
+    - builder_table_create_csatar_csatar_leadership_qualifications.php
+1.0.26:
+    - 'Created table csatar_csatar_training_qualifications'
+    - builder_table_create_csatar_csatar_training_qualifications.php
+1.0.27:
+    - 'Created table csatar_csatar_scouts_tests'
+    - builder_table_create_csatar_csatar_scouts_tests.php
+1.0.28:
+    - 'Created table csatar_csatar_scouts_special_tests'
+    - builder_table_create_csatar_csatar_scouts_special_tests.php
+1.0.29:
+    - 'Created table csatar_csatar_scouts_professional_qualifications'
+    - builder_table_create_csatar_csatar_scouts_professional_qualifications.php
+1.0.30:
+    - 'Created table csatar_csatar_scouts_special_qualifications'
+    - builder_table_create_csatar_csatar_scouts_special_qualifications.php
+1.0.31:
+    - 'Created table csatar_csatar_scouts_leadership_qualifications'
+    - builder_table_create_csatar_csatar_scouts_leadership_qualifications.php
+1.0.32:
+    - 'Created table csatar_csatar_scouts_training_qualifications'
+    - builder_table_create_csatar_csatar_scouts_training_qualifications.php
+1.0.33:
+    - 'Added seeder'
+    - seeder_1033.php

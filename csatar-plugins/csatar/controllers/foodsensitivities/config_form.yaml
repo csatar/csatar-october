@@ -1,0 +1,10 @@
+name: 'csatar.csatar::lang.plugin.admin.foodSensitivity.foodSensitivity'
+form: $/csatar/csatar/models/foodsensitivity/fields.yaml
+modelClass: Csatar\Csatar\Models\FoodSensitivity
+defaultRedirect: csatar/csatar/foodsensitivities
+create:
+    redirect: 'csatar/csatar/foodsensitivities/update/:id'
+    redirectClose: csatar/csatar/foodsensitivities
+update:
+    redirect: csatar/csatar/foodsensitivities
+    redirectClose: csatar/csatar/foodsensitivities

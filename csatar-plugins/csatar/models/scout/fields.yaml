@@ -36,13 +36,19 @@ fields:
         nameFrom: name
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
-        dependsOn: [team, troop]
+        dependsOn:
+            - team
+            - troop
         span: auto
         type: dropdown
     scoutData:
         label: 'csatar.csatar::lang.plugin.admin.scout.scoutData'
         span: full
         type: section
+    name_prefix:
+        label: 'csatar.csatar::lang.plugin.admin.scout.namePrefix'
+        span: auto
+        type: text
     family_name:
         label: 'csatar.csatar::lang.plugin.admin.scout.familyName'
         span: auto
@@ -53,9 +59,18 @@ fields:
         span: auto
         required: 1
         type: text
+    nickname:
+        label: 'csatar.csatar::lang.plugin.admin.scout.nickname'
+        span: auto
+        type: text
     email:
         label: 'csatar.csatar::lang.plugin.admin.general.email'
         span: auto
+        type: text
+    phone:
+        label: 'csatar.csatar::lang.plugin.admin.general.phone'
+        span: auto
+        required: 1
         type: text
     personal_identification_number:
         label: 'csatar.csatar::lang.plugin.admin.scout.personalIdentificationNumber'
@@ -83,19 +98,7 @@ fields:
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
-        type: relation
-    chronic_illnesses:
-        label: 'csatar.csatar::lang.plugin.admin.scout.chronicIllnesses'
-        nameFrom: name
-        descriptionFrom: description
-        span: auto
-        type: relation
-    special_diet:
-        label: 'csatar.csatar::lang.plugin.admin.scout.specialDiet'
-        nameFrom: name
-        descriptionFrom: description
-        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
-        span: auto
+        required: 1
         type: relation
     religion:
         label: 'csatar.csatar::lang.plugin.admin.scout.religion'
@@ -103,11 +106,216 @@ fields:
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
+        required: 1
         type: relation
+    nationality:
+        label: 'csatar.csatar::lang.plugin.admin.scout.nationality'
+        span: auto
+        type: text
     tshirt_size:
         label: 'csatar.csatar::lang.plugin.admin.scout.tShirtSize'
         nameFrom: name
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
+        required: 1
+        type: relation
+    birthData:
+        label: 'csatar.csatar::lang.plugin.admin.scout.sections.birthData'
+        span: full
+        type: section
+    birthdate:
+        label: 'csatar.csatar::lang.plugin.admin.scout.birthdate'
+        mode: date
+        maxDate: now
+        span: auto
+        required: 1
+        type: datepicker
+    nameday:
+        label: 'csatar.csatar::lang.plugin.admin.scout.nameday'
+        mode: date
+        span: auto
+        type: datepicker
+    maiden_name:
+        label: 'csatar.csatar::lang.plugin.admin.scout.maidenName'
+        span: auto
+        type: text
+    birthplace:
+        label: 'csatar.csatar::lang.plugin.admin.scout.birthplace'
+        span: auto
+        required: 1
+        type: text
+    addressData:
+        label: 'csatar.csatar::lang.plugin.admin.scout.sections.addressData'
+        span: full
+        type: section
+    address_country:
+        label: 'csatar.csatar::lang.plugin.admin.scout.addressCountry'
+        span: auto
+        required: 1
+        type: text
+    address_zipcode:
+        label: 'csatar.csatar::lang.plugin.admin.scout.addressZipcode'
+        span: auto
+        required: 1
+        type: text
+    address_county:
+        label: 'csatar.csatar::lang.plugin.admin.scout.addressCounty'
+        span: auto
+        required: 1
+        type: text
+    address_location:
+        label: 'csatar.csatar::lang.plugin.admin.scout.addressLocation'
+        span: auto
+        required: 1
+        type: text
+    address_street:
+        label: 'csatar.csatar::lang.plugin.admin.scout.addressStreet'
+        span: auto
+        required: 1
+        type: text
+    address_number:
+        label: 'csatar.csatar::lang.plugin.admin.scout.addressNumber'
+        span: auto
+        required: 1
+        type: text
+    mothersData:
+        label: 'csatar.csatar::lang.plugin.admin.scout.sections.mothersData'
+        span: full
+        type: section
+    mothers_name:
+        label: 'csatar.csatar::lang.plugin.admin.scout.mothersName'
+        span: auto
+        type: text
+    mothers_phone:
+        label: 'csatar.csatar::lang.plugin.admin.scout.mothersPhone'
+        span: auto
+        type: text
+    mothers_email:
+        label: 'csatar.csatar::lang.plugin.admin.scout.mothersEmail'
+        span: auto
+        type: text
+    fathersData:
+        label: 'csatar.csatar::lang.plugin.admin.scout.sections.fathersData'
+        span: full
+        type: section
+    fathers_name:
+        label: 'csatar.csatar::lang.plugin.admin.scout.fathersName'
+        span: auto
+        type: text
+    fathers_phone:
+        label: 'csatar.csatar::lang.plugin.admin.scout.fathersPhone'
+        span: auto
+        type: text
+    fathers_email:
+        label: 'csatar.csatar::lang.plugin.admin.scout.fathersEmail'
+        span: auto
+        type: text
+    legalRepresentativeData:
+        label: 'csatar.csatar::lang.plugin.admin.scout.sections.legalRepresentativeData'
+        span: full
+        type: section
+    legal_representative_name:
+        label: 'csatar.csatar::lang.plugin.admin.scout.legalRepresentativeName'
+        span: auto
+        type: text
+    legal_representative_phone:
+        label: 'csatar.csatar::lang.plugin.admin.scout.legalRepresentativePhone'
+        span: auto
+        type: text
+    legal_representative_email:
+        label: 'csatar.csatar::lang.plugin.admin.scout.legalRepresentativeEmail'
+        span: auto
+        type: text
+    schoolData:
+        label: 'csatar.csatar::lang.plugin.admin.scout.sections.schoolData'
+        span: full
+        type: section
+    elementary_school:
+        label: 'csatar.csatar::lang.plugin.admin.scout.elementarySchool'
+        span: auto
+        type: text
+    primary_school:
+        label: 'csatar.csatar::lang.plugin.admin.scout.primarySchool'
+        span: auto
+        type: text
+    secondary_school:
+        label: 'csatar.csatar::lang.plugin.admin.scout.secondarySchool'
+        span: auto
+        type: text
+    post_secondary_school:
+        label: 'csatar.csatar::lang.plugin.admin.scout.postSecondarySchool'
+        span: auto
+        type: text
+    college:
+        label: 'csatar.csatar::lang.plugin.admin.scout.college'
+        span: auto
+        type: text
+    university:
+        label: 'csatar.csatar::lang.plugin.admin.scout.university'
+        span: auto
+        type: text
+    other_trainings:
+        label: 'csatar.csatar::lang.plugin.admin.scout.otherTrainings'
+        span: auto
+        type: text
+    foreign_language_knowledge:
+        label: 'csatar.csatar::lang.plugin.admin.scout.foreignLanguageKnowledge'
+        span: auto
+        type: text
+    occupationData:
+        label: 'csatar.csatar::lang.plugin.admin.scout.sections.occupation'
+        span: full
+        type: section
+    occupation:
+        label: 'csatar.csatar::lang.plugin.admin.scout.occupation'
+        span: auto
+        type: text
+    workplace:
+        label: 'csatar.csatar::lang.plugin.admin.scout.workplace'
+        span: auto
+        type: text
+    otherData:
+        label: 'csatar.csatar::lang.plugin.admin.scout.sections.otherData'
+        span: full
+        type: section
+    comment:
+        label: 'csatar.csatar::lang.plugin.admin.scout.comment'
+        span: auto
+        type: textarea
+    logo:
+        label: 'csatar.csatar::lang.plugin.admin.general.logo'
+        mode: image
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        maxFilesize: '5'
+        span: auto
+        type: fileupload
+    registration_form:
+        label: 'csatar.csatar::lang.plugin.admin.scout.registrationForm'
+        mode: file
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        maxFilesize: '5'
+        span: auto
+        required: 1
+        type: fileupload
+    chronic_illnesses:
+        label: 'csatar.csatar::lang.plugin.admin.scout.chronicIllnesses'
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        required: 1
+        type: relation
+    special_diet:
+        label: 'csatar.csatar::lang.plugin.admin.scout.specialDiet'
+        nameFrom: name
+        descriptionFrom: description
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        span: auto
+        required: 1
         type: relation

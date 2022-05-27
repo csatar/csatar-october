@@ -24,8 +24,29 @@ class Scout extends Model
     public $rules = [
         'family_name' => 'required',
         'given_name' => 'required',
+        'email' => 'email',
+        'phone' => 'required|regex:(^[0-9+-.()]{5,}$)',
         'personal_identification_number' => 'required',
-        'email' => 'email'
+        'is_active' => 'required',
+        'legal_relationship_id' => 'required',
+        'religion_id' => 'required',
+        'tshirt_size' => 'required',
+        'birthdate' => 'required',
+        'birthplace' => 'required',
+        'address_country' => 'required',
+        'address_zipcode' => 'required',
+        'address_county' => 'required',
+        'address_location' => 'required',
+        'address_street' => 'required',
+        'address_number' => 'required',
+        'mothers_phone' => 'regex:(^[0-9+-.()]{5,}$)',
+        'mothers_email' => 'email',
+        'fathers_phone' => 'regex:(^[0-9+-.()]{5,}$)',
+        'fathers_email' => 'email',
+        'legal_representative_phone' => 'regex:(^[0-9+-.()]{5,}$)',
+        'legal_representative_email' => 'email',
+        'logo' => 'image|nullable',
+        'registration_form' => 'mimes:jpg,png,pdf|nullable',
     ];
 
     /**
@@ -50,6 +71,26 @@ class Scout extends Model
                         $this->patrol->troop->id != $this->troop_id)))) {   // the Patrol belongs to a different Troop than the one selected
             throw new \ValidationException(['troop' => \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.troopNotInTheTeamOrTroop')]);
         }
+
+        // check that the birthdate is not in the future
+        if (isset($this->birthdate) && (new \DateTime($this->birthdate) > new \DateTime())) {
+            throw new \ValidationException(['birthdate' => \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.dateInTheFuture')]);
+        }
+
+        // the registration form is required
+        $registration_form = $this->registration_form()->withDeferred($this->sessionKey)->first();
+        if (!isset($registration_form)) {
+            throw new \ValidationException(['registration_form' => \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.registrationFormRequired')]);
+        }
+
+        // the Date and Location pivot fields are required and the Date cannot be in the future
+        $this->validatePivotDateAndLocationFields($this->promises, \Lang::get('csatar.csatar::lang.plugin.admin.promise.promise'));
+        $this->validatePivotDateAndLocationFields($this->tests, \Lang::get('csatar.csatar::lang.plugin.admin.test.test'));
+        $this->validatePivotDateAndLocationFields($this->special_tests, \Lang::get('csatar.csatar::lang.plugin.admin.specialTest.specialTest'));
+        $this->validatePivotDateAndLocationFields($this->professional_qualifications, \Lang::get('csatar.csatar::lang.plugin.admin.professionalQualification.professionalQualification'));
+        $this->validatePivotDateAndLocationFields($this->special_qualifications, \Lang::get('csatar.csatar::lang.plugin.admin.specialQualification.specialQualification'));
+        $this->validatePivotQualificationFields($this->leadership_qualifications, \Lang::get('csatar.csatar::lang.plugin.admin.leadershipQualification.leadershipQualification'));
+        $this->validatePivotQualificationFields($this->training_qualifications, \Lang::get('csatar.csatar::lang.plugin.admin.trainingQualification.trainingQualification'));
     }
 
     /**
@@ -67,19 +108,55 @@ class Scout extends Model
 
     protected $fillable = [
         'user_id',
+        'team_id',
+        'troop_id',
+        'patrol_id',
+        'name_prefix',
         'family_name',
         'given_name',
+        'nickname',
         'email',
-        'gender',
+        'phone',
         'personal_identification_number',
+        'gender',
         'is_active',
         'legal_relationship_id',
         'special_diet_id',
         'religion_id',
+        'nationality',
         'tshirt_size_id',
-        'team_id',
-        'troop_id',
-        'patrol_id',
+        'birthdate',
+        'nameday',
+        'maiden_name',
+        'birthplace',
+        'address_country',
+        'address_zipcode',
+        'address_county',
+        'address_location',
+        'address_street',
+        'address_number',
+        'mothers_name',
+        'mothers_phone',
+        'mothers_email',
+        'fathers_name',
+        'fathers_phone',
+        'fathers_email',
+        'legal_representative_name',
+        'legal_representative_phone',
+        'legal_representative_email',
+        'elementary_school',
+        'primary_school',
+        'secondary_school',
+        'post_secondary_school',
+        'college',
+        'university',
+        'other_trainings',
+        'foreign_language_knowledge',
+        'occupation',
+        'workplace',
+        'comment',
+        'logo',
+        'registration_form',
     ];
 
     /**
@@ -99,13 +176,58 @@ class Scout extends Model
     public $belongsToMany = [
         'chronic_illnesses' => [
             '\Csatar\Csatar\Models\ChronicIllness',
-            'table' => 'csatar_csatar_scouts_chronic_illnesses'
+            'table' => 'csatar_csatar_scouts_chronic_illnesses',
         ],
         'allergies' => [
             '\Csatar\Csatar\Models\Allergy',
             'table' => 'csatar_csatar_scouts_allergies',
-            'pivot' => ['comment']
-        ]
+            'pivot' => ['comment'],
+        ],
+        'food_sensitivities' => [
+            '\Csatar\Csatar\Models\FoodSensitivity',
+            'table' => 'csatar_csatar_scouts_food_sensitivities',
+            'pivot' => ['comment'],
+        ],
+        'promises' => [
+            '\Csatar\Csatar\Models\Promise',
+            'table' => 'csatar_csatar_scouts_promises',
+            'pivot' => ['date', 'location'],
+        ],
+        'tests' => [
+            '\Csatar\Csatar\Models\Test',
+            'table' => 'csatar_csatar_scouts_tests',
+            'pivot' => ['date', 'location'],
+        ],
+        'special_tests' => [
+            '\Csatar\Csatar\Models\SpecialTest',
+            'table' => 'csatar_csatar_scouts_special_tests',
+            'pivot' => ['date', 'location'],
+        ],
+        'professional_qualifications' => [
+            '\Csatar\Csatar\Models\ProfessionalQualification',
+            'table' => 'csatar_csatar_scouts_professional_qualifications',
+            'pivot' => ['date', 'location'],
+        ],
+        'special_qualifications' => [
+            '\Csatar\Csatar\Models\SpecialQualification',
+            'table' => 'csatar_csatar_scouts_special_qualifications',
+            'pivot' => ['date', 'location'],
+        ],
+        'leadership_qualifications' => [
+            '\Csatar\Csatar\Models\LeadershipQualification',
+            'table' => 'csatar_csatar_scouts_leadership_qualifications',
+            'pivot' => ['date', 'location', 'qualification_certificate_number', 'qualification', 'qualification_leader'],
+        ],
+        'training_qualifications' => [
+            '\Csatar\Csatar\Models\TrainingQualification',
+            'table' => 'csatar_csatar_scouts_training_qualifications',
+            'pivot' => ['date', 'location', 'qualification_certificate_number', 'qualification', 'qualification_leader'],
+        ],
+    ];
+
+    public $attachOne = [
+        'logo' => 'System\Models\File',
+        'registration_form' => 'System\Models\File',
     ];
 
     public function beforeCreate()
@@ -113,8 +235,8 @@ class Scout extends Model
         $this->ecset_code = strtoupper($this->generateEcsetCode());
     }
 
-    private function generateEcsetCode(){
-
+    private function generateEcsetCode()
+    {
         $team = Team::find($this->team_id);
 
         if(empty($team)){
@@ -130,5 +252,40 @@ class Scout extends Model
         }
 
         return $ecset_code;
+    }
+
+    private function validatePivotDateAndLocationFields($fields, $category)
+    {
+        if ($fields) {
+            foreach ($fields as $field) {
+                if (!isset($field->pivot->date)) {
+                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.dateRequiredError'))]);
+                }
+                if (!isset($field->pivot->location) || $field->pivot->location == '') {
+                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.locationRequiredError'))]);
+                }
+                if (new \DateTime($field->pivot->date) > new \DateTime()) {
+                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.dateInTheFutureError'))]);
+                }
+            }
+        }        
+    }
+
+    private function validatePivotQualificationFields($fields, $category)
+    {
+        if ($fields) {
+            $this->validatePivotDateAndLocationFields($fields, $category);
+            foreach ($fields as $field) {
+                if (!isset($field->pivot->qualification_certificate_number) || $field->pivot->qualification_certificate_number == '') {
+                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.qualificationCertificateNumberRequiredError'))]);
+                }
+                if (!isset($field->pivot->qualification) || $field->pivot->qualification == '') {
+                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.qualificationRequiredError'))]);
+                }
+                if (!isset($field->pivot->qualification_leader) || $field->pivot->qualification_leader == '') {
+                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.qualificationLeaderRequiredError'))]);
+                }
+            }
+        }        
     }
 }
