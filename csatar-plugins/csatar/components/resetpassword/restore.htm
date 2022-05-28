@@ -1,18 +1,44 @@
-<p class="lead">
-    {{ 'Új jelszó létrehozásához írd be az e-mail címedet.' | _ }}
-</p>
+<div class="container">
+    <div class="row">
 
-<form
-    data-request="{{ __SELF__ }}::onRestorePassword"
-    data-request-update="'{{ __SELF__ }}::reset': '#partialUserResetForm'"
-    data-request-validate=""
-    novalidate
-    data-request-flash>
-    <div class="form-group">
-        <label for="userRestoreEmail">{{ 'E-mail' | _ }}</label>
-        <input name="email" type="email" class="form-control" id="userRestoreEmail" placeholder="{{ 'Írd be az e-mail címedet' | _ }}">
-        <span data-validate-for="email" class="errormsg" >{{ 'Az e-mail mezőt kötelező kitöltened. Az e-mail cím e-mail formájú kell legyen.' | _ }}</span>
+        <div class="col-1 col-md-2 col-lg-2">
+        </div>
+
+        <div class="col-10 col-md-8 col-lg-8 py-5">
+            <div class="d-flex justify-content-center">
+
+                <div class="card bg-light text-primary rounded">
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <i class="key-out-lg mx-auto"></i>
+                            <h4 class="text-center">{{ 'Elfeljettem a jelszavamat'|_ }}</h4>
+                            <p class="p-title text-center mt-4">{{ 'Új jelszó létrehozásához írd be az e-mail címedet' | _ }}</p>
+
+                            <form
+                                data-request="{{ __SELF__ }}::onRestorePassword"
+                                data-request-update="'{{ __SELF__ }}::reset': '#partialUserResetForm'"
+                                data-request-validate=""
+                                novalidate
+                                data-request-flash>
+                                <div class="form-group">
+                                    <label for="userRestoreEmail">{{ 'E-mail:' | _ }}</label>
+                                    <input name="email" type="email" class="form-control rounded bg-white" id="userRestoreEmail" placeholder="{{ 'Írd be az e-mail címedet' | _ }}">
+                                    <div class="text-center">
+                                    <span data-validate-for="email" class="errormsg" >{{ 'Az e-mail mezőt kötelező kitöltened.' | _ }}<br/>{{ 'Az e-mail cím e-mail formájú kell legyen.' | _ }}</span>
+                                    </div>
+                                </div>
+                                <div class="d-grid mx-auto">
+                                <button type="submit" class="btn rounded btn-primary my-3">{{ 'Küldj e-mailt' | _ }}</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-1 col-md-2 col-lg-2">
+        </div>
+
     </div>
-
-    <button type="submit" class="btn btn-default">{{ 'Küldj e-mailt' | _ }}</button>
-</form>
+</div>
