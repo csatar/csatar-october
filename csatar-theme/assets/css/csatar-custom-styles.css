@@ -410,7 +410,7 @@ a.dropdown-item {
     border-color: #F5F5F5;
 }
 
-a.btn-primary:link, a.btn-primary:visited, a.btn-primary:active, a.btn-info:link, a.btn-info:visited, a.btn-info:active, a.btn-warning:link, a.btn-warning:visited, a.btn-warning:active a.btn-danger:link, a.btn-danger:visited, a.btn-danger:active {
+a.btn-primary:link, a.btn-primary:visited, a.btn-primary:active, a.btn-info:link, a.btn-info:visited, a.btn-info:active, a.btn-warning:link, a.btn-warning:visited, a.btn-warning:active, a.btn-danger:link, a.btn-danger:visited, a.btn-danger:active {
     color: #ffffff !important;
 }
 
