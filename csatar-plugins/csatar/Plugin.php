@@ -62,6 +62,7 @@ class Plugin extends PluginBase
             \Csatar\Csatar\Components\ResetPassword::class => 'resetpasswordOverRide',
             \Csatar\Csatar\Components\Structure::class => 'structure',
             \Csatar\Csatar\Components\Logos::class => 'logos',
+            \Csatar\Csatar\Components\TeamReport::class => 'teamReport',
         ];
     }
 

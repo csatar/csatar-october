@@ -344,7 +344,7 @@
                     'proEducatione' => 'Pro Educatione',
                     'scoutsOfRomania' => 'Románia Cserkészei',
                 ],
-            ]
+            ],
             'teamReport' => [
                 'name' => 'Csapatjelentés',
                 'description' => 'Éves csapatjelentés létrehozását teszi lehetővé a csapatok számára.',

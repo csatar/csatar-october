@@ -2,6 +2,8 @@
 
 use Lang;
 use Cms\Classes\ComponentBase;
+use Csatar\Csatar\Models\District;
+use Csatar\Csatar\Models\Team;
 
 class TeamReport extends ComponentBase
 {

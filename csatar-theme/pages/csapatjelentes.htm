@@ -1,0 +1,15 @@
+url = "/csapatjelentes/:associationId/:teamNumber"
+layout = "default"
+title = "Csapatjelentés"
+
+[teamReport]
+associationIdParam = "associationId"
+teamNumberParam = "teamNumber"
+
+[viewBag]
+localeTitle[en] = "Team Report"
+localeTitle[hu] = "Csapatjelentés"
+==
+<div class="container">
+    {% component 'teamReport' %}
+</div>

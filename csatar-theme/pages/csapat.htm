@@ -48,4 +48,7 @@ localeTitle[hu] = "Csapat"
     {% component 'builderList2' %}
 
     <p><a href="/ors/letrehozas" class="btn btn-default">{{ 'Őrs hozzáadása' | _ }}</a></p>
+
+    {% set team = Team::getById(id) %}
+    <p><a href="{{ '/csapatjelentes/' ~ team->district->associationId ~ '/' ~ team->teamNumber }}" class="btn btn-default">{{ 'Csapatjelentés létrehozása' | _ }}</a></p>
 </div>
