@@ -125,4 +125,12 @@ class Team extends Model
     {
         return $query->where('district_id', $id);
     }
+
+    /**
+     * Retrieve the team by Id.
+     */
+    /*public function getById($id)
+    {
+        return $this::find($id);
+    }*/
 }
