@@ -25,11 +25,24 @@ pageNumber = "{{ :page }}"
 localeTitle[en] = "Troop"
 localeTitle[hu] = "Raj"
 ==
+use Csatar\Csatar\Models\Troop;
+
+function onStart()
+{
+$this['troop_id']      = $this->param('id');
+$troop           = Troop::where('id', $this['troop_id'])->get()->first();
+$this['team_id'] = $troop->team_id ?? null;
+}
+==
 <div class="container">
     {% component 'basicForm' %}
 
     <p>{{ 'Őrsök' | _ }}</p>
     {% component 'builderList' %}
 
-    <p><a href="/ors/letrehozas" class="btn btn-default">{{ 'Őrs hozzáadása' | _ }}</a></p>
+    <form action="/ors/letrehozas" method="post">
+        <input type="hidden" name="team" value="{{ team_id }}">
+        <input type="hidden" name="troop" value="{{ troop_id }}">
+        <input type="submit" class="btn btn-default" value="{{ 'Őrs hozzáadása' | _ }}">
+    </form>
 </div>
