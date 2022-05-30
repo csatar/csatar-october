@@ -25,7 +25,6 @@ class Seeder1054 extends Seeder
 
         $association = Association::where('name', 'Romániai Magyar Cserkészszövetség')->first();
         $association->ecset_code_suffix = 'E';
-        $association->bank_account = null;
         $association->save();
 
         $association = Association::where('name', 'Szlovákiai Magyar Cserkészszövetség')->first();
