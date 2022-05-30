@@ -410,7 +410,7 @@ a.dropdown-item {
     border-color: #F5F5F5;
 }
 
-a.btn-primary:link, a.btn-primary:visited, a.btn-primary:active, a.btn-info:link, a.btn-info:visited, a.btn-info:active, a.btn-warning:link, a.btn-warning:visited, a.btn-warning:active a.btn-danger:link, a.btn-danger:visited, a.btn-danger:active {
+a.btn-primary:link, a.btn-primary:visited, a.btn-primary:active, a.btn-info:link, a.btn-info:visited, a.btn-info:active, a.btn-warning:link, a.btn-warning:visited, a.btn-warning:active, a.btn-danger:link, a.btn-danger:visited, a.btn-danger:active {
     color: #ffffff !important;
 }
 
@@ -625,9 +625,29 @@ a.login:link, a.login:visited, a.login:active {
 }
 
 .svg-content { 
-    max-height: 100%;
+    max-height: 100%;  
 	display: inline-block;
 	position: absolute;
+    transform: translateX(50%);
 	top: 0;
 	left: 0;
+}
+
+/* Removing form, input, btn, etc. highlighting */
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus,
+a,
+a:hover,
+a:focus,
+a:active {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Hide password reveal button in MS Edge */
+::-ms-reveal {
+    display: none;
 }

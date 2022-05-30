@@ -96,3 +96,6 @@
 1.0.33:
     - 'Added seeder'
     - seeder_1033.php
+1.0.34:
+    - 'Added seeder for ecset_code suffix'
+    - seeder_1034.php
