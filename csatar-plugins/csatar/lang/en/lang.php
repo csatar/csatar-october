@@ -348,6 +348,9 @@
             'teamReport' => [
                 'name' => 'Team Report',
                 'description' => 'Enables creating yearly reports for the teams.',
+                'validationExceptions' => [
+                    'teamCannotBeFound' => 'The team cannot be found.',
+                ],
             ],
         ],
     ],

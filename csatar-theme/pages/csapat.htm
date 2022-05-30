@@ -36,6 +36,16 @@ pageNumber = "{{ :page }}"
 localeTitle[en] = "Team"
 localeTitle[hu] = "Csapat"
 ==
+<?php
+public function onStart() {
+    $this['month'] = date('n');
+
+    $team = Csatar\Csatar\Models\Team::getById($this->param('id'));
+    $this['associationId'] = $team->district->association_id;
+    $this['teamNumber'] = $team->team_number;
+}
+?>
+==
 <div class="container">
     {% component 'basicForm' %}
 
@@ -48,7 +58,8 @@ localeTitle[hu] = "Csapat"
     {% component 'builderList2' %}
 
     <p><a href="/ors/letrehozas" class="btn btn-default">{{ 'Őrs hozzáadása' | _ }}</a></p>
-{#
-    {% set team = Team::getById(id) %}
-    <p><a href="{{ '/csapatjelentes/' ~ team->district->associationId ~ '/' ~ team->teamNumber }}" class="btn btn-default">{{ 'Csapatjelentés létrehozása' | _ }}</a></p> #}
+    
+    {% if month == 1 or month == 12 %}
+        <p><a href="{{ '/csapatjelentes/' ~ associationId ~ '/' ~ teamNumber }}" class="btn btn-default">{{ 'Csapatjelentés létrehozása' | _ }}</a></p>
+    {% endif %}
 </div>

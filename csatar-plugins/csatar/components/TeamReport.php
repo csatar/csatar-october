@@ -20,17 +20,20 @@ class TeamReport extends ComponentBase
     public function onRender()
     {
         // retrieve the parameters
-        $this->associationId = $this->property('associationId');
-        $this->teamNumber = $this->property('teamNumber');
+        $this->associationId = $this->param('associationId');
+        $this->teamNumber = $this->param('teamNumber');
 
         // get all district ids, which belong to the association
-        $districts_ids = District::where('association_id', $this->associationId)->map(function ($district) {
+        $districts_ids = District::where('association_id', $this->associationId)->get()->map(function ($district) {
             return $district['id'];
         });
 
         // retrieve the team
-        $this->team = Team::where('team_number', $this->teamNumber)->whereIn('district_id', $districts_ids)->get();
+        $this->team = Team::where('team_number', $this->teamNumber)->whereIn('district_id', $districts_ids)->first();
 
         // if the team cannot be found, then display an error message
+        if (!isset($this->team)) {
+           return \Redirect::to('error')->with('message', \Lang::get('csatar.csatar::lang.plugin.component.teamReport.validationExceptions.teamCannotBeFound'));
+        }
     }
 }

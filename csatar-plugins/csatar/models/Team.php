@@ -119,18 +119,18 @@ class Team extends Model
     ];
 
     /**
+     * Retrieve the team by Id.
+     */
+    public static function getById($id)
+    {
+        return Team::find($id);
+    }
+
+    /**
      * Scope a query to only include teams with a given district id.
      */
     public function scopeDistrictId($query, $id)
     {
         return $query->where('district_id', $id);
     }
-
-    /**
-     * Retrieve the team by Id.
-     */
-    /*public function getById($id)
-    {
-        return $this::find($id);
-    }*/
 }
