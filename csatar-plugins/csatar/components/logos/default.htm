@@ -1,13 +1,14 @@
-<div class="row">
-    <h2>{{ __SELF__.title }}</h2>
+<div class="row">    
+    {% partial 'DesignSystem/horizontal-separator' %}
+    <h2 class="pb-2">{{ __SELF__.title }}</h2>   
 
-    <div class="row row-cols-auto">
-        {% for logo in __SELF__.logos %}
-            <div class="col">
+    <div class="d-flex flex-wrap justify-content-evenly">
+        {% for logo in __SELF__.logos %}                    
+            <div class="logo-container {{ logo.class }}">
                 <a href="{{ logo.address }}" target="_blank">
-                    <img src="{{ ('assets/images' ~ logo.logo) | theme }}" alt="{{ logo.name }}">
+                    <img src="{{ ('assets/images' ~ logo.logo) | theme }}" alt="{{ logo.name }}" class="mx-auto d-block logo-size img-fluid">
                 </a>
-            </div>
-        {% endfor %}
-    </div>
+            </div>                
+        {% endfor %}        
+    </div>  
 </div>
