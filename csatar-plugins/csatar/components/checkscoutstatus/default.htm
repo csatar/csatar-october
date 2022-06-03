@@ -5,7 +5,7 @@
 {% else %}
     <p><a href="/tag/{{ code }}">{{ 'Létezik'|_ }}</a></p>
     <p><a href="/csapat/{{ team_id }}">{{ team_number }}. {{ team_name }}</a></p>
-    <p>{{ 'Státusz:'|_ }} {% if is_activ %} {{ 'aktiv'|_ }} {% else %} {{ 'inaktiv'|_ }} {% endif %}</p>
+    <p>{{ 'Státusz:'|_ }} {% if is_active %} {{ 'aktiv'|_ }} {% else %} {{ 'inaktiv'|_ }} {% endif %}</p>
 {% endif %}
 
 <h4>{{ 'Másik tag lekérdezése:'|_ }}</h4>
