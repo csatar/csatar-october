@@ -18,47 +18,47 @@ class Partners
             [
                 'name' => Lang::get('csatar.csatar::lang.plugin.component.logos.partners.forumOfHungarianScoutAssociations'),
                 'address' => 'http://mcsszf.org/',
-                'logo' => '/home/partners/mcsszf.png'
+                'logo' => '/home/partners/mcsszf.webp'
             ],
             [
                 'name' => Lang::get('csatar.csatar::lang.plugin.component.logos.partners.transcarpathianHungarianScoutAssociation'),
                 'address' => 'https://cserkesz.com.ua/',
-                'logo' => '/home/partners/kmcssz.png'
+                'logo' => '/home/partners/kmcssz.webp'
             ],
             [
                 'name' => Lang::get('csatar.csatar::lang.plugin.component.logos.partners.hungarianScoutAssociation'),
                 'address' => 'https://www.cserkesz.hu/',
-                'logo' => '/home/partners/cserkesz-hu.png'
+                'logo' => '/home/partners/cserkesz-hu.webp'
             ],
             [
                 'name' => Lang::get('csatar.csatar::lang.plugin.component.logos.partners.slovakHungarianScoutAssociation'),
                 'address' => 'https://www.szmcs.sk/',
-                'logo' => '/home/partners/szmcs.png'
+                'logo' => '/home/partners/szmcs.webp'
             ],
             [
                 'name' => Lang::get('csatar.csatar::lang.plugin.component.logos.partners.hungarianScoutAssociationOfVojvodina'),
                 'address' => 'https://www.vmcssz.rs/',
-                'logo' => '/home/partners/vmcssz.png'
+                'logo' => '/home/partners/vmcssz.webp'
             ],
             [
                 'name' => Lang::get('csatar.csatar::lang.plugin.component.logos.partners.archdiocesanYouthHeadquarters'),
                 'address' => 'https://www.fif.ma/',
-                'logo' => '/home/partners/fif-ma.png'
+                'logo' => '/home/partners/fif-ma.webp'
             ],
             [
                 'name' => Lang::get('csatar.csatar::lang.plugin.component.logos.partners.marySWayTransylvania'),
                 'address' => 'http://www.mariaut.ro/',
-                'logo' => '/home/partners/via-mariae.png'
+                'logo' => '/home/partners/via-mariae.webp'
             ],
             [
                 'name' => Lang::get('csatar.csatar::lang.plugin.component.logos.partners.proEducatione'),
                 'address' => 'http://proeducatione.ro/',
-                'logo' => '/home/partners/pro-educatione.png'
+                'logo' => '/home/partners/pro-educatione.webp'
             ],
             [
                 'name' => Lang::get('csatar.csatar::lang.plugin.component.logos.partners.scoutsOfRomania'),
                 'address' => 'http://proeducatione.ro/',
-                'logo' => '/home/partners/romanian-scouts.png'
+                'logo' => '/home/partners/romanian-scouts.webp'
             ],
         ];
     }
