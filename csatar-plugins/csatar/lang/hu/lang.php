@@ -352,6 +352,19 @@
                     'teamCannotBeFound' => 'A csapat nem található.',
                 ],
             ],
+        ],
+        'checkScoutStatus' => [
+            'name' => 'Check Scout Status',
+            'description' => 'Return status for an scout dependent the scout id from the request.',
+            'scoutCode' => [
+                'title' => 'Scout Code',
+                'description' => 'Unique scout id'
+            ],
+            'json' => [
+                'title' => 'Json Format',
+                'description' => 'If json parameter is \'json\' return respons in json format. '
+            ]
+        ]
         ]
     ]
 ];
