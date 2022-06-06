@@ -356,7 +356,20 @@
                     'title' => 'Json Format',
                     'description' => 'If json parameter is \'json\' return respons in json format. '
                 ]
-            ]
+            ],
+            'createFrontendAccounts' => [
+                'name' => 'Create Frontend Account',
+                'description' => 'Creates a Frontend user account for an existing Scout.',
+                'validationExceptions' => [
+                    'invalidEcsetCode' => 'Invalid ECSET code',
+                    'emailEcsetCodeMissMatch' => 'If you don\'t have an email address or your email address is different from the registered one please contact your patrol leader!',
+                ],
+                'messages' => [
+                    'scoutHasNoEmail' => ':name has no email address!',
+                    'scoutAlreadyHasUserAccount' => ':name already has a user account!',
+                    'userAccountCreated' => 'User account was created for :name!',
+                ]
+            ],
         ],
     ],
 ];

@@ -1,0 +1,13 @@
+{% set messages = __SELF__.messages %}
+
+<ul>
+{% for key, record in messages.success %}
+    <li class="text-success">{{ record }}</li>
+{% endfor %}
+</ul>
+
+<ul>
+    {% for key, record in messages.errors%}
+    <li class="text-danger">{{ record }}</li>
+    {% endfor %}
+</ul>

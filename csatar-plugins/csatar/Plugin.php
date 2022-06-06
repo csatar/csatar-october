@@ -92,47 +92,5 @@ class Plugin extends PluginBase
             ];
 
         });
-
-        Event::listen('rainlab.user.beforeRegister', function() {
-
-            $data = Input::all();
-            $rules = ['ecset_code' => 'required'];
-
-            $validation = Validator::make(
-                $data,
-                $rules
-            );
-
-            if ($validation->fails()) {
-                throw new ValidationException($validation);
-            }
-
-            $ecsetCode = $data['ecset_code'];
-
-            if(!empty($ecsetCode)){
-                $scout = Scout::where('ecset_code', $ecsetCode)->first();
-            }
-
-            if(empty($scout) || !is_object($scout)){
-                throw new ValidationException(['ecset_code' => 'Érvénytelen ECSET kód!']);
-            }
-//            dd($data['email'], $scout->email);
-            if(!empty($scout) && $scout->email != $data['email']){
-                throw new ValidationException(['ecset_code' => 'Az email cím és az ECSET kód nem egyezik!']);
-            }
-
-        });
-
-        Event::listen('rainlab.user.register', function($user) {
-            $ecsetCode = Input::get('ecset_code');
-
-            if(!empty($ecsetCode)){
-                $scout = Scout::where('ecset_code', $ecsetCode)->first();
-                $scout->user_id = $user->id;
-                $scout->save();
-            }
-
-        });
-
     }
 }

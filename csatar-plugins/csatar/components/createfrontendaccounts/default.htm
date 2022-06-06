@@ -1,0 +1,36 @@
+{% set scouts = __SELF__.scouts %}
+
+<div id="scoutList">
+    <form data-request="onCreateFrontendAccounts">
+
+        <button
+            type="submit"
+            class="btn btn-sm rounded btn-primary">
+            {{ 'Felhasználói fiók(ok) létrehozása'|_ }}
+        </button>
+
+        <hr class="hr-single bg-gray">
+
+        {% for record in scouts %}
+            <div class="form-check d-flex mb-2">
+                <input class="form-check-input me-2" type="checkbox" value="{{ record.id }}" id="scout-{{ record.id }}" name="scouts[]"/>
+                <label class="form-check-label" for="scout-{{ record.id }}">
+                    {% spaceless %}
+                    {% if detailsPage %}
+                    <a href="">
+                        {% endif %}
+
+                            {{ record.getFullName() }}
+
+                        {% if detailsPage %}
+                    </a>
+                    {% endif %}
+                    {% endspaceless %}
+                </label>
+            </div>
+        {% endfor %}
+    </form>
+</div>
+<div id="messageList">
+
+</div>

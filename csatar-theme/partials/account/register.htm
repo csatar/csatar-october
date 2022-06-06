@@ -1,0 +1,98 @@
+<div class="container">
+    {% if canRegister %}
+
+        <div class="row">
+            <div class="col-1 col-md-2 col-lg-2">
+            </div>
+
+            <div class="col-10 col-md-8 col-lg-8 py-5">
+                <div class="flex-grow-1 flex-md-row-reverse row g-2">
+                    <div class="col-lg-6">
+                        <div class="card bg-light text-primary rounded h-100">
+                            <div class="card-body">
+                                <div class="d-flex flex-column align-items-center">
+                                    <i class="key-out-lg"></i>
+                                    <h4 class="text-center">{{ 'Felhasználói fiók létrehozása'|_ }}</h4>
+                                    <form
+                                        class="text-center"
+                                        data-request="onRegister"
+                                        data-request-validate
+                                        novalidate
+                                        data-request-flash>
+
+                                        <div class="form-group my-2 px-5">
+                                            <input
+                                                name="ecset_code"
+                                                type="text"
+                                                class="form-control rounded bg-white"
+                                                id="userRegisterEcsetCode"
+                                                placeholder="{{ 'ECSET kód'|_ }} "/>
+                                        </div>
+                                        <span data-validate-for="ecset_code" class="errormsg"></span>
+
+                                        <div class="form-group my-2 px-5">
+                                            <input
+                                                name="email"
+                                                type="email"
+                                                class="form-control rounded bg-white"
+                                                id="userRegister"
+                                                placeholder="{{ 'E-mail cím'|_ }} "/>
+                                        </div>
+                                        <span data-validate-for="email" class="errormsg"></span>
+
+                                        <div class="my-2 px-5">
+                                            <div class="input-group rounded bg-white">
+                                            <input
+                                            name="password"
+                                            type="password"
+                                            class="form-control rounded bg-white border-0 userRegisterPassword"
+                                            placeholder="{{ 'Jelszó'|_ }}" />
+                                            <span>
+                                                <button class="search-btn" type="button">
+                                                <i class="bi bi-eye text-primary" 
+                                                id="togglePassword"></i>
+                                                </button>
+                                            </span>
+                                            </div>
+                                        </div>
+                                        <span data-validate-for="password" class="errormsg"></span>
+
+                                        <div class="my-2 px-5">
+                                            <div class="input-group rounded bg-white">
+                                            <input
+                                            name="password_confirmation"
+                                            type="password"
+                                            class="form-control rounded bg-white border-0 userRegisterPassword"
+                                            placeholder="{{ 'Jelszó megerősítése'|_ }}" />
+                                            </div>
+                                        </div> 
+
+                                        <a class="login" href="{{ url('/bejelentkezes') }}" rel="noopener noreferrer"><h5>{{ 'Már van fiókom, bejelentkezem!'|_ }}</h5></a>
+                                        <button type="submit" class="btn rounded btn-primary my-3">{{ 'Fiók létrehozása'|_ }}</button>
+                                        
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="col-1 col-md-2 col-lg-2">
+            </div>
+
+        </div>
+    {% endif %}
+</div>
+
+<script>
+    $(document).ready(function() {        
+    $( "#togglePassword" ).on( "click", function() {
+            $( this ).toggleClass( "bi-eye bi-eye-slash" );
+            $(".userRegisterPassword").attr('type') === 'password' ? 
+                $(".userRegisterPassword").attr('type', 'text') : 
+                $(".userRegisterPassword").attr('type', 'password' )  
+        });
+    });
+</script>
