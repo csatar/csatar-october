@@ -63,9 +63,6 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
         $this->page['user'] = $this->user();
         $this->page['canRegister'] = $this->canRegister();
         $this->page['loginAttribute'] = $this->loginAttribute();
-        $this->page['loginAttributeLabel'] = $this->loginAttributeLabel();
-        $this->page['updateRequiresPassword'] = $this->updateRequiresPassword();
-        $this->page['rememberLoginMode'] = $this->rememberLoginMode();
         $this->scouts = Scout::all();
     }
 
