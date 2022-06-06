@@ -2,10 +2,14 @@
 
 use App;
 use Backend;
+use Event;
+use Input;
 use System\Classes\PluginBase;
+use Validator;
 use ValidationException;
 use Lang;
 use RainLab\User\Models\User;
+use Csatar\Csatar\Models\Scout;
 
 /**
  * csatar Plugin Information File
@@ -63,6 +67,7 @@ class Plugin extends PluginBase
             \Csatar\Csatar\Components\Structure::class => 'structure',
             \Csatar\Csatar\Components\Logos::class => 'logos',
             \Csatar\Csatar\Components\CheckScoutStatus::class => 'checkscoutstatus',
+            \Csatar\Csatar\Components\CreateFrontendAccounts::class => 'CreateFrontendAccounts'
         ];
     }
 
@@ -81,9 +86,53 @@ class Plugin extends PluginBase
     protected function extendUser()
     {
         User::extend(function($model) {
+
             $model->hasOne['scout'] = [
                 \Csatar\Csatar\Models\Scout::class
             ];
+
         });
+
+        Event::listen('rainlab.user.beforeRegister', function() {
+
+            $data = Input::all();
+            $rules = ['ecset_code' => 'required'];
+
+            $validation = Validator::make(
+                $data,
+                $rules
+            );
+
+            if ($validation->fails()) {
+                throw new ValidationException($validation);
+            }
+
+            $ecsetCode = $data['ecset_code'];
+
+            if(!empty($ecsetCode)){
+                $scout = Scout::where('ecset_code', $ecsetCode)->first();
+            }
+
+            if(empty($scout) || !is_object($scout)){
+                throw new ValidationException(['ecset_code' => 'Érvénytelen ECSET kód!']);
+            }
+//            dd($data['email'], $scout->email);
+            if(!empty($scout) && $scout->email != $data['email']){
+                throw new ValidationException(['ecset_code' => 'Az email cím és az ECSET kód nem egyezik!']);
+            }
+
+        });
+
+        Event::listen('rainlab.user.register', function($user) {
+            $ecsetCode = Input::get('ecset_code');
+
+            if(!empty($ecsetCode)){
+                $scout = Scout::where('ecset_code', $ecsetCode)->first();
+                $scout->user_id = $user->id;
+                $scout->save();
+            }
+
+        });
+
     }
 }
