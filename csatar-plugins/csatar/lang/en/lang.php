@@ -343,7 +343,7 @@
                     'marySWayTransylvania' => 'Mary\'s Way - Transylvania', // 'Mária út - Erdély'
                     'proEducatione' => 'Pro Educatione', // 'Pro Educatione'
                     'scoutsOfRomania' => 'Scouts Of Romania', // 'Románia Cserkészei'
-                ],
+                ]
             ],
             'teamReport' => [
                 'name' => 'Team Report',
@@ -352,6 +352,18 @@
                     'teamCannotBeFound' => 'The team cannot be found.',
                 ],
             ],
+            'checkScoutStatus' => [
+                'name' => 'Check Scout Status',
+                'description' => 'Return status for an scout dependent the scout id from the request.',
+                'scoutCode' => [
+                    'title' => 'Scout Code',
+                    'description' => 'Unique scout id'
+                ],
+                'json' => [
+                    'title' => 'Json Format',
+                    'description' => 'If json parameter is \'json\' return respons in json format. '
+                ]
+            ]
         ],
     ],
 ];

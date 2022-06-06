@@ -1,5 +1,6 @@
 <?php namespace Csatar\Forms\Traits;
 
+use http\Env\Request;
 use Input;
 use Flash;
 use Validator;
@@ -75,6 +76,18 @@ trait AjaxControllerSimple {
         $config->arrayName = 'data';
         $config->alias = $this->alias;
         $config->model = $record;
+
+        // Autoload belongsTo relations
+        foreach($record->belongsTo as $name => $definition) {
+            if (!Input::get($name)) {
+                continue;
+            }
+
+            $key = isset($definition['key']) ? $definition['key'] : $name . '_id';
+            $record->$key = Input::get($name);
+            $config->fields[$name]['readOnly'] = 1;
+        }
+
 
         $this->widget = new \Backend\Widgets\Form($this, $config);
 

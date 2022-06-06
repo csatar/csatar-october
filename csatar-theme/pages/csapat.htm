@@ -41,10 +41,8 @@ public function onStart() {
     $this['month'] = date('n');
 
     $team = Csatar\Csatar\Models\Team::getById($this->param('id'));
-    $this['associationId'] = $team->district->association_id;
-    $this['teamNumber'] = $team->team_number;
+    $this['team_id'] = $this->param('id');
 }
-?>
 ==
 <div class="container">
     {% component 'basicForm' %}
@@ -52,14 +50,20 @@ public function onStart() {
     <p>{{ 'Rajok' | _ }}</p>
     {% component 'builderList' %}
 
-    <p><a href="/raj/letrehozas" class="btn btn-default">{{ 'Raj hozzáadása' | _ }}</a></p>
+    <form action="/raj/letrehozas" method="post">
+        <input type="hidden" name="team" value="{{ team_id }}">
+        <input type="submit" class="btn btn-default" value="{{ 'Raj hozzáadása' | _ }}">
+    </form>
 
     <p>{{ 'Őrsök' | _ }}</p>
     {% component 'builderList2' %}
 
-    <p><a href="/ors/letrehozas" class="btn btn-default">{{ 'Őrs hozzáadása' | _ }}</a></p>
+    <form action="/ors/letrehozas" method="post">
+        <input type="hidden" name="team" value="{{ team_id }}">
+        <input type="submit" class="btn btn-default" value="{{ 'Őrs hozzáadása' | _ }}">
+    </form>
     
     {% if month == 1 or month == 12 %}
-        <p><a href="{{ '/csapatjelentes/' ~ associationId ~ '/' ~ teamNumber }}" class="btn btn-default">{{ 'Csapatjelentés létrehozása' | _ }}</a></p>
+        <p><a href="{{ '/csapatjelentes/' ~ team_id }}" class="btn btn-default">{{ 'Csapatjelentés létrehozása' | _ }}</a></p>
     {% endif %}
 </div>

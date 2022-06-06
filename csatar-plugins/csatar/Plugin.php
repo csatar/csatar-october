@@ -63,6 +63,7 @@ class Plugin extends PluginBase
             \Csatar\Csatar\Components\Structure::class => 'structure',
             \Csatar\Csatar\Components\Logos::class => 'logos',
             \Csatar\Csatar\Components\TeamReport::class => 'teamReport',
+            \Csatar\Csatar\Components\CheckScoutStatus::class => 'checkscoutstatus',
         ];
     }
 
