@@ -320,11 +320,11 @@ label {
 }
 
 a:link, a:visited, a:active {
-    color:#FFCE00 !important;
+    color:#FFCE00;
 }
 
 a:hover {
-    color: #FFF0B2 !important;
+    color: #FFF0B2;
 }
 
 .code-blue {
@@ -542,8 +542,11 @@ a.btn-light:link, a.btn-light:visited, a.btn-light:active {
 }
 
 .form-control {
-    background-color: #F5F5F5;
+    background-color: #FFFFFF;
     border-color: #DDDDDD;
+    font-weight: 300;
+    font-size: calc(0.9rem + 0.2vw);
+    border-radius: 12px;
 }
 
 .was-validated .form-control:invalid, .form-control.is-invalid {
@@ -552,8 +555,10 @@ a.btn-light:link, a.btn-light:visited, a.btn-light:active {
 }
 
 .form-control:focus {
-    background-color: #F5F5F5;
+    background-color: #FFFFFF;
     border-color: #DDDDDD;
+    font-weight: 300;
+    font-size: calc(0.9rem + 0.2vw);
 }
 
 .form-control:disabled {
