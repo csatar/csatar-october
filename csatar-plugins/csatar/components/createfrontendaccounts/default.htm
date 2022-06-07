@@ -16,15 +16,9 @@
                 <input class="form-check-input me-2" type="checkbox" value="{{ record.id }}" id="scout-{{ record.id }}" name="scouts[]"/>
                 <label class="form-check-label" for="scout-{{ record.id }}">
                     {% spaceless %}
-                    {% if detailsPage %}
-                    <a href="">
-                        {% endif %}
-
-                            {{ record.getFullName() }}
-
-                        {% if detailsPage %}
+                    <a href="/tag/{{ record.ecset_code }}">
+                        {{ record.getFullName() }}
                     </a>
-                    {% endif %}
                     {% endspaceless %}
                 </label>
             </div>
