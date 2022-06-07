@@ -39,8 +39,6 @@ localeTitle[hu] = "Csapat"
 <?php
 public function onStart() {
     $this['month'] = date('n');
-
-    $team = Csatar\Csatar\Models\Team::getById($this->param('id'));
     $this['team_id'] = $this->param('id');
 }
 ==
@@ -63,7 +61,10 @@ public function onStart() {
         <input type="submit" class="btn btn-default" value="{{ 'Őrs hozzáadása' | _ }}">
     </form>
     
-    {% if month == 1 or month == 12 %}
-        <p><a href="{{ '/csapatjelentes/' ~ team_id }}" class="btn btn-default">{{ 'Csapatjelentés létrehozása' | _ }}</a></p>
+    {% if month == 1 or month == 12 or month == 6 %}
+        <form action="/csapatjelentes/letrehozas" method="post">
+            <input type="hidden" name="team" value="{{ team_id }}">
+            <input type="submit" class="btn btn-default" value="{{ 'Csapatjelentés létrehozása' | _ }}">
+        </form>
     {% endif %}
 </div>

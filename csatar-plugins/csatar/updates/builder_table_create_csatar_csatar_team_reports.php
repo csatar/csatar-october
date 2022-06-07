@@ -16,11 +16,11 @@ class BuilderTableCreateCsatarCsatarTeamReports extends Migration
             $table->timestamp('deleted_at')->nullable();
             $table->integer('team_id')->index('team_id')->unsigned();
             $table->integer('year')->unsigned();
-            $table->integer('number_of_adult_patrols')->unsigned();
-            $table->integer('number_of_explorer_patrols')->unsigned();
-            $table->integer('number_of_scout_patrols')->unsigned();
-            $table->integer('number_of_cub_scout_patrols')->unsigned();
-            $table->integer('number_of_mixed_patrols')->unsigned();
+            $table->integer('number_of_adult_patrols')->unsigned()->default(0);
+            $table->integer('number_of_explorer_patrols')->unsigned()->default(0);
+            $table->integer('number_of_scout_patrols')->unsigned()->default(0);
+            $table->integer('number_of_cub_scout_patrols')->unsigned()->default(0);
+            $table->integer('number_of_mixed_patrols')->unsigned()->default(0);
             $table->text('scouting_year_report_team_camp');
             $table->text('scouting_year_report_homesteading');
             $table->text('scouting_year_report_programs');
@@ -28,12 +28,11 @@ class BuilderTableCreateCsatarCsatarTeamReports extends Migration
             $table->string('spiritual_leader_name', 255);
             $table->integer('spiritual_leader_religion_id')->index('spiritual_leader_religion_id')->unsigned();
             $table->string('spiritual_leader_occupation', 255);
-            $table->integer('number_of_members')->unsigned();
-            $table->integer('team_maintenance_fee')->unsigned();
-            $table->integer('total_amount')->unsigned();
-            $table->string('currency', 3);
-            $table->boolean('status')->nullable();
+            $table->double('team_fee')->unsigned();
+            $table->double('total_amount')->unsigned();
+            $table->integer('currency_id')->index('currency_id')->unsigned();
             $table->dateTime('submitted_at')->nullable();
+            $table->dateTime('approved_at')->nullable();
         });
     }
     

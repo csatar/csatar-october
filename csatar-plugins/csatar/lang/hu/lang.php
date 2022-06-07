@@ -153,6 +153,19 @@
                         'organizationSystemData' => 'Organization System Data',
                         'hierarchy' => 'Hierarchy',
                     ],
+                    'seederData' => [
+                        'data' => 'Adatok',
+                        'seederData' => 'Alapértelmezett adatok',
+                        'testData' => 'Teszt adatok',
+                    ],
+                ],
+                'seederData' => [
+                    'seederData' => 'Alapértelmezett adatok',
+                    'testData' => 'Teszt adatok',
+                    'seederDataConfirmMessage' => 'Szeretnéd frissíteni az alapértelmezett adatokat?',
+                    'testDataConfirmMessage' => 'Szeretnéd frissíteni a teszt adatokat?',
+                    'updateData' => 'Adatok frissítése',
+                    'updateDataSuccess' => 'Az adatok frissítve lettek.',
                 ],
             ],
             'allergy' => [
@@ -238,11 +251,14 @@
                 'contactName' => 'Contact name',
                 'bankAccount' => 'Bank account',
                 'leadershipPresentation' => 'Leadership Presentation',
-                'districtsInfo' => 'Districts can be added after the Association has been created. Click the Create button after other information is filled.',
+                'additionalDetailsInfo' => 'Districts and Currencies can be added after the Association has been created. Click the Create button after other information is filled.',
                 'breadcrumb' => 'Associations',
                 'ecsetCode' => [
                     'suffix' => 'ECSET code suffix',
                 ],
+                'teamFee' => 'Csapat fenntartói díj',
+                'membershipFee' => 'Tagdíj értéke',
+                'currency' => 'Pénznem',
             ],
             'district' => [
                 'district' => 'District',
@@ -305,6 +321,36 @@
                 'breadcrumb' => 'Patrols',
                 'troopNotInTheTeamError' => 'The selected Troop does not belong to the selected Team.',
             ],
+            'currency' => [
+                'currency' => 'Pénznem',
+                'currencies' => 'Pénznemek',
+                'breadcrumb' => 'Pénznemek',
+                'code' => 'Kód',
+            ],
+            'teamReport' => [
+                'teamReport' => 'Csapatjelentés',
+                'teamReports' => 'Csapatjelentések',
+                'team' => 'Csapat',
+                'year' => 'Év',
+                'number_of_adult_patrols' => 'Felnőtt őrsök száma',
+                'number_of_explorer_patrols' => 'Felfedező őrsök száma',
+                'number_of_scout_patrols' => 'Cserkész őrsök száma',
+                'number_of_cub_scout_patrols' => 'Kiscserkész őrsök száma',
+                'number_of_mixed_patrols' => 'Vegyes őrsök száma',
+                'scouting_year_report_team_camp' => 'Előző cserkérkészév beszámoló (csapat tábor)',
+                'scouting_year_report_homesteading' => 'Előző cserkérkészév beszámoló (tanyázás)',
+                'scouting_year_report_programs' => 'Előző cserkészév beszámoló (programok)',
+                'scouting_year_team_applications' => 'Előző cserkészév csapat pályázatai',
+                'spiritual_leader_name' => 'Csapat lelki vezetője',
+                'spiritual_leader_religion_id' => 'Csapat lelki vezetőjének felekezete',
+                'spiritual_leader_occupation' => 'Csapat lelki vezetőjének foglalkozás',
+                'team_fee' => 'Csapatfenntartói járulék',
+                'total_amount' => 'Befizetendő összeg',
+                'currency' => 'Pénznem',
+                'submittedAt' => 'Beküldés ideje',
+                'approvedAt' => 'Elfogadás ideje',
+                'breadcrumb' => 'Csapatjelentések',
+            ],
         ],
         'component' => [
             'resetPassword' => [
@@ -364,7 +410,6 @@
                 'title' => 'Json Format',
                 'description' => 'If json parameter is \'json\' return respons in json format. '
             ]
-        ]
         ]
     ]
 ];

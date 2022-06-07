@@ -59,7 +59,7 @@ trait AjaxControllerSimple {
     }
 
     public function createForm($preview = false) {
-
+        
         $form  = Form::find($this->formId);
         $record = $this->getRecord();
 
@@ -97,14 +97,15 @@ trait AjaxControllerSimple {
         if(!$preview){
             $html .= $this->renderValidationTags($record);
         }
-
+        
         $variablesToPass = [
             'form' => $html,
+            'additionalData' => $this->additionalData,
             'recordKeyParam' => $this->recordKeyParam,
             'recordKeyValue' => $record->id ?? 'new',
             'from_id' => $form->id,
             'preview' => $preview ];
-
+            
         return $this->renderPartial('@partials/form', $variablesToPass);
     }
 

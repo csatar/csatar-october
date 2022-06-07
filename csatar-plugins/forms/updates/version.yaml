@@ -24,3 +24,6 @@
 1.0.9:
     - 'Seeder to update existing forms with a slug'
     - seeder_109.php
+1.0.10:
+    - 'Added seeder for TeamReport'
+    - seeder_1010.php

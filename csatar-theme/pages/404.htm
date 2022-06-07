@@ -3,10 +3,15 @@ url = "/404"
 layout = "default"
 
 [viewBag]
-localeTitle[en] = "Page Not Found (404)"
+localeTitle[en] = "Not Found (404)"
 localeTitle[hu] = "Nem Található (404)"
 ==
-
+<?php
+public function onStart() {
+    $this['message'] = Session::pull('message');
+}
+?>
+==
 <div class="container">
     <div class="row">
         <div class="col-1 col-md-2 col-lg-2">
@@ -18,8 +23,14 @@ localeTitle[hu] = "Nem Található (404)"
                     <div class="d-flex justify-content-center align-items-end h-100">
                         <div>
                             <h1 class="text-center text-lg-start text-danger">{{ '404' | _ }}</h1>
-                            <h1 class="text-center text-lg-start text-primary">{{ 'Nem található oldal' | _ }}</h1>
-                            <p class="text-center text-primary">{{ 'Sajnáljuk, az oldal nem található.' | _ }}</p>
+                            <h1 class="text-center text-lg-start text-primary">{{ 'Nem található' | _ }}</h1>
+                            <p class="text-center text-lg-start text-primary">
+                                {% if message is defined and message is not null %}
+                                    {{ message }}
+                                {% else %}
+                                    {{ 'Sajnáljuk, az oldal nem található.' | _ }}
+                                {% endif %}    
+                            </p>
                         </div>
                     </div>
                 </div>

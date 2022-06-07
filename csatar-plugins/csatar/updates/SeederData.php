@@ -4,6 +4,7 @@ use Seeder;
 use Csatar\Csatar\Models\Allergy;
 use Csatar\Csatar\Models\Association;
 use Csatar\Csatar\Models\ChronicIllness;
+use Csatar\Csatar\Models\Currency;
 use Csatar\Csatar\Models\FoodSensitivity;
 use Csatar\Csatar\Models\Hierarchy;
 use Csatar\Csatar\Models\LeadershipQualification;
@@ -15,7 +16,7 @@ use Csatar\Csatar\Models\SpecialDiet;
 use Csatar\Csatar\Models\SpecialTest;
 use Csatar\Csatar\Models\TShirtSize;
 
-class Seeder1033 extends Seeder
+class SeederData extends Seeder
 {
     public function run()
     {
@@ -31,9 +32,9 @@ class Seeder1033 extends Seeder
             'Egyéb'
         ];
         
-        foreach($allergies as $title) {
-            $allergies = Allergy::create([
-                'name' => $title
+        foreach($allergies as $name) {
+            $allergy = Allergy::firstOrCreate([
+                'name' => $name
             ]);
         }
 
@@ -45,15 +46,14 @@ class Seeder1033 extends Seeder
             'Tiszteletbeli tag'
         ];
         
-        for($i = 0; $i < count($legalRelationships); ++$i) {
-            $legalRelationship = LegalRelationship::create([
-                'name' => $legalRelationships[$i],
-                'sort_order' => $i + 1
+        foreach($legalRelationships as $name) {
+            $legalRelationship = LegalRelationship::firstOrCreate([
+                'name' => $name
             ]);
         }
 
         // special tests
-        $special_tests = [
+        $specialTests = [
             'Szakács',
             'Rovás',
             'Arany toll díj',
@@ -73,8 +73,8 @@ class Seeder1033 extends Seeder
             'Íródeák',
         ];
         
-        foreach($special_tests as $name) {
-            $special_test = SpecialTest::create([
+        foreach($specialTests as $name) {
+            $specialTest = SpecialTest::firstOrCreate([
                 'name' => $name
             ]);
         }
@@ -90,9 +90,9 @@ class Seeder1033 extends Seeder
             'Vegetáriánus'
         ];
         
-        foreach($specialDiets as $title) {
-            $specialDiets = SpecialDiet::create([
-                'name' => $title
+        foreach($specialDiets as $name) {
+            $specialDiet = SpecialDiet::firstOrCreate([
+                'name' => $name
             ]);
         }
         
@@ -111,9 +111,9 @@ class Seeder1033 extends Seeder
             'Más felekezethez tartozó'
         ];
         
-        foreach($religions as $title) {
-            $religions = Religion::create([
-                'name' => $title
+        foreach($religions as $name) {
+            $religion = Religion::firstOrCreate([
+                'name' => $name
             ]);
         }
         
@@ -135,9 +135,9 @@ class Seeder1033 extends Seeder
             '5XL'
         ];
         
-        foreach($tshirtSizes as $title) {
-            $tshirtSizes = TShirtSize::create([
-                'name' => $title
+        foreach($tshirtSizes as $name) {
+            $tshirtSize = TShirtSize::firstOrCreate([
+                'name' => $name
             ]);
         }
         
@@ -156,9 +156,9 @@ class Seeder1033 extends Seeder
             'HIV/SIDA'
         ];
         
-        foreach($chronicIllnesses as $title) {
-            $chronicIllness = ChronicIllness::create([
-                'name' => $title
+        foreach($chronicIllnesses as $name) {
+            $chronicIllness = ChronicIllness::firstOrCreate([
+                'name' => $name
             ]);
         }
 
@@ -173,13 +173,30 @@ class Seeder1033 extends Seeder
         ];
         
         $idOfLastElement = null;
-        for($i = 0; $i < count($hierarchyItems); ++$i) {
-            $hierachyItem = Hierarchy::create([
-                'name' => $hierarchyItems[$i],
-                'parent_id' => $idOfLastElement,
-                'sort_order' => $i + 1
+        foreach($hierarchyItems as $name) {
+            $hierachyItem = Hierarchy::firstOrNew([
+                'name' => $name,
             ]);
+            $hierachyItem->parent_id = $idOfLastElement;
+            $hierachyItem->save();
+
             $idOfLastElement = $hierachyItem->id;
+        }
+
+        // currencies
+        $currencies = [
+            'EUR',
+            'HRK',
+            'HUF',
+            'RON',
+            'RSD',
+            'UAH',
+        ];
+        
+        foreach($currencies as $code) {
+            $currency = Currency::firstOrCreate([
+                'code' => $code
+            ]);
         }
 
         // associations
@@ -193,14 +210,66 @@ class Seeder1033 extends Seeder
             'Vajdasági Magyar Cserkészszövetség',
         ];
         
+        $legalRelationship1 = LegalRelationship::where('name', 'Alakuló csapat tag')->first();
+        $legalRelationship2 = LegalRelationship::where('name', 'Tag')->first();
+
         foreach($associations as $name) {
-            $association = Association::create([
+            $association = Association::firstOrNew([
                 'name' => $name,
-                'contact_name' => 'Abcde',
-                'contact_email' => 'ab@ab.ab',
-                'address' => 'Abcde',
-                'leadership_presentation' => 'A',
             ]);
+            $association->contact_name = 'Abcde';
+            $association->contact_email = 'ab@ab.ab';
+            $association->address = 'Abcde';
+            $association->leadership_presentation = 'A';
+            switch ($name) {
+                case 'Horvátországi magyar cserkészek':
+                    $association->ecset_code_suffix = 'H';
+                    $association->currency_id = Currency::where('code', 'HRK')->first()->id;
+                    $association->team_fee = 0;
+                    break;
+                case 'Kárpátaljai Magyar Cserkészszövetség':
+                    $association->currency_id = Currency::where('code', 'UAH')->first()->id;
+                    $association->team_fee = 0;
+                    $association->ecset_code_suffix = 'KÁ';
+                    break;
+                case 'Külföldi Magyar Cserkészszövetség':
+                    $association->ecset_code_suffix = 'KÜ';
+                    $association->currency_id = Currency::where('code', 'EUR')->first()->id;
+                    $association->team_fee = 0;
+                    break;
+                case 'Magyar Cserkészszövetség':
+                    $association->ecset_code_suffix = 'M';
+                    $association->currency_id = Currency::where('code', 'HUF')->first()->id;
+                    $association->team_fee = 0;
+                    break;
+                case 'Romániai Magyar Cserkészszövetség':
+                    $association->ecset_code_suffix = 'E';
+                    $association->currency_id = Currency::where('code', 'RON')->first()->id;
+                    $association->team_fee = 300;
+                    break;
+                case 'Szlovákiai Magyar Cserkészszövetség':
+                    $association->ecset_code_suffix = 'F';
+                    $association->currency_id = Currency::where('code', 'EUR')->first()->id;
+                    $association->team_fee = 0;
+                    break;
+                case 'Vajdasági Magyar Cserkészszövetség':
+                    $association->ecset_code_suffix = 'D';
+                    $association->currency_id = Currency::where('code', 'RSD')->first()->id;
+                    $association->team_fee = 0;
+                    break;
+                default:
+                    break;
+            }
+            
+            // associations - legal relationships pivot
+            if ($association->legal_relationships->where('id', $legalRelationship1->id)->first() == null) {
+                $association->legal_relationships()->attach($legalRelationship1, ['membership_fee' => 0]);
+            }
+            if ($association->legal_relationships->where('id', $legalRelationship2->id)->first() == null) {
+                $association->legal_relationships()->attach($legalRelationship2, ['membership_fee' => 0]);
+            }
+
+            $association->save();
         }
 
         // food sensitivities
@@ -216,7 +285,7 @@ class Seeder1033 extends Seeder
         ];
         
         foreach($foodSensitivities as $name) {
-            $foodSensitivity = FoodSensitivity::create([
+            $foodSensitivity = FoodSensitivity::firstOrCreate([
                 'name' => $name
             ]);
         }
@@ -228,24 +297,24 @@ class Seeder1033 extends Seeder
         ];
         
         foreach($promises as $name) {
-            $promise = Promise::create([
+            $promise = Promise::firstOrCreate([
                 'name' => $name
             ]);
         }
 
         // professional qualifications
-        $professional_qualifications = [
+        $professionalQualifications = [
             'Regős',
         ];
         
-        foreach($professional_qualifications as $name) {
-            $professional_qualification = ProfessionalQualification::create([
+        foreach($professionalQualifications as $name) {
+            $professionalQualification = ProfessionalQualification::firstOrCreate([
                 'name' => $name
             ]);
         }
 
         // leadership qualifications
-        $leadership_qualifications = [
+        $leadershipQualifications = [
             'Segédőrsvezető képzés',
             'Őrsvezető képzés',
             'Felnőtt őrsvezető képzés',
@@ -253,8 +322,8 @@ class Seeder1033 extends Seeder
             'Cserkész vezető',
        ];
        
-       foreach($leadership_qualifications as $name) {
-           $leadership_qualification = LeadershipQualification::create([
+       foreach($leadershipQualifications as $name) {
+           $leadershipQualification = LeadershipQualification::firstOrCreate([
                'name' => $name
            ]);
        }

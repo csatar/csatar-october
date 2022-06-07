@@ -26,6 +26,10 @@ navigation:
                 label: 'csatar.csatar::lang.plugin.admin.team.teams'
                 url: csatar/csatar/teams
                 icon: icon-sitemap
+            side-menu-item-team-reports:
+                label: 'csatar.csatar::lang.plugin.admin.teamReport.teamReports'
+                url: csatar/csatar/teamreports
+                icon: icon-sitemap
             side-menu-item-troops:
                 label: 'csatar.csatar::lang.plugin.admin.troop.troops'
                 url: /csatar/csatar/troops
@@ -33,6 +37,10 @@ navigation:
             side-menu-item-patrols:
                 label: 'csatar.csatar::lang.plugin.admin.patrol.patrols'
                 url: /csatar/csatar/patrols
+                icon: icon-sitemap
+            side-menu-item-currencies:
+                label: 'csatar.csatar::lang.plugin.admin.currency.currencies'
+                url: /csatar/csatar/currencies
                 icon: icon-sitemap
     main-menu-item-scout-system-data:
         label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.scoutSystemData'
@@ -99,3 +107,16 @@ navigation:
         label: 'csatar.csatar::lang.plugin.admin.admin.menu.scout'
         url: /csatar/csatar/scouts
         icon: icon-bell
+    main-menu-item-seeder-data:
+        label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.data'
+        url: /
+        icon: icon-database
+        sideMenu:
+            side-menu-seeder-data:
+                label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.seederData'
+                url: csatar/csatar/seederdata/seeder
+                icon: icon-database
+            side-menu-test-data:
+                label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.testData'
+                url: /csatar/csatar/seederdata/test
+                icon: icon-database

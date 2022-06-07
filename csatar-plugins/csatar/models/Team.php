@@ -29,8 +29,8 @@ class Team extends Model
         'foundation_date' => 'required',
         'phone' => 'required|regex:(^[0-9+-.()]{5,}$)',
         'email' => 'required|email',
-        'website' => 'url',
-        'facebook_page' => 'url|regex:(facebook)',
+        'website' => 'url|nullable',
+        'facebook_page' => 'url|regex:(facebook)|nullable',
         'contact_name' => 'required|min:5',
         'contact_email' => 'required|email',
         'leadership_presentation' => 'required',
@@ -112,6 +112,7 @@ class Team extends Model
         'troops' => '\Csatar\Csatar\Models\Troop',
         'patrols' => '\Csatar\Csatar\Models\Patrol',
         'scouts' => '\Csatar\Csatar\Models\Scout',
+        'teamReports' => '\Csatar\Csatar\Models\TeamReport',
     ];
 
     public $attachOne = [

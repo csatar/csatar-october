@@ -32,6 +32,13 @@ class BasicForm extends ComponentBase  {
     public $recordKeyParam = null;
 
     /**
+     * The URL parameter and DB column
+     * to identify a record(id, slug etc.)
+     * @var int
+     */
+    public $additionalData = null;
+
+    /**
      * The value of the key parameter
      * @var string
      */
