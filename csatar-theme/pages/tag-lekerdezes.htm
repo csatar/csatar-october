@@ -2,16 +2,19 @@ url = "/tag-lekerdezes/:ecset_code/:json?"
 layout = "default"
 title = "Tag lekérdezés"
 
-[checkscoutstatus]
+[checkScoutStatus]
 scoutCode = "{{ :ecset_code }}"
+json = "{{ :json }}"
 ==
+<?php
 function onStart()
 {
     if (Session::get('ecset_json')) {
         return Session::get('ecset_json');
     }
 }
+?>
 ==
 <div class="container">
-    {% component 'checkscoutstatus' %}
+    {% component 'checkScoutStatus' %}
 </div>

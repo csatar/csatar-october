@@ -63,11 +63,11 @@ class Plugin extends PluginBase
     public function registerComponents()
     {
         return [
-            \Csatar\Csatar\Components\ResetPassword::class => 'resetpasswordOverRide',
+            \Csatar\Csatar\Components\ResetPassword::class => 'resetPasswordOverRide',
             \Csatar\Csatar\Components\Structure::class => 'structure',
             \Csatar\Csatar\Components\Logos::class => 'logos',
-            \Csatar\Csatar\Components\CheckScoutStatus::class => 'checkscoutstatus',
-            \Csatar\Csatar\Components\CreateFrontendAccounts::class => 'CreateFrontendAccounts'
+            \Csatar\Csatar\Components\CheckScoutStatus::class => 'checkScoutStatus',
+            \Csatar\Csatar\Components\CreateFrontendAccounts::class => 'createFrontendAccounts'
         ];
     }
 
