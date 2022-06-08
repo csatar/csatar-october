@@ -26,7 +26,7 @@ class Partners
                 'logo' => '/home/partners/cserkesz-com-ua.webp'
             ],
             [
-                'name' => Lang::get('csatar.csatar::lang.plugin.component.logos.partners.abroadHungarianScoutAssociation'),
+                'name' => Lang::get('csatar.csatar::lang.plugin.component.logos.partners.hungarianScoutAssociationInExteris'),
                 'address' => 'https://kmcssz.org/',
                 'logo' => '/home/partners/kmcssz.webp'
             ],
