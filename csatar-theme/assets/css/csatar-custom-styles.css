@@ -547,6 +547,11 @@ a.btn-light:link, a.btn-light:visited, a.btn-light:active {
     font-weight: 300;
     font-size: calc(0.9rem + 0.2vw);
     border-radius: 12px;
+    height: 40px;
+}
+
+textarea {
+    min-height: 120px !important;
 }
 
 .was-validated .form-control:invalid, .form-control.is-invalid {
