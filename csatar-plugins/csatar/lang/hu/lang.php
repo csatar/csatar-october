@@ -336,6 +336,7 @@
                     'title' => 'Partnerek',
                     'forumOfHungarianScoutAssociations' => 'Magyar Cserkészszövetségek Fóruma',
                     'transcarpathianHungarianScoutAssociation' => 'Kárpátaljai Magyar Cserkészszövetség',
+                    'abroadHungarianScoutAssociation' => 'Külföldi Magyar Cserkészszövetség',
                     'hungarianScoutAssociation' => 'Magyar Cserkészszövetség',
                     'slovakHungarianScoutAssociation' => 'Szlovákiai Magyar Cserkészszövetség',
                     'hungarianScoutAssociationOfVojvodina' => 'Vajdasági Magyar Cserkészszövetség',
