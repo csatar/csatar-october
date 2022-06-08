@@ -18,11 +18,9 @@ use RainLab\User\Models\User as UserModel;
 use RainLab\User\Models\Settings as UserSettings;
 use Exception;
 use Csatar\Csatar\Models\Scout;
-/**
- * Creates a Frontend user account for an existing Scout
- *
- */
-//class CreateFrontendAccounts extends ComponentBase
+
+//Creates a Frontend user account for an existing Scout
+
 class CreateFrontendAccounts extends \RainLab\User\Components\Account
 {
     public $messages = [
@@ -44,14 +42,14 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
     {
         return [
             'paramCode' => [
-                'title'       => /*Reset Code Param*/'rainlab.user::lang.reset_password.code_param',
-                'description' => /*The page URL parameter used for the reset code*/'rainlab.user::lang.reset_password.code_param_desc',
+                'title'       => 'rainlab.user::lang.reset_password.code_param',
+                'description' => 'rainlab.user::lang.reset_password.code_param_desc', //The page URL parameter used for the reset code
                 'type'        => 'string',
                 'default'     => 'code'
             ],
             'resetPage' => [
-                'title'       => /* Reset Page */'rainlab.user::lang.account.reset_page',
-                'description' => /* Select a page to use for resetting the account password */'rainlab.user::lang.account.reset_page_comment',
+                'title'       => 'rainlab.user::lang.account.reset_page',
+                'description' => 'rainlab.user::lang.account.reset_page_comment',
                 'type'        => 'dropdown',
                 'default'     => ''
             ],
@@ -79,13 +77,13 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
     public function getResetPageOptions()
     {
         return [
-                '' => '- current page -',
+                '' => Lang::get('csatar.csatar::lang.plugin.component.createFrontendAccounts.currentPage'),
             ] + Page::sortBy('baseFileName')->lists('baseFileName', 'baseFileName');
     }
 
-    /**
-     * Self register with email and ECSET code
-     */
+
+     // Self register with email and ECSET code
+
     public function onRegister(){
 
         $data = post();
@@ -93,8 +91,8 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
         $rules = [
             'ecset_code'            => 'required',
             'email'                 => 'required|between:6,255|email|unique:users',
-            'password'              => 'required:create|between:8,255|confirmed',
-            'password_confirmation' => 'required_with:password|between:8,255',
+            'password'              => 'required|regex:(^.*(?=.{' . UserModel::getMinPasswordLength() . ',})(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*_0-9]).*$)',
+            'password_confirmation' => 'required|regex:(^.*(?=.{' . UserModel::getMinPasswordLength() . ',})(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*_0-9]).*$)',
         ];
 
         $attributeNames = [
@@ -130,11 +128,11 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
             }
 
             if (!$this->canRegister()) {
-                throw new ApplicationException(Lang::get(/*Registrations are currently disabled.*/'rainlab.user::lang.account.registration_disabled'));
+                throw new ApplicationException(Lang::get('rainlab.user::lang.account.registration_disabled'));
             }
 
             if ($this->isRegisterThrottled()) {
-                throw new ApplicationException(Lang::get(/*Registration is throttled. Please try again later.*/'rainlab.user::lang.account.registration_throttled'));
+                throw new ApplicationException(Lang::get('rainlab.user::lang.account.registration_throttled'));
             }
 
             if ($this->loginAttribute() !== UserSettings::LOGIN_USERNAME) {
@@ -197,26 +195,23 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
         ];
     }
 
-    /**
-     * Register the user
-     */
+
+     // Register the user
+
     public function register($scout)
     {
         try {
             if (!$this->canRegister()) {
-                throw new ApplicationException(Lang::get(/*Registrations are currently disabled.*/'rainlab.user::lang.account.registration_disabled'));
+                throw new ApplicationException(Lang::get('rainlab.user::lang.account.registration_disabled'));
             }
 
             if ($this->isRegisterThrottled()) {
-                throw new ApplicationException(Lang::get(/*Registration is throttled. Please try again later.*/'rainlab.user::lang.account.registration_throttled'));
+                throw new ApplicationException(Lang::get('rainlab.user::lang.account.registration_throttled'));
             }
-            /*
-             * Validate input
-             */
+
             $data['email'] = $scout->email;
             $data['password'] = str_random(20);
             $data['password_confirmation'] = $data['password'];
-
 
             $rules = (new UserModel)->rules;
 
@@ -250,7 +245,7 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
             $scout->user_id = $user->id;
             $scout->save();
 
-            $fullName = $scout->family_name . ' ' . $scout->given_name;
+            $fullName = $scout->getFullName();
 
             $code = implode('!', [$user->id, $user->getResetPasswordCode()]);
 

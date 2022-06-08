@@ -360,6 +360,7 @@
             'createFrontendAccounts' => [
                 'name' => 'Create Frontend Account',
                 'description' => 'Creates a Frontend user account for an existing Scout.',
+                'currentPage' => '- current page -',
                 'validationExceptions' => [
                     'invalidEcsetCode' => 'Invalid ECSET code',
                     'emailEcsetCodeMissMatch' => 'If you don\'t have an email address or your email address is different from the registered one please contact your patrol leader!',

@@ -350,6 +350,7 @@
             'createFrontendAccounts' => [
                 'name' => 'Frontend felhasználó létrehozása',
                 'description' => 'Lehetővé teszi frontend felhasználó létrehozását.',
+                'currentPage' => '- jelenlegi oldal -',
                 'validationExceptions' => [
                     'invalidEcsetCode' => 'Invalid ECSET code',
                     'emailEcsetCodeMissMatch' => 'Ha nincs email címed, vagy nem egyezik meg a rendszerben levővel, vedd fel a kapcsolatot az őrsvezetőddel.',
