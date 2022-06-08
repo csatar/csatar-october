@@ -5,17 +5,22 @@
         data-request-loading
         data-request-flash>
 
-        <button
-            type="submit"
-            class="btn btn-sm rounded btn-primary">
-            {{ 'Felhasználói fiók(ok) létrehozása'|_ }}
-        </button>
+        {% if user %}
+            <button
+                type="submit"
+                class="btn btn-sm rounded btn-primary">
+                {{ 'Felhasználói fiók(ok) létrehozása'|_ }}
+            </button>
 
         <hr class="hr-single bg-gray">
 
+        {% endif %}
+
         {% for record in scouts %}
             <div class="form-check d-flex mb-2">
-                <input class="form-check-input me-2" type="checkbox" value="{{ record.id }}" id="scout-{{ record.id }}" name="scouts[]"/>
+                {% if user %}
+                    <input class="form-check-input me-2" type="checkbox" value="{{ record.id }}" id="scout-{{ record.id }}" name="scouts[]"/>
+                {% endif %}
                 <label class="form-check-label" for="scout-{{ record.id }}">
                     {% spaceless %}
                     <a href="/tag/{{ record.ecset_code }}">
