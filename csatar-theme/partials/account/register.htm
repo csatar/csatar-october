@@ -66,6 +66,7 @@
                                             placeholder="{{ 'Jelszó megerősítése'|_ }}" />
                                             </div>
                                         </div> 
+                                        <span data-validate-for="password_confirmation" class="errormsg"></span>
 
                                         <a class="login" href="{{ url('/bejelentkezes') }}" rel="noopener noreferrer"><h5>{{ 'Már van fiókom, bejelentkezem!'|_ }}</h5></a>
                                         <button type="submit" class="btn rounded btn-primary my-3">{{ 'Fiók létrehozása'|_ }}</button>

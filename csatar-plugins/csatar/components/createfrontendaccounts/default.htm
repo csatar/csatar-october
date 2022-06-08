@@ -1,7 +1,9 @@
 {% set scouts = __SELF__.scouts %}
 
 <div id="scoutList">
-    <form data-request="onCreateFrontendAccounts">
+    <form data-request="onCreateFrontendAccounts"
+        data-request-loading
+        data-request-flash>
 
         <button
             type="submit"

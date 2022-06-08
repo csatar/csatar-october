@@ -309,6 +309,11 @@
             ],
         ],
         'component' => [
+            'general' => [
+                'validationExceptions'=> [
+                    'passwordRegex' => 'A jelszó kell tartalmazzon legalább 8 karaktert, kis-, és nagybetűt, valamint számot vagy szimbólumot.',
+                ]
+            ],
             'resetPassword' => [
                 'name' => 'Reset Password',
                 'description' => 'Enables restoring the user\'s password.',
@@ -354,6 +359,7 @@
                 'validationExceptions' => [
                     'invalidEcsetCode' => 'Invalid ECSET code',
                     'emailEcsetCodeMissMatch' => 'Ha nincs email címed, vagy nem egyezik meg a rendszerben levővel, vedd fel a kapcsolatot az őrsvezetőddel.',
+                    'noScoutIsSelected' => 'Nincs tag kiválasztva!',
                 ],
                 'messages' => [
                     'scoutHasNoEmail' => ':name nem rendelkezik e-mail címmel!',

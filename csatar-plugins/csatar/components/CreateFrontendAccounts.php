@@ -19,7 +19,10 @@ use RainLab\User\Models\Settings as UserSettings;
 use Exception;
 use Csatar\Csatar\Models\Scout;
 
-//Creates a Frontend user account for an existing Scout
+/**
+ * Creates a Frontend user account for an existing Scout
+ *
+ */
 
 class CreateFrontendAccounts extends \RainLab\User\Components\Account
 {
@@ -101,11 +104,17 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
             'password_confirmation' => Lang::get('csatar.csatar::lang.plugin.admin.general.password_confirmation'),
         ];
 
+        $customMessages = [
+            'password.regex' => Lang::get('csatar.csatar::lang.plugin.component.general.validationExceptions.passwordRegex'),
+            'password_confirmation.regex' => Lang::get('csatar.csatar::lang.plugin.component.general.validationExceptions.passwordRegex'),
+            'password.confirmed'      => 'A(z) :attribute mejghjkfgjfghyezik.',
+        ];
+
         $validation = Validator::make(
             $data,
             $rules,
-            $this->getValidatorMessages(),
-            $attributeNames
+            $customMessages,
+            $attributeNames,
         );
 
         if ($validation->fails()) {
@@ -167,9 +176,13 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
 
     public function onCreateFrontendAccounts(){
 
-        $data = Input::get('scouts');
+        $scoutIds = Input::get('scouts');
 
-        $scouts = Scout::whereIn('id', $data)->get();
+        if(empty($scoutIds)){
+            throw new ValidationException(['scouts' => Lang::get('csatar.csatar::lang.plugin.component.createFrontendAccounts.validationExceptions.noScoutIsSelected')]);
+        }
+
+        $scouts = Scout::whereIn('id', $scoutIds)->get();
 
         foreach ($scouts as $scout) {
 

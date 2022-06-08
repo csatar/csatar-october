@@ -91,6 +91,11 @@ class Plugin extends PluginBase
                 \Csatar\Csatar\Models\Scout::class
             ];
 
+            $model->attributeNames = [
+                'password'              => Lang::get('csatar.csatar::lang.plugin.admin.general.password'),
+                'password_confirmation' => Lang::get('csatar.csatar::lang.plugin.admin.general.password_confirmation'),
+            ];
+
         });
     }
 }

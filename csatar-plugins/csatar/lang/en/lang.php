@@ -307,6 +307,11 @@
             ],
         ],
         'component' => [
+            'general' => [
+                'validationExceptions'=> [
+                    'passwordRegex' => 'The password must be at least 8 characters long, must contain a lower and uppercase letter, a number and a special character.',
+                ]
+            ],
             'resetPassword' => [
                 'name' => 'Reset Password',
                 'description' => 'Enables restoring the user\'s password.',
@@ -364,6 +369,7 @@
                 'validationExceptions' => [
                     'invalidEcsetCode' => 'Invalid ECSET code',
                     'emailEcsetCodeMissMatch' => 'If you don\'t have an email address or your email address is different from the registered one please contact your patrol leader!',
+                    'noScoutIsSelected' => 'No Scout is selected!',
                 ],
                 'messages' => [
                     'scoutHasNoEmail' => ':name has no email address!',
