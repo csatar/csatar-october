@@ -355,6 +355,19 @@ a:hover {
     color: #B83222 !important;
 }
 
+/* Flash messages settings */
+
+.btn-warning {
+    background-color: #FFCE00;
+    border-color: #FFCE00;
+    color: #555555 !important;
+}
+
+body>p.flash-message.warning {
+    background: #FFCE00 !important;
+    color: #303030;
+}
+
 /* Nav and menu settings */
 
 a.nav:link, a.nav:visited, a.nav:active {
@@ -425,7 +438,7 @@ a.dropdown-item {
 }
 
 a.btn-primary:link, a.btn-primary:visited, a.btn-primary:active, a.btn-info:link, a.btn-info:visited, a.btn-info:active, a.btn-warning:link, a.btn-warning:visited, a.btn-warning:active, a.btn-danger:link, a.btn-danger:visited, a.btn-danger:active {
-    color: #ffffff !important;
+    color: #ffffff;
 }
 
 a.btn-light:link, a.btn-light:visited, a.btn-light:active {
