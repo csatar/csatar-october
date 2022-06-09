@@ -23,15 +23,23 @@ function onStart()
                             </button>
                             <div class="collapse navbar-collapse" id="collapsibleNavbar">
                             <ul class="navbar-nav">
-                                {% if user %}
-                                <li class="nav-item">
-                                <a class="nav" href="/tag/{{ ecset_code}}">{{ 'Tagnyilvántartás' | _ }}</a>
+                                <li class="nav-item dropdown">
+                                    <a class="nav dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">{{ 'Tagnyilvántartás' | _ }}</a>
+                                    <ul class="dropdown-menu bg-primary">
+                                        {% if user %}
+                                        <li class="nav-item">
+                                            <a class="dropdown-item" href="/tag/{{ ecset_code}}">{{ 'Tagnyilvántartás' | _ }}</a>
+                                        </li>
+                                        {% else %}
+                                        <li class="nav-item">
+                                            <a class="dropdown-item" href="/tagok">{{ 'Tagnyilvántartás' | _ }}</a>
+                                        </li>
+                                        {% endif %}
+                                        <li>
+                                            <a class="dropdown-item" href="/tag-lekerdezes">{{ 'Tag lekérdezés' | _ }}</a>
+                                        </li>
+                                    </ul>
                                 </li>
-                                {% else %}
-                                <li class="nav-item">
-                                    <a class="nav" href="/tagok">{{ 'Tagnyilvántartás' | _ }}</a>
-                                </li>
-                                {% endif %}
                                 <!--<li class="nav-item">
                                 <a class="nav" href="#">{{ 'Link' | _ }}</a>
                                 </li>
