@@ -40,7 +40,8 @@ class LegalRelationship extends Model
      * Relations 
      */
     public $belongsToMany = [
-        'scouts' => '\Csatar\Csatar\Models\Scouts',
+        'scouts' => '\Csatar\Csatar\Models\Scout',
+        'teamReportScouts' => '\Csatar\Csatar\Models\TeamReportScoutPivot',
         'associations' => [
             '\Csatar\Csatar\Models\Association',
             'table' => 'csatar_csatar_associations_legal_relationships',

@@ -1,6 +1,7 @@
 <?php namespace Csatar\Csatar\Models;
 
 use Model;
+use Csatar\Csatar\Models\Scout;
 
 /**
  * Model
@@ -67,6 +68,15 @@ class TeamReport extends Model
         'currency' => '\Csatar\Csatar\Models\Currency',
     ];
 
+    public $belongsToMany = [
+        'scouts' => [
+            '\Csatar\Csatar\Models\Scout',
+            'table' => 'csatar_csatar_team_reports_scouts',
+            'pivot' => ['name', 'legal_relationship_id', 'leadership_qualification_id', 'membership_fee'],
+            'pivotModel' => '\Csatar\Csatar\Models\TeamReportScotPivot',
+        ],
+    ];
+
     /**
      * Set additional data
      */
@@ -75,9 +85,26 @@ class TeamReport extends Model
         $this->team = Team::find($this->team_id);
         $association = $this->team->district->association;
 
+        // save additional data
         $this->year = date('n') == 1 ? date('Y') - 1 : date('Y');
         $this->team_fee = $association->team_fee;
         $this->total_amount = $this->team_fee;
         $this->currency_id = $association->currency_id;
+
+        // save the scouts
+        $scouts = Scout::where('team_id', $this->team_id)->get();
+        foreach ($scouts as $scout) {
+            $leadershipQualification = $scout->leadership_qualifications->sortByDesc(function ($item, $key) {
+                return $item['date'];
+            })->values()->first();
+            $membership_fee = $association->legal_relationships->where('legal_relationship_id', $scout->legal_relationship_id)->values()->first()['membership_fee'];
+
+            $this->scouts()->attach($scout, [
+                'name' => $scout->family_name . ' ' . $scout->given_name,
+                'legal_relationship_id' => $scout->legal_relationship_id,
+                'leadership_qualification_id' => isset($leadershipQualification) ? $leadershipQualification->id : null,
+                'membership_fee' => $membership_fee,
+            ]);
+        }
     }
 }

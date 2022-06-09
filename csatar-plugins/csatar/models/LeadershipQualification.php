@@ -39,6 +39,7 @@ class LeadershipQualification extends Model
      */
 
     public $belongsToMany = [
+        'teamReportScouts' => '\Csatar\Csatar\Models\TeamReportScoutPivot',
         'scouts' => [
             '\Csatar\Csatar\Models\Scout',
             'table' => 'csatar_csatar_scouts_leadership_qualifications',
