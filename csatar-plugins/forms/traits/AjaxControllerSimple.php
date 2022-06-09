@@ -100,7 +100,7 @@ trait AjaxControllerSimple {
 
         $variablesToPass = [
             'form' => $html,
-            'recordKeyParam' => $this->recordKeyParam,
+            'recordKeyParam' => 'id',
             'recordKeyValue' => $record->id ?? 'new',
             'from_id' => $form->id,
             'preview' => $preview ];
