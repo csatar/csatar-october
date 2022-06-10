@@ -336,6 +336,7 @@
                     'title' => 'Partners', // 'Partnerek'
                     'forumOfHungarianScoutAssociations' => 'Forum of Hungarian Scout Associations', // 'Magyar Cserkészszövetségek Fóruma'
                     'transcarpathianHungarianScoutAssociation' => 'Transcarpathian Hungarian Scout Association', // 'Kárpátaljai Magyar Cserkészszövetség'
+                    'hungarianScoutAssociationInExteris' => 'Hungarian Scout Association in Exteris', // 'Külföldi Magyar Cserkészszövetség'
                     'hungarianScoutAssociation' => 'Hungarian Scout Association', // 'Magyar Cserkészszövetség'
                     'slovakHungarianScoutAssociation' => 'Slovak Hungarian Scout Association', // 'Szlovákiai Magyar Cserkészszövetség'
                     'hungarianScoutAssociationOfVojvodina' => 'Hungarian Scout Association of Vojvodina', // 'Vajdasági Magyar Cserkészszövetség'
