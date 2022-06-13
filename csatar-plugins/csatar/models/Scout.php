@@ -268,7 +268,7 @@ class Scout extends Model
                     throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.dateInTheFutureError'))]);
                 }
             }
-        }        
+        }
     }
 
     private function validatePivotQualificationFields($fields, $category)
@@ -286,6 +286,10 @@ class Scout extends Model
                     throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.qualificationLeaderRequiredError'))]);
                 }
             }
-        }        
+        }
+    }
+
+    public function getFullName(){
+        return $this->family_name . ' ' . $this->given_name;
     }
 }
