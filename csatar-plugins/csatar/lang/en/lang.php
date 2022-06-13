@@ -307,6 +307,11 @@
             ],
         ],
         'component' => [
+            'general' => [
+                'validationExceptions'=> [
+                    'passwordRegex' => 'The password must be at least 8 characters long, must contain a lower and uppercase letter, a number and a special character.',
+                ]
+            ],
             'resetPassword' => [
                 'name' => 'Reset Password',
                 'description' => 'Enables restoring the user\'s password.',
@@ -336,6 +341,7 @@
                     'title' => 'Partners', // 'Partnerek'
                     'forumOfHungarianScoutAssociations' => 'Forum of Hungarian Scout Associations', // 'Magyar Cserkészszövetségek Fóruma'
                     'transcarpathianHungarianScoutAssociation' => 'Transcarpathian Hungarian Scout Association', // 'Kárpátaljai Magyar Cserkészszövetség'
+                    'hungarianScoutAssociationInExteris' => 'Hungarian Scout Association in Exteris', // 'Külföldi Magyar Cserkészszövetség'
                     'hungarianScoutAssociation' => 'Hungarian Scout Association', // 'Magyar Cserkészszövetség'
                     'slovakHungarianScoutAssociation' => 'Slovak Hungarian Scout Association', // 'Szlovákiai Magyar Cserkészszövetség'
                     'hungarianScoutAssociationOfVojvodina' => 'Hungarian Scout Association of Vojvodina', // 'Vajdasági Magyar Cserkészszövetség'
@@ -356,7 +362,22 @@
                     'title' => 'Json Format',
                     'description' => 'If json parameter is \'json\' return respons in json format. '
                 ]
-            ]
+            ],
+            'createFrontendAccounts' => [
+                'name' => 'Create Frontend Account',
+                'description' => 'Creates a Frontend user account for an existing Scout.',
+                'currentPage' => '- current page -',
+                'validationExceptions' => [
+                    'invalidEcsetCode' => 'Invalid ECSET code',
+                    'emailEcsetCodeMissMatch' => 'If you don\'t have an email address or your email address is different from the registered one please contact your patrol leader!',
+                    'noScoutIsSelected' => 'No Scout is selected!',
+                ],
+                'messages' => [
+                    'scoutHasNoEmail' => ':name has no email address!',
+                    'scoutAlreadyHasUserAccount' => ':name already has a user account!',
+                    'userAccountCreated' => 'User account was created for :name!',
+                ]
+            ],
         ],
     ],
 ];

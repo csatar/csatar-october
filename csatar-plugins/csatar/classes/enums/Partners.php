@@ -23,6 +23,11 @@ class Partners
             [
                 'name' => Lang::get('csatar.csatar::lang.plugin.component.logos.partners.transcarpathianHungarianScoutAssociation'),
                 'address' => 'https://cserkesz.com.ua/',
+                'logo' => '/home/partners/cserkesz-com-ua.webp'
+            ],
+            [
+                'name' => Lang::get('csatar.csatar::lang.plugin.component.logos.partners.hungarianScoutAssociationInExteris'),
+                'address' => 'https://kmcssz.org/',
                 'logo' => '/home/partners/kmcssz.webp'
             ],
             [
@@ -57,7 +62,7 @@ class Partners
             ],
             [
                 'name' => Lang::get('csatar.csatar::lang.plugin.component.logos.partners.scoutsOfRomania'),
-                'address' => 'http://proeducatione.ro/',
+                'address' => 'https://scout.ro/',
                 'logo' => '/home/partners/romanian-scouts.webp'
             ],
         ];
