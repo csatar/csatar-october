@@ -39,6 +39,26 @@ class TeamReport extends Model
         'spiritual_leader_occupation' => 'required',
     ];
 
+    /**
+     * Add custom validation
+     */
+    public function beforeValidate() {
+        // check that the submission date is not in the future
+        if (isset($this->submitted_at) && (new \DateTime($this->submitted_at) > new \DateTime())) {
+            throw new \ValidationException(['submitted_at' => \Lang::get('csatar.csatar::lang.plugin.admin.teamReport.validationExceptions.dateInTheFuture')]);
+        }
+        
+        // check that the approval date is not in the future
+        if (isset($this->approved_at) && (new \DateTime($this->approved_at) > new \DateTime())) {
+            throw new \ValidationException(['approved_at' => \Lang::get('csatar.csatar::lang.plugin.admin.teamReport.validationExceptions.dateInTheFuture')]);
+        }
+        
+        // check that the submission date is not after the approval date
+        if (isset($this->submitted_at) && isset($this->approved_at) && (new \DateTime($this->submitted_at) > new \DateTime($this->approved_at))) {
+            throw new \ValidationException(['approved_at' => \Lang::get('csatar.csatar::lang.plugin.admin.teamReport.validationExceptions.submissionDateAfterApprovalDate')]);
+        }
+    }
+
     protected $fillable = [
         'team_id',
         'year',
@@ -57,6 +77,8 @@ class TeamReport extends Model
         'team_fee',
         'total_amount',
         'currency_id',
+        'submitted_at',
+        'approved_at',
     ];
     
     /**
@@ -72,8 +94,8 @@ class TeamReport extends Model
         'scouts' => [
             '\Csatar\Csatar\Models\Scout',
             'table' => 'csatar_csatar_team_reports_scouts',
-            'pivot' => ['name', 'legal_relationship_id', 'leadership_qualification_id', 'membership_fee'],
-            'pivotModel' => '\Csatar\Csatar\Models\TeamReportScotPivot',
+            'pivot' => ['name', 'legal_relationship_id', 'leadership_qualification_id', 'ecset_code', 'membership_fee'],
+            'pivotModel' => '\Csatar\Csatar\Models\TeamReportScoutPivot',
         ],
     ];
 
@@ -90,21 +112,28 @@ class TeamReport extends Model
         $this->team_fee = $association->team_fee;
         $this->total_amount = $this->team_fee;
         $this->currency_id = $association->currency_id;
+    }
 
-        // save the scouts
+    public function afterCreate()
+    {
+        // save the scouts (the pivot data can be saved only after the team report has been created)
         $scouts = Scout::where('team_id', $this->team_id)->get();
         foreach ($scouts as $scout) {
             $leadershipQualification = $scout->leadership_qualifications->sortByDesc(function ($item, $key) {
-                return $item['date'];
+                return $item['pivot']['date'];
             })->values()->first();
-            $membership_fee = $association->legal_relationships->where('legal_relationship_id', $scout->legal_relationship_id)->values()->first()['membership_fee'];
+            $membership_fee = $this->team->district->association->legal_relationships->where('id', $scout->legal_relationship_id)->first()->pivot->membership_fee;
 
             $this->scouts()->attach($scout, [
                 'name' => $scout->family_name . ' ' . $scout->given_name,
                 'legal_relationship_id' => $scout->legal_relationship_id,
                 'leadership_qualification_id' => isset($leadershipQualification) ? $leadershipQualification->id : null,
+                'ecset_code' => $scout->ecset_code,
                 'membership_fee' => $membership_fee,
             ]);
+
+            $this->total_amount += $membership_fee;
         }
+        $this->save();
     }
 }

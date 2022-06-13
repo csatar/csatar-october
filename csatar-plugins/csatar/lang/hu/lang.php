@@ -347,9 +347,18 @@
                 'team_fee' => 'Csapatfenntartói járulék',
                 'total_amount' => 'Befizetendő összeg',
                 'currency' => 'Pénznem',
+                'name' => 'Név',
+                'legalRelationship' => "Jogviszony",
+                'leadershipQualification' => 'Vezetői képesítés',
+                'membershipFee' => 'Tagdíj értéke',
                 'submittedAt' => 'Beküldés ideje',
                 'approvedAt' => 'Elfogadás ideje',
                 'breadcrumb' => 'Csapatjelentések',
+                'scoutsInfo' => 'A Csapatjelentés létrehozása után, a csapathoz tartózó cserkészek is láthatóak lesznek. Töltsd ki a kötelező mezőket, majd kattints a Létrehozás gombra.',
+                'validationExceptions' => [
+                    'dateInTheFuture' => 'A Dátum nem lehet a jövőben.',
+                    'submissionDateAfterApprovalDate' => 'A Beküldés ideje nem lehet az Elfogadás ideje után.',
+                ],
             ],
         ],
         'component' => [

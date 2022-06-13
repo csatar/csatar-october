@@ -5,7 +5,7 @@ use October\Rain\Database\Pivot;
 /**
  * Pivot Model
  */
-class TeamReportScotPivot extends Pivot
+class TeamReportScoutPivot extends Pivot
 {
     use \October\Rain\Database\Traits\Validation;
 
@@ -30,6 +30,7 @@ class TeamReportScotPivot extends Pivot
         'name',
         'legal_relationship_id',
         'leadership_qualification_id',
+        'ecset_code',
         'membership_fee',
     ];
 
@@ -38,6 +39,6 @@ class TeamReportScotPivot extends Pivot
      */
     public $belongsTo = [
         'legal_relationship' => '\Csatar\Csatar\Models\LegalRelationship',
-        'religion' => '\Csatar\Csatar\Models\LeadershipQualification',
+        'leadership_qualification' => '\Csatar\Csatar\Models\LeadershipQualification',
     ];
 }

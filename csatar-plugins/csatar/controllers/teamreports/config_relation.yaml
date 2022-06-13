@@ -1,0 +1,5 @@
+scouts:
+  label: 'csatar.csatar::lang.plugin.admin.scout.scouts'
+  view:
+    list: $/csatar/csatar/models/teamreport/scoutColumns.yaml
+    toolbarButtons: false

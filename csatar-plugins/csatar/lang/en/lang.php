@@ -347,9 +347,18 @@
                 'team_fee' => 'Team fee',
                 'total_amount' => 'Total amount',
                 'currency' => 'Currency',
+                'name' => 'Name',
+                'legalRelationship' => "Legal relationship",
+                'leadershipQualification' => 'Leadership qualification',
+                'membershipFee' => 'Membership fee',
                 'submittedAt' => 'Submitted at',
                 'approvedAt' => 'Approved at',
                 'breadcrumb' => 'Team reports',
+                'scoutsInfo' => 'The Scouts will be visible after the Team Report has been created. Click the Create button after other information is filled.',
+                'validationExceptions' => [
+                    'dateInTheFuture' => 'The selected Date is in the future.',
+                    'submissionDateAfterApprovalDate' => 'The Submission date cannot be after the approval date.',
+                ],
             ],
         ],
         'component' => [

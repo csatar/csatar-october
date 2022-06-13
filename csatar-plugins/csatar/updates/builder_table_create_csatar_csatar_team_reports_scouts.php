@@ -15,6 +15,7 @@ class BuilderTableCreateCsatarCsatarTeamReportsScouts extends Migration
             $table->string('name', 255);
             $table->integer('legal_relationship_id')->index('legal_relationship_id')->unsigned();
             $table->integer('leadership_qualification_id')->index('leadership_qualification_id')->nullable()->unsigned();
+            $table->string('ecset_code', 14)->nullable();
             $table->double('membership_fee')->unsigned();
             $table->primary(['team_report_id','scout_id'], 'csatar_csatar_team_report_id_scout_id_primary');
         });

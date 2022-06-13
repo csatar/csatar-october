@@ -226,8 +226,8 @@ class Scout extends Model
         'team_reports' => [
             '\Csatar\Csatar\Models\TeamReport',
             'table' => 'csatar_csatar_team_reports_scouts',
-            'pivot' => ['name', 'legal_relationship_id', 'leadership_qualification_id', 'membership_fee'],
-            'pivotModel' => '\Csatar\Csatar\Models\TeamReportScotPivot',
+            'pivot' => ['name', 'legal_relationship_id', 'leadership_qualification_id', 'ecset_code', 'membership_fee'],
+            'pivotModel' => '\Csatar\Csatar\Models\TeamReportScoutPivot',
         ],
     ];
 
