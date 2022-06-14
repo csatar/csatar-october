@@ -107,7 +107,7 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
         $customMessages = [
             'password.regex' => Lang::get('csatar.csatar::lang.plugin.component.general.validationExceptions.passwordRegex'),
             'password_confirmation.regex' => Lang::get('csatar.csatar::lang.plugin.component.general.validationExceptions.passwordRegex'),
-            'password.confirmed'      => 'A(z) :attribute mejghjkfgjfghyezik.',
+            'password.confirmed'      => 'A(z) :attribute nem egyezik.',
         ];
 
         $validation = Validator::make(
