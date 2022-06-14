@@ -21,13 +21,15 @@
                 'select' => 'Select...',
                 'logo' => 'Logo',
                 'coordinates' => 'Coordinates',
-                'ecsetCode' => 'ECSET code',
+                'ecsetCode' => 'ECSET kód',
                 'date' => 'Dátum',
                 'location' => 'Helyszín',
                 'qualificationCertificateNumber' => 'Képesítési Igazolás Száma',
                 'qualification' => 'Képzés',
                 'qualificationLeader' => 'Képzésvezető',
                 'relations' => 'Relations',
+                'password' => 'Jelszó',
+                'password_confirmation' => 'Jelszó megerősítés',
             ],
             'scout' => [
                 'scout' => 'Scout',
@@ -307,6 +309,11 @@
             ],
         ],
         'component' => [
+            'general' => [
+                'validationExceptions'=> [
+                    'passwordRegex' => 'A jelszó kell tartalmazzon legalább 8 karaktert, kis-, és nagybetűt, valamint számot vagy szimbólumot.',
+                ]
+            ],
             'resetPassword' => [
                 'name' => 'Reset Password',
                 'description' => 'Enables restoring the user\'s password.',
@@ -336,6 +343,7 @@
                     'title' => 'Partnerek',
                     'forumOfHungarianScoutAssociations' => 'Magyar Cserkészszövetségek Fóruma',
                     'transcarpathianHungarianScoutAssociation' => 'Kárpátaljai Magyar Cserkészszövetség',
+                    'hungarianScoutAssociationInExteris' => 'Külföldi Magyar Cserkészszövetség',
                     'hungarianScoutAssociation' => 'Magyar Cserkészszövetség',
                     'slovakHungarianScoutAssociation' => 'Szlovákiai Magyar Cserkészszövetség',
                     'hungarianScoutAssociationOfVojvodina' => 'Vajdasági Magyar Cserkészszövetség',
@@ -344,7 +352,22 @@
                     'proEducatione' => 'Pro Educatione',
                     'scoutsOfRomania' => 'Románia Cserkészei',
                 ],
-            ]
+            ],
+            'createFrontendAccounts' => [
+                'name' => 'Frontend felhasználó létrehozása',
+                'description' => 'Lehetővé teszi frontend felhasználó létrehozását.',
+                'currentPage' => '- jelenlegi oldal -',
+                'validationExceptions' => [
+                    'invalidEcsetCode' => 'Invalid ECSET code',
+                    'emailEcsetCodeMissMatch' => 'Ha nincs email címed, vagy nem egyezik meg a rendszerben levővel, vedd fel a kapcsolatot az őrsvezetőddel.',
+                    'noScoutIsSelected' => 'Nincs tag kiválasztva!',
+                ],
+                'messages' => [
+                    'scoutHasNoEmail' => ':name nem rendelkezik e-mail címmel!',
+                    'scoutAlreadyHasUserAccount' => ':name már rendelkezik felhasználói fiókkal!',
+                    'userAccountCreated' => ':name cserkésznek létrejött a felhasználói fiókja!',
+                ]
+            ],
         ]
     ]
 ];
