@@ -2,21 +2,16 @@ url = "/tagok"
 layout = "default"
 title = "Tagok"
 
-[builderList]
-modelClass = "Csatar\Csatar\Models\Scout"
-scope = "-"
-scopeValue = "{{ :scope }}"
-displayColumn = "family_name"
-noRecordsMessage = "No records found"
-detailsPage = "tag"
-detailsKeyColumn = "ecset_code"
-detailsUrlParameter = "ecset_code"
-pageNumber = "{{ :page }}"
-
 [viewBag]
 localeTitle[en] = "Scouts"
 localeTitle[hu] = "Tagok"
+
+[createFrontendAccounts]
+paramCode = "code"
+resetPage = "jelszo-beallitasa"
 ==
 <div class="container">
-    {% component 'builderList' %}
+
+    {% component 'createFrontendAccounts' %}
+
 </div>

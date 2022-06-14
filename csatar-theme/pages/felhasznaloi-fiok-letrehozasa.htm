@@ -1,0 +1,12 @@
+url = "/felhasznaloi-fiok-letrehozasa"
+layout = "default"
+title = "Felhasználói fiók létrehozása"
+
+[createFrontendAccounts]
+paramCode = "code"
+==
+{% if not user %}
+
+    {% partial "account/register" %}
+
+{% endif %}
