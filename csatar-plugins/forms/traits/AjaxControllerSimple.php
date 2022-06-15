@@ -279,7 +279,7 @@ trait AjaxControllerSimple {
     public function attributesToDisplay($pivotConfig){
         $attributesToDisplay = [];
         foreach ($pivotConfig->columns as $columnName => $data){
-            if(strpos($columnName, 'pivot')){
+            if(strpos($columnName, 'pivot') !== false){
                 $pivotColumn = str_replace(']', '', str_replace('pivot[', '', $columnName));
 //                array_push($attributesToDisplay, ['pivot->' . $pivot, $data]);
                 $data['isPivot'] = true;
