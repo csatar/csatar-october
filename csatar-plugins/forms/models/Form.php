@@ -22,6 +22,16 @@ class Form extends Model
         'title' => 'required',
     ];
 
+    /**
+     * @var array Fillable values
+     */
+    public $fillable = [
+        'title',
+        'model',
+        'fields_config',
+        'description',
+    ];
+
     protected $slugs = ['slug' => 'title'];
 
     public function beforeSave()
