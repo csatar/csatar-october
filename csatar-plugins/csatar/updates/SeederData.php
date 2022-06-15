@@ -15,6 +15,7 @@ use Csatar\Csatar\Models\Religion;
 use Csatar\Csatar\Models\SpecialDiet;
 use Csatar\Csatar\Models\SpecialTest;
 use Csatar\Csatar\Models\TShirtSize;
+use Csatar\Forms\Models\Form;
 
 class SeederData extends Seeder
 {
@@ -322,10 +323,46 @@ class SeederData extends Seeder
             'Cserkész vezető',
        ];
        
-       foreach($leadershipQualifications as $name) {
-           $leadershipQualification = LeadershipQualification::firstOrCreate([
-               'name' => $name
-           ]);
-       }
+        foreach($leadershipQualifications as $name) {
+            $leadershipQualification = LeadershipQualification::firstOrCreate([
+                'name' => $name
+            ]);
+        }
+
+        // seeders for the Forms plugin
+        $forms = Form::all();
+        foreach($forms as $form) {
+            $form->slugAttributes();
+            $form->save();
+        }
+
+        $scout = Form::firstOrCreate([
+            'title' => 'Tag',
+            'model' => 'Csatar\Csatar\Models\Scout',
+        ]);
+        $association = Form::firstOrCreate([
+            'title' => 'Szövetség',
+            'model' => 'Csatar\Csatar\Models\Association',
+        ]);
+        $district = Form::firstOrCreate([
+            'title' => 'Körzet',
+            'model' => 'Csatar\Csatar\Models\District',
+        ]);
+        $team = Form::firstOrCreate([
+            'title' => 'Csapat',
+            'model' => 'Csatar\Csatar\Models\Team',
+        ]);
+        $team = Form::firstOrCreate([
+            'title' => 'Raj',
+            'model' => 'Csatar\Csatar\Models\Troop',
+        ]);
+        $team = Form::firstOrCreate([
+            'title' => 'Őrs',
+            'model' => 'Csatar\Csatar\Models\Patrol',
+        ]);
+        $team = Form::firstOrCreate([
+            'title' => 'Csapatjelentés',
+            'model' => 'Csatar\Csatar\Models\TeamReport',
+        ]);
     }
 }
