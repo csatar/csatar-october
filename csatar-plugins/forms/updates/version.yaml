@@ -3,4 +3,7 @@
 1.0.2:
     - 'Created table csatar_forms_forms'
     - builder_table_create_csatar_forms_forms.php
+1.0.8:
+    - 'Updated table csatar_forms_forms'
+    - builder_table_update_csatar_forms_forms.php
 1.0.10:
