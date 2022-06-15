@@ -96,7 +96,7 @@ trait AjaxControllerSimple {
         if(!$preview){
             $html .= $this->renderValidationTags($record);
         }
-
+        $html .= '<div id="pivot-form"></div>';
         $html .= $this->renderBelongsToManyRalationsWithPivotData($record);
         $variablesToPass = [
             'form' => $html,
@@ -106,6 +106,118 @@ trait AjaxControllerSimple {
             'preview' => $preview ];
 
         return $this->renderPartial('@partials/form', $variablesToPass);
+    }
+
+    public function onAddPivotRelation(){
+        $relationName = Input::get('relationName');
+        $relationId = Input::get($relationName);
+        return $this->createPivotForm(false, $relationName, $relationId);
+    }
+
+    public function onListAttachOptions(){
+        $record = $this->getRecord();
+        $relationName = Input::get('relationName');
+        $attachedIds = $record->{$relationName}->pluck('id');
+        $pivotModelName = array_key_exists($relationName, $record->belongsToMany) ? $record->belongsToMany[$relationName][0] : false;
+        $getFunctionName = 'get' . $this->underscoreToCamelCase($relationName, true) . 'Options';
+
+        \Model::extend(function($model) use ($getFunctionName, $pivotModelName, $attachedIds){
+            $model->addDynamicMethod($getFunctionName, function() use ($model, $pivotModelName, $attachedIds) {
+                return $pivotModelName::whereNotIn('id', $attachedIds)->get()
+                    ->lists('name', 'id');
+            });
+        });
+
+        $model = new \Model();
+
+        $dropDownConfig = [
+            'fields' => [
+                    $relationName => [
+                    "label" => "csatar.csatar::lang.plugin.admin.general.name",
+                    "span" => "auto",
+                    "type" => "dropdown",
+                ],
+            ],
+            'model' => $model,
+        ];
+
+        $widget = new \Backend\Widgets\Form($this, $dropDownConfig);
+
+        $this->loadBackendFormWidgets();
+
+        $html = $widget->render();
+
+        $html .= '<button class="btn btn-default btn-success" data-request="onAddPivotRelation" data-request-data="relationName: \'' . $relationName . '\'">+</button>';
+
+        return [
+            '#pivot-form' => $html
+        ];
+
+
+    }
+
+    public function createPivotForm($preview = false, $relationName, $relationId) {
+
+        $record = $this->getRecord();
+        $pivotModelName = array_key_exists($relationName, $record->belongsToMany) ? $record->belongsToMany[$relationName][0] : false;
+        $relatedModel = $pivotModelName::find($relationId);
+        if(!$pivotModelName){
+            return; //TODO trow exception here
+        }
+
+        if(!$record) {
+            throw new NotFoundException();
+        }
+
+        // get a list of available relations to attach and create dropdown
+        // render from
+
+//        if(!$record && $this->recordKeyValue == $this->createRecordKeyword) {
+//            $modelName  = $form->getModelName();
+//            $record      = new $modelName;
+//        }
+
+        $pivotConfig = $this->makeConfig($this->getPivotFieldsConfig($pivotModelName));
+        $pivotConfig->arrayName = $relationName;
+        $pivotConfig->alias = $pivotModelName;
+        $pivotConfig->model = $relatedModel;
+        $widget = new \Backend\Widgets\Form($this, $pivotConfig);
+
+        $this->loadBackendFormWidgets();
+
+        $html = $widget->render(['preview' => $preview]);
+        if(!$preview){
+            $html .= $this->renderValidationTags($record);
+        }
+
+        $html .= '<button class="btn btn-default btn-success" data-request="onSavePivotRelation" ';
+        $html .= 'data-request-data="relationName: \'' . $relationName . '\'';
+        $html .= ', relationId: \'' . $relatedModel->id . '\'">+</button>';
+//        $variablesToPass = [
+//            'form' => $html,
+//            'recordKeyParam' => 'id',
+//            'recordKeyValue' => $record->id ?? 'new',
+//            'from_id' => '',
+//            'preview' => $preview ];
+
+        return [
+//            '#pivot-form' => $this->renderPartial('@partials/form', $variablesToPass)
+            '#pivot-form' => $html
+        ];
+    }
+
+    public function onSavePivotRelation(){
+        $record = $this->getRecord();
+        $relationName = Input::get('relationName');
+        $relationId = Input::get('relationId');
+        $pivotData = Input::get($relationName)['pivot'];
+        $record->{$relationName}()->attach($relationId, $pivotData);
+
+        return [
+            '#pivotSection' =>
+                $this->renderBelongsToManyRalationsWithPivotData($record),
+            '#pivot-form' => '',
+        ];
     }
 
     /**
@@ -281,11 +393,9 @@ trait AjaxControllerSimple {
         foreach ($pivotConfig->columns as $columnName => $data){
             if(strpos($columnName, 'pivot') !== false){
                 $pivotColumn = str_replace(']', '', str_replace('pivot[', '', $columnName));
-//                array_push($attributesToDisplay, ['pivot->' . $pivot, $data]);
                 $data['isPivot'] = true;
                 $attributesToDisplay[$pivotColumn] = $data;
             } else {
-//                array_push($attributesToDisplay, [$columnName, $data]);
                 $attributesToDisplay[$columnName] = $data;
             }
         }
@@ -299,7 +409,9 @@ trait AjaxControllerSimple {
         $relatoinLabel = array_key_exists('label', $definition) ? \Lang::get($definition['label']) : $relationName;
         $html = '<div class="col-12 mb-4">';
         $html .= '<div class="field-section"><h4>' . $relatoinLabel . '</h4></div>';
-        $html .= '<button class="btn btn-default btn-danger oc-icon-times" data-request="onDeletePivotRelation" data-request-data="relationName: \'' . $relationName . '\'">Törlés</button>';
+
+        $html .= '<button class="btn btn-default btn-success" data-request="onListAttachOptions" data-request-data="relationName: \'' . $relationName . '\'">+</button>';
+        $html .= '<button class="btn btn-default btn-danger oc-icon-times" data-request="onDeletePivotRelation" data-request-data="relationName: \'' . $relationName . '\'"></button>';
 
         if(count($record->$relationName)>0){
             $html .= '<table style="width: 100%">';
@@ -355,4 +467,16 @@ trait AjaxControllerSimple {
 
         return $tableRows;
     }
+
+    public function underscoreToCamelCase($string, $capitalizeFirstCharacter = false){
+
+        $str = str_replace('_', '', ucwords($string, '_'));
+
+        if (!$capitalizeFirstCharacter) {
+            $str = lcfirst($str);
+        }
+
+    return $str;
+    }
+
 }
