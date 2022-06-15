@@ -296,9 +296,9 @@ trait AjaxControllerSimple {
         $pivotModelName = $definition[0];
         $pivotConfig = $this->makeConfig($this->getPivotListConfig($pivotModelName));
         $attributesToDisplay = $this->attributesToDisplay($pivotConfig);
-
+        $relatoinLabel = array_key_exists('label', $definition) ? \Lang::get($definition['label']) : $relationName;
         $html = '<div class="col-12 mb-4">';
-        $html .= '<div class="field-section"><h4>' . $relationName . '</h4></div>';
+        $html .= '<div class="field-section"><h4>' . $relatoinLabel . '</h4></div>';
 
         if(count($record->$relationName)>0){
             $html .= '<table style="width: 100%">';
