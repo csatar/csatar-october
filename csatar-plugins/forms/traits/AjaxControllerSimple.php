@@ -18,8 +18,6 @@ trait AjaxControllerSimple {
 
     public $widget;
 
-    protected $current_model;
-
     public function formGetWidget()
     {
         return $this->widget;
@@ -72,6 +70,8 @@ trait AjaxControllerSimple {
             throw new NotFoundException();
         }
 
+        $this->model = $record;
+
         $config = $this->makeConfig($form->getFieldsConfig());
         $config->arrayName = 'data';
         $config->alias = $this->alias;
@@ -88,7 +88,6 @@ trait AjaxControllerSimple {
             $config->fields[$name]['readOnly'] = 1;
         }
 
-
         $this->widget = new \Backend\Widgets\Form($this, $config);
 
         $this->loadBackendFormWidgets();
@@ -98,6 +97,7 @@ trait AjaxControllerSimple {
             $html .= $this->renderValidationTags($record);
         }
 
+        $html .= $this->renderBelongsToManyRalationsWithPivotData($record);
         $variablesToPass = [
             'form' => $html,
             'recordKeyParam' => 'id',
@@ -152,6 +152,16 @@ trait AjaxControllerSimple {
             unset($data[$name]);
         }
 
+        // Resolve belongsToMany relations
+
+        foreach($record->belongsToMany as $name => $definition) {
+            if (! isset($data[$name])) {
+                continue;
+            }
+            $record->$name()->sync($data[$name]);
+//            dd($name, $definition, $data[$name]);
+        }
+
         if($isNew) {
             $record = $record->create($data);
         }
@@ -185,7 +195,7 @@ trait AjaxControllerSimple {
         foreach($model->rules as $fieldName => $rule) {
             $html .= "<span data-validate-for='" . $fieldName . "'></span>";
         }
-        $html .= "</div";
+        $html .= "</div>";
 
         return $html;
     }
@@ -206,4 +216,124 @@ trait AjaxControllerSimple {
         return $record;
     }
 
+    public function getPivotFieldsConfig($model, $pivotFieldsConfig = 'fieldsPivot.yaml') {
+        if ($pivotFieldsConfig[0] != '$') {
+            return '$/' . str_replace('\\', '/', strtolower($model)) . '/' . $pivotFieldsConfig;
+        }
+
+        return $pivotFieldsConfig;
+    }
+
+    public function getPivotListConfig($model, $pivotListConfig = 'columnsPivot.yaml') {
+        if ($pivotListConfig[0] != '$') {
+            return '$/' . str_replace('\\', '/', strtolower($model)) . '/' . $pivotListConfig;
+        }
+
+        return $pivotListConfig;
+    }
+
+    public function getPivotFormsConfig($record){
+        $pivotFormConfigs = [];
+        foreach($record->belongsToMany as $name => $definition) {
+            if(!empty($definition['pivot'])){
+                $pivotModelName = $definition[0];
+                $pivotConfig = $this->makeConfig($this->getPivotFieldsConfig($pivotModelName));
+                $pivotConfig->arrayName = $name . '-data';
+                $pivotConfig->alias = $pivotModelName;
+                $pivotConfig->model = new $pivotModelName();
+                $pivotFormConfigs[$name] = $pivotConfig;
+            }
+
+        }
+
+        return $pivotFormConfigs;
+    }
+
+    public function getPivotListsConfig($record){
+        $pivotListsConfigs = [];
+        foreach($record->belongsToMany as $name => $definition) {
+            if(!empty($definition['pivot'])){
+                $pivotModelName = $definition[0];
+                $pivotConfig = $this->makeConfig($this->getPivotListConfig($pivotModelName));
+                $pivotConfig->arrayName = $name . '-data';
+                $pivotConfig->alias = $pivotModelName;
+                $pivotListsConfigs[$name] = $pivotConfig;
+            }
+        }
+
+        return $pivotListsConfigs;
+    }
+
+    public function renderBelongsToManyRalationsWithPivotData($record){
+        $html = '<div class="row">';
+        foreach($record->belongsToMany as $relationName => $definition) {
+            if(!empty($definition['pivot']) ){
+                $html .= $this->generatePivotSection($record, $relationName, $definition);
+            }
+        }
+        $html .= '</div>';
+
+        return $html;
+    }
+
+    public function attributesToDisplay($pivotConfig){
+        $attributesToDisplay = [];
+        foreach ($pivotConfig->columns as $columnName => $data){
+            if(strpos($columnName, 'pivot')){
+                $pivotColumn = str_replace(']', '', str_replace('pivot[', '', $columnName));
+//                array_push($attributesToDisplay, ['pivot->' . $pivot, $data]);
+                $data['isPivot'] = true;
+                $attributesToDisplay[$pivotColumn] = $data;
+            } else {
+//                array_push($attributesToDisplay, [$columnName, $data]);
+                $attributesToDisplay[$columnName] = $data;
+            }
+        }
+        return $attributesToDisplay;
+    }
+
+    public function generatePivotSection($record, $relationName, $definition){
+        $pivotModelName = $definition[0];
+        $pivotConfig = $this->makeConfig($this->getPivotListConfig($pivotModelName));
+        $attributesToDisplay = $this->attributesToDisplay($pivotConfig);
+
+        $html = '<div class="col-12 mb-4">';
+        $html .= '<div class="field-section"><h4>' . $relationName . '</h4></div>';
+
+        if(count($record->$relationName)>0){
+            $html .= '<table style="width: 100%">';
+            $html .= $this->generatePivotTableHeader($attributesToDisplay);
+            $html .= $this->generatePivotTableRows($record, $relationName, $attributesToDisplay);
+            $html .= '</table>';
+        }
+
+        $html .= '</div>';
+
+        return $html;
+    }
+
+    public function generatePivotTableHeader($attributesToDisplay){
+        $tableHeaderRow = '<tr>';
+        foreach ($attributesToDisplay as $data){
+            // generate table header
+            $label = $data['label'];
+            $tableHeaderRow .= '<th>' . \Lang::get($label) . '</th>';
+        }
+        $tableHeaderRow .= '</tr>';
+
+        return $tableHeaderRow;
+    }
+
+    public function generatePivotTableRows($record, $relationName, $attributesToDisplay){
+        $tableRows = '';
+        foreach ($record->{$relationName} as $relatedRecord){
+            $tableRows .= '<tr>';
+            foreach ($attributesToDisplay as $key => $data){
+                $tableRows .= '<td>' . ( array_key_exists('isPivot', $data) ? $relatedRecord->pivot->{$key} : $relatedRecord->{$key})  . '</td>';
+            }
+            $tableRows .= '</tr>';
+        }
+
+        return $tableRows;
+    }
 }
