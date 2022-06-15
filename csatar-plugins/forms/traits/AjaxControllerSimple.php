@@ -185,7 +185,7 @@ trait AjaxControllerSimple {
         foreach($model->rules as $fieldName => $rule) {
             $html .= "<span data-validate-for='" . $fieldName . "'></span>";
         }
-        $html .= "</div";
+        $html .= "</div>";
 
         return $html;
     }

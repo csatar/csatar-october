@@ -1,4 +1,5 @@
 {% if __SELF__.scouts|length > 0 %}
+<div>
     <table>
         <thead>
             <td>{{ 'Név' | _ }}</td>
@@ -19,6 +20,7 @@
             {% endfor %}
         </tbody>
     </table>
+</div>
 {% endif %}
 <p>{{ 'Tagok száma: ' ~ (__SELF__.scouts|length) | _ }}</p>
 <p>{{ 'Csapatfenntartói díj: ' ~ __SELF__.teamFee ~ ' ' ~ __SELF__.currency | _ }}</p>
