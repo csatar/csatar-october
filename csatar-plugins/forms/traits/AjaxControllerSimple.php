@@ -265,7 +265,7 @@ trait AjaxControllerSimple {
     }
 
     public function renderBelongsToManyRalationsWithPivotData($record){
-        $html = '<div class="row">';
+        $html = '<div class="row" id="pivotSection">';
         foreach($record->belongsToMany as $relationName => $definition) {
             if(!empty($definition['pivot']) ){
                 $html .= $this->generatePivotSection($record, $relationName, $definition);
@@ -299,6 +299,7 @@ trait AjaxControllerSimple {
         $relatoinLabel = array_key_exists('label', $definition) ? \Lang::get($definition['label']) : $relationName;
         $html = '<div class="col-12 mb-4">';
         $html .= '<div class="field-section"><h4>' . $relatoinLabel . '</h4></div>';
+        $html .= '<button class="btn btn-default btn-danger oc-icon-times" data-request="onDeletePivotRelation" data-request-data="relationName: \'' . $relationName . '\'">Törlés</button>';
 
         if(count($record->$relationName)>0){
             $html .= '<table style="width: 100%">';
@@ -312,8 +313,25 @@ trait AjaxControllerSimple {
         return $html;
     }
 
+    public function onDeletePivotRelation(){
+        $record = $this->getRecord();
+        $relationName = Input::get('relationName');
+        $data = Input::get('data');
+        $recordsToDelete = array_key_exists($relationName, $data) ? $data[$relationName] : [];
+        $record->{$relationName}()->detach($recordsToDelete);
+
+        return [
+            '#pivotSection' =>
+                $this->renderBelongsToManyRalationsWithPivotData($record)
+        ];
+    }
+
+    public function onRefresh(){
+
+    }
+
     public function generatePivotTableHeader($attributesToDisplay){
-        $tableHeaderRow = '<tr>';
+        $tableHeaderRow = '<tr><th></th>';
         foreach ($attributesToDisplay as $data){
             // generate table header
             $label = $data['label'];
@@ -328,6 +346,7 @@ trait AjaxControllerSimple {
         $tableRows = '';
         foreach ($record->{$relationName} as $relatedRecord){
             $tableRows .= '<tr>';
+            $tableRows .= '<td><input type="checkbox" name="data[' . $relationName . '][]" value="' . $relatedRecord->id .'"></td>';
             foreach ($attributesToDisplay as $key => $data){
                 $tableRows .= '<td>' . ( array_key_exists('isPivot', $data) ? $relatedRecord->pivot->{$key} : $relatedRecord->{$key})  . '</td>';
             }
