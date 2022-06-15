@@ -1,14 +1,17 @@
 <?php namespace Csatar\Csatar\Components;
 
+use Input;
 use Lang;
+use Redirect;
 use Cms\Classes\ComponentBase;
 use Csatar\Csatar\Models\District;
+use Csatar\Csatar\Models\Scout;
 use Csatar\Csatar\Models\Team;
 use Csatar\Forms\Components\BasicForm;
 
 class TeamReport extends ComponentBase
 {
-    public $teamId, $action, $year, $teamReport, $team, $basicForm;
+    public $id, $teamId, $action, $year, $teamReport, $team, $scouts, $teamFee, $totalAmount, $currency, $status, $basicForm;
 
     public function init()
     {
@@ -31,37 +34,122 @@ class TeamReport extends ComponentBase
 
     public function onRender()
     {
+        $this->year = date('n') == 1 ? date('Y') - 1 : date('Y');
+
         // retrieve the parameters
-        $this->teamId = $this->param('id');
+        $this->id = $this->param('id');
         $this->action = $this->param('action');
 
-        // if we are in creation mode, then retrieve the team ID from session
-        if ($this->teamId == $this->basicForm->createRecordKeyword) {
-            $this->action = $this->teamId;
-            $this->teamId = \Session::get('id');
+        // actions and redirections depending on the mode
+        if ($this->id == $this->basicForm->createRecordKeyword) {
+            // create mode
+            $this->action = $this->id;
+            $this->teamId = Input::get('team');
+
+            // retrieve the team report
+            $this->teamReport = \Csatar\Csatar\Models\TeamReport::where('team_id', $this->teamId)->where('year', $this->year)->first();
+
+            // depending on the team report's status, redirect to different modes
+            if (isset($this->teamReport)) {
+                if (isset($this->teamReport->submitted_at)) {
+                    // view mode
+                    return Redirect::to('/csapatjelentes/' . $this->teamReport->id);
+                }
+                else {
+                    // edit mode
+                    return Redirect::to('/csapatjelentes/' . $this->teamReport->id . '/modositas');
+                }
+            }
+
+            // retrieve the team
+            $this->team = Team::find($this->teamId);
+            if (!isset($this->team)) {
+                return Redirect::to('404')->with('message', Lang::get('csatar.csatar::lang.plugin.component.teamReport.validationExceptions.teamCannotBeFound'));
+            }
+
+            // retrieve the scouts and calculate fees
+            $association = $this->team->district->association;
+            $this->teamFee = $association->team_fee;
+            $this->totalAmount = $this->teamFee;
+            $this->currency = $association->currency->code;
+            $this->scouts = [];
+            $scouts = Scout::where('team_id', $this->teamId)->where('is_active', true)->get();
+            foreach ($scouts as $scout) {
+                $membership_fee = $this->team->district->association->legal_relationships->where('id', $scout->legal_relationship_id)->first()->pivot->membership_fee;
+
+                array_push($this->scouts, [
+                    'name' => $scout->family_name . ' ' . $scout->given_name,
+                    'legal_relationship' => $scout->legal_relationship,
+                    'leadership_qualification' => $scout->leadership_qualifications->sortByDesc(function ($item, $key) {
+                        return $item['pivot']['date'];
+                    })->values()->first(),
+                    'ecset_code' => $scout->ecset_code,
+                    'membership_fee' => $membership_fee,
+                ]);
+                $this->totalAmount += $membership_fee;
+            }
+        }
+        else {
+            // edit and view modes - retrieve the team report
+            $this->teamReport = \Csatar\Csatar\Models\TeamReport::find($this->id);
+            if (!isset($this->teamReport)) {
+                return Redirect::to('404')->with('message', \Lang::get('csatar.csatar::lang.plugin.component.teamReport.validationExceptions.teamReportCannotBeFound'));
+            }
+            if ($this->action == 'modositas' and isset($this->teamReport->submitted_at)) {
+                return Redirect::to('/csapatjelentes/' . $this->id);
+            }
+            $this->teamId = $this->teamReport->team_id;
+            $this->teamFee = $this->teamReport->team_fee;
+            $this->totalAmount = $this->teamReport->total_amount;
+
+            // retrieve the team
+            $this->team = Team::find($this->teamId);
+            if (!isset($this->team)) {
+                return Redirect::to('404')->with('message', \Lang::get('csatar.csatar::lang.plugin.component.teamReport.validationExceptions.teamCannotBeFound'));
+            }
+            $this->currency = $this->team->district->association->currency->code;
+
+            // retrieve the scouts and calculate fees
+            $this->scouts = $this->teamReport->scouts->lists('pivot');
         }
 
-        // try to retrieve the team report
-        $this->year = date('n') == 1 ? date('Y') - 1 : date('Y');
-        $this->teamReport = \Csatar\Csatar\Models\TeamReport::where('team_id', $this->teamId)->where('year', $this->year)->first();
-
-        // depending on the team report's status, define different behavior
+        // set the team report status
         if (isset($this->teamReport)) {
-            
+            if (isset($this->teamReport->approved_at)) {
+                $this->status = Lang::get('csatar.csatar::lang.plugin.component.teamReport.statuses.approved');
+            }
+            else if (isset($this->teamReport->submitted_at)) {
+                $this->status = Lang::get('csatar.csatar::lang.plugin.component.teamReport.statuses.submitted');
+            }
+            else {
+                $this->status = Lang::get('csatar.csatar::lang.plugin.component.teamReport.statuses.created');
+            }
+        }
+        else {
+            $this->status = Lang::get('csatar.csatar::lang.plugin.component.teamReport.statuses.notCreated');
         }
 
-        // retrieve the team
-        $this->team = Team::find($this->teamId);
-
-        // if the team cannot be found, then display an error message
-        if (!isset($this->team)) {
-        //    return \Redirect::to('404')->with('message', \Lang::get('csatar.csatar::lang.plugin.component.teamReport.validationExceptions.teamCannotBeFound'));
-        }
+        // call the basicForm's onRun method
+        array_multisort(array_column($this->scouts, 'name'), SORT_ASC, $this->scouts);
+        $this->basicForm->additionalData = $this->renderPartial('@additionalData.htm');
+        $this->basicForm->onRun();
     }
 
-    public function onRun()
+    public function onSubmit()
     {
-        $this->basicForm->additionalData = '<p>Proba</p>';
-        $this->basicForm->onRun();
+        $this->id = Input::get('id');
+        $this->teamReport = \Csatar\Csatar\Models\TeamReport::find($this->id);
+        $this->teamReport->submitted_at = (new \DateTime())->format('Y-m-d');
+        $this->teamReport->save();
+        return Redirect::to('/csapatjelentes/' . $this->id);
+    }
+
+    public function onApprove()
+    {
+        $this->id = Input::get('id');
+        $this->teamReport = \Csatar\Csatar\Models\TeamReport::find($this->id);
+        $this->teamReport->approved_at = (new \DateTime())->format('Y-m-d');
+        $this->teamReport->save();
+        return Redirect::to('/csapatjelentes/' . $this->id);
     }
 }

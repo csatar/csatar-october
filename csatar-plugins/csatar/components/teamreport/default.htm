@@ -1,3 +1,21 @@
-<div class="row">
+<div>
     {% component 'basicForm' %}
+    
+    {% if __SELF__.action == 'modositas' and __SELF__.teamReport.created_at is not null and __SELF__.teamReport.submitted_at is null %}
+        <button class="btn btn-default btn-success"
+            data-request="{{ __SELF__ }}::onSubmit"
+            data-request-data="id: {{ __SELF__.id }}"
+            data-request-loading="#fs-saving-loader">
+            {{ 'Csapatjelentés beküldése'|_ }}
+        </button>
+    {% endif %}
+    
+    {% if __SELF__.action == null and __SELF__.teamReport.submitted_at is not null and __SELF__.teamReport.approved_at is null %}
+        <button class="btn btn-default btn-success"
+            data-request="{{ __SELF__ }}::onApprove"
+            data-request-data="id: {{ __SELF__.id }}"
+            data-request-loading="#fs-saving-loader">
+            {{ 'Csapatjelentés jóváhagyása'|_ }}
+        </button>
+    {% endif %}
 </div>

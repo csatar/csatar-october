@@ -1,0 +1,30 @@
+{% if __SELF__.scouts|length > 0 %}
+    <div class="row" style="overflow-x:auto;">
+        <table>
+            <thead>
+                <td>{{ 'Név' | _ }}</td>
+                <td>{{ 'Jogviszony' | _ }}</td>
+                <td>{{ 'Képesítés' | _ }}</td>
+                <td>{{ 'ECSET kód' | _ }}</td>
+                <td>{{ 'Tagdíj értéke' | _ }}</td>
+            </thead>
+            <tbody>
+                {% for scout in __SELF__.scouts %}
+                    <tr>
+                        <td>{{ scout.name }}</td>
+                        <td>{{ scout.legal_relationship.name }}</td>
+                        <td>{{ scout.leadership_qualification.name }}</td>
+                        <td>{{ scout.ecset_code }}</td>
+                        <td>{{ scout.membership_fee ~ ' ' ~ __SELF__.currency }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}
+<div class="row">
+    <p>{{ 'Tagok száma: ' ~ (__SELF__.scouts|length) | _ }}</p>
+    <p>{{ 'Csapatfenntartói díj: ' ~ __SELF__.teamFee ~ ' ' ~ __SELF__.currency | _ }}</p>
+    <p>{{ 'Befizetendő összeg: ' ~ __SELF__.totalAmount ~ ' ' ~ __SELF__.currency | _ }}</p>
+    <p>{{ 'Csapatjelentés státusza: ' | _ }}{{ __SELF__.status }}</p>
+</div>

@@ -28,6 +28,8 @@
                 'qualification' => 'Képzés',
                 'qualificationLeader' => 'Képzésvezető',
                 'relations' => 'Relations',
+                'password' => 'Password',
+                'password_confirmation' => 'Password confirmation',
             ],
             'scout' => [
                 'scout' => 'Scout',
@@ -409,7 +411,15 @@
             'teamReport' => [
                 'name' => 'Team Report',
                 'description' => 'Enables creating yearly reports for the teams.',
+                'statuses' => [
+                    'notCreated' => 'Not created',
+                    'created' => 'Created',
+                    'submitted' => 'Submitted',
+                    'approved' => 'Approved',
+                ],
                 'validationExceptions' => [
+                    'teamReportAlreadyExists' => 'The team report for this team and year already exists.',
+                    'teamReportCannotBeFound' => 'The team report cannot be found.',
                     'teamCannotBeFound' => 'The team cannot be found.',
                 ],
             ],

@@ -43,6 +43,11 @@ class TeamReport extends Model
      * Add custom validation
      */
     public function beforeValidate() {
+        // check that the team report for this team and this team doesn't already exist
+        if (TeamReport::where('team_id', $this->team_id)->where('year', $this->year)->where('deleted_at', '')->exists()) {
+            throw new \ValidationException(['team_id' => \Lang::get('csatar.csatar::lang.plugin.component.teamReport.validationExceptions.teamReportAlreadyExists')]);
+        }
+
         // check that the submission date is not in the future
         if (isset($this->submitted_at) && (new \DateTime($this->submitted_at) > new \DateTime())) {
             throw new \ValidationException(['submitted_at' => \Lang::get('csatar.csatar::lang.plugin.admin.teamReport.validationExceptions.dateInTheFuture')]);
@@ -117,7 +122,7 @@ class TeamReport extends Model
     public function afterCreate()
     {
         // save the scouts (the pivot data can be saved only after the team report has been created)
-        $scouts = Scout::where('team_id', $this->team_id)->get();
+        $scouts = Scout::where('team_id', $this->team_id)->where('is_active', true)->get();
         foreach ($scouts as $scout) {
             $leadershipQualification = $scout->leadership_qualifications->sortByDesc(function ($item, $key) {
                 return $item['pivot']['date'];

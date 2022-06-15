@@ -56,7 +56,7 @@
 
         <input type="hidden" name="submission" value="{{ __SELF__.readOnly }}" />
         <input type="hidden" name="formId" value="{{ __SELF__.formId }}" />
-        <input type="hidden" name="recordKeyParam" value="{{ __SELF__.recordKeyParam }}" />
+        <input type="hidden" name="recordKeyParam" value="{{ recordKeyParam }}" />
         <input type="hidden" name="recordKeyValue" value="{{ recordKeyValue }}" />
         {% if __SELF__.relation is defined %}
             <input type="hidden" name="relation" value="{{ __SELF__.relation.id }}" />

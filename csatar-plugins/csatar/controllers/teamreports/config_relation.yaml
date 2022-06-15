@@ -3,3 +3,6 @@ scouts:
   view:
     list: $/csatar/csatar/models/teamreport/scoutColumns.yaml
     toolbarButtons: false
+    defaultSort:
+      column: 'pivot[name]'
+      direction: asc

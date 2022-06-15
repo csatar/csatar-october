@@ -101,11 +101,11 @@ trait AjaxControllerSimple {
         $variablesToPass = [
             'form' => $html,
             'additionalData' => $this->additionalData,
-            'recordKeyParam' => $this->recordKeyParam,
+            'recordKeyParam' => 'id',
             'recordKeyValue' => $record->id ?? 'new',
             'from_id' => $form->id,
             'preview' => $preview ];
-            
+        
         return $this->renderPartial('@partials/form', $variablesToPass);
     }
 
@@ -126,7 +126,6 @@ trait AjaxControllerSimple {
     }
 
     public function onSave() {
-
         $isNew = Input::get('recordKeyValue') == 'new' ? true : false;
         $record = $this->getRecord();
 

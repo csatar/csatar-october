@@ -1,5 +1,5 @@
 name: 'csatar.csatar::lang.plugin.admin.teamReport.teamReport'
-form: $/csatar/csatar/models/teamreport/fields.yaml
+form: $/csatar/csatar/models/teamreport/fieldsForBackend.yaml
 modelClass: Csatar\Csatar\Models\TeamReport
 defaultRedirect: csatar/csatar/teamreports
 create:

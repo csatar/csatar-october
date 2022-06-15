@@ -411,36 +411,44 @@
             'teamReport' => [
                 'name' => 'Csapatjelentés',
                 'description' => 'Éves csapatjelentés létrehozását teszi lehetővé a csapatok számára.',
+                'statuses' => [
+                    'notCreated' => 'Nincs létrehozva',
+                    'created' => 'Létrehozva',
+                    'submitted' => 'Beküldve',
+                    'approved' => 'Jóváhagyva',
+                ],
                 'validationExceptions' => [
+                    'teamReportAlreadyExists' => 'Már létezik csapatjelentés e csapat számára, erre az évre.',
+                    'teamReportCannotBeFound' => 'A csapatjelentés nem található.',
                     'teamCannotBeFound' => 'A csapat nem található.',
                 ],
             ],
-        ],
-        'checkScoutStatus' => [
-            'name' => 'Check Scout Status',
-            'description' => 'Return status for an scout dependent the scout id from the request.',
-            'scoutCode' => [
-                'title' => 'Scout Code',
-                'description' => 'Unique scout id'
-            ],
-            'json' => [
-                'title' => 'Json Format',
-                'description' => 'If json parameter is \'json\' return respons in json format. '
-            ]
-            'createFrontendAccounts' => [
-                'name' => 'Frontend felhasználó létrehozása',
-                'description' => 'Lehetővé teszi frontend felhasználó létrehozását.',
-                'currentPage' => '- jelenlegi oldal -',
-                'validationExceptions' => [
-                    'invalidEcsetCode' => 'Invalid ECSET code',
-                    'emailEcsetCodeMissMatch' => 'Ha nincs email címed, vagy nem egyezik meg a rendszerben levővel, vedd fel a kapcsolatot az őrsvezetőddel.',
-                    'noScoutIsSelected' => 'Nincs tag kiválasztva!',
+            'checkScoutStatus' => [
+                'name' => 'Check Scout Status',
+                'description' => 'Return status for an scout dependent the scout id from the request.',
+                'scoutCode' => [
+                    'title' => 'Scout Code',
+                    'description' => 'Unique scout id'
                 ],
-                'messages' => [
-                    'scoutHasNoEmail' => ':name nem rendelkezik e-mail címmel!',
-                    'scoutAlreadyHasUserAccount' => ':name már rendelkezik felhasználói fiókkal!',
-                    'userAccountCreated' => ':name cserkésznek létrejött a felhasználói fiókja!',
-                ]
+                'json' => [
+                    'title' => 'Json Format',
+                    'description' => 'If json parameter is \'json\' return respons in json format. '
+                ],
+                'createFrontendAccounts' => [
+                    'name' => 'Frontend felhasználó létrehozása',
+                    'description' => 'Lehetővé teszi frontend felhasználó létrehozását.',
+                    'currentPage' => '- jelenlegi oldal -',
+                    'validationExceptions' => [
+                        'invalidEcsetCode' => 'Invalid ECSET code',
+                        'emailEcsetCodeMissMatch' => 'Ha nincs email címed, vagy nem egyezik meg a rendszerben levővel, vedd fel a kapcsolatot az őrsvezetőddel.',
+                        'noScoutIsSelected' => 'Nincs tag kiválasztva!',
+                    ],
+                    'messages' => [
+                        'scoutHasNoEmail' => ':name nem rendelkezik e-mail címmel!',
+                        'scoutAlreadyHasUserAccount' => ':name már rendelkezik felhasználói fiókkal!',
+                        'userAccountCreated' => ':name cserkésznek létrejött a felhasználói fiókja!',
+                    ]
+                ],
             ],
         ]
     ]
