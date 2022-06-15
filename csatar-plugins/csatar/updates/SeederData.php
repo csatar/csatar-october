@@ -261,6 +261,7 @@ class SeederData extends Seeder
                 default:
                     break;
             }
+            $association->save();
             
             // associations - legal relationships pivot
             if ($association->legal_relationships->where('id', $legalRelationship1->id)->first() == null) {
