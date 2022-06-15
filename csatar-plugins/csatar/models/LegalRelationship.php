@@ -25,7 +25,7 @@ class LegalRelationship extends Model
      * @var array Validation rules
      */
     public $rules = [
-        'name' => 'required'
+        'name' => 'required',
     ];
 
     /**
@@ -40,6 +40,21 @@ class LegalRelationship extends Model
      * Relations 
      */
     public $belongsToMany = [
-        'scouts' => '\Csatar\Csatar\Models\Scouts'
+        'scouts' => '\Csatar\Csatar\Models\Scout',
+        'teamReportScouts' => '\Csatar\Csatar\Models\TeamReportScoutPivot',
+        'associations' => [
+            '\Csatar\Csatar\Models\Association',
+            'table' => 'csatar_csatar_associations_legal_relationships',
+            'pivot' => ['membership_fee'],
+            'pivotModel' => '\Csatar\Csatar\Models\AssociationLegalRelationshipPivot',
+        ],
     ];
+
+    /**
+     * Scope a query to only include legal relationships that are defined in the pivot table.
+     */
+    public function scopeAssociation($query)
+    {
+        return $query->join('csatar_csatar_associations_legal_relationships', 'csatar_csatar_legal_relationships.id', '=', 'csatar_csatar_associations_legal_relationships.legal_relationship_id');
+    }
 }

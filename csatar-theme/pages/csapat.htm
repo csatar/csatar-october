@@ -36,8 +36,9 @@ pageNumber = "{{ :page }}"
 localeTitle[en] = "Team"
 localeTitle[hu] = "Csapat"
 ==
-function onStart()
-{
+<?php
+public function onStart() {
+    $this['month'] = date('n');
     $this['team_id'] = $this->param('id');
 }
 ==
@@ -59,4 +60,11 @@ function onStart()
         <input type="hidden" name="team" value="{{ team_id }}">
         <input type="submit" class="btn btn-default" value="{{ 'Őrs hozzáadása' | _ }}">
     </form>
+    
+    {% if month == 1 or month == 12 or month == 6 %}
+        <form action="/csapatjelentes/letrehozas" method="post">
+            <input type="hidden" name="team" value="{{ team_id }}">
+            <input type="submit" class="btn btn-default" value="{{ 'Csapatjelentés' | _ }}">
+        </form>
+    {% endif %}
 </div>

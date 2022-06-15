@@ -97,6 +97,7 @@ fields:
         nameFrom: name
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        scope: association
         span: auto
         required: 1
         type: relation

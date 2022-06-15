@@ -37,6 +37,7 @@ class Religion extends Model
      * Relations 
      */
     public $belongsToMany = [
-        'scouts' => '\Csatar\Csatar\Models\Scouts'
+        'scouts' => '\Csatar\Csatar\Models\Scout',
+        'team_reports' => '\Csatar\Csatar\Models\TeamReport',
     ];
 }
