@@ -166,6 +166,7 @@
                     'testData' => 'Test data',
                     'seederDataConfirmMessage' => 'Would you like to update the seeder data?',
                     'testDataConfirmMessage' => 'Would you like to update the test data?',
+                    'dataToBeAdded' => 'The following data will be added (if doesn\'t already exist):',
                     'updateData' => 'Update data',
                     'updateDataSuccess' => 'The data has been successfully updated.',
                 ],
@@ -205,6 +206,9 @@
                 'tShirtSize' => 'T-Shirt Size',
                 'tShirtSizes' => 'T-Shirt Sizes',
                 'breadcrumb' => 'T-Shirt Sizes',
+            ],
+            'form' => [
+                'form' => 'Form',
             ],
             'promise' => [
                 'promise' => 'Promise',

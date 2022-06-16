@@ -166,6 +166,7 @@
                     'testData' => 'Teszt adatok',
                     'seederDataConfirmMessage' => 'Szeretnéd frissíteni az alapértelmezett adatokat?',
                     'testDataConfirmMessage' => 'Szeretnéd frissíteni a teszt adatokat?',
+                    'dataToBeAdded' => 'A következő adatok lesznek hozzáadva (ha már nem voltak felvéve):',
                     'updateData' => 'Adatok frissítése',
                     'updateDataSuccess' => 'Az adatok frissítve lettek.',
                 ],
@@ -205,6 +206,9 @@
                 'tShirtSize' => 'T-Shirt Size',
                 'tShirtSizes' => 'T-Shirt Sizes',
                 'breadcrumb' => 'T-Shirt Sizes',
+            ],
+            'form' => [
+                'form' => 'Űrlap',
             ],
             'promise' => [
                 'promise' => 'Fogadalom, ígéret',

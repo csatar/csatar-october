@@ -19,10 +19,8 @@ use Csatar\Forms\Models\Form;
 
 class SeederData extends Seeder
 {
-    public function run()
-    {
-        // allergies
-        $allergies = [
+    public const DATA = [
+        'allergy' => [
             'Ételintollerancia',
             'Ételallergiák',
             'Pollen alergia/Szénanátha',
@@ -31,30 +29,14 @@ class SeederData extends Seeder
             'Kontakt allergia (vegyszerekre, anyagokra)',
             'Gyógyszerallergia',
             'Egyéb'
-        ];
-        
-        foreach($allergies as $name) {
-            $allergy = Allergy::firstOrCreate([
-                'name' => $name
-            ]);
-        }
-
-        // legal relationships
-        $legalRelationships = [
+        ],
+        'legalRelationship' => [
             'Alakuló csapat tag',
             'Újonc',
             'Tag',
             'Tiszteletbeli tag'
-        ];
-        
-        foreach($legalRelationships as $name) {
-            $legalRelationship = LegalRelationship::firstOrCreate([
-                'name' => $name
-            ]);
-        }
-
-        // special tests
-        $specialTests = [
+        ],
+        'specialTest' => [
             'Szakács',
             'Rovás',
             'Arany toll díj',
@@ -72,33 +54,17 @@ class SeederData extends Seeder
             'Zenész',
             'Fényképész',
             'Íródeák',
-        ];
-        
-        foreach($specialTests as $name) {
-            $specialTest = SpecialTest::firstOrCreate([
-                'name' => $name
-            ]);
-        }
-
-        // special diets
-        $specialDiets = [
+        ],
+        'specialDiet' => [
             'Sporttáplálkozás',
             'Gluténmentes',
             'Szénhidrátmentes',
             'Laktózmentes',
             'Paleo',
             'Vegán',
-            'Vegetáriánus'
-        ];
-        
-        foreach($specialDiets as $name) {
-            $specialDiet = SpecialDiet::firstOrCreate([
-                'name' => $name
-            ]);
-        }
-        
-        // religions
-        $religions = [
+            'Vegetáriánus',
+        ],
+        'religion' => [
             'Adventista',
             'Baptista',
             'Evangélikus',
@@ -110,16 +76,8 @@ class SeederData extends Seeder
             'Római katolikus',
             'Unitárius',
             'Más felekezethez tartozó'
-        ];
-        
-        foreach($religions as $name) {
-            $religion = Religion::firstOrCreate([
-                'name' => $name
-            ]);
-        }
-        
-        // t-shirt sizes
-        $tshirtSizes = [
+        ],
+        'tShirtSize' => [
             '4',
             '6',
             '8',
@@ -134,16 +92,8 @@ class SeederData extends Seeder
             '3XL',
             '4XL',
             '5XL'
-        ];
-        
-        foreach($tshirtSizes as $name) {
-            $tshirtSize = TShirtSize::firstOrCreate([
-                'name' => $name
-            ]);
-        }
-        
-        // chronic illnesses
-        $chronicIllnesses = [
+        ],
+        'chronicIllness' => [
             'Magas vérnyomás',
             'Szívelégtelenség',
             'Allergia',
@@ -154,27 +104,143 @@ class SeederData extends Seeder
             'Daganatos betegség',
             'Krónikus légzési elégtelenség',
             'Veseelégtelenség',
-            'HIV/SIDA'
-        ];
-        
-        foreach($chronicIllnesses as $name) {
-            $chronicIllness = ChronicIllness::firstOrCreate([
-                'name' => $name
-            ]);
-        }
-
-        // hierarchy
-        $hierarchyItems = [
+            'HIV/SIDA',
+        ],
+        'hierarchy' => [
             'RMCSSZ',
             'Körzetvezető',
             'Csapatvezető',
             'Rajvezető',
             'Őrsvezető',
             'Cserkész',
-        ];
+        ],
+        'currency' => [
+            'EUR',
+            'HRK',
+            'HUF',
+            'RON',
+            'RSD',
+            'UAH',
+        ],
+        'association' => [
+            'Horvátországi magyar cserkészek',
+            'Kárpátaljai Magyar Cserkészszövetség',
+            'Külföldi Magyar Cserkészszövetség',
+            'Magyar Cserkészszövetség',
+            'Romániai Magyar Cserkészszövetség',
+            'Szlovákiai Magyar Cserkészszövetség',
+            'Vajdasági Magyar Cserkészszövetség',
+        ],
+        'foodSensitivity' => [
+            'liszt',
+            'tejfehérje (kazein)',
+            'tojás',
+            'mogyoró',
+            'szója',
+            'dió',
+            'kagyló',
+            'eper',
+        ],
+        'promise' => [
+            'Kiscserkész igéret',
+            'Cserkész fogadalom',
+        ],
+        'professionalQualification' => [
+            'Regős',
+        ],
+        'leadershipQualification' => [
+            'Segédőrsvezető képzés',
+            'Őrsvezető képzés',
+            'Felnőtt őrsvezető képzés',
+            'Segédvezető képzés',
+            'Cserkész vezető',
+        ],
+        'form' => [
+            [
+                'title' => 'Tag',
+                'model' => 'Csatar\Csatar\Models\Scout',
+            ],
+            [
+                'title' => 'Szövetség',
+                'model' => 'Csatar\Csatar\Models\Association',
+            ],
+            [
+                'title' => 'Körzet',
+                'model' => 'Csatar\Csatar\Models\District',
+            ],
+            [
+                'title' => 'Csapat',
+                'model' => 'Csatar\Csatar\Models\Team',
+            ],
+            [
+                'title' => 'Raj',
+                'model' => 'Csatar\Csatar\Models\Troop',
+            ],
+            [
+                'title' => 'Őrs',
+                'model' => 'Csatar\Csatar\Models\Patrol',
+            ],
+            [
+                'title' => 'Csapatjelentés',
+                'model' => 'Csatar\Csatar\Models\TeamReport',
+            ]
+        ],
+    ];
+
+    public function run()
+    {
+        // allergies
+        foreach($this::DATA['allergy'] as $name) {
+            $allergy = Allergy::firstOrCreate([
+                'name' => $name
+            ]);
+        }
+
+        // legal relationships
+        foreach($this::DATA['legalRelationship'] as $name) {
+            $legalRelationship = LegalRelationship::firstOrCreate([
+                'name' => $name
+            ]);
+        }
+
+        // special tests        
+        foreach($this::DATA['specialTest'] as $name) {
+            $specialTest = SpecialTest::firstOrCreate([
+                'name' => $name
+            ]);
+        }
+
+        // special diets
+        foreach($this::DATA['specialDiet'] as $name) {
+            $specialDiet = SpecialDiet::firstOrCreate([
+                'name' => $name
+            ]);
+        }
         
+        // religions
+        foreach($this::DATA['religion'] as $name) {
+            $religion = Religion::firstOrCreate([
+                'name' => $name
+            ]);
+        }
+        
+        // t-shirt sizes
+        foreach($this::DATA['tShirtSize'] as $name) {
+            $tshirtSize = TShirtSize::firstOrCreate([
+                'name' => $name
+            ]);
+        }
+        
+        // chronic illnesses
+        foreach($this::DATA['chronicIllness'] as $name) {
+            $chronicIllness = ChronicIllness::firstOrCreate([
+                'name' => $name
+            ]);
+        }
+
+        // hierarchy
         $idOfLastElement = null;
-        foreach($hierarchyItems as $name) {
+        foreach($this::DATA['hierarchy'] as $name) {
             $hierachyItem = Hierarchy::firstOrNew([
                 'name' => $name,
             ]);
@@ -185,36 +251,17 @@ class SeederData extends Seeder
         }
 
         // currencies
-        $currencies = [
-            'EUR',
-            'HRK',
-            'HUF',
-            'RON',
-            'RSD',
-            'UAH',
-        ];
-        
-        foreach($currencies as $code) {
+        foreach($this::DATA['currency'] as $code) {
             $currency = Currency::firstOrCreate([
                 'code' => $code
             ]);
         }
 
         // associations
-        $associations = [
-            'Horvátországi magyar cserkészek',
-            'Kárpátaljai Magyar Cserkészszövetség',
-            'Külföldi Magyar Cserkészszövetség',
-            'Magyar Cserkészszövetség',
-            'Romániai Magyar Cserkészszövetség',
-            'Szlovákiai Magyar Cserkészszövetség',
-            'Vajdasági Magyar Cserkészszövetség',
-        ];
-        
         $legalRelationship1 = LegalRelationship::where('name', 'Alakuló csapat tag')->first();
         $legalRelationship2 = LegalRelationship::where('name', 'Tag')->first();
 
-        foreach($associations as $name) {
+        foreach($this::DATA['association'] as $name) {
             $association = Association::firstOrNew([
                 'name' => $name,
             ]);
@@ -270,23 +317,20 @@ class SeederData extends Seeder
             if ($association->legal_relationships->where('id', $legalRelationship2->id)->first() == null) {
                 $association->legal_relationships()->attach($legalRelationship2, ['membership_fee' => 0]);
             }
-
             $association->save();
+
+            // update the membership fee value for RMCSSZ - Member
+            if ($association->name == 'Romániai Magyar Cserkészszövetség') {
+                $legal_relationship = $association->legal_relationships->where('id', $legalRelationship2->id)->first();
+                if (isset($legal_relationship)) {
+                    $legal_relationship->pivot->membership_fee = 50;
+                    $legal_relationship->pivot->save();
+                }
+            }
         }
 
-        // food sensitivities
-        $foodSensitivities = [
-            'liszt',
-            'tejfehérje (kazein)',
-            'tojás',
-            'mogyoró',
-            'szója',
-            'dió',
-            'kagyló',
-            'eper',
-        ];
-        
-        foreach($foodSensitivities as $name) {
+        // food sensitivities        
+        foreach($this::DATA['foodSensitivity'] as $name) {
             $foodSensitivity = FoodSensitivity::firstOrCreate([
                 'name' => $name
             ]);
@@ -298,72 +342,33 @@ class SeederData extends Seeder
             'Cserkész fogadalom',
         ];
         
-        foreach($promises as $name) {
+        foreach($this::DATA['promise'] as $name) {
             $promise = Promise::firstOrCreate([
                 'name' => $name
             ]);
         }
 
         // professional qualifications
-        $professionalQualifications = [
-            'Regős',
-        ];
-        
-        foreach($professionalQualifications as $name) {
+        foreach($this::DATA['professionalQualification'] as $name) {
             $professionalQualification = ProfessionalQualification::firstOrCreate([
                 'name' => $name
             ]);
         }
 
         // leadership qualifications
-        $leadershipQualifications = [
-            'Segédőrsvezető képzés',
-            'Őrsvezető képzés',
-            'Felnőtt őrsvezető képzés',
-            'Segédvezető képzés',
-            'Cserkész vezető',
-       ];
-       
-        foreach($leadershipQualifications as $name) {
+        foreach($this::DATA['leadershipQualification'] as $name) {
             $leadershipQualification = LeadershipQualification::firstOrCreate([
                 'name' => $name
             ]);
         }
 
         // seeders for the Forms plugin
-        $forms = Form::all();
-        foreach($forms as $form) {
+        foreach(Form::all() as $form) {
             $form->slugAttributes();
             $form->save();
         }
-
-        $scout = Form::firstOrCreate([
-            'title' => 'Tag',
-            'model' => 'Csatar\Csatar\Models\Scout',
-        ]);
-        $association = Form::firstOrCreate([
-            'title' => 'Szövetség',
-            'model' => 'Csatar\Csatar\Models\Association',
-        ]);
-        $district = Form::firstOrCreate([
-            'title' => 'Körzet',
-            'model' => 'Csatar\Csatar\Models\District',
-        ]);
-        $team = Form::firstOrCreate([
-            'title' => 'Csapat',
-            'model' => 'Csatar\Csatar\Models\Team',
-        ]);
-        $team = Form::firstOrCreate([
-            'title' => 'Raj',
-            'model' => 'Csatar\Csatar\Models\Troop',
-        ]);
-        $team = Form::firstOrCreate([
-            'title' => 'Őrs',
-            'model' => 'Csatar\Csatar\Models\Patrol',
-        ]);
-        $team = Form::firstOrCreate([
-            'title' => 'Csapatjelentés',
-            'model' => 'Csatar\Csatar\Models\TeamReport',
-        ]);
+        foreach($this::DATA['form'] as $form) {
+            $item = Form::firstOrCreate($form);
+        }
     }
 }

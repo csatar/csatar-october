@@ -9,13 +9,47 @@ use Csatar\Csatar\Models\Troop;
 
 class TestData extends Seeder
 {
+    public const DATA = [
+        'district' => [
+            'Nógrád',
+            'Csík',
+            'Észak-Erdély',
+            'Háromszék',
+        ],
+        'team' => [
+            'Nógrádi első próba csapat',
+            'Szent István',
+            'Zöld Péter',
+            'Élthes Alajos',
+            'Hollósy Simon',
+            'Szent György',
+            'Nagyboldogasszony',
+        ],
+        'troop' => [
+            'Madarak',
+            'Virágok',
+            'Madarak',
+            'Virágok',
+            'Halak',
+        ],
+        'patrol' => [
+            'Sasok',
+            'Hollók',
+            'Farkasok',
+            'Fácánok',
+            'Verebek',
+            'Zergék',
+            'Orchideák',
+        ],
+    ];
+
     public function run()
     {
         // districts
         $association_magyar = Association::where('name', 'Magyar Cserkészszövetség')->first();
         if (isset($association_magyar)) {
             $district_1 = District::firstOrNew([
-                'name' => 'Nógrád',
+                'name' => $this::DATA['district'][0],
                 'association_id' => $association_magyar->id,
             ]);
             $district_1->address = 'Balassagyarmat, Jácint utca, 21';
@@ -31,7 +65,7 @@ class TestData extends Seeder
         $association_rmcssz = Association::where('name', 'Romániai Magyar Cserkészszövetség')->first();
         if (isset($association_rmcssz)) {
             $district_2 = District::firstOrNew([
-                'name' => 'Csík',
+                'name' => $this::DATA['district'][1],
                 'association_id' => $association_rmcssz->id,
             ]);
             $district_2->address = 'Abcde';
@@ -44,7 +78,7 @@ class TestData extends Seeder
             $district_2->save();
 
             $district_3 = District::firstOrNew([
-                'name' => 'Észak-Erdély',
+                'name' => $this::DATA['district'][2],
                 'association_id' => $association_rmcssz->id,
             ]);
             $district_3->address = 'Abcde';
@@ -57,7 +91,7 @@ class TestData extends Seeder
             $district_3->save();
 
             $district_4 = District::firstOrNew([
-                'name' => 'Háromszék',
+                'name' => $this::DATA['district'][3],
                 'association_id' => $association_rmcssz->id,
             ]);
             $district_4->address = 'Abcde';
@@ -73,7 +107,7 @@ class TestData extends Seeder
         // teams
         if (isset($district_1)) {
             $team_1 = Team::firstOrNew([
-                'name' => 'Nógrádi első próba csapat',
+                'name' => $this::DATA['team'][0],
                 'district_id' => $district_1->id,
             ]);
             $team_1->team_number = '1';
@@ -94,7 +128,7 @@ class TestData extends Seeder
 
         if (isset($district_2)) {
             $team_2 = Team::firstOrNew([
-                'name' => 'Szent István',
+                'name' => $this::DATA['team'][1],
                 'district_id' => $district_2->id,
             ]);
             $team_2->team_number = '4';
@@ -113,7 +147,7 @@ class TestData extends Seeder
             $team_2->save();
 
             $team_3 = Team::firstOrNew([
-                'name' => 'Zöld Péter',
+                'name' => $this::DATA['team'][2],
                 'district_id' => $district_2->id,
             ]);
             $team_3->team_number = '18';
@@ -132,7 +166,7 @@ class TestData extends Seeder
             $team_3->save();
 
             $team_4 = Team::firstOrNew([
-                'name' => 'Élthes Alajos',
+                'name' => $this::DATA['team'][3],
                 'district_id' => $district_2->id,
             ]);
             $team_4->team_number = '152';
@@ -153,7 +187,7 @@ class TestData extends Seeder
 
         if (isset($district_3)) {
             $team_5 = Team::firstOrNew([
-                'name' => 'Hollósy Simon',
+                'name' => $this::DATA['team'][4],
                 'district_id' => $district_3->id,
             ]);
             $team_5->team_number = '146';
@@ -174,7 +208,7 @@ class TestData extends Seeder
 
         if (isset($district_4)) {
             $team_6 = Team::firstOrNew([
-                'name' => 'Szent György',
+                'name' => $this::DATA['team'][5],
                 'district_id' => $district_4->id,
             ]);
             $team_6->team_number = '40';
@@ -193,7 +227,7 @@ class TestData extends Seeder
             $team_6->save();
 
             $team_7 = Team::firstOrNew([
-                'name' => 'Nagyboldogasszony',
+                'name' => $this::DATA['team'][6],
                 'district_id' => $district_4->id,
             ]);
             $team_7->team_number = '141';
@@ -215,7 +249,7 @@ class TestData extends Seeder
         // troops
         if (isset($team_6)) {
             $troop_1 = Troop::firstOrNew([
-                'name' => 'Madarak',
+                'name' => $this::DATA['troop'][0],
                 'team_id' => $team_6->id,
             ]);
             $troop_1->troop_leader_name = 'Anton';
@@ -224,7 +258,7 @@ class TestData extends Seeder
             $troop_1->save();
 
             $troop_2 = Troop::firstOrNew([
-                'name' => 'Virágok',
+                'name' => $this::DATA['troop'][1],
                 'team_id' => $team_6->id,
             ]);
             $troop_2->troop_leader_name = 'Attila';
@@ -235,7 +269,7 @@ class TestData extends Seeder
 
         if (isset($team_7)) {
             $troop_3 = Troop::firstOrNew([
-                'name' => 'Madarak',
+                'name' => $this::DATA['troop'][2],
                 'team_id' => $team_7->id,
             ]);
             $troop_3->troop_leader_name = 'Edina';
@@ -244,7 +278,7 @@ class TestData extends Seeder
             $troop_3->save();
 
             $troop_4 = Troop::firstOrNew([
-                'name' => 'Virágok',
+                'name' => $this::DATA['troop'][3],
                 'team_id' => $team_7->id,
             ]);
             $troop_4->troop_leader_name = 'Eszter';
@@ -253,7 +287,7 @@ class TestData extends Seeder
             $troop_4->save();
 
             $troop_5 = Troop::firstOrNew([
-                'name' => 'Halak',
+                'name' => $this::DATA['troop'][4],
                 'team_id' => $team_7->id,
             ]);
             $troop_5->troop_leader_name = 'Erika';
@@ -265,7 +299,7 @@ class TestData extends Seeder
         // patrols
         if (isset($team_6)) {
             $patrol_1 = Patrol::firstOrNew([
-                'name' => 'Sasok',
+                'name' => $this::DATA['patrol'][0],
                 'team_id' => $team_6->id,
             ]);
             if (isset($troop_1)) {
@@ -278,7 +312,7 @@ class TestData extends Seeder
             $patrol_1->save();
             
             $patrol_2 = Patrol::firstOrNew([
-                'name' => 'Pulykák',
+                'name' => $this::DATA['patrol'][1],
                 'team_id' => $team_6->id,
             ]);
             if (isset($troop_1)) {
@@ -291,7 +325,7 @@ class TestData extends Seeder
             $patrol_2->save();
             
             $patrol_3 = Patrol::firstOrNew([
-                'name' => 'Farkasok',
+                'name' => $this::DATA['patrol'][2],
                 'team_id' => $team_6->id,
             ]);
             $patrol_3->patrol_leader_name = 'Ferenc';
@@ -303,7 +337,7 @@ class TestData extends Seeder
 
         if (isset($team_7)) {
             $patrol_4 = Patrol::firstOrNew([
-                'name' => 'Fácánok',
+                'name' => $this::DATA['patrol'][3],
                 'team_id' => $team_7->id,
             ]);
             if (isset($troop_3)) {
@@ -316,7 +350,7 @@ class TestData extends Seeder
             $patrol_4->save();
             
             $patrol_5 = Patrol::firstOrNew([
-                'name' => 'Verebek',
+                'name' => $this::DATA['patrol'][4],
                 'team_id' => $team_7->id,
             ]);
             if (isset($troop_3)) {
@@ -329,7 +363,7 @@ class TestData extends Seeder
             $patrol_5->save();
             
             $patrol_6 = Patrol::firstOrNew([
-                'name' => 'Zergék',
+                'name' => $this::DATA['patrol'][5],
                 'team_id' => $team_7->id,
             ]);
             $patrol_6->patrol_leader_name = 'Zoltán';
@@ -339,7 +373,7 @@ class TestData extends Seeder
             $patrol_6->save();
             
             $patrol_7 = Patrol::firstOrNew([
-                'name' => 'Orchideák',
+                'name' => $this::DATA['patrol'][6],
                 'team_id' => $team_7->id,
             ]);
             if (isset($troop_4)) {
