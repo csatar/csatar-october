@@ -3,6 +3,7 @@
 use http\Env\Request;
 use Input;
 use Flash;
+use File;
 use Validator;
 use Csatar\Forms\Models\Form;
 use Response;
@@ -315,7 +316,11 @@ trait AjaxControllerSimple {
 
     public function getPivotFieldsConfig($model, $pivotFieldsConfig = 'fieldsPivot.yaml') {
         if ($pivotFieldsConfig[0] != '$') {
-            return '$/' . str_replace('\\', '/', strtolower($model)) . '/' . $pivotFieldsConfig;
+            $pivotFieldsConfig = '$/' . str_replace('\\', '/', strtolower($model)) . '/' . $pivotFieldsConfig;
+        }
+        $pivotFieldsConfig = File::symbolizePath($pivotFieldsConfig);
+        if(!File::isFile($pivotFieldsConfig)){
+            return false;
         }
 
         return $pivotFieldsConfig;
@@ -323,48 +328,19 @@ trait AjaxControllerSimple {
 
     public function getPivotListConfig($model, $pivotListConfig = 'columnsPivot.yaml') {
         if ($pivotListConfig[0] != '$') {
-            return '$/' . str_replace('\\', '/', strtolower($model)) . '/' . $pivotListConfig;
+            $pivotListConfig = '$/' . str_replace('\\', '/', strtolower($model)) . '/' . $pivotListConfig;
         }
-
+        $pivotListConfig = File::symbolizePath($pivotListConfig);
+        if(!File::isFile($pivotListConfig)){
+            return false;
+        }
         return $pivotListConfig;
-    }
-
-    public function getPivotFormsConfig($record){
-        $pivotFormConfigs = [];
-        foreach($record->belongsToMany as $name => $definition) {
-            if(!empty($definition['pivot'])){
-                $pivotModelName = $definition[0];
-                $pivotConfig = $this->makeConfig($this->getPivotFieldsConfig($pivotModelName));
-                $pivotConfig->arrayName = $name . '-data';
-                $pivotConfig->alias = $pivotModelName;
-                $pivotConfig->model = new $pivotModelName();
-                $pivotFormConfigs[$name] = $pivotConfig;
-            }
-
-        }
-
-        return $pivotFormConfigs;
-    }
-
-    public function getPivotListsConfig($record){
-        $pivotListsConfigs = [];
-        foreach($record->belongsToMany as $name => $definition) {
-            if(!empty($definition['pivot'])){
-                $pivotModelName = $definition[0];
-                $pivotConfig = $this->makeConfig($this->getPivotListConfig($pivotModelName));
-                $pivotConfig->arrayName = $name . '-data';
-                $pivotConfig->alias = $pivotModelName;
-                $pivotListsConfigs[$name] = $pivotConfig;
-            }
-        }
-
-        return $pivotListsConfigs;
     }
 
     public function renderBelongsToManyRalationsWithPivotData($record){
         $html = '<div class="row" id="pivotSection">';
         foreach($record->belongsToMany as $relationName => $definition) {
-            if(!empty($definition['pivot']) ){
+            if(!empty($definition['pivot']) && $this->getPivotListConfig($definition[0])){
                 $html .= $this->generatePivotSection($record, $relationName, $definition);
             }
         }
