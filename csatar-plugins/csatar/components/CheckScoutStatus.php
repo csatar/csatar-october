@@ -32,20 +32,24 @@ class CheckScoutStatus extends ComponentBase
                 'description'       => 'csatar.csatar::lang.plugin.component.checkScoutStatus.scoutCode.description',
                 'type'              => 'string',
                 'default'           => '{{ :ecset_code }}'
-            ],
-            'json' => [
-                'title'             => 'csatar.csatar::lang.plugin.component.checkScoutStatus.json.title',
-                'description'       => 'csatar.csatar::lang.plugin.component.checkScoutStatus.json.description',
-                'type'              => 'string',
-                'default'           => '{{ :json }}'
             ]
         ];
     }
 
     public function onRender()
     {
+        if (empty($this->property('scoutCode'))) {
+            return $this->renderPartial('@default', ['code' => -1]);
+        }
+
         $this->scoutCode = $this->property('scoutCode');
-        $this->json = ($this->property('json') === 'json') ? true : false;
+        $this->json = false;
+
+        if (Input::get('json') === 'true' || Input::get('json') === '1')
+        {
+            $this->json = true;
+        }
+
         return $this->onGetScoutStatus();
     }
 
