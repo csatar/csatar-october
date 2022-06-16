@@ -6,6 +6,7 @@ use Csatar\Forms\Models\Form;
 use Csatar\Forms\Traits\ManagesUploads;
 use Csatar\Forms\Traits\AjaxControllerSimple;
 use October\Rain\Exception\ApplicationException;
+use Backend\Behaviors\RelationController;
 
 class BasicForm extends ComponentBase  {
 
@@ -219,7 +220,6 @@ class BasicForm extends ComponentBase  {
                     $this->renderedComponent = $this->createForm(true);
             }
         }
-
 
     }
 

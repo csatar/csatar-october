@@ -700,3 +700,8 @@ input[type=checkbox], input[type=radio] {
     font-weight: 400;
     font-size: calc(1.7rem + 1vw)
 }
+
+.add-remove-button-container {
+    display: inline;
+    float: right;
+}
