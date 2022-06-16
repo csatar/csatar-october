@@ -321,6 +321,20 @@
             'structure' => [
                 'name' => 'Organization Structure',
                 'description' => 'Displays the organization structure in a tree view.',
+                'properties' => [
+                    'level' => [
+                        'title' => 'Szint',
+                        'description' => 'Struktúra kezdő szintje.',
+                    ],
+                    'model_name' => [
+                        'title' => 'Model neve',
+                        'description' => 'Kezdő model név.',
+                    ],
+                    'model_id' => [
+                        'title' => 'Model Id',
+                        'description' => 'Kezdő model id.',
+                    ],
+                ]
             ],
             'logos' => [
                 'name' => 'Logók',
@@ -367,6 +381,10 @@
                     'scoutAlreadyHasUserAccount' => ':name már rendelkezik felhasználói fiókkal!',
                     'userAccountCreated' => ':name cserkésznek létrejött a felhasználói fiókja!',
                 ]
+            ],
+            'organizationUnitFrontend' => [
+                'name' => 'Szervezeti Egység Frontend',
+                'description' => 'Megyjeleníti egy szerevezeti egyszég frontend oldalát.'
             ],
         ]
     ]

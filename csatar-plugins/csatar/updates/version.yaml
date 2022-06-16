@@ -99,3 +99,6 @@
 1.0.34:
     - 'Added seeder for ecset_code suffix'
     - seeder_1034.php
+1.0.35:
+    - 'Created table csatar_csatar_content_pages'
+    - builder_table_create_csatar_csatar_content_pages.php

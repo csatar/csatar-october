@@ -65,6 +65,10 @@ class Troop extends Model
         'logo' => 'System\Models\File'
     ];
 
+    public $morphOne = [
+        'content_page' => ['\Csatar\Csatar\Models\ContentPage', 'name' => 'model']
+    ];
+
     /**
      * Scope a query to only include troops with a given team id.
      */

@@ -13,7 +13,23 @@ actionDeleteKeyword = "torles"
 [viewBag]
 localeTitle[en] = "Patrol"
 localeTitle[hu] = "Őrs"
+
+[organizationUnitFrontend]
+model_name = "Patrol"
+model_id = "{{ :id }}"
+
+[structure]
+level = 5
+model_name = "Patrol"
+model_id = "{{ :id }}"
+==
+<?php
+function onStart()
+{
+    $this['model_name'] = 'patrol';
+}
+?>
 ==
 <div class="container">
-    {% component 'basicForm' %}
+    {% component 'organizationUnitFrontend' %}
 </div>

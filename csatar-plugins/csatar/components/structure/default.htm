@@ -1,11 +1,11 @@
-{% set associations = __SELF__.associations %}
-
+{% set structureArray = __SELF__.structureArray %}
+{% set starter_level = __SELF__.level %}
 <div class="row">
     <div class="col-lg-2 col-md-2">
     </div>
 
     <div class="col-lg-8 col-md-8 col-sm-12 pb-5">
-    {% partial __SELF__ ~ '::accordionItems' array=associations level=1 headingId='flush-heading-' collapseId='flush-collapse-' %}
+    {% partial __SELF__ ~ '::accordionItems' array=structureArray level=starter_level headingId='flush-heading-' collapseId='flush-collapse-' %}
     </div>
 
     <div class="col-lg-2 col-md-2">

@@ -24,20 +24,24 @@ pageNumber = "{{ :page }}"
 [viewBag]
 localeTitle[en] = "District"
 localeTitle[hu] = "Körzet"
+
+[organizationUnitFrontend]
+model_name = "District"
+model_id = "{{ :id }}"
+
+[structure]
+level = 2
+model_name = "District"
+model_id = "{{ :id }}"
 ==
+<?php
 function onStart()
 {
     $this['district_id'] = $this->param('id');
+    $this['model_name'] = 'district';
 }
+?>
 ==
 <div class="container">
-    {% component 'basicForm' %}
-
-    <p>{{ 'Csapatok' | _ }}</p>
-    {% component 'builderList' %}
-
-    <form action="/csapat/letrehozas" method="post">
-        <input type="hidden" name="district" value="{{ district_id }}">
-        <input type="submit" class="btn btn-default" value="{{ 'Csapat hozzáadása' | _ }}">
-    </form>
+    {% component 'organizationUnitFrontend' %}
 </div>

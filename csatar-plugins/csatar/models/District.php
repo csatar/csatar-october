@@ -8,7 +8,7 @@ use Model;
 class District extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-    
+
     use \October\Rain\Database\Traits\SoftDelete;
 
     protected $dates = ['deleted_at'];
@@ -57,11 +57,11 @@ class District extends Model
         'association_id',
         'logo',
     ];
-    
+
     /**
      * Relations
      */
-    
+
     public $belongsTo = [
         'association' => '\Csatar\Csatar\Models\Association',
     ];
@@ -73,7 +73,11 @@ class District extends Model
     public $attachOne = [
         'logo' => 'System\Models\File',
     ];
-    
+
+    public $morphOne = [
+        'content_page' => ['\Csatar\Csatar\Models\ContentPage', 'name' => 'model']
+    ];
+
     /**
      * Scope a query to only include districts with a given association id.
      */

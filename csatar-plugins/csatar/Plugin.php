@@ -67,7 +67,8 @@ class Plugin extends PluginBase
             \Csatar\Csatar\Components\Structure::class => 'structure',
             \Csatar\Csatar\Components\Logos::class => 'logos',
             \Csatar\Csatar\Components\CheckScoutStatus::class => 'checkScoutStatus',
-            \Csatar\Csatar\Components\CreateFrontendAccounts::class => 'createFrontendAccounts'
+            \Csatar\Csatar\Components\CreateFrontendAccounts::class => 'createFrontendAccounts',
+            \Csatar\Csatar\Components\OrganizationUnitFrontend::class => 'organizationUnitFrontend',
         ];
     }
 
