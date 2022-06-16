@@ -18,6 +18,8 @@ trait AjaxControllerSimple {
 
     public $widget;
 
+    protected $current_model;
+
     public function formGetWidget()
     {
         return $this->widget;
@@ -96,10 +98,11 @@ trait AjaxControllerSimple {
         if(!$preview){
             $html .= $this->renderValidationTags($record);
         }
-//        $html .= '<div id="pivot-form"></div>';
+
         $html .= $this->renderBelongsToManyRalationsWithPivotData($record);
         $variablesToPass = [
             'form' => $html,
+            'additionalData' => $this->additionalData,
             'recordKeyParam' => 'id',
             'recordKeyValue' => $record->id ?? 'new',
             'from_id' => $form->id,

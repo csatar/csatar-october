@@ -1,0 +1,14 @@
+columns:
+    id:
+        label: 'csatar.csatar::lang.plugin.admin.general.id'
+        type: number
+        searchable: true
+        sortable: true
+    name:
+        label: 'csatar.csatar::lang.plugin.admin.general.name'
+        type: text
+        searchable: true
+        sortable: true
+    'pivot[membership_fee]':
+        label: 'csatar.csatar::lang.plugin.admin.association.membershipFee'
+        type: text

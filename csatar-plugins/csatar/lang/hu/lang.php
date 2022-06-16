@@ -155,6 +155,19 @@
                         'organizationSystemData' => 'Organization System Data',
                         'hierarchy' => 'Hierarchy',
                     ],
+                    'seederData' => [
+                        'data' => 'Adatok',
+                        'seederData' => 'Alapértelmezett adatok',
+                        'testData' => 'Teszt adatok',
+                    ],
+                ],
+                'seederData' => [
+                    'seederData' => 'Alapértelmezett adatok',
+                    'testData' => 'Teszt adatok',
+                    'seederDataConfirmMessage' => 'Szeretnéd frissíteni az alapértelmezett adatokat?',
+                    'testDataConfirmMessage' => 'Szeretnéd frissíteni a teszt adatokat?',
+                    'updateData' => 'Adatok frissítése',
+                    'updateDataSuccess' => 'Az adatok frissítve lettek.',
                 ],
             ],
             'allergy' => [
@@ -240,11 +253,14 @@
                 'contactName' => 'Contact name',
                 'bankAccount' => 'Bank account',
                 'leadershipPresentation' => 'Leadership Presentation',
-                'districtsInfo' => 'Districts can be added after the Association has been created. Click the Create button after other information is filled.',
+                'additionalDetailsInfo' => 'Districts and Currencies can be added after the Association has been created. Click the Create button after other information is filled.',
                 'breadcrumb' => 'Associations',
                 'ecsetCode' => [
                     'suffix' => 'ECSET code suffix',
                 ],
+                'teamFee' => 'Csapat fenntartói díj',
+                'membershipFee' => 'Tagdíj értéke',
+                'currency' => 'Pénznem',
             ],
             'district' => [
                 'district' => 'District',
@@ -307,6 +323,45 @@
                 'breadcrumb' => 'Patrols',
                 'troopNotInTheTeamError' => 'The selected Troop does not belong to the selected Team.',
             ],
+            'currency' => [
+                'currency' => 'Pénznem',
+                'currencies' => 'Pénznemek',
+                'breadcrumb' => 'Pénznemek',
+                'code' => 'Kód',
+            ],
+            'teamReport' => [
+                'teamReport' => 'Csapatjelentés',
+                'teamReports' => 'Csapatjelentések',
+                'team' => 'Csapat',
+                'year' => 'Év',
+                'number_of_adult_patrols' => 'Felnőtt őrsök száma',
+                'number_of_explorer_patrols' => 'Felfedező őrsök száma',
+                'number_of_scout_patrols' => 'Cserkész őrsök száma',
+                'number_of_cub_scout_patrols' => 'Kiscserkész őrsök száma',
+                'number_of_mixed_patrols' => 'Vegyes őrsök száma',
+                'scouting_year_report_team_camp' => 'Előző cserkérkészév beszámoló (csapat tábor)',
+                'scouting_year_report_homesteading' => 'Előző cserkérkészév beszámoló (tanyázás)',
+                'scouting_year_report_programs' => 'Előző cserkészév beszámoló (programok)',
+                'scouting_year_team_applications' => 'Előző cserkészév csapat pályázatai',
+                'spiritual_leader_name' => 'Csapat lelki vezetője',
+                'spiritual_leader_religion_id' => 'Csapat lelki vezetőjének felekezete',
+                'spiritual_leader_occupation' => 'Csapat lelki vezetőjének foglalkozás',
+                'team_fee' => 'Csapatfenntartói járulék',
+                'total_amount' => 'Befizetendő összeg',
+                'currency' => 'Pénznem',
+                'name' => 'Név',
+                'legalRelationship' => "Jogviszony",
+                'leadershipQualification' => 'Vezetői képesítés',
+                'membershipFee' => 'Tagdíj értéke',
+                'submittedAt' => 'Beküldés ideje',
+                'approvedAt' => 'Elfogadás ideje',
+                'breadcrumb' => 'Csapatjelentések',
+                'scoutsInfo' => 'A Csapatjelentés létrehozása után, a csapathoz tartózó cserkészek is láthatóak lesznek. Töltsd ki a kötelező mezőket, majd kattints a Létrehozás gombra.',
+                'validationExceptions' => [
+                    'dateInTheFuture' => 'A Dátum nem lehet a jövőben.',
+                    'submissionDateAfterApprovalDate' => 'A Beküldés ideje nem lehet az Elfogadás ideje után.',
+                ],
+            ],
         ],
         'component' => [
             'general' => [
@@ -353,20 +408,47 @@
                     'scoutsOfRomania' => 'Románia Cserkészei',
                 ],
             ],
-            'createFrontendAccounts' => [
-                'name' => 'Frontend felhasználó létrehozása',
-                'description' => 'Lehetővé teszi frontend felhasználó létrehozását.',
-                'currentPage' => '- jelenlegi oldal -',
-                'validationExceptions' => [
-                    'invalidEcsetCode' => 'Invalid ECSET code',
-                    'emailEcsetCodeMissMatch' => 'Ha nincs email címed, vagy nem egyezik meg a rendszerben levővel, vedd fel a kapcsolatot az őrsvezetőddel.',
-                    'noScoutIsSelected' => 'Nincs tag kiválasztva!',
+            'teamReport' => [
+                'name' => 'Csapatjelentés',
+                'description' => 'Éves csapatjelentés létrehozását teszi lehetővé a csapatok számára.',
+                'statuses' => [
+                    'notCreated' => 'Nincs létrehozva',
+                    'created' => 'Létrehozva',
+                    'submitted' => 'Beküldve',
+                    'approved' => 'Jóváhagyva',
                 ],
-                'messages' => [
-                    'scoutHasNoEmail' => ':name nem rendelkezik e-mail címmel!',
-                    'scoutAlreadyHasUserAccount' => ':name már rendelkezik felhasználói fiókkal!',
-                    'userAccountCreated' => ':name cserkésznek létrejött a felhasználói fiókja!',
-                ]
+                'validationExceptions' => [
+                    'teamReportAlreadyExists' => 'Már létezik csapatjelentés e csapat számára, erre az évre.',
+                    'teamReportCannotBeFound' => 'A csapatjelentés nem található.',
+                    'teamCannotBeFound' => 'A csapat nem található.',
+                ],
+            ],
+            'checkScoutStatus' => [
+                'name' => 'Check Scout Status',
+                'description' => 'Return status for an scout dependent the scout id from the request.',
+                'scoutCode' => [
+                    'title' => 'Scout Code',
+                    'description' => 'Unique scout id'
+                ],
+                'json' => [
+                    'title' => 'Json Format',
+                    'description' => 'If json parameter is \'json\' return respons in json format. '
+                ],
+                'createFrontendAccounts' => [
+                    'name' => 'Frontend felhasználó létrehozása',
+                    'description' => 'Lehetővé teszi frontend felhasználó létrehozását.',
+                    'currentPage' => '- jelenlegi oldal -',
+                    'validationExceptions' => [
+                        'invalidEcsetCode' => 'Invalid ECSET code',
+                        'emailEcsetCodeMissMatch' => 'Ha nincs email címed, vagy nem egyezik meg a rendszerben levővel, vedd fel a kapcsolatot az őrsvezetőddel.',
+                        'noScoutIsSelected' => 'Nincs tag kiválasztva!',
+                    ],
+                    'messages' => [
+                        'scoutHasNoEmail' => ':name nem rendelkezik e-mail címmel!',
+                        'scoutAlreadyHasUserAccount' => ':name már rendelkezik felhasználói fiókkal!',
+                        'userAccountCreated' => ':name cserkésznek létrejött a felhasználói fiókja!',
+                    ]
+                ],
             ],
         ]
     ]

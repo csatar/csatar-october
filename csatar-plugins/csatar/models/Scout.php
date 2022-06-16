@@ -233,6 +233,12 @@ class Scout extends Model
             'pivot' => ['date', 'location', 'qualification_certificate_number', 'qualification', 'qualification_leader'],
             'label' => 'csatar.csatar::lang.plugin.admin.trainingQualification.trainingQualifications',
         ],
+        'team_reports' => [
+            '\Csatar\Csatar\Models\TeamReport',
+            'table' => 'csatar_csatar_team_reports_scouts',
+            'pivot' => ['name', 'legal_relationship_id', 'leadership_qualification_id', 'ecset_code', 'membership_fee'],
+            'pivotModel' => '\Csatar\Csatar\Models\TeamReportScoutPivot',
+        ],
     ];
 
     public $attachOne = [

@@ -93,9 +93,18 @@
 1.0.32:
     - 'Created table csatar_csatar_scouts_training_qualifications'
     - builder_table_create_csatar_csatar_scouts_training_qualifications.php
-1.0.33:
-    - 'Added seeder'
-    - seeder_1033.php
-1.0.34:
-    - 'Added seeder for ecset_code suffix'
-    - seeder_1034.php
+1.0.35:
+    - 'Created table csatar_csatar_currencies'
+    - builder_table_create_csatar_csatar_currencies.php
+1.0.36:
+    - 'Updated table csatar_csatar_associations'
+    - builder_table_update_csatar_csatar_associations.php
+1.0.37:
+    - 'Created table csatar_csatar_associations_legal_relationships'
+    - builder_table_create_csatar_csatar_associations_legal_relationships.php
+1.0.38:
+    - 'Created table csatar_csatar_team_reports'
+    - builder_table_create_csatar_csatar_team_reports.php
+1.0.39:
+    - 'Created table csatar_csatar_team_reports_scouts'
+    - builder_table_create_csatar_csatar_team_reports_scouts.php

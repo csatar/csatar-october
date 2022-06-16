@@ -1,0 +1,110 @@
+columns:
+    id:
+        label: 'csatar.csatar::lang.plugin.admin.general.id'
+        type: number
+        searchable: true
+        sortable: true
+    created_at:
+        label: 'csatar.csatar::lang.plugin.admin.general.createdAt'
+        type: datetime
+    updated_at:
+        label: 'csatar.csatar::lang.plugin.admin.general.updatedAt'
+        type: datetime
+    deleted_at:
+        label: 'csatar.csatar::lang.plugin.admin.general.deletedAt'
+        type: datetime
+    team_id:
+        label: 'csatar.csatar::lang.plugin.admin.teamReport.team'
+        type: number
+        searchable: true
+        select: 'concat(team_number, ''. '', name)'
+        relation: team
+    year:
+        label: 'csatar.csatar::lang.plugin.admin.teamReport.year'
+        type: number
+        searchable: true
+        sortable: true
+    number_of_adult_patrols:
+        label: 'csatar.csatar::lang.plugin.admin.teamReport.number_of_adult_patrols'
+        type: number
+        searchable: true
+        sortable: true
+    number_of_explorer_patrols:
+        label: 'csatar.csatar::lang.plugin.admin.teamReport.number_of_explorer_patrols'
+        type: number
+        searchable: true
+        sortable: true
+    number_of_scout_patrols:
+        label: 'csatar.csatar::lang.plugin.admin.teamReport.number_of_scout_patrols'
+        type: number
+        searchable: true
+        sortable: true
+    number_of_cub_scout_patrols:
+        label: 'csatar.csatar::lang.plugin.admin.teamReport.number_of_cub_scout_patrols'
+        type: number
+        searchable: true
+        sortable: true
+    number_of_mixed_patrols:
+        label: 'csatar.csatar::lang.plugin.admin.teamReport.number_of_mixed_patrols'
+        type: number
+        searchable: true
+        sortable: true
+    scouting_year_report_team_camp:
+        label: 'csatar.csatar::lang.plugin.admin.teamReport.scouting_year_report_team_camp'
+        type: text
+        searchable: true
+    scouting_year_report_homesteading:
+        label: 'csatar.csatar::lang.plugin.admin.teamReport.scouting_year_report_homesteading'
+        type: text
+        searchable: true
+    scouting_year_report_programs:
+        label: 'csatar.csatar::lang.plugin.admin.teamReport.scouting_year_report_programs'
+        type: text
+        searchable: true
+    scouting_year_team_applications:
+        label: 'csatar.csatar::lang.plugin.admin.teamReport.scouting_year_team_applications'
+        type: text
+        searchable: true
+    spiritual_leader_name:
+        label: 'csatar.csatar::lang.plugin.admin.teamReport.spiritual_leader_name'
+        type: text
+        searchable: true
+        sortable: true
+    spiritual_leader_religion_id:
+        label: 'csatar.csatar::lang.plugin.admin.teamReport.spiritual_leader_religion_id'
+        type: number
+        searchable: true
+        relation: spiritual_leader_religion
+        valueFrom: name
+    spiritual_leader_occupation:
+        label: 'csatar.csatar::lang.plugin.admin.teamReport.spiritual_leader_occupation'
+        type: text
+        searchable: true
+        sortable: true
+    team_fee:
+        label: 'csatar.csatar::lang.plugin.admin.teamReport.team_fee'
+        type: text
+        searchable: true
+        sortable: true
+    total_amount:
+        label: 'csatar.csatar::lang.plugin.admin.teamReport.total_amount'
+        type: text
+        searchable: true
+        sortable: true
+    currency_id:
+        label: 'csatar.csatar::lang.plugin.admin.teamReport.currency'
+        type: text
+        searchable: true
+        sortable: false
+        relation: currency
+        valueFrom: code
+    submitted_at:
+        label: 'csatar.csatar::lang.plugin.admin.teamReport.submittedAt'
+        type: text
+        searchable: true
+        sortable: true
+    approved_at:
+        label: 'csatar.csatar::lang.plugin.admin.teamReport.approvedAt'
+        type: text
+        searchable: true
+        sortable: true

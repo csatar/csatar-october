@@ -1,0 +1,13 @@
+fields:
+    name:
+        label: 'csatar.csatar::lang.plugin.admin.general.name'
+        span: auto
+        required: 0
+        readOnly: 1
+        type: text
+    'pivot[membership_fee]':
+        label: 'csatar.csatar::lang.plugin.admin.association.membershipFee'
+        span: auto
+        default: '0'
+        required: 1
+        type: text

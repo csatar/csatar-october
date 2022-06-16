@@ -1,0 +1,38 @@
+<?php namespace Csatar\Csatar\Controllers;
+
+use BackendMenu;
+use Flash;
+use Lang;
+use Backend\Classes\Controller;
+
+class SeederData extends Controller
+{
+    public function __construct()
+    {
+        parent::__construct();
+    }
+
+    public function seeder()
+    {
+        BackendMenu::setContext('Csatar.Csatar', 'main-menu-item-seeder-data', 'side-menu-seeder-data');
+    }
+
+    public function test()
+    {
+        BackendMenu::setContext('Csatar.Csatar', 'main-menu-item-seeder-data', 'side-menu-test-data');
+    }
+
+    public function onSeederDataUpdateButtonClick()
+    {
+        $seederData = new \Csatar\Csatar\Updates\SeederData();
+        $seederData->run();
+        Flash::success(Lang::get('csatar.csatar::lang.plugin.admin.admin.seederData.updateDataSuccess'));
+    }
+
+    public function onTestDataUpdateButtonClick()
+    {
+        $testData = new \Csatar\Csatar\Updates\TestData();
+        $testData->run();
+        Flash::success(Lang::get('csatar.csatar::lang.plugin.admin.admin.seederData.updateDataSuccess'));
+    }
+}

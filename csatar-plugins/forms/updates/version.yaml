@@ -3,24 +3,7 @@
 1.0.2:
     - 'Created table csatar_forms_forms'
     - builder_table_create_csatar_forms_forms.php
-1.0.3:
-    - 'Added seeder for Scout and Association'
-    - seeder_103.php
-1.0.4:
-    - 'Added seeder for District'
-    - seeder_104.php
-1.0.5:
-    - 'Added seeder for Team'
-    - seeder_105.php
-1.0.6:
-    - 'Added seeder for Troop'
-    - seeder_106.php
-1.0.7:
-    - 'Added seeder for Patrol'
-    - seeder_107.php
 1.0.8:
     - 'Updated table csatar_forms_forms'
     - builder_table_update_csatar_forms_forms.php
-1.0.9:
-    - 'Seeder to update existing forms with a slug'
-    - seeder_109.php
+1.0.10:
