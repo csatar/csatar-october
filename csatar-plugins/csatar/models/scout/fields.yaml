@@ -1,10 +1,4 @@
 fields:
-    user_id:
-        label: 'csatar.csatar::lang.plugin.admin.scout.userId'
-        span: auto
-        disabled: 1
-        readOnly: 1
-        type: number
     ecset_code:
         label: 'csatar.csatar::lang.plugin.admin.general.ecsetCode'
         span: auto
