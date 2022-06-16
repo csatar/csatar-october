@@ -25,8 +25,8 @@ class Patrol extends Model
     public $rules = [
         'name' => 'required',
         'email' => 'email',
-        'website' => 'url',
-        'facebook_page' => 'url|regex:(facebook)',
+        'website' => 'url|nullable',
+        'facebook_page' => 'url|regex:(facebook)|nullable',
         'patrol_leader_name' => 'required|min:5',
         'patrol_leader_phone' => 'required|regex:(^[0-9+-.()]{5,}$)',
         'patrol_leader_email' => 'required|email',

@@ -13,6 +13,9 @@
     <div class="layout-row">
         <?= $this->relationRender('districts') ?>
     </div>
+    <div class="layout-row">
+        <?= $this->relationRender('legal_relationships') ?>
+    </div>
 
 <?php else: ?>
     <p class="flash-message static error"><?= e($this->fatalError) ?></p>

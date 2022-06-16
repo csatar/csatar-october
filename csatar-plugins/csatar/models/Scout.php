@@ -223,6 +223,12 @@ class Scout extends Model
             'table' => 'csatar_csatar_scouts_training_qualifications',
             'pivot' => ['date', 'location', 'qualification_certificate_number', 'qualification', 'qualification_leader'],
         ],
+        'team_reports' => [
+            '\Csatar\Csatar\Models\TeamReport',
+            'table' => 'csatar_csatar_team_reports_scouts',
+            'pivot' => ['name', 'legal_relationship_id', 'leadership_qualification_id', 'ecset_code', 'membership_fee'],
+            'pivotModel' => '\Csatar\Csatar\Models\TeamReportScoutPivot',
+        ],
     ];
 
     public $attachOne = [
@@ -268,7 +274,7 @@ class Scout extends Model
                     throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.dateInTheFutureError'))]);
                 }
             }
-        }        
+        }
     }
 
     private function validatePivotQualificationFields($fields, $category)
@@ -286,6 +292,10 @@ class Scout extends Model
                     throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.qualificationLeaderRequiredError'))]);
                 }
             }
-        }        
+        }
+    }
+
+    public function getFullName(){
+        return $this->family_name . ' ' . $this->given_name;
     }
 }

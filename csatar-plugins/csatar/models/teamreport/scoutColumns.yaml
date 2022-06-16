@@ -1,0 +1,26 @@
+columns:
+    'pivot[name]':
+        label: 'csatar.csatar::lang.plugin.admin.teamReport.name'
+        type: text
+        searchable: true
+        sortable: true
+    'pivot[legal_relationship][name]':
+        label: 'csatar.csatar::lang.plugin.admin.teamReport.legalRelationship'
+        type: text
+        searchable: true
+        sortable: false
+    'pivot[leadership_qualification][name]':
+        label: 'csatar.csatar::lang.plugin.admin.teamReport.leadershipQualification'
+        type: text
+        searchable: true
+        sortable: false
+    'pivot[ecset_code]':
+        label: 'csatar.csatar::lang.plugin.admin.general.ecsetCode'
+        type: text
+        searchable: true
+        sortable: true
+    'pivot[membership_fee]':
+        label: 'csatar.csatar::lang.plugin.admin.teamReport.membershipFee'
+        type: text
+        searchable: true
+        sortable: true

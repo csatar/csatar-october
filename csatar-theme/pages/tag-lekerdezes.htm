@@ -2,7 +2,7 @@ url = "/tag-lekerdezes/:ecset_code?"
 layout = "default"
 title = "Tag lekérdezés"
 
-[checkscoutstatus]
+[checkScoutStatus]
 scoutCode = "{{ :ecset_code }}"
 json = "{{ :json }}"
 ==
@@ -16,5 +16,5 @@ function onStart()
 ?>
 ==
 <div class="container">
-    {% component 'checkscoutstatus' %}
+    {% component 'checkScoutStatus' %}
 </div>

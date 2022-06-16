@@ -27,7 +27,7 @@ class Discounts
             ],
             [
                 'name' => Lang::get('csatar.csatar::lang.plugin.component.logos.discounts.giftyShop'),
-                'address' => 'https://rmcssz.ro/www.giftyshop.ro',
+                'address' => 'https://www.giftyshop.ro/',
                 'logo' => '/home/discounts/gifty-shop.webp'
             ],
             [
