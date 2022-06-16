@@ -241,6 +241,11 @@ class Scout extends Model
         $this->ecset_code = strtoupper($this->generateEcsetCode());
     }
 
+    public function beforeSave()
+    {
+        $this->nameday = $this->nameday != '' ? $this->nameday : null;
+    }
+
     private function generateEcsetCode()
     {
         $team = Team::find($this->team_id);
