@@ -383,11 +383,11 @@ body>p.flash-message.warning {
 
 a.nav:link, a.nav:visited, a.nav:active {
     display: block;
-    padding: 0.5rem 0.5rem;
+    padding: 0.3rem 0.5rem;
     color: #F5F5F5 !important;
     text-decoration: none;
     font-weight: 300;
-    font-size: calc(0.8rem + 0.2vw);
+    font-size: calc(0.9rem + 0.2vw);
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
   }
   @media (prefers-reduced-motion: reduce) {
@@ -403,7 +403,7 @@ a.dropdown-item {
 
 .dropdown-menu {
     font-weight: 300;
-    font-size: calc(0.8rem + 0.2vw);
+    font-size: calc(0.9rem + 0.2vw);
     color: #F5F5F5 !important;
     border: 0px;
     border-top-left-radius: 0px !important;
@@ -414,12 +414,17 @@ a.dropdown-item {
 
 .dropdown-item {
     font-weight: 300;
-    font-size: calc(0.8rem + 0.2vw);
-    color: #F5F5F5 !important;
+    font-size: calc(0.9rem + 0.2vw);
+    color: #F5F5F5 !important;  
 }
 
 .dropdown-item:hover, .dropdown-item:focus, .dropdown-item.active, .dropdown-item:active {
     color: #78863F !important;
+    background-color: #e9ecef;
+}
+
+.navbar-dark .navbar-toggler {
+    border-color: transparent;
 }
 
 /* Button color and font settings */
@@ -462,7 +467,7 @@ a.btn-light:link, a.btn-light:visited, a.btn-light:active {
     font-size: calc(1rem + 0.1vw) !important;
     padding: 2;
     margin: 2;
-  }
+}
 
 /* Setting the radius properties to 12px */
 
@@ -492,6 +497,10 @@ a.btn-light:link, a.btn-light:visited, a.btn-light:active {
 .rounded-start {
     border-bottom-left-radius: 12px !important;
     border-top-left-radius: 12px !important;
+}
+
+.accordion-flush .accordion-item .accordion-button {
+    border-radius: 12px;
 }
 
 /* ICONS */
@@ -561,7 +570,7 @@ a.btn-light:link, a.btn-light:visited, a.btn-light:active {
 
 .search-btn {
     background-color: inherit;
-    padding: 8px 10px 0px 5px;
+    padding: 10px 10px 0px 5px;
     border-width: 0;
 }
 
