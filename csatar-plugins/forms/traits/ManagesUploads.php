@@ -127,24 +127,22 @@ trait ManagesUploads {
             }
 
             $model_field = Request::header('X-OCTOBER-FILEUPLOAD');
-            $model_type = Form::find(Input::get('formId'))->model;
-            $model_class = new $model_type();
-            $this->model = $model_class::find(Input::get('recordKeyValue'));
-            if (! $this->model->hasRelation($model_field)) {
+
+            if (! $this->record->hasRelation($model_field)) {
                 throw new \Exception('Invalid field');
             }
 
             // $this->validateUpload();
-
-            $fileModel = $this->model->getRelationDefinition($model_field)[0];
+            $sessionKey = uniqid('session_key', true);
+            \Session::put('key', $sessionKey);
+            $fileModel = $this->record->getRelationDefinition($model_field)[0];
 
             $file = new $fileModel();
             $file->data = $uploadedFile;
             $file->is_public = true;
             $file->save();
-
-            $this->model->{$model_field}()->add($file);
-
+            $this->record->{$model_field}()->add($file, $sessionKey);
+            
             //$file = $this->decorateFileAttributes($file);
 
             $result = [
@@ -168,10 +166,10 @@ trait ManagesUploads {
         $model_field = post('field');
         $file_id = post('file_id');
 
-        $fileModel = $this->model->getRelationDefinition($model_field)[0];
+        $fileModel = $this->record->getRelationDefinition($model_field)[0];
 
         if (($file_id) && ($file = $fileModel::find($file_id))) {
-            $this->model->{$model_field}()->remove($file);
+            $this->record->{$model_field}()->remove($file);
         }
     }
 

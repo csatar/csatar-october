@@ -2,7 +2,7 @@
 
 use http\Env\Request;
 use Input;
-use Flash;
+use Session;
 use Validator;
 use Csatar\Forms\Models\Form;
 use Response;
@@ -59,7 +59,7 @@ trait AjaxControllerSimple {
     }
 
     public function createForm($preview = false) {
-        
+
         $form  = Form::find($this->formId);
         $record = $this->getRecord();
 
@@ -97,7 +97,7 @@ trait AjaxControllerSimple {
         if(!$preview){
             $html .= $this->renderValidationTags($record);
         }
-        
+
         $variablesToPass = [
             'form' => $html,
             'additionalData' => $this->additionalData,
@@ -105,7 +105,7 @@ trait AjaxControllerSimple {
             'recordKeyValue' => $record->id ?? 'new',
             'from_id' => $form->id,
             'preview' => $preview ];
-        
+
         return $this->renderPartial('@partials/form', $variablesToPass);
     }
 
@@ -126,6 +126,8 @@ trait AjaxControllerSimple {
     }
 
     public function onSave() {
+
+        $sessionKey = Session::get('key');
         $isNew = Input::get('recordKeyValue') == 'new' ? true : false;
         $record = $this->getRecord();
 
@@ -153,7 +155,7 @@ trait AjaxControllerSimple {
         }
 
         if($isNew) {
-            $record = $record->create($data);
+            $record = $record->create($data, $sessionKey);
         }
         if (!$record->update($data) && !$isNew) {
             $error = e(trans('csatar.forms::lang.errors.canNotSaveValidated'));
