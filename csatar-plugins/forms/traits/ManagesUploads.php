@@ -5,6 +5,7 @@ use Request;
 use Response;
 use File;
 use Validator;
+use Csatar\Forms\Models\Form;
 
 // Returns a file size limit in bytes based on the PHP upload_max_filesize
 // and post_max_size
@@ -126,6 +127,9 @@ trait ManagesUploads {
             }
 
             $model_field = Request::header('X-OCTOBER-FILEUPLOAD');
+            $model_type = Form::find(Input::get('formId'))->model;
+            $model_class = new $model_type();
+            $this->model = $model_class::find(Input::get('recordKeyValue'));
             if (! $this->model->hasRelation($model_field)) {
                 throw new \Exception('Invalid field');
             }
