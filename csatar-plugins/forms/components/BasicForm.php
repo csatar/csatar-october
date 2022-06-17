@@ -226,8 +226,10 @@ class BasicForm extends ComponentBase  {
                     $this->renderedComponent = $this->createForm(true);
             }
         }
+    }
 
-
+    public function onRefresh()
+    {
     }
 
     private function getForm() {
