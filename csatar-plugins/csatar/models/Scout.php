@@ -22,6 +22,7 @@ class Scout extends Model
      * @var array Validation rules
      */
     public $rules = [
+        'team' => 'required',
         'family_name' => 'required',
         'given_name' => 'required',
         'email' => 'email',

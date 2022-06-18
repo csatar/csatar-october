@@ -88,7 +88,6 @@ trait AjaxControllerSimple {
             $config->fields[$name]['readOnly'] = 1;
         }
 
-
         $this->widget = new \Backend\Widgets\Form($this, $config);
 
         $this->loadBackendFormWidgets();
@@ -197,6 +196,14 @@ trait AjaxControllerSimple {
         $value      = $this->recordKeyValue ?? Input::get('recordKeyValue');
 
         $record      = $modelName::where($key, $value)->first();
+
+        // set attribute names
+        $config = $this->makeConfig($form->getFieldsConfig());
+        $attributeNames = [];
+        foreach ($config->fields as $key => $value) {
+            $attributeNames[$key] = $value['label']; 
+        }
+        $record->setValidationAttributeNames($attributeNames);
 
         if(!$record) {
             //TODO handle trashed records
