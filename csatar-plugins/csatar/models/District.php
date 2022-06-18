@@ -34,7 +34,7 @@ class District extends Model
         'bank_account' => 'min:5|nullable',
         'leadership_presentation' => 'required',
         'description' => 'required',
-        'association_id' => 'required',
+        'association' => 'required',
         'logo' => 'image|nullable',
     ];
 

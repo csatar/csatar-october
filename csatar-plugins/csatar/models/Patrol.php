@@ -32,7 +32,7 @@ class Patrol extends Model
         'patrol_leader_email' => 'required|email',
         'logo' => 'image|nullable',
         'age_group' => 'required',
-        'team_id' => 'required',
+        'team' => 'required',
     ];
 
     /**
