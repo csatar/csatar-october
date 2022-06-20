@@ -269,6 +269,7 @@
             'district' => [
                 'district' => 'Körzet',
                 'districts' => 'Körzetek',
+                'nameSuffix' => 'körzet',
                 'website' => 'Weboldal',
                 'description' => 'Leírás',
                 'facebookPage' => 'Facebook oldal',
@@ -282,6 +283,7 @@
             'team' => [
                 'team' => 'Csapat',
                 'teams' => 'Csapatok',
+                'nameSuffix' => 'cserkészcsapat',
                 'teamNumber' => 'Csapatszám',
                 'foundationDate' => 'Alapítás dátuma',
                 'website' => 'Weboldal',
@@ -304,6 +306,7 @@
             'troop' => [
                 'troop' => 'Raj',
                 'troops' => 'Rajok',
+                'nameSuffix' => 'raj',
                 'website' => 'Weboldal',
                 'facebookPage' => 'Facebook oldal',
                 'troopLeaderName' => 'Rajvezető neve',
@@ -316,7 +319,8 @@
             'patrol' => [
                 'patrol' => 'Őrs',
                 'patrols' => 'Őrsök',
-                'website' => 'Website',
+                'nameSuffix' => 'őrs',
+                'website' => 'Weboldal',
                 'facebookPage' => 'Facebook oldal',
                 'patrolLeaderName' => 'Őrsvezető neve',
                 'patrolLeaderPhone' => 'Őrsvezető telefonszáma',
