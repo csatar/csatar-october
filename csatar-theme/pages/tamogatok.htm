@@ -1,0 +1,11 @@
+url = "/tamogatok"
+layout = "default"
+title = "Támogatók"
+
+[logos]
+==
+<div class="container">
+    {% component "logos" mode="sponsors" hideSeparator=true %}
+    {% component "logos" mode="discounts" hideSeparator=false %}
+    {% component "logos" mode="partners" hideSeparator=false %}
+</div>
