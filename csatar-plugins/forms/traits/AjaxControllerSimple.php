@@ -176,8 +176,6 @@ trait AjaxControllerSimple {
         return [
             '#renderedFormArea' => $this->renderPartial('@partials/saved')
         ];
-
-        parent::onSave();
     }
 
     public function onDelete()
@@ -188,8 +186,6 @@ trait AjaxControllerSimple {
         } else {
             throw new NotFoundException();
         }
-
-        parent::onDelete();
     }
 
     public function renderValidationTags($model)
