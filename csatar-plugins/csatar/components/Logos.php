@@ -12,6 +12,7 @@ class Logos extends ComponentBase
     public $mode;
     public $title;
     public $logos;
+    public $hideSeparator;
 
     public function componentDetails()
     {
@@ -24,6 +25,7 @@ class Logos extends ComponentBase
     public function onRender()
     {
         $this->mode = $this->property('mode');
+        $this->hideSeparator = $this->property('hideSeparator');
 
         switch ($this->mode) {
             case 'sponsors':
