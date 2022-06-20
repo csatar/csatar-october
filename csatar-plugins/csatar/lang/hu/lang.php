@@ -269,6 +269,7 @@
             'district' => [
                 'district' => 'District',
                 'districts' => 'Districts',
+                'nameSuffix' => 'körzet',
                 'website' => 'Website',
                 'description' => 'Description',
                 'facebookPage' => 'Facebook page',
@@ -282,6 +283,7 @@
             'team' => [
                 'team' => 'Team',
                 'teams' => 'Teams',
+                'nameSuffix' => 'cserkészcsapat',
                 'teamNumber' => 'Team number',
                 'foundationDate' => 'Foundation date',
                 'website' => 'Website',
@@ -304,6 +306,7 @@
             'troop' => [
                 'troop' => 'Troop',
                 'troops' => 'Troops',
+                'nameSuffix' => 'raj',
                 'website' => 'Website',
                 'facebookPage' => 'Facebook page',
                 'troopLeaderName' => 'Troop leader name',
@@ -316,6 +319,7 @@
             'patrol' => [
                 'patrol' => 'Patrol',
                 'patrols' => 'Patrols',
+                'nameSuffix' => 'őrs',
                 'website' => 'Website',
                 'facebookPage' => 'Facebook page',
                 'patrolLeaderName' => 'Patrol leader name',

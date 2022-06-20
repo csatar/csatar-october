@@ -1,19 +1,13 @@
 <?php namespace Csatar\Csatar\Models;
 
-use Model;
+use Lang;
+use Csatar\Csatar\Models\OrganizationBase;
 
 /**
  * Model
  */
-class District extends Model
+class District extends OrganizationBase
 {
-    use \October\Rain\Database\Traits\Validation;
-    
-    use \October\Rain\Database\Traits\SoftDelete;
-
-    protected $dates = ['deleted_at'];
-
-
     /**
      * @var string The database table used by the model.
      */
@@ -74,6 +68,14 @@ class District extends Model
         'logo' => 'System\Models\File',
     ];
     
+    /**
+     * Override the getNameAttribute function
+     */
+    public function getNameAttribute()
+    {
+        return $this->attributes['name'] . ' ' . Lang::get('csatar.csatar::lang.plugin.admin.district.nameSuffix');
+    }
+
     /**
      * Scope a query to only include districts with a given association id.
      */

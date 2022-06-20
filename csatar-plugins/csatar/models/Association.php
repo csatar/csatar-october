@@ -1,19 +1,12 @@
 <?php namespace Csatar\Csatar\Models;
 
-use Model;
+use Csatar\Csatar\Models\OrganizationBase;
 
 /**
  * Model
  */
-class Association extends Model
+class Association extends OrganizationBase
 {
-    use \October\Rain\Database\Traits\Validation;
-
-    use \October\Rain\Database\Traits\SoftDelete;
-
-    protected $dates = ['deleted_at'];
-
-
     /**
      * @var string The database table used by the model.
      */
