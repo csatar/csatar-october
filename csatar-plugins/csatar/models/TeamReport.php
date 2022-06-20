@@ -1,5 +1,7 @@
 <?php namespace Csatar\Csatar\Models;
 
+use DateTime;
+use Lang;
 use Model;
 use Csatar\Csatar\Models\Scout;
 
@@ -24,7 +26,7 @@ class TeamReport extends Model
      * @var array Validation rules
      */
     public $rules = [
-        'team_id' => 'required',
+        'team' => 'required',
         'number_of_adult_patrols' => 'required|numeric|min:0',
         'number_of_explorer_patrols' => 'required|numeric|min:0',
         'number_of_scout_patrols' => 'required|numeric|min:0',
@@ -35,7 +37,7 @@ class TeamReport extends Model
         'scouting_year_report_programs' => 'required',
         'scouting_year_team_applications' => 'required',
         'spiritual_leader_name' => 'required',
-        'spiritual_leader_religion_id' => 'required',
+        'spiritual_leader_religion' => 'required',
         'spiritual_leader_occupation' => 'required',
     ];
 
@@ -45,22 +47,22 @@ class TeamReport extends Model
     public function beforeValidate() {
         // check that the team report for this team and this team doesn't already exist
         if (TeamReport::where('team_id', $this->team_id)->where('year', $this->year)->where('deleted_at', '')->exists()) {
-            throw new \ValidationException(['team_id' => \Lang::get('csatar.csatar::lang.plugin.component.teamReport.validationExceptions.teamReportAlreadyExists')]);
+            throw new \ValidationException(['team_id' => Lang::get('csatar.csatar::lang.plugin.component.teamReport.validationExceptions.teamReportAlreadyExists')]);
         }
 
         // check that the submission date is not in the future
-        if (isset($this->submitted_at) && (new \DateTime($this->submitted_at) > new \DateTime())) {
-            throw new \ValidationException(['submitted_at' => \Lang::get('csatar.csatar::lang.plugin.admin.teamReport.validationExceptions.dateInTheFuture')]);
+        if (isset($this->submitted_at) && (new DateTime($this->submitted_at) > new DateTime())) {
+            throw new \ValidationException(['submitted_at' => Lang::get('csatar.csatar::lang.plugin.admin.teamReport.validationExceptions.dateInTheFuture')]);
         }
         
         // check that the approval date is not in the future
-        if (isset($this->approved_at) && (new \DateTime($this->approved_at) > new \DateTime())) {
-            throw new \ValidationException(['approved_at' => \Lang::get('csatar.csatar::lang.plugin.admin.teamReport.validationExceptions.dateInTheFuture')]);
+        if (isset($this->approved_at) && (new DateTime($this->approved_at) > new DateTime())) {
+            throw new \ValidationException(['approved_at' => Lang::get('csatar.csatar::lang.plugin.admin.teamReport.validationExceptions.dateInTheFuture')]);
         }
         
         // check that the submission date is not after the approval date
-        if (isset($this->submitted_at) && isset($this->approved_at) && (new \DateTime($this->submitted_at) > new \DateTime($this->approved_at))) {
-            throw new \ValidationException(['approved_at' => \Lang::get('csatar.csatar::lang.plugin.admin.teamReport.validationExceptions.submissionDateAfterApprovalDate')]);
+        if (isset($this->submitted_at) && isset($this->approved_at) && (new DateTime($this->submitted_at) > new DateTime($this->approved_at))) {
+            throw new \ValidationException(['approved_at' => Lang::get('csatar.csatar::lang.plugin.admin.teamReport.validationExceptions.submissionDateAfterApprovalDate')]);
         }
     }
 

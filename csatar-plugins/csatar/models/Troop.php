@@ -25,7 +25,7 @@ class Troop extends OrganizationBase
         'troop_leader_phone' => 'required|regex:(^[0-9+-.()]{5,}$)',
         'troop_leader_email' => 'required|email',
         'logo' => 'image|nullable',
-        'team_id' => 'required',
+        'team' => 'required',
     ];
 
     /**

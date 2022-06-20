@@ -19,7 +19,7 @@ class TeamReportScoutPivot extends Pivot
      */
     public $rules = [
         'name' => 'required',
-        'legal_relationship_id' => 'required',
+        'legal_relationship' => 'required',
         'membership_fee' => 'required|digits_between:1,20',
     ];
 
