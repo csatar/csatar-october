@@ -94,11 +94,6 @@ class BasicForm extends ComponentBase  {
     public function init() {
         $form = $this->getForm();
         $this->record = $this->getRecord();
-
-        if(!$this->record && $this->recordKeyValue == $this->createRecordKeyword) {
-            $modelName      = $form->getModelName();
-            $this->record   = new $modelName;
-        }
     }
 
     /**

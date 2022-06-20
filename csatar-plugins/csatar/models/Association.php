@@ -32,7 +32,7 @@ class Association extends Model
         'logo' => 'image|nullable',
         'ecset_code_suffix' => 'max:2|alpha',
         'team_fee' => 'required|digits_between:1,20',
-        'currency_id' => 'required',
+        'currency' => 'required',
     ];
 
     /**

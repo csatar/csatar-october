@@ -429,7 +429,7 @@
             ],
             'checkScoutStatus' => [
                 'name' => 'Check Scout Status',
-                'description' => 'Return status for an scout dependent the scout id from the request.',
+                'description' => 'Returns the status of a scout, depending on the scout id from the request.',
                 'scoutCode' => [
                     'title' => 'Scout Code',
                     'description' => 'Unique scout id'

@@ -6,7 +6,7 @@ use Lang;
 use Model;
 use Validator;
 use October\Rain\Exception\ValidationException;
-
+use October\Rain\Parse\Yaml;
 
 /**
  * Model
@@ -52,7 +52,8 @@ class Form extends Model
      */
     public $table = 'csatar_forms_forms';
 
-    public function getFieldsConfig() {
+    public function getFieldsConfig()
+    {
         if ($this->fields_config[0] != '$') {
             return '$/' . str_replace('\\', '/', strtolower($this->model)) . '/' . $this->fields_config;
         }
@@ -60,8 +61,8 @@ class Form extends Model
         return $this->fields_config;
     }
 
-    public function getModelName(){
-
+    public function getModelName()
+    {
         $modelName = $this->model;
         if(substr( $modelName, 0, 1 ) !== "\\"){
             $modelName = '\\' . $modelName;
@@ -74,5 +75,4 @@ class Form extends Model
 
         return $modelName;
     }
-
 }
