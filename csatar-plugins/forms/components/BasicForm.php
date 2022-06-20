@@ -93,7 +93,13 @@ class BasicForm extends ComponentBase  {
      * Initialise plugin and parse request
      */
     public function init() {
+        $form = $this->getForm();
+        $this->record = $this->getRecord();
 
+        if(!$this->record && $this->recordKeyValue == $this->createRecordKeyword) {
+            $modelName      = $form->getModelName();
+            $this->record   = new $modelName;
+        }
     }
 
     /**
@@ -224,6 +230,7 @@ class BasicForm extends ComponentBase  {
                     $this->renderedComponent = $this->onDelete();
                     break;
                 default:
+                    $this->readOnly = true;
                     $this->renderedComponent = $this->createForm(true);
             }
         }

@@ -100,7 +100,10 @@ trait AjaxControllerSimple {
             $html .= $this->renderValidationTags($record);
         }
 
-        $html .= $this->renderBelongsToManyRalationsWithPivotData($record);
+        if($record->id){
+            $html .= $this->renderBelongsToManyRalationsWithPivotData($record);
+        }
+
         $variablesToPass = [
             'form' => $html,
             'additionalData' => $this->additionalData,
@@ -115,7 +118,7 @@ trait AjaxControllerSimple {
     public function onAddPivotRelation(){
         $relationName = Input::get('relationName');
         $relationId = Input::get($relationName);
-        return $this->createPivotForm(false, $relationName, $relationId);
+        return $this->createPivotForm($relationName, $relationId);
     }
 
     public function onCloseAddEditArea(){
@@ -164,8 +167,8 @@ trait AjaxControllerSimple {
 
     }
 
-    public function createPivotForm($preview = false, $relationName, $relationId) {
-
+    public function createPivotForm($relationName, $relationId) {
+        $preview = $this->readOnly;
         $record = $this->getRecord();
         $pivotModelName = array_key_exists($relationName, $record->belongsToMany) ? $record->belongsToMany[$relationName][0] : false;
         $relatedModel = $pivotModelName::find($relationId);
@@ -369,14 +372,17 @@ trait AjaxControllerSimple {
         $attributesToDisplay = $this->attributesToDisplay($pivotConfig);
         $relationLabel = array_key_exists('label', $definition) ? \Lang::get($definition['label']) : $relationName;
         $html = '<div class="col-12 mb-4">';
-        $html .= '<div class="field-section toolbar-item toolbar-primary"><h4 style="display:inline;">' . $relationLabel . '<i class="fa-solid fa-trash-can"></i>';
+        $html .= '<div class="field-section toolbar-item toolbar-primary"><h4 style="display:inline;">' . $relationLabel . '</h4>';
 
-        $html .= '</h4><div class="add-remove-button-container"><button class="btn btn-sm rounded btn-primary"
+        if(!$this->readOnly){
+            $html .= '<div class="add-remove-button-container"><button class="btn btn-sm rounded btn-primary"
             data-request="onListAttachOptions"
             data-request-data="relationName: \'' . $relationName . '\'"><i class="bi bi-plus-square"></i></button>';
-        $html .= '<button class="btn btn-default btn-danger btn-sm"
+            $html .= '<button class="btn btn-default btn-danger btn-sm"
             data-request="onDeletePivotRelation" data-request-data="relationName: \'' . $relationName . '\'"><i class="bi bi-trash"></i></button></div></div>';
-        $html .= '<div id="add-edit-' . $relationName . '"></div>';
+            $html .= '<div id="add-edit-' . $relationName . '"></div>';
+        }
+
         if(count($record->$relationName)>0){
             $html .= '<table style="width: 100%">';
             $html .= $this->generatePivotTableHeader($attributesToDisplay);
