@@ -28,8 +28,8 @@
                 <h2 class="accordion-header" id="{{ headingId ~ item.id }}">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="{{ '#' ~ collapseId ~ item.id }}" aria-expanded="false" aria-controls="{{ collapseId ~ item.id }}">
                         <a href="{{ organizationTypeForUrl ~ '/' ~ item.id }}" title="{{ 'Látogasd meg a(z) ' ~ item.name ~ ' oldalát' | _ }}">
-                            {{ item.name }}
-                            <i class="bi bi-box-arrow-up-right"></i>
+                            <span>{{ item.name }}</span>
+                            <span class="bi bi-box-arrow-up-right"></span>
                         </a>
                     </button>
                 </h2>
