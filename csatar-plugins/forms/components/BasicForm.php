@@ -92,6 +92,7 @@ class BasicForm extends ComponentBase  {
      * Initialise plugin and parse request
      */
     public function init() {
+        $this->getForm();
         $this->record = $this->getRecord();
     }
 

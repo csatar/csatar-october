@@ -142,7 +142,7 @@ trait AjaxControllerSimple {
         $dropDownConfig = [
             'fields' => [
                     $relationName => [
-                    "span" => "auto",
+                    "span" => "full",
                     "type" => "dropdown",
                 ],
             ],
@@ -246,9 +246,9 @@ trait AjaxControllerSimple {
         // Resolve belongsToMany relations
 
         foreach($record->belongsToMany as $name => $definition) {
-            if (! isset($data[$name])) {
+            if (!isset($data[$name]) || $data[$name] =='') {
                 continue;
-            }
+            }dd($data[$name]);
             $record->$name()->sync($data[$name]);
 //            dd($name, $definition, $data[$name]);
         }
@@ -306,7 +306,6 @@ trait AjaxControllerSimple {
         }
         $html .= "</div>";
 
-        $this->validationHtml = $html;
         return $html;
     }
 
@@ -393,6 +392,8 @@ trait AjaxControllerSimple {
             $html .= '<button class="btn btn-xs rounded btn-danger"
                 data-request="onDeletePivotRelation" data-request-data="relationName: \'' . $relationName . '\'"><i class="bi bi-trash"></i></button></div></div>';
             $html .= '<div id="add-edit-' . $relationName . '"></div>';
+        } else {
+            $html .= '</div>';
         }
 
         if(count($record->$relationName)>0){
@@ -425,7 +426,10 @@ trait AjaxControllerSimple {
     }
 
     public function generatePivotTableHeader($attributesToDisplay){
-        $tableHeaderRow = '<tr><th></th>';
+        $tableHeaderRow = '<tr>';
+        if(!$this->readOnly){
+            $tableHeaderRow .= '<th></th>';
+        }
         foreach ($attributesToDisplay as $data){
             // generate table header
             $label = $data['label'];
@@ -440,7 +444,9 @@ trait AjaxControllerSimple {
         $tableRows = '';
         foreach ($record->{$relationName} as $relatedRecord){
             $tableRows .= '<tr>';
-            $tableRows .= '<td><input type="checkbox" name="data[' . $relationName . '][]" value="' . $relatedRecord->id .'"></td>';
+            if(!$this->readOnly) {
+                $tableRows .= '<td><input type="checkbox" name="data[' . $relationName . '][]" value="' . $relatedRecord->id . '"></td>';
+            }
             foreach ($attributesToDisplay as $key => $data){
                 $tableRows .= '<td>' . ( array_key_exists('isPivot', $data) ? $relatedRecord->pivot->{$key} : $relatedRecord->{$key})  . '</td>';
             }
