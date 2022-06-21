@@ -22,7 +22,7 @@ class Scout extends Model
      * @var array Validation rules
      */
     public $rules = [
-        'team' => 'required',
+//        'team' => 'required',
         'family_name' => 'required',
         'given_name' => 'required',
         'email' => 'email',
@@ -30,9 +30,9 @@ class Scout extends Model
         'personal_identification_number' => 'required',
         'gender' => 'required',
         'is_active' => 'required',
-        'legal_relationship' => 'required',
-        'religion' => 'required',
-        'tshirt_size' => 'required',
+//        'legal_relationship' => 'required',
+//        'religion' => 'required',
+//        'tshirt_size' => 'required',
         'birthdate' => 'required',
         'birthplace' => 'required',
         'address_country' => 'required',
