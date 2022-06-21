@@ -163,6 +163,15 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
             $scout->save();
 
             if ($automaticActivation) {
+                $fullName = $scout->getFullName();
+                $data = [
+                    'name' => $fullName,
+                ];
+
+                Mail::send('csatar.csatar::mail.welcome', $data, function($message) use ($user, $fullName) {
+                    $message->to($user->email, $fullName);
+                });
+
                 Auth::login($user, $this->useRememberLogin());
             }
 
@@ -265,8 +274,6 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
             $link = $this->makeResetUrl($code);
 
             $data = [
-                'name' => $user->name,
-                'username' => $user->username,
                 'link' => $link,
                 'code' => $code
             ];
