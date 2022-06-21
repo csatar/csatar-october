@@ -436,6 +436,18 @@ a.dropdown-item {
     border-color: #99A56B;
 }
 
+.btn-danger {
+    color: #ffffff;
+    background-color: #B83222;
+    border-color: #B83222;
+}
+
+.btn-danger:hover, .btn-danger:focus, .btn-danger:active, .btn-danger.active, .open>.dropdown-toggle.btn-danger {
+    color: #B83222;
+    background-color: #FFC5C1;
+    border-color: #FFC5C1;
+}
+
 .btn-light {
     color: #78863F;
     background-color: #F5F5F5;
@@ -462,7 +474,13 @@ a.btn-light:link, a.btn-light:visited, a.btn-light:active {
     font-size: calc(1rem + 0.1vw) !important;
     padding: 2;
     margin: 2;
-  }
+}
+
+.btn-xs {
+    font-family: geomanist !important;
+    font-size: calc(1rem + 0.1vw) !important;
+    padding: 3px 8px;
+}
 
 /* Setting the radius properties to 12px */
 

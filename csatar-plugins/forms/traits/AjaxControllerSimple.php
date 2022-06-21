@@ -372,14 +372,14 @@ trait AjaxControllerSimple {
         $attributesToDisplay = $this->attributesToDisplay($pivotConfig);
         $relationLabel = array_key_exists('label', $definition) ? \Lang::get($definition['label']) : $relationName;
         $html = '<div class="col-12 mb-4">';
-        $html .= '<div class="field-section toolbar-item toolbar-primary"><h4 style="display:inline;">' . $relationLabel . '</h4>';
+        $html .= '<div class="field-section toolbar-item toolbar-primary mb-2"><h4 style="display:inline;">' . $relationLabel . '</h4>';
 
-        if(!$this->readOnly){
-            $html .= '<div class="add-remove-button-container"><button class="btn btn-sm rounded btn-primary"
-            data-request="onListAttachOptions"
-            data-request-data="relationName: \'' . $relationName . '\'"><i class="bi bi-plus-square"></i></button>';
-            $html .= '<button class="btn btn-default btn-danger btn-sm"
-            data-request="onDeletePivotRelation" data-request-data="relationName: \'' . $relationName . '\'"><i class="bi bi-trash"></i></button></div></div>';
+        if(!$this->readOnly) {
+            $html .= '<div class="add-remove-button-container"><button class="btn btn-xs rounded btn-primary me-2"
+                data-request="onListAttachOptions"
+                data-request-data="relationName: \'' . $relationName . '\'"><i class="bi bi-plus-square"></i></button>';
+            $html .= '<button class="btn btn-xs rounded btn-danger"
+                data-request="onDeletePivotRelation" data-request-data="relationName: \'' . $relationName . '\'"><i class="bi bi-trash"></i></button></div></div>';
             $html .= '<div id="add-edit-' . $relationName . '"></div>';
         }
 
