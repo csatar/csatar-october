@@ -28,6 +28,8 @@
                 'qualification' => 'Képzés',
                 'qualificationLeader' => 'Képzésvezető',
                 'relations' => 'Relations',
+                'password' => 'Password',
+                'password_confirmation' => 'Password confirmation',
             ],
             'scout' => [
                 'scout' => 'Scout',
@@ -153,6 +155,20 @@
                         'organizationSystemData' => 'Organization System Data',
                         'hierarchy' => 'Hierarchy',
                     ],
+                    'seederData' => [
+                        'data' => 'Data',
+                        'seederData' => 'Seeder data',
+                        'testData' => 'Test data',
+                    ],
+                ],
+                'seederData' => [
+                    'seederData' => 'Seeder data',
+                    'testData' => 'Test data',
+                    'seederDataConfirmMessage' => 'Would you like to update the seeder data?',
+                    'testDataConfirmMessage' => 'Would you like to update the test data?',
+                    'dataToBeAdded' => 'The following data will be added (if doesn\'t already exist):',
+                    'updateData' => 'Update data',
+                    'updateDataSuccess' => 'The data has been successfully updated.',
                 ],
             ],
             'allergy' => [
@@ -190,6 +206,9 @@
                 'tShirtSize' => 'T-Shirt Size',
                 'tShirtSizes' => 'T-Shirt Sizes',
                 'breadcrumb' => 'T-Shirt Sizes',
+            ],
+            'form' => [
+                'form' => 'Form',
             ],
             'promise' => [
                 'promise' => 'Promise',
@@ -238,15 +257,19 @@
                 'contactName' => 'Contact name',
                 'bankAccount' => 'Bank account',
                 'leadershipPresentation' => 'Leadership Presentation',
-                'districtsInfo' => 'Districts can be added after the Association has been created. Click the Create button after other information is filled.',
+                'additionalDetailsInfo' => 'Districts and Currencies can be added after the Association has been created. Click the Create button after other information is filled.',
                 'breadcrumb' => 'Associations',
                 'ecsetCode' => [
                     'suffix' => 'ECSET code suffix',
                 ],
+                'teamFee' => 'Team fee',
+                'membershipFee' => 'Membership fee',
+                'currency' => 'Currency',
             ],
             'district' => [
                 'district' => 'District',
                 'districts' => 'Districts',
+                'nameSuffix' => 'district',
                 'website' => 'Website',
                 'description' => 'Description',
                 'facebookPage' => 'Facebook page',
@@ -260,6 +283,7 @@
             'team' => [
                 'team' => 'Team',
                 'teams' => 'Teams',
+                'nameSuffix' => 'team',
                 'teamNumber' => 'Team number',
                 'foundationDate' => 'Foundation date',
                 'website' => 'Website',
@@ -282,6 +306,7 @@
             'troop' => [
                 'troop' => 'Troop',
                 'troops' => 'Troops',
+                'nameSuffix' => 'troop',
                 'website' => 'Website',
                 'facebookPage' => 'Facebook page',
                 'troopLeaderName' => 'Troop leader name',
@@ -294,6 +319,7 @@
             'patrol' => [
                 'patrol' => 'Patrol',
                 'patrols' => 'Patrols',
+                'nameSuffix' => 'patrol',
                 'website' => 'Website',
                 'facebookPage' => 'Facebook page',
                 'patrolLeaderName' => 'Patrol leader name',
@@ -304,6 +330,45 @@
                 'troop' => 'Troop',
                 'breadcrumb' => 'Patrols',
                 'troopNotInTheTeamError' => 'The selected Troop does not belong to the selected Team.',
+            ],
+            'currency' => [
+                'currency' => 'Currency',
+                'currencies' => 'Currencies',
+                'breadcrumb' => 'Currencies',
+                'code' => 'Code',
+            ],
+            'teamReport' => [
+                'teamReport' => 'Team report',
+                'teamReports' => 'Team reports',
+                'team' => 'Team',
+                'year' => 'Year',
+                'number_of_adult_patrols' => 'Number of adult patrols',
+                'number_of_explorer_patrols' => 'Number of explorer patrols',
+                'number_of_scout_patrols' => 'Number of scout patrols',
+                'number_of_cub_scout_patrols' => 'Number of little scout patrols',
+                'number_of_mixed_patrols' => 'Number of mixed patrols',
+                'scouting_year_report_team_camp' => 'Scouting year report (team camp)',
+                'scouting_year_report_homesteading' => 'Scouting year report (homesteading)',
+                'scouting_year_report_programs' => 'Scouting year report (programs)',
+                'scouting_year_team_applications' => 'Scouting year team applications',
+                'spiritual_leader_name' => 'Spiritual leader name',
+                'spiritual_leader_religion_id' => 'Spiritual leader religion',
+                'spiritual_leader_occupation' => 'Spiritual leader occupation',
+                'team_fee' => 'Team fee',
+                'total_amount' => 'Total amount',
+                'currency' => 'Currency',
+                'name' => 'Name',
+                'legalRelationship' => "Legal relationship",
+                'leadershipQualification' => 'Leadership qualification',
+                'membershipFee' => 'Membership fee',
+                'submittedAt' => 'Submitted at',
+                'approvedAt' => 'Approved at',
+                'breadcrumb' => 'Team reports',
+                'scoutsInfo' => 'The Scouts will be visible after the Team Report has been created. Click the Create button after other information is filled.',
+                'validationExceptions' => [
+                    'dateInTheFuture' => 'The selected Date is in the future.',
+                    'submissionDateAfterApprovalDate' => 'The Submission date cannot be after the approval date.',
+                ],
             ],
         ],
         'component' => [
@@ -365,9 +430,24 @@
                     'scoutsOfRomania' => 'Scouts Of Romania', // 'Románia Cserkészei'
                 ]
             ],
+            'teamReport' => [
+                'name' => 'Team Report',
+                'description' => 'Enables creating yearly reports for the teams.',
+                'statuses' => [
+                    'notCreated' => 'Not created',
+                    'created' => 'Created',
+                    'submitted' => 'Submitted',
+                    'approved' => 'Approved',
+                ],
+                'validationExceptions' => [
+                    'teamReportAlreadyExists' => 'The team report for this team and year already exists.',
+                    'teamReportCannotBeFound' => 'The team report cannot be found.',
+                    'teamCannotBeFound' => 'The team cannot be found.',
+                ],
+            ],
             'checkScoutStatus' => [
                 'name' => 'Check Scout Status',
-                'description' => 'Return status for an scout dependent the scout id from the request.',
+                'description' => 'Returns the status of a scout, depending on the scout id from the request.',
                 'scoutCode' => [
                     'title' => 'Scout Code',
                     'description' => 'Unique scout id'

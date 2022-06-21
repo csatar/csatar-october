@@ -5,6 +5,7 @@ use Request;
 use Response;
 use File;
 use Validator;
+use Csatar\Forms\Models\Form;
 
 // Returns a file size limit in bytes based on the PHP upload_max_filesize
 // and post_max_size
@@ -115,6 +116,7 @@ trait ManagesUploads {
 
         try {
             $uploadedFile = Input::file('file_data');
+            $isNew = Input::get('recordKeyValue') == 'new' ? true : false;
 
             if ( ! Input::hasFile('file_data')) {
                 $max_upload = human_filesize(file_upload_max_size(), 1);
@@ -126,20 +128,25 @@ trait ManagesUploads {
             }
 
             $model_field = Request::header('X-OCTOBER-FILEUPLOAD');
-            if (! $this->model->hasRelation($model_field)) {
+
+            if (! $this->record->hasRelation($model_field)) {
                 throw new \Exception('Invalid field');
             }
 
             // $this->validateUpload();
-
-            $fileModel = $this->model->getRelationDefinition($model_field)[0];
+            $sessionKey = uniqid('session_key', true);
+            \Session::put('key', $sessionKey);
+            $fileModel = $this->record->getRelationDefinition($model_field)[0];
 
             $file = new $fileModel();
             $file->data = $uploadedFile;
             $file->is_public = true;
             $file->save();
-
-            $this->model->{$model_field}()->add($file);
+            if($isNew){
+                $this->record->{$model_field}()->add($file, $sessionKey);
+            } else {
+                $this->record->{$model_field}()->add($file);
+            }
 
             //$file = $this->decorateFileAttributes($file);
 
@@ -164,10 +171,10 @@ trait ManagesUploads {
         $model_field = post('field');
         $file_id = post('file_id');
 
-        $fileModel = $this->model->getRelationDefinition($model_field)[0];
+        $fileModel = $this->record->getRelationDefinition($model_field)[0];
 
         if (($file_id) && ($file = $fileModel::find($file_id))) {
-            $this->model->{$model_field}()->remove($file);
+            $this->record->{$model_field}()->remove($file);
         }
     }
 

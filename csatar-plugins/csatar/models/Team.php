@@ -1,19 +1,13 @@
 <?php namespace Csatar\Csatar\Models;
 
-use Model;
+use Lang;
+use Csatar\Csatar\Models\OrganizationBase;
 
 /**
  * Model
  */
-class Team extends Model
+class Team extends OrganizationBase
 {
-    use \October\Rain\Database\Traits\Validation;
-
-    use \October\Rain\Database\Traits\SoftDelete;
-
-    protected $dates = ['deleted_at'];
-
-
     /**
      * @var string The database table used by the model.
      */
@@ -29,8 +23,8 @@ class Team extends Model
         'foundation_date' => 'required',
         'phone' => 'required|regex:(^[0-9+-.()]{5,}$)',
         'email' => 'required|email',
-        'website' => 'url',
-        'facebook_page' => 'url|regex:(facebook)',
+        'website' => 'url|nullable',
+        'facebook_page' => 'url|regex:(facebook)|nullable',
         'contact_name' => 'required|min:5',
         'contact_email' => 'required|email',
         'leadership_presentation' => 'required',
@@ -39,7 +33,7 @@ class Team extends Model
         'juridical_person_address' => 'required|min:5',
         'juridical_person_tax_number' => 'required',
         'juridical_person_bank_account' => 'required|min:5',
-        'district_id' => 'required',
+        'district' => 'required',
         'logo' => 'image|nullable',
     ];
 
@@ -112,11 +106,28 @@ class Team extends Model
         'troops' => '\Csatar\Csatar\Models\Troop',
         'patrols' => '\Csatar\Csatar\Models\Patrol',
         'scouts' => '\Csatar\Csatar\Models\Scout',
+        'teamReports' => '\Csatar\Csatar\Models\TeamReport',
     ];
 
     public $attachOne = [
         'logo' => 'System\Models\File'
     ];
+    
+    /**
+     * Override the getNameAttribute function
+     */
+    public function getNameAttribute()
+    {
+        return str_pad($this->attributes['team_number'], 3, '0', STR_PAD_LEFT) . ' - ' . $this->attributes['name'] . ' ' . Lang::get('csatar.csatar::lang.plugin.admin.team.nameSuffix');
+    }
+
+    /**
+     * Retrieve the team by Id.
+     */
+    public static function getById($id)
+    {
+        return Team::find($id);
+    }
 
     public $morphOne = [
         'content_page' => ['\Csatar\Csatar\Models\ContentPage', 'name' => 'model']

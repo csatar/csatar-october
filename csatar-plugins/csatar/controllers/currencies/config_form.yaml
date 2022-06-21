@@ -1,0 +1,10 @@
+name: 'csatar.csatar::lang.plugin.admin.currency.currency'
+form: $/csatar/csatar/models/currency/fields.yaml
+modelClass: Csatar\Csatar\Models\Currency
+defaultRedirect: csatar/csatar/currencies
+create:
+    redirect: 'csatar/csatar/currencies/update/:id'
+    redirectClose: csatar/csatar/currencies
+update:
+    redirect: csatar/csatar/currencies
+    redirectClose: csatar/csatar/currencies

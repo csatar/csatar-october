@@ -1,19 +1,12 @@
 <?php namespace Csatar\Csatar\Models;
 
-use Model;
+use Csatar\Csatar\Models\OrganizationBase;
 
 /**
  * Model
  */
-class Association extends Model
+class Association extends OrganizationBase
 {
-    use \October\Rain\Database\Traits\Validation;
-
-    use \October\Rain\Database\Traits\SoftDelete;
-
-    protected $dates = ['deleted_at'];
-
-
     /**
      * @var string The database table used by the model.
      */
@@ -30,7 +23,9 @@ class Association extends Model
         'bank_account' => 'min:5|nullable',
         'leadership_presentation' => 'required',
         'logo' => 'image|nullable',
-        'ecset_code_suffix' => 'max:2|alpha'
+        'ecset_code_suffix' => 'max:2|alpha',
+        'team_fee' => 'required|digits_between:1,20',
+        'currency' => 'required',
     ];
 
     /**
@@ -46,16 +41,28 @@ class Association extends Model
         'leadership_presentation',
         'logo',
         'ecset_code_suffix',
+        'team_fee',
+        'currency_id',
     ];
 
     /**
      * Relations
      */
+    public $belongsTo = [
+        'currency' => '\Csatar\Csatar\Models\Currency',
+    ];
+
+    public $belongsToMany = [
+        'legal_relationships' => [
+            '\Csatar\Csatar\Models\LegalRelationship',
+            'table' => 'csatar_csatar_associations_legal_relationships',
+            'pivot' => ['membership_fee'],
+            'pivotModel' => '\Csatar\Csatar\Models\AssociationLegalRelationshipPivot',
+        ],
+    ];
 
     public $hasMany = [
-        'districts' => [
-            '\Csatar\Csatar\Models\District',
-        ]
+        'districts' => '\Csatar\Csatar\Models\District',
     ];
 
     public $attachOne = [

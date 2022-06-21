@@ -22,14 +22,16 @@ class Scout extends Model
      * @var array Validation rules
      */
     public $rules = [
+        'team' => 'required',
         'family_name' => 'required',
         'given_name' => 'required',
         'email' => 'email',
         'phone' => 'required|regex:(^[0-9+-.()]{5,}$)',
         'personal_identification_number' => 'required',
+        'gender' => 'required',
         'is_active' => 'required',
-        'legal_relationship_id' => 'required',
-        'religion_id' => 'required',
+        'legal_relationship' => 'required',
+        'religion' => 'required',
         'tshirt_size' => 'required',
         'birthdate' => 'required',
         'birthplace' => 'required',
@@ -223,6 +225,12 @@ class Scout extends Model
             'table' => 'csatar_csatar_scouts_training_qualifications',
             'pivot' => ['date', 'location', 'qualification_certificate_number', 'qualification', 'qualification_leader'],
         ],
+        'team_reports' => [
+            '\Csatar\Csatar\Models\TeamReport',
+            'table' => 'csatar_csatar_team_reports_scouts',
+            'pivot' => ['name', 'legal_relationship_id', 'leadership_qualification_id', 'ecset_code', 'membership_fee'],
+            'pivotModel' => '\Csatar\Csatar\Models\TeamReportScoutPivot',
+        ],
     ];
 
     public $attachOne = [
@@ -233,6 +241,11 @@ class Scout extends Model
     public function beforeCreate()
     {
         $this->ecset_code = strtoupper($this->generateEcsetCode());
+    }
+
+    public function beforeSave()
+    {
+        $this->nameday = $this->nameday != '' ? $this->nameday : null;
     }
 
     private function generateEcsetCode()

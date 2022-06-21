@@ -46,8 +46,8 @@ model_name = "Team"
 model_id = "{{ :id }}"
 ==
 <?php
-function onStart()
-{
+public function onStart() {
+    $this['month'] = date('n');
     $this['team_id'] = $this->param('id');
     $this['model_name'] = 'team';
 }

@@ -1,6 +1,6 @@
 fields:
     name:
-        label: 'csatar.csatar::lang.plugin.admin.association.association'
+        label: 'csatar.csatar::lang.plugin.admin.general.name'
         span: auto
         required: 1
         type: text
@@ -32,6 +32,20 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.association.bankAccount'
         span: auto
         type: text
+    team_fee:
+        label: 'csatar.csatar::lang.plugin.admin.association.teamFee'
+        span: auto
+        default: '0'
+        required: 1
+        type: text
+    currency:
+        label: 'csatar.csatar::lang.plugin.admin.association.currency'
+        nameFrom: code
+        descriptionFrom: description
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        span: auto
+        required: 1
+        type: relation
     leadership_presentation:
         label: 'csatar.csatar::lang.plugin.admin.association.leadershipPresentation'
         size: ''

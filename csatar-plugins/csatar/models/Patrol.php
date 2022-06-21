@@ -1,19 +1,13 @@
 <?php namespace Csatar\Csatar\Models;
 
-use Model;
+use Lang;
+use Csatar\Csatar\Models\OrganizationBase;
 
 /**
  * Model
  */
-class Patrol extends Model
+class Patrol extends OrganizationBase
 {
-    use \October\Rain\Database\Traits\Validation;
-
-    use \October\Rain\Database\Traits\SoftDelete;
-
-    protected $dates = ['deleted_at'];
-
-
     /**
      * @var string The database table used by the model.
      */
@@ -24,15 +18,15 @@ class Patrol extends Model
      */
     public $rules = [
         'name' => 'required',
-        'email' => 'email',
-        'website' => 'url',
-        'facebook_page' => 'url|regex:(facebook)',
+        'email' => 'email|nullable',
+        'website' => 'url|nullable',
+        'facebook_page' => 'url|regex:(facebook)|nullable',
         'patrol_leader_name' => 'required|min:5',
         'patrol_leader_phone' => 'required|regex:(^[0-9+-.()]{5,}$)',
         'patrol_leader_email' => 'required|email',
         'logo' => 'image|nullable',
         'age_group' => 'required',
-        'team_id' => 'required',
+        'team' => 'required',
     ];
 
     /**
@@ -92,6 +86,14 @@ class Patrol extends Model
     public $attachOne = [
         'logo' => 'System\Models\File'
     ];
+    
+    /**
+     * Override the getNameAttribute function
+     */
+    public function getNameAttribute()
+    {
+        return $this->attributes['name'] . ' ' . Lang::get('csatar.csatar::lang.plugin.admin.patrol.nameSuffix');
+    }
 
     public $morphOne = [
         'content_page' => ['\Csatar\Csatar\Models\ContentPage', 'name' => 'model']

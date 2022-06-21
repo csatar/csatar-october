@@ -1,19 +1,13 @@
 <?php namespace Csatar\Csatar\Models;
 
-use Model;
+use Lang;
+use Csatar\Csatar\Models\OrganizationBase;
 
 /**
  * Model
  */
-class District extends Model
+class District extends OrganizationBase
 {
-    use \October\Rain\Database\Traits\Validation;
-
-    use \October\Rain\Database\Traits\SoftDelete;
-
-    protected $dates = ['deleted_at'];
-
-
     /**
      * @var string The database table used by the model.
      */
@@ -26,15 +20,15 @@ class District extends Model
         'name' => 'required',
         'phone' => 'required|regex:(^[0-9+-.()]{5,}$)',
         'email' => 'required|email',
-        'website' => 'url',
-        'facebook_page' => 'url|regex:(facebook)',
+        'website' => 'url|nullable',
+        'facebook_page' => 'url|regex:(facebook)|nullable',
         'contact_name' => 'required|min:5',
         'contact_email' => 'required|email',
         'address' => 'required|min:5',
-        'bank_account' => 'min:5',
+        'bank_account' => 'min:5|nullable',
         'leadership_presentation' => 'required',
         'description' => 'required',
-        'association_id' => 'required',
+        'association' => 'required',
         'logo' => 'image|nullable',
     ];
 
@@ -77,6 +71,14 @@ class District extends Model
     public $morphOne = [
         'content_page' => ['\Csatar\Csatar\Models\ContentPage', 'name' => 'model']
     ];
+
+    /**
+     * Override the getNameAttribute function
+     */
+    public function getNameAttribute()
+    {
+        return $this->attributes['name'] . ' ' . Lang::get('csatar.csatar::lang.plugin.admin.district.nameSuffix');
+    }
 
     /**
      * Scope a query to only include districts with a given association id.
