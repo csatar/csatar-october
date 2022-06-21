@@ -1,0 +1,49 @@
+subject = "CsaTáR kapcsolati űrlap"
+==
+
+Üdvözöljük!
+
+Ez egy megerősítő üzenet a kapcsolati űrlap kitöltéséről.
+{% if fieldsDetails|length %}
+A következőket küldte:
+
+{% for field in fieldsDetails %}
+{% if field.label == 'form_description' or field.label == 'form_alias' %}
+{% else %}
+{{ field.label }}: {{ field.value|raw|nl2br }}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+Üdvözlettel,
+A CsaTáR csapata
+==
+
+<p>Üdvözöljük!</p>
+
+<p>Ez egy megerősítő üzenet a kapcsolati űrlap kitöltéséről.</p>
+
+{% if fieldsDetails|length %}
+
+<p>A következőket küldte:</p>
+
+<table style="border: 0;">
+
+    {% for field in fieldsDetails %}
+
+        <tr>
+            <th style="vertical-align: top; text-align: left; padding-right: 10px;">{{ field.label }}: </th>
+            <td style="text-align: left;">{{ field.value|raw|nl2br }}</td>
+        </tr>
+
+    {% endfor %}
+
+</table>
+
+</br>
+
+{% endif %}
+
+<p>Üdvözlettel,<br>
+
+A CsaTáR csapata</p>
