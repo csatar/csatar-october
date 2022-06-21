@@ -1,19 +1,13 @@
 <?php namespace Csatar\Csatar\Models;
 
-use Model;
+use Lang;
+use Csatar\Csatar\Models\OrganizationBase;
 
 /**
  * Model
  */
-class Troop extends Model
+class Troop extends OrganizationBase
 {
-    use \October\Rain\Database\Traits\Validation;
-
-    use \October\Rain\Database\Traits\SoftDelete;
-
-    protected $dates = ['deleted_at'];
-
-
     /**
      * @var string The database table used by the model.
      */
@@ -31,7 +25,7 @@ class Troop extends Model
         'troop_leader_phone' => 'required|regex:(^[0-9+-.()]{5,}$)',
         'troop_leader_email' => 'required|email',
         'logo' => 'image|nullable',
-        'team_id' => 'required',
+        'team' => 'required',
     ];
 
     /**
@@ -64,6 +58,14 @@ class Troop extends Model
     public $attachOne = [
         'logo' => 'System\Models\File'
     ];
+    
+    /**
+     * Override the getNameAttribute function
+     */
+    public function getNameAttribute()
+    {
+        return $this->attributes['name'] . ' ' . Lang::get('csatar.csatar::lang.plugin.admin.troop.nameSuffix');
+    }
 
     /**
      * Scope a query to only include troops with a given team id.

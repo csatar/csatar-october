@@ -1,19 +1,12 @@
 <?php namespace Csatar\Csatar\Models;
 
-use Model;
+use Csatar\Csatar\Models\OrganizationBase;
 
 /**
  * Model
  */
-class Association extends Model
+class Association extends OrganizationBase
 {
-    use \October\Rain\Database\Traits\Validation;
-
-    use \October\Rain\Database\Traits\SoftDelete;
-
-    protected $dates = ['deleted_at'];
-
-
     /**
      * @var string The database table used by the model.
      */
@@ -32,7 +25,7 @@ class Association extends Model
         'logo' => 'image|nullable',
         'ecset_code_suffix' => 'max:2|alpha',
         'team_fee' => 'required|digits_between:1,20',
-        'currency_id' => 'required',
+        'currency' => 'required',
     ];
 
     /**
