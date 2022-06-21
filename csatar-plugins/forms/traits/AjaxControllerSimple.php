@@ -140,7 +140,7 @@ trait AjaxControllerSimple {
         });
 
         $model = new \Model();
-
+        
         $dropDownConfig = [
             'fields' => [
                     $relationName => [
@@ -369,12 +369,11 @@ trait AjaxControllerSimple {
         $attributesToDisplay = $this->attributesToDisplay($pivotConfig);
         $relationLabel = array_key_exists('label', $definition) ? \Lang::get($definition['label']) : $relationName;
         $html = '<div class="col-12 mb-4">';
-        $html .= '<div class="field-section toolbar-item toolbar-primary"><h4 style="display:inline;">' . $relationLabel . '<i class="fa-solid fa-trash-can"></i>';
-
-        $html .= '</h4><div class="add-remove-button-container"><button class="btn btn-sm rounded btn-primary"
+        $html .= '<div class="field-section toolbar-item toolbar-primary mb-2"><h4 style="display:inline;">' . $relationLabel . '<i class="fa-solid fa-trash-can"></i>';
+        $html .= '</h4><div class="add-remove-button-container"><button class="btn btn-xs rounded btn-primary me-2"
             data-request="onListAttachOptions"
             data-request-data="relationName: \'' . $relationName . '\'"><i class="bi bi-plus-square"></i></button>';
-        $html .= '<button class="btn btn-default btn-danger btn-sm"
+        $html .= '<button class="btn btn-xs rounded btn-danger"
             data-request="onDeletePivotRelation" data-request-data="relationName: \'' . $relationName . '\'"><i class="bi bi-trash"></i></button></div></div>';
         $html .= '<div id="add-edit-' . $relationName . '"></div>';
         if(count($record->$relationName)>0){
