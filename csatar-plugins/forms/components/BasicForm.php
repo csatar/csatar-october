@@ -6,7 +6,6 @@ use Csatar\Forms\Models\Form;
 use Csatar\Forms\Traits\ManagesUploads;
 use Csatar\Forms\Traits\AjaxControllerSimple;
 use October\Rain\Exception\ApplicationException;
-use Backend\Behaviors\RelationController;
 
 class BasicForm extends ComponentBase  {
 
@@ -81,7 +80,7 @@ class BasicForm extends ComponentBase  {
      * Data model
      * @var Model
      */
-    public $model = null;
+    public $record = null;
 
     /**
      * Contains the rendered component
@@ -93,13 +92,7 @@ class BasicForm extends ComponentBase  {
      * Initialise plugin and parse request
      */
     public function init() {
-        $form = $this->getForm();
         $this->record = $this->getRecord();
-
-        if(!$this->record && $this->recordKeyValue == $this->createRecordKeyword) {
-            $modelName      = $form->getModelName();
-            $this->record   = new $modelName;
-        }
     }
 
     /**
@@ -234,7 +227,10 @@ class BasicForm extends ComponentBase  {
                     $this->renderedComponent = $this->createForm(true);
             }
         }
+    }
 
+    public function onRefresh()
+    {
     }
 
     private function getForm() {

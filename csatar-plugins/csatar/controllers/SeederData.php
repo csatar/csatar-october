@@ -7,8 +7,15 @@ use Backend\Classes\Controller;
 
 class SeederData extends Controller
 {
+    public $seederData, $testData, $data;
+
     public function __construct()
     {
+        // initialize values
+        $this->vars['seederData'] = \Csatar\Csatar\Updates\SeederData::DATA;
+        $this->vars['testData'] = \Csatar\Csatar\Updates\TestData::DATA;
+
+        // call parent constructor
         parent::__construct();
     }
 

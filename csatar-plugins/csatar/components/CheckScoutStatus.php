@@ -58,7 +58,7 @@ class CheckScoutStatus extends ComponentBase
         $scout = Scout::where('ecset_code', $this->scoutCode)->get()->first();
 
         if (!$scout) {
-            return $this->renderPartial('@default', ['is_exists' => false]);
+            return $this->renderPartial('@default', ['is_exists' => false, 'code' => $this->scoutCode]);
         }
 
         $team = Team::where('id', $scout->team_id)->get()->first();

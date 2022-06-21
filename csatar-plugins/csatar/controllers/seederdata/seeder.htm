@@ -1,5 +1,22 @@
 <div class="layout-row">
     <h1><?= e(trans('csatar.csatar::lang.plugin.admin.admin.seederData.seederData')) ?></h1>
+    <p><?= e(trans('csatar.csatar::lang.plugin.admin.admin.seederData.dataToBeAdded')) ?></p>
+    <ul>
+        <?php
+            foreach ($seederData as $key => $value) {
+                echo '<li>' . e(trans('csatar.csatar::lang.plugin.admin.' . $key . '.' . $key)) . ': ';
+                if (!is_array($value[0])) {
+                    echo implode(', ', $value);
+                }
+                else if ($value[0]['title'] != null) {
+                    foreach ($value as $valueItem) {
+                        echo $valueItem['title'] . ', ';
+                    }
+                }
+                echo '</li>';
+            }
+        ?>
+    </ul>
     <p><?= e(trans('csatar.csatar::lang.plugin.admin.admin.seederData.seederDataConfirmMessage')) ?></p>
     <p><button type="button" data-request="onSeederDataUpdateButtonClick" class="btn btn-default"><?= e(trans('csatar.csatar::lang.plugin.admin.admin.seederData.updateData')) ?></button></p>
 </div>

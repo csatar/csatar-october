@@ -1,25 +1,34 @@
-<h4>{{ 'Tagság lekérdezése'|_ }}</h4>
+<div class="row">
+    <div class="col-lg-2 col-md-2">
 
-{% if code != -1 %}
-    {% if not is_exists %}
-    {{ 'Nem létezik'|_ }}
-    {% else %}
+    </div>
+    <div class="col-lg-8 col-md-8 col-sm-12 pb-5">
+        <h2>{{ 'Tagság lekérdezése'|_ }}{% if code != -1 %}: {{ code }}{% endif %}</h2>
+        {% if code != -1 %}
+        {% if not is_exists %}
+        {{ 'Nem létezik'|_ }}
+        {% else %}
         <p><a href="/tag/{{ code }}">{{ 'Létezik'|_ }}</a></p>
         <p><a href="/csapat/{{ team_id }}">{{ team_number }}. {{ team_name }}</a></p>
-        <p>{{ 'Státusz:'|_ }} {% if is_active %} {{ 'aktiv'|_ }} {% else %} {{ 'inaktiv'|_ }} {% endif %}</p>
-    {% endif %}
+        <p>{{ 'Státusz:'|_ }} {% if is_active %} {{ 'aktív'|_ }} {% else %} {{ 'inaktív'|_ }} {% endif %}</p>
+        {% endif %}
 
-    <h4>{{ 'Másik tag lekérdezése:'|_ }}</h4>
-{% endif %}
-<form class="text-left" data-request="onGetOtherScoutStatus" data-request-validate data-request-flash>
-    <div class="form-group my-2">
-        <input
-            name="ecsk_code"
-            type="text"
-            class="form-control rounded bg-white"
-            id="ecsk_code"
-            placeholder="ECSK azonosito"/>
-        <span data-validate-for="ecsk_code" class="errormsg">{{ 'Az ecset kódot kötelezően megkell adni!'|_ }}</span>
+        <p class="p-title">{{ 'Másik tag lekérdezése:'|_ }}</p>
+        {% endif %}
+        <form class="text-left" data-request="onGetOtherScoutStatus" data-request-validate data-request-flash>
+            <div class="form-group">
+                <input
+                    name="ecsk_code"
+                    type="text"
+                    class="form-control rounded bg-white"
+                    id="ecsk_code"
+                    placeholder="{{ 'ECSK azonosító'|_ }}"/>
+                <span data-validate-for="ecsk_code" class="errormsg">{{ 'Az ECSET kódot kötelező megadni!'|_ }}</span>
+            </div>
+            <button type="submit" class="btn rounded btn-primary my-3">{{ 'Ellenőrzés'|_ }}</button>
+        </form>
     </div>
-    <button type="submit" class="btn rounded btn-primary my-3">{{ 'Ellenőrzés'|_ }}</button>
-</form>
+    <div class="col-lg-2 col-md-2">
+
+    </div>
+</div>

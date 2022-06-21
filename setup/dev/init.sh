@@ -1,9 +1,10 @@
-echo 'Migrating database...'
-docker-compose exec -u root web php artisan october:migrate
 docker-compose exec -u root web php artisan key:generate
 
 echo ' Synchronizing project...'
 docker-compose exec -u root web php artisan project:sync
+
+echo 'Migrating database...'
+docker-compose exec -u root web php artisan october:migrate
 
 echo 'Setting permissions...'
 docker-compose exec -u root web chown -R www-data:www-data /var/www/html/storage

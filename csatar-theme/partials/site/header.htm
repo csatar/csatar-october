@@ -1,8 +1,10 @@
 ==
+<?php
 function onStart()
 {
     $this['ecset_code'] = isset(Auth::user()->scout->ecset_code) ? Auth::user()->scout->ecset_code : null;
 }
+?>
 ==
 <div id="header">
     <div class="bg-white d-flex justify-content-center fixed-top">
@@ -10,13 +12,13 @@ function onStart()
             <div class="row">
 
                 {# logo #}
-                <div class="col-12 col-lg-1 order-1 order-lg-1 bg_info d-flex justify-content-center mb-2 mb-lg-0">
+                <div class="col-2 col-sm-1 col-md-2 col-lg-1 order-1 order-md-1 d-flex justify-content-center mb-2 mb-lg-0">
                     <a href={{ url('/') }}><img class="ps-5" src="{{ 'assets/images/csatar_logo.svg' | theme }}" alt="{{ 'CSATÁR' | _ }}" height="40px"></a>
                 </div>
 
                 {# nav #}
-                <div class="col-2 col-lg-6 order-2 order-lg-2 text-light">
-                    <nav class="navbar navbar-expand-sm bg-primary navbar-dark m-0 p-0">
+                <div class="col-1 col-sm-1 col-md-1 col-lg-6 order-2 order-md-2 pt-1 text-light">
+                    <nav class="navbar navbar-expand-md navbar-dark m-0 p-0">
                         <div class="container-fluid">
                             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
                             <span class="navbar-toggler-icon"></span>
@@ -40,10 +42,10 @@ function onStart()
                                         </li>
                                     </ul>
                                 </li>
-                                <!--<li class="nav-item">
-                                <a class="nav" href="#">{{ 'Link' | _ }}</a>
-                                </li>
                                 <li class="nav-item">
+                                    <a class="nav" href="/tamogatok">{{ 'Támogatók' | _ }}</a>
+                                </li>
+                                <!--<li class="nav-item">
                                 <a class="nav" href="#">{{ 'Link' | _ }}</a>
                                 </li>
                                 <li class="nav-item dropdown">
@@ -61,7 +63,7 @@ function onStart()
                 </div>
 
                 {# search #}
-                <div class="col-12 col-lg-3 order-4 order-lg-3 text-light">
+                <div class="col-12 col-md-12 col-lg-3 order-4 order-md-4 order-lg-3 pt-2 pt-lg-0 text-light">
                     <div class="ms-auto px-3">
                         <div class="input-group rounded bg-light">
                         <input type="search" class="form-control rounded bg-light border-0" placeholder="{{ 'Keresés' | _ }}" aria-label="Search" aria-describedby="search-addon" />
@@ -75,16 +77,16 @@ function onStart()
                 </div>
 
                 {# controls #}
-                <div class="col-10 col-lg-2 order-3 d-flex order-lg-4 pe-4 text-light justify-content-end">
+                <div class="col-9 col-sm-10 col-md-9 col-lg-2 order-3 order-md-3 d-flex pt-1 pe-4 text-light justify-content-end">
                     {% if user %}
                     <a href="/elfelejtett-jelszo" class="btn controls" type="button">
-                    <i class="gear-out-w-md"></i>
+                        <i class="gear-out-w-md"></i>
                     </a>
                     <a href="/tag/{{ ecset_code}}" class="btn controls" type="button">
-                    <i class="user-out-w-md"></i>
+                        <i class="user-out-w-md"></i>
                     </a>
-                    <a data-request="onLogout" class="btn controls" type="button">
-                    <i class="exit-out-w-md"></i>
+                    <a data-request="onLogout" data-request-data="redirect: '/bejelentkezes'" class="btn controls" type="button">
+                        <i class="exit-out-w-md"></i>
                     </a>
                     {% else %}
                     <a href="/bejelentkezes" class="btn controls" type="button">

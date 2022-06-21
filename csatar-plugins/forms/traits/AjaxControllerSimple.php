@@ -4,6 +4,8 @@ use http\Env\Request;
 use Input;
 use Flash;
 use File;
+use Lang;
+use Session;
 use Validator;
 use Csatar\Forms\Models\Form;
 use Response;
@@ -59,21 +61,14 @@ trait AjaxControllerSimple {
         }
     }
 
-    public function createForm($preview = false) {
-
+    public function createForm($preview = false)
+    {
         $form  = Form::find($this->formId);
         $record = $this->getRecord();
-
-        if(!$record && $this->recordKeyValue == $this->createRecordKeyword) {
-            $modelName  = $form->getModelName();
-            $record      = new $modelName;
-        }
 
         if(!$record) {
             throw new NotFoundException();
         }
-
-        $this->model = $record;
 
         $config = $this->makeConfig($form->getFieldsConfig());
         $config->arrayName = 'data';
@@ -213,7 +208,8 @@ trait AjaxControllerSimple {
      * Edits a relation
      * @return boolean
      */
-    public function onEditRelated() {
+    public function onEditRelated()
+    {
         if ($response = $this->middleware()) {
             return $response;
         }
@@ -225,19 +221,13 @@ trait AjaxControllerSimple {
         return $this->editor($this->relation->target, $this->model);
     }
 
-    public function onSave() {
-
+    public function onSave()
+    {
+        $sessionKey = Session::get('key');
         $isNew = Input::get('recordKeyValue') == 'new' ? true : false;
         $record = $this->getRecord();
 
-        $form = Form::find(Input::get('formId'));
-        $modelName = $form->getModelName();
-
-        if(!$record && $isNew) {
-            $record = new $modelName;
-        }
-
-        if (! $data = Input::get('data')) {
+        if (!$data = Input::get('data')) {
             $error = e(trans('csatar.forms::lang.errors.noDataArray'));
             throw new ApplicationException($error);
         }
@@ -263,8 +253,26 @@ trait AjaxControllerSimple {
 //            dd($name, $definition, $data[$name]);
         }
 
-        if($isNew) {
-            $record = $record->create($data);
+        // validate the form
+        $form = Form::find($this->formId ?? Input::get('formId'));
+        $config = $this->makeConfig($form->getFieldsConfig());
+        $attributeNames = [];
+        foreach ($config->fields as $key => $value) {
+            $attributeNames[$key] = Lang::get($value['label']);
+        }
+        $validation = Validator::make(
+            $data,
+            $record->rules,
+            [],
+            $attributeNames,
+        );
+        if ($validation->fails()) {
+            throw new \ValidationException($validation);
+        }
+
+        // save the data
+        if ($isNew) {
+            $record = $record->create($data, $sessionKey);
         }
         if (!$record->update($data) && !$isNew) {
             $error = e(trans('csatar.forms::lang.errors.canNotSaveValidated'));
@@ -280,24 +288,25 @@ trait AjaxControllerSimple {
         ];
     }
 
-    public function onDelete() {
-
+    public function onDelete()
+    {
         $record = $this->getRecord();
         if($record){
             $record->delete();
         } else {
             throw new NotFoundException();
         }
-
     }
 
-    public function renderValidationTags($model) {
+    public function renderValidationTags($model)
+    {
         $html = "<div id='validationTags'>";
         foreach($model->rules as $fieldName => $rule) {
             $html .= "<span data-validate-for='" . $fieldName . "'></span>";
         }
         $html .= "</div>";
 
+        $this->validationHtml = $html;
         return $html;
     }
 
@@ -307,9 +316,12 @@ trait AjaxControllerSimple {
         $key        = $this->recordKeyParam ?? Input::get('recordKeyParam');
         $value      = $this->recordKeyValue ?? Input::get('recordKeyValue');
 
-        $record      = $modelName::where($key, $value)->first();
+        $record     = $modelName::where($key, $value)->first();
+        if (!$record && ($value == 'new' || $value == 'letrehozas')) {
+            $record = new $modelName;
+        }
 
-        if(!$record) {
+        if (!$record) {
             //TODO handle trashed records
             return null;
         }

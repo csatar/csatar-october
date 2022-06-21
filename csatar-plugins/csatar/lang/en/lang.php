@@ -166,6 +166,7 @@
                     'testData' => 'Test data',
                     'seederDataConfirmMessage' => 'Would you like to update the seeder data?',
                     'testDataConfirmMessage' => 'Would you like to update the test data?',
+                    'dataToBeAdded' => 'The following data will be added (if doesn\'t already exist):',
                     'updateData' => 'Update data',
                     'updateDataSuccess' => 'The data has been successfully updated.',
                 ],
@@ -205,6 +206,9 @@
                 'tShirtSize' => 'T-Shirt Size',
                 'tShirtSizes' => 'T-Shirt Sizes',
                 'breadcrumb' => 'T-Shirt Sizes',
+            ],
+            'form' => [
+                'form' => 'Form',
             ],
             'promise' => [
                 'promise' => 'Promise',
@@ -265,6 +269,7 @@
             'district' => [
                 'district' => 'District',
                 'districts' => 'Districts',
+                'nameSuffix' => 'district',
                 'website' => 'Website',
                 'description' => 'Description',
                 'facebookPage' => 'Facebook page',
@@ -278,6 +283,7 @@
             'team' => [
                 'team' => 'Team',
                 'teams' => 'Teams',
+                'nameSuffix' => 'team',
                 'teamNumber' => 'Team number',
                 'foundationDate' => 'Foundation date',
                 'website' => 'Website',
@@ -300,6 +306,7 @@
             'troop' => [
                 'troop' => 'Troop',
                 'troops' => 'Troops',
+                'nameSuffix' => 'troop',
                 'website' => 'Website',
                 'facebookPage' => 'Facebook page',
                 'troopLeaderName' => 'Troop leader name',
@@ -312,6 +319,7 @@
             'patrol' => [
                 'patrol' => 'Patrol',
                 'patrols' => 'Patrols',
+                'nameSuffix' => 'patrol',
                 'website' => 'Website',
                 'facebookPage' => 'Facebook page',
                 'patrolLeaderName' => 'Patrol leader name',
@@ -425,7 +433,7 @@
             ],
             'checkScoutStatus' => [
                 'name' => 'Check Scout Status',
-                'description' => 'Return status for an scout dependent the scout id from the request.',
+                'description' => 'Returns the status of a scout, depending on the scout id from the request.',
                 'scoutCode' => [
                     'title' => 'Scout Code',
                     'description' => 'Unique scout id'

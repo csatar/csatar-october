@@ -22,14 +22,16 @@ class Scout extends Model
      * @var array Validation rules
      */
     public $rules = [
+        'team' => 'required',
         'family_name' => 'required',
         'given_name' => 'required',
         'email' => 'email',
         'phone' => 'required|regex:(^[0-9+-.()]{5,}$)',
         'personal_identification_number' => 'required',
+        'gender' => 'required',
         'is_active' => 'required',
-        'legal_relationship_id' => 'required',
-        'religion_id' => 'required',
+        'legal_relationship' => 'required',
+        'religion' => 'required',
         'tshirt_size' => 'required',
         'birthdate' => 'required',
         'birthplace' => 'required',
@@ -249,6 +251,11 @@ class Scout extends Model
     public function beforeCreate()
     {
         $this->ecset_code = strtoupper($this->generateEcsetCode());
+    }
+
+    public function beforeSave()
+    {
+        $this->nameday = $this->nameday != '' ? $this->nameday : null;
     }
 
     private function generateEcsetCode()

@@ -229,9 +229,9 @@ label {
     width: 140px;
     height: 50px;
 }
-    
+
 .bg-primary {
-    background-color: #78863F !important; 
+    background-color: #78863F !important;
 }
 
 .text-primary {
@@ -383,11 +383,11 @@ body>p.flash-message.warning {
 
 a.nav:link, a.nav:visited, a.nav:active {
     display: block;
-    padding: 0.5rem 0.5rem;
+    padding: 0.3rem 0.5rem;
     color: #F5F5F5 !important;
     text-decoration: none;
     font-weight: 300;
-    font-size: calc(0.8rem + 0.2vw);
+    font-size: calc(0.9rem + 0.2vw);
     transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
   }
   @media (prefers-reduced-motion: reduce) {
@@ -403,7 +403,7 @@ a.dropdown-item {
 
 .dropdown-menu {
     font-weight: 300;
-    font-size: calc(0.8rem + 0.2vw);
+    font-size: calc(0.9rem + 0.2vw);
     color: #F5F5F5 !important;
     border: 0px;
     border-top-left-radius: 0px !important;
@@ -414,12 +414,17 @@ a.dropdown-item {
 
 .dropdown-item {
     font-weight: 300;
-    font-size: calc(0.8rem + 0.2vw);
+    font-size: calc(0.9rem + 0.2vw);
     color: #F5F5F5 !important;
 }
 
 .dropdown-item:hover, .dropdown-item:focus, .dropdown-item.active, .dropdown-item:active {
     color: #78863F !important;
+    background-color: #e9ecef;
+}
+
+.navbar-dark .navbar-toggler {
+    border-color: transparent;
 }
 
 /* Button color and font settings */
@@ -487,29 +492,33 @@ a.btn-light:link, a.btn-light:visited, a.btn-light:active {
 .rounded {
     border-radius: 12px !important;
 }
-  
+
 .rounded-pill {
     border-radius: 12px !important;
 }
-  
+
 .rounded-top {
     border-top-left-radius: 12px !important;
     border-top-right-radius: 12px !important;
 }
-  
+
 .rounded-end {
     border-top-right-radius: 12px !important;
     border-bottom-right-radius: 12px !important;
 }
-  
+
 .rounded-bottom {
     border-bottom-right-radius: 12px !important;
     border-bottom-left-radius: 12px !important;
 }
-  
+
 .rounded-start {
     border-bottom-left-radius: 12px !important;
     border-top-left-radius: 12px !important;
+}
+
+.accordion-flush .accordion-item .accordion-button {
+    border-radius: 12px;
 }
 
 /* ICONS */
@@ -579,7 +588,7 @@ a.btn-light:link, a.btn-light:visited, a.btn-light:active {
 
 .search-btn {
     background-color: inherit;
-    padding: 8px 10px 0px 5px;
+    padding: 10px 10px 0px 5px;
     border-width: 0;
 }
 
@@ -681,17 +690,17 @@ a.login:link, a.login:visited, a.login:active {
 
 /* Image size control */
 
-.svg-container { 
+.svg-container {
 	display: inline-block;
 	position: relative;
 	width: 100%;
-	padding-bottom: 100%; 
+	padding-bottom: 100%;
 	vertical-align: middle;
-	overflow: hidden; 
+	overflow: hidden;
 }
 
-.svg-content { 
-    max-height: 100%;  
+.svg-content {
+    max-height: 100%;
 	display: inline-block;
 	position: absolute;
     transform: translateX(50%);
@@ -746,8 +755,8 @@ a:active {
 ::-webkit-search-decoration,
 ::-webkit-search-cancel-button,
 ::-webkit-search-results-button,
-::-webkit-search-results-decoration { 
-  display: none; 
+::-webkit-search-results-decoration {
+  display: none;
 }
 
 /* Remove colors for autofill fields */
