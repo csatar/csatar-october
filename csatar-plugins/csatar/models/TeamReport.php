@@ -26,7 +26,7 @@ class TeamReport extends Model
      * @var array Validation rules
      */
     public $rules = [
-        'team' => 'required',
+        //Validation //'team' => 'required',
         'number_of_adult_patrols' => 'required|numeric|min:0',
         'number_of_explorer_patrols' => 'required|numeric|min:0',
         'number_of_scout_patrols' => 'required|numeric|min:0',
@@ -37,14 +37,15 @@ class TeamReport extends Model
         'scouting_year_report_programs' => 'required',
         'scouting_year_team_applications' => 'required',
         'spiritual_leader_name' => 'required',
-        'spiritual_leader_religion' => 'required',
+        //Validation //'spiritual_leader_religion' => 'required',
         'spiritual_leader_occupation' => 'required',
     ];
 
     /**
      * Add custom validation
-     */
-    public function beforeValidate() {
+     */    
+    public function beforeValidate()
+    {
         // check that the team report for this team and this team doesn't already exist
         if (TeamReport::where('team_id', $this->team_id)->where('year', $this->year)->where('deleted_at', '')->exists()) {
             throw new \ValidationException(['team_id' => Lang::get('csatar.csatar::lang.plugin.component.teamReport.validationExceptions.teamReportAlreadyExists')]);
@@ -142,5 +143,21 @@ class TeamReport extends Model
             $this->total_amount += $membership_fee;
         }
         $this->save();
+    }
+
+    /**
+     * Determine the team report's status
+     */
+    public function getStatus()
+    {
+        if (isset($this->approved_at)) {
+            return Lang::get('csatar.csatar::lang.plugin.admin.teamReport.statuses.approved');
+        }
+        else if (isset($this->submitted_at)) {
+            return Lang::get('csatar.csatar::lang.plugin.admin.teamReport.statuses.submitted');
+        }
+        else {
+            return Lang::get('csatar.csatar::lang.plugin.admin.teamReport.statuses.created');
+        }
     }
 }

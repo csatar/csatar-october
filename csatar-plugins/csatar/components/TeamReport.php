@@ -114,20 +114,7 @@ class TeamReport extends ComponentBase
         }
 
         // set the team report status
-        if (isset($this->teamReport)) {
-            if (isset($this->teamReport->approved_at)) {
-                $this->status = Lang::get('csatar.csatar::lang.plugin.component.teamReport.statuses.approved');
-            }
-            else if (isset($this->teamReport->submitted_at)) {
-                $this->status = Lang::get('csatar.csatar::lang.plugin.component.teamReport.statuses.submitted');
-            }
-            else {
-                $this->status = Lang::get('csatar.csatar::lang.plugin.component.teamReport.statuses.created');
-            }
-        }
-        else {
-            $this->status = Lang::get('csatar.csatar::lang.plugin.component.teamReport.statuses.notCreated');
-        }
+        $this->status = isset($this->teamReport) ? $this->teamReport->getStatus() : Lang::get('csatar.csatar::lang.plugin.admin.teamReport.statuses.notCreated');
 
         // call the basicForm's onRun method
         array_multisort(array_column($this->scouts, 'name'), SORT_ASC, $this->scouts);
