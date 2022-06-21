@@ -8,6 +8,14 @@ url = "/csapatjelentesek/:id"
 localeTitle[en] = "Team reports"
 localeTitle[hu] = "Csapatjelentések"
 ==
+<?php
+public function onStart(){
+    if (!Auth::user()) {
+        return Redirect::to('/bejelentkezes');
+    }
+}
+?>
+==
 <div class="container">
     {% component 'teamReports' %}
 </div>

@@ -11,7 +11,7 @@ use Csatar\Forms\Components\BasicForm;
 
 class TeamReport extends ComponentBase
 {
-    public $id, $teamId, $action, $year, $teamReport, $team, $scouts, $teamFee, $totalAmount, $currency, $status, $basicForm;
+    public $id, $teamId, $action, $year, $teamReport, $team, $scouts, $teamFee, $totalAmount, $currency, $status, $basicForm, $redirectFromWaitingForApproval;
 
     public function init()
     {
@@ -39,6 +39,7 @@ class TeamReport extends ComponentBase
         // retrieve the parameters
         $this->id = $this->param('id');
         $this->action = $this->param('action');
+        $this->redirectFromWaitingForApproval = Input::get('redirectFromWaitingForApproval') ?? 'false';
 
         // actions and redirections depending on the mode
         if ($this->id == $this->basicForm->createRecordKeyword) {
@@ -137,6 +138,9 @@ class TeamReport extends ComponentBase
         $this->teamReport = \Csatar\Csatar\Models\TeamReport::find($this->id);
         $this->teamReport->approved_at = (new \DateTime())->format('Y-m-d');
         $this->teamReport->save();
+        if (Input::get('redirectFromWaitingForApproval') == 'true') {
+            return Redirect::to('/csapatjelentesek/elfogadasravaro');
+        }
         return Redirect::to('/csapatjelentes/' . $this->id);
     }
 }

@@ -8,6 +8,14 @@ title = "Csapatjelentés"
 localeTitle[en] = "Team Report"
 localeTitle[hu] = "Csapatjelentés"
 ==
+<?php
+public function onStart(){
+    if (!Auth::user()) {
+        return Redirect::to('/bejelentkezes');
+    }
+}
+?>
+==
 <div class="container">
     {% component 'teamReport' %}
 </div>
