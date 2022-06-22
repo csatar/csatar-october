@@ -1,0 +1,36 @@
+url = "/kapcsolat"
+layout = "default"
+title = "Kapcsolat"
+
+[contactForm]
+==
+<div class="container">
+    <h1>{{ 'Kapcsolat'|_ }}</h1>
+
+    <h2 class="mt-4">{{ 'Irodák'|_ }}:</h2>
+
+    <ul>
+        <li>{{ 'Csíkszereda, Petőfi Sándor 53 sz., Hargita megye'|_ }}</li>
+        <li>{{ 'Studium-HUB, 21-es iroda, Marosvásárhely, Bolyai utca 15 sz., Maros megye'|_ }}</li>
+    </ul>
+
+    <h2>{{ 'Számlaszám'|_ }}:</h2>
+
+    <p>
+        <span class="p-title">OTB Bank Miercurea Ciuc</span></br>
+        RON: RO35 OTPV 2600 0116 2186 RO01
+    </p>
+
+
+    <h2>{{ 'Email'|_ }}:</h2>
+
+    <p>office[at]rmcssz.ro</p>
+
+    <h2>{{ 'Telefonszámok'|_ }}:</h2>
+
+    <p>+40 (723) 273 257</p>
+
+    <h2>{{ 'Üzenet küldése'|_ }}:</h2>
+
+    {% component 'contactForm' %}
+</div>
