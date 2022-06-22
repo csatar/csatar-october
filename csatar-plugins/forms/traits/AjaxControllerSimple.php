@@ -248,7 +248,7 @@ trait AjaxControllerSimple {
         foreach($record->belongsToMany as $name => $definition) {
             if (!isset($data[$name]) || $data[$name] =='') {
                 continue;
-            }dd($data[$name]);
+            }
             $record->$name()->sync($data[$name]);
 //            dd($name, $definition, $data[$name]);
         }
