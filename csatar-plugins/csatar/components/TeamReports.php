@@ -60,7 +60,7 @@ class TeamReports extends ComponentBase
             // determine whether the Team Report Create button should be shown
             $month = date('n');
             $year = $month == 1 ? date('Y') - 1 : date('Y');
-            $this->showTeamReportCreateButton = count($this->teamReports->where('year', $year)) == 0 && ($month == 1 || $month == 12 || $month == 6);
+            $this->showTeamReportCreateButton = count($this->teamReports->where('year', $year)) == 0 /*&& ($month == 1 || $month == 12 || $month == 6)*/;
 
             // create the list of the defined legal relationships for the association
             $this->legalRelationships = $this->team->district->association->legal_relationships;
