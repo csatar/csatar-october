@@ -69,7 +69,8 @@ class Plugin extends PluginBase
             \Csatar\Csatar\Components\TeamReports::class => 'teamReports',
             \Csatar\Csatar\Components\TeamReport::class => 'teamReport',
             \Csatar\Csatar\Components\CheckScoutStatus::class => 'checkScoutStatus',
-            \Csatar\Csatar\Components\CreateFrontendAccounts::class => 'createFrontendAccounts'
+            \Csatar\Csatar\Components\CreateFrontendAccounts::class => 'createFrontendAccounts',
+            \Csatar\Csatar\Components\OrganizationUnitFrontend::class => 'organizationUnitFrontend',
         ];
     }
 

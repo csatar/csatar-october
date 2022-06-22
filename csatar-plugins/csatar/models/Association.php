@@ -68,4 +68,8 @@ class Association extends OrganizationBase
     public $attachOne = [
         'logo' => 'System\Models\File'
     ];
+
+    public $morphOne = [
+        'content_page' => ['\Csatar\Csatar\Models\ContentPage', 'name' => 'model']
+    ];
 }

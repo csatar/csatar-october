@@ -129,6 +129,10 @@ class Team extends OrganizationBase
         return Team::find($id);
     }
 
+    public $morphOne = [
+        'content_page' => ['\Csatar\Csatar\Models\ContentPage', 'name' => 'model']
+    ];
+
     /**
      * Scope a query to only include teams with a given district id.
      */

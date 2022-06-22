@@ -51,11 +51,11 @@ class District extends OrganizationBase
         'association_id',
         'logo',
     ];
-    
+
     /**
      * Relations
      */
-    
+
     public $belongsTo = [
         'association' => '\Csatar\Csatar\Models\Association',
     ];
@@ -67,7 +67,11 @@ class District extends OrganizationBase
     public $attachOne = [
         'logo' => 'System\Models\File',
     ];
-    
+
+    public $morphOne = [
+        'content_page' => ['\Csatar\Csatar\Models\ContentPage', 'name' => 'model']
+    ];
+
     /**
      * Override the getNameAttribute function
      */

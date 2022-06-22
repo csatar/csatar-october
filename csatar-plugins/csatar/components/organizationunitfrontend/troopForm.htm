@@ -1,0 +1,10 @@
+{% component 'basicForm' %}
+
+<p>{{ 'Őrsök' | _ }}</p>
+{% component 'builderList' %}
+
+<form action="/ors/letrehozas" method="post">
+    <input type="hidden" name="team" value="{{ team_id }}">
+    <input type="hidden" name="troop" value="{{ troop_id }}">
+    <input type="submit" class="btn btn-default" value="{{ 'Őrs hozzáadása' | _ }}">
+</form>

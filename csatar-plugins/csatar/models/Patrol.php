@@ -95,6 +95,10 @@ class Patrol extends OrganizationBase
         return isset($this->attributes['name']) ? $this->attributes['name'] . ' ' . Lang::get('csatar.csatar::lang.plugin.admin.patrol.nameSuffix') : null;
     }
 
+    public $morphOne = [
+        'content_page' => ['\Csatar\Csatar\Models\ContentPage', 'name' => 'model']
+    ];
+
     /**
      * Scope a query to only include patrols with a given team id.
      */

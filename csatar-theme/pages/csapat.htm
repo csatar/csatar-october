@@ -35,32 +35,23 @@ pageNumber = "{{ :page }}"
 [viewBag]
 localeTitle[en] = "Team"
 localeTitle[hu] = "Csapat"
+
+[organizationUnitFrontend]
+model_name = "Team"
+model_id = "{{ :id }}"
+
+[structure]
+level = 3
+model_name = "Team"
+model_id = "{{ :id }}"
 ==
 <?php
 public function onStart() {
     $this['team_id'] = $this->param('id');
+    $this['model_name'] = 'team';
 }
+?>
 ==
 <div class="container">
-    {% component 'basicForm' %}
-
-    <p>{{ 'Rajok' | _ }}</p>
-    {% component 'builderList' %}
-
-    <form action="/raj/letrehozas" method="post">
-        <input type="hidden" name="team" value="{{ team_id }}">
-        <input type="submit" class="btn btn-default" value="{{ 'Raj hozzáadása' | _ }}">
-    </form>
-
-    <p>{{ 'Őrsök' | _ }}</p>
-    {% component 'builderList2' %}
-
-    <form action="/ors/letrehozas" method="post">
-        <input type="hidden" name="team" value="{{ team_id }}">
-        <input type="submit" class="btn btn-default" value="{{ 'Őrs hozzáadása' | _ }}">
-    </form>
-    
-    <form action="{{'/csapatjelentesek/' ~ team_id }}" method="post">
-        <input type="submit" class="btn btn-default" value="{{ 'Csapatjelentések' | _ }}">
-    </form>
+    {% component 'organizationUnitFrontend' %}
 </div>

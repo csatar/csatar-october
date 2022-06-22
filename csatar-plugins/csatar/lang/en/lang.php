@@ -390,6 +390,20 @@
             'structure' => [
                 'name' => 'Organization Structure',
                 'description' => 'Displays the organization structure in a tree view.',
+                'properties' => [
+                    'level' => [
+                        'title' => 'Level',
+                        'description' => 'Structure starter level.',
+                    ],
+                    'model_name' => [
+                        'title' => 'Model Name',
+                        'description' => 'Starter model name.',
+                    ],
+                    'model_id' => [
+                        'title' => 'Model Id',
+                        'description' => 'Starter model id.',
+                    ],
+                ]
             ],
             'logos' => [
                 'name' => 'Logos',
@@ -463,6 +477,10 @@
                     'scoutAlreadyHasUserAccount' => ':name already has a user account!',
                     'userAccountCreated' => 'User account was created for :name!',
                 ]
+            ],
+            'organizationUnitFrontend' => [
+                'name' => 'Organization Unit Frontend',
+                'description' => 'Display the organization unit frontend page.'
             ],
         ],
     ],
