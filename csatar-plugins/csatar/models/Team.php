@@ -33,7 +33,7 @@ class Team extends OrganizationBase
         'juridical_person_address' => 'required|min:5',
         'juridical_person_tax_number' => 'required',
         'juridical_person_bank_account' => 'required|min:5',
-        'district' => 'required',
+        //Validation //'district' => 'required',
         'logo' => 'image|nullable',
     ];
 
@@ -118,7 +118,7 @@ class Team extends OrganizationBase
      */
     public function getNameAttribute()
     {
-        return str_pad($this->attributes['team_number'], 3, '0', STR_PAD_LEFT) . ' - ' . $this->attributes['name'] . ' ' . Lang::get('csatar.csatar::lang.plugin.admin.team.nameSuffix');
+        return isset($this->attributes['team_number']) && isset($this->attributes['name']) ? str_pad($this->attributes['team_number'], 3, '0', STR_PAD_LEFT) . ' - ' . $this->attributes['name'] . ' ' . Lang::get('csatar.csatar::lang.plugin.admin.team.nameSuffix') : null;
     }
 
     /**

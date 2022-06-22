@@ -365,6 +365,12 @@
                 'approvedAt' => 'Approved at',
                 'breadcrumb' => 'Team reports',
                 'scoutsInfo' => 'The Scouts will be visible after the Team Report has been created. Click the Create button after other information is filled.',
+                'statuses' => [
+                    'notCreated' => 'Not created',
+                    'created' => 'In progress',
+                    'submitted' => 'Waiting for approval',
+                    'approved' => 'Approved',
+                ],
                 'validationExceptions' => [
                     'dateInTheFuture' => 'The selected Date is in the future.',
                     'submissionDateAfterApprovalDate' => 'The Submission date cannot be after the approval date.',
@@ -433,17 +439,17 @@
             'teamReport' => [
                 'name' => 'Team Report',
                 'description' => 'Enables creating yearly reports for the teams.',
-                'statuses' => [
-                    'notCreated' => 'Not created',
-                    'created' => 'Created',
-                    'submitted' => 'Submitted',
-                    'approved' => 'Approved',
-                ],
                 'validationExceptions' => [
                     'teamReportAlreadyExists' => 'The team report for this team and year already exists.',
                     'teamReportCannotBeFound' => 'The team report cannot be found.',
                     'teamCannotBeFound' => 'The team cannot be found.',
                 ],
+            ],
+            'teamReports' => [
+                'name' => 'Team Reports',
+                'description' => 'Lists the Team Reports of a Team.',
+                'edit' => 'Edit',
+                'view' => 'View',
             ],
             'checkScoutStatus' => [
                 'name' => 'Check Scout Status',

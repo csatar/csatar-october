@@ -109,5 +109,8 @@
     - 'Created table csatar_csatar_team_reports_scouts'
     - builder_table_create_csatar_csatar_team_reports_scouts.php
 1.0.40:
+    - 'Seeder for contact form settings'
+    - seeder_1040.php
+1.0.41:
     - 'Created table csatar_csatar_content_pages'
     - builder_table_create_csatar_csatar_content_pages.php
