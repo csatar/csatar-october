@@ -14,33 +14,33 @@
                         <div id="fs-saving-loader" style="float:left; display:none; width: 150px;" class="loading-indicator-container">
                             <div class="loading-indicator size-small" style="background:none;">
                                 <span></span>
-                                <div>{{ 'Mentés...'|_ }}</div>
+                                <div>{{ 'Mentés'|_ }}</div>
                             </div>
                         </div>
 
                         <div id="fs-closing-loader" style="float:left; display:none; width: 150px;" class="loading-indicator-container">
                             <div class="loading-indicator size-small" style="background:none;">
                                 <span></span>
-                                <div>{{ 'Bezárás ...'|_ }}</div>
+                                <div>{{ 'Bezárás'|_ }}</div>
                             </div>
                         </div>
 
                         <button type="button"
-                                class="btn btn-default oc-icon-reply"
+                                class="btn btn-sm rounded btn-primary oc-icon-reply"
                                 data-request-data="close: 1"
                                 data-request-loading="#fs-saving-loader"
                                 data-request="{{ __SELF__ }}::onSave">
                             {{ 'Mentés és Bezárás'|_ }}
                         </button>
 
-                        <button class="btn btn-default btn-success oc-icon-floppy-o"
+                        <button class="btn btn-sm rounded btn-primary oc-icon-floppy-o"
                                data-request="{{ __SELF__ }}::onSave"
                                data-request-loading="#fs-saving-loader"
                                data-hotkey="ctrl+s, cmd+s">
                            {{ 'Mentés'|_ }}
                         </button>
 
-                        <button class="btn btn-default btn-danger oc-icon-times"
+                        <button class="btn btn-sm rounded btn-danger oc-icon-times"
                                data-request="{{ __SELF__ }}::onCloseForm"
                                 data-request-loading="#fs-closing-loader"
                                {% if writable %}
