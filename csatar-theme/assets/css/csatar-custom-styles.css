@@ -229,9 +229,9 @@ label {
     width: 140px;
     height: 50px;
 }
-    
+
 .bg-primary {
-    background-color: #78863F !important; 
+    background-color: #78863F !important;
 }
 
 .text-primary {
@@ -415,7 +415,7 @@ a.dropdown-item {
 .dropdown-item {
     font-weight: 300;
     font-size: calc(0.9rem + 0.2vw);
-    color: #F5F5F5 !important;  
+    color: #F5F5F5 !important;
 }
 
 .dropdown-item:hover, .dropdown-item:focus, .dropdown-item.active, .dropdown-item:active {
@@ -439,6 +439,18 @@ a.dropdown-item {
     color: #ffffff;
     background-color: #99A56B;
     border-color: #99A56B;
+}
+
+.btn-danger {
+    color: #ffffff;
+    background-color: #B83222;
+    border-color: #B83222;
+}
+
+.btn-danger:hover, .btn-danger:focus, .btn-danger:active, .btn-danger.active, .open>.dropdown-toggle.btn-danger {
+    color: #B83222;
+    background-color: #FFC5C1;
+    border-color: #FFC5C1;
 }
 
 .btn-light {
@@ -469,31 +481,37 @@ a.btn-light:link, a.btn-light:visited, a.btn-light:active {
     margin: 2;
 }
 
+.btn-xs {
+    font-family: geomanist !important;
+    font-size: calc(1rem + 0.1vw) !important;
+    padding: 3px 8px;
+}
+
 /* Setting the radius properties to 12px */
 
 .rounded {
     border-radius: 12px !important;
 }
-  
+
 .rounded-pill {
     border-radius: 12px !important;
 }
-  
+
 .rounded-top {
     border-top-left-radius: 12px !important;
     border-top-right-radius: 12px !important;
 }
-  
+
 .rounded-end {
     border-top-right-radius: 12px !important;
     border-bottom-right-radius: 12px !important;
 }
-  
+
 .rounded-bottom {
     border-bottom-right-radius: 12px !important;
     border-bottom-left-radius: 12px !important;
 }
-  
+
 .rounded-start {
     border-bottom-left-radius: 12px !important;
     border-top-left-radius: 12px !important;
@@ -672,17 +690,17 @@ a.login:link, a.login:visited, a.login:active {
 
 /* Image size control */
 
-.svg-container { 
+.svg-container {
 	display: inline-block;
 	position: relative;
 	width: 100%;
-	padding-bottom: 100%; 
+	padding-bottom: 100%;
 	vertical-align: middle;
-	overflow: hidden; 
+	overflow: hidden;
 }
 
-.svg-content { 
-    max-height: 100%;  
+.svg-content {
+    max-height: 100%;
 	display: inline-block;
 	position: absolute;
     transform: translateX(50%);
@@ -737,8 +755,8 @@ a:active {
 ::-webkit-search-decoration,
 ::-webkit-search-cancel-button,
 ::-webkit-search-results-button,
-::-webkit-search-results-decoration { 
-  display: none; 
+::-webkit-search-results-decoration {
+  display: none;
 }
 
 /* Remove colors for autofill fields */
