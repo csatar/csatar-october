@@ -1,0 +1,9 @@
+{% component 'basicForm' %}
+
+<p>{{ 'Csapatok' | _ }}</p>
+{% component 'builderList' %}
+
+<form action="/csapat/letrehozas" method="post">
+    <input type="hidden" name="district" value="{{ district_id }}">
+    <input type="submit" class="btn btn-default" value="{{ 'Csapat hozzáadása' | _ }}">
+</form>

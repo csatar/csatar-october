@@ -159,8 +159,8 @@
                         'data' => 'Adatok',
                         'seederData' => 'Alapértelmezett adatok',
                         'testData' => 'Teszt adatok',
-                    ],
                 ],
+            ],
                 'seederData' => [
                     'seederData' => 'Alapértelmezett adatok',
                     'testData' => 'Teszt adatok',
@@ -336,7 +336,7 @@
                 'currencies' => 'Pénznemek',
                 'breadcrumb' => 'Pénznemek',
                 'code' => 'Kód',
-            ],
+        ],
             'teamReport' => [
                 'teamReport' => 'Csapatjelentés',
                 'teamReports' => 'Csapatjelentések',
@@ -365,6 +365,12 @@
                 'approvedAt' => 'Elfogadás ideje',
                 'breadcrumb' => 'Csapatjelentések',
                 'scoutsInfo' => 'A Csapatjelentés létrehozása után, a csapathoz tartózó cserkészek is láthatóak lesznek. Töltsd ki a kötelező mezőket, majd kattints a Létrehozás gombra.',
+                'statuses' => [
+                    'notCreated' => 'Nincs létrehozva',
+                    'created' => 'Szerkesztés alatt',
+                    'submitted' => 'Elfogadásra vár',
+                    'approved' => 'Elfogadva',
+                ],
                 'validationExceptions' => [
                     'dateInTheFuture' => 'A Dátum nem lehet a jövőben.',
                     'submissionDateAfterApprovalDate' => 'A Beküldés ideje nem lehet az Elfogadás ideje után.',
@@ -384,6 +390,20 @@
             'structure' => [
                 'name' => 'Szervezeti struktúra',
                 'description' => 'Fa nézetben jeleníti meg a szervezeti struktúrát.',
+                'properties' => [
+                    'level' => [
+                        'title' => 'Szint',
+                        'description' => 'Struktúra kezdő szintje.',
+                    ],
+                    'model_name' => [
+                        'title' => 'Model neve',
+                        'description' => 'Kezdő model név.',
+                    ],
+                    'model_id' => [
+                        'title' => 'Model Id',
+                        'description' => 'Kezdő model id.',
+                    ],
+                ]
             ],
             'logos' => [
                 'name' => 'Logók',
@@ -419,17 +439,17 @@
             'teamReport' => [
                 'name' => 'Csapatjelentés',
                 'description' => 'Éves csapatjelentés létrehozását teszi lehetővé a csapatok számára.',
-                'statuses' => [
-                    'notCreated' => 'Nincs létrehozva',
-                    'created' => 'Létrehozva',
-                    'submitted' => 'Beküldve',
-                    'approved' => 'Jóváhagyva',
-                ],
                 'validationExceptions' => [
                     'teamReportAlreadyExists' => 'Már létezik csapatjelentés e csapat számára, erre az évre.',
                     'teamReportCannotBeFound' => 'A csapatjelentés nem található.',
                     'teamCannotBeFound' => 'A csapat nem található.',
                 ],
+            ],
+            'teamReports' => [
+                'name' => 'Csapatjelentések',
+                'description' => 'Csapat csapatjelentéseinek listázása.',
+                'edit' => 'Módosítás',
+                'view' => 'Megtekintés',
             ],
             'checkScoutStatus' => [
                 'name' => 'Cserkész állapotának ellenőrzése',
@@ -442,22 +462,26 @@
                     'title' => 'JSON formátum',
                     'description' => 'Ha a JSON formátum értéke \'json\', akkor a választ JSON formátumban téríti vissza.'
                 ],
-                'createFrontendAccounts' => [
-                    'name' => 'Frontend felhasználó létrehozása',
-                    'description' => 'Lehetővé teszi frontend felhasználó létrehozását.',
-                    'currentPage' => '- jelenlegi oldal -',
-                    'validationExceptions' => [
+            'createFrontendAccounts' => [
+                'name' => 'Frontend felhasználó létrehozása',
+                'description' => 'Lehetővé teszi frontend felhasználó létrehozását.',
+                'currentPage' => '- jelenlegi oldal -',
+                'validationExceptions' => [
                         'invalidEcsetCode' => 'Érvénytelen ECSET kód',
-                        'emailEcsetCodeMissMatch' => 'Ha nincs email címed, vagy nem egyezik meg a rendszerben levővel, vedd fel a kapcsolatot az őrsvezetőddel.',
-                        'noScoutIsSelected' => 'Nincs tag kiválasztva!',
-                    ],
-                    'messages' => [
-                        'scoutHasNoEmail' => ':name nem rendelkezik e-mail címmel!',
-                        'scoutAlreadyHasUserAccount' => ':name már rendelkezik felhasználói fiókkal!',
-                        'userAccountCreated' => ':name cserkésznek létrejött a felhasználói fiókja!',
-                    ]
+                    'emailEcsetCodeMissMatch' => 'Ha nincs email címed, vagy nem egyezik meg a rendszerben levővel, vedd fel a kapcsolatot az őrsvezetőddel.',
+                    'noScoutIsSelected' => 'Nincs tag kiválasztva!',
                 ],
+                'messages' => [
+                    'scoutHasNoEmail' => ':name nem rendelkezik e-mail címmel!',
+                    'scoutAlreadyHasUserAccount' => ':name már rendelkezik felhasználói fiókkal!',
+                    'userAccountCreated' => ':name cserkésznek létrejött a felhasználói fiókja!',
+                ]
             ],
+            'organizationUnitFrontend' => [
+                'name' => 'Szervezeti Egység Frontend',
+                'description' => 'Megyjeleníti egy szerevezeti egyszég frontend oldalát.'
+            ],
+            ]
         ]
     ]
 ];

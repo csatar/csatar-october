@@ -27,7 +27,7 @@
             <div class="accordion-item">
                 <h2 class="accordion-header" id="{{ headingId ~ item.id }}">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="{{ '#' ~ collapseId ~ item.id }}" aria-expanded="false" aria-controls="{{ collapseId ~ item.id }}">
-                        <a href="{{ organizationTypeForUrl ~ '/' ~ item.id }}" title="{{ 'Látogasd meg a(z) ' ~ item.name ~ ' oldalát' | _ }}">
+                        <a href="{{ url('/') ~ '/' ~ organizationTypeForUrl ~ '/' ~ item.id }}" title="{{ 'Látogasd meg a(z) ' ~ item.name ~ ' oldalát' | _ }}">
                             <span>{{ item.name }}</span>
                             <span class="bi bi-box-arrow-up-right"></span>
                         </a>
@@ -35,12 +35,12 @@
                 </h2>
                 <div id="{{ collapseId ~ item.id }}" class="accordion-collapse collapse" aria-labelledby="{{ headingId ~ item.id }}" data-bs-parent="#accordionFlushExample">
                     <div class="accordion-body">
-                        
+
                         {# Show the number of scouts in the Teams, Troops and Patrols #}
                         {% if level > 2 %}
                         <p>{{ 'Tagok száma: ' ~ (item.scouts | length) | _ }}</p>
                         {% endif %}
-                        
+
                         {# Render child accordions for Associations, Districts, Teams and Troops #}
                         {% if level < 5 %}
                             {% partial __SELF__ ~ '::accordionItems' array=attribute(item, childArrayName) level=level+1 headingId=headingId~item.id~'-' collapseId=collapseId~item.id~'-' %}
@@ -50,7 +50,7 @@
                         {% if level == 3 %}
                             {% partial __SELF__ ~ '::accordionItems' array=attribute(item, child2ArrayName) level=5 headingId=headingId~item.id~'-0-' collapseId=collapseId~item.id~'-0-' %}
                         {% endif %}
-                    
+
                     </div>
                 </div>
             </div>

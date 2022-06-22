@@ -28,7 +28,7 @@ class District extends OrganizationBase
         'bank_account' => 'min:5|nullable',
         'leadership_presentation' => 'required',
         'description' => 'required',
-        'association' => 'required',
+        //Validation //'association' => 'required',
         'logo' => 'image|nullable',
     ];
 
@@ -51,11 +51,11 @@ class District extends OrganizationBase
         'association_id',
         'logo',
     ];
-    
+
     /**
      * Relations
      */
-    
+
     public $belongsTo = [
         'association' => '\Csatar\Csatar\Models\Association',
     ];
@@ -67,13 +67,17 @@ class District extends OrganizationBase
     public $attachOne = [
         'logo' => 'System\Models\File',
     ];
-    
+
+    public $morphOne = [
+        'content_page' => ['\Csatar\Csatar\Models\ContentPage', 'name' => 'model']
+    ];
+
     /**
      * Override the getNameAttribute function
      */
     public function getNameAttribute()
     {
-        return $this->attributes['name'] . ' ' . Lang::get('csatar.csatar::lang.plugin.admin.district.nameSuffix');
+        return isset($this->attributes['name']) ? $this->attributes['name'] . ' ' . Lang::get('csatar.csatar::lang.plugin.admin.district.nameSuffix') : null;
     }
 
     /**

@@ -25,7 +25,7 @@ class Association extends OrganizationBase
         'logo' => 'image|nullable',
         'ecset_code_suffix' => 'max:2|alpha',
         'team_fee' => 'required|digits_between:1,20',
-        'currency' => 'required',
+        //Validation //'currency' => 'required',
     ];
 
     /**
@@ -67,5 +67,9 @@ class Association extends OrganizationBase
 
     public $attachOne = [
         'logo' => 'System\Models\File'
+    ];
+
+    public $morphOne = [
+        'content_page' => ['\Csatar\Csatar\Models\ContentPage', 'name' => 'model']
     ];
 }

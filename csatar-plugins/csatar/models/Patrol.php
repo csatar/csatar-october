@@ -26,7 +26,7 @@ class Patrol extends OrganizationBase
         'patrol_leader_email' => 'required|email',
         'logo' => 'image|nullable',
         'age_group' => 'required',
-        'team' => 'required',
+        //Validation //'team' => 'required',
     ];
 
     /**
@@ -92,8 +92,12 @@ class Patrol extends OrganizationBase
      */
     public function getNameAttribute()
     {
-        return $this->attributes['name'] . ' ' . Lang::get('csatar.csatar::lang.plugin.admin.patrol.nameSuffix');
+        return isset($this->attributes['name']) ? $this->attributes['name'] . ' ' . Lang::get('csatar.csatar::lang.plugin.admin.patrol.nameSuffix') : null;
     }
+
+    public $morphOne = [
+        'content_page' => ['\Csatar\Csatar\Models\ContentPage', 'name' => 'model']
+    ];
 
     /**
      * Scope a query to only include patrols with a given team id.

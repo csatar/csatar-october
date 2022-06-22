@@ -1,12 +1,12 @@
-url = "/csapatjelentes/:id/:action?"
+title = "Csapatjelentések"
 layout = "default"
-title = "Csapatjelentés"
+url = "/csapatjelentesek/:id"
 
-[teamReport]
+[teamReports]
 
 [viewBag]
-localeTitle[en] = "Team Report"
-localeTitle[hu] = "Csapatjelentés"
+localeTitle[en] = "Team reports"
+localeTitle[hu] = "Csapatjelentések"
 ==
 <?php
 public function onStart(){
@@ -17,5 +17,5 @@ public function onStart(){
 ?>
 ==
 <div class="container">
-    {% component 'teamReport' %}
+    {% component 'teamReports' %}
 </div>

@@ -13,7 +13,7 @@
     {% if __SELF__.action == null and __SELF__.teamReport.submitted_at is not null and __SELF__.teamReport.approved_at is null %}
         <button class="btn btn-default btn-success"
             data-request="{{ __SELF__ }}::onApprove"
-            data-request-data="id: {{ __SELF__.id }}"
+            data-request-data="id: {{ __SELF__.id }}, redirectFromWaitingForApproval: {{ __SELF__.redirectFromWaitingForApproval }}"
             data-request-loading="#fs-saving-loader">
             {{ 'Csapatjelentés jóváhagyása'|_ }}
         </button>

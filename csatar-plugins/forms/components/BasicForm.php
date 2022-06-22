@@ -92,7 +92,7 @@ class BasicForm extends ComponentBase  {
      * Initialise plugin and parse request
      */
     public function init() {
-        $form = $this->getForm();
+        $this->getForm();
         $this->record = $this->getRecord();
     }
 
@@ -224,6 +224,7 @@ class BasicForm extends ComponentBase  {
                     $this->renderedComponent = $this->onDelete();
                     break;
                 default:
+                    $this->readOnly = true;
                     $this->renderedComponent = $this->createForm(true);
             }
         }

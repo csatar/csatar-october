@@ -25,7 +25,7 @@ class Troop extends OrganizationBase
         'troop_leader_phone' => 'required|regex:(^[0-9+-.()]{5,}$)',
         'troop_leader_email' => 'required|email',
         'logo' => 'image|nullable',
-        'team' => 'required',
+        //Validation //'team' => 'required',
     ];
 
     /**
@@ -64,8 +64,12 @@ class Troop extends OrganizationBase
      */
     public function getNameAttribute()
     {
-        return $this->attributes['name'] . ' ' . Lang::get('csatar.csatar::lang.plugin.admin.troop.nameSuffix');
+        return isset($this->attributes['name']) ? $this->attributes['name'] . ' ' . Lang::get('csatar.csatar::lang.plugin.admin.troop.nameSuffix') : null;
     }
+
+    public $morphOne = [
+        'content_page' => ['\Csatar\Csatar\Models\ContentPage', 'name' => 'model']
+    ];
 
     /**
      * Scope a query to only include troops with a given team id.

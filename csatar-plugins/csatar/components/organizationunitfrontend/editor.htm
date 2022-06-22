@@ -1,0 +1,28 @@
+<form data-request="onSaveContent">
+    <label for="title" class="form-label">{{ 'Cím' | _ }}</label>
+    <input type="text" name="title" id="title" value="{{ content_page.title }}" class="form-control rounded"><br>
+    <label for="page-content" class="form-label">{{ 'Tartalom' | _ }}</label>
+    <textarea name="content" id="page-content">{{ content_page.content }}</textarea><br>
+    <button
+        type="submit"
+        class="btn btn-sm rounded btn-primary">
+        {{ 'Mentés' | _ }}
+    </button>
+</form>
+<script type="text/javascript">
+    tinymce.init({
+        selector: '#page-content',
+        menubar: false,
+        fix_list_elements : true,
+        paste_remove_styles: true,
+        paste_as_text: true,
+        fontsize_formats: "8pt 10pt 12pt 14pt 18pt 24pt 36pt",
+        plugins: [
+            'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+            'searchreplace wordcount visualblocks visualchars code fullscreen',
+            'insertdatetime media nonbreaking save table contextmenu directionality',
+            'emoticons template paste textcolor colorpicker textpattern imagetools'
+        ],
+        toolbar1: 'undo redo | styleselect | bold italic | forecolor backcolor | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+    });
+</script>
