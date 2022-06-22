@@ -1,0 +1,7 @@
+<div id="partialTeamReports">
+    {% if (__SELF__.waitingForApprovalMode) %}
+        {% partial __SELF__ ~ '::waitingForApproval' %}
+    {% else %}
+        {% partial __SELF__ ~ '::reportsOfATeam' %}
+    {% endif %}
+</div>

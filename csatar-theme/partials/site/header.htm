@@ -40,6 +40,11 @@ function onStart()
                                         </li>
                                     </ul>
                                 </li>
+                                {% if user %}
+                                <li class="nav-item">
+                                    <a class="nav" href="/csapatjelentesek/elfogadasravaro">{{ 'Csapatjelentések' | _ }}</a>
+                                </li>
+                                {% endif %}
                                 <li class="nav-item">
                                     <a class="nav" href="/tamogatok">{{ 'Támogatók' | _ }}</a>
                                 </li>

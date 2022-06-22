@@ -28,7 +28,7 @@ class District extends OrganizationBase
         'bank_account' => 'min:5|nullable',
         'leadership_presentation' => 'required',
         'description' => 'required',
-        'association' => 'required',
+        //Validation //'association' => 'required',
         'logo' => 'image|nullable',
     ];
 
@@ -73,7 +73,7 @@ class District extends OrganizationBase
      */
     public function getNameAttribute()
     {
-        return $this->attributes['name'] . ' ' . Lang::get('csatar.csatar::lang.plugin.admin.district.nameSuffix');
+        return isset($this->attributes['name']) ? $this->attributes['name'] . ' ' . Lang::get('csatar.csatar::lang.plugin.admin.district.nameSuffix') : null;
     }
 
     /**

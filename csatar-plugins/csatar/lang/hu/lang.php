@@ -365,6 +365,12 @@
                 'approvedAt' => 'Elfogadás ideje',
                 'breadcrumb' => 'Csapatjelentések',
                 'scoutsInfo' => 'A Csapatjelentés létrehozása után, a csapathoz tartózó cserkészek is láthatóak lesznek. Töltsd ki a kötelező mezőket, majd kattints a Létrehozás gombra.',
+                'statuses' => [
+                    'notCreated' => 'Nincs létrehozva',
+                    'created' => 'Szerkesztés alatt',
+                    'submitted' => 'Elfogadásra vár',
+                    'approved' => 'Elfogadva',
+                ],
                 'validationExceptions' => [
                     'dateInTheFuture' => 'A Dátum nem lehet a jövőben.',
                     'submissionDateAfterApprovalDate' => 'A Beküldés ideje nem lehet az Elfogadás ideje után.',
@@ -419,17 +425,17 @@
             'teamReport' => [
                 'name' => 'Csapatjelentés',
                 'description' => 'Éves csapatjelentés létrehozását teszi lehetővé a csapatok számára.',
-                'statuses' => [
-                    'notCreated' => 'Nincs létrehozva',
-                    'created' => 'Létrehozva',
-                    'submitted' => 'Beküldve',
-                    'approved' => 'Jóváhagyva',
-                ],
                 'validationExceptions' => [
                     'teamReportAlreadyExists' => 'Már létezik csapatjelentés e csapat számára, erre az évre.',
                     'teamReportCannotBeFound' => 'A csapatjelentés nem található.',
                     'teamCannotBeFound' => 'A csapat nem található.',
                 ],
+            ],
+            'teamReports' => [
+                'name' => 'Csapatjelentések',
+                'description' => 'Csapat csapatjelentéseinek listázása.',
+                'edit' => 'Módosítás',
+                'view' => 'Megtekintés',
             ],
             'checkScoutStatus' => [
                 'name' => 'Cserkész állapotának ellenőrzése',
