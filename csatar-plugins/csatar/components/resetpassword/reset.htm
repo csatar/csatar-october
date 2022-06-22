@@ -1,23 +1,45 @@
-<p class="lead">
-    {{ 'Az Aktiváló kódot elküldtük e-mail-ben. Kérjük, add meg az új jelszavad (a biztonságod érdekében kérjük, hogy használj erős jelszót, amely legalább 8 karakterből áll és tartalmaz kis-, és nagybetűt, valamint számot vagy szimbólumot).' | _ }}
-</p>
+<div class="container">
+    <div class="row">
 
-<form
-    data-request="{{ __SELF__ }}::onResetPassword"
-    data-request-update="'{{ __SELF__ }}::complete': '#partialUserResetForm'"
-    data-request-validate=""
-    data-request-flash>
-    <div class="form-group">
-        <label for="resetCode"> {{ 'Aktiváló kód' | _ }}</label>
-        <input name="code" type="text" class="form-control" id="resetCode" placeholder="{{ 'Másold be az aktiváló kódot' | _ }}" value="{{ __SELF__.code }}">
-        <span data-validate-for="code">{{ 'Az aktiváló kód kötelező és érvényesnek kell lennie.' | _ }}</span>
+        <div class="col-1 col-sm-2 col-md-2 col-lg-3">
+        </div>
+
+        <div class="col-10 col-sm-8 col-md-8 col-lg-6 py-5">
+            <div class="d-flex justify-content-center">
+                <div class="card bg-light text-primary rounded">
+                    <div class="card-body">
+                        <div class="d-flex flex-column">
+                            <i class="key-out-lg mx-auto mb-3"></i>
+                            <p class="p-title text-center">{{ 'Az Aktiváló kódot elküldtük e-mail-ben.' | _ }}</p>
+                            <p class="justify mt-1">{{ 'Kérjük, add meg az új jelszavad (a biztonságod érdekében kérjük, hogy használj erős jelszót, amely legalább 8 karakterből áll és tartalmaz kis-, és nagybetűt, valamint számot vagy szimbólumot).' | _ }}</p>
+
+                            <form
+                                data-request="{{ __SELF__ }}::onResetPassword"
+                                data-request-update="'{{ __SELF__ }}::complete': '#partialUserResetForm'"
+                                data-request-validate=""
+                                data-request-flash>
+                                <div class="form-group">
+                                    <label for="resetCode" class="p-bold ms-3">{{ 'Aktiváló kód' | _ }}</label>
+                                    <input name="code" type="text" class="form-control" id="resetCode" placeholder="{{ 'Másold be az aktiváló kódot' | _ }}" value="{{ __SELF__.code }}">
+                                    <span data-validate-for="code"><p class="text-danger ms-3">{{ 'Az aktiváló kód kötelező és érvényesnek kell lennie.' | _ }}</p></span>
+                                </div>
+
+                                <div class="form-group mt-2">
+                                    <label for="resetPassword" class="p-bold ms-3">{{ 'Új jelszó' | _ }}</label>
+                                    <input name="password" type="password" class="form-control" id="resetPassword" placeholder="{{ 'Add meg az új jelszót' | _ }}">
+                                    <span data-validate-for="password"><p class="text-danger ms-3">{{ 'A jelszó kell tartalmazzon legalább 8 karaktert, kis-, és nagybetűt, valamint számot vagy szimbólumot.' | _ }}</p></span>
+                                </div>
+                                
+                                <button type="submit" class="btn rounded btn-primary my-3">{{ 'Hozd létre a jelszót' | _ }}</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-1 col-sm-2 col-md-2 col-lg-3">
+        </div>
+
     </div>
-
-    <div class="form-group">
-        <label for="resetPassword">{{ 'Új jelszó' | _ }}</label>
-        <input name="password" type="password" class="form-control" id="resetPassword" placeholder="{{ 'Add meg az új jelszót' | _ }}">
-        <span data-validate-for="password">{{ 'A jelszó kell tartalmazzon legalább 8 karaktert, kis-, és nagybetűt, valamint számot vagy szimbólumot.' | _ }}</span>
-    </div>
-
-    <button type="submit" class="btn btn-default">{{ 'Hozd létre a jelszót' | _ }}</button>
-</form>
+</div>

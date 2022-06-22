@@ -1,10 +1,8 @@
 ==
-<?php
 function onStart()
 {
     $this['ecset_code'] = isset(Auth::user()->scout->ecset_code) ? Auth::user()->scout->ecset_code : null;
 }
-?>
 ==
 <div id="header">
     <div class="bg-white d-flex justify-content-center fixed-top">
@@ -45,6 +43,9 @@ function onStart()
                                 <li class="nav-item">
                                     <a class="nav" href="/tamogatok">{{ 'Támogatók' | _ }}</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="nav" href="/kapcsolat">{{ 'Kapcsolat' | _ }}</a>
+                                </li>
                                 <!--<li class="nav-item">
                                 <a class="nav" href="#">{{ 'Link' | _ }}</a>
                                 </li>
@@ -80,13 +81,13 @@ function onStart()
                 <div class="col-9 col-sm-10 col-md-9 col-lg-2 order-3 order-md-3 d-flex pt-1 pe-4 text-light justify-content-end">
                     {% if user %}
                     <a href="/elfelejtett-jelszo" class="btn controls" type="button">
-                        <i class="gear-out-w-md"></i>
+                    <i class="gear-out-w-md"></i>
                     </a>
                     <a href="/tag/{{ ecset_code}}" class="btn controls" type="button">
-                        <i class="user-out-w-md"></i>
+                    <i class="user-out-w-md"></i>
                     </a>
-                    <a data-request="onLogout" data-request-data="redirect: '/bejelentkezes'" class="btn controls" type="button">
-                        <i class="exit-out-w-md"></i>
+                    <a data-request="onLogout" class="btn controls" type="button">
+                    <i class="exit-out-w-md"></i>
                     </a>
                     {% else %}
                     <a href="/bejelentkezes" class="btn controls" type="button">

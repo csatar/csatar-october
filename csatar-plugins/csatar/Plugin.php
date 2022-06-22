@@ -81,7 +81,9 @@ class Plugin extends PluginBase
     public function registerMailTemplates()
     {
         return [
-            'csatar.csatar::mail.restore'
+            'csatar.csatar::mail.restore',
+            'csatar.csatar::mail.contactusercopy',
+            'csatar.csatar::mail.contactnotification',
         ];
     }
 
