@@ -42,6 +42,7 @@ class FoodSensitivity extends Model
             '\Csatar\Csatar\Models\Scout',
             'table' => 'csatar_csatar_scouts_food_sensitivities',
             'pivot' => ['comment'],
+            'pivotModel' => '\Csatar\Csatar\Models\ScoutFoodSensitivityPivot',
         ]
     ];
 }

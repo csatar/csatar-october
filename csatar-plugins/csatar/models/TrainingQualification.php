@@ -43,6 +43,7 @@ class TrainingQualification extends Model
             '\Csatar\Csatar\Models\Scout',
             'table' => 'csatar_csatar_scouts_training_qualifications',
             'pivot' => ['date', 'location', 'qualification_certificate_number', 'qualification', 'qualification_leader'],
+            'pivotModel' => '\Csatar\Csatar\Models\ScoutTrainingQualificationPivot',
         ]
     ];
 }

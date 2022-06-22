@@ -44,6 +44,7 @@ class SpecialTest extends Model
             '\Csatar\Csatar\Models\Scout',
             'table' => 'csatar_csatar_scouts_special_tests',
             'pivot' => ['date', 'location'],
+            'pivotModel' => '\Csatar\Csatar\Models\ScoutSpecialTestPivot',
         ]
     ];
 }

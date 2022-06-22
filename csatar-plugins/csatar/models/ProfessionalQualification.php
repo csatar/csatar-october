@@ -43,6 +43,7 @@ class ProfessionalQualification extends Model
             '\Csatar\Csatar\Models\Scout',
             'table' => 'csatar_csatar_scouts_professional_qualifications',
             'pivot' => ['date', 'location'],
+            'pivotModel' => '\Csatar\Csatar\Models\ScoutProfessionalQualificationPivot',
         ]
     ];
 }
