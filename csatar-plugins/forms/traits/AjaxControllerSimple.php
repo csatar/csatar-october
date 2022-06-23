@@ -5,8 +5,8 @@ use Input;
 use Flash;
 use File;
 use Lang;
-use Session;
 use Validator;
+use Session;
 use Csatar\Forms\Models\Form;
 use Response;
 use Cookie;
@@ -14,6 +14,7 @@ use Redirect;
 use Backend\Classes\WidgetManager;
 use October\Rain\Exception\ApplicationException;
 use October\Rain\Exception\NotFoundException;
+use October\Rain\Database\Models\DeferredBinding;
 
 trait AjaxControllerSimple {
 
@@ -95,9 +96,7 @@ trait AjaxControllerSimple {
             $html .= $this->renderValidationTags($record);
         }
 
-        if($record->id){
-            $html .= $this->renderBelongsToManyRalationsWithPivotData($record);
-        }
+        $html .= $this->renderBelongsToManyRalationsWithPivotData($record);
 
         $variablesToPass = [
             'form' => $html,
@@ -126,7 +125,10 @@ trait AjaxControllerSimple {
     public function onListAttachOptions(){
         $record = $this->getRecord();
         $relationName = Input::get('relationName');
-        $attachedIds = $record->{$relationName}->pluck('id');
+        $defRecords = DeferredBinding::where('master_field', $relationName)
+            ->where('session_key', $this->sessionKey)
+            ->get();
+        $attachedIds = $record->id ? $record->{$relationName}->pluck('id') : $defRecords->pluck('slave_id');
         $pivotModelName = array_key_exists($relationName, $record->belongsToMany) ? $record->belongsToMany[$relationName][0] : false;
         $getFunctionName = 'get' . $this->underscoreToCamelCase($relationName, true) . 'Options';
 
@@ -195,7 +197,13 @@ trait AjaxControllerSimple {
         $relationName = Input::get('relationName');
         $relationId = Input::get('relationId');
         $pivotData = Input::get($relationName)['pivot'];
-        $record->{$relationName}()->attach($relationId, $pivotData);
+
+        if(!$record->id){
+            $modelToAttach = $record->$relationName()->getRelated()->find($relationId);
+            $record->{$relationName}()->add($modelToAttach, $this->sessionKey, $pivotData);
+        } else {
+            $record->{$relationName}()->attach($relationId, $pivotData);
+        }
 
         return [
             '#pivotSection' =>
@@ -223,7 +231,6 @@ trait AjaxControllerSimple {
 
     public function onSave()
     {
-        $sessionKey = Session::get('key');
         $isNew = Input::get('recordKeyValue') == 'new' ? true : false;
         $record = $this->getRecord();
 
@@ -245,12 +252,27 @@ trait AjaxControllerSimple {
 
         // Resolve belongsToMany relations
 
-        foreach($record->belongsToMany as $name => $definition) {
-            if (!isset($data[$name]) || $data[$name] =='') {
+        foreach($record->belongsToMany as $relationName => $definition) {
+            if (!isset($data[$relationName]) || $data[$relationName] =='') {
                 continue;
             }
-            $record->$name()->sync($data[$name]);
-//            dd($name, $definition, $data[$name]);
+
+            if(!$record->id){
+                $relatedModel = $definition[0];
+                if(is_array($data[$relationName])){
+                    foreach ($data[$relationName] as $recordToAttachId) {
+                        $deferred = new DeferredBinding();
+                        $deferred->master_type = get_class($record);
+                        $deferred->master_field = $relationName;
+                        $deferred->slave_type = $relatedModel;
+                        $deferred->slave_id = $recordToAttachId;
+                        $deferred->session_key = $this->sessionKey;
+                        $deferred->save();
+                    }
+                }
+            } else {
+                $record->$relationName()->sync($data[$relationName]);
+            }
         }
 
         // validate the form
@@ -272,7 +294,8 @@ trait AjaxControllerSimple {
 
         // save the data
         if ($isNew) {
-            $record = $record->create($data, $sessionKey);
+            $record = $record->create($data, $this->sessionKey);
+            $record->commitDeferred($this->sessionKey);
         }
         if (!$record->update($data) && !$isNew) {
             $error = e(trans('csatar.forms::lang.errors.canNotSaveValidated'));
@@ -396,7 +419,8 @@ trait AjaxControllerSimple {
             $html .= '</div>';
         }
 
-        if(count($record->$relationName)>0){
+        if(count($record->$relationName)>0 ||
+            (count($record->{$relationName}()->withDeferred($this->sessionKey)->get())>0 && !$record->id)){
             $html .= '<table style="width: 100%">';
             $html .= $this->generatePivotTableHeader($attributesToDisplay);
             $html .= $this->generatePivotTableRows($record, $relationName, $attributesToDisplay);
@@ -413,6 +437,10 @@ trait AjaxControllerSimple {
         $relationName = Input::get('relationName');
         $data = Input::get('data');
         $recordsToDelete = array_key_exists($relationName, $data) ? $data[$relationName] : [];
+        $defRecords = DeferredBinding::where('master_field', $relationName)
+            ->where('session_key', $this->sessionKey)
+            ->whereIn('slave_id', $recordsToDelete)
+            ->delete();
         $record->{$relationName}()->detach($recordsToDelete);
 
         return [
@@ -442,7 +470,19 @@ trait AjaxControllerSimple {
 
     public function generatePivotTableRows($record, $relationName, $attributesToDisplay){
         $tableRows = '';
-        foreach ($record->{$relationName} as $relatedRecord){
+        $records = $record->{$relationName};
+        $defRecords = null;
+        if(!$record->id){
+            $defRecords = DeferredBinding::where('master_field', $relationName)
+                ->where('session_key', $this->sessionKey)
+                ->get();
+            $records = $record->{$relationName}()->withDeferred($this->sessionKey)->get();
+        }
+
+        foreach ($records as $key => $relatedRecord){
+            if($defRecords){
+                $relatedRecord->pivot = (object)$defRecords[$key]->pivot_data;
+            }
             $tableRows .= '<tr>';
             if(!$this->readOnly) {
                 $tableRows .= '<td><input type="checkbox" name="data[' . $relationName . '][]" value="' . $relatedRecord->id . '"></td>';
