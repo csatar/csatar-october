@@ -1,31 +1,31 @@
 <?php return [
     'plugin' => [
-        'name' => 'Form Builder',
-        'description' => 'Front end form builder',
-        'author' => 'Csatár team',
+        'name' => 'Űrlapkészítő',
+        'description' => 'Űrlapkészítő a felhasználói felülethez',
+        'author' => 'Csatár csapat',
         'admin' => [
             'form' => [
-                'title' => 'Title',
-                'model' => 'Model',
-                'modelComment' => 'Namespace path to model e.g. Rainlab\\Blog\\Models\\Post',
-                'fields' => 'Fields',
-                'fieldsComment' => 'Relative or absolute path to the fields YAML config file e.g. forms_fields.yaml or $\\Rainlab\\Blog\\Models\\Post\\fields.yaml',
-                'fieldConfig' => 'Field configuration',
+                'title' => 'Cím',
+                'model' => 'Modell',
+                'modelComment' => 'Névtér elérési útja a modellhez, pl. Rainlab\\Blog\\Models\\Post',
+                'fields' => 'Mezők',
+                'fieldsComment' => 'A mezők YAML konfigurációs fájljának relatív vagy abszolút elérési útja, pl. forms_fields.yaml vagy $\\Rainlab\\Blog\\Models\\Post\\fields.yaml',
+                'fieldConfig' => 'Mezőkonfiguráció',
                 'slug' => 'Slug',
             ],
         ],
     ],
     'components' => [
         'basicForm' => [
-            'name' => 'Basic form',
-            'description' => 'Renders a from',
+            'name' => 'Alap űrlap',
+            'description' => 'Megjeleníti az űrlapot',
             'properties' => [
                 'formId' => [
-                    'title'             => 'Form',
-                    'description'       => 'Select from',
+                    'title'             => 'Űrlap',
+                    'description'       => 'Űrlapválasztás',
                 ],
                 'groupCRUD' => [
-                    'groupName'                 => 'CRUD parametes',
+                    'groupName'                 => 'CRUD paraméterek',
                     'recordKeyParam'            => 'Record key link param. name',
                     'recordKeyParamDescr'       => 'The URL parameter and record attribute name that is used to identify to record, for example "/teams/:id". Here "id" is the parameter name and
                         "/teams/123" will display team with id 123, based on record\'s "id" attribute. If you set "/teams/:slug" component will try to find the record by slug.' ,
@@ -50,14 +50,14 @@
     ],
     'widgets' => [
         'frontendFileUpload' => [
-            'browse' => 'Browse',
+            'browse' => 'Válassz',
         ],
     ],
     'errors' => [
-        'formModelNotFound'     => "The model could not be found. Please make sure you enter an existing model name and correct path.",
-        'formNotFound'          => "The selected form doesn't exist, please check 'Basic Form' component settings on page: ",
-        'noDataArray'           => 'Data array is missing. Check form validation and see how could this happen.',
-        'canNotSaveValidated'   => 'Can not save validated data. Check form validation and see how could this happen.',
-        'noFiles'               => 'No files'
+        'formModelNotFound'     => 'A modell nem található. Adj meg egy létező modellt és helyes útvonalat.',
+        'formNotFound'          => 'A kiválasztott űrlap nem található. Ellenőrizd az \'Alap űrlap\' komponens beállításait a követketző oldalon: ',
+        'noDataArray'           => 'Az adatok hiányoznak. Ellenőrizd az űrlap érvényesítését.',
+        'canNotSaveValidated'   => 'Nem sikerült elmenteni az érvényesített adatokat. Ellenőrizd az űrlap érvényesítését.',
+        'noFiles'               => 'Nincsenek fájlok megadva'
     ],
 ];

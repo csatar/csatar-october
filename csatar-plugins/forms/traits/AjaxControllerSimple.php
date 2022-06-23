@@ -243,16 +243,6 @@ trait AjaxControllerSimple {
             unset($data[$name]);
         }
 
-        // Resolve belongsToMany relations
-
-        foreach($record->belongsToMany as $name => $definition) {
-            if (!isset($data[$name]) || $data[$name] =='') {
-                continue;
-            }
-            $record->$name()->sync($data[$name]);
-//            dd($name, $definition, $data[$name]);
-        }
-
         // validate the form
         $form = Form::find($this->formId ?? Input::get('formId'));
         $config = $this->makeConfig($form->getFieldsConfig());
@@ -274,6 +264,15 @@ trait AjaxControllerSimple {
         if ($isNew) {
             $record = $record->create($data, $sessionKey);
         }
+
+        // Resolve belongsToMany relations
+        foreach($record->belongsToMany as $name => $definition) {
+            if (!isset($data[$name]) || $data[$name] =='') {
+                continue;
+            }
+            $record->$name()->sync($data[$name]);
+        }
+
         if (!$record->update($data) && !$isNew) {
             $error = e(trans('csatar.forms::lang.errors.canNotSaveValidated'));
             throw new ApplicationException($error);
