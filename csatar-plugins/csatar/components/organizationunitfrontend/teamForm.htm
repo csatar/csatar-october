@@ -5,7 +5,7 @@
 
 <form action="/raj/letrehozas" method="post">
     <input type="hidden" name="team" value="{{ team_id }}">
-    <input type="submit" class="btn btn-default" value="{{ 'Raj hozzáadása' | _ }}">
+    <input type="submit" class="btn rounded btn-primary" value="{{ 'Raj hozzáadása' | _ }}">
 </form>
 
 <p>{{ 'Őrsök' | _ }}</p>
@@ -13,9 +13,9 @@
 
 <form action="/ors/letrehozas" method="post">
     <input type="hidden" name="team" value="{{ team_id }}">
-    <input type="submit" class="btn btn-default" value="{{ 'Őrs hozzáadása' | _ }}">
+    <input type="submit" class="btn rounded btn-primary" value="{{ 'Őrs hozzáadása' | _ }}">
 </form>
 
 <form action="{{'/csapatjelentesek/' ~ team_id }}" method="post">
-    <input type="submit" class="btn btn-default" value="{{ 'Csapatjelentések' | _ }}">
+    <input type="submit" class="btn rounded btn-primary" value="{{ 'Csapatjelentések' | _ }}">
 </form>

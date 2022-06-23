@@ -50,7 +50,7 @@
     ],
     'widgets' => [
         'frontendFileUpload' => [
-            'browse' => 'Válassz',
+            'browse' => 'Böngéssz',
         ],
     ],
     'errors' => [
