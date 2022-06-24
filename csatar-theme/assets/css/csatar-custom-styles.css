@@ -604,12 +604,12 @@ table.fixed {
     table-layout: fixed;
 }
   
-th, td {
+th, td, .th, .td {
     border-radius: 12px !important;
     padding: 4px;
 }
 
-th {
+th, .th {
     border: 1px solid #78863F;
     background-color: #78863F;
     color: white;
@@ -634,7 +634,7 @@ th {
     font-size: calc(0.9rem + 0.2vw);
 }
 
-td {
+td, .td {
     border: 1px solid #DDDDDD;
     font-weight: 300;
     font-size: calc(0.9rem + 0.2vw);

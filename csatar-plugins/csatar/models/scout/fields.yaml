@@ -91,10 +91,10 @@ fields:
         nameFrom: name
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
-        scope: association
+        dependsOn: team
         span: auto
         required: 1
-        type: relation
+        type: dropdown
     religion:
         label: 'csatar.csatar::lang.plugin.admin.scout.religion'
         nameFrom: name
