@@ -102,7 +102,7 @@
                 'leadershipQualifications' => 'Vezetői képesítések',
                 'trainingQualifications' => 'Kiképzői képesítések',
                 'foodSensitivities' => 'Ételérzékenységekek',
-                'additionalDetailsInfo' => 'Allergák, Ételérékenységek, Fogadalmak, Próbák, Különpróbák, Szakági képesítések, Szakági különpróbák, Vezetői képesítések and Kiképzői képesítések hozzáadása a Cserkész létrehozása után lehetséges. Miután a többi adatot kitöltötted, kattints a Létrehozás gombra.',
+                'additionalDetailsInfo' => 'Allergák, Ételérékenységek, Fogadalmak, Próbák, Különpróbák, Szakági képesítések, Szakági különpróbák, Vezetői képesítések és Kiképzői képesítések hozzáadása a Cserkész létrehozása után lehetséges. Miután a többi adatot kitöltötted, kattints a Létrehozás gombra.',
                 'breadcrumb' => 'Cserkészek',
                 'team' => 'Csapat',
                 'troop' => 'Raj',
@@ -159,8 +159,8 @@
                         'data' => 'Adatok',
                         'seederData' => 'Alapértelmezett adatok',
                         'testData' => 'Teszt adatok',
+                    ],
                 ],
-            ],
                 'seederData' => [
                     'seederData' => 'Alapértelmezett adatok',
                     'testData' => 'Teszt adatok',
@@ -336,7 +336,7 @@
                 'currencies' => 'Pénznemek',
                 'breadcrumb' => 'Pénznemek',
                 'code' => 'Kód',
-        ],
+            ],
             'teamReport' => [
                 'teamReport' => 'Csapatjelentés',
                 'teamReports' => 'Csapatjelentések',

@@ -368,6 +368,11 @@ body>p.flash-message.warning {
     color: #303030;
 }
 
+.alert-success {
+    color: #ffffff;
+    background-color: #78863F;
+}
+
 /* Accordion color setting*/
 
 .accordion-button:not(.collapsed) {
@@ -582,6 +587,66 @@ a.btn-light:link, a.btn-light:visited, a.btn-light:active {
     width: 40px;
     padding: 0;
     margin: 0;
+}
+
+/* TABLE */
+
+table {
+    width:100%;
+    table-layout: fixed;
+    overflow-wrap: break-word;
+    border-collapse: separate !important;
+    border-spacing: 4px;
+    table-layout: auto;
+}
+
+table.fixed {
+    table-layout: fixed;
+}
+  
+th, td {
+    border-radius: 12px !important;
+    padding: 4px;
+}
+
+th {
+    border: 1px solid #78863F;
+    background-color: #78863F;
+    color: white;
+    font-weight: 400;
+    font-size: calc(0.9rem + 0.2vw);
+    text-align: center;
+}
+
+.th2 {
+    border: 1px solid #99A56B;
+    background-color: #99A56B;
+    color: white;
+    font-weight: 400;
+    font-size: calc(0.9rem + 0.2vw);
+}
+
+.th3 {
+    border: 1px solid #FFCE00;
+    background-color: #FFCE00;
+    color: #4e4e4e;
+    font-weight: 300;
+    font-size: calc(0.9rem + 0.2vw);
+}
+
+td {
+    border: 1px solid #DDDDDD;
+    font-weight: 300;
+    font-size: calc(0.9rem + 0.2vw);
+    text-align: left;
+    vertical-align: top;
+}
+
+table tr:nth-child(odd) td {
+    background-color: white;
+}
+table tr:nth-child(even) td {
+    background-color: #F5F5F5;
 }
 
 /* FORMS */

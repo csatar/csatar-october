@@ -297,6 +297,15 @@ trait AjaxControllerSimple {
             $record = $record->create($data, $this->sessionKey);
             $record->commitDeferred($this->sessionKey);
         }
+
+        // Resolve belongsToMany relations
+        foreach($record->belongsToMany as $name => $definition) {
+            if (!isset($data[$name]) || $data[$name] =='') {
+                continue;
+            }
+            $record->$name()->sync($data[$name]);
+        }
+
         if (!$record->update($data) && !$isNew) {
             $error = e(trans('csatar.forms::lang.errors.canNotSaveValidated'));
             throw new ApplicationException($error);
