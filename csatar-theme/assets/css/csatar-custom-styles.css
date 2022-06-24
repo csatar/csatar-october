@@ -368,6 +368,11 @@ body>p.flash-message.warning {
     color: #303030;
 }
 
+.alert-success {
+    color: #ffffff;
+    background-color: #78863F;
+}
+
 /* Accordion color setting*/
 
 .accordion-button:not(.collapsed) {
