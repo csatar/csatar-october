@@ -1,14 +1,14 @@
 {% if __SELF__.scouts|length > 0 %}
 <div>
-    <table>
-        <thead>
-            <td>{{ 'Név' | _ }}</td>
-            <td>{{ 'Jogviszony' | _ }}</td>
-            <td>{{ 'Képesítés' | _ }}</td>
-            <td>{{ 'ECSET kód' | _ }}</td>
-            <td>{{ 'Tagdíj értéke' | _ }}</td>
-        </thead>
+    <table class="my-3">
         <tbody>
+            <tr>
+                <th class="th2">{{ 'Név' | _ }}</th>
+                <th class="th2">{{ 'Jogviszony' | _ }}</th>
+                <th class="th2">{{ 'Képesítés' | _ }}</th>
+                <th class="th2">{{ 'ECSET kód' | _ }}</th>
+                <th class="th2">{{ 'Tagdíj értéke' | _ }}</th>
+            </tr>
             {% for scout in __SELF__.scouts %}
                 <tr>
                     <td>{{ scout.name }}</td>
