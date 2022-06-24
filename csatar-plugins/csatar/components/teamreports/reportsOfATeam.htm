@@ -22,20 +22,20 @@
             <div class="col-4 col-sm-3 col-lg-2">{{ team_report_data.status }}</div>
             <div class="col-4 col-sm-3 col-lg-2">
                 <form action="{{ team_report_data.link }}" method="post">
-                    <input type="submit" class="btn btn-light" value="{{  team_report_data.link_text }}">
+                    <input type="submit" class="btn rounded btn-light" value="{{  team_report_data.link_text }}">
                 </form>
             </div>
         </div>
     {% endfor %}
 {% else %}
-    {{ 'Még nincsenek csapatjelentések hozzáadva.' | _ }}
+    <p class="errormsg">{{ 'Még nincsenek csapatjelentések hozzáadva.' | _ }}</p>
 {% endif %}
 
 <div class="row">
     {% if __SELF__.showTeamReportCreateButton %}
         <form action="/csapatjelentes/letrehozas" method="post">
             <input type="hidden" name="team" value="{{ __SELF__.id }}">
-            <input type="submit" class="btn btn-default" value="{{ 'Csapatjelentés létrehozása ' | _ }}">
+            <input type="submit" class="btn rounded btn-primary" value="{{ 'Csapatjelentés létrehozása ' | _ }}">
         </form>
     {% endif %}
 </div>

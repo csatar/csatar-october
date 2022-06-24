@@ -19,11 +19,11 @@
             <div class="col-3 col-sm-3 col-lg-2">
                 <form action="{{ '/csapatjelentes/' ~ team_report_data.id }}" method="post">
                     <input type="hidden" name="redirectFromWaitingForApproval" value="true">
-                    <input type="submit" class="btn btn-light" value="{{ 'Bővebben' | _ }}">
+                    <input type="submit" class="btn rounded btn-light" value="{{ 'Bővebben' | _ }}">
                 </form>
             </div>
         </div>
     {% endfor %}
 {% else %}
-    {{ 'Nincsenek elfogadásara váró csapatjelentések.' | _ }}
+    <p class="errormsg">{{ 'Nincsenek elfogadásara váró csapatjelentések.' | _ }}<p>
 {% endif %}
