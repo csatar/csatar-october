@@ -51,10 +51,10 @@ class LegalRelationship extends Model
     ];
 
     /**
-     * Scope a query to only include legal relationships that are defined in the pivot table.
+     * Scope a query to only include legal relationships that belong to the association.
      */
-    public function scopeAssociation($query)
+    public function scopeAssociationId($query, $id)
     {
-        return $query->join('csatar_csatar_associations_legal_relationships', 'csatar_csatar_legal_relationships.id', '=', 'csatar_csatar_associations_legal_relationships.legal_relationship_id');
+        return $query->join('csatar_csatar_associations_legal_relationships', 'csatar_csatar_legal_relationships.id', '=', 'csatar_csatar_associations_legal_relationships.legal_relationship_id')->where('association_id', $id);
     }
 }
