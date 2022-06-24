@@ -1,0 +1,14 @@
+title = "Jelszó beállítása"
+layout = "default"
+url = "/jelszo-beallitasa"
+
+[resetPasswordOverRide]
+paramCode = "code"
+==
+<div id="partialUserResetForm">
+    {% if resetPasswordOverRide.code == null %}
+        {% partial resetPasswordOverRide ~ '::restore' %}
+    {% else %}
+        {% partial resetPasswordOverRide ~ '::set' %}
+    {% endif %}
+</div>

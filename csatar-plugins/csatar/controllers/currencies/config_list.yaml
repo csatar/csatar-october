@@ -1,0 +1,12 @@
+list: $/csatar/csatar/models/currency/columns.yaml
+modelClass: Csatar\Csatar\Models\Currency
+title: 'csatar.csatar::lang.plugin.admin.currency.currencies'
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'csatar/csatar/currencies/update/:id'

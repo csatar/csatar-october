@@ -2,10 +2,14 @@
 
 use App;
 use Backend;
+use Event;
+use Input;
 use System\Classes\PluginBase;
+use Validator;
 use ValidationException;
 use Lang;
 use RainLab\User\Models\User;
+use Csatar\Csatar\Models\Scout;
 
 /**
  * csatar Plugin Information File
@@ -59,9 +63,12 @@ class Plugin extends PluginBase
     public function registerComponents()
     {
         return [
-            \Csatar\Csatar\Components\ResetPassword::class => 'resetpasswordOverRide',
+            \Csatar\Csatar\Components\ResetPassword::class => 'resetPasswordOverRide',
             \Csatar\Csatar\Components\Structure::class => 'structure',
             \Csatar\Csatar\Components\Logos::class => 'logos',
+            \Csatar\Csatar\Components\TeamReport::class => 'teamReport',
+            \Csatar\Csatar\Components\CheckScoutStatus::class => 'checkScoutStatus',
+            \Csatar\Csatar\Components\CreateFrontendAccounts::class => 'createFrontendAccounts'
         ];
     }
 
@@ -80,9 +87,16 @@ class Plugin extends PluginBase
     protected function extendUser()
     {
         User::extend(function($model) {
+
             $model->hasOne['scout'] = [
                 \Csatar\Csatar\Models\Scout::class
             ];
+
+            $model->attributeNames = [
+                'password'              => Lang::get('csatar.csatar::lang.plugin.admin.general.password'),
+                'password_confirmation' => Lang::get('csatar.csatar::lang.plugin.admin.general.password_confirmation'),
+            ];
+
         });
     }
 }

@@ -41,6 +41,25 @@ columns:
         label: 'csatar.csatar::lang.plugin.admin.association.bankAccount'
         type: text
         searchable: true
+    team_fee:
+        label: 'csatar.csatar::lang.plugin.admin.association.teamFee'
+        type: text
+        searchable: true
+        sortable: true
+    membership_fee:
+        label: 'csatar.csatar::lang.plugin.admin.association.membershipFee'
+        type: text
+        searchable: true
+        sortable: false
+        relation: legal_relationships
+        valueFrom: name
+    currency_id:
+        label: 'csatar.csatar::lang.plugin.admin.association.currency'
+        type: number
+        searchable: true
+        sortable: false
+        relation: currency
+        valueFrom: code
     leadership_presentation:
         label: 'csatar.csatar::lang.plugin.admin.association.leadershipPresentation'
         type: text

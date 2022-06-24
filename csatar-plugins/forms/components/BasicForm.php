@@ -32,6 +32,13 @@ class BasicForm extends ComponentBase  {
     public $recordKeyParam = null;
 
     /**
+     * The URL parameter and DB column
+     * to identify a record(id, slug etc.)
+     * @var int
+     */
+    public $additionalData = null;
+
+    /**
      * The value of the key parameter
      * @var string
      */
@@ -73,7 +80,7 @@ class BasicForm extends ComponentBase  {
      * Data model
      * @var Model
      */
-    public $model = null;
+    public $record = null;
 
     /**
      * Contains the rendered component
@@ -85,7 +92,13 @@ class BasicForm extends ComponentBase  {
      * Initialise plugin and parse request
      */
     public function init() {
+        $form = $this->getForm();
+        $this->record = $this->getRecord();
 
+        if(!$this->record && $this->recordKeyValue == $this->createRecordKeyword) {
+            $modelName      = $form->getModelName();
+            $this->record   = new $modelName;
+        }
     }
 
     /**
@@ -219,8 +232,10 @@ class BasicForm extends ComponentBase  {
                     $this->renderedComponent = $this->createForm(true);
             }
         }
+    }
 
-
+    public function onRefresh()
+    {
     }
 
     private function getForm() {

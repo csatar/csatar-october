@@ -18,22 +18,22 @@ class Discounts
             [
                 'name' => Lang::get('csatar.csatar::lang.plugin.component.logos.discounts.mormotaLand'),
                 'address' => 'https://www.mormota.ro/',
-                'logo' => '/home/discounts/mormota-land.png'
+                'logo' => '/home/discounts/mormota-land.webp'
             ],
             [
                 'name' => Lang::get('csatar.csatar::lang.plugin.component.logos.discounts.tiboo'),
                 'address' => 'https://www.tiboo.ro/',
-                'logo' => '/home/discounts/tiboo.png'
+                'logo' => '/home/discounts/tiboo.webp'
             ],
             [
                 'name' => Lang::get('csatar.csatar::lang.plugin.component.logos.discounts.giftyShop'),
-                'address' => 'https://rmcssz.ro/www.giftyshop.ro',
-                'logo' => '/home/discounts/gifty-shop.png'
+                'address' => 'https://www.giftyshop.ro/',
+                'logo' => '/home/discounts/gifty-shop.webp'
             ],
             [
                 'name' => Lang::get('csatar.csatar::lang.plugin.component.logos.discounts.zergeSpecialtyStore'),
                 'address' => 'https://zerge-szakbolt-gyergyo.business.site/',
-                'logo' => '/home/discounts/zerge-specialty-store.png'
+                'logo' => '/home/discounts/zerge-specialty-store.webp'
             ],
         ];
     }

@@ -18,22 +18,23 @@ class Sponsors
             [
                 'name' => Lang::get('csatar.csatar::lang.plugin.component.logos.sponsors.hungarianGovernment'),
                 'address' => 'https://bgazrt.hu/',
-                'logo' => '/home/sponsors/hungarian-government.png'
+                'logo' => '/home/sponsors/hungarian-government.webp',
+                'class' => 'main-sponsor'
             ],
             [
                 'name' => Lang::get('csatar.csatar::lang.plugin.component.logos.sponsors.harghitaCountyCouncil'),
                 'address' => 'https://judetulharghita.ro/',
-                'logo' => '/home/sponsors/harghita-county-council.png'
+                'logo' => '/home/sponsors/harghita-county-council.webp'
             ],
             [
                 'name' => Lang::get('csatar.csatar::lang.plugin.component.logos.sponsors.communitasFoundation'),
                 'address' => 'https://communitas.ro/',
-                'logo' => '/home/sponsors/communitas-foundation.png'
+                'logo' => '/home/sponsors/communitas-foundation.webp'
             ],
             [
                 'name' => Lang::get('csatar.csatar::lang.plugin.component.logos.sponsors.toyota'),
                 'address' => 'https://harghita.toyota.ro',
-                'logo' => '/home/sponsors/toyota.png'
+                'logo' => '/home/sponsors/toyota.webp'
             ],
         ];
     }

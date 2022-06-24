@@ -1,0 +1,20 @@
+url = "/tag-lekerdezes/:ecset_code?"
+layout = "default"
+title = "Tag lekérdezés"
+
+[checkScoutStatus]
+scoutCode = "{{ :ecset_code }}"
+json = "{{ :json }}"
+==
+<?php
+function onStart()
+{
+    if (Session::get('ecset_json')) {
+        return Session::get('ecset_json');
+    }
+}
+?>
+==
+<div class="container">
+    {% component 'checkScoutStatus' %}
+</div>

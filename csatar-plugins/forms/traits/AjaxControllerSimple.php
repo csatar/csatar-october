@@ -1,7 +1,8 @@
 <?php namespace Csatar\Forms\Traits;
 
+use http\Env\Request;
 use Input;
-use Flash;
+use Session;
 use Validator;
 use Csatar\Forms\Models\Form;
 use Response;
@@ -76,6 +77,18 @@ trait AjaxControllerSimple {
         $config->alias = $this->alias;
         $config->model = $record;
 
+        // Autoload belongsTo relations
+        foreach($record->belongsTo as $name => $definition) {
+            if (!Input::get($name)) {
+                continue;
+            }
+
+            $key = isset($definition['key']) ? $definition['key'] : $name . '_id';
+            $record->$key = Input::get($name);
+            $config->fields[$name]['readOnly'] = 1;
+        }
+
+
         $this->widget = new \Backend\Widgets\Form($this, $config);
 
         $this->loadBackendFormWidgets();
@@ -87,7 +100,8 @@ trait AjaxControllerSimple {
 
         $variablesToPass = [
             'form' => $html,
-            'recordKeyParam' => $this->recordKeyParam,
+            'additionalData' => $this->additionalData,
+            'recordKeyParam' => 'id',
             'recordKeyValue' => $record->id ?? 'new',
             'from_id' => $form->id,
             'preview' => $preview ];
@@ -113,6 +127,7 @@ trait AjaxControllerSimple {
 
     public function onSave() {
 
+        $sessionKey = Session::get('key');
         $isNew = Input::get('recordKeyValue') == 'new' ? true : false;
         $record = $this->getRecord();
 
@@ -140,7 +155,7 @@ trait AjaxControllerSimple {
         }
 
         if($isNew) {
-            $record = $record->create($data);
+            $record = $record->create($data, $sessionKey);
         }
         if (!$record->update($data) && !$isNew) {
             $error = e(trans('csatar.forms::lang.errors.canNotSaveValidated'));
@@ -172,7 +187,7 @@ trait AjaxControllerSimple {
         foreach($model->rules as $fieldName => $rule) {
             $html .= "<span data-validate-for='" . $fieldName . "'></span>";
         }
-        $html .= "</div";
+        $html .= "</div>";
 
         return $html;
     }

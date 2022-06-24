@@ -25,11 +25,19 @@ pageNumber = "{{ :page }}"
 localeTitle[en] = "District"
 localeTitle[hu] = "Körzet"
 ==
+function onStart()
+{
+    $this['district_id'] = $this->param('id');
+}
+==
 <div class="container">
     {% component 'basicForm' %}
 
     <p>{{ 'Csapatok' | _ }}</p>
     {% component 'builderList' %}
 
-    <p><a href="/csapat/letrehozas" class="btn btn-default">{{ 'Csapat hozzáadása' | _ }}</a></p>
+    <form action="/csapat/letrehozas" method="post">
+        <input type="hidden" name="district" value="{{ district_id }}">
+        <input type="submit" class="btn btn-default" value="{{ 'Csapat hozzáadása' | _ }}">
+    </form>
 </div>

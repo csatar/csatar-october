@@ -5,3 +5,13 @@ districts:
     toolbarButtons: create|delete
   manage:
     form: $/csatar/csatar/models/district/fields.yaml
+legal_relationships:
+  label: 'csatar.csatar::lang.plugin.admin.legalRelationship.legalRelationship'
+  view:
+    list: $/csatar/csatar/models/legalrelationship/columnsPivot.yaml
+    toolbarButtons: add|remove
+  manage:
+    list: $/csatar/csatar/models/legalrelationship/columns.yaml
+    form: $/csatar/csatar/models/legalrelationship/fields.yaml
+  pivot:
+    form: $/csatar/csatar/models/legalrelationship/fieldsPivot.yaml

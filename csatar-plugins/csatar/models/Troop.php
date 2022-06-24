@@ -24,9 +24,9 @@ class Troop extends Model
      */
     public $rules = [
         'name' => 'required',
-        'email' => 'email',
-        'website' => 'url',
-        'facebook_page' => 'url|regex:(facebook)',
+        'email' => 'email|nullable',
+        'website' => 'url|nullable',
+        'facebook_page' => 'url|regex:(facebook)|nullable',
         'troop_leader_name' => 'required|min:5',
         'troop_leader_phone' => 'required|regex:(^[0-9+-.()]{5,}$)',
         'troop_leader_email' => 'required|email',
