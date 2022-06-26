@@ -254,6 +254,18 @@ label {
     background-color: #FFF0B2;
 }
 
+.bg-link {
+    background-color: #B08B04 !important;
+}
+
+.text-link {
+    color: #B08B04 !important;
+}
+
+.bg-link-hover {
+    background-color: #D3AE23;
+}
+
 .bg-info {
     background-color: #63511C !important;
 }
@@ -277,7 +289,6 @@ label {
 .bg-danger-hover {
     background-color: #FFC5C1;
 }
-
 
 .bg-background2 {
     background-color: #E0C89D;
@@ -303,6 +314,14 @@ label {
     color: #939393;
 }
 
+.info2 {
+    background-color: #5BA3B3 !important;
+}
+
+.text-info2 {
+    color: #5BA3B3 !important;
+}
+
 .bg-error {
     background-color: #FFC5C1;
 }
@@ -320,11 +339,11 @@ label {
 }
 
 a:link, a:visited, a:active {
-    color:#FFCE00;
+    color:#B08B04;
 }
 
 a:hover {
-    color: #FFF0B2;
+    color: #D3AE23;
 }
 
 .code-blue {
@@ -384,7 +403,15 @@ body>p.flash-message.warning {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23FFFFFF'%3e%3cpath fill-rule='evenodd' d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
 }
 
-/* Nav and menu settings */
+.accordion-header > button:not(.collapsed) > a {
+    color: white;
+}
+
+/* Link, nav and menu settings */
+
+a:link, a:visited, a:hover, a:active {
+     text-decoration: none;
+}
 
 a.nav:link, a.nav:visited, a.nav:active {
     display: block;
