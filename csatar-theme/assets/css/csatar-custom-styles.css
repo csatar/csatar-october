@@ -618,7 +618,7 @@ a.btn-light:link, a.btn-light:visited, a.btn-light:active {
 
 /* TABLE */
 
-table {
+table:not(:pika-table) {
     width:100%;
     table-layout: fixed;
     overflow-wrap: break-word;
@@ -631,12 +631,12 @@ table.fixed {
     table-layout: fixed;
 }
   
-th, td, .th, .td {
+th:not(:pika-table), td:not(:pika-table), .th:not(:pika-table), .td:not(:pika-table) {
     border-radius: 12px !important;
     padding: 4px;
 }
 
-th, .th {
+th:not(:pika-table), .th:not(:pika-table) {
     border: 1px solid #78863F;
     background-color: #78863F;
     color: white;
@@ -661,7 +661,7 @@ th, .th {
     font-size: calc(0.9rem + 0.2vw);
 }
 
-td, .td {
+td:not(:pika-table), .td:not(:pika-table) {
     border: 1px solid #DDDDDD;
     font-weight: 300;
     font-size: calc(0.9rem + 0.2vw);
@@ -669,10 +669,10 @@ td, .td {
     vertical-align: top;
 }
 
-table tr:nth-child(odd) td {
+table:not(:pika-table) tr:nth-child(odd) td {
     background-color: white;
 }
-table tr:nth-child(even) td {
+table:not(:pika-table) tr:nth-child(even) td {
     background-color: #F5F5F5;
 }
 
