@@ -11,7 +11,7 @@
                         <div class="d-flex flex-column">
                             <i class="key-out-lg mx-auto mb-3"></i>
                             <p class="p-title text-center">{{ 'Az Aktiváló kódot elküldtük e-mail-ben.' | _ }}</p>
-                            <p class="justify mt-1">{{ 'Kérjük, add meg az új jelszavad (a biztonságod érdekében kérjük, hogy használj erős jelszót, amely legalább 8 karakterből áll és tartalmaz kis-, és nagybetűt, valamint számot vagy szimbólumot).' | _ }}</p>
+                            <p class="justify mt-1">{{ 'Kérjük, add meg az új jelszavad' | _ }}<br/>{{ '(a biztonságod érdekében kérjük, hogy használj erős jelszót, amely legalább 8 karakterből áll és tartalmaz kis-, és nagybetűt, valamint számot vagy szimbólumot).' | _ }}</p>
 
                             <form
                                 data-request="{{ __SELF__ }}::onResetPassword"
@@ -19,13 +19,13 @@
                                 data-request-validate=""
                                 data-request-flash>
                                 <div class="form-group">
-                                    <label for="resetCode" class="p-bold ms-3">{{ 'Aktiváló kód' | _ }}</label>
+                                    <label for="resetCode" class="p-title ms-3">{{ 'Aktiváló kód' | _ }}</label>
                                     <input name="code" type="text" class="form-control" id="resetCode" placeholder="{{ 'Másold be az aktiváló kódot' | _ }}" value="{{ __SELF__.code }}">
                                     <span data-validate-for="code"><p class="text-danger ms-3">{{ 'Az aktiváló kód kötelező és érvényesnek kell lennie.' | _ }}</p></span>
                                 </div>
 
                                 <div class="form-group mt-2">
-                                    <label for="resetPassword" class="p-bold ms-3">{{ 'Új jelszó' | _ }}</label>
+                                    <label for="resetPassword" class="p-title ms-3">{{ 'Új jelszó' | _ }}</label>
                                     <input name="password" type="password" class="form-control" id="resetPassword" placeholder="{{ 'Add meg az új jelszót' | _ }}">
                                     <span data-validate-for="password"><p class="text-danger ms-3">{{ 'A jelszó kell tartalmazzon legalább 8 karaktert, kis-, és nagybetűt, valamint számot vagy szimbólumot.' | _ }}</p></span>
                                 </div>
