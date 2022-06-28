@@ -35,7 +35,7 @@ class Seeder1040 extends Seeder
             ),
             'form_css_class' => '',
             'form_success_msg' => 'Üzenet elküldve!',
-            'form_error_msg' => 'Hiba történt, kérjük ellenőrízze a priossal kijelölt mezőket!',
+            'form_error_msg' => 'Hiba történt, kérjük ellenőrízze a pirossal kijelölt mezőket!',
             'form_hide_after_success' => '1',
             'form_use_placeholders' => '0',
             'form_disable_browser_validation' => '1',
