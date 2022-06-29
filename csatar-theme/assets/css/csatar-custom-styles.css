@@ -89,7 +89,7 @@ h1, .h1 {
 }
 @media (min-width: 1000px) {
     h1, .h1 {
-      font-size: 2rem;
+      font-size: 1.8rem;
     }
 }
 
@@ -100,7 +100,7 @@ h2, .h2 {
 }
 @media (min-width: 1000px) {
     h2, .h2 {
-      font-size: 1.6rem;
+      font-size: 1.7rem;
     }
 }
 
@@ -111,7 +111,7 @@ h3, .h3 {
 }
 @media (min-width: 1000px) {
     h3, .h3 {
-      font-size: 1.4rem;
+      font-size: 1.5rem;
     }
 }
 
@@ -122,7 +122,7 @@ h4, .h4 {
 }
 @media (min-width: 1000px) {
     h4, .h4 {
-      font-size: 1.2rem;
+      font-size: 1.4rem;
     }
 }
 
@@ -133,18 +133,18 @@ h5, .h5 {
 }
 @media (min-width: 1000px) {
     h5, .h5 {
-      font-size: 1.1rem;
+      font-size: 1.3rem;
     }
 }
 
 h6, .h6 {
     font-family: geomanist !important;
     font-weight: 400;
-    font-size: calc(0.7rem + 0.8vw);
+    font-size: calc(0.9rem + 0.2vw);
 }
 @media (min-width: 1000px) {
     h6, .h6 {
-      font-size: 1rem;
+      font-size: 1.2rem;
     }
 }
 
@@ -183,8 +183,8 @@ p.justify {
 .p-title {
     font-family: geomanist !important;
     font-weight: 400;
-    font-size: calc(0.8rem + 0.2vw);
-    line-height: 1.7;
+    font-size: calc(0.9rem + 0.2vw);
+    line-height: 1.5;
 }
 
 .errormsg, .invalid-feedback {
@@ -222,7 +222,7 @@ label {
 
 .swatch {
     width: 140px;
-    height: 70px;
+    height: 75px;
 }
 
 .swatch-narrow {
@@ -508,14 +508,14 @@ a.btn-light:link, a.btn-light:visited, a.btn-light:active {
 .btn {
     font-family: geomanist !important;
     font-weight: 400 !important;
-    font-size: calc(1rem + 0.1vw) !important;
+    font-size: calc(0.9rem + 0.2vw) !important;
     padding: 2;
     margin: 2;
 }
 
 .btn-xs {
     font-family: geomanist !important;
-    font-size: calc(1rem + 0.1vw) !important;
+    font-size: calc(0.9rem + 0.2vw) !important;
     padding: 3px 8px;
 }
 
