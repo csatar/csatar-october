@@ -11,7 +11,7 @@ use Csatar\Forms\Components\BasicForm;
 
 class TeamReport extends ComponentBase
 {
-    public $id, $teamId, $action, $year, $teamReport, $team, $scouts, $teamFee, $totalAmount, $currency, $status, $basicForm;
+    public $id, $teamId, $action, $year, $teamReport, $team, $scouts, $teamFee, $totalAmount, $currency, $status, $basicForm, $redirectFromWaitingForApproval;
 
     public function init()
     {
@@ -39,6 +39,7 @@ class TeamReport extends ComponentBase
         // retrieve the parameters
         $this->id = $this->param('id');
         $this->action = $this->param('action');
+        $this->redirectFromWaitingForApproval = Input::get('redirectFromWaitingForApproval') ?? 'false';
 
         // actions and redirections depending on the mode
         if ($this->id == $this->basicForm->createRecordKeyword) {
@@ -114,20 +115,7 @@ class TeamReport extends ComponentBase
         }
 
         // set the team report status
-        if (isset($this->teamReport)) {
-            if (isset($this->teamReport->approved_at)) {
-                $this->status = Lang::get('csatar.csatar::lang.plugin.component.teamReport.statuses.approved');
-            }
-            else if (isset($this->teamReport->submitted_at)) {
-                $this->status = Lang::get('csatar.csatar::lang.plugin.component.teamReport.statuses.submitted');
-            }
-            else {
-                $this->status = Lang::get('csatar.csatar::lang.plugin.component.teamReport.statuses.created');
-            }
-        }
-        else {
-            $this->status = Lang::get('csatar.csatar::lang.plugin.component.teamReport.statuses.notCreated');
-        }
+        $this->status = isset($this->teamReport) ? $this->teamReport->getStatus() : Lang::get('csatar.csatar::lang.plugin.admin.teamReport.statuses.notCreated');
 
         // call the basicForm's onRun method
         array_multisort(array_column($this->scouts, 'name'), SORT_ASC, $this->scouts);
@@ -150,6 +138,9 @@ class TeamReport extends ComponentBase
         $this->teamReport = \Csatar\Csatar\Models\TeamReport::find($this->id);
         $this->teamReport->approved_at = (new \DateTime())->format('Y-m-d');
         $this->teamReport->save();
+        if (Input::get('redirectFromWaitingForApproval') == 'true') {
+            return Redirect::to('/csapatjelentesek/elfogadasravaro');
+        }
         return Redirect::to('/csapatjelentes/' . $this->id);
     }
 }

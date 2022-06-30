@@ -263,7 +263,7 @@ input[type=checkbox], input[type=radio] {
 }
 
 .field-section > h4 {
-    color: #78863F
+    color: #78863F;
 }
 
 .field-section > h4:first-child, .field-section > p:first-child {
@@ -699,4 +699,11 @@ input[type=checkbox], input[type=radio] {
     text-decoration: none;
     font-weight: 400;
     font-size: calc(1.7rem + 1vw)
+}
+
+.add-remove-button-container {
+    display: inline;
+    float: right;
+    padding: 0;
+    margin: -7px
 }

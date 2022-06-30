@@ -1,6 +1,7 @@
 <?php namespace Csatar\Forms\Components;
 
 use Lang;
+use Session;
 use Cms\Classes\ComponentBase;
 use Csatar\Forms\Models\Form;
 use Csatar\Forms\Traits\ManagesUploads;
@@ -11,6 +12,12 @@ class BasicForm extends ComponentBase  {
 
     use AjaxControllerSimple;
     use ManagesUploads;
+
+    /**
+     * Session key for deferred bindings
+     * @var mixed
+     */
+    public $sessionKey = null;
 
     /**
      * The relation model
@@ -92,13 +99,9 @@ class BasicForm extends ComponentBase  {
      * Initialise plugin and parse request
      */
     public function init() {
-        $form = $this->getForm();
+        $this->getForm();
+        $this->setOrGetSessionKey();
         $this->record = $this->getRecord();
-
-        if(!$this->record && $this->recordKeyValue == $this->createRecordKeyword) {
-            $modelName      = $form->getModelName();
-            $this->record   = new $modelName;
-        }
     }
 
     /**
@@ -229,6 +232,7 @@ class BasicForm extends ComponentBase  {
                     $this->renderedComponent = $this->onDelete();
                     break;
                 default:
+                    $this->readOnly = true;
                     $this->renderedComponent = $this->createForm(true);
             }
         }
@@ -261,4 +265,9 @@ class BasicForm extends ComponentBase  {
         }
     }
 
+    public function setOrGetSessionKey(){
+        $sessionKey = Session::get('key') ?? uniqid('session_key', true);
+        $this->sessionKey = $sessionKey;
+        Session::put('key', $sessionKey);
+    }
 }

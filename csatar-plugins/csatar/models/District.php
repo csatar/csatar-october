@@ -1,19 +1,13 @@
 <?php namespace Csatar\Csatar\Models;
 
-use Model;
+use Lang;
+use Csatar\Csatar\Models\OrganizationBase;
 
 /**
  * Model
  */
-class District extends Model
+class District extends OrganizationBase
 {
-    use \October\Rain\Database\Traits\Validation;
-    
-    use \October\Rain\Database\Traits\SoftDelete;
-
-    protected $dates = ['deleted_at'];
-
-
     /**
      * @var string The database table used by the model.
      */
@@ -34,7 +28,7 @@ class District extends Model
         'bank_account' => 'min:5|nullable',
         'leadership_presentation' => 'required',
         'description' => 'required',
-        'association_id' => 'required',
+        //Validation //'association' => 'required',
         'logo' => 'image|nullable',
     ];
 
@@ -57,11 +51,11 @@ class District extends Model
         'association_id',
         'logo',
     ];
-    
+
     /**
      * Relations
      */
-    
+
     public $belongsTo = [
         'association' => '\Csatar\Csatar\Models\Association',
     ];
@@ -73,7 +67,19 @@ class District extends Model
     public $attachOne = [
         'logo' => 'System\Models\File',
     ];
-    
+
+    public $morphOne = [
+        'content_page' => ['\Csatar\Csatar\Models\ContentPage', 'name' => 'model']
+    ];
+
+    /**
+     * Override the getNameAttribute function
+     */
+    public function getNameAttribute()
+    {
+        return isset($this->attributes['name']) ? $this->attributes['name'] . ' ' . Lang::get('csatar.csatar::lang.plugin.admin.district.nameSuffix') : null;
+    }
+
     /**
      * Scope a query to only include districts with a given association id.
      */

@@ -6,7 +6,8 @@ use Csatar\Csatar\Models\Association;
 
 class Structure extends ComponentBase
 {
-    public $associations;
+    public $structureArray;
+    public $level;
 
     public function componentDetails()
     {
@@ -16,8 +17,39 @@ class Structure extends ComponentBase
         ];
     }
 
+    public function defineProperties()
+    {
+        return [
+            'level' => [
+                'title'             => 'csatar.csatar::lang.plugin.component.structure.properties.level.title',
+                'description'       => 'csatar.csatar::lang.plugin.component.structure.properties.level.description',
+                'type'              => 'string',
+                'default'           => null
+            ],
+            'model_name' => [
+                'title'             => 'csatar.csatar::lang.plugin.component.structure.properties.model_name.title',
+                'description'       => 'csatar.csatar::lang.plugin.component.structure.properties.model_name.description',
+                'type'              => 'string',
+                'default'           => null
+            ],
+            'model_id' => [
+                'title'             => 'csatar.csatar::lang.plugin.component.structure.properties.model_id.title',
+                'description'       => 'csatar.csatar::lang.plugin.component.structure.properties.model_id.description',
+                'type'              => 'string',
+                'default'           => null
+            ]
+        ];
+    }
+
     public function onRun()
     {
-        $this->associations = Association::all();
+        if (!empty($this->property('level'))) {
+            $this->level = $this->property('level');
+            $modelName = "Csatar\Csatar\Models\\" . $this->property('model_name');
+            $this->structureArray = $modelName::where('id', $this->property('model_id'))->get();
+        } else {
+            $this->level = 1;
+            $this->structureArray = Association::all();
+        }
     }
 }

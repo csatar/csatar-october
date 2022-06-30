@@ -1,0 +1,21 @@
+{% component 'basicForm' %}
+
+<p>{{ 'Rajok' | _ }}</p>
+{% component 'builderList' %}
+
+<form action="/raj/letrehozas" method="post">
+    <input type="hidden" name="team" value="{{ team_id }}">
+    <input type="submit" class="btn rounded btn-primary" value="{{ 'Raj hozzáadása' | _ }}">
+</form>
+
+<p>{{ 'Őrsök' | _ }}</p>
+{% component 'builderList2' %}
+
+<form action="/ors/letrehozas" method="post">
+    <input type="hidden" name="team" value="{{ team_id }}">
+    <input type="submit" class="btn rounded btn-primary" value="{{ 'Őrs hozzáadása' | _ }}">
+</form>
+
+<form action="{{'/csapatjelentesek/' ~ team_id }}" method="post">
+    <input type="submit" class="btn rounded btn-primary" value="{{ 'Csapatjelentések' | _ }}">
+</form>

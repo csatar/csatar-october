@@ -24,25 +24,28 @@ pageNumber = "{{ :page }}"
 [viewBag]
 localeTitle[en] = "Troop"
 localeTitle[hu] = "Raj"
+
+[organizationUnitFrontend]
+model_name = "Troop"
+model_id = "{{ :id }}"
+
+[structure]
+level = 4
+model_name = "Troop"
+model_id = "{{ :id }}"
 ==
+<?php
 use Csatar\Csatar\Models\Troop;
 
 function onStart()
 {
-$this['troop_id']      = $this->param('id');
-$troop           = Troop::where('id', $this['troop_id'])->get()->first();
-$this['team_id'] = $troop->team_id ?? null;
+    $this['troop_id']      = $this->param('id');
+    $troop           = Troop::where('id', $this['troop_id'])->get()->first();
+    $this['team_id'] = $troop->team_id ?? null;
+    $this['model_name'] = 'troop';
 }
+?>
 ==
 <div class="container">
-    {% component 'basicForm' %}
-
-    <p>{{ 'Őrsök' | _ }}</p>
-    {% component 'builderList' %}
-
-    <form action="/ors/letrehozas" method="post">
-        <input type="hidden" name="team" value="{{ team_id }}">
-        <input type="hidden" name="troop" value="{{ troop_id }}">
-        <input type="submit" class="btn btn-default" value="{{ 'Őrs hozzáadása' | _ }}">
-    </form>
+    {% component 'organizationUnitFrontend' %}
 </div>

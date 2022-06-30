@@ -66,9 +66,11 @@ class Plugin extends PluginBase
             \Csatar\Csatar\Components\ResetPassword::class => 'resetPasswordOverRide',
             \Csatar\Csatar\Components\Structure::class => 'structure',
             \Csatar\Csatar\Components\Logos::class => 'logos',
+            \Csatar\Csatar\Components\TeamReports::class => 'teamReports',
             \Csatar\Csatar\Components\TeamReport::class => 'teamReport',
             \Csatar\Csatar\Components\CheckScoutStatus::class => 'checkScoutStatus',
-            \Csatar\Csatar\Components\CreateFrontendAccounts::class => 'createFrontendAccounts'
+            \Csatar\Csatar\Components\CreateFrontendAccounts::class => 'createFrontendAccounts',
+            \Csatar\Csatar\Components\OrganizationUnitFrontend::class => 'organizationUnitFrontend',
         ];
     }
 
@@ -80,7 +82,9 @@ class Plugin extends PluginBase
     public function registerMailTemplates()
     {
         return [
-            'csatar.csatar::mail.restore'
+            'csatar.csatar::mail.restore',
+            'csatar.csatar::mail.contactusercopy',
+            'csatar.csatar::mail.contactnotification',
         ];
     }
 

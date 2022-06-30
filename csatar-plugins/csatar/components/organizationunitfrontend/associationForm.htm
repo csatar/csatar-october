@@ -1,0 +1,10 @@
+{% component 'basicForm' %}
+
+<p>{{ 'Körzetek' | _ }}</p>
+{% component 'builderList' %}
+
+
+<form action="/korzet/letrehozas" method="post">
+    <input type="hidden" name="association" value="{{ association_id }}">
+    <input type="submit" class="btn btn-default" value="{{ 'Körzet hozzáadása' | _ }}">
+</form>

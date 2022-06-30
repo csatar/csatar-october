@@ -6,6 +6,7 @@ use Csatar\Csatar\Models\District;
 use Csatar\Csatar\Models\Patrol;
 use Csatar\Csatar\Models\Team;
 use Csatar\Csatar\Models\Troop;
+use Db;
 
 class TestData extends Seeder
 {
@@ -310,7 +311,7 @@ class TestData extends Seeder
             $patrol_1->patrol_leader_email = 'a@aa.com';
             $patrol_1->age_group = '2000-2004';
             $patrol_1->save();
-            
+
             $patrol_2 = Patrol::firstOrNew([
                 'name' => $this::DATA['patrol'][1],
                 'team_id' => $team_6->id,
@@ -323,7 +324,7 @@ class TestData extends Seeder
             $patrol_2->patrol_leader_email = 'a@aa.com';
             $patrol_2->age_group = '2005-2009';
             $patrol_2->save();
-            
+
             $patrol_3 = Patrol::firstOrNew([
                 'name' => $this::DATA['patrol'][2],
                 'team_id' => $team_6->id,
@@ -348,7 +349,7 @@ class TestData extends Seeder
             $patrol_4->patrol_leader_email = 'a@aa.com';
             $patrol_4->age_group = '2000-2004';
             $patrol_4->save();
-            
+
             $patrol_5 = Patrol::firstOrNew([
                 'name' => $this::DATA['patrol'][4],
                 'team_id' => $team_7->id,
@@ -361,7 +362,7 @@ class TestData extends Seeder
             $patrol_5->patrol_leader_email = 'a@aa.com';
             $patrol_5->age_group = '2005-2009';
             $patrol_5->save();
-            
+
             $patrol_6 = Patrol::firstOrNew([
                 'name' => $this::DATA['patrol'][5],
                 'team_id' => $team_7->id,
@@ -371,7 +372,7 @@ class TestData extends Seeder
             $patrol_6->patrol_leader_email = 'a@aa.com';
             $patrol_6->age_group = '1995-1999';
             $patrol_6->save();
-            
+
             $patrol_7 = Patrol::firstOrNew([
                 'name' => $this::DATA['patrol'][6],
                 'team_id' => $team_7->id,
@@ -385,5 +386,15 @@ class TestData extends Seeder
             $patrol_7->age_group = '2005-2009';
             $patrol_7->save();
         }
+
+        // seed contact form settings - temp solution
+
+        $contactFormSettings = '{"validation_type":"required","validation_error":"Az \u00fczenet kit\u00f6lt\u00e9se k\u00f6telez\u0151","validation_custom_type":"","validation_custom_pattern":"","name":"message","type":"textarea","label":"\u00dczenet","field_values":null,"field_custom_code":"","field_custom_code_twig":"0","field_custom_content":"","field_styling":"0","autofocus":"0","wrapper_css":"","label_css":"","field_css":"","field_validation":"1","validation":[{"validation_type":"required","validation_error":"Az \u00fczenet kit\u00f6lt\u00e9se k\u00f6telez\u0151","validation_custom_type":"","validation_custom_pattern":""}],"form_css_class":"","form_success_msg":"","form_error_msg":"","form_hide_after_success":"1","form_use_placeholders":"0","form_disable_browser_validation":"1","form_allow_ajax":"1","form_allow_confirm_msg":"0","form_send_confirm_msg":"","add_assets":"1","add_css_assets":"1","add_js_assets":"1","form_notes":"","send_btn_wrapper_css":"","send_btn_css_class":"","send_btn_text":"K\u00fcld\u00e9s","allow_redirect":"0","redirect_url":"\/","redirect_url_external":"0","form_fields":[{"name":"name","type":"text","label":"N\u00e9v","field_values":null,"field_custom_code":"","field_custom_code_twig":"0","field_custom_content":"","field_styling":"0","autofocus":"1","wrapper_css":"","label_css":"","field_css":"","field_validation":"1","validation":[{"validation_type":"required","validation_error":"A n\u00e9v megad\u00e1sa k\u00f6telz\u0151","validation_custom_type":"","validation_custom_pattern":""}]},{"name":"email","type":"email","label":"E-mail c\u00edm","field_values":null,"field_custom_code":"","field_custom_code_twig":"0","field_custom_content":"","field_styling":"0","autofocus":"0","wrapper_css":"","label_css":"","field_css":"","field_validation":"1","validation":[{"validation_type":"email","validation_error":"Adjon meg \u00e9rv\u00e9nyes e-mail c\u00edmet","validation_custom_type":"","validation_custom_pattern":""},{"validation_type":"required","validation_error":"Az e-mail c\u00edm megad\u00e1sa k\u00f6telez\u0151","validation_custom_type":"","validation_custom_pattern":""}]},{"name":"message","type":"textarea","label":"\u00dczenet","field_values":null,"field_custom_code":"","field_custom_code_twig":"0","field_custom_content":"","field_styling":"0","autofocus":"0","wrapper_css":"","label_css":"","field_css":"","field_validation":"1","validation":[{"validation_type":"required","validation_error":"Az \u00fczenet kit\u00f6lt\u00e9se k\u00f6telez\u0151","validation_custom_type":"","validation_custom_pattern":""}]}],"autoreply_email_field":"email","autoreply_name_field":"name","autoreply_message_field":"message","add_google_recaptcha":"1","google_recaptcha_version":"v2checkbox","google_recaptcha_site_key":"","google_recaptcha_secret_key":"","google_recaptcha_error_msg":"","google_recaptcha_wrapper_css":"","google_recaptcha_scripts_allow":"1","google_recaptcha_locale_allow":"1","add_antispam":"0","antispam_delay":null,"antispam_delay_error_msg":"","antispam_label":"","antispam_error_msg":"","add_ip_protection":"0","add_ip_protection_count":null,"add_ip_protection_error_too_many_submits":"","allow_email_queue":"0","allow_autoreply":"0","email_address_from":"","email_address_from_name":"","email_address_replyto":"","email_subject":"","email_template":"","allow_notifications":"0","notification_address_from_form":"0","notification_address_to":"","notification_template":"","ga_success_event_allow":"0","ga_success_event_gtag":"","ga_success_event_category":"","ga_success_event_action":"","ga_success_event_label":"","privacy_disable_messages_saving":"0"}';
+
+        Db::table('system_settings')
+            ->updateOrInsert(
+                ['item' => 'janvince_smallcontactform_setting'],
+                ['value' => $contactFormSettings],
+            );
     }
 }

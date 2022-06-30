@@ -1,0 +1,176 @@
+<div class="container">
+    <div class="row align-items-start">
+        <div class="col-lg-2 col-md-12">
+            <h5 class="pb-3">{{ 'Táblázat' | _ }}</h5>
+        </div>
+
+        <div class="col-lg-8 col-md-12">
+            <div class="pb-4 w-50">
+                <code class="bg-gray">
+                    <span class="code-blue">&lt;th</span><span class="code-blue">&gt;</span>...<span class="code-blue">&lt;/th&gt;</span>
+                </code>
+                <table>
+                    <tr>
+                        <th>{{ 'Fejléc 1' | _ }}</th>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="pb-4 w-50">
+                <code class="bg-gray">
+                    <span class="code-blue">&lt;th</span>
+                    <span class="code-bluel">class=</span><span class="code-red">"th2"</span><span class="code-blue">&gt;</span>...<span class="code-blue">&lt;/th&gt;</span>
+                </code>
+                <table>
+                    <tr>
+                        <th class="th2">{{ 'Fejléc 2' | _ }}</th>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="pb-4 w-50">
+                <code class="bg-gray">
+                    <span class="code-blue">&lt;th</span>
+                    <span class="code-bluel">class=</span><span class="code-red">"th3"</span><span class="code-blue">&gt;</span>...<span class="code-blue">&lt;/th&gt;</span>
+                </code>
+                <table>
+                    <tr>
+                        <th class="th3">{{ 'Fejléc 3' | _ }}</th>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="pb-4 w-50">
+                <code class="bg-gray">
+                    <span class="code-blue">&lt;td</span><span class="code-blue">&gt;</span>...<span class="code-blue">&lt;/td&gt;</span>
+                </code>
+                <table>
+                    <tr>
+                        <td>{{ 'Cella' | _ }}</td>
+                    </tr>
+                    <tr>
+                        <td>{{ 'Cella' | _ }}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <hr class="hr-single bg-gray">
+
+            <table>
+                <tr>
+                    <th colspan="4">{{ 'Fejléc 1' | _ }}</th>
+                </tr>
+                <tr>
+                    <th class="th2" colspan="2">{{ 'Fejléc 2' | _ }}</th>
+                    <th class="th2" colspan="2">{{ 'Fejléc 3' | _ }}</th>
+                </tr>
+                <tr>
+                    <th class="th3">{{ 'Fejléc 3' | _ }}</th>
+                    <th class="th3">{{ 'Fejléc 3' | _ }}</th>
+                    <th class="th3">{{ 'Fejléc 3' | _ }}</th>
+                    <th class="th3">{{ 'Fejléc 3' | _ }}</th>
+                </tr>
+                <tr>
+                    <td>{{ 'Adat' | _ }}</td>
+                    <td>{{ 'Adat' | _ }}</td>
+                    <td>{{ 'Adat' | _ }}</td>
+                    <td>{{ 'Adat' | _ }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Adat' | _ }}</td>
+                    <td>{{ 'Adat' | _ }}</td>
+                    <td>{{ 'Adat' | _ }}</td>
+                    <td>{{ 'Adat' | _ }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Adat' | _ }}</td>
+                    <td>{{ 'Adat' | _ }}</td>
+                    <td>{{ 'Adat' | _ }}</td>
+                    <td>{{ 'Adat' | _ }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Adat' | _ }}</td>
+                    <td>{{ 'Adat' | _ }}</td>
+                    <td>{{ 'Adat' | _ }}</td>
+                    <td>{{ 'Adat' | _ }}</td>
+                </tr>
+                <tr>
+                    <th class="th3">{{ 'Fejléc 3' | _ }}</th>
+                    <th class="th3">{{ 'Fejléc 3' | _ }}</th>
+                    <th class="th2" colspan="2">{{ 'Fejléc 2' | _ }}</th>
+                </tr>
+                <tr>
+                    <td rowspan="2">{{ 'Adat' | _ }}</td>
+                    <td>{{ 'Adat' | _ }}</td>
+                    <td>{{ 'Adat' | _ }}</td>
+                    <td>{{ 'Adat' | _ }}</td>
+                </tr>
+                <tr>
+                    <td>{{ 'Adat' | _ }}</td>
+                    <td>{{ 'Adat' | _ }}</td>
+                    <td>{{ 'Adat' | _ }}</td>
+                </tr>
+                <tr>
+                    <td rowspan="2">{{ 'Adat' | _ }}</td>
+                    <td colspan="3">{{ 'Adat' | _ }}</td>
+                </tr>
+                <tr>
+                    <td colspan="3">{{ 'Adat' | _ }}</td>
+                </tr>
+            </table>
+            <hr class="hr-single bg-gray">
+
+            <h5>{{ 'Autómatikus cella szélesség' | _ }}</h5>
+            <div>
+                <code class="bg-gray">
+                    <span class="code-blue">&lt;table</span><span class="code-blue">&gt;</span>...<span class="code-blue">&lt;/table&gt;</span>
+                </code>
+            </div>
+            <table>
+                <tr>
+                    <td>
+                        Lorem ipsum dolor sit amet
+                    </td>
+                    <td>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Lorem ipsum dolor sit amet, consectetur
+                    </td>
+                    <td>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
+                    </td>
+                </tr>
+            </table>
+            
+            <h5 class="pt-4">{{ 'Rögzített cella szélesség' | _ }}</h5>
+            <div>
+                <code class="bg-gray">
+                    <span class="code-blue">&lt;table</span>
+                    <span class="code-bluel">class=</span><span class="code-red">"fixed"</span>...<span class="code-blue">&gt;</span><span class="code-blue">&lt;/table&gt;</span>
+                </code>
+            </div>
+            <table class="fixed">
+                <tr>
+                    <td>
+                        Lorem ipsum dolor sit amet
+                    </td>
+                    <td>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        Lorem ipsum dolor sit amet, consectetur
+                    </td>
+                    <td>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </div>
+</div>
