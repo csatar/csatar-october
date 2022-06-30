@@ -66,6 +66,7 @@ trait AjaxControllerSimple {
     {
         $form  = Form::find($this->formId);
         $record = $this->getRecord();
+       // $record = $this->record ?? $this->getRecord();
 
         if(!$record) {
             throw new NotFoundException();
@@ -456,10 +457,6 @@ trait AjaxControllerSimple {
             '#pivotSection' =>
                 $this->renderBelongsToManyRalationsWithPivotData($record)
         ];
-    }
-
-    public function onRefresh(){
-
     }
 
     public function generatePivotTableHeader($attributesToDisplay){

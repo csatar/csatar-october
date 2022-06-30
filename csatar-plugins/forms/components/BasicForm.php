@@ -240,6 +240,11 @@ class BasicForm extends ComponentBase  {
 
     public function onRefresh()
     {
+        //$form = Form::find($this->formId ?? Input::get('formId'));
+        //$config = $this->makeConfig($form->getFieldsConfig());
+        //$this->record->filterFields($config->fields);
+
+        //$this->page->record->setAttribute('given_name', 'AAA');
     }
 
     private function getForm() {
