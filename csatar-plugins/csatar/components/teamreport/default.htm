@@ -2,7 +2,7 @@
     {% component 'basicForm' %}
     
     {% if __SELF__.action == 'modositas' and __SELF__.teamReport.created_at is not null and __SELF__.teamReport.submitted_at is null %}
-        <button class="btn btn-default btn-success"
+        <button class="btn rounded btn-primary"
             data-request="{{ __SELF__ }}::onSubmit"
             data-request-data="id: {{ __SELF__.id }}"
             data-request-loading="#fs-saving-loader">
@@ -11,7 +11,7 @@
     {% endif %}
     
     {% if __SELF__.action == null and __SELF__.teamReport.submitted_at is not null and __SELF__.teamReport.approved_at is null %}
-        <button class="btn btn-default btn-success"
+        <button class="btn rounded btn-primary"
             data-request="{{ __SELF__ }}::onApprove"
             data-request-data="id: {{ __SELF__.id }}, redirectFromWaitingForApproval: {{ __SELF__.redirectFromWaitingForApproval }}"
             data-request-loading="#fs-saving-loader">

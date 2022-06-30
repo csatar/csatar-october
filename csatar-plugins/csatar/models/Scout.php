@@ -106,6 +106,9 @@ class Scout extends Model
         // populate the Patrol dropdown with patrols that belong to the selected team and to the selected troop
         $troop_id = $this->troop_id;
         $fields->patrol->options = $troop_id ? \Csatar\Csatar\Models\Patrol::troopId($troop_id)->lists('name', 'id') : ($team_id ? \Csatar\Csatar\Models\Patrol::teamId($team_id)->lists('name', 'id') : []);
+            
+        // populate the Legal Relationships dropdown with legal relationships that belong to the selected teamás association
+        $fields->legal_relationship->options = $this->team ? \Csatar\Csatar\Models\LegalRelationship::associationId($this->team->district->association->id)->lists('name', 'id') : [];
     }
 
     protected $fillable = [

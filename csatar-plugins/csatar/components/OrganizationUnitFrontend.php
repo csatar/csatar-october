@@ -40,16 +40,18 @@ class OrganizationUnitFrontend extends ComponentBase
     public function onRun()
     {
         $modelName = "Csatar\Csatar\Models\\" . $this->property('model_name');
-        $this->model = $modelName::find($this->property('model_id'));
-        $this->permission_to_edit = Auth::user() ? true : false;
-        if (empty($this->model->content_page))
-        {
-            $this->content_page = $this->model->content_page()->create([
-                'title' => '',
-                'content' => ''
-            ]);
-        } else {
-            $this->content_page = $this->model->content_page;
+        if (is_numeric($this->property('model_id'))) {
+            $this->model = $modelName::find($this->property('model_id'));
+            $this->permission_to_edit = Auth::user() ? true : false;
+            if (empty($this->model->content_page))
+            {
+                $this->content_page = $this->model->content_page()->create([
+                    'title' => '',
+                    'content' => ''
+                ]);
+            } else {
+                $this->content_page = $this->model->content_page;
+            }
         }
     }
 

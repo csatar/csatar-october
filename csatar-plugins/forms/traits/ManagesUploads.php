@@ -1,6 +1,7 @@
 <?php namespace Csatar\Forms\Traits;
 
 use Input;
+use Session;
 use Request;
 use Response;
 use File;
@@ -134,8 +135,7 @@ trait ManagesUploads {
             }
 
             // $this->validateUpload();
-            $sessionKey = uniqid('session_key', true);
-            \Session::put('key', $sessionKey);
+
             $fileModel = $this->record->getRelationDefinition($model_field)[0];
 
             $file = new $fileModel();
@@ -143,6 +143,7 @@ trait ManagesUploads {
             $file->is_public = true;
             $file->save();
             if($isNew){
+                $sessionKey = Session::get('key');
                 $this->record->{$model_field}()->add($file, $sessionKey);
             } else {
                 $this->record->{$model_field}()->add($file);

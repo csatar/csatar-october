@@ -58,6 +58,7 @@ class Association extends OrganizationBase
             'table' => 'csatar_csatar_associations_legal_relationships',
             'pivot' => ['membership_fee'],
             'pivotModel' => '\Csatar\Csatar\Models\AssociationLegalRelationshipPivot',
+            'label' => 'csatar.csatar::lang.plugin.admin.legalRelationship.legalRelationships',
         ],
     ];
 

@@ -1,5 +1,6 @@
 <?php namespace Csatar\Forms\Widgets;
 
+use Lang;
 use Backend\Classes\FormWidgetBase;
 use Csatar\Forms\Traits\ManagesUploads;
 
@@ -101,7 +102,7 @@ class FrontendFileUpload extends FormWidgetBase
         $this->vars['id'] = $this->getId();
         $this->vars['name'] = $this->getFieldName();
         $this->vars['fieldName'] = $this->fieldName;
-        $this->vars['prompt'] = empty($this->prompt) ? 'Browse' : $this->prompt;
+        $this->vars['prompt'] = empty($this->prompt) ? Lang::get('csatar.forms::lang.widgets.frontendFileUpload.browse') : $this->prompt;
         $this->vars['fileTypes'] = $this->fileTypes;
         $this->vars['fileList'] = $this->getFileList();
         $this->vars['isPopulated'] = $this->isPopulated();
