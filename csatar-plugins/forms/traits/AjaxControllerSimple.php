@@ -101,6 +101,7 @@ trait AjaxControllerSimple {
 
         $variablesToPass = [
             'form' => $html,
+            'formUniqueId' => $this->formUniqueId,
             'additionalData' => $this->additionalData,
             'recordKeyParam' => 'id',
             'recordKeyValue' => $record->id ?? 'new',
@@ -113,7 +114,13 @@ trait AjaxControllerSimple {
     public function onAddPivotRelation(){
         $relationName = Input::get('relationName');
         $relationId = Input::get($relationName);
-        return $this->createPivotForm($relationName, $relationId);
+
+        if($relationName && $relationId) {
+            return $this->createPivotForm($relationName, $relationId);
+        }
+
+        $error = e(trans('csatar.forms::lang.errors.nothingSelectedOnPivotRelation'));
+        throw new \ValidationException([$relationName => $error]);
     }
 
     public function onCloseAddEditArea(){
