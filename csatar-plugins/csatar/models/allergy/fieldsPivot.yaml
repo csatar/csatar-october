@@ -8,4 +8,4 @@ fields:
     'pivot[comment]':
         label: 'csatar.csatar::lang.plugin.admin.general.comment'
         span: auto
-        type: text
+        type: textarea

@@ -42,6 +42,7 @@ class Promise extends Model
             '\Csatar\Csatar\Models\Scout',
             'table' => 'csatar_csatar_scouts_promises',
             'pivot' => ['date', 'location'],
+            'pivotModel' => '\Csatar\Csatar\Models\ScoutPromisePivot',
         ]
     ];
 }

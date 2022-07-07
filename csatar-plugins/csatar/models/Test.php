@@ -44,6 +44,7 @@ class Test extends Model
             '\Csatar\Csatar\Models\Scout',
             'table' => 'csatar_csatar_scouts_tests',
             'pivot' => ['date', 'location'],
+            'pivotModel' => '\Csatar\Csatar\Models\ScoutTestPivot',
         ]
     ];
 }

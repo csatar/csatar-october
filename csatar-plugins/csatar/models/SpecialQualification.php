@@ -43,6 +43,7 @@ class SpecialQualification extends Model
             '\Csatar\Csatar\Models\Scout',
             'table' => 'csatar_csatar_scouts_special_qualifications',
             'pivot' => ['date', 'location'],
+            'pivotModel' => '\Csatar\Csatar\Models\ScoutSpecialQualificationPivot',
         ]
     ];
 }
