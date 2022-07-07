@@ -1,5 +1,6 @@
 <?php namespace Csatar\Csatar\Models;
 
+use Lang;
 use October\Rain\Database\Pivot;
 
 /**
@@ -27,4 +28,12 @@ class AssociationLegalRelationshipPivot extends Pivot
     public $fillable = [
         'membership_fee',
     ];
+
+    public function beforeValidate()
+    {
+        // set the attribute names
+        $this->setValidationAttributeNames([
+            'membership_fee' => Lang::get('csatar.csatar::lang.plugin.admin.association.membershipFee'),
+        ]);
+    }
 }

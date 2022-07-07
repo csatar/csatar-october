@@ -31,7 +31,17 @@ class ScoutLeadershipQualificationPivot extends Pivot
     /**
      * Add custom validation
      */
-    public function beforeValidate() {
+    public function beforeValidate()
+    {
+        // set the attribute names
+        $this->setValidationAttributeNames([
+            'date' => Lang::get('csatar.csatar::lang.plugin.admin.general.date'),
+            'location' => Lang::get('csatar.csatar::lang.plugin.admin.general.location'),
+            'qualification_certificate_number' => Lang::get('csatar.csatar::lang.plugin.admin.general.qualificationCertificateNumber'),
+            'qualification' => Lang::get('csatar.csatar::lang.plugin.admin.general.qualification'),
+            'qualification_leader' => Lang::get('csatar.csatar::lang.plugin.admin.general.qualificationLeader'),
+        ]);
+
         // check that the date is not in the future
         if (isset($this->date) && (new DateTime($this->date) > new DateTime())) {
             throw new ValidationException(['date' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.dateInTheFuture')]);
