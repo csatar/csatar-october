@@ -376,10 +376,14 @@ a:hover {
 
 /* Flash messages settings */
 
-.btn-warning {
-    background-color: #FFCE00;
-    border-color: #FFCE00;
-    color: #555555 !important;
+body>p.flash-message.success {
+    background: #78863F !important;
+    color: #FFFFFF;
+}
+
+body>p.flash-message.info {
+    background: #5BA3B3 !important;
+    color: #FFFFFF;
 }
 
 body>p.flash-message.warning {
@@ -387,15 +391,58 @@ body>p.flash-message.warning {
     color: #303030;
 }
 
+body>p.flash-message.error {
+    background: #B83222 !important;
+    color: #FFFFFF;
+}
+
+body>p.flash-message.success, body>p.flash-message.info, body>p.flash-message.warning, body>p.flash-message.error {
+    border-radius: 12px;
+    font-family: geomanist !important;
+    font-weight: 400 !important;
+    font-size: calc(0.9rem + 0.2vw) !important;
+    line-height: 1.2;
+}
+
+.flash-message.static {
+    border-radius: 12px;
+    font-family: geomanist !important;
+    font-weight: 400 !important;
+    font-size: calc(0.9rem + 0.2vw) !important;
+    line-height: 1.2;
+    text-align: center;
+    padding: 10px 0px;
+}
+
+.flash-message.success {
+    background: #78863F !important;
+    color: #FFFFFF;
+}
+
+.flash-message.info {
+    background: #5BA3B3 !important;
+    color: #FFFFFF;
+}
+
+.flash-message.warning {
+    background: #FFCE00 !important;
+    color: #303030;
+}
+
+.flash-message.error {
+    background: #B83222 !important;
+    color: #FFFFFF;
+}
+
 .alert-success {
-    color: #ffffff;
+    color: #FFFFFF;
     background-color: #78863F;
 }
 
 /* Accordion color setting*/
 
 .accordion-button:not(.collapsed) {
-    color: white;
+    color: #FFFFFF;
     background-color: #78863F;
 }
 
@@ -404,7 +451,7 @@ body>p.flash-message.warning {
 }
 
 .accordion-header > button:not(.collapsed) > a {
-    color: white;
+    color: #FFFFFF;
 }
 
 /* Link, nav and menu settings */
@@ -462,25 +509,39 @@ a.dropdown-item {
 /* Button color and font settings */
 
 .btn-primary {
-    color: #ffffff;
+    color: #FFFFFF;
     background-color: #78863F;
     border-color: #78863F;
 }
 
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
-    color: #ffffff;
+    background-color: #99A56B;
+    border-color: #99A56B;
+}
+
+.btn-warning {
+    color: #555555 !important;
+    background-color: #FFCE00;
+    border-color: #FFCE00;
+}
+
+.btn-warning:hover, .btn-warning:focus, .btn-warning:active, .btn-warning.active, .open>.dropdown-toggle.btn-warning {
+    background-color: #FFF0B2;
+    border-color: #FFF0B2;
+}
+
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
     background-color: #99A56B;
     border-color: #99A56B;
 }
 
 .btn-danger {
-    color: #ffffff;
+    color: #FFFFFF;
     background-color: #B83222;
     border-color: #B83222;
 }
 
 .btn-danger:hover, .btn-danger:focus, .btn-danger:active, .btn-danger.active, .open>.dropdown-toggle.btn-danger {
-    color: #B83222;
     background-color: #FFC5C1;
     border-color: #FFC5C1;
 }
@@ -492,17 +553,30 @@ a.dropdown-item {
 }
 
 .btn-light:hover, .btn-light:focus, .btn-light:active, .btn-light.active, .open>.dropdown-toggle.btn-light {
-    color: #78863F;
     background-color: #FFFFFF;
     border-color: #F5F5F5;
 }
 
-a.btn-primary:link, a.btn-primary:visited, a.btn-primary:active, a.btn-info:link, a.btn-info:visited, a.btn-info:active, a.btn-warning:link, a.btn-warning:visited, a.btn-warning:active, a.btn-danger:link, a.btn-danger:visited, a.btn-danger:active {
-    color: #ffffff;
+.btn-info {
+    background-color: #5BA3B3;
+    border-color: #5BA3B3;
+}
+
+.btn-info:hover, .btn-info:focus, .btn-info:active, .btn-info.active, .open>.dropdown-toggle.btn-info {
+    background-color: #97D5E3;
+    border-color: #97D5E3;
+}
+
+a.btn-primary:link, a.btn-primary:visited, a.btn-primary:active, a.btn-info:link, a.btn-info:visited, a.btn-info:active, a.btn-danger:link, a.btn-danger:visited, a.btn-danger:active {
+    color: #FFFFFF !important;
 }
 
 a.btn-light:link, a.btn-light:visited, a.btn-light:active {
     color:#78863F !important;
+}
+
+a.btn-warning:link, a.btn-warning:visited, a.btn-warning:active {
+    color:#555555 !important;
 }
 
 .btn {
