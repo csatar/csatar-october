@@ -53,7 +53,8 @@ class Scout extends Model
 
     public $attributeNames = [];
 
-    function __construct() {
+    function __construct(array $attributes = []) {
+        parent::__construct($attributes);
         $this->attributeNames['registration_form'] = e(trans('csatar.csatar::lang.plugin.admin.scout.registrationForm'));
         $this->attributeNames['profile_image'] = e(trans('csatar.csatar::lang.plugin.admin.scout.profile_image'));
     }
