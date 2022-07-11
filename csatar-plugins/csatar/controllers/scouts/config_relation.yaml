@@ -22,7 +22,7 @@ promises:
   label: 'csatar.csatar::lang.plugin.admin.promise.promise'
   view:
     list: $/csatar/csatar/models/promise/columnsPivot.yaml
-    toolbarButtons: add|remove|create
+    toolbarButtons: add|remove
   manage:
     list: $/csatar/csatar/models/promise/columns.yaml
     form: $/csatar/csatar/models/promise/fields.yaml
@@ -32,7 +32,7 @@ tests:
   label: 'csatar.csatar::lang.plugin.admin.test.test'
   view:
     list: $/csatar/csatar/models/test/columnsPivot.yaml
-    toolbarButtons: add|remove|create
+    toolbarButtons: add|remove
   manage:
     list: $/csatar/csatar/models/test/columns.yaml
     form: $/csatar/csatar/models/test/fields.yaml
@@ -42,7 +42,7 @@ special_tests:
   label: 'csatar.csatar::lang.plugin.admin.specialTest.specialTest'
   view:
     list: $/csatar/csatar/models/specialtest/columnsPivot.yaml
-    toolbarButtons: add|remove|create
+    toolbarButtons: add|remove
   manage:
     list: $/csatar/csatar/models/specialtest/columns.yaml
     form: $/csatar/csatar/models/specialtest/fields.yaml
@@ -52,7 +52,7 @@ professional_qualifications:
   label: 'csatar.csatar::lang.plugin.admin.professionalQualification.professionalQualification'
   view:
     list: $/csatar/csatar/models/professionalqualification/columnsPivot.yaml
-    toolbarButtons: add|remove|create
+    toolbarButtons: add|remove
   manage:
     list: $/csatar/csatar/models/professionalqualification/columns.yaml
     form: $/csatar/csatar/models/professionalqualification/fields.yaml
@@ -62,7 +62,7 @@ special_qualifications:
   label: 'csatar.csatar::lang.plugin.admin.specialQualification.specialQualification'
   view:
     list: $/csatar/csatar/models/specialqualification/columnsPivot.yaml
-    toolbarButtons: add|remove|create
+    toolbarButtons: add|remove
   manage:
     list: $/csatar/csatar/models/specialqualification/columns.yaml
     form: $/csatar/csatar/models/specialqualification/fields.yaml
@@ -72,7 +72,7 @@ leadership_qualifications:
   label: 'csatar.csatar::lang.plugin.admin.leadershipQualification.leadershipQualification'
   view:
     list: $/csatar/csatar/models/leadershipqualification/columnsPivot.yaml
-    toolbarButtons: add|remove|create
+    toolbarButtons: add|remove
   manage:
     list: $/csatar/csatar/models/leadershipqualification/columns.yaml
     form: $/csatar/csatar/models/leadershipqualification/fields.yaml
@@ -82,7 +82,7 @@ training_qualifications:
   label: 'csatar.csatar::lang.plugin.admin.trainingQualification.trainingQualification'
   view:
     list: $/csatar/csatar/models/trainingqualification/columnsPivot.yaml
-    toolbarButtons: add|remove|create
+    toolbarButtons: add|remove
   manage:
     list: $/csatar/csatar/models/trainingqualification/columns.yaml
     form: $/csatar/csatar/models/trainingqualification/fields.yaml

@@ -44,6 +44,7 @@ class LeadershipQualification extends Model
             '\Csatar\Csatar\Models\Scout',
             'table' => 'csatar_csatar_scouts_leadership_qualifications',
             'pivot' => ['date', 'location', 'qualification_certificate_number', 'qualification', 'qualification_leader'],
+            'pivotModel' => '\Csatar\Csatar\Models\ScoutLeadershipQualificationPivot',
         ]
     ];
 }
