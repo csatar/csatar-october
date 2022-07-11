@@ -100,12 +100,27 @@ class Scout extends Model
      */
     public function filterFields($fields, $context = null) {
         // populate the Troop and Patrol dropdowns with troops and patrols that belong to the selected team
+        $fields->troop->options = [];
         $team_id = $this->team_id;
-        $fields->troop->options = $team_id ? \Csatar\Csatar\Models\Troop::teamId($team_id)->lists('name', 'id') : [];
+        if ($team_id) {
+            foreach (\Csatar\Csatar\Models\Troop::teamId($team_id)->get() as $troop) {
+                $fields->troop->options += [$troop['id'] => $troop['extendedName']];
+            }
+        }
 
         // populate the Patrol dropdown with patrols that belong to the selected team and to the selected troop
+        $fields->patrol->options = [];
         $troop_id = $this->troop_id;
-        $fields->patrol->options = $troop_id ? \Csatar\Csatar\Models\Patrol::troopId($troop_id)->lists('name', 'id') : ($team_id ? \Csatar\Csatar\Models\Patrol::teamId($team_id)->lists('name', 'id') : []);
+        if ($troop_id) {
+            foreach (\Csatar\Csatar\Models\Patrol::troopId($troop_id)->get() as $patrol) {
+                $fields->patrol->options += [$patrol['id'] => $patrol['extendedName']];
+            }
+        }
+        else if ($team_id) {
+            foreach (\Csatar\Csatar\Models\Patrol::teamId($team_id)->get() as $patrol) {
+                $fields->patrol->options += [$patrol['id'] => $patrol['extendedName']];
+            }
+        }
             
         // populate the Legal Relationships dropdown with legal relationships that belong to the selected teamás association
         $fields->legal_relationship->options = $this->team ? \Csatar\Csatar\Models\LegalRelationship::associationId($this->team->district->association->id)->lists('name', 'id') : [];
@@ -188,54 +203,63 @@ class Scout extends Model
             '\Csatar\Csatar\Models\Allergy',
             'table' => 'csatar_csatar_scouts_allergies',
             'pivot' => ['comment'],
+            'pivotModel' => '\Csatar\Csatar\Models\ScoutAllergyPivot',
             'label' => 'csatar.csatar::lang.plugin.admin.allergy.allergies',
         ],
         'food_sensitivities' => [
             '\Csatar\Csatar\Models\FoodSensitivity',
             'table' => 'csatar_csatar_scouts_food_sensitivities',
             'pivot' => ['comment'],
+            'pivotModel' => '\Csatar\Csatar\Models\ScoutFoodSensitivityPivot',
             'label' => 'csatar.csatar::lang.plugin.admin.foodSensitivity.foodSensitivities',
         ],
         'promises' => [
             '\Csatar\Csatar\Models\Promise',
             'table' => 'csatar_csatar_scouts_promises',
             'pivot' => ['date', 'location'],
+            'pivotModel' => '\Csatar\Csatar\Models\ScoutPromisePivot',
             'label' => 'csatar.csatar::lang.plugin.admin.promise.promises',
         ],
         'tests' => [
             '\Csatar\Csatar\Models\Test',
             'table' => 'csatar_csatar_scouts_tests',
             'pivot' => ['date', 'location'],
+            'pivotModel' => '\Csatar\Csatar\Models\ScoutTestPivot',
             'label' => 'csatar.csatar::lang.plugin.admin.test.tests',
         ],
         'special_tests' => [
             '\Csatar\Csatar\Models\SpecialTest',
             'table' => 'csatar_csatar_scouts_special_tests',
             'pivot' => ['date', 'location'],
+            'pivotModel' => '\Csatar\Csatar\Models\ScoutSpecialTestPivot',
             'label' => 'csatar.csatar::lang.plugin.admin.specialTest.specialTests',
         ],
         'professional_qualifications' => [
             '\Csatar\Csatar\Models\ProfessionalQualification',
             'table' => 'csatar_csatar_scouts_professional_qualifications',
             'pivot' => ['date', 'location'],
+            'pivotModel' => '\Csatar\Csatar\Models\ScoutProfessionalQualificationPivot',
             'label' => 'csatar.csatar::lang.plugin.admin.professionalQualification.professionalQualifications',
         ],
         'special_qualifications' => [
             '\Csatar\Csatar\Models\SpecialQualification',
             'table' => 'csatar_csatar_scouts_special_qualifications',
             'pivot' => ['date', 'location'],
+            'pivotModel' => '\Csatar\Csatar\Models\ScoutSpecialQualificationPivot',
             'label' => 'csatar.csatar::lang.plugin.admin.specialQualification.specialQualifications',
         ],
         'leadership_qualifications' => [
             '\Csatar\Csatar\Models\LeadershipQualification',
             'table' => 'csatar_csatar_scouts_leadership_qualifications',
             'pivot' => ['date', 'location', 'qualification_certificate_number', 'qualification', 'qualification_leader'],
+            'pivotModel' => '\Csatar\Csatar\Models\ScoutLeadershipQualificationPivot',
             'label' => 'csatar.csatar::lang.plugin.admin.leadershipQualification.leadershipQualifications',
         ],
         'training_qualifications' => [
             '\Csatar\Csatar\Models\TrainingQualification',
             'table' => 'csatar_csatar_scouts_training_qualifications',
             'pivot' => ['date', 'location', 'qualification_certificate_number', 'qualification', 'qualification_leader'],
+            'pivotModel' => '\Csatar\Csatar\Models\ScoutTrainingQualificationPivot',
             'label' => 'csatar.csatar::lang.plugin.admin.trainingQualification.trainingQualifications',
         ],
         'team_reports' => [
