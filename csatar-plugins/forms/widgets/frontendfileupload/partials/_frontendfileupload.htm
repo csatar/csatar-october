@@ -73,7 +73,6 @@
                         href="javascript:;"
                         class="upload-remove-button"
                         data-request="<?= $this->getEventHandler('onRemoveAttachment') ?>"
-                        data-request-confirm="{{ 'Are you sure?'|_ }}"
                         data-request-data="file_id: <?= $file->id ?>, field: '<?= $fieldName ?>'"
                         >&times;</a>
                 </div>
@@ -115,8 +114,7 @@
                 href="javascript:;"
                 class="upload-remove-button"
                 onclick="$(this).request('<?= $this->getEventHandler('onRemoveAttachment') ?>', {
-                    data: {field: '<?= $fieldName ?>'},
-                    confirm: "{{ 'Are you sure?'|_ }}"
+                    data: {field: '<?= $fieldName ?>'}
                 }); return false;"
                 >&times;</a>
             <div class="progress-bar"><span class="upload-progress" data-dz-uploadprogress></span></div>
