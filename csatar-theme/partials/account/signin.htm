@@ -39,12 +39,12 @@
                                     placeholder="{{ 'Jelszó'|_ }}" />
                                     <span>
                                         <button class="search-btn" type="button">
-                                        <i class="bi bi-eye text-primary" 
+                                        <i class="bi bi-eye text-primary"
                                         id="togglePassword"></i>
                                         </button>
                                     </span>
                                     </div>
-                                </div>   
+                                </div>
                                 <span data-validate-for="password" class="errormsg">{{ 'A jelszó mezőt kötelező kitöltened!' | _ }}</span>
 
                                 <a class="login" href="{{ url('/elfelejtett-jelszo') }}" rel="noopener noreferrer"><p class="p-title">{{ 'Elfelejtettem a jelszavamat'|_ }}</p></a>
@@ -62,9 +62,9 @@
                     <div class="card bg-primary text-light rounded h-100">
                         <div class="card-body">
                         <div class="d-flex flex-column align-items-center pt-2">
-                        
+
                             {% for name, link in social_login_links %}
-                                
+
                                 {% if name == "Google" %}
                                     <div>
                                     <i class="g-fill-w-lg"></i>
@@ -85,7 +85,7 @@
                                     </a>
                                     </div>
                                 {% endif %}
-                            
+
                             {% endfor %}
 
                         </div>
@@ -102,12 +102,12 @@
 </div>
 
 <script>
-    $(document).ready(function() {        
+    $(document).ready(function() {
     $( "#togglePassword" ).on( "click", function() {
                 $( this ).toggleClass( "bi-eye bi-eye-slash" );
-                $("#userSigninPassword").attr('type') === 'password' ? 
-                    $("#userSigninPassword").attr('type', 'text') : 
-                    $("#userSigninPassword").attr('type', 'password' )  
+                $("#userSigninPassword").attr('type') === 'password' ?
+                    $("#userSigninPassword").attr('type', 'text') :
+                    $("#userSigninPassword").attr('type', 'password' )
             });
         });
 </script>
