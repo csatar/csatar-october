@@ -48,7 +48,7 @@ fields:
         type: fileupload
     team:
         label: 'csatar.csatar::lang.plugin.admin.patrol.team'
-        select: 'concat(team_number, ''. '', name)'
+        nameFrom: extendedName
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
@@ -56,7 +56,7 @@ fields:
         type: relation
     troop:
         label: 'csatar.csatar::lang.plugin.admin.patrol.troop'
-        nameFrom: name
+        nameFrom: extendedName
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         dependsOn: team

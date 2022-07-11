@@ -7,26 +7,56 @@
         <div class="col-lg-8 col-md-12">
             <div class="row">
                 <div class="col-lg-3 col-md-12 col-sm-12 mb-3">
-                <p>Az oldal tetején megjelenő flash üzenet megjelenítéséhez klikkelj valamelyik gombra</p>
+                </div>
+                <div class="col-lg-8 col-md-12 col-sm-12 mb-3">
+                    <p class="flash-message static success">
+                        Sikeres folyamat viszzaigazolása
+                    </p>
+                    <p class="flash-message static info">
+                        Informáló üzenet
+                    </p>
+                    <p class="flash-message static warning">
+                        Figyelmeztető üzenet
+                    </p>
+                    <p class="flash-message static error">
+                        Hiba!
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-3 col-md-12 col-sm-12 mb-3">
+                <p>{{ 'A flash üzenet megjelenítéséhez klikkelj valamelyik gombra' | _ }}</p>
                 </div>
                 <div class="col-lg-8 col-md-12 col-sm-12 mb-3 text-center">
 
-                            <a href="#" class="btn btn-primary mb-3" onclick="$.oc.flashMsg({text: '{{ 'Sikeres folyamat viszzaigazolása' | _ }}', 'class': 'success'}); return false;">
+                            <a href="#" class="btn btn-primary rounded mb-3" onclick="$.oc.flashMsg({text: '{{ 'Sikeres folyamat viszzaigazolása' | _ }}', 'class': 'success'}); return false;">
                                 {{ 'Siker' | _ }}
                             </a>
 
-                            <a href="#" class="btn btn-info mb-3" onclick="$.oc.flashMsg({text: '{{ 'Informáló üzenet' | _ }}', 'class': 'info'}); return false;">
+                            <a href="#" class="btn btn-info rounded mb-3" onclick="$.oc.flashMsg({text: '{{ 'Informáló üzenet' | _ }}', 'class': 'info'}); return false;">
                                 {{ 'Információ' | _ }}
                             </a>
 
-                            <a href="#" class="btn btn-warning mb-3" onclick="$.oc.flashMsg({text: '{{ 'Figyelmeztető üzenet' | _ }}', 'class': 'warning'}); return false;">
+                            <a href="#" class="btn btn-warning rounded mb-3" onclick="$.oc.flashMsg({text: '{{ 'Figyelmeztető üzenet' | _ }}', 'class': 'warning'}); return false;">
                                 {{ 'Figyelmeztetés' | _ }}
                             </a>
 
-                            <a href="#" class="btn btn-danger mb-3" onclick="$.oc.flashMsg({text: '{{ 'Hiba!' | _ }}', 'class': 'error'}); return false;">
+                            <a href="#" class="btn btn-danger rounded mb-3" onclick="$.oc.flashMsg({text: '{{ 'Hiba!' | _ }}', 'class': 'error'}); return false;">
                                 {{ 'Hiba!' | _ }}
                             </a>
                 </div>
+
+                <div class="row">
+                    <div class="col-3">
+                    </div>
+
+                    <div class="col-9 bg-gray pb-3">
+                        <code>
+                        <span class="code-blue">&lt;a </span><span class="code-bluel">href=</span><span class="code-red">"#" </span><span class="code-bluel">class=</span><span class="code-red">"btn btn-primary rounded" </span><span class="code-bluel">onclick=</span><span class="code-red">"$.oc.flashMsg({text: '&#123;&#123; 'Üzenet' &#124; _ &#125;&#125;', 'class': 'success'}); return false;"</span><span class="code-blue">&gt;</span><span class="text-black">&#123;&#123; 'Üzenet' &#124; _ &#125;&#125;</span><span class="code-blue">&lt;/a&gt; </span>
+                    </code>
+                    </div>   
+                </div>
+
             </div>
         </div>
     </div>
