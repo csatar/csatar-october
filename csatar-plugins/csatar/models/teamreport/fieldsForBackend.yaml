@@ -91,11 +91,10 @@ fields:
         disabled: 1
     currency:
         label: 'csatar.csatar::lang.plugin.admin.association.currency'
-        nameFrom: code
-        descriptionFrom: description
         span: auto
         disabled: 1
-        type: relation
+        dependsOn: team
+        type: text
     submitted_at:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.submittedAt'
         mode: date
