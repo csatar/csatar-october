@@ -16,7 +16,7 @@ class OrganizationBase extends Model
     /**
      * Returns the name of the organization
      */
-    public function getNameAttribute()
+    public function getExtendedNameAttribute()
     {
         return $this->attributes['name'];
     }

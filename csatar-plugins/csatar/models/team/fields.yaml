@@ -107,7 +107,7 @@ fields:
         type: fileupload
     district:
         label: 'csatar.csatar::lang.plugin.admin.team.district'
-        nameFrom: name
+        nameFrom: extendedName
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto

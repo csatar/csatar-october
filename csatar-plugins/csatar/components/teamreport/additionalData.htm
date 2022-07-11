@@ -5,7 +5,7 @@
             <tr>
                 <th class="th2">{{ 'Név' | _ }}</th>
                 <th class="th2">{{ 'Jogviszony' | _ }}</th>
-                <th class="th2">{{ 'Képesítés' | _ }}</th>
+                <th class="th2 d-none d-md-table-cell">{{ 'Képesítés' | _ }}</th>
                 <th class="th2">{{ 'ECSET kód' | _ }}</th>
                 <th class="th2">{{ 'Tagdíj értéke' | _ }}</th>
             </tr>
@@ -13,7 +13,7 @@
                 <tr>
                     <td>{{ scout.name }}</td>
                     <td>{{ scout.legal_relationship.name }}</td>
-                    <td>{{ scout.leadership_qualification.name }}</td>
+                    <td class="d-none d-md-table-cell">{{ scout.leadership_qualification.name }}</td>
                     <td>{{ scout.ecset_code }}</td>
                     <td>{{ scout.membership_fee ~ ' ' ~ __SELF__.currency }}</td>
                 </tr>

@@ -43,7 +43,7 @@ fields:
         type: fileupload
     team:
         label: 'csatar.csatar::lang.plugin.admin.troop.team'
-        select: concat(team_number, '. ', name)
+        nameFrom: extendedName
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto

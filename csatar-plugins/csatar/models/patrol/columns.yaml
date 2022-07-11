@@ -13,7 +13,7 @@ columns:
     deleted_at:
         label: 'csatar.csatar::lang.plugin.admin.general.deletedAt'
         type: datetime
-    name:
+    extendedName:
         label: 'csatar.csatar::lang.plugin.admin.general.name'
         type: text
         searchable: true
@@ -57,11 +57,11 @@ columns:
         label: 'csatar.csatar::lang.plugin.admin.patrol.team'
         type: number
         searchable: true
-        select: 'concat(team_number, ''. '', name)'
+        valueFrom: extendedName
         relation: team
     troop_id:
         label: 'csatar.csatar::lang.plugin.admin.patrol.troop'
         type: number
         searchable: true
         relation: troop
-        valueFrom: name
+        valueFrom: extendedName

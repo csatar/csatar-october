@@ -13,7 +13,7 @@ columns:
     deleted_at:
         label: 'csatar.csatar::lang.plugin.admin.general.deletedAt'
         type: datetime
-    name:
+    extendedName:
         label: 'csatar.csatar::lang.plugin.admin.general.name'
         type: text
         searchable: true
@@ -108,4 +108,4 @@ columns:
         type: number
         searchable: true
         relation: district
-        valueFrom: name
+        valueFrom: extendedName

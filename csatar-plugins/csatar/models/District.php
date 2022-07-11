@@ -73,9 +73,9 @@ class District extends OrganizationBase
     ];
 
     /**
-     * Override the getNameAttribute function
+     * Override the getExtendedNameAttribute function
      */
-    public function getNameAttribute()
+    public function getExtendedNameAttribute()
     {
         return isset($this->attributes['name']) ? $this->attributes['name'] . ' ' . Lang::get('csatar.csatar::lang.plugin.admin.district.nameSuffix') : null;
     }

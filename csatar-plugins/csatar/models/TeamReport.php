@@ -108,6 +108,15 @@ class TeamReport extends Model
     ];
 
     /**
+     * Handle the team-currency dependency
+     */
+    public function filterFields($fields, $context = null)
+    {
+        // set the currency that corresponds to the selected team
+        $fields->currency->value = $this->team ? $this->team->district->association->currency->code : '';
+    }
+
+    /**
      * Set additional data
      */
     public function beforeCreate()

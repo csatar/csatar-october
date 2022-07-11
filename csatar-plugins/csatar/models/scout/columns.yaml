@@ -27,7 +27,7 @@ columns:
         label: 'csatar.csatar::lang.plugin.admin.scout.team'
         type: number
         searchable: true
-        select: 'concat(team_number, ''. '', name)'
+        valueFrom: extendedName
         relation: team
     troop_id:
         label: 'csatar.csatar::lang.plugin.admin.scout.troop'
@@ -35,14 +35,14 @@ columns:
         searchable: true
         sortable: false
         relation: troop
-        valueFrom: name
+        valueFrom: extendedName
     patrol_id:
         label: 'csatar.csatar::lang.plugin.admin.scout.patrol'
         type: number
         searchable: true
         sortable: false
         relation: patrol
-        valueFrom: name
+        valueFrom: extendedName
     name_prefix:
         label: 'csatar.csatar::lang.plugin.admin.scout.namePrefix'
         type: text

@@ -2,7 +2,7 @@ fields:
     team:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.team'
         span: auto
-        nameFrom: name
+        nameFrom: extendedName
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         required: 1
