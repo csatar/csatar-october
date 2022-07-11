@@ -690,7 +690,7 @@ a.btn-warning:link, a.btn-warning:visited, a.btn-warning:active {
     margin: 0;
 }
 
-/* TABLE */
+/* TABLE, GRID */
 
 table {
     width:100%;
@@ -743,10 +743,10 @@ td, .td {
     vertical-align: top;
 }
 
-table tr:nth-child(odd) td {
+table tr:nth-child(odd) td, div div.row:nth-child(odd) div.td {
     background-color: white;
 }
-table tr:nth-child(even) td {
+table tr:nth-child(even) td, div div.row:nth-child(even) div.td {
     background-color: #F5F5F5;
 }
 
