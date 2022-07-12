@@ -191,6 +191,11 @@ trait ManagesUploads {
         if (($file_id) && ($file = $fileModel::find($file_id))) {
             $this->record->{$model_field}()->remove($file);
         }
+
+        $isNew = Input::get('recordKeyValue') == 'new' ? true : false;
+        if($isNew){
+            $this->record->{$model_field}()->remove($file, $this->sessionKey);
+        }
     }
 
     public function getFileList()
