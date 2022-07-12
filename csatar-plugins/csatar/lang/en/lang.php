@@ -107,6 +107,7 @@
                 'team' => 'Team',
                 'troop' => 'Troop',
                 'patrol' => 'Patrol',
+                'profile_image' => 'Profile image',
                 'sections' => [
                     'birthData' => 'Birth data',
                     'addressData' => 'Address',
