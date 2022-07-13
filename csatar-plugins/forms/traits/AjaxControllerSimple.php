@@ -254,7 +254,7 @@ trait AjaxControllerSimple {
 
             $key = isset($definition['key']) ? $definition['key'] : $name . '_id';
             $data[$key] = (int) $data[$name];
-            unset($data[$name]);
+//            unset($data[$name]);
         }
 
         // Resolve belongsToMany relations
@@ -341,7 +341,7 @@ trait AjaxControllerSimple {
     {
         $html = "<div id='validationTags'>";
         foreach($model->rules as $fieldName => $rule) {
-            $html .= "<span data-validate-for='" . $fieldName . "'></span>";
+            $html .= "<span class='errormsg' data-validate-for='" . $fieldName . "'></span>";
         }
         $html .= "</div>";
 

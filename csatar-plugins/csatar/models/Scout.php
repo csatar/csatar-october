@@ -22,7 +22,7 @@ class Scout extends Model
      * @var array Validation rules
      */
     public $rules = [
-        //Validation //'team' => 'required',
+        'team' => 'required',
         'family_name' => 'required',
         'given_name' => 'required',
         'email' => 'email',
@@ -30,9 +30,9 @@ class Scout extends Model
         'personal_identification_number' => 'required',
         'gender' => 'required',
         'is_active' => 'required',
-        //Validation //'legal_relationship' => 'required',
-        //Validation //'religion' => 'required',
-        //Validation //'tshirt_size' => 'required',
+//        'legal_relationship' => 'required', // temporary removed until empty select issue is fixed
+        'religion' => 'required',
+        'tshirt_size' => 'required',
         'birthdate' => 'required',
         'birthplace' => 'required',
         'address_country' => 'required',
@@ -49,6 +49,8 @@ class Scout extends Model
         'legal_representative_email' => 'email',
         'profile_image' => 'image|nullable|max:5120',
         'registration_form' => 'mimes:jpg,png,pdf|nullable|max:1536',
+        'chronic_illnesses' => 'required',
+        'special_diet' => 'required',
     ];
 
     public $attributeNames = [];
