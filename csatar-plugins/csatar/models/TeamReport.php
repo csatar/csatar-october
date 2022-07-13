@@ -47,7 +47,8 @@ class TeamReport extends Model
     public function beforeValidate()
     {
         // check that the team report for this team and this team doesn't already exist
-        if (TeamReport::where('team_id', $this->team_id)->where('year', $this->year)->where('deleted_at', '')->exists()) {
+        $this->year = date('n') == 1 ? date('Y') - 1 : date('Y');
+        if (TeamReport::where('team_id', $this->team_id)->where('year', $this->year)->where('deleted_at', NULL)->exists()) {
             throw new \ValidationException(['team_id' => Lang::get('csatar.csatar::lang.plugin.component.teamReport.validationExceptions.teamReportAlreadyExists')]);
         }
 
@@ -113,7 +114,9 @@ class TeamReport extends Model
     public function filterFields($fields, $context = null)
     {
         // set the currency that corresponds to the selected team
-        $fields->currency->value = $this->team ? $this->team->district->association->currency->code : '';
+        if (isset($fields->currency)) {
+            $fields->currency->value = $this->team ? $this->team->district->association->currency->code : '';
+        }
     }
 
     /**
@@ -137,7 +140,7 @@ class TeamReport extends Model
         $scouts = Scout::where('team_id', $this->team_id)->where('is_active', true)->get();
         foreach ($scouts as $scout) {
             $leadershipQualification = $scout->leadership_qualifications->sortByDesc(function ($item, $key) {
-                return $item['pivot']['date'];
+                return $item && $item['pivot'] ? $item['pivot']['date'] : NULL;
             })->values()->first();
             $membership_fee = $this->team->district->association->legal_relationships->where('id', $scout->legal_relationship_id)->first()->pivot->membership_fee;
 
