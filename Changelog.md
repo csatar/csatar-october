@@ -1,7 +1,7 @@
 # Csatar Changelog
 
 ## Unreleased
-#### XXXX-XX-XX
+- CS-223 - Fixed the 'empty value' error on team report creation
 
 ## 1.1.0
 ### 2022-07-08
