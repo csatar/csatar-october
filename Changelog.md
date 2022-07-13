@@ -3,6 +3,8 @@
 ## Unreleased
 #### XXXX-XX-XX
 
+- CS-172 - Warning and fix for organization name containing organization type
+
 ## 1.1.0
 ### 2022-07-08
 
