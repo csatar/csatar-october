@@ -3,6 +3,8 @@
 ## Unreleased
 #### XXXX-XX-XX
 
+- CS-189 - Added name abbreviation to association model and updated seeder
+
 ## 1.1.0
 ### 2022-07-08
 

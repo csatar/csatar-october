@@ -9,6 +9,7 @@
         'admin' => [
             'general' => [
                 'name' => 'Name',
+                'name_abbreviation' => 'Name abbreviation',
                 'email' => 'Email',
                 'contactEmail' => 'Contact email',
                 'phone' => 'Phone',
