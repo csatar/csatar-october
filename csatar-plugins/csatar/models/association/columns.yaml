@@ -18,6 +18,9 @@ columns:
         type: text
         searchable: true
         sortable: true
+    name_abbreviation:
+        label: 'csatar.csatar::lang.plugin.admin.general.name_abbreviation'
+        type: text
     coordinates:
         label: 'csatar.csatar::lang.plugin.admin.general.coordinates'
         type: text

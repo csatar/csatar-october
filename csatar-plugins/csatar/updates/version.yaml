@@ -114,3 +114,6 @@
 1.0.41:
     - 'Created table csatar_csatar_content_pages'
     - builder_table_create_csatar_csatar_content_pages.php
+1.0.42:
+    - 'Updated table csatar_csatar_associations'
+    - builder_table_update_csatar_csatar_associations_2.php
