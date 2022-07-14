@@ -6,6 +6,8 @@
 
 - CS-189 - Added name abbreviation to association model and updated seeder
 
+- CS-172 - Warning and fix for organization name containing organization type
+
 ## 1.1.0
 ### 2022-07-08
 

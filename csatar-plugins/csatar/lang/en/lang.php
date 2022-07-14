@@ -1,6 +1,6 @@
 <?php return [
     'frontEnd' => [
-        'authException' => 'The email address, the ECSET code or the password is incorrect.'
+        'authException' => 'The email address, the ECSET code or the password is incorrect.',
     ],
     'plugin' => [
         'name' => 'CSATÁR',
@@ -31,6 +31,7 @@
                 'relations' => 'Relations',
                 'password' => 'Password',
                 'password_confirmation' => 'Password confirmation',
+                'organizationUnitNameWarning' => 'Organization unit name can not contain the unit type.',
             ],
             'scout' => [
                 'scout' => 'Scout',
@@ -130,7 +131,7 @@
                     'qualificationRequiredError' => 'The Qualification for the %name %category is required.',
                     'qualificationLeaderRequiredError' => 'The Qualification Leader for the %name %category is required.',
                     'dateInTheFutureError' => 'The selected Date for the %name %category is in the future.',
-                ]
+                ],
             ],
             'admin' => [
                 'menu' => [
@@ -280,6 +281,8 @@
                 'breadcrumb' => 'Districts',
                 'teamsInfo' => 'Teams can be added after the District has been created. Click the Create button after other information is filled.',
                 'association' => 'Association',
+                'organizationUnitNameWarning' => 'The name of the district can not contain the word "district."',
+                'filterOrganizationUnitNameForWords' => 'district',
             ],
             'team' => [
                 'team' => 'Team',
@@ -303,6 +306,8 @@
                 'breadcrumb' => 'Teams',
                 'teamNumberTakenError' => 'This Team number is already taken.',
                 'dateInTheFutureError' => 'The selected date is in the future.',
+                'organizationUnitNameWarning' => 'The name of the team can not contain the word "team."',
+                'filterOrganizationUnitNameForWords' => 'team',
             ],
             'troop' => [
                 'troop' => 'Troop',
@@ -316,6 +321,8 @@
                 'team' => 'Team',
                 'patrolsInfo' => 'Patrols can be added after the Troop has been created. Click the Create button after other information is filled.',
                 'breadcrumb' => 'Troops',
+                'organizationUnitNameWarning' => 'The name of the troop can not contain the word "troop."',
+                'filterOrganizationUnitNameForWords' => 'troop',
             ],
             'patrol' => [
                 'patrol' => 'Patrol',
@@ -331,6 +338,8 @@
                 'troop' => 'Troop',
                 'breadcrumb' => 'Patrols',
                 'troopNotInTheTeamError' => 'The selected Troop does not belong to the selected Team.',
+                'organizationUnitNameWarning' => 'The name of the patrol can not contain the word "patrol."',
+                'filterOrganizationUnitNameForWords' => 'partol',
             ],
             'currency' => [
                 'currency' => 'Currency',
@@ -359,7 +368,7 @@
                 'total_amount' => 'Total amount',
                 'currency' => 'Currency',
                 'name' => 'Name',
-                'legalRelationship' => "Legal relationship",
+                'legalRelationship' => 'Legal relationship',
                 'leadershipQualification' => 'Leadership qualification',
                 'membershipFee' => 'Membership fee',
                 'submittedAt' => 'Submitted at',
@@ -380,9 +389,9 @@
         ],
         'component' => [
             'general' => [
-                'validationExceptions'=> [
+                'validationExceptions' => [
                     'passwordRegex' => 'The password must be at least 8 characters long, must contain a lower and uppercase letter, a number and a special character.',
-                ]
+                ],
             ],
             'resetPassword' => [
                 'name' => 'Reset Password',
@@ -404,7 +413,7 @@
                         'title' => 'Model Id',
                         'description' => 'Starter model id.',
                     ],
-                ]
+                ],
             ],
             'logos' => [
                 'name' => 'Logos',
@@ -477,11 +486,11 @@
                     'scoutHasNoEmail' => ':name has no email address!',
                     'scoutAlreadyHasUserAccount' => ':name already has a user account!',
                     'userAccountCreated' => 'User account was created for :name!',
-                ]
+                ],
             ],
             'organizationUnitFrontend' => [
                 'name' => 'Organization Unit Frontend',
-                'description' => 'Display the organization unit frontend page.'
+                'description' => 'Display the organization unit frontend page.',
             ],
         ],
     ],
