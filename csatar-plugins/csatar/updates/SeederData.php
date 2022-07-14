@@ -16,6 +16,7 @@ use Csatar\Csatar\Models\SpecialDiet;
 use Csatar\Csatar\Models\SpecialTest;
 use Csatar\Csatar\Models\TShirtSize;
 use Csatar\Forms\Models\Form;
+use Csatar\Csatar\Models\AgeGroup;
 
 class SeederData extends Seeder
 {
@@ -183,6 +184,35 @@ class SeederData extends Seeder
             [
                 'title' => 'Csapatjelentés',
                 'model' => 'Csatar\Csatar\Models\TeamReport',
+            ]
+        ],
+        'ageGroups' => [
+            'Romániai Magyar Cserkészszövetség' => [
+                [ 'name' => 'Farkaskölyök', 'note' => '5-7 év' ],
+                [ 'name' => 'Kiscserkész', 'note' => '8-10 év' ],
+                [ 'name' => 'Cserkész', 'note' => '11-14 év' ],
+                [ 'name' => 'Felfedező', 'note' => '15-18 év' ],
+                [ 'name' => 'Vándor', 'note' => '19-22 év' ],
+                [ 'name' => 'Felnőtt', 'note' => '23+' ],
+                [ 'name' => 'Öregcserkész', 'note' => '50+' ],
+                [ 'name' => 'Vegyes', 'note' => ''],
+            ],
+            'Magyar Cserkészszövetség' => [
+                [ 'name' => 'Kiscserkész', 'note' => ''],
+                [ 'name' => 'Cserkész', 'note' => ''],
+                [ 'name' => 'Kósza', 'note' => ''],
+                [ 'name' => 'Vándor', 'note' => ''],
+                [ 'name' => 'Felnőtt', 'note' => ''],
+                [ 'name' => 'Öregcserkész', 'note' => ''],
+                [ 'name' => 'Vegyes', 'note' => ''],
+            ],
+            'Külföldi Magyar Cserkészszövetség' => [
+                [ 'name' => 'Kiscserkész', 'note' => ''],
+                [ 'name' => 'Cserkész', 'note' => ''],
+                [ 'name' => 'Rover', 'note' => ''],
+                [ 'name' => 'Felnőtt', 'note' => ''],
+                [ 'name' => 'Öregcserkész', 'note' => ''],
+                [ 'name' => 'Vegyes', 'note' => ''],
             ]
         ],
     ];
@@ -376,6 +406,19 @@ class SeederData extends Seeder
         }
         foreach($this::DATA['form'] as $form) {
             $item = Form::firstOrCreate($form);
+        }
+
+        // ageGroups for associations
+        foreach($this::DATA['associationAgeGroups'] as $associationName => $ageGroups) {
+            $associationId = Association::where('name', $associationName)->first()->id ?? 0;
+            foreach($ageGroups as $ageGroup) {
+                $newAgeGroup = AgeGroup::firstOrCreate([
+                    'name' => $ageGroup['name'],
+                    'association_id' => $associationId
+                ]);
+                $newAgeGroup->note = $ageGroup['note'];
+                $newAgeGroup->save();
+            }
         }
     }
 }

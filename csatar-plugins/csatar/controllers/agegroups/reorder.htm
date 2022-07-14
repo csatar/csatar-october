@@ -1,0 +1,8 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li><a href="<?= Backend::url('csatar/csatar/agegroups') ?>"><?= e(trans('csatar.csatar::lang.plugin.admin.ageGroups.ageGroups')) ?></a></a></li>
+        <li><?= e($this->pageTitle) ?></li>
+    </ul>
+<?php Block::endPut() ?>
+
+<?= $this->reorderRender() ?>

@@ -1,0 +1,4 @@
+title: 'csatar.csatar::lang.plugin.admin.ageGroups.ageGroups'
+modelClass: Csatar\Csatar\Models\AgeGroup
+toolbar:
+    buttons: reorder_toolbar

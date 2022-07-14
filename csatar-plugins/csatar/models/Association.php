@@ -63,6 +63,7 @@ class Association extends OrganizationBase
     ];
 
     public $hasMany = [
+        'ageGroups' => '\Csatar\Csatar\Models\AgeGroup',
         'districts' => '\Csatar\Csatar\Models\District',
     ];
 

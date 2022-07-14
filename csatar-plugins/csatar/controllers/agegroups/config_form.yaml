@@ -1,0 +1,10 @@
+name: 'csatar.csatar::lang.plugin.admin.ageGroups.ageGroups'
+form: $/csatar/csatar/models/agegroup/fields.yaml
+modelClass: Csatar\Csatar\Models\AgeGroup
+defaultRedirect: csatar/csatar/agegroups
+create:
+    redirect: 'csatar/csatar/agegroups/update/:id'
+    redirectClose: csatar/csatar/agegroups
+update:
+    redirect: csatar/csatar/agegroups
+    redirectClose: csatar/csatar/agegroups
