@@ -9,6 +9,7 @@
         'admin' => [
             'general' => [
                 'name' => 'Név',
+                'name_abbreviation' => 'Név rövidítése',
                 'email' => 'E-mail cím',
                 'contactEmail' => 'Kapcsolattartó e-mail címe',
                 'phone' => 'Telefonszám',
