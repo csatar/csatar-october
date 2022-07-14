@@ -306,7 +306,7 @@
                 'teamNumberTakenError' => 'Ez a csapatszám már foglalt.',
                 'dateInTheFutureError' => 'A dátum nem lehet a jövőben.',
                 'organizationUnitNameWarning' => 'A csapat neve nem tartalmazhatja a "csapat" szót.',
-                'filterOrganizationUnitNameForWords' => 'csapat',
+                'filterOrganizationUnitNameForWords' => 'cserkészcsapat, csapat',
             ],
             'troop' => [
                 'troop' => 'Raj',
@@ -337,8 +337,8 @@
                 'troop' => 'Raj',
                 'breadcrumb' => 'Őrsök',
                 'troopNotInTheTeamError' => 'A kiválasztott Raj nem tartózik a kiválasztott Csapathoz.',
-                'organizationUnitNameWarning' => 'A örs neve nem tartalmazhatja a "örs" szót.',
-                'filterOrganizationUnitNameForWords' => 'örs, ors',
+                'organizationUnitNameWarning' => 'Az őrs neve nem tartalmazhatja az "őrs" szót.',
+                'filterOrganizationUnitNameForWords' => 'őrs, örs, ors',
             ],
             'currency' => [
                 'currency' => 'Pénznem',
