@@ -9,6 +9,7 @@
         'admin' => [
             'general' => [
                 'name' => 'Név',
+                'name_abbreviation' => 'Név rövidítése',
                 'email' => 'E-mail cím',
                 'contactEmail' => 'Kapcsolattartó e-mail címe',
                 'phone' => 'Telefonszám',
@@ -30,6 +31,7 @@
                 'relations' => 'Kapcsolatok',
                 'password' => 'Jelszó',
                 'password_confirmation' => 'Jelszó megerősítés',
+                'organizationUnitNameWarning' => 'A szervezeti egység neve nem tartalmazhatja a szervezeti egység megnevezését.',
             ],
             'scout' => [
                 'scout' => 'Cserkész',
@@ -279,6 +281,8 @@
                 'breadcrumb' => 'Körzetek',
                 'teamsInfo' => 'Csapatok hozzáadása a Körzet létrehozása után lehetséges. Miután a többi adatot kitöltötted, kattints a Létrehozás gombra.',
                 'association' => 'Szövetség',
+                'organizationUnitNameWarning' => 'A körzet neve nem tartalmazhatja a "körzet" szót.',
+                'filterOrganizationUnitNameForWords' => 'körzet, korzet',
             ],
             'team' => [
                 'team' => 'Csapat',
@@ -302,6 +306,8 @@
                 'breadcrumb' => 'Csapatok',
                 'teamNumberTakenError' => 'Ez a csapatszám már foglalt.',
                 'dateInTheFutureError' => 'A dátum nem lehet a jövőben.',
+                'organizationUnitNameWarning' => 'A csapat neve nem tartalmazhatja a "csapat" szót.',
+                'filterOrganizationUnitNameForWords' => 'cserkészcsapat, csapat',
             ],
             'troop' => [
                 'troop' => 'Raj',
@@ -315,6 +321,8 @@
                 'team' => 'Csapat',
                 'patrolsInfo' => 'Őrsök hozzáadása a Raj létrehozása után lehetséges. Miután a többi adatot kitöltötted, kattints a Létrehozás gombra.',
                 'breadcrumb' => 'Rajok',
+                'organizationUnitNameWarning' => 'A raj neve nem tartalmazhatja a "raj" szót.',
+                'filterOrganizationUnitNameForWords' => 'raj',
             ],
             'patrol' => [
                 'patrol' => 'Őrs',
@@ -330,6 +338,8 @@
                 'troop' => 'Raj',
                 'breadcrumb' => 'Őrsök',
                 'troopNotInTheTeamError' => 'A kiválasztott Raj nem tartózik a kiválasztott Csapathoz.',
+                'organizationUnitNameWarning' => 'Az őrs neve nem tartalmazhatja az "őrs" szót.',
+                'filterOrganizationUnitNameForWords' => 'őrs, örs, ors',
             ],
             'currency' => [
                 'currency' => 'Pénznem',
@@ -462,6 +472,7 @@
                     'title' => 'JSON formátum',
                     'description' => 'Ha a JSON formátum értéke \'json\', akkor a választ JSON formátumban téríti vissza.'
                 ],
+            ],
             'createFrontendAccounts' => [
                 'name' => 'Frontend felhasználó létrehozása',
                 'description' => 'Lehetővé teszi frontend felhasználó létrehozását.',
@@ -481,7 +492,6 @@
                 'name' => 'Szervezeti Egység Frontend',
                 'description' => 'Megyjeleníti egy szerevezeti egyszég frontend oldalát.'
             ],
-            ]
         ]
     ]
 ];

@@ -87,4 +87,10 @@ class District extends OrganizationBase
     {
         return $query->where('association_id', $id);
     }
+
+    public function beforeSave()
+    {
+        $filterWords = explode(',', Lang::get('csatar.csatar::lang.plugin.admin.district.filterOrganizationUnitNameForWords'));
+        $this->name = str_replace($filterWords, '', $this->name);
+    }
 }

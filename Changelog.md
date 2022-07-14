@@ -4,6 +4,10 @@
 - CS-223 - Fixed the 'empty value' error on team report creation
 - CS-118 - Fixed the 'get property pivot of non-object' error and the team and year validation on team report creation
 
+- CS-189 - Added name abbreviation to association model and updated seeder
+
+- CS-172 - Warning and fix for organization name containing organization type
+
 ## 1.1.0
 ### 2022-07-08
 

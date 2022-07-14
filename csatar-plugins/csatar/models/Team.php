@@ -112,7 +112,13 @@ class Team extends OrganizationBase
     public $attachOne = [
         'logo' => 'System\Models\File'
     ];
-    
+
+    public function beforeSave()
+    {
+        $filterWords = explode(',', Lang::get('csatar.csatar::lang.plugin.admin.team.filterOrganizationUnitNameForWords'));
+        $this->name = str_replace($filterWords, '', $this->name);
+    }
+
     /**
      * Override the getExtendedNameAttribute function
      */

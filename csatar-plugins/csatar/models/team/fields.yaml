@@ -4,6 +4,7 @@ fields:
         span: auto
         required: 1
         type: text
+        comment: 'csatar.csatar::lang.plugin.admin.team.organizationUnitNameWarning'
     team_number:
         label: 'csatar.csatar::lang.plugin.admin.team.teamNumber'
         span: auto
