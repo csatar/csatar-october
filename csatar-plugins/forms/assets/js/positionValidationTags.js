@@ -1,11 +1,24 @@
-$( document ).ready(function() {
-
-    $('#validationTags').children().each(function () {
-        if($(this).data( "validateFor" )){
-            let fieldName = $(this).data( "validateFor" );
-            let parentTag = $("div[data-field-name='" + fieldName +"']");
-            $(this).insertAfter( parentTag.children().last() );
-        }
+window.positionValidationTags = function (forPivot) {
+    console.log('positioning..');
+    $('.validationTags').each(function (){
+        $(this).children().each(function () {
+    //     $('[data-validate-for]').each(function () {
+            if($(this).data( "validateFor" ) && !forPivot){
+                let fieldName = $(this).data( "validateFor" );
+                let parentTag = $("div[data-field-name='" + fieldName +"']");
+                $(this).insertAfter( parentTag.children().last() );
+                console.log(fieldName, parentTag);
+            }
+            if($(this).data( "validateFor" ) && forPivot){
+                let inputName = $(this).data( "positionFor" );
+                let inputTag = $('[name="' + inputName + '"]')
+                $(this).insertAfter( inputTag.parent().children().last() );
+                console.log(inputName, inputTag);
+            }
+        });
     });
+}
 
+$( document ).ready(function() {
+    window.positionValidationTags(false);
 });
