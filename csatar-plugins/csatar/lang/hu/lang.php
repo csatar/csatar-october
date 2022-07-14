@@ -152,6 +152,7 @@
                         'specialQualificationCategories' => 'Szakági különpróba típusok',
                         'leadershipQualificationCategories' => 'Vezetői képesítés típusok',
                         'trainingQualificationCategories' => 'Kiképzői képesítés típusok',
+                        'trainings' => 'Képzések',
                     ],
                     'organizationSystemData' => [
                         'organizationSystemData' => 'Szervezeti rendszeradatok',

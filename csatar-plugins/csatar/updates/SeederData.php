@@ -16,6 +16,7 @@ use Csatar\Csatar\Models\SpecialDiet;
 use Csatar\Csatar\Models\SpecialTest;
 use Csatar\Csatar\Models\TShirtSize;
 use Csatar\Forms\Models\Form;
+use Csatar\Csatar\Models\Training;
 
 class SeederData extends Seeder
 {
@@ -184,6 +185,11 @@ class SeederData extends Seeder
                 'title' => 'Csapatjelentés',
                 'model' => 'Csatar\Csatar\Models\TeamReport',
             ]
+        ],
+        'trainings' => [
+            'Erdélyi VK-2021',
+            'MCSZFSTVK II',
+            'STVK 19/A',
         ],
     ];
 
@@ -376,6 +382,12 @@ class SeederData extends Seeder
         }
         foreach($this::DATA['form'] as $form) {
             $item = Form::firstOrCreate($form);
+        }
+
+        foreach($this::DATA['trainings'] as $training) {
+            Training::firstOrCreate([
+                'name' => $training,
+            ]);
         }
     }
 }
