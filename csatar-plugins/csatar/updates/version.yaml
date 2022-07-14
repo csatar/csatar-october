@@ -120,3 +120,6 @@
 1.0.43:
     - 'Created table csatar_csatar_age_groups'
     - builder_table_create_csatar_csatar_age_groups.php
+1.0.44:
+    - 'Updated table csatar_csatar_patrols'
+    - builder_table_update_csatar_csatar_patrols.php

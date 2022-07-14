@@ -409,7 +409,7 @@ class SeederData extends Seeder
         }
 
         // ageGroups for associations
-        foreach($this::DATA['associationAgeGroups'] as $associationName => $ageGroups) {
+        foreach($this::DATA['ageGroups'] as $associationName => $ageGroups) {
             $associationId = Association::where('name', $associationName)->first()->id ?? 0;
             foreach($ageGroups as $ageGroup) {
                 $newAgeGroup = AgeGroup::firstOrCreate([

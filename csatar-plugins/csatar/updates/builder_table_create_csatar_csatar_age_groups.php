@@ -9,7 +9,7 @@ class BuilderTableCreateCsatarCsatarAgeGroups extends Migration
     {
         Schema::create('csatar_csatar_age_groups', function($table)
         {
-            
+
             $table->engine = 'InnoDB';
             $table->increments('id')->unsigned();
             $table->string('name');
@@ -19,7 +19,7 @@ class BuilderTableCreateCsatarCsatarAgeGroups extends Migration
             $table->timestamp('deleted_at')->nullable();
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_age_groups');
