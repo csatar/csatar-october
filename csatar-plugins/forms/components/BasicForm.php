@@ -233,7 +233,6 @@ class BasicForm extends ComponentBase  {
             if(!Auth::check()){
                 return Redirect::to('/bejelentkezes');
             }
-            $this->checkPermission();
             $this->renderedComponent = $this->createForm();
         }
 
