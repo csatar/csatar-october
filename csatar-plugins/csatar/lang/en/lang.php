@@ -26,6 +26,7 @@
                 'date' => 'Date',
                 'location' => 'Location',
                 'qualificationCertificateNumber' => 'Képesítési Igazolás Száma',
+                'training' => 'Training',
                 'qualification' => 'Képzés',
                 'qualificationLeader' => 'Képzésvezető',
                 'relations' => 'Relations',

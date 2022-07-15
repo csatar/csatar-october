@@ -261,14 +261,14 @@ class Scout extends Model
         'leadership_qualifications' => [
             '\Csatar\Csatar\Models\LeadershipQualification',
             'table' => 'csatar_csatar_scouts_leadership_qualifications',
-            'pivot' => ['date', 'location', 'qualification_certificate_number', 'qualification', 'qualification_leader'],
+            'pivot' => ['date', 'location', 'qualification_certificate_number', 'training_id', 'qualification_leader'],
             'pivotModel' => '\Csatar\Csatar\Models\ScoutLeadershipQualificationPivot',
             'label' => 'csatar.csatar::lang.plugin.admin.leadershipQualification.leadershipQualifications',
         ],
         'training_qualifications' => [
             '\Csatar\Csatar\Models\TrainingQualification',
             'table' => 'csatar_csatar_scouts_training_qualifications',
-            'pivot' => ['date', 'location', 'qualification_certificate_number', 'qualification', 'qualification_leader'],
+            'pivot' => ['date', 'location', 'qualification_certificate_number', 'training_id', 'qualification_leader'],
             'pivotModel' => '\Csatar\Csatar\Models\ScoutTrainingQualificationPivot',
             'label' => 'csatar.csatar::lang.plugin.admin.trainingQualification.trainingQualifications',
         ],
@@ -339,7 +339,7 @@ class Scout extends Model
                 if (!isset($field->pivot->qualification_certificate_number) || $field->pivot->qualification_certificate_number == '') {
                     throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.qualificationCertificateNumberRequiredError'))]);
                 }
-                if (!isset($field->pivot->qualification) || $field->pivot->qualification == '') {
+                if (!isset($field->pivot->training_id) || $field->pivot->training_id == '') {
                     throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.qualificationRequiredError'))]);
                 }
                 if (!isset($field->pivot->qualification_leader) || $field->pivot->qualification_leader == '') {

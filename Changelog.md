@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-178 - Added training list
 - CS-215 - fixed remove attachement button
 - CS-215 - Fixed validation message positioning
 - CS-215 - Fixed validation for file uploads, changes scout's 'logo' attribute to 'profile image'

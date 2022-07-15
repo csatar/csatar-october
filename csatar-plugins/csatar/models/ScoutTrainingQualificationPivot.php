@@ -24,7 +24,7 @@ class ScoutTrainingQualificationPivot extends Pivot
         'date' => 'required',
         'location' => 'required',
         'qualification_certificate_number' => 'required',
-        'qualification' => 'required',
+        'training_id' => 'required',
         'qualification_leader' => 'required',
     ];
 
@@ -38,7 +38,7 @@ class ScoutTrainingQualificationPivot extends Pivot
             'date' => Lang::get('csatar.csatar::lang.plugin.admin.general.date'),
             'location' => Lang::get('csatar.csatar::lang.plugin.admin.general.location'),
             'qualification_certificate_number' => Lang::get('csatar.csatar::lang.plugin.admin.general.qualificationCertificateNumber'),
-            'qualification' => Lang::get('csatar.csatar::lang.plugin.admin.general.qualification'),
+            'training_id' => Lang::get('csatar.csatar::lang.plugin.admin.general.training'),
             'qualification_leader' => Lang::get('csatar.csatar::lang.plugin.admin.general.qualificationLeader'),
         ]);
 
@@ -55,7 +55,11 @@ class ScoutTrainingQualificationPivot extends Pivot
         'date',
         'location',
         'qualification_certificate_number',
-        'qualification',
+        'training_id',
         'qualification_leader',
     ];
+
+    public function getTrainingIdOptions(){
+        return Training::lists('name', 'id');
+    }
 }
