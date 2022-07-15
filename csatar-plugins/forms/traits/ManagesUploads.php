@@ -193,7 +193,7 @@ trait ManagesUploads {
         }
 
         $isNew = Input::get('recordKeyValue') == 'new' ? true : false;
-        if($isNew){
+        if($isNew && !empty($file)){
             $this->record->{$model_field}()->remove($file, $this->sessionKey);
         }
     }
