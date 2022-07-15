@@ -1,5 +1,4 @@
 window.positionValidationTags = function (forPivot) {
-    console.log('positioning..');
     $('.validationTags').each(function (){
         $(this).children().each(function () {
     //     $('[data-validate-for]').each(function () {
