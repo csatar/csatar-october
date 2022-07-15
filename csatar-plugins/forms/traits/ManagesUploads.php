@@ -186,9 +186,11 @@ trait ManagesUploads {
         $model_field = post('field');
         $file_id = post('file_id');
 
-        $fileModel = $this->record->getRelationDefinition($model_field)[0];
+        if(!empty($model_field)){
+            $fileModel = $this->record->getRelationDefinition($model_field)[0];
+        }
 
-        if (($file_id) && ($file = $fileModel::find($file_id))) {
+        if (!empty($model_field) && $file_id && ($file = $fileModel::find($file_id))) {
             $this->record->{$model_field}()->remove($file);
         }
 
@@ -196,6 +198,7 @@ trait ManagesUploads {
         if($isNew && !empty($file)){
             $this->record->{$model_field}()->remove($file, $this->sessionKey);
         }
+
     }
 
     public function getFileList()

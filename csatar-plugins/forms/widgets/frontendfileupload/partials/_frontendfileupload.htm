@@ -113,10 +113,9 @@
             <a
                 href="javascript:;"
                 class="upload-remove-button"
-                onclick="$(this).request('<?= $this->getEventHandler('onRemoveAttachment') ?>', {
-                    data: {field: '<?= $fieldName ?>'}
-                }); return false;"
-                >&times;</a>
+                data-request="<?= $this->getEventHandler('onRemoveAttachment') ?>"
+                data-request-data="field: '<?= $fieldName ?>'"
+            >&times;</a>
             <div class="progress-bar"><span class="upload-progress" data-dz-uploadprogress></span></div>
         </div>
     </div>
