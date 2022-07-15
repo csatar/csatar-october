@@ -278,8 +278,8 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.scout.comment'
         span: auto
         type: textarea
-    logo:
-        label: 'csatar.csatar::lang.plugin.admin.general.logo'
+    profile_image:
+        label: 'csatar.csatar::lang.plugin.admin.scout.profile_image'
         mode: image
         useCaption: true
         thumbOptions:

@@ -109,6 +109,7 @@
                 'team' => 'Csapat',
                 'troop' => 'Raj',
                 'patrol' => 'Őrs',
+                'profile_image' => 'Profilkép',
                 'sections' => [
                     'birthData' => 'Születési adatok',
                     'addressData' => 'Cím',

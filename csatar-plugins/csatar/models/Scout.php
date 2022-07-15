@@ -22,7 +22,7 @@ class Scout extends Model
      * @var array Validation rules
      */
     public $rules = [
-        //Validation //'team' => 'required',
+        'team' => 'required',
         'family_name' => 'required',
         'given_name' => 'required',
         'email' => 'email',
@@ -30,9 +30,9 @@ class Scout extends Model
         'personal_identification_number' => 'required',
         'gender' => 'required',
         'is_active' => 'required',
-        //Validation //'legal_relationship' => 'required',
-        //Validation //'religion' => 'required',
-        //Validation //'tshirt_size' => 'required',
+//        'legal_relationship' => 'required', // temporary removed until empty select issue is fixed
+        'religion' => 'required',
+        'tshirt_size' => 'required',
         'birthdate' => 'required',
         'birthplace' => 'required',
         'address_country' => 'required',
@@ -47,9 +47,19 @@ class Scout extends Model
         'fathers_email' => 'email',
         'legal_representative_phone' => 'regex:(^[0-9+-.()]{5,}$)',
         'legal_representative_email' => 'email',
-        'logo' => 'image|nullable',
-        'registration_form' => 'mimes:jpg,png,pdf|nullable',
+        'profile_image' => 'image|nullable|max:5120',
+        'registration_form' => 'mimes:jpg,png,pdf|nullable|max:1536',
+        'chronic_illnesses' => 'required',
+        'special_diet' => 'required',
     ];
+
+    public $attributeNames = [];
+
+    function __construct(array $attributes = []) {
+        parent::__construct($attributes);
+        $this->attributeNames['registration_form'] = e(trans('csatar.csatar::lang.plugin.admin.scout.registrationForm'));
+        $this->attributeNames['profile_image'] = e(trans('csatar.csatar::lang.plugin.admin.scout.profile_image'));
+    }
 
     /**
      * Add custom validation
@@ -121,7 +131,7 @@ class Scout extends Model
                 $fields->patrol->options += [$patrol['id'] => $patrol['extendedName']];
             }
         }
-            
+
         // populate the Legal Relationships dropdown with legal relationships that belong to the selected teamás association
         $fields->legal_relationship->options = $this->team ? \Csatar\Csatar\Models\LegalRelationship::associationId($this->team->district->association->id)->lists('name', 'id') : [];
     }
@@ -175,7 +185,7 @@ class Scout extends Model
         'occupation',
         'workplace',
         'comment',
-        'logo',
+        'profile_image',
         'registration_form',
     ];
 
@@ -271,7 +281,7 @@ class Scout extends Model
     ];
 
     public $attachOne = [
-        'logo' => 'System\Models\File',
+        'profile_image' => 'System\Models\File',
         'registration_form' => 'System\Models\File',
     ];
 
