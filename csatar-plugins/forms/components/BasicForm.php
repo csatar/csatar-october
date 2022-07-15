@@ -1,14 +1,16 @@
 <?php namespace Csatar\Forms\Components;
 
-use Lang;
-use Session;
-use Input;
+use Auth;
 use Cms\Classes\ComponentBase;
 use Csatar\Forms\Models\Form;
-use Csatar\Forms\Traits\ManagesUploads;
 use Csatar\Forms\Traits\AjaxControllerSimple;
-use October\Rain\Exception\ApplicationException;
+use Csatar\Forms\Traits\ManagesUploads;
+use Input;
+use Lang;
 use October\Rain\Database\Models\DeferredBinding;
+use October\Rain\Exception\ApplicationException;
+use Redirect;
+use Session;
 
 class BasicForm extends ComponentBase  {
 
@@ -228,6 +230,10 @@ class BasicForm extends ComponentBase  {
         }
 
         if($this->recordKeyValue === $this->createRecordKeyword && !$this->readOnly) {
+            if(!Auth::check()){
+                return Redirect::to('/bejelentkezes');
+            }
+            $this->checkPermission();
             $this->renderedComponent = $this->createForm();
         }
 
@@ -236,9 +242,15 @@ class BasicForm extends ComponentBase  {
 
             switch ($action) {
                 case $this->actionUpdateKeyword:
+                    if(!Auth::check()){
+                        return Redirect::to('/bejelentkezes');
+                    }
                     $this->renderedComponent = $this->createForm();
                     break;
                 case $this->actionDeleteKeyword:
+                    if(!Auth::check()){
+                        return Redirect::to('/bejelentkezes');
+                    }
                     $this->renderedComponent = $this->onDelete();
                     break;
                 default:
