@@ -73,9 +73,9 @@ class District extends OrganizationBase
     ];
 
     /**
-     * Override the getNameAttribute function
+     * Override the getExtendedNameAttribute function
      */
-    public function getNameAttribute()
+    public function getExtendedNameAttribute()
     {
         return isset($this->attributes['name']) ? $this->attributes['name'] . ' ' . Lang::get('csatar.csatar::lang.plugin.admin.district.nameSuffix') : null;
     }
@@ -86,5 +86,11 @@ class District extends OrganizationBase
     public function scopeAssociationId($query, $id)
     {
         return $query->where('association_id', $id);
+    }
+
+    public function beforeSave()
+    {
+        $filterWords = explode(',', Lang::get('csatar.csatar::lang.plugin.admin.district.filterOrganizationUnitNameForWords'));
+        $this->name = str_replace($filterWords, '', $this->name);
     }
 }

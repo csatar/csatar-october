@@ -37,7 +37,7 @@ class TeamReports extends ComponentBase
             foreach ($this->teamReports as $teamReport) {
                 array_push($this->teamReportData, [
                     'id' => $teamReport->id,
-                    'team_name' => $teamReport->team->name,
+                    'team_name' => $teamReport->team->extendedName,
                     'year' => $teamReport->year,
                     'members_count' => count($teamReport->scouts),
                     'total_amount' => $teamReport->total_amount . ' ' . $teamReport->currency->code,

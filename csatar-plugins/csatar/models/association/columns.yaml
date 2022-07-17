@@ -13,11 +13,14 @@ columns:
     deleted_at:
         label: 'csatar.csatar::lang.plugin.admin.general.deletedAt'
         type: datetime
-    name:
+    extendedName:
         label: 'csatar.csatar::lang.plugin.admin.general.name'
         type: text
         searchable: true
         sortable: true
+    name_abbreviation:
+        label: 'csatar.csatar::lang.plugin.admin.general.name_abbreviation'
+        type: text
     coordinates:
         label: 'csatar.csatar::lang.plugin.admin.general.coordinates'
         type: text

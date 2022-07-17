@@ -17,7 +17,7 @@ columns:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.team'
         type: number
         searchable: true
-        select: 'concat(team_number, ''. '', name)'
+        valueFrom: extendedName
         relation: team
     year:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.year'

@@ -1,7 +1,7 @@
 <?php namespace Csatar\Forms\Traits;
 
 use Input;
-use Session;
+use Lang;
 use Request;
 use Response;
 use File;
@@ -90,16 +90,31 @@ trait ManagesUploads {
         return implode(',', $types);
     }
 
-    private function validateUpload() {
-        $validationRules = ['max:' . (string) file_upload_max_size()];
+    private function validateUpload($model_field) {
 
-        //if ($fileTypes = $this->processFileTypes()) {
-        //    $validationRules[] = 'extensions:' . $fileTypes;
-        //}
+        if(array_key_exists($model_field, $this->record->rules)){
+            $validationRules = $this->record->rules[$model_field];
+        } else {
+            $validationRules = ['max:' . (string) file_upload_max_size()];
+        }
 
-        $validation = Validator::make(Request::all(), [
+        $attributeNames = [];
+        if(array_key_exists($model_field, $this->record->attributeNames)){
+            $attributeNames['file_data'] = $this->record->attributeNames[$model_field];
+        }
+
+        $customMessages = [
+            'mimes'          => Lang::get('csatar.forms::lang.widgets.frontendFileUploadValidation.mimeTypeMismatch'),
+        ];
+
+        $validation = Validator::make(
+            Request::all(),
+            [
             'file_data' => $validationRules
-        ]);
+            ],
+            $customMessages,
+            $attributeNames,
+        );
 
         if ($validation->fails()) {
             throw new \Exception($validation->messages()->first('file_data'));
@@ -121,20 +136,20 @@ trait ManagesUploads {
 
             if ( ! Input::hasFile('file_data')) {
                 $max_upload = human_filesize(file_upload_max_size(), 1);
-                throw new \Exception('File exceeds file upload limit of ' . $max_upload);
+                throw new \Exception(Lang::get('csatar.forms::lang.widgets.frontendFileUploadException.fileExceedsUploadLimit') . $max_upload);
             }
 
             if (!$uploadedFile->isValid()) {
-                throw new \Exception(sprintf('File %s is not valid.', $uploadedFile->getClientOriginalName()));
+                throw new \Exception(sprintf(Lang::get('csatar.forms::lang.widgets.frontendFileUploadException.fileIsNotValid'), $uploadedFile->getClientOriginalName()));
             }
 
             $model_field = Request::header('X-OCTOBER-FILEUPLOAD');
 
             if (! $this->record->hasRelation($model_field)) {
-                throw new \Exception('Invalid field');
+                throw new \Exception(Lang::get('csatar.forms::lang.widgets.frontendFileUploadException.invalidField'));
             }
 
-            // $this->validateUpload();
+            $this->validateUpload($model_field);
 
             $fileModel = $this->record->getRelationDefinition($model_field)[0];
 
@@ -143,8 +158,7 @@ trait ManagesUploads {
             $file->is_public = true;
             $file->save();
             if($isNew){
-                $sessionKey = Session::get('key');
-                $this->record->{$model_field}()->add($file, $sessionKey);
+                $this->record->{$model_field}()->add($file, $this->sessionKey);
             } else {
                 $this->record->{$model_field}()->add($file);
             }
@@ -172,11 +186,19 @@ trait ManagesUploads {
         $model_field = post('field');
         $file_id = post('file_id');
 
-        $fileModel = $this->record->getRelationDefinition($model_field)[0];
+        if(!empty($model_field)){
+            $fileModel = $this->record->getRelationDefinition($model_field)[0];
+        }
 
-        if (($file_id) && ($file = $fileModel::find($file_id))) {
+        if (!empty($model_field) && $file_id && ($file = $fileModel::find($file_id))) {
             $this->record->{$model_field}()->remove($file);
         }
+
+        $isNew = Input::get('recordKeyValue') == 'new' ? true : false;
+        if($isNew && !empty($file)){
+            $this->record->{$model_field}()->remove($file, $this->sessionKey);
+        }
+
     }
 
     public function getFileList()

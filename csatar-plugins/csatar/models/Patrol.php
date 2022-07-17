@@ -49,8 +49,13 @@ class Patrol extends OrganizationBase
      */
     public function filterFields($fields, $context = null) {
         // populate the Troop dropdown with troops that belong to the selected team
+        $fields->troop->options = [];
         $team_id = $this->team_id;
-        $fields->troop->options = $team_id ? \Csatar\Csatar\Models\Troop::teamId($team_id)->lists('name', 'id') : [];
+        if ($team_id) {
+            foreach (\Csatar\Csatar\Models\Troop::teamId($team_id)->get() as $troop) {
+                $fields->troop->options += [$troop['id'] => $troop['extendedName']];
+            }
+        }
     }
 
     /**
@@ -86,11 +91,17 @@ class Patrol extends OrganizationBase
     public $attachOne = [
         'logo' => 'System\Models\File'
     ];
-    
+
+    public function beforeSave()
+    {
+        $filterWords = explode(',', Lang::get('csatar.csatar::lang.plugin.admin.patrol.filterOrganizationUnitNameForWords'));
+        $this->name = str_replace($filterWords, '', $this->name);
+    }
+
     /**
-     * Override the getNameAttribute function
+     * Override the getExtendedNameAttribute function
      */
-    public function getNameAttribute()
+    public function getExtendedNameAttribute()
     {
         return isset($this->attributes['name']) ? $this->attributes['name'] . ' ' . Lang::get('csatar.csatar::lang.plugin.admin.patrol.nameSuffix') : null;
     }

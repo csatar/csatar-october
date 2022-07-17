@@ -1,12 +1,16 @@
 <?php namespace Csatar\Forms\Components;
 
-use Lang;
-use Session;
+use Auth;
 use Cms\Classes\ComponentBase;
 use Csatar\Forms\Models\Form;
-use Csatar\Forms\Traits\ManagesUploads;
 use Csatar\Forms\Traits\AjaxControllerSimple;
+use Csatar\Forms\Traits\ManagesUploads;
+use Input;
+use Lang;
+use October\Rain\Database\Models\DeferredBinding;
 use October\Rain\Exception\ApplicationException;
+use Redirect;
+use Session;
 
 class BasicForm extends ComponentBase  {
 
@@ -30,6 +34,12 @@ class BasicForm extends ComponentBase  {
      * @var type
      */
     public $formId = null;
+
+    /**
+     * The unique Id of the form instance
+     * @var type
+     */
+    public $formUniqueId = null;
 
     /**
      * The URL parameter and DB column
@@ -100,8 +110,10 @@ class BasicForm extends ComponentBase  {
      */
     public function init() {
         $this->getForm();
+        $this->setOrGetFormUniqueId();
         $this->setOrGetSessionKey();
         $this->record = $this->getRecord();
+//        $this->checkDefferedBindings();
     }
 
     /**
@@ -218,6 +230,9 @@ class BasicForm extends ComponentBase  {
         }
 
         if($this->recordKeyValue === $this->createRecordKeyword && !$this->readOnly) {
+            if(!Auth::check()){
+                return Redirect::to('/bejelentkezes');
+            }
             $this->renderedComponent = $this->createForm();
         }
 
@@ -226,9 +241,15 @@ class BasicForm extends ComponentBase  {
 
             switch ($action) {
                 case $this->actionUpdateKeyword:
+                    if(!Auth::check()){
+                        return Redirect::to('/bejelentkezes');
+                    }
                     $this->renderedComponent = $this->createForm();
                     break;
                 case $this->actionDeleteKeyword:
+                    if(!Auth::check()){
+                        return Redirect::to('/bejelentkezes');
+                    }
                     $this->renderedComponent = $this->onDelete();
                     break;
                 default:
@@ -265,9 +286,14 @@ class BasicForm extends ComponentBase  {
         }
     }
 
+    public function setOrGetFormUniqueId(){
+        $this->formUniqueId = Input::get('formUniqueId') ?? uniqid();
+    }
+
     public function setOrGetSessionKey(){
-        $sessionKey = Session::get('key') ?? uniqid('session_key', true);
+        $prefix = $this->formUniqueId . '_form_key_';
+        $sessionKey = Session::get($this->formUniqueId) ?? uniqid($prefix, true);
         $this->sessionKey = $sessionKey;
-        Session::put('key', $sessionKey);
+        Session::put($this->formUniqueId, $sessionKey);
     }
 }

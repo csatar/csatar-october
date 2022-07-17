@@ -112,11 +112,17 @@ class Team extends OrganizationBase
     public $attachOne = [
         'logo' => 'System\Models\File'
     ];
-    
+
+    public function beforeSave()
+    {
+        $filterWords = explode(',', Lang::get('csatar.csatar::lang.plugin.admin.team.filterOrganizationUnitNameForWords'));
+        $this->name = str_replace($filterWords, '', $this->name);
+    }
+
     /**
-     * Override the getNameAttribute function
+     * Override the getExtendedNameAttribute function
      */
-    public function getNameAttribute()
+    public function getExtendedNameAttribute()
     {
         return isset($this->attributes['team_number']) && isset($this->attributes['name']) ? str_pad($this->attributes['team_number'], 3, '0', STR_PAD_LEFT) . ' - ' . $this->attributes['name'] . ' ' . Lang::get('csatar.csatar::lang.plugin.admin.team.nameSuffix') : null;
     }

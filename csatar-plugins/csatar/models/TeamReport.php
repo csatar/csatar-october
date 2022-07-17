@@ -47,7 +47,8 @@ class TeamReport extends Model
     public function beforeValidate()
     {
         // check that the team report for this team and this team doesn't already exist
-        if (TeamReport::where('team_id', $this->team_id)->where('year', $this->year)->where('deleted_at', '')->exists()) {
+        $this->year = date('n') == 1 ? date('Y') - 1 : date('Y');
+        if (TeamReport::where('team_id', $this->team_id)->where('year', $this->year)->where('deleted_at', null)->where('id', '<>', $this->id)->exists()) {
             throw new \ValidationException(['team_id' => Lang::get('csatar.csatar::lang.plugin.component.teamReport.validationExceptions.teamReportAlreadyExists')]);
         }
 
@@ -106,6 +107,17 @@ class TeamReport extends Model
             'pivotModel' => '\Csatar\Csatar\Models\TeamReportScoutPivot',
         ],
     ];
+
+    /**
+     * Handle the team-currency dependency
+     */
+    public function filterFields($fields, $context = null)
+    {
+        // set the currency that corresponds to the selected team
+        if (isset($fields->currency)) {
+            $fields->currency->value = $this->team ? $this->team->district->association->currency->code : '';
+        }
+    }
 
     /**
      * Set additional data

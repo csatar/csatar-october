@@ -52,12 +52,21 @@
         'frontendFileUpload' => [
             'browse' => 'Böngéssz',
         ],
+        'frontendFileUploadValidation' => [
+            'mimeTypeMismatch' => 'A(z) :attribute fájltípusa kizárólag :values lehet.',
+        ],
+        'frontendFileUploadException' => [
+            'fileExceedsUploadLimit' => 'A fájl mérete nagyobb mint a megengedtett ',
+            'fileIsNotValid'         => 'A %s fájl érvénytelen.',
+            'invalidField'           => 'Érvénytelen mező.',
+        ],
     ],
     'errors' => [
-        'formModelNotFound'     => 'A modell nem található. Adj meg egy létező modellt és helyes útvonalat.',
-        'formNotFound'          => 'A kiválasztott űrlap nem található. Ellenőrizd az \'Alap űrlap\' komponens beállításait a követketző oldalon: ',
-        'noDataArray'           => 'Az adatok hiányoznak. Ellenőrizd az űrlap érvényesítését.',
-        'canNotSaveValidated'   => 'Nem sikerült elmenteni az érvényesített adatokat. Ellenőrizd az űrlap érvényesítését.',
-        'noFiles'               => 'Nincsenek fájlok megadva'
+        'formModelNotFound'                 => 'A modell nem található. Adj meg egy létező modellt és helyes útvonalat.',
+        'formNotFound'                      => 'A kiválasztott űrlap nem található. Ellenőrizd az \'Alap űrlap\' komponens beállításait a követketző oldalon: ',
+        'noDataArray'                       => 'Az adatok hiányoznak. Ellenőrizd az űrlap érvényesítését.',
+        'canNotSaveValidated'               => 'Nem sikerült elmenteni az érvényesített adatokat. Ellenőrizd az űrlap érvényesítését.',
+        'noFiles'                           => 'Nincsenek fájlok megadva',
+        'nothingSelectedOnPivotRelation'    => 'Kérjük válasszon ki egy opciót...',
     ],
 ];

@@ -58,11 +58,17 @@ class Troop extends OrganizationBase
     public $attachOne = [
         'logo' => 'System\Models\File'
     ];
-    
+
+    public function beforeSave()
+    {
+        $filterWords = explode(',', Lang::get('csatar.csatar::lang.plugin.admin.troop.filterOrganizationUnitNameForWords'));
+        $this->name = str_replace($filterWords, '', $this->name);
+    }
+
     /**
-     * Override the getNameAttribute function
+     * Override the getExtendedNameAttribute function
      */
-    public function getNameAttribute()
+    public function getExtendedNameAttribute()
     {
         return isset($this->attributes['name']) ? $this->attributes['name'] . ' ' . Lang::get('csatar.csatar::lang.plugin.admin.troop.nameSuffix') : null;
     }
