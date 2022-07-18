@@ -63,4 +63,11 @@ class ScoutLeadershipQualificationPivot extends Pivot
     public function getTrainingIdOptions(){
         return Training::lists('name', 'id');
     }
+
+    public function beforeSave() {
+        if($this->training_id){
+            $trainingName = Training::find($this->training_id)->name ?? null;
+            $this->training_name = Training::find($this->training_id)->name;
+        }
+    }
 }

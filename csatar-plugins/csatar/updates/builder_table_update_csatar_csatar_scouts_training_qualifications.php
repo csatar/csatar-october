@@ -9,7 +9,8 @@ class BuilderTableUpdateCsatarCsatarScoutsTrainingQualifications extends Migrati
     {
         Schema::table('csatar_csatar_scouts_training_qualifications', function($table)
         {
-            $table->integer('training_id')->unsigned();
+            $table->integer('training_id')->unsigned()->nullable();
+            $table->string('training_name', 255)->nullable();
             $table->dropColumn('qualification');
         });
     }
@@ -19,6 +20,7 @@ class BuilderTableUpdateCsatarCsatarScoutsTrainingQualifications extends Migrati
         Schema::table('csatar_csatar_scouts_training_qualifications', function($table)
         {
             $table->dropColumn('training_id');
+            $table->dropColumn('training_name');
             $table->string('qualification', 255)->nullable();
         });
     }

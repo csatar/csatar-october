@@ -402,6 +402,9 @@
                 'endDate' => 'Vége',
                 'breadcrumb' => 'Megbízatások',
             ],
+            'trainings' => [
+                'trainings' => 'Képzések',
+            ],
         ],
         'component' => [
             'general' => [

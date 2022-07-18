@@ -4,6 +4,7 @@ use DateTime;
 use Lang;
 use ValidationException;
 use October\Rain\Database\Pivot;
+use Csatar\Csatar\Models\Training;
 
 /**
  * Pivot Model
@@ -61,5 +62,12 @@ class ScoutTrainingQualificationPivot extends Pivot
 
     public function getTrainingIdOptions(){
         return Training::lists('name', 'id');
+    }
+
+    public function beforeSave() {
+        if($this->training_id){
+            $trainingName = Training::find($this->training_id)->name ?? null;
+            $this->training_name = Training::find($this->training_id)->name;
+        }
     }
 }

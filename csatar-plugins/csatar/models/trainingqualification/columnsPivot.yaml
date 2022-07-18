@@ -18,7 +18,7 @@ columns:
     'pivot[qualification_certificate_number]':
         label: 'csatar.csatar::lang.plugin.admin.general.qualificationCertificateNumber'
         type: text
-    'pivot[training_id]':
+    'pivot[training_name]':
         label: 'csatar.csatar::lang.plugin.admin.general.training'
         type: text
     'pivot[qualification_leader]':
