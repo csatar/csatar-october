@@ -8,7 +8,7 @@ use Model;
 class LeadershipQualification extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-    
+
     use \October\Rain\Database\Traits\SoftDelete;
 
     protected $dates = ['deleted_at'];
@@ -43,8 +43,12 @@ class LeadershipQualification extends Model
         'scouts' => [
             '\Csatar\Csatar\Models\Scout',
             'table' => 'csatar_csatar_scouts_leadership_qualifications',
-            'pivot' => ['date', 'location', 'qualification_certificate_number', 'qualification', 'qualification_leader'],
+            'pivot' => ['date', 'location', 'qualification_certificate_number', 'training_id', 'qualification_leader'],
             'pivotModel' => '\Csatar\Csatar\Models\ScoutLeadershipQualificationPivot',
         ]
     ];
+
+    public function getTrainingIdOptions(){
+        return Training::lists('name', 'id');
+    }
 }

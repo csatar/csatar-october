@@ -22,11 +22,11 @@ fields:
         span: auto
         required: 1
         type: text
-    'pivot[qualification]':
-        label: 'csatar.csatar::lang.plugin.admin.general.qualification'
+    'pivot[training_id]':
+        label: 'csatar.csatar::lang.plugin.admin.general.training'
         span: auto
         required: 1
-        type: text
+        type: dropdown
     'pivot[qualification_leader]':
         label: 'csatar.csatar::lang.plugin.admin.general.qualificationLeader'
         span: auto

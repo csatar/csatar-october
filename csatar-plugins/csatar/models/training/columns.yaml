@@ -1,0 +1,16 @@
+columns:
+    id:
+        label: id
+        type: number
+        searchable: true
+        sortable: true
+    name:
+        label: 'csatar.csatar::lang.plugin.admin.general.name'
+        type: text
+        searchable: true
+        sortable: true
+    comment:
+        label: 'csatar.csatar::lang.plugin.admin.general.comment'
+        type: text
+        searchable: true
+        sortable: true
