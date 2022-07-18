@@ -1,6 +1,6 @@
 columns:
     id:
-        label: id
+        label: 'csatar.csatar::lang.plugin.admin.general.id'
         type: number
         searchable: true
         sortable: true
