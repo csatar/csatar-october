@@ -704,9 +704,9 @@ table {
 table.fixed {
     table-layout: fixed;
 }
-  
+
 th, td, .th, .td {
-    border-radius: 12px !important;
+    border-radius: 12px;
     padding: 4px;
 }
 
@@ -750,6 +750,20 @@ table tr:nth-child(even) td, div div.row:nth-child(even) div.td {
     background-color: #F5F5F5;
 }
 
+/* Pick a date calendar */
+
+body > div.pika-single.is-bound > div > table > thead > tr > th {
+    background-color: #F5F5F5;
+    border: none;
+    padding: 0px;
+}
+
+body > div.pika-single.is-bound > div > table > tbody > tr > td {
+    background-color: #F5F5F5;
+    border: none;
+    padding: 0px;
+}
+
 /* FORMS */
 
 .search-btn {
@@ -764,7 +778,6 @@ table tr:nth-child(even) td, div div.row:nth-child(even) div.td {
     font-weight: 300;
     font-size: calc(0.9rem + 0.2vw);
     border-radius: 12px;
-    height: 40px;
 }
 
 textarea {

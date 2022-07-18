@@ -16,6 +16,7 @@ use Csatar\Csatar\Models\SpecialDiet;
 use Csatar\Csatar\Models\SpecialTest;
 use Csatar\Csatar\Models\TShirtSize;
 use Csatar\Forms\Models\Form;
+use Csatar\Csatar\Models\Training;
 
 class SeederData extends Seeder
 {
@@ -185,6 +186,11 @@ class SeederData extends Seeder
                 'model' => 'Csatar\Csatar\Models\TeamReport',
             ]
         ],
+        'trainings' => [
+            'Erdélyi VK-2021',
+            'MCSZFSTVK II',
+            'STVK 19/A',
+        ],
     ];
 
     public function run()
@@ -203,7 +209,7 @@ class SeederData extends Seeder
             ]);
         }
 
-        // special tests        
+        // special tests
         foreach($this::DATA['specialTest'] as $name) {
             $specialTest = SpecialTest::firstOrCreate([
                 'name' => $name
@@ -216,21 +222,21 @@ class SeederData extends Seeder
                 'name' => $name
             ]);
         }
-        
+
         // religions
         foreach($this::DATA['religion'] as $name) {
             $religion = Religion::firstOrCreate([
                 'name' => $name
             ]);
         }
-        
+
         // t-shirt sizes
         foreach($this::DATA['tShirtSize'] as $name) {
             $tshirtSize = TShirtSize::firstOrCreate([
                 'name' => $name
             ]);
         }
-        
+
         // chronic illnesses
         foreach($this::DATA['chronicIllness'] as $name) {
             $chronicIllness = ChronicIllness::firstOrCreate([
@@ -274,42 +280,49 @@ class SeederData extends Seeder
                     $association->ecset_code_suffix = 'H';
                     $association->currency_id = Currency::where('code', 'HRK')->first()->id;
                     $association->team_fee = 0;
+                    $association->name_abbreviation = 'HZMCS';
                     break;
                 case 'Kárpátaljai Magyar Cserkészszövetség':
                     $association->currency_id = Currency::where('code', 'UAH')->first()->id;
                     $association->team_fee = 0;
                     $association->ecset_code_suffix = 'KÁ';
+                    $association->name_abbreviation = 'KáMCSSZ';
                     break;
                 case 'Külföldi Magyar Cserkészszövetség':
                     $association->ecset_code_suffix = 'KÜ';
                     $association->currency_id = Currency::where('code', 'EUR')->first()->id;
                     $association->team_fee = 0;
+                    $association->name_abbreviation = 'KMCSSZ';
                     break;
                 case 'Magyar Cserkészszövetség':
                     $association->ecset_code_suffix = 'M';
                     $association->currency_id = Currency::where('code', 'HUF')->first()->id;
                     $association->team_fee = 0;
+                    $association->name_abbreviation = 'MCSSZ';
                     break;
                 case 'Romániai Magyar Cserkészszövetség':
                     $association->ecset_code_suffix = 'E';
                     $association->currency_id = Currency::where('code', 'RON')->first()->id;
                     $association->team_fee = 300;
+                    $association->name_abbreviation = 'RMCSSZ';
                     break;
                 case 'Szlovákiai Magyar Cserkészszövetség':
                     $association->ecset_code_suffix = 'F';
                     $association->currency_id = Currency::where('code', 'EUR')->first()->id;
                     $association->team_fee = 0;
+                    $association->name_abbreviation = 'SZMCS';
                     break;
                 case 'Vajdasági Magyar Cserkészszövetség':
                     $association->ecset_code_suffix = 'D';
                     $association->currency_id = Currency::where('code', 'RSD')->first()->id;
                     $association->team_fee = 0;
+                    $association->name_abbreviation = 'VMCSZ';
                     break;
                 default:
                     break;
             }
             $association->save();
-            
+
             // associations - legal relationships pivot
             if ($association->legal_relationships->where('id', $legalRelationship1->id)->first() == null) {
                 $association->legal_relationships()->attach($legalRelationship1, ['membership_fee' => 0]);
@@ -329,7 +342,7 @@ class SeederData extends Seeder
             }
         }
 
-        // food sensitivities        
+        // food sensitivities
         foreach($this::DATA['foodSensitivity'] as $name) {
             $foodSensitivity = FoodSensitivity::firstOrCreate([
                 'name' => $name
@@ -341,7 +354,7 @@ class SeederData extends Seeder
             'Kiscserkész igéret',
             'Cserkész fogadalom',
         ];
-        
+
         foreach($this::DATA['promise'] as $name) {
             $promise = Promise::firstOrCreate([
                 'name' => $name
@@ -369,6 +382,12 @@ class SeederData extends Seeder
         }
         foreach($this::DATA['form'] as $form) {
             $item = Form::firstOrCreate($form);
+        }
+
+        foreach($this::DATA['trainings'] as $training) {
+            Training::firstOrCreate([
+                'name' => $training,
+            ]);
         }
     }
 }

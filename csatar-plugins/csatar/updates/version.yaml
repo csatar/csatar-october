@@ -114,3 +114,15 @@
 1.0.41:
     - 'Created table csatar_csatar_content_pages'
     - builder_table_create_csatar_csatar_content_pages.php
+1.0.42:
+    - 'Updated table csatar_csatar_associations'
+    - builder_table_update_csatar_csatar_associations_2.php
+1.0.43:
+    - 'Created table csatar_csatar_trainings'
+    - builder_table_create_csatar_csatar_trainings.php
+1.0.44:
+    - 'Updated table csatar_csatar_scouts_leadership_qualifications'
+    - builder_table_update_csatar_csatar_scouts_leadership_qualifications.php
+1.0.45:
+    - 'Updated table csatar_csatar_scouts_training_qualifications'
+    - builder_table_update_csatar_csatar_scouts_training_qualifications.php

@@ -139,12 +139,12 @@ trait AjaxControllerSimple {
             ->where('session_key', $this->sessionKey)
             ->get();
         $attachedIds = $record->id ? $record->{$relationName}->pluck('id') : $defRecords->pluck('slave_id');
-        $pivotModelName = array_key_exists($relationName, $record->belongsToMany) ? $record->belongsToMany[$relationName][0] : false;
+        $relatedModelName = array_key_exists($relationName, $record->belongsToMany) ? $record->belongsToMany[$relationName][0] : false;
         $getFunctionName = 'get' . $this->underscoreToCamelCase($relationName, true) . 'Options';
 
-        \Model::extend(function($model) use ($getFunctionName, $pivotModelName, $attachedIds){
-            $model->addDynamicMethod($getFunctionName, function() use ($model, $pivotModelName, $attachedIds) {
-                return $pivotModelName::whereNotIn('id', $attachedIds)->get()
+        \Model::extend(function($model) use ($getFunctionName, $relatedModelName, $attachedIds){
+            $model->addDynamicMethod($getFunctionName, function() use ($model, $relatedModelName, $attachedIds) {
+                return $relatedModelName::whereNotIn('id', $attachedIds)->get()
                     ->lists('name', 'id');
             });
         });
@@ -177,20 +177,21 @@ trait AjaxControllerSimple {
     public function createPivotForm($relationName, $relationId) {
         $preview = $this->readOnly;
         $record = $this->getRecord();
-        $pivotModelName = array_key_exists($relationName, $record->belongsToMany) ? $record->belongsToMany[$relationName][0] : false;
-        $relatedModel = $pivotModelName::find($relationId);
+        $relatedModelName = array_key_exists($relationName, $record->belongsToMany) ? $record->belongsToMany[$relationName][0] : false;
+        $relatedModel = $relatedModelName::find($relationId);
 
-        $pivotConfig = $this->makeConfig($this->getPivotFieldsConfig($pivotModelName));
+        $pivotConfig = $this->makeConfig($this->getPivotFieldsConfig($relatedModelName));
         $pivotConfig->arrayName = $relationName;
-        $pivotConfig->alias = $pivotModelName;
+        $pivotConfig->alias = $relatedModelName;
         $pivotConfig->model = $relatedModel;
         $widget = new \Backend\Widgets\Form($this, $pivotConfig);
 
         $this->loadBackendFormWidgets();
 
         $html = $widget->render(['preview' => $preview]);
-        if(!$preview){
-            $html .= $this->renderValidationTags($record);
+        $pivotModel = $this->getPivotModelIfSet($relationName);
+        if(!$preview && !empty($pivotModel->rules)){
+            $html .= $this->renderValidationTags($pivotModel, true, $relationName);
         }
 
         return [
@@ -207,6 +208,19 @@ trait AjaxControllerSimple {
         $relationName = Input::get('relationName');
         $relationId = Input::get('relationId');
         $pivotData = Input::get($relationName)['pivot'];
+
+        $pivotModel = $this->getPivotModelIfSet($relationName);
+        if(!empty($pivotModel->rules)) {
+            $rules = $pivotModel->rules;
+
+            $validation = Validator::make(
+                $pivotData,
+                $rules
+            );
+            if ($validation->fails()) {
+                throw new \ValidationException($validation);
+            }
+        }
 
         if(!$record->id){
             $modelToAttach = $record->$relationName()->getRelated()->find($relationId);
@@ -257,7 +271,7 @@ trait AjaxControllerSimple {
 
             $key = isset($definition['key']) ? $definition['key'] : $name . '_id';
             $data[$key] = (int) $data[$name];
-            unset($data[$name]);
+//            unset($data[$name]);
         }
 
         // Resolve belongsToMany relations
@@ -348,15 +362,20 @@ trait AjaxControllerSimple {
         }
     }
 
-    public function renderValidationTags($model)
+    public function renderValidationTags($model, $forPivot = false, $relationName = null)
     {
-        $html = "<div id='validationTags'>";
-        foreach($model->rules as $fieldName => $rule) {
-            $html .= "<span data-validate-for='" . $fieldName . "'></span>";
-        }
-        $html .= "</div>";
+        if(!empty($model->rules)){
+            $html = "<div class='validationTags'>";
+            foreach($model->rules as $fieldName => $rule) {
+                $positionData = !$forPivot ? $fieldName : $relationName . '[pivot][' . $fieldName . ']';
+                $html .= "<span class='errormsg' data-validate-for='" . $fieldName . "' data-position-for='" . $positionData . "'></span>";
+            }
+            $html .= "</div>";
 
-        return $html;
+            return $html;
+        }
+
+        return '';
     }
 
     private function getRecord() {
@@ -428,8 +447,8 @@ trait AjaxControllerSimple {
     }
 
     public function generatePivotSection($record, $relationName, $definition){
-        $pivotModelName = $definition[0];
-        $pivotConfig = $this->makeConfig($this->getPivotListConfig($pivotModelName));
+        $relatedModelName = $definition[0];
+        $pivotConfig = $this->makeConfig($this->getPivotListConfig($relatedModelName));
         $attributesToDisplay = $this->attributesToDisplay($pivotConfig);
         $relationLabel = array_key_exists('label', $definition) ? \Lang::get($definition['label']) : $relationName;
         $html = '<div class="col-12 mb-4">';
@@ -534,4 +553,14 @@ trait AjaxControllerSimple {
     return $str;
     }
 
+    public function getPivotModelIfSet($relationName) {
+        $record = $this->getRecord();
+        $relationConfigArray = $record->belongsToMany[$relationName];
+
+        if(array_key_exists('pivotModel', $relationConfigArray)) {
+            return new $relationConfigArray['pivotModel']($record, [], '');
+        }
+
+        return false;
+    }
 }

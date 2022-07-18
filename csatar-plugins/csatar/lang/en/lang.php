@@ -1,6 +1,6 @@
 <?php return [
     'frontEnd' => [
-        'authException' => 'The email address, the ECSET code or the password is incorrect.'
+        'authException' => 'The email address, the ECSET code or the password is incorrect.',
     ],
     'plugin' => [
         'name' => 'CSATÁR',
@@ -9,6 +9,7 @@
         'admin' => [
             'general' => [
                 'name' => 'Name',
+                'name_abbreviation' => 'Name abbreviation',
                 'email' => 'Email',
                 'contactEmail' => 'Contact email',
                 'phone' => 'Phone',
@@ -25,11 +26,13 @@
                 'date' => 'Date',
                 'location' => 'Location',
                 'qualificationCertificateNumber' => 'Képesítési Igazolás Száma',
+                'training' => 'Training',
                 'qualification' => 'Képzés',
                 'qualificationLeader' => 'Képzésvezető',
                 'relations' => 'Relations',
                 'password' => 'Password',
                 'password_confirmation' => 'Password confirmation',
+                'organizationUnitNameWarning' => 'Organization unit name can not contain the unit type.',
             ],
             'scout' => [
                 'scout' => 'Scout',
@@ -107,6 +110,7 @@
                 'team' => 'Team',
                 'troop' => 'Troop',
                 'patrol' => 'Patrol',
+                'profile_image' => 'Profile image',
                 'sections' => [
                     'birthData' => 'Birth data',
                     'addressData' => 'Address',
@@ -129,7 +133,7 @@
                     'qualificationRequiredError' => 'The Qualification for the %name %category is required.',
                     'qualificationLeaderRequiredError' => 'The Qualification Leader for the %name %category is required.',
                     'dateInTheFutureError' => 'The selected Date for the %name %category is in the future.',
-                ]
+                ],
             ],
             'admin' => [
                 'menu' => [
@@ -150,6 +154,7 @@
                         'specialQualificationCategories' => 'Special Qualification Categories',
                         'leadershipQualificationCategories' => 'Leadership Qualification Categories',
                         'trainingQualificationCategories' => 'Training Qualification Categories',
+                        'trainings' => 'Trainings',
                     ],
                     'organizationSystemData' => [
                         'organizationSystemData' => 'Organization System Data',
@@ -279,6 +284,8 @@
                 'breadcrumb' => 'Districts',
                 'teamsInfo' => 'Teams can be added after the District has been created. Click the Create button after other information is filled.',
                 'association' => 'Association',
+                'organizationUnitNameWarning' => 'The name of the district can not contain the word "district."',
+                'filterOrganizationUnitNameForWords' => 'district',
             ],
             'team' => [
                 'team' => 'Team',
@@ -302,6 +309,8 @@
                 'breadcrumb' => 'Teams',
                 'teamNumberTakenError' => 'This Team number is already taken.',
                 'dateInTheFutureError' => 'The selected date is in the future.',
+                'organizationUnitNameWarning' => 'The name of the team can not contain the word "team."',
+                'filterOrganizationUnitNameForWords' => 'team',
             ],
             'troop' => [
                 'troop' => 'Troop',
@@ -315,6 +324,8 @@
                 'team' => 'Team',
                 'patrolsInfo' => 'Patrols can be added after the Troop has been created. Click the Create button after other information is filled.',
                 'breadcrumb' => 'Troops',
+                'organizationUnitNameWarning' => 'The name of the troop can not contain the word "troop."',
+                'filterOrganizationUnitNameForWords' => 'troop',
             ],
             'patrol' => [
                 'patrol' => 'Patrol',
@@ -330,6 +341,8 @@
                 'troop' => 'Troop',
                 'breadcrumb' => 'Patrols',
                 'troopNotInTheTeamError' => 'The selected Troop does not belong to the selected Team.',
+                'organizationUnitNameWarning' => 'The name of the patrol can not contain the word "patrol."',
+                'filterOrganizationUnitNameForWords' => 'partol',
             ],
             'currency' => [
                 'currency' => 'Currency',
@@ -358,7 +371,7 @@
                 'total_amount' => 'Total amount',
                 'currency' => 'Currency',
                 'name' => 'Name',
-                'legalRelationship' => "Legal relationship",
+                'legalRelationship' => 'Legal relationship',
                 'leadershipQualification' => 'Leadership qualification',
                 'membershipFee' => 'Membership fee',
                 'submittedAt' => 'Submitted at',
@@ -376,12 +389,15 @@
                     'submissionDateAfterApprovalDate' => 'The Submission date cannot be after the approval date.',
                 ],
             ],
+            'trainings' => [
+                'trainings' => 'Trainings',
+            ],
         ],
         'component' => [
             'general' => [
-                'validationExceptions'=> [
+                'validationExceptions' => [
                     'passwordRegex' => 'The password must be at least 8 characters long, must contain a lower and uppercase letter, a number and a special character.',
-                ]
+                ],
             ],
             'resetPassword' => [
                 'name' => 'Reset Password',
@@ -403,38 +419,38 @@
                         'title' => 'Model Id',
                         'description' => 'Starter model id.',
                     ],
-                ]
+                ],
             ],
             'logos' => [
                 'name' => 'Logos',
                 'description' => 'Logos and corresponding links shown in grid view.',
                 'sponsors' => [
-                    'title' => 'List of Sponsors', // 'Támogatók listája'
-                    'hungarianGovernment' => 'Hungarian Government', // 'Magyar Kormány'
-                    'harghitaCountyCouncil' => 'Harghita County Council', // 'Hargita Megye Tanácsa'
-                    'communitasFoundation' => 'Communitas Foundation', // 'Communitas Alapítvány'
-                    'toyota' => 'Toyota', // 'Toyota'
+                    'title' => 'List of Sponsors',
+                    'hungarianGovernment' => 'Hungarian Government',
+                    'harghitaCountyCouncil' => 'Harghita County Council',
+                    'communitasFoundation' => 'Communitas Foundation',
+                    'toyota' => 'Toyota',
                 ],
                 'discounts' => [
-                    'title' => 'Companies offering discounts', // 'Kedvezményeket kínáló cégek'
-                    'mormotaLand' => 'Mormota Land', // 'Mormota Land'
-                    'tiboo' => 'Tiboo', // 'Tiboo'
-                    'giftyShop' => 'Gifty Shop', // 'Gifty Shop'
-                    'zergeSpecialtyStore' => 'Zerge Specialt Store', // 'Zerge Szakbolt'
+                    'title' => 'Companies offering discounts',
+                    'mormotaLand' => 'Mormota Land',
+                    'tiboo' => 'Tiboo',
+                    'giftyShop' => 'Gifty Shop',
+                    'zergeSpecialtyStore' => 'Zerge Specialt Store',
                 ],
                 'partners' => [
-                    'title' => 'Partners', // 'Partnerek'
-                    'forumOfHungarianScoutAssociations' => 'Forum of Hungarian Scout Associations', // 'Magyar Cserkészszövetségek Fóruma'
-                    'transcarpathianHungarianScoutAssociation' => 'Transcarpathian Hungarian Scout Association', // 'Kárpátaljai Magyar Cserkészszövetség'
-                    'hungarianScoutAssociationInExteris' => 'Hungarian Scout Association in Exteris', // 'Külföldi Magyar Cserkészszövetség'
-                    'hungarianScoutAssociation' => 'Hungarian Scout Association', // 'Magyar Cserkészszövetség'
-                    'slovakHungarianScoutAssociation' => 'Slovak Hungarian Scout Association', // 'Szlovákiai Magyar Cserkészszövetség'
-                    'hungarianScoutAssociationOfVojvodina' => 'Hungarian Scout Association of Vojvodina', // 'Vajdasági Magyar Cserkészszövetség'
-                    'archdiocesanYouthHeadquarters' => 'Archdiocesan Youth Headquarters', // 'Főegyházmegyei Ifjúsági Főlelkészség'
-                    'marySWayTransylvania' => 'Mary\'s Way - Transylvania', // 'Mária út - Erdély'
-                    'proEducatione' => 'Pro Educatione', // 'Pro Educatione'
-                    'scoutsOfRomania' => 'Scouts Of Romania', // 'Románia Cserkészei'
-                ]
+                    'title' => 'Partners',
+                    'forumOfHungarianScoutAssociations' => 'Forum of Hungarian Scout Associations',
+                    'transcarpathianHungarianScoutAssociation' => 'Transcarpathian Hungarian Scout Association',
+                    'hungarianScoutAssociationInExteris' => 'Hungarian Scout Association in Exteris',
+                    'hungarianScoutAssociation' => 'Hungarian Scout Association',
+                    'slovakHungarianScoutAssociation' => 'Slovak Hungarian Scout Association',
+                    'hungarianScoutAssociationOfVojvodina' => 'Hungarian Scout Association of Vojvodina',
+                    'archdiocesanYouthHeadquarters' => 'Archdiocesan Youth Headquarters',
+                    'marySWayTransylvania' => 'Mary\'s Way - Transylvania',
+                    'proEducatione' => 'Pro Educatione',
+                    'scoutsOfRomania' => 'Scouts Of Romania',
+                ],
             ],
             'teamReport' => [
                 'name' => 'Team Report',
@@ -456,12 +472,12 @@
                 'description' => 'Returns the status of a scout, depending on the scout id from the request.',
                 'scoutCode' => [
                     'title' => 'Scout Code',
-                    'description' => 'Unique scout id'
+                    'description' => 'Unique scout id',
                 ],
                 'json' => [
                     'title' => 'Json Format',
-                    'description' => 'If json parameter is \'json\' return respons in json format. '
-                ]
+                    'description' => 'If json parameter is \'json\' return respons in json format. ',
+                ],
             ],
             'createFrontendAccounts' => [
                 'name' => 'Create Frontend Account',
@@ -476,11 +492,11 @@
                     'scoutHasNoEmail' => ':name has no email address!',
                     'scoutAlreadyHasUserAccount' => ':name already has a user account!',
                     'userAccountCreated' => 'User account was created for :name!',
-                ]
+                ],
             ],
             'organizationUnitFrontend' => [
                 'name' => 'Organization Unit Frontend',
-                'description' => 'Display the organization unit frontend page.'
+                'description' => 'Display the organization unit frontend page.',
             ],
         ],
     ],

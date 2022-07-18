@@ -44,13 +44,21 @@
                 'propertiesValidation' => [
                     'formNotSelected'       => "Please select a form from the dropdown list. If the form you're looking for is not there, you need to create it in the Forms menu.",
                     'recordKeyNotSelected'  => "Record key parameter is not specified."
-                ]
+                ],
             ]
         ],
     ],
     'widgets' => [
         'frontendFileUpload' => [
             'browse' => 'Browse',
+        ],
+        'frontendFileUploadValidation' => [
+            'mimeTypeMismatch' => 'The :attribute must be a file of type: :values.',
+        ],
+        'frontendFileUploadException' => [
+            'fileExceedsUploadLimit' => 'File exceeds file upload limit of ',
+            'fileIsNotValid'         => 'File %s is not valid.',
+            'invalidField'           => 'Invalid field.',
         ],
     ],
     'errors' => [
