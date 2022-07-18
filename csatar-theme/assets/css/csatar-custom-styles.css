@@ -706,7 +706,7 @@ table.fixed {
 }
 
 th, td, .th, .td {
-    border-radius: 12px !important;
+    border-radius: 12px;
     padding: 4px;
 }
 
@@ -748,6 +748,20 @@ table tr:nth-child(odd) td, div div.row:nth-child(odd) div.td {
 }
 table tr:nth-child(even) td, div div.row:nth-child(even) div.td {
     background-color: #F5F5F5;
+}
+
+/* Pick a date calendar */
+
+body > div.pika-single.is-bound > div > table > thead > tr > th {
+    background-color: #F5F5F5;
+    border: none;
+    padding: 0px;
+}
+
+body > div.pika-single.is-bound > div > table > tbody > tr > td {
+    background-color: #F5F5F5;
+    border: none;
+    padding: 0px;
 }
 
 /* FORMS */
