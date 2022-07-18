@@ -78,14 +78,16 @@ trait AjaxControllerSimple {
 
         // Autoload belongsTo relations
         foreach($record->belongsTo as $name => $definition) {
-            if (!Input::get($name)) {
+            $inp = Input::get('data.' . $name);
+            if (!Input::get($name) && !Input::get('data.' . $name)) {
                 continue;
             }
 
             $key = isset($definition['key']) ? $definition['key'] : $name . '_id';
-            $record->$key = Input::get($name);
-            $config->fields[$name]['readOnly'] = 1;
+            $record->$key = Input::get($name) ?? Input::get('data.' . $name);
+//            $config->fields[$name]['readOnly'] = 1;
         }
+
 
         $this->widget = new \Backend\Widgets\Form($this, $config);
 
@@ -485,7 +487,9 @@ trait AjaxControllerSimple {
     }
 
     public function onRefresh(){
-
+        return [
+            '#renderedFormArea' => $this->createForm(),
+        ];
     }
 
     public function generatePivotTableHeader($attributesToDisplay){

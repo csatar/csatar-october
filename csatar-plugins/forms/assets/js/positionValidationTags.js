@@ -1,7 +1,6 @@
 window.positionValidationTags = function (forPivot) {
     $('.validationTags').each(function (){
         $(this).children().each(function () {
-    //     $('[data-validate-for]').each(function () {
             if($(this).data( "validateFor" ) && !forPivot){
                 let fieldName = $(this).data( "validateFor" );
                 let parentTag = $("div[data-field-name='" + fieldName +"']");
