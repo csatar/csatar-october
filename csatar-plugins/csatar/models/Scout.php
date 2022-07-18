@@ -272,6 +272,20 @@ class Scout extends Model
             'pivotModel' => '\Csatar\Csatar\Models\ScoutTrainingQualificationPivot',
             'label' => 'csatar.csatar::lang.plugin.admin.trainingQualification.trainingQualifications',
         ],
+        'mandates' => [
+            '\Csatar\Csatar\Models\Mandate',
+            'table' => 'csatar_csatar_scouts_mandates',
+            'pivot' => ['startDate', 'endDate', 'comment'],
+            'pivotModel' => '\Csatar\Csatar\Models\ScoutMandatePivot',
+            'label' => 'csatar.csatar::lang.plugin.admin.mandate.mandates',
+        ],
+        'mandate_models' => [
+            '\Csatar\Csatar\Models\OrganizationBase',
+            'table' => 'csatar_csatar_scouts_mandates',
+            'pivot' => ['startDate', 'endDate', 'comment'],
+            'pivotModel' => '\Csatar\Csatar\Models\ScoutMandatePivot',
+            'label' => 'csatar.csatar::lang.plugin.admin.mandate.mandateModels',
+        ],
         'team_reports' => [
             '\Csatar\Csatar\Models\TeamReport',
             'table' => 'csatar_csatar_team_reports_scouts',

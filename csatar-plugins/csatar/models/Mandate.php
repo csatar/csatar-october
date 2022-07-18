@@ -55,6 +55,23 @@ class Mandate extends Model
         ],
     ];
 
+    public $belongsToMany = [
+        'scouts' => [
+            '\Csatar\Csatar\Models\Scout',
+            'table' => 'csatar_csatar_scouts_mandates',
+            'pivot' => ['startDate', 'endDate', 'comment'],
+            'pivotModel' => '\Csatar\Csatar\Models\ScoutMandatePivot',
+            'label' => 'csatar.csatar::lang.plugin.admin.scout.scouts',
+        ],
+        'mandate_models' => [
+            '\Csatar\Csatar\Models\OrganizationBase',
+            'table' => 'csatar_csatar_scouts_mandates',
+            'pivot' => ['startDate', 'endDate', 'comment'],
+            'pivotModel' => '\Csatar\Csatar\Models\ScoutMandatePivot',
+            'label' => 'csatar.csatar::lang.plugin.admin.mandate.mandateModels',
+        ],
+    ];
+
     public $hasMany = [
         'children' => [
             '\Csatar\Csatar\Models\Mandate', 

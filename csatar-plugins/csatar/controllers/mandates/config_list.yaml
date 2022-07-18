@@ -10,3 +10,5 @@ toolbar:
     search:
         prompt: 'backend::lang.list.search_prompt'
 recordUrl: 'csatar/csatar/mandates/update/:id'
+showTree: 1
+treeExpanded: 1
