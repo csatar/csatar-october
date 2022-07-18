@@ -389,6 +389,9 @@
                     'submissionDateAfterApprovalDate' => 'A Beküldés ideje nem lehet az Elfogadás ideje után.',
                 ],
             ],
+            'trainings' => [
+                'trainings' => 'Képzések',
+            ],
         ],
         'component' => [
             'general' => [
