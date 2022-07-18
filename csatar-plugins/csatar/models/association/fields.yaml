@@ -7,6 +7,7 @@ fields:
     name_abbreviation:
         label: 'csatar.csatar::lang.plugin.admin.general.name_abbreviation'
         span: auto
+        required: 1
         type: text
     ecset_code_suffix:
         label: 'csatar.csatar::lang.plugin.admin.association.ecsetCode.suffix'
