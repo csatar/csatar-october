@@ -1,0 +1,30 @@
+fields:
+    name:
+        label: 'csatar.csatar::lang.plugin.admin.general.name'
+        span: auto
+        required: 1
+        type: text
+    association:
+        label: 'csatar.csatar::lang.plugin.admin.mandate.association'
+        nameFrom: extendedName
+        descriptionFrom: description
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        span: auto
+        required: 1
+        type: relation
+    organization_type_model_name:
+        label: 'csatar.csatar::lang.plugin.admin.mandate.organizationTypeModelName'
+        span: auto
+        type: dropdown
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+    required:
+        label: 'csatar.csatar::lang.plugin.admin.mandate.required'
+        span: auto
+        type: checkbox
+    parent:
+        label: 'csatar.csatar::lang.plugin.admin.mandate.parent'
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'

@@ -387,6 +387,15 @@
                     'submissionDateAfterApprovalDate' => 'A Beküldés ideje nem lehet az Elfogadás ideje után.',
                 ],
             ],
+            'mandate' => [
+                'mandate' => 'Megbízatás',
+                'mandates' => 'Megbízatások',
+                'association' => 'Szövetség',
+                'parent' => 'Szülő',
+                'organizationTypeModelName' => 'Szervezeti egység modell név',
+                'required' => 'Kötelező',
+                'breadcrumb' => 'Megbízatások',
+            ],
         ],
         'component' => [
             'general' => [

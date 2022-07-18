@@ -20,4 +20,9 @@ class OrganizationBase extends Model
     {
         return $this->attributes['name'];
     }
+
+    public static function getOrganizationTypeModelName()
+    {
+        return static::class;
+    }
 }

@@ -117,3 +117,9 @@
 1.0.42:
     - 'Updated table csatar_csatar_associations'
     - builder_table_update_csatar_csatar_associations_2.php
+1.0.43:
+    - 'Created table csatar_csatar_mandates'
+    - builder_table_create_csatar_csatar_mandates.php
+1.0.44:
+    - 'Created table csatar_csatar_scouts_mandates'
+    - builder_table_create_csatar_csatar_scouts_mandates.php

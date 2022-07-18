@@ -64,6 +64,7 @@ class Association extends OrganizationBase
 
     public $hasMany = [
         'districts' => '\Csatar\Csatar\Models\District',
+        'mandates' => '\Csatar\Csatar\Models\Mandate',
     ];
 
     public $attachOne = [

@@ -387,6 +387,15 @@
                     'submissionDateAfterApprovalDate' => 'The Submission date cannot be after the approval date.',
                 ],
             ],
+            'mandate' => [
+                'mandate' => 'Mandate',
+                'mandates' => 'Mandates',
+                'association' => 'Association',
+                'parent' => 'Parent',
+                'organizationTypeModelName' => 'Organization type model name',
+                'required' => 'Required',
+                'breadcrumb' => 'Mandates',
+            ],
         ],
         'component' => [
             'general' => [
