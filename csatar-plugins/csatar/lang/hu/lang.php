@@ -26,6 +26,7 @@
                 'date' => 'Dátum',
                 'location' => 'Helyszín',
                 'qualificationCertificateNumber' => 'Képesítési Igazolás Száma',
+                'training' => 'Képzés',
                 'qualification' => 'Képzés',
                 'qualificationLeader' => 'Képzésvezető',
                 'relations' => 'Kapcsolatok',
@@ -153,6 +154,7 @@
                         'specialQualificationCategories' => 'Szakági különpróba típusok',
                         'leadershipQualificationCategories' => 'Vezetői képesítés típusok',
                         'trainingQualificationCategories' => 'Kiképzői képesítés típusok',
+                        'trainings' => 'Képzések',
                     ],
                     'organizationSystemData' => [
                         'organizationSystemData' => 'Szervezeti rendszeradatok',
@@ -386,6 +388,9 @@
                     'dateInTheFuture' => 'A Dátum nem lehet a jövőben.',
                     'submissionDateAfterApprovalDate' => 'A Beküldés ideje nem lehet az Elfogadás ideje után.',
                 ],
+            ],
+            'trainings' => [
+                'trainings' => 'Képzések',
             ],
         ],
         'component' => [
