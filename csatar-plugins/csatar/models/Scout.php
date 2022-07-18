@@ -261,14 +261,14 @@ class Scout extends Model
         'leadership_qualifications' => [
             '\Csatar\Csatar\Models\LeadershipQualification',
             'table' => 'csatar_csatar_scouts_leadership_qualifications',
-            'pivot' => ['date', 'location', 'qualification_certificate_number', 'training_id', 'qualification_leader'],
+            'pivot' => ['date', 'location', 'qualification_certificate_number', 'training_id', 'qualification_leader', 'training_name'],
             'pivotModel' => '\Csatar\Csatar\Models\ScoutLeadershipQualificationPivot',
             'label' => 'csatar.csatar::lang.plugin.admin.leadershipQualification.leadershipQualifications',
         ],
         'training_qualifications' => [
             '\Csatar\Csatar\Models\TrainingQualification',
             'table' => 'csatar_csatar_scouts_training_qualifications',
-            'pivot' => ['date', 'location', 'qualification_certificate_number', 'training_id', 'qualification_leader'],
+            'pivot' => ['date', 'location', 'qualification_certificate_number', 'training_id', 'qualification_leader', 'training_name'],
             'pivotModel' => '\Csatar\Csatar\Models\ScoutTrainingQualificationPivot',
             'label' => 'csatar.csatar::lang.plugin.admin.trainingQualification.trainingQualifications',
         ],
