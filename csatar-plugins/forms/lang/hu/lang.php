@@ -52,6 +52,14 @@
         'frontendFileUpload' => [
             'browse' => 'Böngéssz',
         ],
+        'frontendFileUploadValidation' => [
+            'mimeTypeMismatch' => 'A(z) :attribute fájltípusa kizárólag :values lehet.',
+        ],
+        'frontendFileUploadException' => [
+            'fileExceedsUploadLimit' => 'A fájl mérete nagyobb mint a megengedtett ',
+            'fileIsNotValid'         => 'A %s fájl érvénytelen.',
+            'invalidField'           => 'Érvénytelen mező.',
+        ],
     ],
     'errors' => [
         'formModelNotFound'                 => 'A modell nem található. Adj meg egy létező modellt és helyes útvonalat.',

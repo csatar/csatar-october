@@ -16,6 +16,7 @@ use Csatar\Csatar\Models\SpecialDiet;
 use Csatar\Csatar\Models\SpecialTest;
 use Csatar\Csatar\Models\TShirtSize;
 use Csatar\Forms\Models\Form;
+use Csatar\Csatar\Models\Training;
 use Csatar\Csatar\Models\AgeGroup;
 
 class SeederData extends Seeder
@@ -215,6 +216,11 @@ class SeederData extends Seeder
                 [ 'name' => 'Vegyes', 'note' => ''],
             ]
         ],
+        'trainings' => [
+            'Erdélyi VK-2021',
+            'MCSZFSTVK II',
+            'STVK 19/A',
+        ],
     ];
 
     public function run()
@@ -406,6 +412,12 @@ class SeederData extends Seeder
         }
         foreach($this::DATA['form'] as $form) {
             $item = Form::firstOrCreate($form);
+        }
+
+        foreach($this::DATA['trainings'] as $training) {
+            Training::firstOrCreate([
+                'name' => $training,
+            ]);
         }
 
         // ageGroups for associations
