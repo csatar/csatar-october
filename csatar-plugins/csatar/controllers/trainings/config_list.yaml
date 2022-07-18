@@ -1,0 +1,12 @@
+list: $/csatar/csatar/models/training/columns.yaml
+modelClass: Csatar\Csatar\Models\Training
+title: Trainings
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'csatar/csatar/trainings/update/:id'

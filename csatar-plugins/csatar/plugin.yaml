@@ -103,6 +103,10 @@ navigation:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.trainingQualificationCategories'
                 url: csatar/csatar/trainingqualifications
                 icon: icon-sitemap
+            side-menu-item-trainings:
+                label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.trainings'
+                url: csatar/csatar/trainings
+                icon: icon-sitemap
     main-menu-scout-data:
         label: 'csatar.csatar::lang.plugin.admin.admin.menu.scout'
         url: /csatar/csatar/scouts

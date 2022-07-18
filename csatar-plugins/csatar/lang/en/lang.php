@@ -26,6 +26,7 @@
                 'date' => 'Date',
                 'location' => 'Location',
                 'qualificationCertificateNumber' => 'Képesítési Igazolás Száma',
+                'training' => 'Training',
                 'qualification' => 'Képzés',
                 'qualificationLeader' => 'Képzésvezető',
                 'relations' => 'Relations',
@@ -153,6 +154,7 @@
                         'specialQualificationCategories' => 'Special Qualification Categories',
                         'leadershipQualificationCategories' => 'Leadership Qualification Categories',
                         'trainingQualificationCategories' => 'Training Qualification Categories',
+                        'trainings' => 'Trainings',
                     ],
                     'organizationSystemData' => [
                         'organizationSystemData' => 'Organization System Data',
@@ -387,6 +389,9 @@
                     'submissionDateAfterApprovalDate' => 'The Submission date cannot be after the approval date.',
                 ],
             ],
+            'trainings' => [
+                'trainings' => 'Trainings',
+            ],
         ],
         'component' => [
             'general' => [
@@ -420,32 +425,32 @@
                 'name' => 'Logos',
                 'description' => 'Logos and corresponding links shown in grid view.',
                 'sponsors' => [
-                    'title' => 'List of Sponsors', // 'Támogatók listája'
-                    'hungarianGovernment' => 'Hungarian Government', // 'Magyar Kormány'
-                    'harghitaCountyCouncil' => 'Harghita County Council', // 'Hargita Megye Tanácsa'
-                    'communitasFoundation' => 'Communitas Foundation', // 'Communitas Alapítvány'
-                    'toyota' => 'Toyota', // 'Toyota'
+                    'title' => 'List of Sponsors',
+                    'hungarianGovernment' => 'Hungarian Government',
+                    'harghitaCountyCouncil' => 'Harghita County Council',
+                    'communitasFoundation' => 'Communitas Foundation',
+                    'toyota' => 'Toyota',
                 ],
                 'discounts' => [
-                    'title' => 'Companies offering discounts', // 'Kedvezményeket kínáló cégek'
-                    'mormotaLand' => 'Mormota Land', // 'Mormota Land'
-                    'tiboo' => 'Tiboo', // 'Tiboo'
-                    'giftyShop' => 'Gifty Shop', // 'Gifty Shop'
-                    'zergeSpecialtyStore' => 'Zerge Specialt Store', // 'Zerge Szakbolt'
+                    'title' => 'Companies offering discounts',
+                    'mormotaLand' => 'Mormota Land',
+                    'tiboo' => 'Tiboo',
+                    'giftyShop' => 'Gifty Shop',
+                    'zergeSpecialtyStore' => 'Zerge Specialt Store',
                 ],
                 'partners' => [
-                    'title' => 'Partners', // 'Partnerek'
-                    'forumOfHungarianScoutAssociations' => 'Forum of Hungarian Scout Associations', // 'Magyar Cserkészszövetségek Fóruma'
-                    'transcarpathianHungarianScoutAssociation' => 'Transcarpathian Hungarian Scout Association', // 'Kárpátaljai Magyar Cserkészszövetség'
-                    'hungarianScoutAssociationInExteris' => 'Hungarian Scout Association in Exteris', // 'Külföldi Magyar Cserkészszövetség'
-                    'hungarianScoutAssociation' => 'Hungarian Scout Association', // 'Magyar Cserkészszövetség'
-                    'slovakHungarianScoutAssociation' => 'Slovak Hungarian Scout Association', // 'Szlovákiai Magyar Cserkészszövetség'
-                    'hungarianScoutAssociationOfVojvodina' => 'Hungarian Scout Association of Vojvodina', // 'Vajdasági Magyar Cserkészszövetség'
-                    'archdiocesanYouthHeadquarters' => 'Archdiocesan Youth Headquarters', // 'Főegyházmegyei Ifjúsági Főlelkészség'
-                    'marySWayTransylvania' => 'Mary\'s Way - Transylvania', // 'Mária út - Erdély'
-                    'proEducatione' => 'Pro Educatione', // 'Pro Educatione'
-                    'scoutsOfRomania' => 'Scouts Of Romania', // 'Románia Cserkészei'
-                ]
+                    'title' => 'Partners',
+                    'forumOfHungarianScoutAssociations' => 'Forum of Hungarian Scout Associations',
+                    'transcarpathianHungarianScoutAssociation' => 'Transcarpathian Hungarian Scout Association',
+                    'hungarianScoutAssociationInExteris' => 'Hungarian Scout Association in Exteris',
+                    'hungarianScoutAssociation' => 'Hungarian Scout Association',
+                    'slovakHungarianScoutAssociation' => 'Slovak Hungarian Scout Association',
+                    'hungarianScoutAssociationOfVojvodina' => 'Hungarian Scout Association of Vojvodina',
+                    'archdiocesanYouthHeadquarters' => 'Archdiocesan Youth Headquarters',
+                    'marySWayTransylvania' => 'Mary\'s Way - Transylvania',
+                    'proEducatione' => 'Pro Educatione',
+                    'scoutsOfRomania' => 'Scouts Of Romania',
+                ],
             ],
             'teamReport' => [
                 'name' => 'Team Report',
@@ -467,12 +472,12 @@
                 'description' => 'Returns the status of a scout, depending on the scout id from the request.',
                 'scoutCode' => [
                     'title' => 'Scout Code',
-                    'description' => 'Unique scout id'
+                    'description' => 'Unique scout id',
                 ],
                 'json' => [
                     'title' => 'Json Format',
-                    'description' => 'If json parameter is \'json\' return respons in json format. '
-                ]
+                    'description' => 'If json parameter is \'json\' return respons in json format. ',
+                ],
             ],
             'createFrontendAccounts' => [
                 'name' => 'Create Frontend Account',

@@ -1,0 +1,11 @@
+fields:
+    name:
+        label: 'csatar.csatar::lang.plugin.admin.general.name'
+        span: auto
+        type: text
+        required: 1
+    comment:
+        label: 'csatar.csatar::lang.plugin.admin.general.comment'
+        size: ''
+        span: auto
+        type: textarea
