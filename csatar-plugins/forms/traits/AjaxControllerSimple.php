@@ -106,7 +106,7 @@ trait AjaxControllerSimple {
             'recordKeyValue' => $record->id ?? 'new',
             'from_id' => $form->id,
             'preview' => $preview,
-            'redirectOnClose' => \Url::previous(),
+            'redirectOnClose' => Input::old('redirectOnClose') ?? \Url::previous(),
             'actionUpdateKeyword' => $this->actionUpdateKeyword
         ];
 
@@ -341,10 +341,10 @@ trait AjaxControllerSimple {
 
         if ($isNew) {
             $redirectUrl = str_replace('default', '', $this->currentPageUrl(false)) . $record->id . '/' .Input::get('actionUpdateKeyword');
-//            Session::put('key', 'value');
-            return Redirect::to($redirectUrl);
+            return Redirect::to($redirectUrl)->withInput();
         }
 
+        \Flash::success(e(trans('csatar.forms::lang.success.saved')));
         return Redirect::back()->withInput();
     }
 

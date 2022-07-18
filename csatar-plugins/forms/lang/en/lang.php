@@ -69,4 +69,7 @@
         'noFiles'                           => 'No files',
         'nothingSelectedOnPivotRelation'    => 'Please select and option from the dropdown...',
     ],
+    'success' => [
+        'saved' => 'Data successfully saved...'
+    ],
 ];
