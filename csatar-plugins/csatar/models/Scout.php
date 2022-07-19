@@ -275,14 +275,14 @@ class Scout extends Model
         'mandates' => [
             '\Csatar\Csatar\Models\Mandate',
             'table' => 'csatar_csatar_scouts_mandates',
-            'pivot' => ['startDate', 'endDate', 'comment'],
+            'pivot' => ['start_date', 'end_date', 'comment'],
             'pivotModel' => '\Csatar\Csatar\Models\ScoutMandatePivot',
             'label' => 'csatar.csatar::lang.plugin.admin.mandate.mandates',
         ],
         'mandate_models' => [
             '\Csatar\Csatar\Models\OrganizationBase',
             'table' => 'csatar_csatar_scouts_mandates',
-            'pivot' => ['startDate', 'endDate', 'comment'],
+            'pivot' => ['start_date', 'end_date', 'comment'],
             'pivotModel' => '\Csatar\Csatar\Models\ScoutMandatePivot',
             'label' => 'csatar.csatar::lang.plugin.admin.mandate.mandateModels',
         ],
