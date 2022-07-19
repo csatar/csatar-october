@@ -30,7 +30,7 @@ class Scout extends Model
         'personal_identification_number' => 'required',
         'gender' => 'required',
         'is_active' => 'required',
-//        'legal_relationship' => 'required', // temporary removed until empty select issue is fixed
+        'legal_relationship' => 'required',
         'religion' => 'required',
         'tshirt_size' => 'required',
         'birthdate' => 'required',

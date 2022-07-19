@@ -78,14 +78,16 @@ trait AjaxControllerSimple {
 
         // Autoload belongsTo relations
         foreach($record->belongsTo as $name => $definition) {
-            if (!Input::get($name)) {
+            $inp = Input::get('data.' . $name);
+            if (!Input::get($name) && !Input::get('data.' . $name)) {
                 continue;
             }
 
             $key = isset($definition['key']) ? $definition['key'] : $name . '_id';
-            $record->$key = Input::get($name);
-            $config->fields[$name]['readOnly'] = 1;
+            $record->$key = Input::get($name) ?? Input::get('data.' . $name);
+//            $config->fields[$name]['readOnly'] = 1;
         }
+
 
         $this->widget = new \Backend\Widgets\Form($this, $config);
 
@@ -105,7 +107,10 @@ trait AjaxControllerSimple {
             'recordKeyParam' => 'id',
             'recordKeyValue' => $record->id ?? 'new',
             'from_id' => $form->id,
-            'preview' => $preview ];
+            'preview' => $preview,
+            'redirectOnClose' => Input::old('redirectOnClose') ?? \Url::previous(),
+            'actionUpdateKeyword' => $this->actionUpdateKeyword
+        ];
 
         return $this->renderPartial('@partials/form', $variablesToPass);
     }
@@ -336,9 +341,17 @@ trait AjaxControllerSimple {
             return $this->onCloseForm();
         }
 
-        return [
-            '#renderedFormArea' => $this->renderPartial('@partials/saved')
-        ];
+        if ($isNew) {
+            $redirectUrl = str_replace('default', '', $this->currentPageUrl(false)) . $record->id . '/' .Input::get('actionUpdateKeyword');
+            return Redirect::to($redirectUrl)->withInput();
+        }
+
+        \Flash::success(e(trans('csatar.forms::lang.success.saved')));
+        return Redirect::back()->withInput();
+    }
+
+    public function onCloseForm(){
+        return Redirect::to(Input::get('redirectOnClose') ?? '/');
     }
 
     public function onDelete()
@@ -485,7 +498,9 @@ trait AjaxControllerSimple {
     }
 
     public function onRefresh(){
-
+        return [
+            '#renderedFormArea' => $this->createForm(),
+        ];
     }
 
     public function generatePivotTableHeader($attributesToDisplay){

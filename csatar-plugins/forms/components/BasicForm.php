@@ -259,10 +259,6 @@ class BasicForm extends ComponentBase  {
         }
     }
 
-    public function onRefresh()
-    {
-    }
-
     private function getForm() {
         $form = Form::where('slug', $this->property('formSlug'))->first();
         if (!empty($form)) {
