@@ -25,7 +25,7 @@ class Association extends OrganizationBase
         'logo' => 'image|nullable',
         'ecset_code_suffix' => 'max:2|alpha',
         'team_fee' => 'required|digits_between:1,20',
-        //Validation //'currency' => 'required',
+        'currency' => 'required',
     ];
 
     /**

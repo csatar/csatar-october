@@ -28,7 +28,7 @@ class Patrol extends OrganizationBase
         'patrol_leader_email' => 'required|email',
         'logo' => 'image|nullable',
         'age_group' => 'required',
-        //Validation //'team' => 'required',
+         'team' => 'required',
     ];
 
     /**

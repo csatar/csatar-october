@@ -28,7 +28,7 @@ class District extends OrganizationBase
         'bank_account' => 'min:5|nullable',
         'leadership_presentation' => 'required',
         'description' => 'required',
-        //Validation //'association' => 'required',
+        'association' => 'required',
         'logo' => 'image|nullable',
     ];
 
