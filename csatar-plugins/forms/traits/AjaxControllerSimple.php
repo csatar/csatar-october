@@ -107,7 +107,10 @@ trait AjaxControllerSimple {
             'recordKeyParam' => 'id',
             'recordKeyValue' => $record->id ?? 'new',
             'from_id' => $form->id,
-            'preview' => $preview ];
+            'preview' => $preview,
+            'redirectOnClose' => Input::old('redirectOnClose') ?? \Url::previous(),
+            'actionUpdateKeyword' => $this->actionUpdateKeyword
+        ];
 
         return $this->renderPartial('@partials/form', $variablesToPass);
     }
@@ -338,9 +341,17 @@ trait AjaxControllerSimple {
             return $this->onCloseForm();
         }
 
-        return [
-            '#renderedFormArea' => $this->renderPartial('@partials/saved')
-        ];
+        if ($isNew) {
+            $redirectUrl = str_replace('default', '', $this->currentPageUrl(false)) . $record->id . '/' .Input::get('actionUpdateKeyword');
+            return Redirect::to($redirectUrl)->withInput();
+        }
+
+        \Flash::success(e(trans('csatar.forms::lang.success.saved')));
+        return Redirect::back()->withInput();
+    }
+
+    public function onCloseForm(){
+        return Redirect::to(Input::get('redirectOnClose') ?? '/');
     }
 
     public function onDelete()

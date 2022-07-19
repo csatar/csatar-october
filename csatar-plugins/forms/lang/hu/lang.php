@@ -69,4 +69,7 @@
         'noFiles'                           => 'Nincsenek fájlok megadva',
         'nothingSelectedOnPivotRelation'    => 'Kérjük válasszon ki egy opciót...',
     ],
+    'success' => [
+        'saved' => 'Az adatok sikeresen elmentve...'
+    ],
 ];

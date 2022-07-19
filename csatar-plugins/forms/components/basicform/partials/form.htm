@@ -1,3 +1,12 @@
+{% flash %}
+<p
+    data-control="flash-message"
+    class="flash-message fade {{ type }}"
+    data-interval="5">
+    {{ message }}
+</p>
+{% endflash %}
+
 <form data-request="{{ __SELF__ }}::onSave"
       data-request-loading="#fs-saving-loader"
       data-request-validate
@@ -60,6 +69,8 @@
         <input type="hidden" name="formUniqueId" value="{{ formUniqueId }}" />
         <input type="hidden" name="recordKeyParam" value="{{ recordKeyParam }}" />
         <input type="hidden" name="recordKeyValue" value="{{ recordKeyValue }}" />
+        <input type="hidden" name="redirectOnClose" value="{{ redirectOnClose }}" />
+        <input type="hidden" name="actionUpdateKeyword" value="{{ actionUpdateKeyword }}" />
         {% if __SELF__.relation is defined %}
             <input type="hidden" name="relation" value="{{ __SELF__.relation.id }}" />
             <input type="hidden" name="data_id" value="{{ data_id }}" />
