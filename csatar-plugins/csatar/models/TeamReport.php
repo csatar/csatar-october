@@ -11,7 +11,7 @@ use Csatar\Csatar\Models\Scout;
 class TeamReport extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-    
+
     use \October\Rain\Database\Traits\SoftDelete;
 
     protected $dates = ['deleted_at'];
@@ -26,7 +26,7 @@ class TeamReport extends Model
      * @var array Validation rules
      */
     public $rules = [
-        //Validation //'team' => 'required',
+        'team' => 'required',
         'number_of_adult_patrols' => 'required|numeric|min:0',
         'number_of_explorer_patrols' => 'required|numeric|min:0',
         'number_of_scout_patrols' => 'required|numeric|min:0',
@@ -37,13 +37,13 @@ class TeamReport extends Model
         'scouting_year_report_programs' => 'required',
         'scouting_year_team_applications' => 'required',
         'spiritual_leader_name' => 'required',
-        //Validation //'spiritual_leader_religion' => 'required',
+        'spiritual_leader_religion' => 'required',
         'spiritual_leader_occupation' => 'required',
     ];
 
     /**
      * Add custom validation
-     */    
+     */
     public function beforeValidate()
     {
         // check that the team report for this team and this team doesn't already exist
@@ -56,12 +56,12 @@ class TeamReport extends Model
         if (isset($this->submitted_at) && (new DateTime($this->submitted_at) > new DateTime())) {
             throw new \ValidationException(['submitted_at' => Lang::get('csatar.csatar::lang.plugin.admin.teamReport.validationExceptions.dateInTheFuture')]);
         }
-        
+
         // check that the approval date is not in the future
         if (isset($this->approved_at) && (new DateTime($this->approved_at) > new DateTime())) {
             throw new \ValidationException(['approved_at' => Lang::get('csatar.csatar::lang.plugin.admin.teamReport.validationExceptions.dateInTheFuture')]);
         }
-        
+
         // check that the submission date is not after the approval date
         if (isset($this->submitted_at) && isset($this->approved_at) && (new DateTime($this->submitted_at) > new DateTime($this->approved_at))) {
             throw new \ValidationException(['approved_at' => Lang::get('csatar.csatar::lang.plugin.admin.teamReport.validationExceptions.submissionDateAfterApprovalDate')]);
@@ -89,7 +89,7 @@ class TeamReport extends Model
         'submitted_at',
         'approved_at',
     ];
-    
+
     /**
      * Relations
      */
