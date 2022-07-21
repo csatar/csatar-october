@@ -5,126 +5,115 @@
         </div>
 
         <div class="col-lg-8 col-md-12">
-            <div class="pb-4 w-50">
-                <code class="bg-gray">
-                    <span class="code-blue">&lt;div</span>
-                    <span class="code-bluel">class=</span><span class="code-red"></span>"th"</span><span class="code-blue">&gt;</span>...<span class="code-blue">&lt;/div&gt;</span>
-                </code>
-                <div>
-                    <div>
-                        <div class="th">{{ 'Fejléc 1' | _ }}</div>
+            <div class="row">
+                <div class="col-3">
+                    <div class="card d-none d-lg-block bg-primary text-white">
+                        <p class="label text-center">{{ 'Fejléc 1 LG' | _ }}</p>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card d-none d-lg-block bg-primary text-white">
+                        <p class="label text-center">{{ 'Fejléc 2 LG' | _ }}</p>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card d-none d-lg-block bg-primary text-white">
+                        <p class="label text-center">{{ 'Fejléc 3 LG' | _ }}</p>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="card d-none d-lg-block bg-primary text-white">
+                        <p class="label text-center">{{ 'Fejléc 4 LG' | _ }}</p>
                     </div>
                 </div>
             </div>
-
-            <div class="pb-4 w-50">
-                <code class="bg-gray">
-                    <span class="code-blue">&lt;div</span>
-                    <span class="code-bluel">class=</span><span class="code-red">"th th2"</span><span class="code-blue">&gt;</span>...<span class="code-blue">&lt;/div&gt;</span>
-                </code>
-                <div>
-                    <div>
-                        <div class="th th2">{{ 'Fejléc 2' | _ }}</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pb-4 w-50">
-                <code class="bg-gray">
-                    <span class="code-blue">&lt;div</span>
-                    <span class="code-bluel">class=</span><span class="code-red">"th th3"</span><span class="code-blue">&gt;</span>...<span class="code-blue">&lt;/div&gt;</span>
-                </code>
-                <div>
-                    <div>
-                        <div class="th th3">{{ 'Fejléc 3' | _ }}</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="pb-4 w-50">
-                <code class="bg-gray">
-                    <span class="code-blue">&lt;div</span>
-                    <span class="code-bluel">class=</span><span class="code-red">"td m-1"</span><span class="code-blue">&gt;</span>...<span class="code-blue">&lt;/div&gt;</span>
-                </code>
-                <div>
-                    <div class="row">
-                        <div class="td m-1">{{ 'Cella' | _ }}</div>
-                    </div>
-                    <div class="row">
-                        <div class="td m-1">{{ 'Cella' | _ }}</div>
-                    </div>
-                </div>
-            </div>
-
-            <hr class="hr-single bg-gray">
-
-            <div>
-                <div class="row">
-                    <div class="th m-1">{{ 'Fejléc 1' | _ }}</div>
-                </div>
-                <div class="row">
-                    <div class="th th2 m-1 col">{{ 'Fejléc 2' | _ }}</div>
-                    <div class="th th2 m-1 col">{{ 'Fejléc 3' | _ }}</div>
-                </div>
-                <div class="row">
-                    <div class="th th3 m-1 col">{{ 'Fejléc 3' | _ }}</div>
-                    <div class="th th3 m-1 col">{{ 'Fejléc 3' | _ }}</div>
-                    <div class="th th3 m-1 col">{{ 'Fejléc 3' | _ }}</div>
-                    <div class="th th3 m-1 col">{{ 'Fejléc 3' | _ }}</div>
-                </div>
-                <div class="row">
-                    <div class="td m-1 col">{{ 'Adat' | _ }}</div>
-                    <div class="td m-1 col">{{ 'Adat' | _ }}</div>
-                    <div class="td m-1 col">{{ 'Adat' | _ }}</div>
-                    <div class="td m-1 col">{{ 'Adat' | _ }}</div>
-                </div>
-                <div class="row">
-                    <div class="td m-1 col">{{ 'Adat' | _ }}</div>
-                    <div class="td m-1 col">{{ 'Adat' | _ }}</div>
-                    <div class="td m-1 col">{{ 'Adat' | _ }}</div>
-                    <div class="td m-1 col">{{ 'Adat' | _ }}</div>
-                </div>
-                <div class="row">
-                    <div class="td m-1 col">{{ 'Adat' | _ }}</div>
-                    <div class="td m-1 col">{{ 'Adat' | _ }}</div>
-                    <div class="td m-1 col">{{ 'Adat' | _ }}</div>
-                    <div class="td m-1 col">{{ 'Adat' | _ }}</div>
-                </div>
-                <div class="row">
-                    <div class="td m-1 col">{{ 'Adat' | _ }}</div>
-                    <div class="td m-1 col">{{ 'Adat' | _ }}</div>
-                    <div class="td m-1 col">{{ 'Adat' | _ }}</div>
-                    <div class="td m-1 col">{{ 'Adat' | _ }}</div>
-                </div>
-            </div>
-
-            <hr class="hr-single bg-gray">
             
-            <h5 class="pt-4">{{ 'Rögzített cella szélesség' | _ }}</h5>
-            <div>
-                <code class="bg-gray">
-                    <span class="code-blue">&lt;div</span>
-                    <span class="code-bluel">class=</span><span class="code-red">"td m-1 col"</span><span class="code-blue">&gt;</span><span class="code-blue">&lt;/div&gt;</span>
-                </code>
-            </div>
-            <div>
-                <div class="row">
-                    <div class="td m-1 col">
-                        Lorem ipsum dolor sit amet
-                    </div>
-                    <div class="td m-1 col">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
+            <div class="row">
+                <div class="col-6 col-lg-3">
+                    <div class="card grid">
+                        <div class="row d-block d-lg-none">
+                            <p class="label">{{ 'Fejléc 1 SM' | _ }}</p>
+                        </div>
+                        <div class="row">
+                            <p class="data">{{ 'Adat1' | _ }}</p>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="td m-1 col">
-                        Lorem ipsum dolor sit amet, consectetur
+                <div class="col-6 col-lg-3">
+                    <div class="card grid">
+                        <div class="row d-block d-lg-none">
+                            <p class="label">{{ 'Fejléc 2 SM' | _ }}</p>
+                        </div>
+                        <div class="row">
+                            <p class="data">{{ 'Adat2' | _ }}</p>
+                        </div>
                     </div>
-                    <div class="td m-1 col">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="card grid">
+                        <div class="row d-block d-lg-none">
+                            <p class="label">{{ 'Fejléc 3 SM' | _ }}</p>
+                        </div>
+                        <div class="row">
+                            <p class="data">{{ 'Adat3' | _ }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="card grid">
+                        <div class="row d-block d-lg-none">
+                            <p class="label">{{ 'Fejléc 4 SM' | _ }}</p>
+                        </div>
+                        <div class="row">
+                            <p class="data">{{ 'Adat4' | _ }}</p>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-6 col-lg-3">
+                    <div class="card grid">
+                        <div class="row d-block d-lg-none">
+                            <p class="label">{{ 'Fejléc 1 SM' | _ }}</p>
+                        </div>
+                        <div class="row">
+                            <p class="data">{{ 'Adat11' | _ }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="card grid">
+                        <div class="row d-block d-lg-none">
+                            <p class="label">{{ 'Fejléc 2 SM' | _ }}</p>
+                        </div>
+                        <div class="row">
+                            <p class="data">{{ 'Adat22' | _ }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="card grid">
+                        <div class="row d-block d-lg-none">
+                            <p class="label">{{ 'Fejléc 3 SM' | _ }}</p>
+                        </div>
+                        <div class="row">
+                            <p class="data">{{ 'Adat33' | _ }}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="card grid">
+                        <div class="row d-block d-lg-none">
+                            <p class="label">{{ 'Fejléc 4 SM' | _ }}</p>
+                        </div>
+                        <div class="row">
+                            <p class="data">{{ 'Adat44' | _ }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
         </div>
     </div>
 </div>
