@@ -11,6 +11,8 @@ class BuilderTableUpdateCsatarCsatarPatrols extends Migration
         {
             $table->integer('age_group_id')->unsigned()->default(0);
             $table->dropColumn('age_group');
+            
+            $table->foreign('age_group_id')->references('id')->on('csatar_csatar_age_groups');
         });
     }
 
@@ -20,6 +22,9 @@ class BuilderTableUpdateCsatarCsatarPatrols extends Migration
         {
             $table->dropColumn('age_group_id');
             $table->string('age_group', 255);
+            
+            $table->dropForeign('age_group_id');
+
         });
     }
 }

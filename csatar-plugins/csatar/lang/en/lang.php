@@ -37,7 +37,8 @@
                 'sortOrder' => 'Sort Order',
             ],
             'ageGroups' => [
-                'ageGroups' => 'Age Groups'
+                'ageGroups' => 'Age Groups',
+                'numberOfPatrolsInAgeGroup' => 'Number of patrols in age group'
             ],
             'scout' => [
                 'scout' => 'Scout',

@@ -24,31 +24,6 @@ columns:
         type: number
         searchable: true
         sortable: true
-    number_of_adult_patrols:
-        label: 'csatar.csatar::lang.plugin.admin.teamReport.number_of_adult_patrols'
-        type: number
-        searchable: true
-        sortable: true
-    number_of_explorer_patrols:
-        label: 'csatar.csatar::lang.plugin.admin.teamReport.number_of_explorer_patrols'
-        type: number
-        searchable: true
-        sortable: true
-    number_of_scout_patrols:
-        label: 'csatar.csatar::lang.plugin.admin.teamReport.number_of_scout_patrols'
-        type: number
-        searchable: true
-        sortable: true
-    number_of_cub_scout_patrols:
-        label: 'csatar.csatar::lang.plugin.admin.teamReport.number_of_cub_scout_patrols'
-        type: number
-        searchable: true
-        sortable: true
-    number_of_mixed_patrols:
-        label: 'csatar.csatar::lang.plugin.admin.teamReport.number_of_mixed_patrols'
-        type: number
-        searchable: true
-        sortable: true
     scouting_year_report_team_camp:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.scouting_year_report_team_camp'
         type: text

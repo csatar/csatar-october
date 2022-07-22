@@ -37,7 +37,8 @@
                 'sortOrder' => 'Sorszám',
             ],
             'ageGroups' => [
-                'ageGroups' => 'Korosztályok'
+                'ageGroups' => 'Korosztályok',
+                'numberOfPatrolsInAgeGroup' => 'Őrsök száma a korosztályban'
             ],
             'scout' => [
                 'scout' => 'Cserkész',

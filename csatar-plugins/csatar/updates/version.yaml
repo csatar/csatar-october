@@ -132,3 +132,6 @@
 1.0.47:
     - 'Updated table csatar_csatar_patrols'
     - builder_table_update_csatar_csatar_patrols.php
+1.0.48:
+    - 'Created table csatar_csatar_age_group_team_report'
+    - builder_table_create_csatar_csatar_age_group_team_report.php
