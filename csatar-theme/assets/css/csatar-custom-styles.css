@@ -187,7 +187,7 @@ p.justify {
     line-height: 1.5;
 }
 
-.label {
+div.card.csat-resp-gdtable  > div.row > p.label, div.card > p.label {
     font-family: geomanist !important;
     font-weight: 400;
     font-size: calc(0.9rem + 0.2vw);
@@ -195,7 +195,7 @@ p.justify {
     margin: auto 0px;
 }
 
-.data {
+div.card.csat-resp-gdtable  > div.row > p.data {
     font-family: geomanist !important;
     font-weight: 300;
     font-size: calc(0.9rem + 0.2vw);
@@ -706,36 +706,36 @@ a.btn-warning:link, a.btn-warning:visited, a.btn-warning:active {
     margin: 0;
 }
 
-/* CARDS */
+/* CARDS, GRID */
 
-div.card {
+div.card.csat-resp-gdtable {
     min-height: 35px;
     border-radius: 12px;
     margin-left: -10px;
     margin-right: -10px;
 }
 
-div.card > p.label, div.card > div.row > p.label {
+div.card.csat-resp-gdtable > p.label, div.card > div.row > p.label {
     padding-top: 3px;
 }
 
 @media (max-width: 991px) {
-    div.card > p.label, div.card > div.row > p.label {
+    div.card.csat-resp-gdtable > p.label, div.card.csat-resp-gdtable > div.row > p.label {
         padding-top: 5px;
         padding-left: 16px;
     }
 }
 
-div.card > p.data, div.card > div.row > p.data {
+div.card.csat-resp-gdtable > p.data, div.card.csat-resp-gdtable > div.row > p.data {
     padding-top: 2px;
     padding-left: 16px;
 }
 
-.grid {
+.csat-resp-gdtable {
     margin-top: 4px;
 }
 
-/* TABLE, GRID */
+/* TABLE */
 
 table {
     width:100%;
