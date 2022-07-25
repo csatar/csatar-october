@@ -10,14 +10,16 @@ class BuilderTableCreateCsatarCsatarScoutsMandates extends Migration
         Schema::create('csatar_csatar_scouts_mandates', function($table)
         {
             $table->engine = 'InnoDB';
+            $table->increments('id')->unsigned();
+            $table->timestamp('deleted_at')->nullable();
             $table->integer('scout_id')->unsigned();
             $table->integer('mandate_id')->unsigned();
-            $table->integer('mandate_model_id')->default(0)->unsigned();
+            $table->integer('mandate_model_id')->unsigned();
+            $table->integer('mandate_model_type')->unsigned();
+            $table->integer('mandate_model_name')->unsigned();
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
             $table->text('comment')->nullable();
-            $table->timestamp('deleted_at')->nullable();
-            $table->primary(['scout_id','mandate_id','mandate_model_id'], 'csatar_csatar_scout_id_mandate_id');
         });
     }
     
