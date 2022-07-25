@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-199 - Extended social login plugin to handle Scout and User model connections
 - CS-150 - Added redirect to previous page after form "save and close" and "close" and flash message on "save"
 - CS-178 - Added training list
 - CS-215 - fixed remove attachment button
