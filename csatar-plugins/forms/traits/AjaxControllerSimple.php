@@ -143,9 +143,16 @@ trait AjaxControllerSimple {
         $attachedIds = $record->id ? $record->{$relationName}->pluck('id') : $defRecords->pluck('slave_id');
         $relatedModelName = array_key_exists($relationName, $record->belongsToMany) ? $record->belongsToMany[$relationName][0] : false;
         $getFunctionName = 'get' . $this->underscoreToCamelCase($relationName, true) . 'Options';
+        $options = null;
+        if(method_exists($record, $getFunctionName)){
+            $options = $record->{$getFunctionName}();
+        }
 
-        \Model::extend(function($model) use ($getFunctionName, $relatedModelName, $attachedIds){
-            $model->addDynamicMethod($getFunctionName, function() use ($model, $relatedModelName, $attachedIds) {
+        \Model::extend(function($model) use ($getFunctionName, $relatedModelName, $attachedIds, $options){
+            $model->addDynamicMethod($getFunctionName, function() use ($model, $relatedModelName, $attachedIds, $options) {
+                if(!empty($options)){
+                    return $options;
+                }
                 return $relatedModelName::whereNotIn('id', $attachedIds)->get()
                     ->lists('name', 'id');
             });
@@ -155,7 +162,7 @@ trait AjaxControllerSimple {
 
         $dropDownConfig = [
             'fields' => [
-                    $relationName => [
+                $relationName => [
                     "span" => "full",
                     "type" => "dropdown",
                 ],
@@ -172,8 +179,6 @@ trait AjaxControllerSimple {
         return [
             '#add-edit-' . $relationName => $this->renderPartial('@partials/relationOptions', [ 'html' => $html, 'relationName' => $relationName ])
         ];
-
-
     }
 
     public function createPivotForm($relationName, $relationId) {

@@ -1,0 +1,9 @@
+columns:
+    name:
+        label: 'csatar.csatar::lang.plugin.admin.general.name'
+        type: text
+        searchable: true
+        sortable: true
+    'pivot[number_of_patrols_in_age_group]':
+        label: 'csatar.csatar::lang.plugin.admin.ageGroups.numberOfPatrolsInAgeGroup'
+        type: number

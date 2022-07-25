@@ -34,9 +34,10 @@ fields:
         type: text
     age_group:
         label: 'csatar.csatar::lang.plugin.admin.patrol.ageGroup'
-        span: auto
         required: 1
-        type: text
+        dependsOn: team
+        span: auto
+        type: dropdown
     logo:
         label: 'csatar.csatar::lang.plugin.admin.general.logo'
         mode: image

@@ -1,6 +1,8 @@
 <?php namespace Csatar\Csatar\Models;
 
 use Lang;
+use DB;
+use Csatar\Csatar\Models\AgeGroup;
 use Csatar\Csatar\Models\OrganizationBase;
 
 /**
@@ -69,10 +71,11 @@ class Patrol extends OrganizationBase
         'patrol_leader_name',
         'patrol_leader_phone',
         'patrol_leader_email',
-        'age_group',
+        'age_group_id',
         'team_id',
         'troop_id',
         'logo',
+        'age_group_id'
     ];
 
     /**
@@ -82,6 +85,7 @@ class Patrol extends OrganizationBase
     public $belongsTo = [
         'team' => '\Csatar\Csatar\Models\Team',
         'troop' => '\Csatar\Csatar\Models\Troop',
+        'age_group' => '\Csatar\Csatar\Models\AgeGroup',
     ];
 
     public $hasMany = [
@@ -124,5 +128,18 @@ class Patrol extends OrganizationBase
     public function scopeTroopId($query, $id)
     {
         return $query->where('troop_id', $id);
+    }
+
+    public function getAgeGroupOptions(){
+        if($this->team_id){
+            $team = Team::find($this->team_id);
+            return AgeGroup::select(
+                DB::raw("CONCAT(NAME, IF(note, CONCAT(' (',note, ')'), '')) AS name"),'id')
+                ->where('association_id', $team->district->association->id)
+                ->orderBy('sort_order')
+                ->lists('name', 'id')
+                ;
+        }
+        return [];
     }
 }

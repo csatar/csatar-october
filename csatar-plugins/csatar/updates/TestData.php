@@ -309,7 +309,7 @@ class TestData extends Seeder
             $patrol_1->patrol_leader_name = 'Szabi';
             $patrol_1->patrol_leader_phone = '01234';
             $patrol_1->patrol_leader_email = 'a@aa.com';
-            $patrol_1->age_group = '2000-2004';
+            $patrol_1->age_group_id = $this->getFirstAgeGroupInAssociation($team_6->id);
             $patrol_1->save();
 
             $patrol_2 = Patrol::firstOrNew([
@@ -322,7 +322,7 @@ class TestData extends Seeder
             $patrol_2->patrol_leader_name = 'Péter';
             $patrol_2->patrol_leader_phone = '01234';
             $patrol_2->patrol_leader_email = 'a@aa.com';
-            $patrol_2->age_group = '2005-2009';
+            $patrol_2->age_group_id = $this->getFirstAgeGroupInAssociation($team_6->id);
             $patrol_2->save();
 
             $patrol_3 = Patrol::firstOrNew([
@@ -332,7 +332,7 @@ class TestData extends Seeder
             $patrol_3->patrol_leader_name = 'Ferenc';
             $patrol_3->patrol_leader_phone = '01234';
             $patrol_3->patrol_leader_email = 'a@aa.com';
-            $patrol_3->age_group = '1995-1999';
+            $patrol_3->age_group_id = $this->getFirstAgeGroupInAssociation($team_6->id);
             $patrol_3->save();
         }
 
@@ -347,7 +347,7 @@ class TestData extends Seeder
             $patrol_4->patrol_leader_name = 'Fruzsina';
             $patrol_4->patrol_leader_phone = '01234';
             $patrol_4->patrol_leader_email = 'a@aa.com';
-            $patrol_4->age_group = '2000-2004';
+            $patrol_4->age_group_id = $this->getFirstAgeGroupInAssociation($team_7->id);
             $patrol_4->save();
 
             $patrol_5 = Patrol::firstOrNew([
@@ -360,7 +360,7 @@ class TestData extends Seeder
             $patrol_5->patrol_leader_name = 'Verónika';
             $patrol_5->patrol_leader_phone = '01234';
             $patrol_5->patrol_leader_email = 'a@aa.com';
-            $patrol_5->age_group = '2005-2009';
+            $patrol_5->age_group_id = $this->getFirstAgeGroupInAssociation($team_7->id);
             $patrol_5->save();
 
             $patrol_6 = Patrol::firstOrNew([
@@ -370,7 +370,7 @@ class TestData extends Seeder
             $patrol_6->patrol_leader_name = 'Zoltán';
             $patrol_6->patrol_leader_phone = '01234';
             $patrol_6->patrol_leader_email = 'a@aa.com';
-            $patrol_6->age_group = '1995-1999';
+            $patrol_6->age_group_id = $this->getFirstAgeGroupInAssociation($team_7->id);
             $patrol_6->save();
 
             $patrol_7 = Patrol::firstOrNew([
@@ -383,7 +383,7 @@ class TestData extends Seeder
             $patrol_7->patrol_leader_name = 'Zsuzsa';
             $patrol_7->patrol_leader_phone = '01234';
             $patrol_7->patrol_leader_email = 'a@aa.com';
-            $patrol_7->age_group = '2005-2009';
+            $patrol_7->age_group_id = $this->getFirstAgeGroupInAssociation($team_7->id);
             $patrol_7->save();
         }
 
@@ -396,5 +396,15 @@ class TestData extends Seeder
                 ['item' => 'janvince_smallcontactform_setting'],
                 ['value' => $contactFormSettings],
             );
+    }
+
+    public function getFirstAgeGroupInAssociation($team_id) {
+        $team = Team::find($team_id);
+
+        if(!empty($team)){
+            return $team->district->association->ageGroups[0]->id ?? 0;
+        }
+
+        return 0;
     }
 }
