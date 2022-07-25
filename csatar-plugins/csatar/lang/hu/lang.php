@@ -504,6 +504,14 @@
                 'name' => 'Szervezeti Egység Frontend',
                 'description' => 'Megyjeleníti egy szerevezeti egyszég frontend oldalát.'
             ],
-        ]
+        ],
+        'oauth' => [
+            'onlyExistingUsersCanLogin'         => 'Jelenleg csak létező felhasználók léphetnek be oAuth-al!',
+            'canNotRegisterLoginWithoutEmail'   => 'Nincs e-mail cím a visszatérített adatok között!',
+            'canNotFindScoutWithEmail'          => 'Nem található cserkész a visszatérített e-mail címmel!',
+            'scoutAlreadyHasUserAccount'        => 'A cserkész már rendelkezik felhasználói fiókkal!',
+            'canNotFindUser'                    => 'A felhasználói fiók nem található!',
+            'userIdAndScoutUserIdMismatch'      => 'A cserkészhez csatolt- és a visszatérített felhasználói fiók nem egyezik!',
+        ],
     ]
 ];

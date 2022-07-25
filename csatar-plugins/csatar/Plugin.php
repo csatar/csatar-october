@@ -4,11 +4,13 @@ use App;
 use Backend;
 use Event;
 use Input;
+use Csatar\Csatar\Classes\Exceptions\OauthException;
 use System\Classes\PluginBase;
 use Validator;
 use ValidationException;
 use Lang;
 use RainLab\User\Models\User;
+use Redirect;
 use Csatar\Csatar\Models\Scout;
 
 /**
@@ -50,8 +52,69 @@ class Plugin extends PluginBase
     {
         $this->extendUser();
 
-        App::error(function(\October\Rain\Auth\AuthException $exception) {
+        App::error(function (\October\Rain\Auth\AuthException $exception) {
             return Lang::get('csatar.csatar::lang.frontEnd.authException');
+        });
+
+        App::error(function (OauthException $exception) {
+            if($exception->getCode() == 1) {
+                \Flash::warning($exception->getMessage());
+                return Redirect::to('/felhasznaloi-fiok-letrehozasa');
+            }
+
+            \Flash::warning($exception->getMessage());
+            return Redirect::to('/bejelentkezes');
+        });
+
+        Event::listen('flynsarmy.sociallogin.registerUser', function ($provider_details, $user_details) {
+
+            if(empty($user_details->email)) {
+                throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.canNotRegisterLoginWithoutEmail'), 2);
+            }
+
+            $scout = Scout::where('email', $user_details->email)->first();
+
+            if(empty($scout)) {
+                throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.canNotFindScoutWithEmail'), 3);
+            }
+
+            if(empty($scout->user_id)) {
+                throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.onlyExistingUsersCanLogin'), 1);
+            }
+
+            if(!empty($scout->user_id)) {
+                throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.onlyExistingUsersCanLogin'), 4);
+            }
+
+        });
+
+        Event::listen('flynsarmy.sociallogin.handleLogin', function (array $provider_details, array $user_details, User $user) {
+
+            if(empty($user_details['profile']->email)) {
+                throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.canNotRegisterLoginWithoutEmail'), 2);
+            }
+
+            $scout = Scout::where('email', $user_details['profile']->email)->first();
+
+            if(empty($scout)) {
+                throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.canNotFindScoutWithEmail'), 3);
+            }
+
+            if(empty($user)) {
+                throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.canNotFindUser'), 5);
+            }
+
+            //check if scout already has a user_id and if that matches or not the returned user's id
+            if(!empty($scout->user_id) && $scout->user_id != $user->id) {
+                throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.userIdAndScoutUserIdMismatch'), 6);
+            }
+
+            //if scout doesn't have a user_id, set the returned user's id as user_id
+            if(empty($scout->user_id)) {
+                $scout->user_id = $user->id;
+                $scout->save();
+            }
+
         });
     }
 
