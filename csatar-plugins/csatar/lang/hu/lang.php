@@ -33,6 +33,12 @@
                 'password' => 'Jelszó',
                 'password_confirmation' => 'Jelszó megerősítés',
                 'organizationUnitNameWarning' => 'A szervezeti egység neve nem tartalmazhatja a szervezeti egység megnevezését.',
+                'note' => 'Megjegyzés',
+                'sortOrder' => 'Sorszám',
+            ],
+            'ageGroups' => [
+                'ageGroups' => 'Korosztályok',
+                'numberOfPatrolsInAgeGroup' => 'Őrsök száma a korosztályban'
             ],
             'scout' => [
                 'scout' => 'Cserkész',

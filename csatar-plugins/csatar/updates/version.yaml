@@ -127,8 +127,17 @@
     - 'Updated table csatar_csatar_scouts_training_qualifications'
     - builder_table_update_csatar_csatar_scouts_training_qualifications.php
 1.0.46:
+    - 'Created table csatar_csatar_age_groups'
+    - builder_table_create_csatar_csatar_age_groups.php
+1.0.47:
+    - 'Updated table csatar_csatar_patrols'
+    - builder_table_update_csatar_csatar_patrols.php
+1.0.48:
+    - 'Created table csatar_csatar_age_group_team_report'
+    - builder_table_create_csatar_csatar_age_group_team_report.php
+1.0.49:
     - 'Created table csatar_csatar_mandates'
     - builder_table_create_csatar_csatar_mandates.php
-1.0.47:
+1.0.50:
     - 'Created table csatar_csatar_scouts_mandates'
     - builder_table_create_csatar_csatar_scouts_mandates.php

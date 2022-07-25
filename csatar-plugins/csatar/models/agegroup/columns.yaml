@@ -1,0 +1,18 @@
+columns:
+    id:
+        label: id
+        type: number
+    name:
+        label: 'csatar.csatar::lang.plugin.admin.general.name'
+        type: text
+    note:
+        label: 'csatar.csatar::lang.plugin.admin.general.note'
+        type: text
+    sort_order:
+        label: 'csatar.csatar::lang.plugin.admin.general.sortOrder'
+        type: number
+    association_id:
+        label: 'csatar.csatar::lang.plugin.admin.association.association'
+        type: number
+        relation: association
+        valueFrom: name

@@ -1,6 +1,6 @@
 <?php return [
     'frontEnd' => [
-        'authException' => 'The email address, the ECSET code or the password is incorrect.',
+        'authException' => 'The email address, the ECSET code or the password is incorrect.'
     ],
     'plugin' => [
         'name' => 'CSATÁR',
@@ -33,6 +33,12 @@
                 'password' => 'Password',
                 'password_confirmation' => 'Password confirmation',
                 'organizationUnitNameWarning' => 'Organization unit name can not contain the unit type.',
+                'note' => 'Note',
+                'sortOrder' => 'Sort Order',
+            ],
+            'ageGroups' => [
+                'ageGroups' => 'Age Groups',
+                'numberOfPatrolsInAgeGroup' => 'Number of patrols in age group'
             ],
             'scout' => [
                 'scout' => 'Scout',

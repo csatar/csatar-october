@@ -6,3 +6,8 @@ scouts:
     defaultSort:
       column: 'pivot[name]'
       direction: asc
+ageGroups:
+    label: 'csatar.csatar::lang.plugin.admin.ageGroups.ageGroups'
+    view:
+        list: $/csatar/csatar/models/teamreport/ageGroupColumns.yaml
+        toolbarButtons: false

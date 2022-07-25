@@ -1,0 +1,11 @@
+fields:
+    name:
+        label: 'csatar.csatar::lang.plugin.admin.general.name'
+        span: auto
+        readOnly: 1
+        required: 0
+        type: text
+    'pivot[number_of_patrols_in_age_group]':
+        label: 'csatar.csatar::lang.plugin.admin.ageGroups.numberOfPatrolsInAgeGroup'
+        span: auto
+        type: number

@@ -46,6 +46,10 @@ navigation:
                 label: 'csatar.csatar::lang.plugin.admin.currency.currencies'
                 url: /csatar/csatar/currencies
                 icon: icon-sitemap
+            side-menu-item-ageGroups:
+                label: 'csatar.csatar::lang.plugin.admin.ageGroups.ageGroups'
+                url: csatar/csatar/agegroups
+                icon: icon-sitemap
     main-menu-item-scout-system-data:
         label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.scoutSystemData'
         url: /
