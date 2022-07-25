@@ -93,4 +93,17 @@ class District extends OrganizationBase
         $filterWords = explode(',', Lang::get('csatar.csatar::lang.plugin.admin.district.filterOrganizationUnitNameForWords'));
         $this->name = str_replace($filterWords, '', $this->name);
     }
+
+    /**
+     * Return the district, which belongs to the given association, and to which the given team belongs to
+     */
+    public static function getAllByAssociationId($associationId, $teamId)
+    {
+        $item = self::join('csatar_csatar_teams', 'csatar_csatar_districts.id', '=', 'csatar_csatar_teams.district_id')
+            ->select('csatar_csatar_districts.id', 'csatar_csatar_districts.name', 'csatar_csatar_teams.id', 'csatar_csatar_districts.association_id')
+            ->where('csatar_csatar_districts.association_id', $associationId)
+            ->where('csatar_csatar_teams.id', $teamId)
+            ->first();
+        return [$item->id => $item->extendedName];
+    }
 }

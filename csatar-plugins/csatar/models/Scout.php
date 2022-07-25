@@ -103,6 +103,13 @@ class Scout extends Model
         $this->validatePivotDateAndLocationFields($this->special_qualifications, \Lang::get('csatar.csatar::lang.plugin.admin.specialQualification.specialQualification'));
         $this->validatePivotQualificationFields($this->leadership_qualifications, \Lang::get('csatar.csatar::lang.plugin.admin.leadershipQualification.leadershipQualification'));
         $this->validatePivotQualificationFields($this->training_qualifications, \Lang::get('csatar.csatar::lang.plugin.admin.trainingQualification.trainingQualification'));
+    
+        // mandates: check that end date is not after the start date
+        foreach ($this->mandates as $field) {
+            if (isset($field->pivot->start_date) && isset($field->pivot->end_date) && (new \DateTime($field->pivot->end_date) < new \DateTime($field->pivot->start_date))) {
+                throw new \ValidationException(['' => str_replace('%name', $field->name, \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.mandateEndDateBeforeStartDate'))]);
+            }
+        }
     }
 
     /**
@@ -275,14 +282,14 @@ class Scout extends Model
         'mandates' => [
             '\Csatar\Csatar\Models\Mandate',
             'table' => 'csatar_csatar_scouts_mandates',
-            'pivot' => ['start_date', 'end_date', 'comment'],
+            'pivot' => ['mandate_model_id', 'start_date', 'end_date', 'comment'],
             'pivotModel' => '\Csatar\Csatar\Models\ScoutMandatePivot',
             'label' => 'csatar.csatar::lang.plugin.admin.mandate.mandates',
         ],
         'mandate_models' => [
             '\Csatar\Csatar\Models\OrganizationBase',
             'table' => 'csatar_csatar_scouts_mandates',
-            'pivot' => ['start_date', 'end_date', 'comment'],
+            'pivot' => ['mandate_model_id', 'start_date', 'end_date', 'comment'],
             'pivotModel' => '\Csatar\Csatar\Models\ScoutMandatePivot',
             'label' => 'csatar.csatar::lang.plugin.admin.mandate.mandateModels',
         ],

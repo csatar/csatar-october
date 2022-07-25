@@ -129,6 +129,7 @@ trait AjaxControllerSimple {
 
     public function onCloseAddEditArea(){
         $relationName = Input::get('relationName');
+
         return [
             '#add-edit-' . $relationName => ''
         ];
@@ -215,8 +216,11 @@ trait AjaxControllerSimple {
         $relationName = Input::get('relationName');
         $relationId = Input::get('relationId');
         $pivotData = Input::get($relationName)['pivot'];
-
         $pivotModel = $this->getPivotModelIfSet($relationName);
+
+        if ($pivotModel && method_exists($pivotModel, 'beforeValidateFromForm')) {
+            $pivotModel->beforeValidateFromForm($pivotData);
+        }
         if(!empty($pivotModel->rules)) {
             $rules = $pivotModel->rules;
 
@@ -227,6 +231,9 @@ trait AjaxControllerSimple {
             if ($validation->fails()) {
                 throw new \ValidationException($validation);
             }
+        }
+        if ($pivotModel && method_exists($pivotModel, 'beforeSaveFromForm')) {
+            $pivotModel->beforeSaveFromForm($pivotData);
         }
 
         if(!$record->id){

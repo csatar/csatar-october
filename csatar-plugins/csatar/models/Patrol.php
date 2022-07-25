@@ -142,4 +142,17 @@ class Patrol extends OrganizationBase
         }
         return [];
     }
+    
+    /**
+     * Return all patrols, which belong to the given team
+     */
+    public static function getAllByAssociationId($associationId, $teamId)
+    {
+        $options = [];
+        foreach (self::where('team_id', $teamId)->get() as $item) {
+            $options[$item->id] = $item->extendedName;
+        }
+        asort($options);
+        return $options;
+    }
 }

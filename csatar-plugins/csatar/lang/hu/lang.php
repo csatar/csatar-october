@@ -139,6 +139,7 @@
                     'qualificationCertificateNumberRequiredError' => 'A Képesítési Igazolás Számának megadása a %name %category esetén kötelező.',
                     'qualificationRequiredError' => 'A Képzés megadása a %name %category esetén kötelező.',
                     'qualificationLeaderRequiredError' => 'A Képzésvezető megadása a %name %category esetén kötelező.',
+                    'mandateEndDateBeforeStartDate' => 'A végső időpont nem lehet a kezdeti időpont előtt a %name megbízatás esetén.',
                     'dateInTheFutureError' => 'A Dátum a %name %category esetén nem lehet a jövőben.',
                 ]
             ],
@@ -402,7 +403,7 @@
                 'mandateModels' => 'Megbízatás modellek',
                 'association' => 'Szövetség',
                 'parent' => 'Szülő',
-                'organizationTypeModelName' => 'Szervezeti egység modell név',
+                'organizationTypeModelName' => 'Szervezeti egység',
                 'required' => 'Kötelező',
                 'startDate' => 'Kezdete',
                 'endDate' => 'Vége',

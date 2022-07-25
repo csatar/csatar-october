@@ -146,4 +146,13 @@ class Team extends OrganizationBase
     {
         return $query->where('district_id', $id);
     }
+
+    /**
+     * Return the team, which the given id
+     */
+    public static function getAllByAssociationId($associationId, $teamId)
+    {
+        $item = self::find($teamId);
+        return [$item->id => $item->extendedName];
+    }
 }

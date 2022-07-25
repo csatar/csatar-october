@@ -84,4 +84,17 @@ class Troop extends OrganizationBase
     {
         return $query->where('team_id', $id);
     }
+
+    /**
+     * Return all troops, which belong to the given team
+     */
+    public static function getAllByAssociationId($associationId, $teamId)
+    {
+        $options = [];
+        foreach (self::where('team_id', $teamId)->get() as $item) {
+            $options[$item->id] = $item->extendedName;
+        }
+        asort($options);
+        return $options;
+    }
 }

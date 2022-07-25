@@ -75,4 +75,13 @@ class Association extends OrganizationBase
     public $morphOne = [
         'content_page' => ['\Csatar\Csatar\Models\ContentPage', 'name' => 'model']
     ];
+
+    /**
+     * Return the association with the given id
+     */
+    public static function getAllByAssociationId($associationId, $teamId)
+    {
+        $item = self::find($associationId);
+        return [$item->id => $item->extendedName];
+    }
 }

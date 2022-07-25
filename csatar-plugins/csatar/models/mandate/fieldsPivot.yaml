@@ -5,19 +5,20 @@ fields:
         readOnly: 1
         required: 0
         type: text
+    'pivot[mandate_model_id]':
+        label: 'csatar.csatar::lang.plugin.admin.mandate.organizationTypeModelName'
+        span: auto
+        type: dropdown
+        required: 1
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
     'pivot[start_date]':
         label: 'csatar.csatar::lang.plugin.admin.mandate.startDate'
-        mode: date
-        maxDate: now
         span: auto
         required: 1
         type: datepicker
     'pivot[end_date]':
         label: 'csatar.csatar::lang.plugin.admin.mandate.endDate'
-        mode: date
-        maxDate: now
         span: auto
-        required: 1
         type: datepicker
     'pivot[comment]':
         label: 'csatar.csatar::lang.plugin.admin.general.comment'

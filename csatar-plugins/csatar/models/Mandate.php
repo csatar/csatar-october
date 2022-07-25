@@ -5,6 +5,7 @@ use Csatar\Csatar\Models\District;
 use Csatar\Csatar\Models\Patrol;
 use Csatar\Csatar\Models\Team;
 use Csatar\Csatar\Models\Troop;
+use Input;
 use Lang;
 use Model;
 
@@ -59,14 +60,14 @@ class Mandate extends Model
         'scouts' => [
             '\Csatar\Csatar\Models\Scout',
             'table' => 'csatar_csatar_scouts_mandates',
-            'pivot' => ['start_date', 'end_date', 'comment'],
+            'pivot' => ['mandate_model_id', 'start_date', 'end_date', 'comment'],
             'pivotModel' => '\Csatar\Csatar\Models\ScoutMandatePivot',
             'label' => 'csatar.csatar::lang.plugin.admin.scout.scouts',
         ],
         'mandate_models' => [
             '\Csatar\Csatar\Models\OrganizationBase',
             'table' => 'csatar_csatar_scouts_mandates',
-            'pivot' => ['start_date', 'end_date', 'comment'],
+            'pivot' => ['mandate_model_id', 'start_date', 'end_date', 'comment'],
             'pivotModel' => '\Csatar\Csatar\Models\ScoutMandatePivot',
             'label' => 'csatar.csatar::lang.plugin.admin.mandate.mandateModels',
         ],
@@ -94,5 +95,10 @@ class Mandate extends Model
             Team::getOrganizationTypeModelName() => Lang::get('csatar.csatar::lang.plugin.admin.team.team'),
             Troop::getOrganizationTypeModelName() => Lang::get('csatar.csatar::lang.plugin.admin.troop.troop'),
         ];
+    }
+
+    function getMandateModelIdOptions()
+    {
+        return ($this->organization_type_model_name)::getAllByAssociationId($this->association_id, Input::get('data')['team']);
     }
 }
