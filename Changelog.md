@@ -21,6 +21,11 @@
 - CS-172 - Warning and fix for organization name containing organization type
 - CS-193 - Applied basic permissions
 
+## 1.1.1
+### 2022-07-26
+
+- CS-239 - Fixed the 'Visual Search' edge specific error
+
 ## 1.1.0
 ### 2022-07-08
 
