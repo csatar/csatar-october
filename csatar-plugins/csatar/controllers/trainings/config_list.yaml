@@ -1,6 +1,6 @@
 list: $/csatar/csatar/models/training/columns.yaml
 modelClass: Csatar\Csatar\Models\Training
-title: Trainings
+title: 'csatar.csatar::lang.plugin.admin.trainings.trainings'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: true

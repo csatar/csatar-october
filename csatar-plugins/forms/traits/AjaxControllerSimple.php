@@ -103,8 +103,8 @@ trait AjaxControllerSimple {
         $variablesToPass = [
             'form' => $html,
             'additionalData' => $this->additionalData,
-            'recordKeyParam' => 'id',
-            'recordKeyValue' => $record->id ?? 'new',
+            'recordKeyParam' => $this->recordKeyParam ?? Input::get('recordKeyParam'),
+            'recordKeyValue' => $record->{$this->recordKeyParam ?? Input::get('recordKeyParam')} ?? 'new',
             'from_id' => $form->id,
             'preview' => $preview,
             'redirectOnClose' => Input::old('redirectOnClose') ?? \Url::previous(),
@@ -347,7 +347,7 @@ trait AjaxControllerSimple {
         }
 
         if ($isNew) {
-            $redirectUrl = str_replace('default', '', $this->currentPageUrl(false)) . $record->id . '/' .Input::get('actionUpdateKeyword');
+            $redirectUrl = str_replace('default', '', $this->currentPageUrl(false)) . $record->{$this->recordKeyParam ?? Input::get('recordKeyParam')} . '/' .Input::get('actionUpdateKeyword');
             return Redirect::to($redirectUrl)->withInput();
         }
 

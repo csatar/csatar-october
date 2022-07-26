@@ -186,6 +186,10 @@ class SeederData extends Seeder
             [
                 'title' => 'Csapatjelentés',
                 'model' => 'Csatar\Csatar\Models\TeamReport',
+            ],
+            [
+                'title' => 'Képzés',
+                'model' => 'Csatar\Csatar\Models\Training',
             ]
         ],
         'ageGroups' => [

@@ -8,11 +8,9 @@ use Csatar\Forms\Models\Form;
 use Csatar\Forms\Traits\AjaxControllerSimple;
 use Csatar\Forms\Traits\ManagesUploads;
 use Input;
-use Lang;
 use October\Rain\Database\Models\DeferredBinding;
 use October\Rain\Exception\ApplicationException;
 use Redirect;
-use Session;
 
 class BasicForm extends ComponentBase  {
 
