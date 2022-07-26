@@ -1,0 +1,19 @@
+url = "/kepzesek"
+layout = "default"
+title = "Képzések"
+
+[builderList]
+modelClass = "Csatar\Csatar\Models\Training"
+scope = "-"
+scopeValue = "{{ :scope }}"
+displayColumn = "name"
+noRecordsMessage = "No records found"
+detailsPage = "-"
+detailsUrlParameter = "id"
+pageNumber = "{{ :page }}"
+==
+<div class="container">
+
+    {% component 'builderList' %}
+
+</div>
