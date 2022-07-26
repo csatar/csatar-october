@@ -851,12 +851,6 @@ a:active {
   display: none;
 }
 
-/* Hide visual search hover button in MS Edge */
-
-img {
-    pointer-events: none;
-}
-
 /* Remove colors for autofill fields */
 
 input:-webkit-autofill,

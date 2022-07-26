@@ -54,11 +54,10 @@
         ],
     ],
     'errors' => [
-        'formModelNotFound'                 => 'A modell nem található. Adj meg egy létező modellt és helyes útvonalat.',
-        'formNotFound'                      => 'A kiválasztott űrlap nem található. Ellenőrizd az \'Alap űrlap\' komponens beállításait a követketző oldalon: ',
-        'noDataArray'                       => 'Az adatok hiányoznak. Ellenőrizd az űrlap érvényesítését.',
-        'canNotSaveValidated'               => 'Nem sikerült elmenteni az érvényesített adatokat. Ellenőrizd az űrlap érvényesítését.',
-        'noFiles'                           => 'Nincsenek fájlok megadva',
-        'nothingSelectedOnPivotRelation'    => 'Kérjük válasszon ki egy opciót...',
+        'formModelNotFound'     => 'A modell nem található. Adj meg egy létező modellt és helyes útvonalat.',
+        'formNotFound'          => 'A kiválasztott űrlap nem található. Ellenőrizd az \'Alap űrlap\' komponens beállításait a követketző oldalon: ',
+        'noDataArray'           => 'Az adatok hiányoznak. Ellenőrizd az űrlap érvényesítését.',
+        'canNotSaveValidated'   => 'Nem sikerült elmenteni az érvényesített adatokat. Ellenőrizd az űrlap érvényesítését.',
+        'noFiles'               => 'Nincsenek fájlok megadva'
     ],
 ];
