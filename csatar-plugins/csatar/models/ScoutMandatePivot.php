@@ -28,19 +28,17 @@ class ScoutMandatePivot extends Pivot
         'end_date' => 'nullable',
     ];
 
-    public $attributeNames = [];
-
-    function __construct(array $attributes = []) {
-        parent::__construct($attributes);
-        $this->attributeNames['mandate_model_id'] = e(trans('csatar.csatar::lang.plugin.admin.mandate.organizationTypeModelName'));
-        $this->attributeNames['start_date'] = e(trans('csatar.csatar::lang.plugin.admin.mandate.startDate'));
-    }
-
     /**
      * Add custom validation
      */
     public function beforeValidate()
     {
+        // set the attribute names
+        $this->setValidationAttributeNames([
+            'mandate_model_id' => Lang::get('csatar.csatar::lang.plugin.admin.mandate.organizationTypeModelName'),
+            'start_date' => Lang::get('csatar.csatar::lang.plugin.admin.mandate.startDate'),
+        ]);
+
         // if the validation is called from backend: check that the end date is not after the start date
         if (isset($this->start_date) && isset($this->end_date) && (new DateTime($this->end_date) < new DateTime($this->start_date))) {
             throw new ValidationException(['end_date' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.endDateBeforeStartDate')]);

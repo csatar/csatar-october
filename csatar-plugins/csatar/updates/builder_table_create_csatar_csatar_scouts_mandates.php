@@ -14,9 +14,9 @@ class BuilderTableCreateCsatarCsatarScoutsMandates extends Migration
             $table->timestamp('deleted_at')->nullable();
             $table->integer('scout_id')->unsigned();
             $table->integer('mandate_id')->unsigned();
-            $table->integer('mandate_model_id')->unsigned();
-            $table->integer('mandate_model_type')->unsigned();
-            $table->integer('mandate_model_name')->unsigned();
+            $table->integer('mandate_model_id')->nullable()->unsigned();
+            $table->integer('mandate_model_type')->nullable()->unsigned();
+            $table->integer('mandate_model_name')->nullable()->unsigned();
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
             $table->text('comment')->nullable();
