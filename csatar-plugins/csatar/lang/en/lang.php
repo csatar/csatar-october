@@ -519,5 +519,13 @@
                 'description' => 'Display the organization unit frontend page.',
             ],
         ],
+        'oauth' => [
+            'onlyExistingUsersCanLogin'         => 'At the moment, only existing users are allowed to log in with oAuth!',
+            'canNotRegisterLoginWithoutEmail'   => 'No email address was returned!',
+            'canNotFindScoutWithEmail'          => 'There is no scout with the returned email address!',
+            'scoutAlreadyHasUserAccount'        => 'Scout already has a user account!',
+            'canNotFindUser'                    => 'We can not find your user account!',
+            'userIdAndScoutUserIdMismatch'      => 'The user attached to scout doesn\'t match with the returned user!',
+        ],
     ],
 ];

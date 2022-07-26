@@ -187,6 +187,22 @@ p.justify {
     line-height: 1.5;
 }
 
+div.card.csat-resp-gdtable  > div.row > p.label, div.card > p.label {
+    font-family: geomanist !important;
+    font-weight: 400;
+    font-size: calc(0.9rem + 0.2vw);
+    line-height: 1.7;
+    margin: auto 0px;
+}
+
+div.card.csat-resp-gdtable  > div.row > p.data {
+    font-family: geomanist !important;
+    font-weight: 300;
+    font-size: calc(0.9rem + 0.2vw);
+    line-height: 1.7;
+    margin: auto 0px;
+}
+
 .errormsg, .invalid-feedback {
     font-family: geomanist !important;
     font-weight: 300;
@@ -690,7 +706,36 @@ a.btn-warning:link, a.btn-warning:visited, a.btn-warning:active {
     margin: 0;
 }
 
-/* TABLE, GRID */
+/* CARDS, GRID */
+
+div.card.csat-resp-gdtable {
+    min-height: 35px;
+    border-radius: 12px;
+    margin-left: -10px;
+    margin-right: -10px;
+}
+
+div.card.csat-resp-gdtable > p.label, div.card > div.row > p.label {
+    padding-top: 3px;
+}
+
+@media (max-width: 991px) {
+    div.card.csat-resp-gdtable > p.label, div.card.csat-resp-gdtable > div.row > p.label {
+        padding-top: 5px;
+        padding-left: 16px;
+    }
+}
+
+div.card.csat-resp-gdtable > p.data, div.card.csat-resp-gdtable > div.row > p.data {
+    padding-top: 2px;
+    padding-left: 16px;
+}
+
+.csat-resp-gdtable {
+    margin-top: 4px;
+}
+
+/* TABLE */
 
 table {
     width:100%;
@@ -778,6 +823,7 @@ body > div.pika-single.is-bound > div > table > tbody > tr > td {
     font-weight: 300;
     font-size: calc(0.9rem + 0.2vw);
     border-radius: 12px;
+    min-height: 40px;
 }
 
 textarea {
@@ -949,6 +995,6 @@ img {
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus,
-input:-webkit-autofill:active  {
+input:-webkit-autofill:active {
   -webkit-box-shadow: 0 0 0 30px white inset !important;
 }

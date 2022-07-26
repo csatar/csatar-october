@@ -1,5 +1,7 @@
 <?php namespace Csatar\Forms\Components;
 
+use Lang;
+use Session;
 use Auth;
 use Cms\Classes\ComponentBase;
 use Csatar\Forms\Models\Form;
@@ -34,12 +36,6 @@ class BasicForm extends ComponentBase  {
      * @var type
      */
     public $formId = null;
-
-    /**
-     * The unique Id of the form instance
-     * @var type
-     */
-    public $formUniqueId = null;
 
     /**
      * The URL parameter and DB column
@@ -110,10 +106,8 @@ class BasicForm extends ComponentBase  {
      */
     public function init() {
         $this->getForm();
-        $this->setOrGetFormUniqueId();
         $this->setOrGetSessionKey();
         $this->record = $this->getRecord();
-//        $this->checkDefferedBindings();
     }
 
     /**
@@ -282,14 +276,9 @@ class BasicForm extends ComponentBase  {
         }
     }
 
-    public function setOrGetFormUniqueId(){
-        $this->formUniqueId = Input::get('formUniqueId') ?? uniqid();
-    }
-
     public function setOrGetSessionKey(){
-        $prefix = $this->formUniqueId . '_form_key_';
-        $sessionKey = Session::get($this->formUniqueId) ?? uniqid($prefix, true);
+        $sessionKey = Session::get('key') ?? uniqid('session_key', true);
         $this->sessionKey = $sessionKey;
-        Session::put($this->formUniqueId, $sessionKey);
+        Session::put('key', $sessionKey);
     }
 }
