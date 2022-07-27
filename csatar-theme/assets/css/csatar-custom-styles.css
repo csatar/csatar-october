@@ -536,7 +536,7 @@ a.dropdown-item {
 }
 
 .btn-warning {
-    color: #555555 !important;
+    color: #303030 !important;
     background-color: #FFCE00;
     border-color: #FFCE00;
 }
@@ -592,7 +592,7 @@ a.btn-light:link, a.btn-light:visited, a.btn-light:active {
 }
 
 a.btn-warning:link, a.btn-warning:visited, a.btn-warning:active {
-    color:#555555 !important;
+    color:#303030 !important;
 }
 
 .btn {
@@ -733,6 +733,26 @@ div.card.csat-resp-gdtable > p.data, div.card.csat-resp-gdtable > div.row > p.da
 
 .csat-resp-gdtable {
     margin-top: 4px;
+}
+
+@media (min-width: 991px) {
+    div.card.csat-resp-gdtable-lg {
+        border-width: 0px;
+    }
+}
+
+@media (max-width: 991px) {
+    div.card.csat-resp-gdtable-lg {
+        max-width: 90%;
+        margin-bottom: 10px;
+        border-radius: 12px;
+        margin-left: auto;
+        margin-right: auto;
+
+    }
+    div.card.csat-resp-gdtable-sm {
+        border-width: 0px;
+    }
 }
 
 /* TABLE */
