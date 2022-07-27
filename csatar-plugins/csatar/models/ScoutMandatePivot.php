@@ -53,8 +53,19 @@ class ScoutMandatePivot extends Pivot
         }
     }
 
+    public function beforeSave()
+    {
+        dd($this->mandate_model);
+        $this->mandate_model_type = $this->mandate_model->organization_type_model_name; //$mandate->organization_type_model_name;
+        $this->mandate_model_name = $this->mandate_model->extendedName;
+    }
+
     public function beforeSaveFromForm(&$pivotData)
     {
+        dd($pivotData, $this->parent->mandate_model, $this);
+        $mandate = Mandate::find($this->mandate_id);
+        $this->mandate_model_type = $mandate->organization_type_model_name;
+        $this->mandate_model_name = $this->mandate_model->extendedName;
         $pivotData['end_date'] = !empty($pivotData['end_date']) ? $pivotData['end_date'] : null;
     }
 

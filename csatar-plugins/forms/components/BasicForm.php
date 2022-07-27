@@ -1,7 +1,5 @@
 <?php namespace Csatar\Forms\Components;
 
-use Lang;
-use Session;
 use Auth;
 use Cms\Classes\ComponentBase;
 use Csatar\Forms\Models\Form;
