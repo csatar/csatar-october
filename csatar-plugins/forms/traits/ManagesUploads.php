@@ -6,7 +6,7 @@ use Request;
 use Response;
 use File;
 use Validator;
-use Csatar\Forms\Models\Form;
+use Session;
 
 // Returns a file size limit in bytes based on the PHP upload_max_filesize
 // and post_max_size
@@ -158,7 +158,8 @@ trait ManagesUploads {
             $file->is_public = true;
             $file->save();
             if($isNew){
-                $this->record->{$model_field}()->add($file, $this->sessionKey);
+                $sessionKey = Session::get('key');
+                $this->record->{$model_field}()->add($file, $sessionKey);
             } else {
                 $this->record->{$model_field}()->add($file);
             }

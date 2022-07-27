@@ -1,4 +1,4 @@
-name: Trainings
+name: 'csatar.csatar::lang.plugin.admin.trainings.trainings'
 form: $/csatar/csatar/models/training/fields.yaml
 modelClass: Csatar\Csatar\Models\Training
 defaultRedirect: csatar/csatar/trainings

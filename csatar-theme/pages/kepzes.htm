@@ -1,0 +1,17 @@
+url = "/kepzes/:id/:action?"
+layout = "default"
+title = "Képzés"
+
+[basicForm]
+formSlug = "kepzes"
+recordKeyParam = "id"
+recordActionParam = "action"
+createRecordKeyword = "letrehozas"
+actionUpdateKeyword = "modositas"
+actionDeleteKeyword = "torles"
+==
+<div class="container">
+
+    {% component 'basicForm' %}
+
+</div>

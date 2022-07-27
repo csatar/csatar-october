@@ -102,10 +102,9 @@ trait AjaxControllerSimple {
 
         $variablesToPass = [
             'form' => $html,
-            'formUniqueId' => $this->formUniqueId,
             'additionalData' => $this->additionalData,
-            'recordKeyParam' => 'id',
-            'recordKeyValue' => $record->id ?? 'new',
+            'recordKeyParam' => $this->recordKeyParam ?? Input::get('recordKeyParam'),
+            'recordKeyValue' => $record->{$this->recordKeyParam ?? Input::get('recordKeyParam')} ?? 'new',
             'from_id' => $form->id,
             'preview' => $preview,
             'redirectOnClose' => Input::old('redirectOnClose') ?? \Url::previous(),
@@ -118,13 +117,7 @@ trait AjaxControllerSimple {
     public function onAddPivotRelation(){
         $relationName = Input::get('relationName');
         $relationId = Input::get($relationName);
-
-        if($relationName && $relationId) {
-            return $this->createPivotForm($relationName, $relationId);
-        }
-
-        $error = e(trans('csatar.forms::lang.errors.nothingSelectedOnPivotRelation'));
-        throw new \ValidationException([$relationName => $error]);
+        return $this->createPivotForm($relationName, $relationId);
     }
 
     public function onCloseAddEditArea(){
@@ -347,7 +340,7 @@ trait AjaxControllerSimple {
         }
 
         if ($isNew) {
-            $redirectUrl = str_replace('default', '', $this->currentPageUrl(false)) . $record->id . '/' .Input::get('actionUpdateKeyword');
+            $redirectUrl = str_replace('default', '', $this->currentPageUrl(false)) . $record->{$this->recordKeyParam ?? Input::get('recordKeyParam')} . '/' .Input::get('actionUpdateKeyword');
             return Redirect::to($redirectUrl)->withInput();
         }
 

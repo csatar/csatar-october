@@ -3,6 +3,10 @@
 ## Unreleased
 
 - CS-199 - Extended social login plugin to handle Scout and User model connections
+- CS-229 - Changed grid solution using cards
+- CS-229 - Deleted earlier grid solution from design system
+- CS-229 - Fixed cards bottom rounded corner
+- CS-229 - Fixed Form field height (added min-height)
 - CS-150 - Added redirect to previous page after form "save and close" and "close" and flash message on "save"
 - CS-178 - Added training list
 - CS-215 - fixed remove attachment button
@@ -17,6 +21,11 @@
 - CS-189 - Added name abbreviation to association model and updated seeder
 - CS-172 - Warning and fix for organization name containing organization type
 - CS-193 - Applied basic permissions
+
+## 1.1.1
+### 2022-07-26
+
+- CS-239 - Fixed the 'Visual Search' edge specific error
 
 ## 1.1.0
 ### 2022-07-08
