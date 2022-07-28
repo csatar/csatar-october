@@ -1,6 +1,6 @@
-list: $/csatar/csatar/models/training/columns.yaml
-modelClass: Csatar\Csatar\Models\Training
-title: 'csatar.csatar::lang.plugin.admin.trainings.trainings'
+list: $/csatar/csatar/models/agegroup/columns.yaml
+modelClass: Csatar\Csatar\Models\AgeGroup
+title: 'csatar.csatar::lang.plugin.admin.ageGroups.ageGroups'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: true
@@ -9,4 +9,4 @@ toolbar:
     buttons: list_toolbar
     search:
         prompt: 'backend::lang.list.search_prompt'
-recordUrl: 'csatar/csatar/trainings/update/:id'
+recordUrl: 'csatar/csatar/agegroups/update/:id'

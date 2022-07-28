@@ -27,11 +27,6 @@ class TeamReport extends Model
      */
     public $rules = [
         'team' => 'required',
-        'number_of_adult_patrols' => 'required|numeric|min:0',
-        'number_of_explorer_patrols' => 'required|numeric|min:0',
-        'number_of_scout_patrols' => 'required|numeric|min:0',
-        'number_of_cub_scout_patrols' => 'required|numeric|min:0',
-        'number_of_mixed_patrols' => 'required|numeric|min:0',
         'scouting_year_report_team_camp' => 'required',
         'scouting_year_report_homesteading' => 'required',
         'scouting_year_report_programs' => 'required',
@@ -71,11 +66,6 @@ class TeamReport extends Model
     protected $fillable = [
         'team_id',
         'year',
-        'number_of_adult_patrols',
-        'number_of_explorer_patrols',
-        'number_of_scout_patrols',
-        'number_of_cub_scout_patrols',
-        'number_of_mixed_patrols',
         'scouting_year_report_team_camp',
         'scouting_year_report_homesteading',
         'scouting_year_report_programs',
@@ -105,6 +95,12 @@ class TeamReport extends Model
             'table' => 'csatar_csatar_team_reports_scouts',
             'pivot' => ['name', 'legal_relationship_id', 'leadership_qualification_id', 'ecset_code', 'membership_fee'],
             'pivotModel' => '\Csatar\Csatar\Models\TeamReportScoutPivot',
+        ],
+        'ageGroups' => [
+            '\Csatar\Csatar\Models\AgeGroup',
+            'table' => 'csatar_csatar_age_group_team_report',
+            'pivot' => ['number_of_patrols_in_age_group'],
+            'label' => 'csatar.csatar::lang.plugin.admin.ageGroups.ageGroups',
         ],
     ];
 
@@ -154,6 +150,19 @@ class TeamReport extends Model
 
             $this->total_amount += $membership_fee;
         }
+
+        // save the number of patrols in different age groups
+        $ageGroups = AgeGroup::where('association_id', $this->team->district->association_id )->get();
+        foreach ($ageGroups as $ageGroup) {
+            $count = Patrol::where('team_id', $this->team_id)->where('age_group_id', $ageGroup->id)->count();
+            if($count>0) {
+                $this->ageGroups()->attach(
+                    $ageGroup,
+                    ['number_of_patrols_in_age_group' => $count]
+                );
+            }
+        }
+
         $this->save();
     }
 
@@ -171,5 +180,25 @@ class TeamReport extends Model
         else {
             return Lang::get('csatar.csatar::lang.plugin.admin.teamReport.statuses.created');
         }
+    }
+
+    public function getAgeGroupsOptions(){
+        $team_id = $this->team_id ?? \Input::get('data.team');
+        $attachedIds = [];
+        if(!empty($this->team_id)) {
+            $attachedIds = $this->ageGroups->pluck('id');
+        }
+        $team = Team::find($team_id);
+        if(!empty($team_id)){
+            $ageGroups = AgeGroup::select(
+                \DB::raw("CONCAT(NAME, IF(note, CONCAT(' (',note, ')'), '')) AS name"),'id')
+                ->where('association_id', $team->district->association->id)
+                ->whereNotIn('id', $attachedIds)
+                ->orderBy('sort_order')
+                ->lists('name', 'id')
+            ;
+            return $ageGroups;
+        }
+        return [];
     }
 }

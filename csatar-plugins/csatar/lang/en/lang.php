@@ -1,6 +1,6 @@
 <?php return [
     'frontEnd' => [
-        'authException' => 'The email address, the ECSET code or the password is incorrect.',
+        'authException' => 'The email address, the ECSET code or the password is incorrect.'
     ],
     'plugin' => [
         'name' => 'CSATÁR',
@@ -33,6 +33,12 @@
                 'password' => 'Password',
                 'password_confirmation' => 'Password confirmation',
                 'organizationUnitNameWarning' => 'Organization unit name can not contain the unit type.',
+                'note' => 'Note',
+                'sortOrder' => 'Sort Order',
+            ],
+            'ageGroups' => [
+                'ageGroups' => 'Age Groups',
+                'numberOfPatrolsInAgeGroup' => 'Number of patrols in age group'
             ],
             'scout' => [
                 'scout' => 'Scout',
@@ -498,6 +504,14 @@
                 'name' => 'Organization Unit Frontend',
                 'description' => 'Display the organization unit frontend page.',
             ],
+        ],
+        'oauth' => [
+            'onlyExistingUsersCanLogin'         => 'At the moment, only existing users are allowed to log in with oAuth!',
+            'canNotRegisterLoginWithoutEmail'   => 'No email address was returned!',
+            'canNotFindScoutWithEmail'          => 'There is no scout with the returned email address!',
+            'scoutAlreadyHasUserAccount'        => 'Scout already has a user account!',
+            'canNotFindUser'                    => 'We can not find your user account!',
+            'userIdAndScoutUserIdMismatch'      => 'The user attached to scout doesn\'t match with the returned user!',
         ],
     ],
 ];

@@ -48,11 +48,13 @@ columns:
         type: text
         searchable: true
         sortable: true
-    age_group:
+    age:
         label: 'csatar.csatar::lang.plugin.admin.patrol.ageGroup'
         type: text
         searchable: true
         sortable: true
+        relation: age_group
+        valueFrom: name
     team_id:
         label: 'csatar.csatar::lang.plugin.admin.patrol.team'
         type: number

@@ -6,38 +6,8 @@ fields:
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         required: 1
-        disabled: 1
+        readOnly: 1
         type: relation
-    number_of_adult_patrols:
-        label: 'csatar.csatar::lang.plugin.admin.teamReport.number_of_adult_patrols'
-        span: auto
-        required: 1
-        default: 0
-        type: number
-    number_of_explorer_patrols:
-        label: 'csatar.csatar::lang.plugin.admin.teamReport.number_of_explorer_patrols'
-        span: auto
-        required: 1
-        default: 0
-        type: number
-    number_of_scout_patrols:
-        label: 'csatar.csatar::lang.plugin.admin.teamReport.number_of_scout_patrols'
-        span: auto
-        required: 1
-        default: 0
-        type: number
-    number_of_cub_scout_patrols:
-        label: 'csatar.csatar::lang.plugin.admin.teamReport.number_of_cub_scout_patrols'
-        span: auto
-        required: 1
-        default: 0
-        type: number
-    number_of_mixed_patrols:
-        label: 'csatar.csatar::lang.plugin.admin.teamReport.number_of_mixed_patrols'
-        span: auto
-        required: 1
-        default: 0
-        type: number
     scouting_year_report_team_camp:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.scouting_year_report_team_camp'
         size: ''

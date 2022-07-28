@@ -1,0 +1,19 @@
+fields:
+    name:
+        label: 'csatar.csatar::lang.plugin.admin.general.name'
+        span: auto
+        type: text
+    note:
+        label: 'csatar.csatar::lang.plugin.admin.general.note'
+        span: auto
+        type: text
+    sort_order:
+        label: 'csatar.csatar::lang.plugin.admin.general.sortOrder'
+        span: auto
+        type: number
+    association:
+        label: 'csatar.csatar::lang.plugin.admin.association.association'
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation

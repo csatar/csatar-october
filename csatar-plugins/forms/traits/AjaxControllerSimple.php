@@ -102,10 +102,9 @@ trait AjaxControllerSimple {
 
         $variablesToPass = [
             'form' => $html,
-            'formUniqueId' => $this->formUniqueId,
             'additionalData' => $this->additionalData,
-            'recordKeyParam' => 'id',
-            'recordKeyValue' => $record->id ?? 'new',
+            'recordKeyParam' => $this->recordKeyParam ?? Input::get('recordKeyParam'),
+            'recordKeyValue' => $record->{$this->recordKeyParam ?? Input::get('recordKeyParam')} ?? 'new',
             'from_id' => $form->id,
             'preview' => $preview,
             'redirectOnClose' => Input::old('redirectOnClose') ?? \Url::previous(),
@@ -118,13 +117,7 @@ trait AjaxControllerSimple {
     public function onAddPivotRelation(){
         $relationName = Input::get('relationName');
         $relationId = Input::get($relationName);
-
-        if($relationName && $relationId) {
-            return $this->createPivotForm($relationName, $relationId);
-        }
-
-        $error = e(trans('csatar.forms::lang.errors.nothingSelectedOnPivotRelation'));
-        throw new \ValidationException([$relationName => $error]);
+        return $this->createPivotForm($relationName, $relationId);
     }
 
     public function onCloseAddEditArea(){
@@ -143,9 +136,16 @@ trait AjaxControllerSimple {
         $attachedIds = $record->id ? $record->{$relationName}->pluck('id') : $defRecords->pluck('slave_id');
         $relatedModelName = array_key_exists($relationName, $record->belongsToMany) ? $record->belongsToMany[$relationName][0] : false;
         $getFunctionName = 'get' . $this->underscoreToCamelCase($relationName, true) . 'Options';
+        $options = null;
+        if(method_exists($record, $getFunctionName)){
+            $options = $record->{$getFunctionName}();
+        }
 
-        \Model::extend(function($model) use ($getFunctionName, $relatedModelName, $attachedIds){
-            $model->addDynamicMethod($getFunctionName, function() use ($model, $relatedModelName, $attachedIds) {
+        \Model::extend(function($model) use ($getFunctionName, $relatedModelName, $attachedIds, $options){
+            $model->addDynamicMethod($getFunctionName, function() use ($model, $relatedModelName, $attachedIds, $options) {
+                if(!empty($options)){
+                    return $options;
+                }
                 return $relatedModelName::whereNotIn('id', $attachedIds)->get()
                     ->lists('name', 'id');
             });
@@ -155,7 +155,7 @@ trait AjaxControllerSimple {
 
         $dropDownConfig = [
             'fields' => [
-                    $relationName => [
+                $relationName => [
                     "span" => "full",
                     "type" => "dropdown",
                 ],
@@ -172,8 +172,6 @@ trait AjaxControllerSimple {
         return [
             '#add-edit-' . $relationName => $this->renderPartial('@partials/relationOptions', [ 'html' => $html, 'relationName' => $relationName ])
         ];
-
-
     }
 
     public function createPivotForm($relationName, $relationId) {
@@ -342,7 +340,7 @@ trait AjaxControllerSimple {
         }
 
         if ($isNew) {
-            $redirectUrl = str_replace('default', '', $this->currentPageUrl(false)) . $record->id . '/' .Input::get('actionUpdateKeyword');
+            $redirectUrl = str_replace('default', '', $this->currentPageUrl(false)) . $record->{$this->recordKeyParam ?? Input::get('recordKeyParam')} . '/' .Input::get('actionUpdateKeyword');
             return Redirect::to($redirectUrl)->withInput();
         }
 
