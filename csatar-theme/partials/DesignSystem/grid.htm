@@ -1,140 +1,101 @@
 <div class="container">
     <div class="row align-items-start">
         <div class="col-lg-2 col-md-12">
-            <h5 class="pb-3">{{ 'Grid' | _ }}</h5>
+            <h5 class="pb-3">{{ 'Rács' | _ }}</h5>
         </div>
 
         <div class="col-lg-8 col-md-12">
-            <div class="row">
-                <div class="col-3">
-                    <div class="card csat-resp-gdtable d-none d-lg-block bg-primary text-white">
-                        <p class="label text-center">{{ 'Fejléc 1 LG' | _ }}</p>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="card csat-resp-gdtable d-none d-lg-block bg-primary text-white">
-                        <p class="label text-center">{{ 'Fejléc 2 LG' | _ }}</p>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="card csat-resp-gdtable d-none d-lg-block bg-primary text-white">
-                        <p class="label text-center">{{ 'Fejléc 3 LG' | _ }}</p>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <div class="card csat-resp-gdtable d-none d-lg-block bg-primary text-white">
-                        <p class="label text-center">{{ 'Fejléc 4 LG' | _ }}</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="row">
-                <div class="col-6 col-lg-3">
-                    <div class="card csat-resp-gdtable">
-                        <div class="row d-block d-lg-none">
-                            <p class="label">{{ 'Fejléc 1 SM' | _ }}</p>
-                        </div>
+            <div class="table csat-grid">
+                <div class="tr d-none d-lg-block">
+                    <div class="card csat-resp-gdtable csat-border-lg-none">
                         <div class="row">
-                            <p class="data">{{ 'Adat1' | _ }}</p>
+                            <div class="col-6 col-lg-3">
+                                <div class="th">{{ 'Fejléc 1 LG' | _ }}</div>
+                            </div>
+                            <div class="col-6 col-lg-3">
+                                <div class="th">{{ 'Fejléc 2 LG' | _ }}</div>
+                            </div>
+                            <div class="col-6 col-lg-3">
+                                <div class="th">{{ 'Fejléc 3 LG' | _ }}</div>
+                            </div>
+                            <div class="col-6 col-lg-3">
+                                <div class="th">{{ 'Fejléc 4 LG' | _ }}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-lg-3">
-                    <div class="card csat-resp-gdtable">
-                        <div class="row d-block d-lg-none">
-                            <p class="label">{{ 'Fejléc 2 SM' | _ }}</p>
-                        </div>
-                        <div class="row">
-                            <p class="data">{{ 'Adat2' | _ }}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3">
-                    <div class="card csat-resp-gdtable">
-                        <div class="row d-block d-lg-none">
-                            <p class="label">{{ 'Fejléc 3 SM' | _ }}</p>
-                        </div>
-                        <div class="row">
-                            <p class="data">{{ 'Adat3' | _ }}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3">
-                    <div class="card csat-resp-gdtable">
-                        <div class="row d-block d-lg-none">
-                            <p class="label">{{ 'Fejléc 4 SM' | _ }}</p>
-                        </div>
-                        <div class="row">
-                            <p class="data">{{ 'Adat4' | _ }}</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="row">
-                <div class="col-6 col-lg-3">
-                    <div class="card csat-resp-gdtable">
-                        <div class="row d-block d-lg-none">
-                            <p class="label">{{ 'Fejléc 1 SM' | _ }}</p>
-                        </div>
+                <div class="tr">
+                    <div class="card csat-resp-gdtable csat-border-lg-none">
                         <div class="row">
-                            <p class="data">{{ 'Adat11' | _ }}</p>
+                            <div class="col-6 col-lg-3">
+                                <p class="td label d-block d-lg-none">{{ 'Fejléc 1 SM' | _ }}</p>
+                                <p class="td">Adat1</p>
+                            </div>
+                            <div class="col-6 col-lg-3">
+                                <p class="td label d-block d-lg-none">{{ 'Fejléc 2 SM' | _ }}</p>
+                                <p class="td">Adat2</p>
+                            </div>
+                            <div class="col-6 col-lg-3">
+                                <p class="td label d-block d-lg-none">{{ 'Fejléc 3 SM' | _ }}</p>
+                                <p class="td">Adat3</p>
+                            </div>
+                            <div class="col-6 col-lg-3">
+                                <p class="td label d-block d-lg-none">{{ 'Fejléc 4 SM' | _ }}</p>
+                                <p class="td">Adat4</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-lg-3">
-                    <div class="card csat-resp-gdtable">
-                        <div class="row d-block d-lg-none">
-                            <p class="label">{{ 'Fejléc 2 SM' | _ }}</p>
-                        </div>
+
+                <div class="tr">
+                    <div class="card csat-resp-gdtable csat-border-lg-none">
                         <div class="row">
-                            <p class="data">{{ 'Adat22' | _ }}</p>
+                            <div class="col-6 col-lg-3">
+                                <p class="td label d-block d-lg-none">{{ 'Fejléc 1 SM' | _ }}</p>
+                                <p class="td">Adat11</p>
+                            </div>
+                            <div class="col-6 col-lg-3">
+                                <p class="td label d-block d-lg-none">{{ 'Fejléc 2 SM' | _ }}</p>
+                                <p class="td">Adat22</p>
+                            </div>
+                            <div class="col-6 col-lg-3">
+                                <p class="td label d-block d-lg-none">{{ 'Fejléc 3 SM' | _ }}</p>
+                                <p class="td">Adat33</p>
+                            </div>
+                            <div class="col-6 col-lg-3">
+                                <p class="td label d-block d-lg-none">{{ 'Fejléc 4 SM' | _ }}</p>
+                                <p class="td">Adat44</p>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-6 col-lg-3">
-                    <div class="card csat-resp-gdtable">
-                        <div class="row d-block d-lg-none">
-                            <p class="label">{{ 'Fejléc 3 SM' | _ }}</p>
-                        </div>
-                        <div class="row">
-                            <p class="data">{{ 'Adat33' | _ }}</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 col-lg-3">
-                    <div class="card csat-resp-gdtable">
-                        <div class="row d-block d-lg-none">
-                            <p class="label">{{ 'Fejléc 4 SM' | _ }}</p>
-                        </div>
-                        <div class="row">
-                            <p class="data">{{ 'Adat44' | _ }}</p>
-                        </div>
-                    </div>
-                </div>
+
             </div>
 
             <div class="col-12 bg-gray mt-3 pb-3">
                 <code>
-                <span class="code-blue">&lt;div </span><span class="code-bluel">class=</span><span class="code-red">"row"</span><span class="code-blue">&gt;</span><br/>
-                &nbsp;&nbsp;<span class="code-blue">&lt;div </span><span class="code-bluel">class=</span><span class="code-red">"col-3"</span><span class="code-blue">&gt;</span><br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-blue">&lt;div </span><span class="code-bluel">class=</span><span class="code-red">"card csat-resp-gdtable d-none d-lg-block bg-primary text-white"</span><span class="code-blue">&gt;</span><br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-blue">&lt;p </span><span class="code-bluel">class=</span><span class="code-red">"label text-center"</span><span class="code-blue">&gt;</span><span class="text-black">&#123;&#123; 'Fejléc 1 LG' &#124; _ &#125;&#125;</span><span class="code-blue">&lt;/p&gt; </span><br/>
+                <span class="code-blue">&lt;div </span><span class="code-bluel">class=</span><span class="code-red">"table csat-grid"</span><span class="code-blue">&gt;</span><br/>
+                &nbsp;&nbsp;<span class="code-blue">&lt;div </span><span class="code-bluel">class=</span><span class="code-red">"tr d-none d-lg-block"</span><span class="code-blue">&gt;</span><br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-blue">&lt;div </span><span class="code-bluel">class=</span><span class="code-red">"card csat-resp-gdtable csat-border-lg-none"</span><span class="code-blue">&gt;</span><br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-blue">&lt;div </span><span class="code-bluel">class=</span><span class="code-red">"row"</span><span class="code-blue">&gt;</span><br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-blue">&lt;div </span><span class="code-bluel">class=</span><span class="code-red">"col-6 col-lg-3"</span><span class="code-blue">&gt;</span><br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-blue">&lt;div </span><span class="code-bluel">class=</span><span class="code-red">"th"</span><span class="code-blue">&gt;</span><span class="text-black">&#123;&#123; 'Fejléc 1 LG' &#124; _ &#125;&#125;</span><span class="code-blue">&lt;/div&gt; </span><br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-blue">&lt;/div&gt; </span><br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-blue">&lt;/div&gt; </span><br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-blue">&lt;/div&gt; </span><br/>
+                &nbsp;&nbsp;<span class="code-blue">&lt;/div&gt; </span><br/>
+                &nbsp;&nbsp;<span class="code-blue">&lt;div </span><span class="code-bluel">class=</span><span class="code-red">"tr"</span><span class="code-blue">&gt;</span><br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-blue">&lt;div </span><span class="code-bluel">class=</span><span class="code-red">"card csat-resp-gdtable csat-border-lg-none"</span><span class="code-blue">&gt;</span><br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-blue">&lt;div </span><span class="code-bluel">class=</span><span class="code-red">"row"</span><span class="code-blue">&gt;</span><br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-blue">&lt;div </span><span class="code-bluel">class=</span><span class="code-red">"col-6 col-lg-3"</span><span class="code-blue">&gt;</span><br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-blue">&lt;p </span><span class="code-bluel">class=</span><span class="code-red">"td label d-block d-lg-none"</span><span class="code-blue">&gt;</span><span class="text-black">&#123;&#123; 'Fejléc 1 SM' &#124; _ &#125;&#125;</span><span class="code-blue">&lt;/p&gt; </span><br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-blue">&lt;p </span><span class="code-bluel">class=</span><span class="code-red">"td"</span><span class="code-blue">&gt;</span><span class="text-black">&#123;&#123; 'Adat1' &#124; _ &#125;&#125;</span><span class="code-blue">&lt;/p&gt; </span><br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-blue">&lt;/div&gt; </span><br/>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-blue">&lt;/div&gt; </span><br/>
                 &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-blue">&lt;/div&gt; </span><br/>
                 &nbsp;&nbsp;<span class="code-blue">&lt;/div&gt; </span><br/>
                 <span class="code-blue">&lt;/div&gt; </span><br/>
-                <span class="code-blue">&lt;div </span><span class="code-bluel">class=</span><span class="code-red">"row"</span><span class="code-blue">&gt;</span><br/>
-                &nbsp;&nbsp;<span class="code-blue">&lt;div </span><span class="code-bluel">class=</span><span class="code-red">"col-6 col-lg-3"</span><span class="code-blue">&gt;</span><br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-blue">&lt;div </span><span class="code-bluel">class=</span><span class="code-red">"card csat-resp-gdtable"</span><span class="code-blue">&gt;</span><br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-blue">&lt;div </span><span class="code-bluel">class=</span><span class="code-red">"row d-block d-lg-none"</span><span class="code-blue">&gt;</span><br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-blue">&lt;p </span><span class="code-bluel">class=</span><span class="code-red">"label"</span><span class="code-blue">&gt;</span><span class="text-black">&#123;&#123; 'Fejléc 1 SM' &#124; _ &#125;&#125;</span><span class="code-blue">&lt;/p&gt; </span><br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-blue">&lt;/div&gt; </span><br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-blue">&lt;div </span><span class="code-bluel">class=</span><span class="code-red">"row"</span><span class="code-blue">&gt;</span><br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-blue">&lt;p </span><span class="code-bluel">class=</span><span class="code-red">"data"</span><span class="code-blue">&gt;</span><span class="text-black">&#123;&#123; 'Adat1' &#124; _ &#125;&#125;</span><span class="code-blue">&lt;/p&gt; </span><br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-blue">&lt;/div&gt; </span><br/>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-blue">&lt;/div&gt; </span><br/>
-                &nbsp;&nbsp;<span class="code-blue">&lt;/div&gt; </span><br/>
-                <span class="code-blue">&lt;/div&gt; </span>
                 </code>
             </div>
             
