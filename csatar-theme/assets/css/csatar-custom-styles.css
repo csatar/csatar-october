@@ -187,7 +187,7 @@ p.justify {
     line-height: 1.5;
 }
 
-div.card.csat-resp-gdtable  > div.row > p.label, div.card > p.label {
+p.label {
     font-family: geomanist !important;
     font-weight: 400;
     font-size: calc(0.9rem + 0.2vw);
@@ -195,7 +195,7 @@ div.card.csat-resp-gdtable  > div.row > p.label, div.card > p.label {
     margin: auto 0px;
 }
 
-div.card.csat-resp-gdtable  > div.row > p.data {
+p.data {
     font-family: geomanist !important;
     font-weight: 300;
     font-size: calc(0.9rem + 0.2vw);
@@ -706,58 +706,63 @@ a.btn-warning:link, a.btn-warning:visited, a.btn-warning:active {
     margin: 0;
 }
 
-/* CARDS, GRID */
+/* GRID */
+
+div.table.csat-grid > .tr {
+    border-top: 0px;
+}
 
 div.card.csat-resp-gdtable {
     min-height: 35px;
     border-radius: 12px;
-    margin-left: -10px;
-    margin-right: -10px;
 }
 
-div.card.csat-resp-gdtable > p.label, div.card > div.row > p.label {
-    padding-top: 3px;
+div.table.csat-grid > div.tr > div.card.csat-resp-gdtable > div.row {
+    padding-top: 0px;
+    padding-bottom: 0px;
 }
 
-@media (max-width: 991px) {
-    div.card.csat-resp-gdtable > p.label, div.card.csat-resp-gdtable > div.row > p.label {
-        padding-top: 5px;
-        padding-left: 16px;
-    }
+div.table.csat-grid > div.tr > div.card.csat-resp-gdtable > div.row > * {
+    margin: 0px;
+    padding: 2px;
 }
 
-div.card.csat-resp-gdtable > p.data, div.card.csat-resp-gdtable > div.row > p.data {
-    padding-top: 2px;
-    padding-left: 16px;
-}
-
-.csat-resp-gdtable {
-    margin-top: 4px;
+div.table.csat-grid > div.tr > div.card.csat-resp-gdtable > div.row > * > p.td {
+    padding-left: 5px;
+    margin-bottom: 0px !important;
 }
 
 @media (min-width: 991px) {
-    div.card.csat-resp-gdtable-lg {
+    div.card.csat-border-lg-none {
         border-width: 0px;
     }
+
+    div.table.csat-grid > div:nth-child(odd) > div > div .td {
+        background-color: #F5F5F5;
+        }
+    
+    div.table.csat-grid > div:nth-child(even) > div > div .td {
+        background-color: white;
+        }
+    
 }
 
 @media (max-width: 991px) {
-    div.card.csat-resp-gdtable-lg {
-        max-width: 90%;
-        margin-bottom: 10px;
-        border-radius: 12px;
-        margin-left: auto;
-        margin-right: auto;
 
-    }
-    div.card.csat-resp-gdtable-sm {
+    div.card.csat-resp-gdtable > div.row > * > .td {
         border-width: 0px;
+        padding: 0px;
+        margin: 0px 0px 0px 10p;
+    }
+
+    div.table.csat-grid> div.tr {
+        margin-top: 10px;
     }
 }
 
 /* TABLE */
 
-table {
+table, div.table {
     width:100%;
     table-layout: fixed;
     overflow-wrap: break-word;
@@ -777,7 +782,7 @@ th, td, .th, .td {
 
 th, .th {
     border: 1px solid #78863F;
-    background-color: #78863F;
+    background-color: #78863F !important;
     color: white;
     font-weight: 400;
     font-size: calc(0.9rem + 0.2vw);
@@ -786,7 +791,7 @@ th, .th {
 
 .th2 {
     border: 1px solid #99A56B;
-    background-color: #99A56B;
+    background-color: #99A56B !important;
     color: white;
     font-weight: 400;
     font-size: calc(0.9rem + 0.2vw);
@@ -794,7 +799,7 @@ th, .th {
 
 .th3 {
     border: 1px solid #FFCE00;
-    background-color: #FFCE00;
+    background-color: #FFCE00 !important;
     color: #4e4e4e;
     font-weight: 300;
     font-size: calc(0.9rem + 0.2vw);
@@ -809,10 +814,10 @@ td, .td {
 }
 
 table tr:nth-child(odd) td, div div.row:nth-child(odd) div.td {
-    background-color: white;
+    background-color: #F5F5F5;
 }
 table tr:nth-child(even) td, div div.row:nth-child(even) div.td {
-    background-color: #F5F5F5;
+    background-color: white;
 }
 
 /* Pick a date calendar */
