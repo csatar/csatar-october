@@ -100,10 +100,10 @@ class District extends OrganizationBase
     public static function getAllByAssociationId($associationId, $teamId)
     {
         $item = self::join('csatar_csatar_teams', 'csatar_csatar_districts.id', '=', 'csatar_csatar_teams.district_id')
-            ->select('csatar_csatar_districts.id', 'csatar_csatar_districts.name', 'csatar_csatar_teams.id', 'csatar_csatar_districts.association_id')
+            ->select('csatar_csatar_teams.district_id', 'csatar_csatar_districts.name', 'csatar_csatar_teams.id', 'csatar_csatar_districts.association_id')
             ->where('csatar_csatar_districts.association_id', $associationId)
             ->where('csatar_csatar_teams.id', $teamId)
             ->first();
-        return [$item->id => $item->extendedName];
+        return [$item->district_id => $item->extendedName];
     }
 }

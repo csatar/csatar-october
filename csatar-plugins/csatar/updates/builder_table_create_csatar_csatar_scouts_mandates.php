@@ -11,7 +11,6 @@ class BuilderTableCreateCsatarCsatarScoutsMandates extends Migration
         {
             $table->engine = 'InnoDB';
             $table->increments('id')->unsigned();
-            $table->timestamp('deleted_at')->nullable();
             $table->integer('scout_id')->unsigned();
             $table->integer('mandate_id')->unsigned();
             $table->integer('mandate_model_id')->nullable()->unsigned();

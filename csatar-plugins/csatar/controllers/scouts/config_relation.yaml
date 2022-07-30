@@ -96,5 +96,7 @@ mandates:
   manage:
     list: $/csatar/csatar/models/mandate/columns.yaml
     form: $/csatar/csatar/models/mandate/fields.yaml
+    showSearch: true
+    scope: association
   pivot:
     form: $/csatar/csatar/models/mandate/fieldsPivot.yaml

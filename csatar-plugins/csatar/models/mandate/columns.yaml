@@ -19,7 +19,7 @@ columns:
     association_id:
         label: 'csatar.csatar::lang.plugin.admin.mandate.association'
         type: number
-        searchable: true
+        searchable: false
         sortable: false
         relation: association
         valueFrom: extendedName

@@ -4,6 +4,7 @@ use Csatar\Csatar\Models\Mandate;
 use DateTime;
 use Input;
 use Lang;
+use Model;
 use ValidationException;
 use October\Rain\Database\Pivot;
 
@@ -55,17 +56,28 @@ class ScoutMandatePivot extends Pivot
 
     public function beforeSave()
     {
-        dd($this->mandate_model);
-        $this->mandate_model_type = $this->mandate_model->organization_type_model_name; //$mandate->organization_type_model_name;
-        $this->mandate_model_name = $this->mandate_model->extendedName;
+        // set further mandate model data
+        $mandate = Mandate::find($this->mandate_id);
+        if (isset($mandate)) {
+            $this->mandate_model_type = $mandate->organization_type_model_name;
+
+            $organizationUnit = ($mandate->organization_type_model_name)::find($this->mandate_model_id);
+            $this->mandate_model_name = isset($organizationUnit) ? $organizationUnit->extendedName : '';
+        }
     }
 
     public function beforeSaveFromForm(&$pivotData)
     {
-        dd($pivotData, $this->parent->mandate_model, $this);
-        $mandate = Mandate::find($this->mandate_id);
-        $this->mandate_model_type = $mandate->organization_type_model_name;
-        $this->mandate_model_name = $this->mandate_model->extendedName;
+        // set further mandate model data
+        $mandate = ($this->parent->belongsToMany[Input::get('relationName')][0])::find(Input::get('relationId'));
+        if (isset($mandate)) {
+            $pivotData['mandate_model_type'] = $mandate->organization_type_model_name;
+
+            $organizationUnit = ($mandate->organization_type_model_name)::find($pivotData['mandate_model_id']);
+            $pivotData['mandate_model_name'] = isset($organizationUnit) ? $organizationUnit->extendedName : '';
+        }
+
+        // if the end_date is an empty string, then set it to null
         $pivotData['end_date'] = !empty($pivotData['end_date']) ? $pivotData['end_date'] : null;
     }
 

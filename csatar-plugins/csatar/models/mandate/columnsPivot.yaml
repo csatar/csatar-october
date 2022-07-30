@@ -1,5 +1,5 @@
 columns:
-    id:
+    'pivot[id]':
         label: 'csatar.csatar::lang.plugin.admin.general.id'
         type: number
     'pivot[mandate_model_name]':

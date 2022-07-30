@@ -18,6 +18,10 @@ class Mandate extends Model
 
     use \October\Rain\Database\Traits\NestedTree;
 
+    use \October\Rain\Database\Traits\SoftDelete;
+
+    protected $dates = ['deleted_at'];
+
 
     /**
      * @var string The database table used by the model.
@@ -60,14 +64,14 @@ class Mandate extends Model
         'scouts' => [
             '\Csatar\Csatar\Models\Scout',
             'table' => 'csatar_csatar_scouts_mandates',
-            'pivot' => ['mandate_model_id', 'mandate_model_type', 'mandate_model_name', 'start_date', 'end_date', 'comment'],
+            'pivot' => ['id', 'scout_id', 'mandate_id', 'mandate_model_id', 'mandate_model_type', 'mandate_model_name', 'start_date', 'end_date', 'comment'],
             'pivotModel' => '\Csatar\Csatar\Models\ScoutMandatePivot',
             'label' => 'csatar.csatar::lang.plugin.admin.scout.scouts',
         ],
         'mandate_models' => [
             '\Csatar\Csatar\Models\OrganizationBase',
             'table' => 'csatar_csatar_scouts_mandates',
-            'pivot' => ['mandate_model_id', 'mandate_model_type', 'mandate_model_name', 'start_date', 'end_date', 'comment'],
+            'pivot' => ['id', 'scout_id', 'mandate_id', 'mandate_model_id', 'mandate_model_type', 'mandate_model_name', 'start_date', 'end_date', 'comment'],
             'pivotModel' => '\Csatar\Csatar\Models\ScoutMandatePivot',
             'label' => 'csatar.csatar::lang.plugin.admin.mandate.mandateModels',
         ],
@@ -100,5 +104,14 @@ class Mandate extends Model
     function getMandateModelIdOptions()
     {
         return ($this->organization_type_model_name)::getAllByAssociationId($this->association_id, Input::get('data')['team']);
+    }
+
+    /**
+     * Scope a query to only include mandates from a given association.
+     */
+    function scopeAssociation($query, $model)
+    {
+        $associationId = $model->getAssociationId();
+        return $query->where('association_id', $associationId);
     }
 }

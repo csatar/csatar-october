@@ -282,14 +282,14 @@ class Scout extends Model
         'mandates' => [
             '\Csatar\Csatar\Models\Mandate',
             'table' => 'csatar_csatar_scouts_mandates',
-            'pivot' => ['mandate_model_id', 'mandate_model_type', 'mandate_model_name', 'start_date', 'end_date', 'comment'],
+            'pivot' => ['id', 'scout_id', 'mandate_id', 'mandate_model_id', 'mandate_model_type', 'mandate_model_name', 'start_date', 'end_date', 'comment'],
             'pivotModel' => '\Csatar\Csatar\Models\ScoutMandatePivot',
             'label' => 'csatar.csatar::lang.plugin.admin.mandate.mandates',
         ],
         'mandate_models' => [
             '\Csatar\Csatar\Models\OrganizationBase',
             'table' => 'csatar_csatar_scouts_mandates',
-            'pivot' => ['mandate_model_id', 'mandate_model_type', 'mandate_model_name', 'start_date', 'end_date', 'comment'],
+            'pivot' => ['id', 'scout_id', 'mandate_id', 'mandate_model_id', 'mandate_model_type', 'mandate_model_name', 'start_date', 'end_date', 'comment'],
             'pivotModel' => '\Csatar\Csatar\Models\ScoutMandatePivot',
             'label' => 'csatar.csatar::lang.plugin.admin.mandate.mandateModels',
         ],
@@ -370,7 +370,16 @@ class Scout extends Model
         }
     }
 
-    public function getFullName(){
+    public function getFullName()
+    {
         return $this->family_name . ' ' . $this->given_name;
+    }
+
+    /**
+     * Returns the id of the association to which the scout belongs to.
+     */
+    public function getAssociationId()
+    {
+        return $this->team->district->association->id;
     }
 }
