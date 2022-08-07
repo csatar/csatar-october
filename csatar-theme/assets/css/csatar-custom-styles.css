@@ -646,41 +646,287 @@ a.btn-warning:link, a.btn-warning:visited, a.btn-warning:active {
 /* ICONS */
 
 /* paths */
-.adduser-fill:before, .adduser-fill-md:before, .adduser-fill-lg:before {content: url(../images/symbols/adduser_green_fill.svg);}
-.adduser-out:before, .adduser-out-md:before, .adduser-out-lg:before {content: url(../images/symbols/adduser_green_out.svg);}
-.arrow-fill-sm:before, .arrow-fill-md:before, .arrow-fill-lg:before {content: url(../images/symbols/arrow_green_fill.svg);}
-.arrow-out-sm:before, .arrow-out-md:before, .arrow-out-lg:before {content: url(../images/symbols/arrow_green_out.svg);}
-.exit-fill-sm:before, .exit-fill-md:before, .exit-fill-lg:before {content: url(../images/symbols/exit_green_fill.svg);}
-.exit-fill-w-sm:before, .exit-fill-w-md:before, .exit-fill-w-lg:before {content: url(../images/symbols/exit_white_fill.svg);}
-.exit-out-sm:before, .exit-out-md:before, .exit-out-lg:before {content: url(../images/symbols/exit_green_out.svg);}
-.exit-out-w-sm:before, .exit-out-w-md:before, .exit-out-w-lg:before {content: url(../images/symbols/exit_white_out.svg);}
-.f-fill-sm:before, .f-fill-md:before, .f-fill-lg:before {content: url(../images/symbols/f_green_fill.svg);}
-.f-fill-w-sm:before, .f-fill-w-md:before, .f-fill-w-lg:before {content: url(../images/symbols/f_white_fill.svg);}
-.f-out-sm:before, .f-out-md:before, .f-out-lg:before {content: url(../images/symbols/f_green_out.svg);}
-.f-out-w-sm:before, .f-out-w-md:before, .f-out-w-lg:before {content: url(../images/symbols/f_white_out.svg);}
-.g-fill-sm:before, .g-fill-md:before, .g-fill-lg:before {content: url(../images/symbols/g_green_fill.svg);}
-.g-fill-w-sm:before, .g-fill-w-md:before, .g-fill-w-lg:before {content: url(../images/symbols/g_white_fill.svg);}
-.g-out-sm:before, .g-out-md:before, .g-out-lg:before {content: url(../images/symbols/g_green_out.svg);}
-.g-out-w-sm:before, .g-out-w-md:before, .g-out-w-lg:before {content: url(../images/symbols/g_white_out.svg);}
-.gear-fill-sm:before, .gear-fill-md:before, .gear-fill-lg:before {content: url(../images/symbols/gear_green_fill.svg);}
-.gear-fill-w-sm:before, .gear-fill-w-md:before, .gear-fill-w-lg:before {content: url(../images/symbols/gear_white_fill.svg);}
-.gear-out-sm:before, .gear-out-md:before, .gear-out-lg:before {content: url(../images/symbols/gear_green_out.svg);}
-.gear-out-w-sm:before, .gear-out-w-md:before, .gear-out-w-lg:before {content: url(../images/symbols/gear_white_out.svg);}
-.key-fill-sm:before, .key-fill-md:before, .key-fill-lg:before {content: url(../images/symbols/key_green_fill.svg);}
-.key-out-sm:before, .key-out-md:before, .key-out-lg:before {content: url(../images/symbols/key_green_out.svg);}
-.magnifier-fill-sm:before, .magnifier-fill-md:before, .magnifier-fill-lg:before {content: url(../images/symbols/magnifier_green_fill.svg);}
-.magnifier-out-sm:before, .magnifier-out-md:before, .magnifier-out-lg:before {content: url(../images/symbols/magnifier_green_out.svg);}
-.upload-fill-sm:before, .upload-fill-md:before, .upload-fill-lg:before {content: url(../images/symbols/upload_green_fill.svg);}
-.upload-out-sm:before, .upload-out-md:before, .upload-out-lg:before {content: url(../images/symbols/upload_green_out.svg);}
-.user-fill-sm:before, .user-fill-md:before, .user-fill-lg:before {content: url(../images/symbols/user_green_fill.svg);}
-.user-fill-w-sm:before, .user-fill-w-md:before, .user-fill-w-lg:before {content: url(../images/symbols/user_white_fill.svg);}
-.user-out-sm:before, .user-out-md:before, .user-out-lg:before {content: url(../images/symbols/user_green_out.svg);}
-.user-out-w-sm:before, .user-out-w-md:before, .user-out-w-lg:before {content: url(../images/symbols/user_white_out.svg);}
-.x-fill-sm:before, .x-fill-md:before, .x-fill-lg:before {content: url(../images/symbols/x_green_fill.svg);}
-.x-out-sm:before, .x-out-md:before, .x-out-lg:before {content: url(../images/symbols/x_green_out.svg);}
+.csat-add-fill-sm, .csat-add-fill-md, .csat-add-fill-lg {content: url(../images/icons/csat-add-fill.svg);}
+.csat-add-out-sm, .csat-add-out-md, .csat-add-out-lg {content: url(../images/icons/csat-add-out.svg);}
+.csat-arrowdown-fill-sm, .csat-arrowdown-fill-md, .csat-arrowdown-fill-lg {content: url(../images/icons/csat-arrowdown-fill.svg);}
+.csat-arrowdown-out-sm, .csat-arrowdown-out-md, .csat-arrowdown-out-lg {content: url(../images/icons/csat-arrowdown-out.svg);}
+.csat-arrowleftdown-fill-sm, .csat-arrowleftdown-fill-md, .csat-arrowleftdown-fill-lg {content: url(../images/icons/csat-arrowleftdown-fill.svg);}
+.csat-arrowleftdown-out-sm, .csat-arrowleftdown-out-md, .csat-arrowleftdown-out-lg {content: url(../images/icons/csat-arrowleftdown-out.svg);}
+.csat-arrowleft-fill-sm, .csat-arrowleft-fill-md, .csat-arrowleft-fill-lg {content: url(../images/icons/csat-arrowleft-fill.svg);}
+.csat-arrowleft-out-sm, .csat-arrowleft-out-md, .csat-arrowleft-out-lg {content: url(../images/icons/csat-arrowleft-out.svg);}
+.csat-arrowleftup-fill-sm, .csat-arrowleftup-fill-md, .csat-arrowleftup-fill-lg {content: url(../images/icons/csat-arrowleftup-fill.svg);}
+.csat-arrowleftup-out-sm, .csat-arrowleftup-out-md, .csat-arrowleftup-out-lg {content: url(../images/icons/csat-arrowleftup-out.svg);}
+.csat-arrowrightdown-fill-sm, .csat-arrowrightdown-fill-md, .csat-arrowrightdown-fill-lg {content: url(../images/icons/csat-arrowrightdown-fill.svg);}
+.csat-arrowrightdown-out-sm, .csat-arrowrightdown-out-md, .csat-arrowrightdown-out-lg {content: url(../images/icons/csat-arrowrightdown-out.svg);}
+.csat-arrowright-fill-sm, .csat-arrowright-fill-md, .csat-arrowright-fill-lg {content: url(../images/icons/csat-arrowright-fill.svg);}
+.csat-arrowright-out-sm, .csat-arrowright-out-md, .csat-arrowright-out-lg {content: url(../images/icons/csat-arrowright-out.svg);}
+.csat-arrowrightup-fill-sm, .csat-arrowrightup-fill-md, .csat-arrowrightup-fill-lg {content: url(../images/icons/csat-arrowrightup-fill.svg);}
+.csat-arrowrightup-out-sm, .csat-arrowrightup-out-md, .csat-arrowrightup-out-lg {content: url(../images/icons/csat-arrowrightup-out.svg);}
+.csat-arrowup-fill-sm, .csat-arrowup-fill-md, .csat-arrowup-fill-lg {content: url(../images/icons/csat-arrowup-fill.svg);}
+.csat-arrowup-out-sm, .csat-arrowup-out-md, .csat-arrowup-out-lg {content: url(../images/icons/csat-arrowup-out.svg);}
+.csat-bell-fill-sm, .csat-bell-fill-md, .csat-bell-fill-lg {content: url(../images/icons/csat-bell-fill.svg);}
+.csat-bell-out-sm, .csat-bell-out-md, .csat-bell-out-lg {content: url(../images/icons/csat-bell-out.svg);}
+.csat-binclosed-fill-sm, .csat-binclosed-fill-md, .csat-binclosed-fill-lg {content: url(../images/icons/csat-binclosed-fill.svg);}
+.csat-binclosed-out-sm, .csat-binclosed-out-md, .csat-binclosed-out-lg {content: url(../images/icons/csat-binclosed-out.svg);}
+.csat-binopened-fill-sm, .csat-binopened-fill-md, .csat-binopened-fill-lg {content: url(../images/icons/csat-binopened-fill.svg);}
+.csat-binopened-out-sm, .csat-binopened-out-md, .csat-binopened-out-lg {content: url(../images/icons/csat-binopened-out.svg);}
+.csat-calc-fill-sm, .csat-calc-fill-md, .csat-calc-fill-lg {content: url(../images/icons/csat-calc-fill.svg);}
+.csat-calc-out-sm, .csat-calc-out-md, .csat-calc-out-lg {content: url(../images/icons/csat-calc-out.svg);}
+.csat-calendar-fill-sm, .csat-calendar-fill-md, .csat-calendar-fill-lg {content: url(../images/icons/csat-calendar-fill.svg);}
+.csat-calendar-out-sm, .csat-calendar-out-md, .csat-calendar-out-lg {content: url(../images/icons/csat-calendar-out.svg);}
+.csat-check-fill-sm, .csat-check-fill-md, .csat-check-fill-lg {content: url(../images/icons/csat-check-fill.svg);}
+.csat-check-out-sm, .csat-check-out-md, .csat-check-out-lg {content: url(../images/icons/csat-check-out.svg);}
+.csat-denied-fill-sm, .csat-denied-fill-md, .csat-denied-fill-lg {content: url(../images/icons/csat-denied-fill.svg);}
+.csat-denied-out-sm, .csat-denied-out-md, .csat-denied-out-lg {content: url(../images/icons/csat-denied-out.svg);}
+.csat-directionright-fill-sm, .csat-directionright-fill-md, .csat-directionright-fill-lg {content: url(../images/icons/csat-directionright-fill.svg);}
+.csat-directionright-out-sm, .csat-directionright-out-md, .csat-directionright-out-lg {content: url(../images/icons/csat-directionright-out.svg);}
+.csat-download-fill-sm, .csat-download-fill-md, .csat-download-fill-lg {content: url(../images/icons/csat-download-fill.svg);}
+.csat-download-out-sm, .csat-download-out-md, .csat-download-out-lg {content: url(../images/icons/csat-download-out.svg);}
+.csat-edit-fill-sm, .csat-edit-fill-md, .csat-edit-fill-lg {content: url(../images/icons/csat-edit-fill.svg);}
+.csat-edit-out-sm, .csat-edit-out-md, .csat-edit-out-lg {content: url(../images/icons/csat-edit-out.svg);}
+.csat-envelope-fill-sm, .csat-envelope-fill-md, .csat-envelope-fill-lg {content: url(../images/icons/csat-envelope-fill.svg);}
+.csat-envelopeopen-fill-sm, .csat-envelopeopen-fill-md, .csat-envelopeopen-fill-lg {content: url(../images/icons/csat-envelopeopen-fill.svg);}
+.csat-envelopeopen-out-sm, .csat-envelopeopen-out-md, .csat-envelopeopen-out-lg {content: url(../images/icons/csat-envelopeopen-out.svg);}
+.csat-envelope-out-sm, .csat-envelope-out-md, .csat-envelope-out-lg {content: url(../images/icons/csat-envelope-out.svg);}
+.csat-exit-fill-sm, .csat-exit-fill-md, .csat-exit-fill-lg {content: url(../images/icons/csat-exit-fill.svg);}
+.csat-exit-out-sm, .csat-exit-out-md, .csat-exit-out-lg {content: url(../images/icons/csat-exit-out.svg);}
+.csat-externallink-fill-sm, .csat-externallink-fill-md, .csat-externallink-fill-lg {content: url(../images/icons/csat-externallink-fill.svg);}
+.csat-externallink-out-sm, .csat-externallink-out-md, .csat-externallink-out-lg {content: url(../images/icons/csat-externallink-out.svg);}
+.csat-eyeclose-fill-sm, .csat-eyeclose-fill-md, .csat-eyeclose-fill-lg {content: url(../images/icons/csat-eyeclose-fill.svg);}
+.csat-eyeclose-out-sm, .csat-eyeclose-out-md, .csat-eyeclose-out-lg {content: url(../images/icons/csat-eyeclose-out.svg);}
+.csat-eyeopen-fill-sm, .csat-eyeopen-fill-md, .csat-eyeopen-fill-lg {content: url(../images/icons/csat-eyeopen-fill.svg);}
+.csat-eyeopen-out-sm, .csat-eyeopen-out-md, .csat-eyeopen-out-lg {content: url(../images/icons/csat-eyeopen-out.svg);}
+.csat-female-fill-sm, .csat-female-fill-md, .csat-female-fill-lg {content: url(../images/icons/csat-female-fill.svg);}
+.csat-female-out-sm, .csat-female-out-md, .csat-female-out-lg {content: url(../images/icons/csat-female-out.svg);}
+.csat-femalesymb-out-sm, .csat-femalesymb-out-md, .csat-femalesymb-out-lg {content: url(../images/icons/csat-femalesymb-out.svg);}
+.csat-fileadd-fill-sm, .csat-fileadd-fill-md, .csat-fileadd-fill-lg {content: url(../images/icons/csat-fileadd-fill.svg);}
+.csat-fileadd-out-sm, .csat-fileadd-out-md, .csat-fileadd-out-lg {content: url(../images/icons/csat-fileadd-out.svg);}
+.csat-fileedit-fill-sm, .csat-fileedit-fill-md, .csat-fileedit-fill-lg {content: url(../images/icons/csat-fileedit-fill.svg);}
+.csat-fileedit-out-sm, .csat-fileedit-out-md, .csat-fileedit-out-lg {content: url(../images/icons/csat-fileedit-out.svg);}
+.csat-file-fill-sm, .csat-file-fill-md, .csat-file-fill-lg {content: url(../images/icons/csat-file-fill.svg);}
+.csat-file-out-sm, .csat-file-out-md, .csat-file-out-lg {content: url(../images/icons/csat-file-out.svg);}
+.csat-folderadd-fill-sm, .csat-folderadd-fill-md, .csat-folderadd-fill-lg {content: url(../images/icons/csat-folderadd-fill.svg);}
+.csat-folderadd-out-sm, .csat-folderadd-out-md, .csat-folderadd-out-lg {content: url(../images/icons/csat-folderadd-out.svg);}
+.csat-folderedit-fill-sm, .csat-folderedit-fill-md, .csat-folderedit-fill-lg {content: url(../images/icons/csat-folderedit-fill.svg);}
+.csat-folderedit-out-sm, .csat-folderedit-out-md, .csat-folderedit-out-lg {content: url(../images/icons/csat-folderedit-out.svg);}
+.csat-folder-fill-sm, .csat-folder-fill-md, .csat-folder-fill-lg {content: url(../images/icons/csat-folder-fill.svg);}
+.csat-folder-out-sm, .csat-folder-out-md, .csat-folder-out-lg {content: url(../images/icons/csat-folder-out.svg);}
+.csat-gallery-fill-sm, .csat-gallery-fill-md, .csat-gallery-fill-lg {content: url(../images/icons/csat-gallery-fill.svg);}
+.csat-gallery-out-sm, .csat-gallery-out-md, .csat-gallery-out-lg {content: url(../images/icons/csat-gallery-out.svg);}
+.csat-gear-fill-sm, .csat-gear-fill-md, .csat-gear-fill-lg {content: url(../images/icons/csat-gear-fill.svg);}
+.csat-gear-out-sm, .csat-gear-out-md, .csat-gear-out-lg {content: url(../images/icons/csat-gear-out.svg);}
+.csat-globe-fill-sm, .csat-globe-fill-md, .csat-globe-fill-lg {content: url(../images/icons/csat-globe-fill.svg);}
+.csat-globe-out-sm, .csat-globe-out-md, .csat-globe-out-lg {content: url(../images/icons/csat-globe-out.svg);}
+.csat-grouplg-fill-sm, .csat-grouplg-fill-md, .csat-grouplg-fill-lg {content: url(../images/icons/csat-grouplg-fill.svg);}
+.csat-grouplg-out-sm, .csat-grouplg-out-md, .csat-grouplg-out-lg {content: url(../images/icons/csat-grouplg-out.svg);}
+.csat-groupmd-fill-sm, .csat-groupmd-fill-md, .csat-groupmd-fill-lg {content: url(../images/icons/csat-groupmd-fill.svg);}
+.csat-groupmd-out-sm, .csat-groupmd-out-md, .csat-groupmd-out-lg {content: url(../images/icons/csat-groupmd-out.svg);}
+.csat-groupsm-fill-sm, .csat-groupsm-fill-md, .csat-groupsm-fill-lg {content: url(../images/icons/csat-groupsm-fill.svg);}
+.csat-groupsm-out-sm, .csat-groupsm-out-md, .csat-groupsm-out-lg {content: url(../images/icons/csat-groupsm-out.svg);}
+.csat-heart-fill-sm, .csat-heart-fill-md, .csat-heart-fill-lg {content: url(../images/icons/csat-heart-fill.svg);}
+.csat-heart-out-sm, .csat-heart-out-md, .csat-heart-out-lg {content: url(../images/icons/csat-heart-out.svg);}
+.csat-home-fill-sm, .csat-home-fill-md, .csat-home-fill-lg {content: url(../images/icons/csat-home-fill.svg);}
+.csat-home-out-sm, .csat-home-out-md, .csat-home-out-lg {content: url(../images/icons/csat-home-out.svg);}
+.csat-image-fill-sm, .csat-image-fill-md, .csat-image-fill-lg {content: url(../images/icons/csat-image-fill.svg);}
+.csat-image-out-sm, .csat-image-out-md, .csat-image-out-lg {content: url(../images/icons/csat-image-out.svg);}
+.csat-key-fill-sm, .csat-key-fill-md, .csat-key-fill-lg {content: url(../images/icons/csat-key-fill.svg);}
+.csat-key-out-sm, .csat-key-out-md, .csat-key-out-lg {content: url(../images/icons/csat-key-out.svg);}
+.csat-linkdiag-fill-sm, .csat-linkdiag-fill-md, .csat-linkdiag-fill-lg {content: url(../images/icons/csat-linkdiag-fill.svg);}
+.csat-linkdiag-out-sm, .csat-linkdiag-out-md, .csat-linkdiag-out-lg {content: url(../images/icons/csat-linkdiag-out.svg);}
+.csat-link-fill-sm, .csat-link-fill-md, .csat-link-fill-lg {content: url(../images/icons/csat-link-fill.svg);}
+.csat-link-out-sm, .csat-link-out-md, .csat-link-out-lg {content: url(../images/icons/csat-link-out.svg);}
+.csat-location-fill-sm, .csat-location-fill-md, .csat-location-fill-lg {content: url(../images/icons/csat-location-fill.svg);}
+.csat-location-out-sm, .csat-location-out-md, .csat-location-out-lg {content: url(../images/icons/csat-location-out.svg);}
+.csat-magnif-fill-sm, .csat-magnif-fill-md, .csat-magnif-fill-lg {content: url(../images/icons/csat-magnif-fill.svg);}
+.csat-magnif-out-sm, .csat-magnif-out-md, .csat-magnif-out-lg {content: url(../images/icons/csat-magnif-out.svg);}
+.csat-male-fill-sm, .csat-male-fill-md, .csat-male-fill-lg {content: url(../images/icons/csat-male-fill.svg);}
+.csat-male-out-sm, .csat-male-out-md, .csat-male-out-lg {content: url(../images/icons/csat-male-out.svg);}
+.csat-malesymb-out-sm, .csat-malesymb-out-md, .csat-malesymb-out-lg {content: url(../images/icons/csat-malesymb-out.svg);}
+.csat-map-fill-sm, .csat-map-fill-md, .csat-map-fill-lg {content: url(../images/icons/csat-map-fill.svg);}
+.csat-map-out-sm, .csat-map-out-md, .csat-map-out-lg {content: url(../images/icons/csat-map-out.svg);}
+.csat-minus-fill-sm, .csat-minus-fill-md, .csat-minus-fill-lg {content: url(../images/icons/csat-minus-fill.svg);}
+.csat-minus-out-sm, .csat-minus-out-md, .csat-minus-out-lg {content: url(../images/icons/csat-minus-out.svg);}
+.csat-mobile-fill-sm, .csat-mobile-fill-md, .csat-mobile-fill-lg {content: url(../images/icons/csat-mobile-fill.svg);}
+.csat-mobile-out-sm, .csat-mobile-out-md, .csat-mobile-out-lg {content: url(../images/icons/csat-mobile-out.svg);}
+.csat-news-fill-sm, .csat-news-fill-md, .csat-news-fill-lg {content: url(../images/icons/csat-news-fill.svg);}
+.csat-news-out-sm, .csat-news-out-md, .csat-news-out-lg {content: url(../images/icons/csat-news-out.svg);}
+.csat-phone-fill-sm, .csat-phone-fill-md, .csat-phone-fill-lg {content: url(../images/icons/csat-phone-fill.svg);}
+.csat-phone-out-sm, .csat-phone-out-md, .csat-phone-out-lg {content: url(../images/icons/csat-phone-out.svg);}
+.csat-plus-fill-sm, .csat-plus-fill-md, .csat-plus-fill-lg {content: url(../images/icons/csat-plus-fill.svg);}
+.csat-plus-out-sm, .csat-plus-out-md, .csat-plus-out-lg {content: url(../images/icons/csat-plus-out.svg);}
+.csat-print-fill-sm, .csat-print-fill-md, .csat-print-fill-lg {content: url(../images/icons/csat-print-fill.svg);}
+.csat-print-out-sm, .csat-print-out-md, .csat-print-out-lg {content: url(../images/icons/csat-print-out.svg);}
+.csat-refresh-fill-sm, .csat-refresh-fill-md, .csat-refresh-fill-lg {content: url(../images/icons/csat-refresh-fill.svg);}
+.csat-refresh-out-sm, .csat-refresh-out-md, .csat-refresh-out-lg {content: url(../images/icons/csat-refresh-out.svg);}
+.csat-report-fill-sm, .csat-report-fill-md, .csat-report-fill-lg {content: url(../images/icons/csat-report-fill.svg);}
+.csat-report-out-sm, .csat-report-out-md, .csat-report-out-lg {content: url(../images/icons/csat-report-out.svg);}
+.csat-save-fill-sm, .csat-save-fill-md, .csat-save-fill-lg {content: url(../images/icons/csat-save-fill.svg);}
+.csat-save-out-sm, .csat-save-out-md, .csat-save-out-lg {content: url(../images/icons/csat-save-out.svg);}
+.csat-share-fill-sm, .csat-share-fill-md, .csat-share-fill-lg {content: url(../images/icons/csat-share-fill.svg);}
+.csat-share-out-sm, .csat-share-out-md, .csat-share-out-lg {content: url(../images/icons/csat-share-out.svg);}
+.csat-socfacebook-sm, .csat-socfacebook-md, .csat-socfacebook-lg {content: url(../images/icons/csat-socfacebook.svg);}
+.csat-socfacebookf-sm, .csat-socfacebookf-md, .csat-socfacebookf-lg {content: url(../images/icons/csat-socfacebookf.svg);}
+.csat-socgoogle-sm, .csat-socgoogle-md, .csat-socgoogle-lg {content: url(../images/icons/csat-socgoogle.svg);}
+.csat-socgoogleg-sm, .csat-socgoogleg-md, .csat-socgoogleg-lg {content: url(../images/icons/csat-socgoogleg.svg);}
+.csat-socinstagram-sm, .csat-socinstagram-md, .csat-socinstagram-lg {content: url(../images/icons/csat-socinstagram.svg);}
+.csat-socinstagramsq-sm, .csat-socinstagramsq-md, .csat-socinstagramsq-lg {content: url(../images/icons/csat-socinstagramsq.svg);}
+.csat-socwhatsapp-sm, .csat-socwhatsapp-md, .csat-socwhatsapp-lg {content: url(../images/icons/csat-socwhatsapp.svg);}
+.csat-socwhatsappsq-sm, .csat-socwhatsappsq-md, .csat-socwhatsappsq-lg {content: url(../images/icons/csat-socwhatsappsq.svg);}
+.csat-upload-fill-sm, .csat-upload-fill-md, .csat-upload-fill-lg {content: url(../images/icons/csat-upload-fill.svg);}
+.csat-upload-out-sm, .csat-upload-out-md, .csat-upload-out-lg {content: url(../images/icons/csat-upload-out.svg);}
+.csat-user-fill-sm, .csat-user-fill-md, .csat-user-fill-lg {content: url(../images/icons/csat-user-fill.svg);}
+.csat-user-out-sm, .csat-user-out-md, .csat-user-out-lg {content: url(../images/icons/csat-user-out.svg);}
+.csat-useradd-fill-sm, .csat-useradd-fill-md, .csat-useradd-fill-lg {content: url(../images/icons/csat-useradd-fill.svg);}
+.csat-useradd-out-sm, .csat-useradd-out-md, .csat-useradd-out-lg {content: url(../images/icons/csat-useradd-out.svg);}
+.csat-useredit-fill-sm, .csat-useredit-fill-md, .csat-useredit-fill-lg {content: url(../images/icons/csat-useredit-fill.svg);}
+.csat-useredit-out-sm, .csat-useredit-out-md, .csat-useredit-out-lg {content: url(../images/icons/csat-useredit-out.svg);}
+.csat-wallet-fill-sm, .csat-wallet-fill-md, .csat-wallet-fill-lg {content: url(../images/icons/csat-wallet-fill.svg);}
+.csat-wallet-out-sm, .csat-wallet-out-md, .csat-wallet-out-lg {content: url(../images/icons/csat-wallet-out.svg);}
+.csat-x-fill-sm, .csat-x-fill-md, .csat-x-fill-lg {content: url(../images/icons/csat-x-fill.svg);}
+.csat-x-out-sm, .csat-x-out-md, .csat-x-out-lg {content: url(../images/icons/csat-x-out.svg);}
+.csat-zoomin-fill-sm, .csat-zoomin-fill-md, .csat-zoomin-fill-lg {content: url(../images/icons/csat-zoomin-fill.svg);}
+.csat-zoomin-out-sm, .csat-zoomin-out-md, .csat-zoomin-out-lg {content: url(../images/icons/csat-zoomin-out.svg);}
+.csat-zoomout-fill-sm, .csat-zoomout-fill-md, .csat-zoomout-fill-lg {content: url(../images/icons/csat-zoomout-fill.svg);}
+.csat-zoomout-out-sm, .csat-zoomout-out-md, .csat-zoomout-out-lg {content: url(../images/icons/csat-zoomout-out.svg);}
+
+/* white */
+.csat-add-fill-wh-sm, .csat-add-fill-wh-md, .csat-add-fill-wh-lg {content: url(../images/icons/white/csat-add-fill-wh.svg);}
+.csat-add-out-wh-sm, .csat-add-out-wh-md, .csat-add-out-wh-lg {content: url(../images/icons/white/csat-add-out-wh.svg);}
+.csat-arrowdown-fill-wh-sm, .csat-arrowdown-fill-wh-md, .csat-arrowdown-fill-wh-lg {content: url(../images/icons/white/csat-arrowdown-fill-wh.svg);}
+.csat-arrowdown-out-wh-sm, .csat-arrowdown-out-wh-md, .csat-arrowdown-out-wh-lg {content: url(../images/icons/white/csat-arrowdown-out-wh.svg);}
+.csat-arrowleftdown-fill-wh-sm, .csat-arrowleftdown-fill-wh-md, .csat-arrowleftdown-fill-wh-lg {content: url(../images/icons/white/csat-arrowleftdown-fill-wh.svg);}
+.csat-arrowleftdown-out-wh-sm, .csat-arrowleftdown-out-wh-md, .csat-arrowleftdown-out-wh-lg {content: url(../images/icons/white/csat-arrowleftdown-out-wh.svg);}
+.csat-arrowleft-fill-wh-sm, .csat-arrowleft-fill-wh-md, .csat-arrowleft-fill-wh-lg {content: url(../images/icons/white/csat-arrowleft-fill-wh.svg);}
+.csat-arrowleft-out-wh-sm, .csat-arrowleft-out-wh-md, .csat-arrowleft-out-wh-lg {content: url(../images/icons/white/csat-arrowleft-out-wh.svg);}
+.csat-arrowleftup-fill-wh-sm, .csat-arrowleftup-fill-wh-md, .csat-arrowleftup-fill-wh-lg {content: url(../images/icons/white/csat-arrowleftup-fill-wh.svg);}
+.csat-arrowleftup-out-wh-sm, .csat-arrowleftup-out-wh-md, .csat-arrowleftup-out-wh-lg {content: url(../images/icons/white/csat-arrowleftup-out-wh.svg);}
+.csat-arrowrightdown-fill-wh-sm, .csat-arrowrightdown-fill-wh-md, .csat-arrowrightdown-fill-wh-lg {content: url(../images/icons/white/csat-arrowrightdown-fill-wh.svg);}
+.csat-arrowrightdown-out-wh-sm, .csat-arrowrightdown-out-wh-md, .csat-arrowrightdown-out-wh-lg {content: url(../images/icons/white/csat-arrowrightdown-out-wh.svg);}
+.csat-arrowright-fill-wh-sm, .csat-arrowright-fill-wh-md, .csat-arrowright-fill-wh-lg {content: url(../images/icons/white/csat-arrowright-fill-wh.svg);}
+.csat-arrowright-out-wh-sm, .csat-arrowright-out-wh-md, .csat-arrowright-out-wh-lg {content: url(../images/icons/white/csat-arrowright-out-wh.svg);}
+.csat-arrowrightup-fill-wh-sm, .csat-arrowrightup-fill-wh-md, .csat-arrowrightup-fill-wh-lg {content: url(../images/icons/white/csat-arrowrightup-fill-wh.svg);}
+.csat-arrowrightup-out-wh-sm, .csat-arrowrightup-out-wh-md, .csat-arrowrightup-out-wh-lg {content: url(../images/icons/white/csat-arrowrightup-out-wh.svg);}
+.csat-arrowup-fill-wh-sm, .csat-arrowup-fill-wh-md, .csat-arrowup-fill-wh-lg {content: url(../images/icons/white/csat-arrowup-fill-wh.svg);}
+.csat-arrowup-out-wh-sm, .csat-arrowup-out-wh-md, .csat-arrowup-out-wh-lg {content: url(../images/icons/white/csat-arrowup-out-wh.svg);}
+.csat-bell-fill-wh-sm, .csat-bell-fill-wh-md, .csat-bell-fill-wh-lg {content: url(../images/icons/white/csat-bell-fill-wh.svg);}
+.csat-bell-out-wh-sm, .csat-bell-out-wh-md, .csat-bell-out-wh-lg {content: url(../images/icons/white/csat-bell-out-wh.svg);}
+.csat-binclosed-fill-wh-sm, .csat-binclosed-fill-wh-md, .csat-binclosed-fill-wh-lg {content: url(../images/icons/white/csat-binclosed-fill-wh.svg);}
+.csat-binclosed-out-wh-sm, .csat-binclosed-out-wh-md, .csat-binclosed-out-wh-lg {content: url(../images/icons/white/csat-binclosed-out-wh.svg);}
+.csat-binopened-fill-wh-sm, .csat-binopened-fill-wh-md, .csat-binopened-fill-wh-lg {content: url(../images/icons/white/csat-binopened-fill-wh.svg);}
+.csat-binopened-out-wh-sm, .csat-binopened-out-wh-md, .csat-binopened-out-wh-lg {content: url(../images/icons/white/csat-binopened-out-wh.svg);}
+.csat-calc-fill-wh-sm, .csat-calc-fill-wh-md, .csat-calc-fill-wh-lg {content: url(../images/icons/white/csat-calc-fill-wh.svg);}
+.csat-calc-out-wh-sm, .csat-calc-out-wh-md, .csat-calc-out-wh-lg {content: url(../images/icons/white/csat-calc-out-wh.svg);}
+.csat-calendar-fill-wh-sm, .csat-calendar-fill-wh-md, .csat-calendar-fill-wh-lg {content: url(../images/icons/white/csat-calendar-fill-wh.svg);}
+.csat-calendar-out-wh-sm, .csat-calendar-out-wh-md, .csat-calendar-out-wh-lg {content: url(../images/icons/white/csat-calendar-out-wh.svg);}
+.csat-check-fill-wh-sm, .csat-check-fill-wh-md, .csat-check-fill-wh-lg {content: url(../images/icons/white/csat-check-fill-wh.svg);}
+.csat-check-out-wh-sm, .csat-check-out-wh-md, .csat-check-out-wh-lg {content: url(../images/icons/white/csat-check-out-wh.svg);}
+.csat-denied-fill-wh-sm, .csat-denied-fill-wh-md, .csat-denied-fill-wh-lg {content: url(../images/icons/white/csat-denied-fill-wh.svg);}
+.csat-denied-out-wh-sm, .csat-denied-out-wh-md, .csat-denied-out-wh-lg {content: url(../images/icons/white/csat-denied-out-wh.svg);}
+.csat-directionright-fill-wh-sm, .csat-directionright-fill-wh-md, .csat-directionright-fill-wh-lg {content: url(../images/icons/white/csat-directionright-fill-wh.svg);}
+.csat-directionright-out-wh-sm, .csat-directionright-out-wh-md, .csat-directionright-out-wh-lg {content: url(../images/icons/white/csat-directionright-out-wh.svg);}
+.csat-download-fill-wh-sm, .csat-download-fill-wh-md, .csat-download-fill-wh-lg {content: url(../images/icons/white/csat-download-fill-wh.svg);}
+.csat-download-out-wh-sm, .csat-download-out-wh-md, .csat-download-out-wh-lg {content: url(../images/icons/white/csat-download-out-wh.svg);}
+.csat-edit-fill-wh-sm, .csat-edit-fill-wh-md, .csat-edit-fill-wh-lg {content: url(../images/icons/white/csat-edit-fill-wh.svg);}
+.csat-edit-out-wh-sm, .csat-edit-out-wh-md, .csat-edit-out-wh-lg {content: url(../images/icons/white/csat-edit-out-wh.svg);}
+.csat-envelope-fill-wh-sm, .csat-envelope-fill-wh-md, .csat-envelope-fill-wh-lg {content: url(../images/icons/white/csat-envelope-fill-wh.svg);}
+.csat-envelopeopen-fill-wh-sm, .csat-envelopeopen-fill-wh-md, .csat-envelopeopen-fill-wh-lg {content: url(../images/icons/white/csat-envelopeopen-fill-wh.svg);}
+.csat-envelopeopen-out-wh-sm, .csat-envelopeopen-out-wh-md, .csat-envelopeopen-out-wh-lg {content: url(../images/icons/white/csat-envelopeopen-out-wh.svg);}
+.csat-envelope-out-wh-sm, .csat-envelope-out-wh-md, .csat-envelope-out-wh-lg {content: url(../images/icons/white/csat-envelope-out-wh.svg);}
+.csat-exit-fill-wh-sm, .csat-exit-fill-wh-md, .csat-exit-fill-wh-lg {content: url(../images/icons/white/csat-exit-fill-wh.svg);}
+.csat-exit-out-wh-sm, .csat-exit-out-wh-md, .csat-exit-out-wh-lg {content: url(../images/icons/white/csat-exit-out-wh.svg);}
+.csat-externallink-fill-wh-sm, .csat-externallink-fill-wh-md, .csat-externallink-fill-wh-lg {content: url(../images/icons/white/csat-externallink-fill-wh.svg);}
+.csat-externallink-out-wh-sm, .csat-externallink-out-wh-md, .csat-externallink-out-wh-lg {content: url(../images/icons/white/csat-externallink-out-wh.svg);}
+.csat-eyeclose-fill-wh-sm, .csat-eyeclose-fill-wh-md, .csat-eyeclose-fill-wh-lg {content: url(../images/icons/white/csat-eyeclose-fill-wh.svg);}
+.csat-eyeclose-out-wh-sm, .csat-eyeclose-out-wh-md, .csat-eyeclose-out-wh-lg {content: url(../images/icons/white/csat-eyeclose-out-wh.svg);}
+.csat-eyeopen-fill-wh-sm, .csat-eyeopen-fill-wh-md, .csat-eyeopen-fill-wh-lg {content: url(../images/icons/white/csat-eyeopen-fill-wh.svg);}
+.csat-eyeopen-out-wh-sm, .csat-eyeopen-out-wh-md, .csat-eyeopen-out-wh-lg {content: url(../images/icons/white/csat-eyeopen-out-wh.svg);}
+.csat-female-fill-wh-sm, .csat-female-fill-wh-md, .csat-female-fill-wh-lg {content: url(../images/icons/white/csat-female-fill-wh.svg);}
+.csat-female-out-wh-sm, .csat-female-out-wh-md, .csat-female-out-wh-lg {content: url(../images/icons/white/csat-female-out-wh.svg);}
+.csat-femalesymb-out-wh-sm, .csat-femalesymb-out-wh-md, .csat-femalesymb-out-wh-lg {content: url(../images/icons/white/csat-femalesymb-out-wh.svg);}
+.csat-fileadd-fill-wh-sm, .csat-fileadd-fill-wh-md, .csat-fileadd-fill-wh-lg {content: url(../images/icons/white/csat-fileadd-fill-wh.svg);}
+.csat-fileadd-out-wh-sm, .csat-fileadd-out-wh-md, .csat-fileadd-out-wh-lg {content: url(../images/icons/white/csat-fileadd-out-wh.svg);}
+.csat-fileedit-fill-wh-sm, .csat-fileedit-fill-wh-md, .csat-fileedit-fill-wh-lg {content: url(../images/icons/white/csat-fileedit-fill-wh.svg);}
+.csat-fileedit-out-wh-sm, .csat-fileedit-out-wh-md, .csat-fileedit-out-wh-lg {content: url(../images/icons/white/csat-fileedit-out-wh.svg);}
+.csat-file-fill-wh-sm, .csat-file-fill-wh-md, .csat-file-fill-wh-lg {content: url(../images/icons/white/csat-file-fill-wh.svg);}
+.csat-file-out-wh-sm, .csat-file-out-wh-md, .csat-file-out-wh-lg {content: url(../images/icons/white/csat-file-out-wh.svg);}
+.csat-folderadd-fill-wh-sm, .csat-folderadd-fill-wh-md, .csat-folderadd-fill-wh-lg {content: url(../images/icons/white/csat-folderadd-fill-wh.svg);}
+.csat-folderadd-out-wh-sm, .csat-folderadd-out-wh-md, .csat-folderadd-out-wh-lg {content: url(../images/icons/white/csat-folderadd-out-wh.svg);}
+.csat-folderedit-fill-wh-sm, .csat-folderedit-fill-wh-md, .csat-folderedit-fill-wh-lg {content: url(../images/icons/white/csat-folderedit-fill-wh.svg);}
+.csat-folderedit-out-wh-sm, .csat-folderedit-out-wh-md, .csat-folderedit-out-wh-lg {content: url(../images/icons/white/csat-folderedit-out-wh.svg);}
+.csat-folder-fill-wh-sm, .csat-folder-fill-wh-md, .csat-folder-fill-wh-lg {content: url(../images/icons/white/csat-folder-fill-wh.svg);}
+.csat-folder-out-wh-sm, .csat-folder-out-wh-md, .csat-folder-out-wh-lg {content: url(../images/icons/white/csat-folder-out-wh.svg);}
+.csat-gallery-fill-wh-sm, .csat-gallery-fill-wh-md, .csat-gallery-fill-wh-lg {content: url(../images/icons/white/csat-gallery-fill-wh.svg);}
+.csat-gallery-out-wh-sm, .csat-gallery-out-wh-md, .csat-gallery-out-wh-lg {content: url(../images/icons/white/csat-gallery-out-wh.svg);}
+.csat-gear-fill-wh-sm, .csat-gear-fill-wh-md, .csat-gear-fill-wh-lg {content: url(../images/icons/white/csat-gear-fill-wh.svg);}
+.csat-gear-out-wh-sm, .csat-gear-out-wh-md, .csat-gear-out-wh-lg {content: url(../images/icons/white/csat-gear-out-wh.svg);}
+.csat-globe-fill-wh-sm, .csat-globe-fill-wh-md, .csat-globe-fill-wh-lg {content: url(../images/icons/white/csat-globe-fill-wh.svg);}
+.csat-globe-out-wh-sm, .csat-globe-out-wh-md, .csat-globe-out-wh-lg {content: url(../images/icons/white/csat-globe-out-wh.svg);}
+.csat-grouplg-fill-wh-sm, .csat-grouplg-fill-wh-md, .csat-grouplg-fill-wh-lg {content: url(../images/icons/white/csat-grouplg-fill-wh.svg);}
+.csat-grouplg-out-wh-sm, .csat-grouplg-out-wh-md, .csat-grouplg-out-wh-lg {content: url(../images/icons/white/csat-grouplg-out-wh.svg);}
+.csat-groupmd-fill-wh-sm, .csat-groupmd-fill-wh-md, .csat-groupmd-fill-wh-lg {content: url(../images/icons/white/csat-groupmd-fill-wh.svg);}
+.csat-groupmd-out-wh-sm, .csat-groupmd-out-wh-md, .csat-groupmd-out-wh-lg {content: url(../images/icons/white/csat-groupmd-out-wh.svg);}
+.csat-groupsm-fill-wh-sm, .csat-groupsm-fill-wh-md, .csat-groupsm-fill-wh-lg {content: url(../images/icons/white/csat-groupsm-fill-wh.svg);}
+.csat-groupsm-out-wh-sm, .csat-groupsm-out-wh-md, .csat-groupsm-out-wh-lg {content: url(../images/icons/white/csat-groupsm-out-wh.svg);}
+.csat-heart-fill-wh-sm, .csat-heart-fill-wh-md, .csat-heart-fill-wh-lg {content: url(../images/icons/white/csat-heart-fill-wh.svg);}
+.csat-heart-out-wh-sm, .csat-heart-out-wh-md, .csat-heart-out-wh-lg {content: url(../images/icons/white/csat-heart-out-wh.svg);}
+.csat-home-fill-wh-sm, .csat-home-fill-wh-md, .csat-home-fill-wh-lg {content: url(../images/icons/white/csat-home-fill-wh.svg);}
+.csat-home-out-wh-sm, .csat-home-out-wh-md, .csat-home-out-wh-lg {content: url(../images/icons/white/csat-home-out-wh.svg);}
+.csat-image-fill-wh-sm, .csat-image-fill-wh-md, .csat-image-fill-wh-lg {content: url(../images/icons/white/csat-image-fill-wh.svg);}
+.csat-image-out-wh-sm, .csat-image-out-wh-md, .csat-image-out-wh-lg {content: url(../images/icons/white/csat-image-out-wh.svg);}
+.csat-key-fill-wh-sm, .csat-key-fill-wh-md, .csat-key-fill-wh-lg {content: url(../images/icons/white/csat-key-fill-wh.svg);}
+.csat-key-out-wh-sm, .csat-key-out-wh-md, .csat-key-out-wh-lg {content: url(../images/icons/white/csat-key-out-wh.svg);}
+.csat-linkdiag-fill-wh-sm, .csat-linkdiag-fill-wh-md, .csat-linkdiag-fill-wh-lg {content: url(../images/icons/white/csat-linkdiag-fill-wh.svg);}
+.csat-linkdiag-out-wh-sm, .csat-linkdiag-out-wh-md, .csat-linkdiag-out-wh-lg {content: url(../images/icons/white/csat-linkdiag-out-wh.svg);}
+.csat-link-fill-wh-sm, .csat-link-fill-wh-md, .csat-link-fill-wh-lg {content: url(../images/icons/white/csat-link-fill-wh.svg);}
+.csat-link-out-wh-sm, .csat-link-out-wh-md, .csat-link-out-wh-lg {content: url(../images/icons/white/csat-link-out-wh.svg);}
+.csat-location-fill-wh-sm, .csat-location-fill-wh-md, .csat-location-fill-wh-lg {content: url(../images/icons/white/csat-location-fill-wh.svg);}
+.csat-location-out-wh-sm, .csat-location-out-wh-md, .csat-location-out-wh-lg {content: url(../images/icons/white/csat-location-out-wh.svg);}
+.csat-magnif-fill-wh-sm, .csat-magnif-fill-wh-md, .csat-magnif-fill-wh-lg {content: url(../images/icons/white/csat-magnif-fill-wh.svg);}
+.csat-magnif-out-wh-sm, .csat-magnif-out-wh-md, .csat-magnif-out-wh-lg {content: url(../images/icons/white/csat-magnif-out-wh.svg);}
+.csat-male-fill-wh-sm, .csat-male-fill-wh-md, .csat-male-fill-wh-lg {content: url(../images/icons/white/csat-male-fill-wh.svg);}
+.csat-male-out-wh-sm, .csat-male-out-wh-md, .csat-male-out-wh-lg {content: url(../images/icons/white/csat-male-out-wh.svg);}
+.csat-malesymb-out-wh-sm, .csat-malesymb-out-wh-md, .csat-malesymb-out-wh-lg {content: url(../images/icons/white/csat-malesymb-out-wh.svg);}
+.csat-map-fill-wh-sm, .csat-map-fill-wh-md, .csat-map-fill-wh-lg {content: url(../images/icons/white/csat-map-fill-wh.svg);}
+.csat-map-out-wh-sm, .csat-map-out-wh-md, .csat-map-out-wh-lg {content: url(../images/icons/white/csat-map-out-wh.svg);}
+.csat-minus-fill-wh-sm, .csat-minus-fill-wh-md, .csat-minus-fill-wh-lg {content: url(../images/icons/white/csat-minus-fill-wh.svg);}
+.csat-minus-out-wh-sm, .csat-minus-out-wh-md, .csat-minus-out-wh-lg {content: url(../images/icons/white/csat-minus-out-wh.svg);}
+.csat-mobile-fill-wh-sm, .csat-mobile-fill-wh-md, .csat-mobile-fill-wh-lg {content: url(../images/icons/white/csat-mobile-fill-wh.svg);}
+.csat-mobile-out-wh-sm, .csat-mobile-out-wh-md, .csat-mobile-out-wh-lg {content: url(../images/icons/white/csat-mobile-out-wh.svg);}
+.csat-news-fill-wh-sm, .csat-news-fill-wh-md, .csat-news-fill-wh-lg {content: url(../images/icons/white/csat-news-fill-wh.svg);}
+.csat-news-out-wh-sm, .csat-news-out-wh-md, .csat-news-out-wh-lg {content: url(../images/icons/white/csat-news-out-wh.svg);}
+.csat-phone-fill-wh-sm, .csat-phone-fill-wh-md, .csat-phone-fill-wh-lg {content: url(../images/icons/white/csat-phone-fill-wh.svg);}
+.csat-phone-out-wh-sm, .csat-phone-out-wh-md, .csat-phone-out-wh-lg {content: url(../images/icons/white/csat-phone-out-wh.svg);}
+.csat-plus-fill-wh-sm, .csat-plus-fill-wh-md, .csat-plus-fill-wh-lg {content: url(../images/icons/white/csat-plus-fill-wh.svg);}
+.csat-plus-out-wh-sm, .csat-plus-out-wh-md, .csat-plus-out-wh-lg {content: url(../images/icons/white/csat-plus-out-wh.svg);}
+.csat-print-fill-wh-sm, .csat-print-fill-wh-md, .csat-print-fill-wh-lg {content: url(../images/icons/white/csat-print-fill-wh.svg);}
+.csat-print-out-wh-sm, .csat-print-out-wh-md, .csat-print-out-wh-lg {content: url(../images/icons/white/csat-print-out-wh.svg);}
+.csat-refresh-fill-wh-sm, .csat-refresh-fill-wh-md, .csat-refresh-fill-wh-lg {content: url(../images/icons/white/csat-refresh-fill-wh.svg);}
+.csat-refresh-out-wh-sm, .csat-refresh-out-wh-md, .csat-refresh-out-wh-lg {content: url(../images/icons/white/csat-refresh-out-wh.svg);}
+.csat-report-fill-wh-sm, .csat-report-fill-wh-md, .csat-report-fill-wh-lg {content: url(../images/icons/white/csat-report-fill-wh.svg);}
+.csat-report-out-wh-sm, .csat-report-out-wh-md, .csat-report-out-wh-lg {content: url(../images/icons/white/csat-report-out-wh.svg);}
+.csat-save-fill-wh-sm, .csat-save-fill-wh-md, .csat-save-fill-wh-lg {content: url(../images/icons/white/csat-save-fill-wh.svg);}
+.csat-save-out-wh-sm, .csat-save-out-wh-md, .csat-save-out-wh-lg {content: url(../images/icons/white/csat-save-out-wh.svg);}
+.csat-share-fill-wh-sm, .csat-share-fill-wh-md, .csat-share-fill-wh-lg {content: url(../images/icons/white/csat-share-fill-wh.svg);}
+.csat-share-out-wh-sm, .csat-share-out-wh-md, .csat-share-out-wh-lg {content: url(../images/icons/white/csat-share-out-wh.svg);}
+.csat-upload-fill-wh-sm, .csat-upload-fill-wh-md, .csat-upload-fill-wh-lg {content: url(../images/icons/white/csat-upload-fill-wh.svg);}
+.csat-upload-out-wh-sm, .csat-upload-out-wh-md, .csat-upload-out-wh-lg {content: url(../images/icons/white/csat-upload-out-wh.svg);}
+.csat-user-fill-wh-sm, .csat-user-fill-wh-md, .csat-user-fill-wh-lg {content: url(../images/icons/white/csat-user-fill-wh.svg);}
+.csat-user-out-wh-sm, .csat-user-out-wh-md, .csat-user-out-wh-lg {content: url(../images/icons/white/csat-user-out-wh.svg);}
+.csat-useradd-fill-wh-sm, .csat-useradd-fill-wh-md, .csat-useradd-fill-wh-lg {content: url(../images/icons/white/csat-useradd-fill-wh.svg);}
+.csat-useradd-out-wh-sm, .csat-useradd-out-wh-md, .csat-useradd-out-wh-lg {content: url(../images/icons/white/csat-useradd-out-wh.svg);}
+.csat-useredit-fill-wh-sm, .csat-useredit-fill-wh-md, .csat-useredit-fill-wh-lg {content: url(../images/icons/white/csat-useredit-fill-wh.svg);}
+.csat-useredit-out-wh-sm, .csat-useredit-out-wh-md, .csat-useredit-out-wh-lg {content: url(../images/icons/white/csat-useredit-out-wh.svg);}
+.csat-wallet-fill-wh-sm, .csat-wallet-fill-wh-md, .csat-wallet-fill-wh-lg {content: url(../images/icons/white/csat-wallet-fill-wh.svg);}
+.csat-wallet-out-wh-sm, .csat-wallet-out-wh-md, .csat-wallet-out-wh-lg {content: url(../images/icons/white/csat-wallet-out-wh.svg);}
+.csat-x-fill-wh-sm, .csat-x-fill-wh-md, .csat-x-fill-wh-lg {content: url(../images/icons/white/csat-x-fill-wh.svg);}
+.csat-x-out-wh-sm, .csat-x-out-wh-md, .csat-x-out-wh-lg {content: url(../images/icons/white/csat-x-out-wh.svg);}
+.csat-zoomin-fill-wh-sm, .csat-zoomin-fill-wh-md, .csat-zoomin-fill-wh-lg {content: url(../images/icons/white/csat-zoomin-fill-wh.svg);}
+.csat-zoomin-out-wh-sm, .csat-zoomin-out-wh-md, .csat-zoomin-out-wh-lg {content: url(../images/icons/white/csat-zoomin-out-wh.svg);}
+.csat-zoomout-wh-fill-wh-sm, .csat-zoomout-wh-fill-wh-md, .csat-zoomout-wh-fill-wh-lg {content: url(../images/icons/white/csat-zoomout-wh-fill-wh.svg);}
+.csat-zoomout-wh-out-wh-sm, .csat-zoomout-wh-out-wh-md, .csat-zoomout-wh-out-wh-lg {content: url(../images/icons/white/csat-zoomout-wh-out-wh.svg);}
 
 /* small size */
-.adduser-fill-sm:before, .adduser-out-sm:before, .arrow-fill-sm:before, .arrow-out-sm:before, .exit-fill-sm:before, .exit-fill-w-sm:before, .exit-out-sm:before, .exit-out-w-sm:before, .f-fill-sm:before, .f-fill-w-sm:before, .f-out-sm:before, .f-out-w-sm:before, .g-fill-sm:before, .g-fill-w-sm:before, .g-out-sm:before, .g-out-w-sm:before, .gear-fill-sm:before, .gear-fill-w-sm:before, .gear-out-sm:before, .gear-out-w-sm:before, .key-fill-sm:before, .key-out-sm:before, .magnifier-fill-sm:before, .magnifier-out-sm:before, .upload-fill-sm, .upload-out-sm, .user-fill-sm, .user-fill-w-sm, .user-out-sm, .user-out-w-sm, .x-fill-sm, .x-out-sm {
+.csat-add-fill-sm, .csat-add-out-sm, .csat-arrowdown-fill-sm, .csat-arrowdown-out-sm, .csat-arrowleftdown-fill-sm, .csat-arrowleftdown-out-sm, .csat-arrowleft-fill-sm, .csat-arrowleft-out-sm, .csat-arrowleftup-fill-sm, .csat-arrowleftup-out-sm, .csat-arrowrightdown-fill-sm, .csat-arrowrightdown-out-sm, .csat-arrowright-fill-sm, .csat-arrowright-out-sm, .csat-arrowrightup-fill-sm, .csat-arrowrightup-out-sm, .csat-arrowup-fill-sm, .csat-arrowup-out-sm, .csat-bell-fill-sm, .csat-bell-out-sm, .csat-binclosed-fill-sm, .csat-binclosed-out-sm, .csat-binopened-fill-sm, .csat-binopened-out-sm, .csat-calc-fill-sm, .csat-calc-out-sm, .csat-calendar-fill-sm, .csat-calendar-out-sm, .csat-check-fill-sm, .csat-check-out-sm, .csat-denied-fill-sm, .csat-denied-out-sm, .csat-directionright-fill-sm, .csat-directionright-out-sm, .csat-download-fill-sm, .csat-download-out-sm, .csat-edit-fill-sm, .csat-edit-out-sm, .csat-envelope-fill-sm, .csat-envelopeopen-fill-sm, .csat-envelopeopen-out-sm, .csat-envelope-out-sm, .csat-exit-fill-sm, .csat-exit-out-sm, .csat-externallink-fill-sm, .csat-externallink-out-sm, .csat-eyeclose-fill-sm, .csat-eyeclose-out-sm, .csat-eyeopen-fill-sm, .csat-eyeopen-out-sm, .csat-female-fill-sm, .csat-female-out-sm, .csat-femalesymb-out-sm, .csat-fileadd-fill-sm, .csat-fileadd-out-sm, .csat-fileedit-fill-sm, .csat-fileedit-out-sm, .csat-file-fill-sm, .csat-file-out-sm, .csat-folderadd-fill-sm, .csat-folderadd-out-sm, .csat-folderedit-fill-sm, .csat-folderedit-out-sm, .csat-folder-fill-sm, .csat-folder-out-sm, .csat-gallery-fill-sm, .csat-gallery-out-sm, .csat-gear-fill-sm, .csat-gear-out-sm, .csat-globe-fill-sm, .csat-globe-out-sm, .csat-grouplg-fill-sm, .csat-grouplg-out-sm, .csat-groupmd-fill-sm, .csat-groupmd-out-sm, .csat-groupsm-fill-sm, .csat-groupsm-out-sm, .csat-heart-fill-sm, .csat-heart-out-sm, .csat-home-fill-sm, .csat-home-out-sm, .csat-image-fill-sm, .csat-image-out-sm, .csat-key-fill-sm, .csat-key-out-sm, .csat-linkdiag-fill-sm, .csat-linkdiag-out-sm, .csat-link-fill-sm, .csat-link-out-sm, .csat-location-fill-sm, .csat-location-out-sm, .csat-magnif-fill-sm, .csat-magnif-out-sm, .csat-male-fill-sm, .csat-male-out-sm, .csat-malesymb-out-sm, .csat-map-fill-sm, .csat-map-out-sm, .csat-minus-fill-sm, .csat-minus-out-sm, .csat-mobile-fill-sm, .csat-mobile-out-sm, .csat-news-fill-sm, .csat-news-out-sm, .csat-phone-fill-sm, .csat-phone-out-sm, .csat-plus-fill-sm, .csat-plus-out-sm, .csat-print-fill-sm, .csat-print-out-sm, .csat-refresh-fill-sm, .csat-refresh-out-sm, .csat-report-fill-sm, .csat-report-out-sm, .csat-save-fill-sm, .csat-save-out-sm, .csat-share-fill-sm, .csat-share-out-sm, .csat-socfacebookf-sm, .csat-socgoogleg-sm, .csat-socinstagramsq-sm, .csat-socwhatsappsq-sm, .csat-upload-fill-sm, .csat-upload-out-sm, .csat-user-fill-sm, .csat-user-out-sm, .csat-useradd-fill-sm, .csat-useradd-out-sm, .csat-useredit-fill-sm, .csat-useredit-out-sm, .csat-wallet-fill-sm, .csat-wallet-out-sm, .csat-x-fill-sm, .csat-x-out-sm, .csat-zoomin-fill-sm, .csat-zoomin-out-sm, .csat-zoomout-fill-sm, .csat-zoomout-out-sm, .csat-add-fill-wh-sm, .csat-add-out-wh-sm, .csat-arrowdown-fill-wh-sm, .csat-arrowdown-out-wh-sm, .csat-arrowleftdown-fill-wh-sm, .csat-arrowleftdown-out-wh-sm, .csat-arrowleft-fill-wh-sm, .csat-arrowleft-out-wh-sm, .csat-arrowleftup-fill-wh-sm, .csat-arrowleftup-out-wh-sm, .csat-arrowrightdown-fill-wh-sm, .csat-arrowrightdown-out-wh-sm, .csat-arrowright-fill-wh-sm, .csat-arrowright-out-wh-sm, .csat-arrowrightup-fill-wh-sm, .csat-arrowrightup-out-wh-sm, .csat-arrowup-fill-wh-sm, .csat-arrowup-out-wh-sm, .csat-bell-fill-wh-sm, .csat-bell-out-wh-sm, .csat-binclosed-fill-wh-sm, .csat-binclosed-out-wh-sm, .csat-binopened-fill-wh-sm, .csat-binopened-out-wh-sm, .csat-calc-fill-wh-sm, .csat-calc-out-wh-sm, .csat-calendar-fill-wh-sm, .csat-calendar-out-wh-sm, .csat-check-fill-wh-sm, .csat-check-out-wh-sm, .csat-denied-fill-wh-sm, .csat-denied-out-wh-sm, .csat-directionright-fill-wh-sm, .csat-directionright-out-wh-sm, .csat-download-fill-wh-sm, .csat-download-out-wh-sm, .csat-edit-fill-wh-sm, .csat-edit-out-wh-sm, .csat-envelope-fill-wh-sm, .csat-envelopeopen-fill-wh-sm, .csat-envelopeopen-out-wh-sm, .csat-envelope-out-wh-sm, .csat-exit-fill-wh-sm, .csat-exit-out-wh-sm, .csat-externallink-fill-wh-sm, .csat-externallink-out-wh-sm, .csat-eyeclose-fill-wh-sm, .csat-eyeclose-out-wh-sm, .csat-eyeopen-fill-wh-sm, .csat-eyeopen-out-wh-sm, .csat-female-fill-wh-sm, .csat-female-out-wh-sm, .csat-femalesymb-out-wh-sm, .csat-fileadd-fill-wh-sm, .csat-fileadd-out-wh-sm, .csat-fileedit-fill-wh-sm, .csat-fileedit-out-wh-sm, .csat-file-fill-wh-sm, .csat-file-out-wh-sm, .csat-folderadd-fill-wh-sm, .csat-folderadd-out-wh-sm, .csat-folderedit-fill-wh-sm, .csat-folderedit-out-wh-sm, .csat-folder-fill-wh-sm, .csat-folder-out-wh-sm, .csat-gallery-fill-wh-sm, .csat-gallery-out-wh-sm, .csat-gear-fill-wh-sm, .csat-gear-out-wh-sm, .csat-globe-fill-wh-sm, .csat-globe-out-wh-sm, .csat-grouplg-fill-wh-sm, .csat-grouplg-out-wh-sm, .csat-groupmd-fill-wh-sm, .csat-groupmd-out-wh-sm, .csat-groupsm-fill-wh-sm, .csat-groupsm-out-wh-sm, .csat-heart-fill-wh-sm, .csat-heart-out-wh-sm, .csat-home-fill-wh-sm, .csat-home-out-wh-sm, .csat-image-fill-wh-sm, .csat-image-out-wh-sm, .csat-key-fill-wh-sm, .csat-key-out-wh-sm, .csat-linkdiag-fill-wh-sm, .csat-linkdiag-out-wh-sm, .csat-link-fill-wh-sm, .csat-link-out-wh-sm, .csat-location-fill-wh-sm, .csat-location-out-wh-sm, .csat-magnif-fill-wh-sm, .csat-magnif-out-wh-sm, .csat-male-fill-wh-sm, .csat-male-out-wh-sm, .csat-malesymb-out-wh-sm, .csat-map-fill-wh-sm, .csat-map-out-wh-sm, .csat-minus-fill-wh-sm, .csat-minus-out-wh-sm, .csat-mobile-fill-wh-sm, .csat-mobile-out-wh-sm, .csat-news-fill-wh-sm, .csat-news-out-wh-sm, .csat-phone-fill-wh-sm, .csat-phone-out-wh-sm, .csat-plus-fill-wh-sm, .csat-plus-out-wh-sm, .csat-print-fill-wh-sm, .csat-print-out-wh-sm, .csat-refresh-fill-wh-sm, .csat-refresh-out-wh-sm, .csat-report-fill-wh-sm, .csat-report-out-wh-sm, .csat-save-fill-wh-sm, .csat-save-out-wh-sm, .csat-share-fill-wh-sm, .csat-share-out-wh-sm, .csat-upload-fill-wh-sm, .csat-upload-out-wh-sm, .csat-user-fill-wh-sm, .csat-user-out-wh-sm, .csat-useradd-fill-wh-sm, .csat-useradd-out-wh-sm, .csat-useredit-fill-wh-sm, .csat-useredit-out-wh-sm, .csat-wallet-fill-wh-sm, .csat-wallet-out-wh-sm, .csat-x-fill-wh-sm, .csat-x-out-wh-sm, .csat-zoomin-fill-wh-sm, .csat-zoomin-out-wh-sm, .csat-zoomout-wh-fill-wh-sm, .csat-zoomout-wh-out-wh-sm {
     display: inline-block;
     height: 20px;
     width: 20px;
@@ -689,7 +935,7 @@ a.btn-warning:link, a.btn-warning:visited, a.btn-warning:active {
 }
 
 /* medium size */
-.adduser-fill-md:before, .adduser-out-md:before, .arrow-fill-md:before, .arrow-out-md:before, .exit-fill-md:before, .exit-fill-w-md:before, .exit-out-md:before, .exit-out-w-md:before, .f-fill-md:before, .f-fill-w-md:before, .f-out-md:before, .f-out-w-md:before, .g-fill-md:before, .g-fill-w-md:before, .g-out-md:before, .g-out-w-md:before, .gear-fill-md:before, .gear-fill-w-md:before, .gear-out-md:before, .gear-out-w-md:before, .key-fill-md:before, .key-out-md:before, .magnifier-fill-md:before, .magnifier-out-md:before, .upload-fill-md, .upload-out-md, .user-fill-md, .user-fill-w-md, .user-out-md, .user-out-w-md, .x-fill-md, .x-out-md {
+.csat-add-fill-md, .csat-add-out-md, .csat-arrowdown-fill-md, .csat-arrowdown-out-md, .csat-arrowleftdown-fill-md, .csat-arrowleftdown-out-md, .csat-arrowleft-fill-md, .csat-arrowleft-out-md, .csat-arrowleftup-fill-md, .csat-arrowleftup-out-md, .csat-arrowrightdown-fill-md, .csat-arrowrightdown-out-md, .csat-arrowright-fill-md, .csat-arrowright-out-md, .csat-arrowrightup-fill-md, .csat-arrowrightup-out-md, .csat-arrowup-fill-md, .csat-arrowup-out-md, .csat-bell-fill-md, .csat-bell-out-md, .csat-binclosed-fill-md, .csat-binclosed-out-md, .csat-binopened-fill-md, .csat-binopened-out-md, .csat-calc-fill-md, .csat-calc-out-md, .csat-calendar-fill-md, .csat-calendar-out-md, .csat-check-fill-md, .csat-check-out-md, .csat-denied-fill-md, .csat-denied-out-md, .csat-directionright-fill-md, .csat-directionright-out-md, .csat-download-fill-md, .csat-download-out-md, .csat-edit-fill-md, .csat-edit-out-md, .csat-envelope-fill-md, .csat-envelopeopen-fill-md, .csat-envelopeopen-out-md, .csat-envelope-out-md, .csat-exit-fill-md, .csat-exit-out-md, .csat-externallink-fill-md, .csat-externallink-out-md, .csat-eyeclose-fill-md, .csat-eyeclose-out-md, .csat-eyeopen-fill-md, .csat-eyeopen-out-md, .csat-female-fill-md, .csat-female-out-md, .csat-femalesymb-out-md, .csat-fileadd-fill-md, .csat-fileadd-out-md, .csat-fileedit-fill-md, .csat-fileedit-out-md, .csat-file-fill-md, .csat-file-out-md, .csat-folderadd-fill-md, .csat-folderadd-out-md, .csat-folderedit-fill-md, .csat-folderedit-out-md, .csat-folder-fill-md, .csat-folder-out-md, .csat-gallery-fill-md, .csat-gallery-out-md, .csat-gear-fill-md, .csat-gear-out-md, .csat-globe-fill-md, .csat-globe-out-md, .csat-grouplg-fill-md, .csat-grouplg-out-md, .csat-groupmd-fill-md, .csat-groupmd-out-md, .csat-groupsm-fill-md, .csat-groupsm-out-md, .csat-heart-fill-md, .csat-heart-out-md, .csat-home-fill-md, .csat-home-out-md, .csat-image-fill-md, .csat-image-out-md, .csat-key-fill-md, .csat-key-out-md, .csat-linkdiag-fill-md, .csat-linkdiag-out-md, .csat-link-fill-md, .csat-link-out-md, .csat-location-fill-md, .csat-location-out-md, .csat-magnif-fill-md, .csat-magnif-out-md, .csat-male-fill-md, .csat-male-out-md, .csat-malesymb-out-md, .csat-map-fill-md, .csat-map-out-md, .csat-minus-fill-md, .csat-minus-out-md, .csat-mobile-fill-md, .csat-mobile-out-md, .csat-news-fill-md, .csat-news-out-md, .csat-phone-fill-md, .csat-phone-out-md, .csat-plus-fill-md, .csat-plus-out-md, .csat-print-fill-md, .csat-print-out-md, .csat-refresh-fill-md, .csat-refresh-out-md, .csat-report-fill-md, .csat-report-out-md, .csat-save-fill-md, .csat-save-out-md, .csat-share-fill-md, .csat-share-out-md, .csat-socfacebookf-md, .csat-socgoogleg-md, .csat-socinstagramsq-md, .csat-socwhatsappsq-md, .csat-upload-fill-md, .csat-upload-out-md, .csat-user-fill-md, .csat-user-out-md, .csat-useradd-fill-md, .csat-useradd-out-md, .csat-useredit-fill-md, .csat-useredit-out-md, .csat-wallet-fill-md, .csat-wallet-out-md, .csat-x-fill-md, .csat-x-out-md, .csat-zoomin-fill-md, .csat-zoomin-out-md, .csat-zoomout-fill-md, .csat-zoomout-out-md, .csat-add-fill-wh-md, .csat-add-out-wh-md, .csat-arrowdown-fill-wh-md, .csat-arrowdown-out-wh-md, .csat-arrowleftdown-fill-wh-md, .csat-arrowleftdown-out-wh-md, .csat-arrowleft-fill-wh-md, .csat-arrowleft-out-wh-md, .csat-arrowleftup-fill-wh-md, .csat-arrowleftup-out-wh-md, .csat-arrowrightdown-fill-wh-md, .csat-arrowrightdown-out-wh-md, .csat-arrowright-fill-wh-md, .csat-arrowright-out-wh-md, .csat-arrowrightup-fill-wh-md, .csat-arrowrightup-out-wh-md, .csat-arrowup-fill-wh-md, .csat-arrowup-out-wh-md, .csat-bell-fill-wh-md, .csat-bell-out-wh-md, .csat-binclosed-fill-wh-md, .csat-binclosed-out-wh-md, .csat-binopened-fill-wh-md, .csat-binopened-out-wh-md, .csat-calc-fill-wh-md, .csat-calc-out-wh-md, .csat-calendar-fill-wh-md, .csat-calendar-out-wh-md, .csat-check-fill-wh-md, .csat-check-out-wh-md, .csat-denied-fill-wh-md, .csat-denied-out-wh-md, .csat-directionright-fill-wh-md, .csat-directionright-out-wh-md, .csat-download-fill-wh-md, .csat-download-out-wh-md, .csat-edit-fill-wh-md, .csat-edit-out-wh-md, .csat-envelope-fill-wh-md, .csat-envelopeopen-fill-wh-md, .csat-envelopeopen-out-wh-md, .csat-envelope-out-wh-md, .csat-exit-fill-wh-md, .csat-exit-out-wh-md, .csat-externallink-fill-wh-md, .csat-externallink-out-wh-md, .csat-eyeclose-fill-wh-md, .csat-eyeclose-out-wh-md, .csat-eyeopen-fill-wh-md, .csat-eyeopen-out-wh-md, .csat-female-fill-wh-md, .csat-female-out-wh-md, .csat-femalesymb-out-wh-md, .csat-fileadd-fill-wh-md, .csat-fileadd-out-wh-md, .csat-fileedit-fill-wh-md, .csat-fileedit-out-wh-md, .csat-file-fill-wh-md, .csat-file-out-wh-md, .csat-folderadd-fill-wh-md, .csat-folderadd-out-wh-md, .csat-folderedit-fill-wh-md, .csat-folderedit-out-wh-md, .csat-folder-fill-wh-md, .csat-folder-out-wh-md, .csat-gallery-fill-wh-md, .csat-gallery-out-wh-md, .csat-gear-fill-wh-md, .csat-gear-out-wh-md, .csat-globe-fill-wh-md, .csat-globe-out-wh-md, .csat-grouplg-fill-wh-md, .csat-grouplg-out-wh-md, .csat-groupmd-fill-wh-md, .csat-groupmd-out-wh-md, .csat-groupsm-fill-wh-md, .csat-groupsm-out-wh-md, .csat-heart-fill-wh-md, .csat-heart-out-wh-md, .csat-home-fill-wh-md, .csat-home-out-wh-md, .csat-image-fill-wh-md, .csat-image-out-wh-md, .csat-key-fill-wh-md, .csat-key-out-wh-md, .csat-linkdiag-fill-wh-md, .csat-linkdiag-out-wh-md, .csat-link-fill-wh-md, .csat-link-out-wh-md, .csat-location-fill-wh-md, .csat-location-out-wh-md, .csat-magnif-fill-wh-md, .csat-magnif-out-wh-md, .csat-male-fill-wh-md, .csat-male-out-wh-md, .csat-malesymb-out-wh-md, .csat-map-fill-wh-md, .csat-map-out-wh-md, .csat-minus-fill-wh-md, .csat-minus-out-wh-md, .csat-mobile-fill-wh-md, .csat-mobile-out-wh-md, .csat-news-fill-wh-md, .csat-news-out-wh-md, .csat-phone-fill-wh-md, .csat-phone-out-wh-md, .csat-plus-fill-wh-md, .csat-plus-out-wh-md, .csat-print-fill-wh-md, .csat-print-out-wh-md, .csat-refresh-fill-wh-md, .csat-refresh-out-wh-md, .csat-report-fill-wh-md, .csat-report-out-wh-md, .csat-save-fill-wh-md, .csat-save-out-wh-md, .csat-share-fill-wh-md, .csat-share-out-wh-md, .csat-upload-fill-wh-md, .csat-upload-out-wh-md, .csat-user-fill-wh-md, .csat-user-out-wh-md, .csat-useradd-fill-wh-md, .csat-useradd-out-wh-md, .csat-useredit-fill-wh-md, .csat-useredit-out-wh-md, .csat-wallet-fill-wh-md, .csat-wallet-out-wh-md, .csat-x-fill-wh-md, .csat-x-out-wh-md, .csat-zoomin-fill-wh-md, .csat-zoomin-out-wh-md, .csat-zoomout-wh-fill-wh-md, .csat-zoomout-wh-out-wh-md {
     display: inline-block;
     height: 30px;
     width: 30px;
@@ -698,10 +944,35 @@ a.btn-warning:link, a.btn-warning:visited, a.btn-warning:active {
 }
 
 /* large size */
-.adduser-fill-lg:before, .adduser-out-lg:before, .arrow-fill-lg:before, .arrow-out-lg:before, .exit-fill-lg:before, .exit-fill-w-lg:before, .exit-out-lg:before, .exit-out-w-lg:before, .f-fill-lg:before, .f-fill-w-lg:before, .f-out-lg:before, .f-out-w-lg:before, .g-fill-lg:before, .g-fill-w-lg:before, .g-out-lg:before, .g-out-w-lg:before, .gear-fill-lg:before, .gear-fill-w-lg:before, .gear-out-lg:before, .gear-out-w-lg:before, .key-fill-lg:before, .key-out-lg:before, .magnifier-fill-lg:before, .magnifier-out-lg:before, .user-fill-lg, .upload-fill-ld, .upload-out-lg, .user-fill-w-lg, .user-out-lg, .user-out-w-lg, .x-fill-lg, .x-out-lg {
+.csat-add-fill-lg, .csat-add-out-lg, .csat-arrowdown-fill-lg, .csat-arrowdown-out-lg, .csat-arrowleftdown-fill-lg, .csat-arrowleftdown-out-lg, .csat-arrowleft-fill-lg, .csat-arrowleft-out-lg, .csat-arrowleftup-fill-lg, .csat-arrowleftup-out-lg, .csat-arrowrightdown-fill-lg, .csat-arrowrightdown-out-lg, .csat-arrowright-fill-lg, .csat-arrowright-out-lg, .csat-arrowrightup-fill-lg, .csat-arrowrightup-out-lg, .csat-arrowup-fill-lg, .csat-arrowup-out-lg, .csat-bell-fill-lg, .csat-bell-out-lg, .csat-binclosed-fill-lg, .csat-binclosed-out-lg, .csat-binopened-fill-lg, .csat-binopened-out-lg, .csat-calc-fill-lg, .csat-calc-out-lg, .csat-calendar-fill-lg, .csat-calendar-out-lg, .csat-check-fill-lg, .csat-check-out-lg, .csat-denied-fill-lg, .csat-denied-out-lg, .csat-directionright-fill-lg, .csat-directionright-out-lg, .csat-download-fill-lg, .csat-download-out-lg, .csat-edit-fill-lg, .csat-edit-out-lg, .csat-envelope-fill-lg, .csat-envelopeopen-fill-lg, .csat-envelopeopen-out-lg, .csat-envelope-out-lg, .csat-exit-fill-lg, .csat-exit-out-lg, .csat-externallink-fill-lg, .csat-externallink-out-lg, .csat-eyeclose-fill-lg, .csat-eyeclose-out-lg, .csat-eyeopen-fill-lg, .csat-eyeopen-out-lg, .csat-female-fill-lg, .csat-female-out-lg, .csat-femalesymb-out-lg, .csat-fileadd-fill-lg, .csat-fileadd-out-lg, .csat-fileedit-fill-lg, .csat-fileedit-out-lg, .csat-file-fill-lg, .csat-file-out-lg, .csat-folderadd-fill-lg, .csat-folderadd-out-lg, .csat-folderedit-fill-lg, .csat-folderedit-out-lg, .csat-folder-fill-lg, .csat-folder-out-lg, .csat-gallery-fill-lg, .csat-gallery-out-lg, .csat-gear-fill-lg, .csat-gear-out-lg, .csat-globe-fill-lg, .csat-globe-out-lg, .csat-grouplg-fill-lg, .csat-grouplg-out-lg, .csat-groupmd-fill-lg, .csat-groupmd-out-lg, .csat-groupsm-fill-lg, .csat-groupsm-out-lg, .csat-heart-fill-lg, .csat-heart-out-lg, .csat-home-fill-lg, .csat-home-out-lg, .csat-image-fill-lg, .csat-image-out-lg, .csat-key-fill-lg, .csat-key-out-lg, .csat-linkdiag-fill-lg, .csat-linkdiag-out-lg, .csat-link-fill-lg, .csat-link-out-lg, .csat-location-fill-lg, .csat-location-out-lg, .csat-magnif-fill-lg, .csat-magnif-out-lg, .csat-male-fill-lg, .csat-male-out-lg, .csat-malesymb-out-lg, .csat-map-fill-lg, .csat-map-out-lg, .csat-minus-fill-lg, .csat-minus-out-lg, .csat-mobile-fill-lg, .csat-mobile-out-lg, .csat-news-fill-lg, .csat-news-out-lg, .csat-phone-fill-lg, .csat-phone-out-lg, .csat-plus-fill-lg, .csat-plus-out-lg, .csat-print-fill-lg, .csat-print-out-lg, .csat-refresh-fill-lg, .csat-refresh-out-lg, .csat-report-fill-lg, .csat-report-out-lg, .csat-save-fill-lg, .csat-save-out-lg, .csat-share-fill-lg, .csat-share-out-lg, .csat-socfacebookf-lg, .csat-socgoogleg-lg, .csat-socinstagramsq-lg, .csat-socwhatsappsq-lg, .csat-upload-fill-lg, .csat-upload-out-lg, .csat-user-fill-lg, .csat-user-out-lg, .csat-useradd-fill-lg, .csat-useradd-out-lg, .csat-useredit-fill-lg, .csat-useredit-out-lg, .csat-wallet-fill-lg, .csat-wallet-out-lg, .csat-x-fill-lg, .csat-x-out-lg, .csat-zoomin-fill-lg, .csat-zoomin-out-lg, .csat-zoomout-fill-lg, .csat-zoomout-out-lg, .csat-add-fill-wh-lg, .csat-add-out-wh-lg, .csat-arrowdown-fill-wh-lg, .csat-arrowdown-out-wh-lg, .csat-arrowleftdown-fill-wh-lg, .csat-arrowleftdown-out-wh-lg, .csat-arrowleft-fill-wh-lg, .csat-arrowleft-out-wh-lg, .csat-arrowleftup-fill-wh-lg, .csat-arrowleftup-out-wh-lg, .csat-arrowrightdown-fill-wh-lg, .csat-arrowrightdown-out-wh-lg, .csat-arrowright-fill-wh-lg, .csat-arrowright-out-wh-lg, .csat-arrowrightup-fill-wh-lg, .csat-arrowrightup-out-wh-lg, .csat-arrowup-fill-wh-lg, .csat-arrowup-out-wh-lg, .csat-bell-fill-wh-lg, .csat-bell-out-wh-lg, .csat-binclosed-fill-wh-lg, .csat-binclosed-out-wh-lg, .csat-binopened-fill-wh-lg, .csat-binopened-out-wh-lg, .csat-calc-fill-wh-lg, .csat-calc-out-wh-lg, .csat-calendar-fill-wh-lg, .csat-calendar-out-wh-lg, .csat-check-fill-wh-lg, .csat-check-out-wh-lg, .csat-denied-fill-wh-lg, .csat-denied-out-wh-lg, .csat-directionright-fill-wh-lg, .csat-directionright-out-wh-lg, .csat-download-fill-wh-lg, .csat-download-out-wh-lg, .csat-edit-fill-wh-lg, .csat-edit-out-wh-lg, .csat-envelope-fill-wh-lg, .csat-envelopeopen-fill-wh-lg, .csat-envelopeopen-out-wh-lg, .csat-envelope-out-wh-lg, .csat-exit-fill-wh-lg, .csat-exit-out-wh-lg, .csat-externallink-fill-wh-lg, .csat-externallink-out-wh-lg, .csat-eyeclose-fill-wh-lg, .csat-eyeclose-out-wh-lg, .csat-eyeopen-fill-wh-lg, .csat-eyeopen-out-wh-lg, .csat-female-fill-wh-lg, .csat-female-out-wh-lg, .csat-femalesymb-out-wh-lg, .csat-fileadd-fill-wh-lg, .csat-fileadd-out-wh-lg, .csat-fileedit-fill-wh-lg, .csat-fileedit-out-wh-lg, .csat-file-fill-wh-lg, .csat-file-out-wh-lg, .csat-folderadd-fill-wh-lg, .csat-folderadd-out-wh-lg, .csat-folderedit-fill-wh-lg, .csat-folderedit-out-wh-lg, .csat-folder-fill-wh-lg, .csat-folder-out-wh-lg, .csat-gallery-fill-wh-lg, .csat-gallery-out-wh-lg, .csat-gear-fill-wh-lg, .csat-gear-out-wh-lg, .csat-globe-fill-wh-lg, .csat-globe-out-wh-lg, .csat-grouplg-fill-wh-lg, .csat-grouplg-out-wh-lg, .csat-groupmd-fill-wh-lg, .csat-groupmd-out-wh-lg, .csat-groupsm-fill-wh-lg, .csat-groupsm-out-wh-lg, .csat-heart-fill-wh-lg, .csat-heart-out-wh-lg, .csat-home-fill-wh-lg, .csat-home-out-wh-lg, .csat-image-fill-wh-lg, .csat-image-out-wh-lg, .csat-key-fill-wh-lg, .csat-key-out-wh-lg, .csat-linkdiag-fill-wh-lg, .csat-linkdiag-out-wh-lg, .csat-link-fill-wh-lg, .csat-link-out-wh-lg, .csat-location-fill-wh-lg, .csat-location-out-wh-lg, .csat-magnif-fill-wh-lg, .csat-magnif-out-wh-lg, .csat-male-fill-wh-lg, .csat-male-out-wh-lg, .csat-malesymb-out-wh-lg, .csat-map-fill-wh-lg, .csat-map-out-wh-lg, .csat-minus-fill-wh-lg, .csat-minus-out-wh-lg, .csat-mobile-fill-wh-lg, .csat-mobile-out-wh-lg, .csat-news-fill-wh-lg, .csat-news-out-wh-lg, .csat-phone-fill-wh-lg, .csat-phone-out-wh-lg, .csat-plus-fill-wh-lg, .csat-plus-out-wh-lg, .csat-print-fill-wh-lg, .csat-print-out-wh-lg, .csat-refresh-fill-wh-lg, .csat-refresh-out-wh-lg, .csat-report-fill-wh-lg, .csat-report-out-wh-lg, .csat-save-fill-wh-lg, .csat-save-out-wh-lg, .csat-share-fill-wh-lg, .csat-share-out-wh-lg, .csat-socfacebookf-lg, .csat-socgoogleg-lg, .csat-socinstagramsq-lg, .csat-socwhatsappsq-lg, .csat-upload-fill-wh-lg, .csat-upload-out-wh-lg, .csat-user-fill-wh-lg, .csat-user-out-wh-lg, .csat-useradd-fill-wh-lg, .csat-useradd-out-wh-lg, .csat-useredit-fill-wh-lg, .csat-useredit-out-wh-lg, .csat-wallet-fill-wh-lg, .csat-wallet-out-wh-lg, .csat-x-fill-wh-lg, .csat-x-out-wh-lg, .csat-zoomin-fill-wh-lg, .csat-zoomin-out-wh-lg, .csat-zoomout-wh-fill-wh-lg, .csat-zoomout-wh-out-wh-lg {
     display: inline-block;
     height: 40px;
     width: 40px;
+    padding: 0;
+    margin: 0;
+}
+
+/* social icons sizes */
+.csat-socfacebook-sm, .csat-socgoogle-sm, .csat-socinstagram-sm, .csat-socwhatsapp-sm {
+    display: inline-block;
+    height: 50px;
+    width: 50px;
+    padding: 0;
+    margin: 0;
+}
+
+.csat-socfacebook-md, .csat-socgoogle-md, .csat-socinstagram-md, .csat-socwhatsapp-md {
+    display: inline-block;
+    height: 78px;
+    width: 78px;
+    padding: 0;
+    margin: 0;
+}
+
+.csat-socfacebook-lg, .csat-socgoogle-lg, .csat-socinstagram-lg, .csat-socwhatsapp-lg {
+    display: inline-block;
+    height: 90px;
+    width: 90px;
     padding: 0;
     margin: 0;
 }
