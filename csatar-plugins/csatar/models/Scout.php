@@ -103,6 +103,13 @@ class Scout extends Model
         $this->validatePivotDateAndLocationFields($this->special_qualifications, \Lang::get('csatar.csatar::lang.plugin.admin.specialQualification.specialQualification'));
         $this->validatePivotQualificationFields($this->leadership_qualifications, \Lang::get('csatar.csatar::lang.plugin.admin.leadershipQualification.leadershipQualification'));
         $this->validatePivotQualificationFields($this->training_qualifications, \Lang::get('csatar.csatar::lang.plugin.admin.trainingQualification.trainingQualification'));
+    
+        // mandates: check that end date is not after the start date
+        foreach ($this->mandates as $field) {
+            if (isset($field->pivot->start_date) && isset($field->pivot->end_date) && (new \DateTime($field->pivot->end_date) < new \DateTime($field->pivot->start_date))) {
+                throw new \ValidationException(['' => str_replace('%name', $field->name, \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.mandateEndDateBeforeStartDate'))]);
+            }
+        }
     }
 
     /**
@@ -280,6 +287,15 @@ class Scout extends Model
         ],
     ];
 
+    public $hasMany = [
+        'mandates' => [
+            '\Csatar\Csatar\Models\Mandate',
+            'table' => 'csatar_csatar_mandates',
+            'label' => 'csatar.csatar::lang.plugin.admin.mandate.mandates',
+            'renderableOnForm' => true,
+        ],
+    ];
+
     public $attachOne = [
         'profile_image' => 'System\Models\File',
         'registration_form' => 'System\Models\File',
@@ -349,7 +365,54 @@ class Scout extends Model
         }
     }
 
-    public function getFullName(){
+    public function getFullName()
+    {
         return $this->family_name . ' ' . $this->given_name;
+    }
+
+    public function getNameAttribute()
+    {
+        return $this->getFullName();
+    }
+
+    /**
+     * Returns the id of the association to which the item belongs to.
+     */
+    public function getAssociationId()
+    {
+        return $this->team->district->association->id;
+    }
+
+    public function scopeOrganization($query, $mandate_model_type, $mandate_model_id)
+    {
+        switch ($mandate_model_type) {
+            case '\Csatar\Csatar\Models\Association':
+                $districts = \Csatar\Csatar\Models\District::where('association_id', $mandate_model_id)->lists('id');
+                $teams = \Csatar\Csatar\Models\Team::whereIn('district_id', $districts)->lists('id');
+                return $query->whereIn('team_id', $teams);
+            
+            case '\Csatar\Csatar\Models\District':
+                $teams = \Csatar\Csatar\Models\Team::where('district_id', $mandate_model_id)->lists('id');
+                return $query->whereIn('team_id', $teams);
+            
+            case '\Csatar\Csatar\Models\Team':
+                return $query->where('team_id', $mandate_model_id);
+            
+            case '\Csatar\Csatar\Models\Troop':
+                $team = \Csatar\Csatar\Models\Troop::find($mandate_model_id)->team_id;
+                return $query->where('team_id', $team);
+            
+            case '\Csatar\Csatar\Models\Patrol':
+                $team = \Csatar\Csatar\Models\Patrol::find($mandate_model_id)->team_id;
+                return $query->where('team_id', $team);
+
+            default:
+                return $query->whereNull('id');
+        }
+    }
+
+    public static function getOrganizationTypeModelName()
+    {
+        return '\\' . static::class;
     }
 }

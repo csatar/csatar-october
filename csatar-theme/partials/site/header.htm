@@ -75,7 +75,7 @@ function onStart()
                         <input type="search" class="form-control rounded bg-light border-0" placeholder="{{ 'Keresés' | _ }}" aria-label="Search" aria-describedby="search-addon" />
                         <span>
                             <button class="search-btn" type="button">
-                            <i class="magnifier-fill-sm"></i>
+                            <i class="csat-magnif-fill-sm"></i>
                             </button>
                         </span>
                         </div>
@@ -86,17 +86,17 @@ function onStart()
                 <div class="col-9 col-sm-10 col-md-9 col-lg-2 order-3 order-md-3 d-flex pt-1 pe-4 text-light justify-content-end">
                     {% if user %}
                     <a href="/elfelejtett-jelszo" class="btn controls" type="button">
-                    <i class="gear-out-w-md"></i>
+                    <i class="csat-gear-out-wh-md"></i>
                     </a>
                     <a href="/tag/{{ ecset_code}}" class="btn controls" type="button">
-                    <i class="user-out-w-md"></i>
+                    <i class="csat-user-out-wh-md"></i>
                     </a>
                     <a data-request="onLogout" data-request-data="redirect: '/bejelentkezes'" class="btn controls" type="button">
-                    <i class="exit-out-w-md"></i>
+                    <i class="csat-exit-out-wh-md"></i>
                     </a>
                     {% else %}
                     <a href="/bejelentkezes" class="btn controls" type="button">
-                        <i class="user-out-w-md"></i>
+                        <i class="csat-user-out-wh-md"></i>
                     </a>
                     {% endif %}
                 </div>

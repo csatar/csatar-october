@@ -1,13 +1,13 @@
 <?php namespace Csatar\Forms\Components;
 
-use Lang;
-use Session;
 use Auth;
 use Cms\Classes\ComponentBase;
 use Csatar\Forms\Models\Form;
 use Csatar\Forms\Traits\AjaxControllerSimple;
 use Csatar\Forms\Traits\ManagesUploads;
 use Input;
+use Lang;
+use Session;
 use October\Rain\Database\Models\DeferredBinding;
 use October\Rain\Exception\ApplicationException;
 use Redirect;
