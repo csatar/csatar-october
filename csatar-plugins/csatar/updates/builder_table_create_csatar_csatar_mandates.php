@@ -14,14 +14,14 @@ class BuilderTableCreateCsatarCsatarMandates extends Migration
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->timestamp('deleted_at')->nullable();
-            $table->string('name', 255);
-            $table->integer('association_id')->index('association_id')->unsigned();
-            $table->string('organization_type_model_name', 255);
-            $table->boolean('required');
-            $table->integer('parent_id')->nullable()->unsigned();
-            $table->smallInteger('nest_left')->nullable()->unsigned();
-            $table->smallInteger('nest_right')->nullable()->unsigned();
-            $table->smallInteger('nest_depth')->nullable()->unsigned();
+            $table->integer('scout_id')->unsigned();
+            $table->integer('mandate_type_id')->unsigned();
+            $table->integer('mandate_model_id')->nullable()->unsigned();
+            $table->string('mandate_model_type', 255)->nullable();
+            $table->string('mandate_model_name', 255)->nullable();
+            $table->dateTime('start_date')->nullable();
+            $table->dateTime('end_date')->nullable();
+            $table->text('comment')->nullable();
         });
     }
     

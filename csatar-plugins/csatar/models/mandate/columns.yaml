@@ -2,41 +2,31 @@ columns:
     id:
         label: 'csatar.csatar::lang.plugin.admin.general.id'
         type: number
-    created_at:
-        label: 'csatar.csatar::lang.plugin.admin.general.createdAt'
-        type: datetime
-    updated_at:
-        label: 'csatar.csatar::lang.plugin.admin.general.updatedAt'
-        type: datetime
-    deleted_at:
-        label: 'csatar.csatar::lang.plugin.admin.general.deletedAt'
-        type: datetime
-    name:
-        label: 'csatar.csatar::lang.plugin.admin.general.name'
-        type: text
-        searchable: true
-        sortable: true
-    association_id:
-        label: 'csatar.csatar::lang.plugin.admin.mandate.association'
-        type: number
-        searchable: false
-        sortable: false
-        relation: association
-        valueFrom: extendedName
-    organization_type_model_name:
-        label: 'csatar.csatar::lang.plugin.admin.mandate.organizationTypeModelName'
+    mandate_type:
+        label: 'csatar.csatar::lang.plugin.admin.mandateType.mandateType'
         searchable: true
         sortable: false
-        type: text
-    required:
-        label: 'csatar.csatar::lang.plugin.admin.mandate.required'
-        type: switch
-        searchable: true
-        sortable: true
-    parent_id:
-        label: 'csatar.csatar::lang.plugin.admin.mandate.parent'
-        type: text
-        searchable: true
-        sortable: true
-        relation: parent
+        relation: mandate_type
+        scope: association
         valueFrom: name
+    mandate_model_name:
+        label: 'csatar.csatar::lang.plugin.admin.mandateType.organizationTypeModelName'
+        type: text
+        searchable: true
+        sortable: false
+    scout:
+        label: 'csatar.csatar::lang.plugin.admin.mandateType.scout'
+        relation: scout
+        valueFrom: name
+        descriptionFrom: description
+        searchable: true
+        sortable: false
+    start_date:
+        label: 'csatar.csatar::lang.plugin.admin.mandateType.startDate'
+        type: text
+    end_date:
+        label: 'csatar.csatar::lang.plugin.admin.mandateType.endDate'
+        type: text
+    comment:
+        label: 'csatar.csatar::lang.plugin.admin.general.comment'
+        type: text

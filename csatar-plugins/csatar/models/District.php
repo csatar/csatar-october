@@ -62,6 +62,13 @@ class District extends OrganizationBase
 
     public $hasMany = [
         'teams' => '\Csatar\Csatar\Models\Team',
+        'mandates' => [
+            '\Csatar\Csatar\Models\Mandate',
+            'key' => 'mandate_model_id',
+            'scope' => 'mandateModelType',
+            'label' => 'csatar.csatar::lang.plugin.admin.mandate.mandates',
+            'renderableOnForm' => true,
+        ],
     ];
 
     public $attachOne = [
@@ -105,5 +112,13 @@ class District extends OrganizationBase
             ->where('csatar_csatar_teams.id', $teamId)
             ->first();
         return [$item->district_id => $item->extendedName];
+    }
+
+    /**
+     * Returns the id of the association to which the item belongs to.
+     */
+    public function getAssociationId()
+    {
+        return $this->association->id;
     }
 }

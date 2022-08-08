@@ -65,7 +65,13 @@ class Association extends OrganizationBase
     public $hasMany = [
         'ageGroups' => '\Csatar\Csatar\Models\AgeGroup',
         'districts' => '\Csatar\Csatar\Models\District',
-        'mandates' => '\Csatar\Csatar\Models\Mandate',
+        'mandates' => [
+            '\Csatar\Csatar\Models\Mandate',
+            'key' => 'mandate_model_id',
+            'scope' => 'mandateModelType',
+            'label' => 'csatar.csatar::lang.plugin.admin.mandate.mandates',
+            'renderableOnForm' => true,
+        ],
     ];
 
     public $attachOne = [
@@ -83,5 +89,13 @@ class Association extends OrganizationBase
     {
         $item = self::find($associationId);
         return [$item->id => $item->extendedName];
+    }
+
+    /**
+     * Returns the id of the association to which the item belongs to.
+     */
+    public function getAssociationId()
+    {
+        return $this->id;
     }
 }

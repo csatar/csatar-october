@@ -1,6 +1,6 @@
-list: $/csatar/csatar/models/mandate/columns.yaml
-modelClass: Csatar\Csatar\Models\Mandate
-title: 'csatar.csatar::lang.plugin.admin.mandate.mandates'
+list: $/csatar/csatar/models/mandatetype/columns.yaml
+modelClass: Csatar\Csatar\Models\MandateType
+title: 'csatar.csatar::lang.plugin.admin.mandateType.mandateTypes'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: true
@@ -9,6 +9,6 @@ toolbar:
     buttons: list_toolbar
     search:
         prompt: 'backend::lang.list.search_prompt'
-recordUrl: 'csatar/csatar/mandates/update/:id'
+recordUrl: 'csatar/csatar/mandatetypes/update/:id'
 showTree: 1
 treeExpanded: 1

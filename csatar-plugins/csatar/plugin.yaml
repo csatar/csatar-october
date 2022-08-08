@@ -34,9 +34,9 @@ navigation:
                 label: 'csatar.csatar::lang.plugin.admin.patrol.patrols'
                 url: /csatar/csatar/patrols
                 icon: icon-sitemap
-            side-menu-item-mandates:
-                label: 'csatar.csatar::lang.plugin.admin.mandate.mandates'
-                url: csatar/csatar/mandates
+            side-menu-item-mandate-types:
+                label: 'csatar.csatar::lang.plugin.admin.mandateType.mandateTypes'
+                url: csatar/csatar/mandatetypes
                 icon: icon-sitemap
             side-menu-item-team-reports:
                 label: 'csatar.csatar::lang.plugin.admin.teamReport.teamReports'

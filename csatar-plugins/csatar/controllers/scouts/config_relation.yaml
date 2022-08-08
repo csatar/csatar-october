@@ -91,12 +91,14 @@ training_qualifications:
 mandates:
   label: 'csatar.csatar::lang.plugin.admin.mandate.mandate'
   view:
-    list: $/csatar/csatar/models/mandate/columnsPivot.yaml
-    toolbarButtons: add|remove
-  manage:
     list: $/csatar/csatar/models/mandate/columns.yaml
+    toolbarButtons: create|delete
+  manage:
     form: $/csatar/csatar/models/mandate/fields.yaml
-    showSearch: true
-    scope: association
-  pivot:
-    form: $/csatar/csatar/models/mandate/fieldsPivot.yaml
+mandates:
+  label: 'csatar.csatar::lang.plugin.admin.mandate.mandate'
+  view:
+    list: $/csatar/csatar/models/mandate/columns.yaml
+    toolbarButtons: create|delete
+  manage:
+    form: $/csatar/csatar/models/mandate/fields.yaml

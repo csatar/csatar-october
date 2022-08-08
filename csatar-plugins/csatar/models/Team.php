@@ -65,6 +65,9 @@ class Team extends OrganizationBase
         if (isset($this->foundation_date) && (new \DateTime($this->foundation_date) > new \DateTime())) {
             throw new \ValidationException(['foundation_date' => \Lang::get('csatar.csatar::lang.plugin.admin.team.dateInTheFutureError')]);
         }
+
+        // check that the required mandates are set for now
+        $this->validateRequiredMandates($this->attributes);
     }
 
     /**
@@ -107,6 +110,13 @@ class Team extends OrganizationBase
         'patrols' => '\Csatar\Csatar\Models\Patrol',
         'scouts' => '\Csatar\Csatar\Models\Scout',
         'teamReports' => '\Csatar\Csatar\Models\TeamReport',
+        'mandates' => [
+            '\Csatar\Csatar\Models\Mandate',
+            'key' => 'mandate_model_id',
+            'scope' => 'mandateModelType',
+            'label' => 'csatar.csatar::lang.plugin.admin.mandate.mandates',
+            'renderableOnForm' => true,
+        ],
     ];
 
     public $attachOne = [
@@ -154,5 +164,13 @@ class Team extends OrganizationBase
     {
         $item = self::find($teamId);
         return [$item->id => $item->extendedName];
+    }
+
+    /**
+     * Returns the id of the association to which the item belongs to.
+     */
+    public function getAssociationId()
+    {
+        return $this->district->association->id;
     }
 }

@@ -53,6 +53,13 @@ class Troop extends OrganizationBase
     public $hasMany = [
         'patrols' => '\Csatar\Csatar\Models\Patrol',
         'scouts' => '\Csatar\Csatar\Models\Scout',
+        'mandates' => [
+            '\Csatar\Csatar\Models\Mandate',
+            'key' => 'mandate_model_id',
+            'scope' => 'mandateModelType',
+            'label' => 'csatar.csatar::lang.plugin.admin.mandate.mandates',
+            'renderableOnForm' => true,
+        ],
     ];
 
     public $attachOne = [
@@ -96,5 +103,13 @@ class Troop extends OrganizationBase
         }
         asort($options);
         return $options;
+    }
+
+    /**
+     * Returns the id of the association to which the item belongs to.
+     */
+    public function getAssociationId()
+    {
+        return $this->team->district->association->id;
     }
 }

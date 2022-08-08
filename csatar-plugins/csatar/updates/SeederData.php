@@ -9,7 +9,7 @@ use Csatar\Csatar\Models\FoodSensitivity;
 use Csatar\Csatar\Models\Hierarchy;
 use Csatar\Csatar\Models\LeadershipQualification;
 use Csatar\Csatar\Models\LegalRelationship;
-use Csatar\Csatar\Models\Mandate;
+use Csatar\Csatar\Models\MandateType;
 use Csatar\Csatar\Models\ProfessionalQualification;
 use Csatar\Csatar\Models\Promise;
 use Csatar\Csatar\Models\Religion;
@@ -226,7 +226,7 @@ class SeederData extends Seeder
             'MCSZFSTVK II',
             'STVK 19/A',
         ],
-        'mandate' => [
+        'mandateType' => [
             'Romániai Magyar Cserkészszövetség' => [
                 [
                     'name' => 'Elnök',
@@ -257,6 +257,7 @@ class SeederData extends Seeder
                     'name' => 'Körzetvezető helyettes',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\District',
                     'required' => false,
+                    'overlap_allowed' => true,
                     'parent' => 'Körzetvezető',
                 ],
                 [
@@ -268,6 +269,7 @@ class SeederData extends Seeder
                     'name' => 'Csapatvezető helyettes',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Team',
                     'required' => false,
+                    'overlap_allowed' => true,
                     'parent' => 'Csapatvezető',
                 ],
                 [
@@ -285,6 +287,7 @@ class SeederData extends Seeder
                     'name' => 'Rajvezető helyettes',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Troop',
                     'required' => false,
+                    'overlap_allowed' => true,
                     'parent' => 'Rajvezető',
                 ],
                 [
@@ -296,7 +299,16 @@ class SeederData extends Seeder
                     'name' => 'Őrsvezető helyettes',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Patrol',
                     'required' => false,
+                    'overlap_allowed' => true,
                     'parent' => 'Őrsvezető',
+                ],
+                [
+                    'name' => 'Cserkész',
+                    'organization_type_model_name' => '\Csatar\Csatar\Models\Scout',
+                ],
+                [
+                    'name' => 'Látogató',
+                    'organization_type_model_name' => '-',
                 ],
             ],
         ],
@@ -441,25 +453,25 @@ class SeederData extends Seeder
             }
             $association->save();
 
-            // mandates
-            $mandates = [];
-            if (isset($this::DATA['mandate'][$association->name])) {
-                foreach ($this::DATA['mandate'][$association->name] as $mandate) {
-                    $mandate['association_id'] = $association->id;
-                    if (isset($mandate['parent'])) {
-                        foreach ($mandates as $item) {
-                            if ($item->name == $mandate['parent']) {
-                                $mandate['parent_id'] = $item->id;
+            // mandate types
+            $mandateTypes = [];
+            if (isset($this::DATA['mandateType'][$association->name])) {
+                foreach ($this::DATA['mandateType'][$association->name] as $mandateType) {
+                    $mandateType['association_id'] = $association->id;
+                    if (isset($mandateType['parent'])) {
+                        foreach ($mandateTypes as $item) {
+                            if ($item->name == $mandateType['parent']) {
+                                $mandateType['parent_id'] = $item->id;
                                 break;
                             }
                         }
-                        unset($mandate['parent']);
+                        unset($mandateType['parent']);
                     }
-                    array_push($mandates, Mandate::firstOrCreate($mandate));
+                    array_push($mandateTypes, MandateType::firstOrCreate($mandateType));
                 }
             }
 
-            // update the membership fee value and add mandates for RMCSSZ - Member
+            // update the membership fee value for RMCSSZ - Member
             if ($association->name == 'Romániai Magyar Cserkészszövetség') {
                 // membership fee
                 $legal_relationship = $association->legal_relationships->where('id', $legalRelationship2->id)->first();

@@ -1,0 +1,47 @@
+columns:
+    id:
+        label: 'csatar.csatar::lang.plugin.admin.general.id'
+        type: number
+    created_at:
+        label: 'csatar.csatar::lang.plugin.admin.general.createdAt'
+        type: datetime
+    updated_at:
+        label: 'csatar.csatar::lang.plugin.admin.general.updatedAt'
+        type: datetime
+    deleted_at:
+        label: 'csatar.csatar::lang.plugin.admin.general.deletedAt'
+        type: datetime
+    name:
+        label: 'csatar.csatar::lang.plugin.admin.general.name'
+        type: text
+        searchable: true
+        sortable: true
+    association_id:
+        label: 'csatar.csatar::lang.plugin.admin.mandateType.association'
+        type: number
+        searchable: false
+        sortable: false
+        relation: association
+        valueFrom: extendedName
+    organization_type_model_name:
+        label: 'csatar.csatar::lang.plugin.admin.mandateType.organizationTypeModelName'
+        searchable: true
+        sortable: false
+        type: text
+    required:
+        label: 'csatar.csatar::lang.plugin.admin.mandateType.required'
+        type: switch
+        searchable: true
+        sortable: true
+    overlap_allowed:
+        label: 'csatar.csatar::lang.plugin.admin.mandateType.overlapAllowed'
+        type: switch
+        searchable: true
+        sortable: true
+    parent_id:
+        label: 'csatar.csatar::lang.plugin.admin.mandateType.parent'
+        type: text
+        searchable: true
+        sortable: true
+        relation: parent
+        valueFrom: name

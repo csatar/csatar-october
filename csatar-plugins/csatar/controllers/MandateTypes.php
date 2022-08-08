@@ -3,7 +3,7 @@
 use Backend\Classes\Controller;
 use BackendMenu;
 
-class Mandates extends Controller
+class MandateTypes extends Controller
 {
     public $implement = [        'Backend\Behaviors\ListController',        'Backend\Behaviors\FormController'];
     
@@ -13,6 +13,6 @@ class Mandates extends Controller
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('Csatar.Csatar', 'main-menu-item-organization-system-data', 'side-menu-item-mandates');
+        BackendMenu::setContext('Csatar.Csatar', 'main-menu-item-organization-system-data', 'side-menu-item-mandate-types');
     }
 }

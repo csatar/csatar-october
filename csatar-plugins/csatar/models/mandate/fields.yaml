@@ -1,30 +1,42 @@
 fields:
-    name:
-        label: 'csatar.csatar::lang.plugin.admin.general.name'
+    mandate_type:
+        label: 'csatar.csatar::lang.plugin.admin.mandateType.mandateType'
         span: auto
-        required: 1
-        type: text
-    association:
-        label: 'csatar.csatar::lang.plugin.admin.mandate.association'
-        nameFrom: extendedName
-        descriptionFrom: description
-        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
-        span: auto
-        required: 1
         type: relation
-    organization_type_model_name:
-        label: 'csatar.csatar::lang.plugin.admin.mandate.organizationTypeModelName'
-        span: auto
-        type: dropdown
-        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
-    required:
-        label: 'csatar.csatar::lang.plugin.admin.mandate.required'
-        span: auto
-        type: checkbox
-    parent:
-        label: 'csatar.csatar::lang.plugin.admin.mandate.parent'
         nameFrom: name
         descriptionFrom: description
-        span: auto
-        type: relation
+        scope: association
+        required: 1
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+    mandate_model:
+        label: 'csatar.csatar::lang.plugin.admin.mandateType.organizationTypeModelName'
+        span: auto
+        type: dropdown
+        nameFrom: name
+        descriptionFrom: description
+        required: 1
+        dependsOn: mandate_type
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+    scout:
+        label: 'csatar.csatar::lang.plugin.admin.mandateType.scout'
+        span: auto
+        type: dropdown
+        nameFrom: fullName
+        descriptionFrom: description
+        required: 1
+        dependsOn: mandate_type
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+    start_date:
+        label: 'csatar.csatar::lang.plugin.admin.mandateType.startDate'
+        span: auto
+        required: 1
+        default: now
+        type: datepicker
+    end_date:
+        label: 'csatar.csatar::lang.plugin.admin.mandateType.endDate'
+        span: auto
+        type: datepicker
+    comment:
+        label: 'csatar.csatar::lang.plugin.admin.general.comment'
+        span: auto
+        type: textarea

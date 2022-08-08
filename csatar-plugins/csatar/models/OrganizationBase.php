@@ -1,6 +1,10 @@
 <?php namespace Csatar\Csatar\Models;
 
+use Csatar\Csatar\Models\MandateType;
+use DateTime;
+use Lang;
 use Model;
+use ValidationException;
 
 /**
  * Model
@@ -20,27 +24,57 @@ class OrganizationBase extends Model
     ];
 
     /**
+     * Add custom validation
+     */
+    public function beforeValidate()
+    {
+        // check that the required mandates are set for now
+        $this->validateRequiredMandates($this->attributes);
+    }
+
+    public function beforeValidateFromForm($data)
+    {
+
+        // check that the required mandates are set for now
+        $this->validateRequiredMandates($data);
+    }
+
+    public function validateRequiredMandates($data)
+    {
+        if (!$this->id) {
+            return;
+        }
+
+        $mandateTypes = MandateType::where('association_id', $this->getAssociationId())->where('organization_type_model_name', $this->getOrganizationTypeModelName())->where('required', true)->get();
+        $mandates = $this->mandates;
+        $now = new \DateTime();
+
+        foreach ($mandateTypes as $mandateType) {
+            $validMandate = false;
+            for ($i = 0; $i < count($mandates) && !$validMandate; ++$i) {
+                $mandate = $mandates[$i];
+
+                if ($mandate->mandate_type_id == $mandateType->id && new DateTime($mandate->start_date) < $now && (!$mandate->end_date || new DateTime($mandate->end_date) > $now)) {
+                    $validMandate = true;
+                    break;
+                }
+            }
+            if (!$validMandate) {
+                throw new ValidationException(['logo' => str_replace('%name', $mandateType->name, Lang::get('csatar.csatar::lang.plugin.admin.mandate.requiredMandateError'))]);
+            }
+        }
+    }
+
+    /**
      * Relations
      */
-    public $belongsToMany = [
-        'scouts' => [
-            '\Csatar\Csatar\Models\Scout',
-            'table' => 'csatar_csatar_scouts_mandates',
-            'pivot' => ['id', 'scout_id', 'mandate_id', 'mandate_model_id', 'mandate_model_type', 'mandate_model_name', 'start_date', 'end_date', 'comment'],
-            'pivotModel' => '\Csatar\Csatar\Models\ScoutMandatePivot',
-            'label' => 'csatar.csatar::lang.plugin.admin.scout.scouts',
-        ],
+
+    public $hasMany = [
         'mandates' => [
             '\Csatar\Csatar\Models\Mandate',
-            'table' => 'csatar_csatar_scouts_mandates',
-            'pivot' => ['id', 'scout_id', 'mandate_id', 'mandate_model_id', 'mandate_model_type', 'mandate_model_name', 'start_date', 'end_date', 'comment'],
-            'pivotModel' => '\Csatar\Csatar\Models\ScoutMandatePivot',
+            'table' => 'csatar_csatar_mandates',
             'label' => 'csatar.csatar::lang.plugin.admin.mandate.mandates',
         ],
-    ];
-
-    public $morphOne = [
-        'mandate' => [\Csatar\Csatar\Models\ScoutMandatePivot::class, 'name' => 'mandate_model'],
     ];
 
     /**

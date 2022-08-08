@@ -1,0 +1,10 @@
+name: 'csatar.csatar::lang.plugin.admin.mandateType.mandateType'
+form: $/csatar/csatar/models/mandatetype/fields.yaml
+modelClass: Csatar\Csatar\Models\MandateType
+defaultRedirect: csatar/csatar/mandatetypes
+create:
+    redirect: 'csatar/csatar/mandatetypes/update/:id'
+    redirectClose: csatar/csatar/mandatetypes
+update:
+    redirect: csatar/csatar/mandatetypes
+    redirectClose: csatar/csatar/mandatetypes
