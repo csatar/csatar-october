@@ -36,6 +36,7 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.patrol.ageGroup'
         required: 1
         dependsOn: team
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
         type: dropdown
     logo:
