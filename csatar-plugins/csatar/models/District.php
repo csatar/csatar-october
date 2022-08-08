@@ -98,7 +98,7 @@ class District extends OrganizationBase
     public function beforeSave()
     {
         $filterWords = explode(',', Lang::get('csatar.csatar::lang.plugin.admin.district.filterOrganizationUnitNameForWords'));
-        $this->name = str_replace($filterWords, '', $this->name);
+        $this->name = $this->filterNameForWords($this->name, $filterWords);
     }
 
     /**
