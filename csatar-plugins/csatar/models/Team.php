@@ -116,7 +116,7 @@ class Team extends OrganizationBase
     public function beforeSave()
     {
         $filterWords = explode(',', Lang::get('csatar.csatar::lang.plugin.admin.team.filterOrganizationUnitNameForWords'));
-        $this->name = str_replace($filterWords, '', $this->name);
+        $this->name = $this->filterNameForWords($this->name, $filterWords);
     }
 
     /**
