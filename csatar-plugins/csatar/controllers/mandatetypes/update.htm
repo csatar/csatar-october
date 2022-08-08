@@ -1,6 +1,6 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
-        <li><a href="<?= Backend::url('csatar/csatar/districts') ?>"><?= e(trans('csatar.csatar::lang.plugin.admin.district.breadcrumb')) ?></a></li>
+        <li><a href="<?= Backend::url('csatar/csatar/mandatetypes') ?>"><?= e(trans('csatar.csatar::lang.plugin.admin.mandateType.breadcrumb')) ?></a></li>
         <li><?= e($this->pageTitle) ?></li>
     </ul>
 <?php Block::endPut() ?>
@@ -11,12 +11,6 @@
 
         <div class="layout-row">
             <?= $this->formRender() ?>
-        </div>
-        <div class="layout-row">
-            <?= $this->relationRender('teams') ?>
-        </div>
-        <div class="layout-row">
-            <?= $this->relationRender('mandates') ?>
         </div>
 
         <div class="form-buttons">
@@ -48,7 +42,7 @@
                 </button>
 
                 <span class="btn-text">
-                    <?= e(trans('backend::lang.form.or')) ?> <a href="<?= Backend::url('csatar/csatar/districts') ?>"><?= e(trans('backend::lang.form.cancel')) ?></a>
+                    <?= e(trans('backend::lang.form.or')) ?> <a href="<?= Backend::url('csatar/csatar/mandatetypes') ?>"><?= e(trans('backend::lang.form.cancel')) ?></a>
                 </span>
             </div>
         </div>
@@ -56,5 +50,5 @@
 
 <?php else: ?>
     <p class="flash-message static error"><?= e(trans($this->fatalError)) ?></p>
-    <p><a href="<?= Backend::url('csatar/csatar/districts') ?>" class="btn btn-default"><?= e(trans('backend::lang.form.return_to_list')) ?></a></p>
+    <p><a href="<?= Backend::url('csatar/csatar/mandatetypes') ?>" class="btn btn-default"><?= e(trans('backend::lang.form.return_to_list')) ?></a></p>
 <?php endif ?>

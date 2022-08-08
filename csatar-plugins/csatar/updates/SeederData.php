@@ -9,6 +9,7 @@ use Csatar\Csatar\Models\FoodSensitivity;
 use Csatar\Csatar\Models\Hierarchy;
 use Csatar\Csatar\Models\LeadershipQualification;
 use Csatar\Csatar\Models\LegalRelationship;
+use Csatar\Csatar\Models\MandateType;
 use Csatar\Csatar\Models\ProfessionalQualification;
 use Csatar\Csatar\Models\Promise;
 use Csatar\Csatar\Models\Religion;
@@ -225,6 +226,92 @@ class SeederData extends Seeder
             'MCSZFSTVK II',
             'STVK 19/A',
         ],
+        'mandateType' => [
+            'Romániai Magyar Cserkészszövetség' => [
+                [
+                    'name' => 'Elnök',
+                    'organization_type_model_name' => '\Csatar\Csatar\Models\Association',
+                    'required' => false,
+                ],
+                [
+                    'name' => 'Ügyvezető elnök',
+                    'organization_type_model_name' => '\Csatar\Csatar\Models\Association',
+                    'required' => false,
+                ],
+                [
+                    'name' => 'Mozgalmi vezető',
+                    'organization_type_model_name' => '\Csatar\Csatar\Models\Association',
+                    'required' => false,
+                ],
+                [
+                    'name' => 'Szövetségi admin',
+                    'organization_type_model_name' => '\Csatar\Csatar\Models\Association',
+                    'required' => false,
+                ],
+                [
+                    'name' => 'Körzetvezető',
+                    'organization_type_model_name' => '\Csatar\Csatar\Models\District',
+                    'required' => false,
+                ],
+                [
+                    'name' => 'Körzetvezető helyettes',
+                    'organization_type_model_name' => '\Csatar\Csatar\Models\District',
+                    'required' => false,
+                    'overlap_allowed' => true,
+                    'parent' => 'Körzetvezető',
+                ],
+                [
+                    'name' => 'Csapatvezető',
+                    'organization_type_model_name' => '\Csatar\Csatar\Models\Team',
+                    'required' => false,
+                ],
+                [
+                    'name' => 'Csapatvezető helyettes',
+                    'organization_type_model_name' => '\Csatar\Csatar\Models\Team',
+                    'required' => false,
+                    'overlap_allowed' => true,
+                    'parent' => 'Csapatvezető',
+                ],
+                [
+                    'name' => 'Csapat nyilvántartó',
+                    'organization_type_model_name' => '\Csatar\Csatar\Models\Team',
+                    'required' => false,
+                    'parent' => 'Csapatvezető helyettes',
+                ],
+                [
+                    'name' => 'Rajvezető',
+                    'organization_type_model_name' => '\Csatar\Csatar\Models\Troop',
+                    'required' => true,
+                ],
+                [
+                    'name' => 'Rajvezető helyettes',
+                    'organization_type_model_name' => '\Csatar\Csatar\Models\Troop',
+                    'required' => false,
+                    'overlap_allowed' => true,
+                    'parent' => 'Rajvezető',
+                ],
+                [
+                    'name' => 'Őrsvezető',
+                    'organization_type_model_name' => '\Csatar\Csatar\Models\Patrol',
+                    'required' => true,
+                ],
+                [
+                    'name' => 'Őrsvezető helyettes',
+                    'organization_type_model_name' => '\Csatar\Csatar\Models\Patrol',
+                    'required' => false,
+                    'overlap_allowed' => true,
+                    'parent' => 'Őrsvezető',
+                ],
+                [
+                    'name' => 'Cserkész',
+                    'organization_type_model_name' => '\Csatar\Csatar\Models\Scout',
+                ],
+                [
+                    'name' => 'Látogató',
+                    'organization_type_model_name' => '-',
+                ],
+            ],
+        ],
     ];
 
     public function run()
@@ -366,8 +453,27 @@ class SeederData extends Seeder
             }
             $association->save();
 
+            // mandate types
+            $mandateTypes = [];
+            if (isset($this::DATA['mandateType'][$association->name])) {
+                foreach ($this::DATA['mandateType'][$association->name] as $mandateType) {
+                    $mandateType['association_id'] = $association->id;
+                    if (isset($mandateType['parent'])) {
+                        foreach ($mandateTypes as $item) {
+                            if ($item->name == $mandateType['parent']) {
+                                $mandateType['parent_id'] = $item->id;
+                                break;
+                            }
+                        }
+                        unset($mandateType['parent']);
+                    }
+                    array_push($mandateTypes, MandateType::firstOrCreate($mandateType));
+                }
+            }
+
             // update the membership fee value for RMCSSZ - Member
             if ($association->name == 'Romániai Magyar Cserkészszövetség') {
+                // membership fee
                 $legal_relationship = $association->legal_relationships->where('id', $legalRelationship2->id)->first();
                 if (isset($legal_relationship)) {
                     $legal_relationship->pivot->membership_fee = 50;
@@ -418,6 +524,7 @@ class SeederData extends Seeder
             $item = Form::firstOrCreate($form);
         }
 
+        // trainings
         foreach($this::DATA['trainings'] as $training) {
             Training::firstOrCreate([
                 'name' => $training,
