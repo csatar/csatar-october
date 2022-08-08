@@ -68,6 +68,9 @@
         'canNotSaveValidated'   => 'Can not save validated data. Check form validation and see how could this happen.',
         'noFiles'               => 'No files'
     ],
+    'validation' => [
+        'selectOptionBeforeNext' => 'Please select an option before you click next!',
+    ],
     'success' => [
         'saved' => 'Data successfully saved...'
     ],

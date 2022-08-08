@@ -68,6 +68,9 @@
         'canNotSaveValidated'   => 'Nem sikerült elmenteni az érvényesített adatokat. Ellenőrizd az űrlap érvényesítését.',
         'noFiles'               => 'Nincsenek fájlok megadva'
     ],
+    'validation' => [
+        'selectOptionBeforeNext' => 'Válasszon egy opciót!',
+    ],
     'success' => [
         'saved' => 'Az adatok sikeresen elmentve...'
     ],

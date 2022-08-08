@@ -117,6 +117,10 @@ trait AjaxControllerSimple {
     public function onAddPivotRelation(){
         $relationName = Input::get('relationName');
         $relationId = Input::get($relationName);
+        if(empty($relationId)){
+            $error = e(trans('csatar.forms::lang.validation.selectOptionBeforeNext'));
+            throw new \ValidationException([ $relationName => $error]);
+        }
         return $this->createPivotForm($relationName, $relationId);
     }
 
@@ -168,6 +172,7 @@ trait AjaxControllerSimple {
         $this->loadBackendFormWidgets();
 
         $html = $widget->render();
+        $html .= '<div class="mt-0 mb-2 errormsg" data-validate-for="' . $relationName . '" data-position-for="' . $relationName . '"></div>';
 
         return [
             '#add-edit-' . $relationName => $this->renderPartial('@partials/relationOptions', [ 'html' => $html, 'relationName' => $relationName ])
