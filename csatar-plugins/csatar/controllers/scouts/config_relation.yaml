@@ -88,3 +88,10 @@ training_qualifications:
     form: $/csatar/csatar/models/trainingqualification/fields.yaml
   pivot:
     form: $/csatar/csatar/models/trainingqualification/fieldsPivot.yaml
+mandates:
+  label: 'csatar.csatar::lang.plugin.admin.mandate.mandate'
+  view:
+    list: $/csatar/csatar/models/mandate/columns.yaml
+    toolbarButtons: create|delete
+  manage:
+    form: $/csatar/csatar/models/mandate/fields.yaml

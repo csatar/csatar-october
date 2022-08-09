@@ -18,7 +18,7 @@ class TestData extends Seeder
             'Háromszék',
         ],
         'team' => [
-            'Nógrádi első próba csapat',
+            'Nógrádi első próba',
             'Szent István',
             'Zöld Péter',
             'Élthes Alajos',

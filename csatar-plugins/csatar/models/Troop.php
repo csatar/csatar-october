@@ -53,6 +53,13 @@ class Troop extends OrganizationBase
     public $hasMany = [
         'patrols' => '\Csatar\Csatar\Models\Patrol',
         'scouts' => '\Csatar\Csatar\Models\Scout',
+        'mandates' => [
+            '\Csatar\Csatar\Models\Mandate',
+            'key' => 'mandate_model_id',
+            'scope' => 'mandateModelType',
+            'label' => 'csatar.csatar::lang.plugin.admin.mandate.mandates',
+            'renderableOnForm' => true,
+        ],
     ];
 
     public $attachOne = [
@@ -62,7 +69,7 @@ class Troop extends OrganizationBase
     public function beforeSave()
     {
         $filterWords = explode(',', Lang::get('csatar.csatar::lang.plugin.admin.troop.filterOrganizationUnitNameForWords'));
-        $this->name = str_replace($filterWords, '', $this->name);
+        $this->name = $this->filterNameForWords($this->name, $filterWords);
     }
 
     /**
@@ -83,5 +90,26 @@ class Troop extends OrganizationBase
     public function scopeTeamId($query, $id)
     {
         return $query->where('team_id', $id);
+    }
+
+    /**
+     * Return all troops, which belong to the given team
+     */
+    public static function getAllByAssociationId($associationId, $teamId)
+    {
+        $options = [];
+        foreach (self::where('team_id', $teamId)->get() as $item) {
+            $options[$item->id] = $item->extendedName;
+        }
+        asort($options);
+        return $options;
+    }
+
+    /**
+     * Returns the id of the association to which the item belongs to.
+     */
+    public function getAssociationId()
+    {
+        return $this->team->district->association->id;
     }
 }
