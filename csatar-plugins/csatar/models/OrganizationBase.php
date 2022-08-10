@@ -15,6 +15,8 @@ class OrganizationBase extends Model
 
     use \October\Rain\Database\Traits\SoftDelete;
 
+    public $ignoreValidation = false;
+
     protected $dates = ['deleted_at'];
 
     /**
@@ -41,7 +43,7 @@ class OrganizationBase extends Model
 
     public function validateRequiredMandates($data)
     {
-        if (!$this->id) {
+        if (!$this->id || $this->ignoreValidation) {
             return;
         }
 
@@ -89,7 +91,7 @@ class OrganizationBase extends Model
     {
         return '\\' . static::class;
     }
-    
+
     public function filterNameForWords($name, $filterWords){
         $filterWords = array_map('trim',$filterWords);
         $nameExploded = explode(' ', $name);

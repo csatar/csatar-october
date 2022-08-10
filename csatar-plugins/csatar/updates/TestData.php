@@ -256,6 +256,7 @@ class TestData extends Seeder
             $troop_1->troop_leader_name = 'Anton';
             $troop_1->troop_leader_phone = '01234';
             $troop_1->troop_leader_email = 'a@aa.com';
+            $troop_1->ignoreValidation = true;
             $troop_1->save();
 
             $troop_2 = Troop::firstOrNew([
@@ -265,6 +266,7 @@ class TestData extends Seeder
             $troop_2->troop_leader_name = 'Attila';
             $troop_2->troop_leader_phone = '01234';
             $troop_2->troop_leader_email = 'a@aa.com';
+            $troop_2->ignoreValidation = true;
             $troop_2->save();
         }
 
@@ -276,6 +278,7 @@ class TestData extends Seeder
             $troop_3->troop_leader_name = 'Edina';
             $troop_3->troop_leader_phone = '01234';
             $troop_3->troop_leader_email = 'a@aa.com';
+            $troop_3->ignoreValidation = true;
             $troop_3->save();
 
             $troop_4 = Troop::firstOrNew([
@@ -285,6 +288,7 @@ class TestData extends Seeder
             $troop_4->troop_leader_name = 'Eszter';
             $troop_4->troop_leader_phone = '01234';
             $troop_4->troop_leader_email = 'a@aa.com';
+            $troop_4->ignoreValidation = true;
             $troop_4->save();
 
             $troop_5 = Troop::firstOrNew([
@@ -294,6 +298,7 @@ class TestData extends Seeder
             $troop_5->troop_leader_name = 'Erika';
             $troop_5->troop_leader_phone = '01234';
             $troop_5->troop_leader_email = 'a@aa.com';
+            $troop_5->ignoreValidation = true;
             $troop_5->save();
         }
 
@@ -310,6 +315,7 @@ class TestData extends Seeder
             $patrol_1->patrol_leader_phone = '01234';
             $patrol_1->patrol_leader_email = 'a@aa.com';
             $patrol_1->age_group_id = $this->getFirstAgeGroupInAssociation($team_6->id);
+            $patrol_1->ignoreValidation = true;
             $patrol_1->save();
 
             $patrol_2 = Patrol::firstOrNew([
@@ -323,6 +329,7 @@ class TestData extends Seeder
             $patrol_2->patrol_leader_phone = '01234';
             $patrol_2->patrol_leader_email = 'a@aa.com';
             $patrol_2->age_group_id = $this->getFirstAgeGroupInAssociation($team_6->id);
+            $patrol_2->ignoreValidation = true;
             $patrol_2->save();
 
             $patrol_3 = Patrol::firstOrNew([
@@ -333,6 +340,7 @@ class TestData extends Seeder
             $patrol_3->patrol_leader_phone = '01234';
             $patrol_3->patrol_leader_email = 'a@aa.com';
             $patrol_3->age_group_id = $this->getFirstAgeGroupInAssociation($team_6->id);
+            $patrol_3->ignoreValidation = true;
             $patrol_3->save();
         }
 
@@ -348,6 +356,7 @@ class TestData extends Seeder
             $patrol_4->patrol_leader_phone = '01234';
             $patrol_4->patrol_leader_email = 'a@aa.com';
             $patrol_4->age_group_id = $this->getFirstAgeGroupInAssociation($team_7->id);
+            $patrol_4->ignoreValidation = true;
             $patrol_4->save();
 
             $patrol_5 = Patrol::firstOrNew([
@@ -361,6 +370,7 @@ class TestData extends Seeder
             $patrol_5->patrol_leader_phone = '01234';
             $patrol_5->patrol_leader_email = 'a@aa.com';
             $patrol_5->age_group_id = $this->getFirstAgeGroupInAssociation($team_7->id);
+            $patrol_5->ignoreValidation = true;
             $patrol_5->save();
 
             $patrol_6 = Patrol::firstOrNew([
@@ -371,6 +381,7 @@ class TestData extends Seeder
             $patrol_6->patrol_leader_phone = '01234';
             $patrol_6->patrol_leader_email = 'a@aa.com';
             $patrol_6->age_group_id = $this->getFirstAgeGroupInAssociation($team_7->id);
+            $patrol_6->ignoreValidation = true;
             $patrol_6->save();
 
             $patrol_7 = Patrol::firstOrNew([
@@ -384,6 +395,7 @@ class TestData extends Seeder
             $patrol_7->patrol_leader_phone = '01234';
             $patrol_7->patrol_leader_email = 'a@aa.com';
             $patrol_7->age_group_id = $this->getFirstAgeGroupInAssociation($team_7->id);
+            $patrol_7->ignoreValidation = true;
             $patrol_7->save();
         }
 
