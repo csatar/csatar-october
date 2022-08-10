@@ -425,6 +425,7 @@
         'component' => [
             'general' => [
                 'validationExceptions'=> [
+                    'emailAlreadyAssigned' => 'Ez az e-mail cím már felhasználói fiókhoz van rendelve.',
                     'passwordRegex' => 'A jelszó kell tartalmazzon legalább 8 karaktert, kis-, és nagybetűt, valamint számot vagy szimbólumot.',
                 ]
             ],
