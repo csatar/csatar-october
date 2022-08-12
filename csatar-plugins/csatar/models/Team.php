@@ -105,6 +105,16 @@ class Team extends OrganizationBase
         'district' => '\Csatar\Csatar\Models\District',
     ];
 
+    public $belongsToMany = [
+        'galleries' => [
+            '\PolloZen\SimpleGallery\Models\Gallery',
+            'table' => 'csatar_csatar_gallery_model',
+            'key' => 'model_id',
+            'pivot' => ['model_type'],
+            'label' => 'csatar.csatar::lang.plugin.admin.gallery.gallery',
+        ],
+    ];
+
     public $hasMany = [
         'troops' => '\Csatar\Csatar\Models\Troop',
         'patrols' => '\Csatar\Csatar\Models\Patrol',

@@ -5,6 +5,9 @@ use Backend;
 use Event;
 use Input;
 use Csatar\Csatar\Classes\Exceptions\OauthException;
+use Media\Classes\MediaLibrary;
+use PolloZen\SimpleGallery\Controllers\Gallery as SimpleGalleryController;
+use PolloZen\SimpleGallery\Models\Gallery as GalleryModel;
 use System\Classes\PluginBase;
 use Validator;
 use ValidationException;
@@ -116,6 +119,18 @@ class Plugin extends PluginBase
             }
 
         });
+
+        SimpleGalleryController::extendFormFields(function($form, $model, $context) {
+            if ($form->arrayName === 'Gallery[images]') {
+                $form->addFields([
+                    'is_public' => [
+                        'label' => 'Public',
+                        'type'  => 'checkbox',
+                        'default'   => false
+                    ]
+                ]);
+            }
+        });
     }
 
     /**
@@ -134,6 +149,7 @@ class Plugin extends PluginBase
             \Csatar\Csatar\Components\CheckScoutStatus::class => 'checkScoutStatus',
             \Csatar\Csatar\Components\CreateFrontendAccounts::class => 'createFrontendAccounts',
             \Csatar\Csatar\Components\OrganizationUnitFrontend::class => 'organizationUnitFrontend',
+            \Csatar\Csatar\Components\CsatarGallery::class => 'csatargallery',
         ];
     }
 

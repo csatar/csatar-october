@@ -421,6 +421,9 @@
             'trainings' => [
                 'trainings' => 'Képzések',
             ],
+            'gallery' => [
+                'gallery' => 'Galéria'
+            ]
         ],
         'component' => [
             'general' => [

@@ -421,6 +421,9 @@
             'trainings' => [
                 'trainings' => 'Trainings',
             ],
+            'gallery' => [
+                'gallery' => 'Gallery'
+            ]
         ],
         'component' => [
             'general' => [

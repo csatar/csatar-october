@@ -60,6 +60,14 @@ class Association extends OrganizationBase
             'pivotModel' => '\Csatar\Csatar\Models\AssociationLegalRelationshipPivot',
             'label' => 'csatar.csatar::lang.plugin.admin.legalRelationship.legalRelationships',
         ],
+        'galleries' => [
+            '\PolloZen\SimpleGallery\Models\Gallery',
+            'table' => 'csatar_csatar_gallery_model',
+            'key' => 'model_id',
+            'parentKey' => 'id',
+            'pivot' => ['model_type'],
+            'label' => 'csatar.csatar::lang.plugin.admin.gallery.gallery',
+        ],
     ];
 
     public $hasMany = [

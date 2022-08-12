@@ -1,0 +1,14 @@
+{% set galleries = [gallery] %}
+
+<div class="row text-center">
+    {% if idgallery > -1 %}<div class="col-12"><h3>{{gallery.name}}</h3><br/></div>{% endif %}
+    {% for gallery in galleries %}
+    {% for image in gallery.images %}
+    <div class="col-12 col-sm-6 col-md-4 col-lg-3 mx-auto">
+        <a class="colorbox" data-fancybox="gallery" href="{{ image.path }}" title="{{image.title}}">
+            <img src="{{ image.path }}"  class="fr-fic fr-dib p-2 w-100 pe-auto">
+        </a>
+    </div>
+    {% endfor %}
+    {% endfor %}
+</div>

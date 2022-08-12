@@ -60,6 +60,16 @@ class District extends OrganizationBase
         'association' => '\Csatar\Csatar\Models\Association',
     ];
 
+    public $belongsToMany = [
+        'galleries' => [
+            '\PolloZen\SimpleGallery\Models\Gallery',
+            'table' => 'csatar_csatar_gallery_model',
+            'key' => 'model_id',
+            'pivot' => ['model_type'],
+            'label' => 'csatar.csatar::lang.plugin.admin.gallery.gallery',
+        ],
+    ];
+
     public $hasMany = [
         'teams' => '\Csatar\Csatar\Models\Team',
         'mandates' => [

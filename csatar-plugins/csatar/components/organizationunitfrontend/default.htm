@@ -1,5 +1,6 @@
 {% set content_page = __SELF__.content_page %}
 {% set permission_to_edit = __SELF__.permission_to_edit %}
+{% set gallery_id = __SELF__.gallery_id %}
 
 <div class=" pb-5">
     <div class="accordion accordion-flush">
@@ -51,5 +52,19 @@
                 </div>
             </div>
         </div>
+        {% if gallery_id %}
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading-4">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-4" aria-expanded="true" aria-controls="collapse-3">
+                        {{ 'Galléria' | _ }}
+                    </button>
+                </h2>
+                <div id="collapse-4" class="accordion-collapse collapse show" aria-labelledby="heading-4" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        {% component "csatargallery" %}
+                    </div>
+                </div>
+            </div>
+        {% endif %}
     </div>
 </div>

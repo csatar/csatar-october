@@ -50,6 +50,16 @@ class Troop extends OrganizationBase
         'team' => '\Csatar\Csatar\Models\Team',
     ];
 
+    public $belongsToMany = [
+        'galleries' => [
+            '\PolloZen\SimpleGallery\Models\Gallery',
+            'table' => 'csatar_csatar_gallery_model',
+            'key' => 'model_id',
+            'pivot' => ['model_type'],
+            'label' => 'csatar.csatar::lang.plugin.admin.gallery.gallery',
+        ],
+    ];
+
     public $hasMany = [
         'patrols' => '\Csatar\Csatar\Models\Patrol',
         'scouts' => '\Csatar\Csatar\Models\Scout',

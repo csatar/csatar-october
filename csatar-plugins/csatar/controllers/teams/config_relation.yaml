@@ -19,3 +19,41 @@ mandates:
     toolbarButtons: create|delete
   manage:
     form: $/csatar/csatar/models/mandate/fields.yaml
+galleries:
+    label: 'csatar.csatar::lang.plugin.admin.gallery.gallery'
+    view:
+        list: $/pollozen/simplegallery/models/gallery/columns.yaml
+        toolbarButtons: add|remove|create
+    manage:
+        list: $/pollozen/simplegallery/models/gallery/columns.yaml
+        form:
+            fields:
+                name:
+                    span: auto
+                    label: pollozen.simplegallery::lang.column.name
+                    required: true
+                slug:
+                    span: auto
+                    label: Slug
+                    preset: name
+                    required: true
+                description:
+                    span: full
+                    label: pollozen.simplegallery::lang.column.description
+                images:
+                    label: pollozen.simplegallery::lang.column.images
+                    type: fileupload
+                    mode: image
+                pivot[model_type]:
+                    type: text
+                    label: 'model type'
+                    default: 'Csatar\Csatar\Models\Team'
+                    readOnly: 1
+    pivot:
+        form:
+            fields:
+                'pivot[model_type]':
+                    type: text
+                    label: 'model type'
+                    default: 'Csatar\Csatar\Models\Team'
+                    readOnly: 1

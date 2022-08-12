@@ -44,7 +44,7 @@ class Patrol extends OrganizationBase
         if ($this->troop_id && $this->troop->team->id != $this->team_id) {
             throw new \ValidationException(['troop' => \Lang::get('csatar.csatar::lang.plugin.admin.patrol.troopNotInTheTeamError')]);
         }
-        
+
         // check that the required mandates are set for now
         $this->validateRequiredMandates($this->attributes);
     }
@@ -89,6 +89,16 @@ class Patrol extends OrganizationBase
         'team' => '\Csatar\Csatar\Models\Team',
         'troop' => '\Csatar\Csatar\Models\Troop',
         'age_group' => '\Csatar\Csatar\Models\AgeGroup',
+    ];
+
+    public $belongsToMany = [
+        'galleries' => [
+            '\PolloZen\SimpleGallery\Models\Gallery',
+            'table' => 'csatar_csatar_gallery_model',
+            'key' => 'model_id',
+            'pivot' => ['model_type'],
+            'label' => 'csatar.csatar::lang.plugin.admin.gallery.gallery',
+        ],
     ];
 
     public $hasMany = [
@@ -152,7 +162,7 @@ class Patrol extends OrganizationBase
         }
         return [];
     }
-    
+
     /**
      * Return all patrols, which belong to the given team
      */
