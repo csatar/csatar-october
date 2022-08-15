@@ -141,3 +141,6 @@
 1.0.50:
     - 'Created table csatar_csatar_mandates'
     - builder_table_create_csatar_csatar_mandates.php
+1.0.51:
+    - 'Created table csatar_csatar_mandates_permissions'
+    - builder_table_create_csatar_csatar_mandates_permissions.php

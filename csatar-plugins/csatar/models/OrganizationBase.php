@@ -2,8 +2,10 @@
 
 use Csatar\Csatar\Models\MandateType;
 use DateTime;
+use Db;
 use Lang;
 use Model;
+use Session;
 use ValidationException;
 
 /**
@@ -104,5 +106,65 @@ class OrganizationBase extends Model
         }, $nameExploded);
 
         return trim(implode(' ', $nameFiltered));
+    }
+
+    public function getRightsForMandateTypes(array $mandateTypeIds = [], bool $own = false, bool $twoFA = false){
+
+        $associationId = $this->getAssociationId();
+
+        if(empty($associationId)) {
+            return;
+        }
+
+        if(empty($mandateTypeIds) && $guestMandateTypeId = MandateType::guestMandateTypeInAssociation($associationId)) {
+            $mandateTypeIds = [ $guestMandateTypeId ];
+        }
+
+        if(empty($mandateTypeIds)) {
+            return;
+        }
+
+        $rights = Db::table('csatar_csatar_mandates_permissions')
+            ->when(!$own, function ($query) {
+                return $query->where(
+                    function ($query) {
+                        return $query->where('own', '<>', 1)->orWhereNull('own');
+                    });
+            })
+            ->when(!$twoFA, function ($query) {
+                return $query->where(
+                    function ($query) {
+                        return $query->where('2fa', '<>', 1)->orWhereNull('2fa');
+                    });
+            })
+            ->whereIn('mandate_type_id', $mandateTypeIds)
+            ->where('model', self::getOrganizationTypeModelName())
+            ->get();
+
+        $rights = $rights->groupBy('field');
+
+        return $rights->map(function ($item, $key){
+            return [
+                'obligatory' => $item->min('obligatory'),
+                'create' => $item->max('create'),
+                'read' => $item->max('read'),
+                'update' => $item->max('update'),
+                'delete' => $item->max('delete'),
+            ];
+        });
+    }
+
+    public function isOwnModel($scout){
+        if(self::getOrganizationTypeModelName() == '\Csatar\Csatar\Models\Scout' && $this->id == $scout->id){
+            return true;
+        }
+
+        //TODO: this will be completed with task CS-286
+
+        return false;
+    }
+
+    public function getAssociationId(){
+        return null;
     }
 }

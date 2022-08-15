@@ -20,6 +20,8 @@ class MandateType extends Model
 
     use \October\Rain\Database\Traits\SoftDelete;
 
+    const MODEL_NAME_GUEST = 'GUEST';
+
     protected $dates = ['deleted_at'];
 
 
@@ -71,12 +73,12 @@ class MandateType extends Model
 
     public $hasMany = [
         'children' => [
-            '\Csatar\Csatar\Models\Mandate', 
+            '\Csatar\Csatar\Models\Mandate',
             'key' => 'parent_id',
             'order' => 'weight asc',
         ],
         'child_count' => [
-            '\Csatar\Csatar\Models\Mandate', 
+            '\Csatar\Csatar\Models\Mandate',
             'key' => 'parent_id',
             'count' => true,
         ],

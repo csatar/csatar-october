@@ -227,6 +227,46 @@ class SeederData extends Seeder
             'STVK 19/A',
         ],
         'mandateType' => [
+            'Horvátországi magyar cserkészek' => [
+                [
+                    'name' => 'Cserkész',
+                    'organization_type_model_name' => '\Csatar\Csatar\Models\Scout',
+                ],
+                [
+                    'name' => 'Látogató',
+                    'organization_type_model_name' => 'GUEST',
+                ],
+            ],
+            'Kárpátaljai Magyar Cserkészszövetség' => [
+                [
+                    'name' => 'Cserkész',
+                    'organization_type_model_name' => '\Csatar\Csatar\Models\Scout',
+                ],
+                [
+                    'name' => 'Látogató',
+                    'organization_type_model_name' => 'GUEST',
+                ],
+            ],
+            'Külföldi Magyar Cserkészszövetség' => [
+                [
+                    'name' => 'Cserkész',
+                    'organization_type_model_name' => '\Csatar\Csatar\Models\Scout',
+                ],
+                [
+                    'name' => 'Látogató',
+                    'organization_type_model_name' => 'GUEST',
+                ],
+            ],
+            'Magyar Cserkészszövetség' => [
+                [
+                    'name' => 'Cserkész',
+                    'organization_type_model_name' => '\Csatar\Csatar\Models\Scout',
+                ],
+                [
+                    'name' => 'Látogató',
+                    'organization_type_model_name' => 'GUEST',
+                ],
+            ],
             'Romániai Magyar Cserkészszövetség' => [
                 [
                     'name' => 'Elnök',
@@ -308,7 +348,27 @@ class SeederData extends Seeder
                 ],
                 [
                     'name' => 'Látogató',
-                    'organization_type_model_name' => '-',
+                    'organization_type_model_name' => 'GUEST',
+                ],
+            ],
+            'Szlovákiai Magyar Cserkészszövetség' => [
+                [
+                    'name' => 'Cserkész',
+                    'organization_type_model_name' => '\Csatar\Csatar\Models\Scout',
+                ],
+                [
+                    'name' => 'Látogató',
+                    'organization_type_model_name' => 'GUEST',
+                ],
+            ],
+            'Vajdasági Magyar Cserkészszövetség' => [
+                [
+                    'name' => 'Cserkész',
+                    'organization_type_model_name' => '\Csatar\Csatar\Models\Scout',
+                ],
+                [
+                    'name' => 'Látogató',
+                    'organization_type_model_name' => 'GUEST',
                 ],
             ],
         ],
