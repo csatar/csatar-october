@@ -53,7 +53,9 @@ class Plugin extends PluginBase
      */
     public function boot()
     {
-        $this->extendUser();
+        if (class_exists('RainLab\User\Models\User')) {
+            $this->extendUser();
+        }
 
         App::error(function (\October\Rain\Auth\AuthException $exception) {
             return Lang::get('csatar.csatar::lang.frontEnd.authException');
@@ -120,18 +122,19 @@ class Plugin extends PluginBase
 
         });
 
-
-        SimpleGalleryController::extendFormFields(function($form, $model, $context) {
-            if ($form->arrayName === 'Gallery[images]') {
-                $form->addFields([
-                    'is_public' => [
-                        'label' => 'Public',
-                        'type'  => 'checkbox',
-                        'default'   => false
-                    ]
-                ]);                
-            }
-        });
+        if (class_exists('PolloZen\SimpleGallery\Controllers\Gallery')) {
+            SimpleGalleryController::extendFormFields(function($form, $model, $context) {
+                if ($form->arrayName === 'Gallery[images]') {
+                    $form->addFields([
+                        'is_public' => [
+                            'label' => 'Public',
+                            'type'  => 'checkbox',
+                            'default'   => false
+                        ]
+                    ]);
+                }
+            });
+        }
 
         Event::listen('rainlab.user.login', function($user) {
             if(!empty($user->scout)){
