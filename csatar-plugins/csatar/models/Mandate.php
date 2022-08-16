@@ -18,6 +18,8 @@ class Mandate extends Model
 
     protected $dates = ['deleted_at'];
 
+    protected $touches = ['scout'];
+
     function __construct(array $attributes = []) {
         parent::__construct($attributes);
         $this->setValidationAttributeNames([
@@ -153,7 +155,7 @@ class Mandate extends Model
         $endDate = isset($data['end_date']) ? new DateTime($data['end_date']) : null;
         $scoutId = array_key_exists('scout_id', $data) ? ($data['scout_id']) : null;
         $mandates = Mandate::where('mandate_type_id', $data['mandate_type_id'])->where('mandate_model_id', $data['mandate_model_id'])->get();
-        
+
         foreach ($mandates as $mandate) {
             // check that the date isn't (partially) overlapping with a different assignment for the same period: if the overlapping is not enabled or if it's the same user: overlap if max(start1, start2) < min(end1, end2)
             if (!$mandateType->overlap_enabled || $mandate->scout_id == $scout_id) {

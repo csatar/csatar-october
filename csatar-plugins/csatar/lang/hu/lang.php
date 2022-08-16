@@ -423,7 +423,11 @@
             ],
             'gallery' => [
                 'gallery' => 'Galéria'
-            ]
+            ],
+            'permissions' => [
+                'permissions' => 'Jogosultságok',
+                'allPermissionsForScout' => 'Minden jogosultság a Cserkész megbízáshoz, az összes model összes mezőjéhez.'
+            ],
         ],
         'component' => [
             'general' => [

@@ -120,6 +120,7 @@ class Plugin extends PluginBase
 
         });
 
+
         SimpleGalleryController::extendFormFields(function($form, $model, $context) {
             if ($form->arrayName === 'Gallery[images]') {
                 $form->addFields([
@@ -128,7 +129,13 @@ class Plugin extends PluginBase
                         'type'  => 'checkbox',
                         'default'   => false
                     ]
-                ]);
+                ]);                
+            }
+        });
+
+        Event::listen('rainlab.user.login', function($user) {
+            if(!empty($user->scout)){
+                $user->scout->saveMandateTypeIdsForEveryAssociationToSession();
             }
         });
     }
