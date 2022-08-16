@@ -421,6 +421,10 @@
             'trainings' => [
                 'trainings' => 'Trainings',
             ],
+            'permissions' => [
+                'permissions' => 'Permissions',
+                'allPermissionsForScout' => 'All permissions for every model and field for Scout mandate.'
+            ],
         ],
         'component' => [
             'general' => [

@@ -116,6 +116,12 @@ class Plugin extends PluginBase
             }
 
         });
+
+        Event::listen('rainlab.user.login', function($user) {
+            if(!empty($user->scout)){
+                $user->scout->saveMandateTypeIdsForEveryAssociationToSession();
+            }
+        });
     }
 
     /**
