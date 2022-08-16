@@ -22,11 +22,11 @@ class BuilderTableCreateCsatarCsatarMandatesPermissions extends Migration
             $table->boolean('update')->nullable();
             $table->boolean('delete')->nullable();
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP'));
-            
+
             $table->foreign('mandate_type_id')->references('id')->on('csatar_csatar_mandates');
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_mandates_permissions');

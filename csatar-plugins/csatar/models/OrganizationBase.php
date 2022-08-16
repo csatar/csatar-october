@@ -154,14 +154,10 @@ class OrganizationBase extends Model
         });
     }
 
-    public function isOwnModel($scout){
-        if(self::getOrganizationTypeModelName() == '\Csatar\Csatar\Models\Scout' && $this->id == $scout->id){
-            return true;
-        }
+    public function isOwnOrganization($scout){
 
-        //TODO: this will be completed with task CS-286
-
-        return false;
+        $mandates = $scout->getMandatesForOrganization($this);
+        return count($mandates) > 0;
     }
 
     public function getAssociationId(){

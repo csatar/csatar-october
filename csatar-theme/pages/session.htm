@@ -1,0 +1,22 @@
+url = "/session"
+layout = "default"
+title = "session"
+==
+<?php
+use Csatar\Csatar\Models\Scout;
+
+public function onStart() {
+
+    dd(\Session::all());
+
+    // $model = Scout::find(1);
+
+    // Auth::user()->scout->getRightsForModel($model);
+
+    $mandateTypeIds = \Session::get('mandateTypeIds');
+
+    dd(date('Y-m-d h:i'), $mandateTypeIds);
+
+}
+?>
+==

@@ -20,10 +20,9 @@ class MandateType extends Model
 
     use \October\Rain\Database\Traits\SoftDelete;
 
-    const MODEL_NAME_GUEST = 'GUEST';
-
     protected $dates = ['deleted_at'];
 
+    const MODEL_NAME_GUEST = 'GUEST';
 
     /**
      * @var string The database table used by the model.
@@ -141,5 +140,23 @@ class MandateType extends Model
                         ($association_id && $mandate_model_type ?
                             $query->where('association_id', $association_id)->where('organization_type_model_name', $mandate_model_type) :
                             $query->whereNull('id'))));
+    }
+
+    function scopeMandateTypeIdsInAssociation($query, $associationId) {
+        return self::where('association_id', $associationId)->get()->pluck('id');
+    }
+
+    function scopeScoutMandateTypeIdInAssociation($query, $associationId): array {
+        $scoutMandateType = self::where('association_id', $associationId)
+            ->where('organization_type_model_name', '\Csatar\Csatar\Models\Scout')
+            ->first();
+        return $scoutMandateType ? [ $scoutMandateType->id ] : [];
+    }
+
+    function scopeGuestMandateTypeInAssociation($query, $associationId): array {
+        $guestMandateType = self::where('association_id', $associationId)
+            ->where('organization_type_model_name', self::MODEL_NAME_GUEST)
+            ->first();
+        return $guestMandateType ? [ $guestMandateType->id ] : [];
     }
 }
