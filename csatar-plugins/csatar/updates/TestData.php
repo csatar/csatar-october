@@ -43,6 +43,9 @@ class TestData extends Seeder
             'Zergék',
             'Orchideák',
         ],
+        'permissions' => [
+            'RMCSSZ' => 'allPermissionsForScout',
+        ]
     ];
 
     public function run()
