@@ -32,10 +32,12 @@ fields:
         required: 1
         default: now
         type: datepicker
+        mode: date
     end_date:
         label: 'csatar.csatar::lang.plugin.admin.mandateType.endDate'
         span: auto
         type: datepicker
+        mode: date
     comment:
         label: 'csatar.csatar::lang.plugin.admin.general.comment'
         span: auto
