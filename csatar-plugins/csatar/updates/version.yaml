@@ -147,3 +147,9 @@
 1.0.52:
     - 'Added foreign keys to all the tables'
     - builder_table_update_add_foreign_keys.php
+1.0.53:
+    - 'Updated table csatar_csatar_troops'
+    - builder_table_update_csatar_csatar_troops.php
+1.0.54:
+    - 'Updated table csatar_csatar_patrols'
+    - builder_table_update_csatar_csatar_patrols_2.php

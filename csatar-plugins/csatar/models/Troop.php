@@ -21,9 +21,6 @@ class Troop extends OrganizationBase
         'email' => 'email|nullable',
         'website' => 'url|nullable',
         'facebook_page' => 'url|regex:(facebook)|nullable',
-        'troop_leader_name' => 'required|min:5',
-        'troop_leader_phone' => 'required|regex:(^[0-9+-.()]{5,}$)',
-        'troop_leader_email' => 'required|email',
         'logo' => 'image|nullable',
         'team' => 'required',
     ];
@@ -36,9 +33,6 @@ class Troop extends OrganizationBase
         'email',
         'website',
         'facebook_page',
-        'troop_leader_name',
-        'troop_leader_phone',
-        'troop_leader_email',
         'team_id',
     ];
 
