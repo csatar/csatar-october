@@ -26,6 +26,7 @@
 - CS-177 - Create mandate types
 - CS-155 - Update the organization models for the mandates
 - CS-188 - Build in the polimorphic and hasMany relations in the form builder
+- CS-222 - Added foreign keys
 
 ## 1.1.1
 ### 2022-07-26
