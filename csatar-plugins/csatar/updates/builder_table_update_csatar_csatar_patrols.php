@@ -20,11 +20,10 @@ class BuilderTableUpdateCsatarCsatarPatrols extends Migration
     {
         Schema::table('csatar_csatar_patrols', function($table)
         {
+            $table->dropForeign('csatar_csatar_patrols_age_group_id_foreign');
+            
             $table->dropColumn('age_group_id');
             $table->string('age_group', 255);
-            
-            $table->dropForeign('age_group_id');
-
         });
     }
 }
