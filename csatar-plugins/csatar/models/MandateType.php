@@ -94,6 +94,26 @@ class MandateType extends Model
         ];
     }
 
+    function getOrganizationTypeModelNameAttribute()
+    {
+        switch ($this->attributes['organization_type_model_name']) {
+            case Association::getOrganizationTypeModelName():
+                return Lang::get('csatar.csatar::lang.plugin.admin.association.association');
+            case District::getOrganizationTypeModelName():
+                return Lang::get('csatar.csatar::lang.plugin.admin.district.district');
+            case Patrol::getOrganizationTypeModelName():
+                return Lang::get('csatar.csatar::lang.plugin.admin.patrol.patrol');
+            case Team::getOrganizationTypeModelName():
+                return Lang::get('csatar.csatar::lang.plugin.admin.team.team');
+            case Troop::getOrganizationTypeModelName():
+                return Lang::get('csatar.csatar::lang.plugin.admin.troop.troop');
+            case Scout::getOrganizationTypeModelName():
+                return Lang::get('csatar.csatar::lang.plugin.admin.scout.scout');
+            default:
+                return '';
+        }
+    }
+
     /**
      * Scope a query to only include mandates from a given association.
      */
