@@ -23,6 +23,7 @@
 - CS-189 - Added name abbreviation to association model and updated seeder
 - CS-172 - Warning and fix for organization name containing organization type
 - CS-193 - Applied basic permissions
+- CS-222 - Added foreign keys
 
 ## 1.1.1
 ### 2022-07-26

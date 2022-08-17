@@ -18,7 +18,7 @@ class BuilderTableCreateCsatarCsatarScouts extends Migration
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->timestamp('deleted_at')->nullable();
-            $table->integer('user_id')->nullable()->unsigned()->foreign('user_id', 'user_foreign')->references('id')->on('users');
+            $table->integer('user_id')->nullable()->unsigned();
             $table->string('family_name');
             $table->string('given_name');
             $table->string('email', 255)->nullable();
