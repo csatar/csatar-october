@@ -107,7 +107,7 @@ trait AjaxControllerSimple {
             $html .= $this->renderValidationTags($record);
         }
 
-        $html .= $this->renderBelongsToManyWithPivotDataAndHasManyRalations($record);
+        $html .= $this->renderBelongsToManyWithPivotDataAndHasManyRelations($record);
 
         $variablesToPass = [
             'form' => $html,
@@ -317,7 +317,8 @@ trait AjaxControllerSimple {
                 $modelName = $form->getModelName();
                 $max_slave_id = DeferredBinding::where('master_type', substr($modelName, 1))->where('master_field', $relationName)->where('session_key', $this->sessionKey)->max('slave_id');
                 $model->id = isset($max_slave_id) ? $max_slave_id + 1 : 1;
-                $record->bindDeferred('mandates', $model, $this->sessionKey, $pivotData);
+           // !!!DELETE!!!      $record->bindDeferred('mandates', $model, $this->sessionKey, $pivotData);
+                $record->bindDeferred($relationName, $model, $this->sessionKey, $pivotData);
             }
             else {
                 $model = $model::create(isset($model->attributes) ? array_merge($model->attributes, $pivotData) : $pivotData);
@@ -326,7 +327,7 @@ trait AjaxControllerSimple {
 
         return [
             '#pivotSection' =>
-                $this->renderBelongsToManyWithPivotDataAndHasManyRalations($record),
+                $this->renderBelongsToManyWithPivotDataAndHasManyRelations($record),
             '#pivot-form' => '',
         ];
     }
@@ -415,7 +416,6 @@ trait AjaxControllerSimple {
             // remove hasMany relations
             $defRecords = [];
             foreach ($record->hasMany as $relationName => $definition) {
-
                 $defRecords = array_merge($defRecords, DeferredBinding::where('master_field', $relationName)
                     ->where('session_key', $this->sessionKey)
                     ->get()->toArray());
@@ -435,7 +435,7 @@ trait AjaxControllerSimple {
                     $model->initFromForm($record);
                 }
                 foreach ($model->fillable as $fillable) {
-                    if (array_key_exists($fillable, $defRecord['pivot_data'])) {
+                    if (array_key_exists($fillable, $defRecord['pivot_data']) && !isset($model->{$fillable})) {
                         $model->{$fillable} = $defRecord['pivot_data'][$fillable];
                     }
                 }
@@ -542,7 +542,7 @@ trait AjaxControllerSimple {
         return $this->makeConfig($config);
     }
 
-    public function renderBelongsToManyWithPivotDataAndHasManyRalations($record){
+    public function renderBelongsToManyWithPivotDataAndHasManyRelations($record){
         $html = '<div class="row" id="pivotSection">';
 
         // render belongsToMany relations
@@ -558,7 +558,13 @@ trait AjaxControllerSimple {
 
         // render hasMany relations
         foreach($record->hasMany as $relationName => $definition) {
-            if (is_array($definition) && $definition['renderableOnForm']) {
+            if (is_array($definition)
+                && ((!$record->id
+                    && array_key_exists('renderableOnCreateForm', $definition)
+                    && $definition['renderableOnCreateForm'])
+                || ($record->id
+                    && array_key_exists('renderableOnUpdateForm', $definition)
+                    && $definition['renderableOnUpdateForm']))) {
                 $pivotConfig = $this->getConfig($definition[0], 'columns.yaml');
                 $attributesToDisplay = $pivotConfig->columns;
                 $html .= $this->generatePivotSection($record, $relationName, $definition, $attributesToDisplay);
@@ -633,7 +639,7 @@ trait AjaxControllerSimple {
 
         return [
             '#pivotSection' =>
-                $this->renderBelongsToManyWithPivotDataAndHasManyRalations($record)
+                $this->renderBelongsToManyWithPivotDataAndHasManyRelations($record)
         ];
     }
 

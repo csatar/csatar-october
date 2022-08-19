@@ -52,7 +52,8 @@ class Troop extends OrganizationBase
             'key' => 'mandate_model_id',
             'scope' => 'mandateModelType',
             'label' => 'csatar.csatar::lang.plugin.admin.mandate.mandates',
-            'renderableOnForm' => true,
+            'renderableOnCreateForm' => true,
+            'renderableOnUpdateForm' => true,
         ],
     ];
 
@@ -105,5 +106,10 @@ class Troop extends OrganizationBase
     public function getAssociationId()
     {
         return $this->team->district->association->id;
+    }
+
+    public static function getOrganizationTypeModelNameUserFriendly()
+    {
+        return Lang::get('csatar.csatar::lang.plugin.admin.troop.troop');
     }
 }

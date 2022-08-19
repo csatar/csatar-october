@@ -111,7 +111,7 @@
                 'leadershipQualifications' => 'Vezetői képesítések',
                 'trainingQualifications' => 'Kiképzői képesítések',
                 'foodSensitivities' => 'Ételérzékenységekek',
-                'additionalDetailsInfo' => 'Allergák, Ételérékenységek, Fogadalmak, Próbák, Különpróbák, Szakági képesítések, Szakági különpróbák, Vezetői képesítések, Kiképzői képesítések és Megbízatások hozzáadása a Cserkész létrehozása után lehetséges. Miután a többi adatot kitöltötted, kattints a Létrehozás gombra.',
+                'additionalDetailsInfo' => 'Allergák, Ételérékenységek, Fogadalmak, Próbák, Különpróbák, Szakági képesítések, Szakági különpróbák, Vezetői képesítések és Kiképzői képesítések hozzáadása a Cserkész létrehozása után lehetséges. Miután a többi adatot kitöltötted, kattints a Létrehozás gombra.',
                 'breadcrumb' => 'Cserkészek',
                 'team' => 'Csapat',
                 'troop' => 'Raj',
@@ -263,6 +263,9 @@
                 'parent' => 'Szülő',
                 'sortOrder' => 'Sorrend',
                 'breadcrumb' => 'Hierarchia',
+            ],
+            'organizationBase' => [
+                'organizationBase' => 'Általános szervezeti egység',
             ],
             'association' => [
                 'association' => 'Szövetség',

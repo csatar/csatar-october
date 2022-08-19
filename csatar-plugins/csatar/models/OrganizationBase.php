@@ -3,6 +3,7 @@
 use Csatar\Csatar\Models\MandateType;
 use DateTime;
 use Db;
+use Input;
 use Lang;
 use Model;
 use Session;
@@ -38,18 +39,18 @@ class OrganizationBase extends Model
 
     public function beforeValidateFromForm($data)
     {
-
         // check that the required mandates are set for now
         $this->validateRequiredMandates($data);
     }
 
     public function validateRequiredMandates($data)
     {
-        if (!$this->id || $this->ignoreValidation) {
+        if (!array_key_exists('id', $data) || Input::get('recordKeyValue') == 'new' || $this->ignoreValidation) {
             return;
         }
 
         $mandateTypes = MandateType::where('association_id', $this->getAssociationId())->where('organization_type_model_name', $this->getOrganizationTypeModelName())->where('required', true)->get();
+    // !!!DELETE!!!    $mandates = Mandate::where('mandate_model_type', $this->getOrganizationTypeModelName())->where('mandate_model_id', $this->id)->get();
         $mandates = $this->mandates;
         $now = new \DateTime();
 
@@ -92,6 +93,11 @@ class OrganizationBase extends Model
     public static function getOrganizationTypeModelName()
     {
         return '\\' . static::class;
+    }
+
+    public static function getOrganizationTypeModelNameUserFriendly()
+    {
+        return Lang::get('csatar.csatar::lang.plugin.admin.organizationBase.organizationBase');
     }
 
     public function filterNameForWords($name, $filterWords){

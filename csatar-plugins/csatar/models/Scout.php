@@ -3,6 +3,7 @@
 use Auth;
 use Csatar\Csatar\Models\MandateType;
 use Db;
+use Lang;
 use Session;
 use Model;
 use Csatar\Csatar\Models\Association;
@@ -77,7 +78,7 @@ class Scout extends OrganizationBase
 
         // if the selected troop does not belong to the selected team, then throw and exception
         if ($this->troop_id && $this->troop->team->id != $this->team_id) {
-            throw new \ValidationException(['troop' => \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.troopNotInTheTeam')]);
+            throw new \ValidationException(['troop' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.troopNotInTheTeam')]);
         }
 
         // if the selected patrol does not belong to the selected team or to the selected troop, then throw and exception
@@ -86,33 +87,33 @@ class Scout extends OrganizationBase
                     ($this->troop_id &&                                     // a Troop is set as well
                         (!$this->patrol->troop ||                           // the Patrol does not belong to any Troop
                         $this->patrol->troop->id != $this->troop_id)))) {   // the Patrol belongs to a different Troop than the one selected
-            throw new \ValidationException(['troop' => \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.troopNotInTheTeamOrTroop')]);
+            throw new \ValidationException(['troop' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.troopNotInTheTeamOrTroop')]);
         }
 
         // check that the birthdate is not in the future
         if (isset($this->birthdate) && (new \DateTime($this->birthdate) > new \DateTime())) {
-            throw new \ValidationException(['birthdate' => \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.dateInTheFuture')]);
+            throw new \ValidationException(['birthdate' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.dateInTheFuture')]);
         }
 
         // the registration form is required
         $registration_form = $this->registration_form()->withDeferred($this->sessionKey)->first();
         if (!isset($registration_form)) {
-            throw new \ValidationException(['registration_form' => \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.registrationFormRequired')]);
+            throw new \ValidationException(['registration_form' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.registrationFormRequired')]);
         }
 
         // the Date and Location pivot fields are required and the Date cannot be in the future
-        $this->validatePivotDateAndLocationFields($this->promises, \Lang::get('csatar.csatar::lang.plugin.admin.promise.promise'));
-        $this->validatePivotDateAndLocationFields($this->tests, \Lang::get('csatar.csatar::lang.plugin.admin.test.test'));
-        $this->validatePivotDateAndLocationFields($this->special_tests, \Lang::get('csatar.csatar::lang.plugin.admin.specialTest.specialTest'));
-        $this->validatePivotDateAndLocationFields($this->professional_qualifications, \Lang::get('csatar.csatar::lang.plugin.admin.professionalQualification.professionalQualification'));
-        $this->validatePivotDateAndLocationFields($this->special_qualifications, \Lang::get('csatar.csatar::lang.plugin.admin.specialQualification.specialQualification'));
-        $this->validatePivotQualificationFields($this->leadership_qualifications, \Lang::get('csatar.csatar::lang.plugin.admin.leadershipQualification.leadershipQualification'));
-        $this->validatePivotQualificationFields($this->training_qualifications, \Lang::get('csatar.csatar::lang.plugin.admin.trainingQualification.trainingQualification'));
+        $this->validatePivotDateAndLocationFields($this->promises, Lang::get('csatar.csatar::lang.plugin.admin.promise.promise'));
+        $this->validatePivotDateAndLocationFields($this->tests, Lang::get('csatar.csatar::lang.plugin.admin.test.test'));
+        $this->validatePivotDateAndLocationFields($this->special_tests, Lang::get('csatar.csatar::lang.plugin.admin.specialTest.specialTest'));
+        $this->validatePivotDateAndLocationFields($this->professional_qualifications, Lang::get('csatar.csatar::lang.plugin.admin.professionalQualification.professionalQualification'));
+        $this->validatePivotDateAndLocationFields($this->special_qualifications, Lang::get('csatar.csatar::lang.plugin.admin.specialQualification.specialQualification'));
+        $this->validatePivotQualificationFields($this->leadership_qualifications, Lang::get('csatar.csatar::lang.plugin.admin.leadershipQualification.leadershipQualification'));
+        $this->validatePivotQualificationFields($this->training_qualifications, Lang::get('csatar.csatar::lang.plugin.admin.trainingQualification.trainingQualification'));
 
         // mandates: check that end date is not after the start date
         foreach ($this->mandates as $field) {
             if (isset($field->pivot->start_date) && isset($field->pivot->end_date) && (new \DateTime($field->pivot->end_date) < new \DateTime($field->pivot->start_date))) {
-                throw new \ValidationException(['' => str_replace('%name', $field->name, \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.mandateEndDateBeforeStartDate'))]);
+                throw new \ValidationException(['' => str_replace('%name', $field->name, Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.mandateEndDateBeforeStartDate'))]);
             }
         }
     }
@@ -297,7 +298,6 @@ class Scout extends OrganizationBase
             '\Csatar\Csatar\Models\Mandate',
             'table' => 'csatar_csatar_mandates',
             'label' => 'csatar.csatar::lang.plugin.admin.mandate.mandates',
-            'renderableOnForm' => true,
         ],
     ];
 
@@ -321,7 +321,7 @@ class Scout extends OrganizationBase
         $team = Team::find($this->team_id);
 
         if(empty($team)){
-            throw new \ValidationException(['team_id' => \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.noTeamSelected')]);
+            throw new \ValidationException(['team_id' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.noTeamSelected')]);
         }
 
         $sufix = $team->district->association->ecset_code_suffix ?? substr($team->district->association->name, 0, 2);
@@ -340,13 +340,13 @@ class Scout extends OrganizationBase
         if ($fields) {
             foreach ($fields as $field) {
                 if (!isset($field->pivot->date)) {
-                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.dateRequiredError'))]);
+                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.dateRequiredError'))]);
                 }
                 if (!isset($field->pivot->location) || $field->pivot->location == '') {
-                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.locationRequiredError'))]);
+                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.locationRequiredError'))]);
                 }
                 if (new \DateTime($field->pivot->date) > new \DateTime()) {
-                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.dateInTheFutureError'))]);
+                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.dateInTheFutureError'))]);
                 }
             }
         }
@@ -358,13 +358,13 @@ class Scout extends OrganizationBase
             $this->validatePivotDateAndLocationFields($fields, $category);
             foreach ($fields as $field) {
                 if (!isset($field->pivot->qualification_certificate_number) || $field->pivot->qualification_certificate_number == '') {
-                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.qualificationCertificateNumberRequiredError'))]);
+                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.qualificationCertificateNumberRequiredError'))]);
                 }
                 if (!isset($field->pivot->training_id) || $field->pivot->training_id == '') {
-                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.qualificationRequiredError'))]);
+                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.qualificationRequiredError'))]);
                 }
                 if (!isset($field->pivot->qualification_leader) || $field->pivot->qualification_leader == '') {
-                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], \Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.qualificationLeaderRequiredError'))]);
+                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.qualificationLeaderRequiredError'))]);
                 }
             }
         }
@@ -391,34 +391,21 @@ class Scout extends OrganizationBase
     public function scopeOrganization($query, $mandate_model_type, $mandate_model_id)
     {
         switch ($mandate_model_type) {
-            case '\Csatar\Csatar\Models\Association':
+            case Association::getOrganizationTypeModelName():
                 $districts = \Csatar\Csatar\Models\District::where('association_id', $mandate_model_id)->lists('id');
                 $teams = \Csatar\Csatar\Models\Team::whereIn('district_id', $districts)->lists('id');
                 return $query->whereIn('team_id', $teams);
 
-            case '\Csatar\Csatar\Models\District':
+            case District::getOrganizationTypeModelName():
                 $teams = \Csatar\Csatar\Models\Team::where('district_id', $mandate_model_id)->lists('id');
                 return $query->whereIn('team_id', $teams);
 
-            case '\Csatar\Csatar\Models\Team':
+            case Team::getOrganizationTypeModelName():
                 return $query->where('team_id', $mandate_model_id);
-
-            case '\Csatar\Csatar\Models\Troop':
-                $team = \Csatar\Csatar\Models\Troop::find($mandate_model_id)->team_id;
-                return $query->where('team_id', $team);
-
-            case '\Csatar\Csatar\Models\Patrol':
-                $team = \Csatar\Csatar\Models\Patrol::find($mandate_model_id)->team_id;
-                return $query->where('team_id', $team);
 
             default:
                 return $query->whereNull('id');
         }
-    }
-
-    public static function getOrganizationTypeModelName()
-    {
-        return '\\' . static::class;
     }
 
     /*
@@ -426,7 +413,6 @@ class Scout extends OrganizationBase
      */
     public function getMandatesInAssociation($associationId, $savedAfterDate = null): Collection
     {
-
         $sessionRecord = Session::get('scout.mandates');
 
         if(!empty($sessionRecord) && $sessionRecordForAssociation = $sessionRecord->where('associationId', $associationId)->first()) {
@@ -559,5 +545,10 @@ class Scout extends OrganizationBase
 
     public function isOwnOrganization($scout){
         return $this->id === $scout->id;
+    }
+
+    public static function getOrganizationTypeModelNameUserFriendly()
+    {
+        return Lang::get('csatar.csatar::lang.plugin.admin.scout.scout');
     }
 }
