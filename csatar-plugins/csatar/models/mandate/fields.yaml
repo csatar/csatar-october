@@ -8,15 +8,6 @@ fields:
         scope: association
         required: 1
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
-  # !!!DELETE!!!  mandate_model:
-  #      label: 'csatar.csatar::lang.plugin.admin.mandateType.organizationTypeModelName'
-  #      span: auto
-  #      type: dropdown
-  #      nameFrom: name
-  #      descriptionFrom: description
-  #      required: 1
-  #      dependsOn: mandate_type
-  #      emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
     scout:
         label: 'csatar.csatar::lang.plugin.admin.mandateType.scout'
         span: auto

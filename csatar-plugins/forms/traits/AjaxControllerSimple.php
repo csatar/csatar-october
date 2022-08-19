@@ -317,7 +317,6 @@ trait AjaxControllerSimple {
                 $modelName = $form->getModelName();
                 $max_slave_id = DeferredBinding::where('master_type', substr($modelName, 1))->where('master_field', $relationName)->where('session_key', $this->sessionKey)->max('slave_id');
                 $model->id = isset($max_slave_id) ? $max_slave_id + 1 : 1;
-           // !!!DELETE!!!      $record->bindDeferred('mandates', $model, $this->sessionKey, $pivotData);
                 $record->bindDeferred($relationName, $model, $this->sessionKey, $pivotData);
             }
             else {

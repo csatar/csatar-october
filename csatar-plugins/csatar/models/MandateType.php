@@ -92,41 +92,14 @@ class MandateType extends Model
             Team::getOrganizationTypeModelName() => Team::getOrganizationTypeModelNameUserFriendly(),
             Troop::getOrganizationTypeModelName() => Troop::getOrganizationTypeModelNameUserFriendly(),
         ];
-
-      /* !!!DELETE!!!  return [
-            Association::getOrganizationTypeModelName() => Lang::get('csatar.csatar::lang.plugin.admin.association.association'),
-            District::getOrganizationTypeModelName() => Lang::get('csatar.csatar::lang.plugin.admin.district.district'),
-            Patrol::getOrganizationTypeModelName() => Lang::get('csatar.csatar::lang.plugin.admin.patrol.patrol'),
-            Team::getOrganizationTypeModelName() => Lang::get('csatar.csatar::lang.plugin.admin.team.team'),
-            Troop::getOrganizationTypeModelName() => Lang::get('csatar.csatar::lang.plugin.admin.troop.troop'),
-        ];*/
     }
 
     function getOrganizationTypeModelNameUserFriendlyAttribute()
     {
-       // dd($this->attributes['organization_type_model_name']);
-
         return $this->attributes['organization_type_model_name']
             && $this->attributes['organization_type_model_name'] != self::MODEL_NAME_GUEST
             ? ($this->attributes['organization_type_model_name'])::getOrganizationTypeModelNameUserFriendly()
                 : '';
-      
-    /* !!!DELETE!!!    switch ($this->attributes['organization_type_model_name']) {
-            case Association::getOrganizationTypeModelName():
-                return Lang::get('csatar.csatar::lang.plugin.admin.association.association');
-            case District::getOrganizationTypeModelName():
-                return Lang::get('csatar.csatar::lang.plugin.admin.district.district');
-            case Patrol::getOrganizationTypeModelName():
-                return Lang::get('csatar.csatar::lang.plugin.admin.patrol.patrol');
-            case Team::getOrganizationTypeModelName():
-                return Lang::get('csatar.csatar::lang.plugin.admin.team.team');
-            case Troop::getOrganizationTypeModelName():
-                return Lang::get('csatar.csatar::lang.plugin.admin.troop.troop');
-            case Scout::getOrganizationTypeModelName():
-                return Lang::get('csatar.csatar::lang.plugin.admin.scout.scout');
-            default:
-                return '';
-        } */
     }
 
     /**
@@ -168,49 +141,6 @@ class MandateType extends Model
         }
 
         return $association_id && $mandate_model_type ? $query->where('association_id', $association_id)->where('organization_type_model_name', $mandate_model_type) : $query->whereNull('id');
-
-
-     /* !!!DELETE!!!   $organizationTypes = [
-            '\Csatar\Csatar\Models\Association',
-            '\Csatar\Csatar\Models\District',
-            '\Csatar\Csatar\Models\Patrol',
-            '\Csatar\Csatar\Models\Team',
-            '\Csatar\Csatar\Models\Troop',
-        ];
-
-        // the model is null when this method is being triggered from the form; set the data needed to do the filtering on the organization form pages
-        $mandate_model_type = null;
-        $mandate_model_id = null;
-        $association_id = null;
-        if (!$model || !$mandate_model_type || !$association_id) {
-            $inputData = Input::get('data');
-            if ($inputData && array_key_exists('association', $inputData) && !empty($inputData['association'])) {
-                $mandate_model_type = '\Csatar\Csatar\Models\District';
-                $association_id = $inputData['association'];
-            }
-            else if ($inputData && array_key_exists('district', $inputData) && !empty($inputData['district'])) {
-                $mandate_model_type = '\Csatar\Csatar\Models\Team';
-                $association_id = District::find($inputData['district'])->association_id;
-            }
-            else if ($inputData && array_key_exists('team', $inputData) && !empty($inputData['team'])) {
-                $mandate_model_type = (array_key_exists('troop', $inputData) && !empty($inputData['troop'])) ? '\Csatar\Csatar\Models\Patrol' : '\Csatar\Csatar\Models\Troop';
-                $association_id = Team::find($inputData['team'])->district->association_id;
-            }
-        }
-        else {
-            $mandate_model_type = $model->mandate_model_type ?? ($model && array_key_exists('mandate_model', $model->belongsTo) ? $model->belongsTo['mandate_model'] : null);
-            $mandate_model_id = $model->mandate_model_id;
-        }
-
-        return $model && $model->scout_id ?
-            $query->where('association_id', Scout::find($model->scout_id)->getAssociationId())->whereIn('organization_type_model_name', $organizationTypes) :
-            ($model && $mandate_model_id && $mandate_model_type ?
-                $query->where('association_id', ($mandate_model_type)::find($mandate_model_id)->getAssociationId())->where('organization_type_model_name', $mandate_model_type) :
-                (!empty(Input::get('data')['team']) ?
-                    $query->where('association_id', Team::find(Input::get('data')['team'])->district->association->id)->whereIn('organization_type_model_name', $organizationTypes) :
-                        ($association_id && $mandate_model_type ?
-                            $query->where('association_id', $association_id)->where('organization_type_model_name', $mandate_model_type) :
-                            $query->whereNull('id'))));*/
     }
 
     function scopeMandateTypeIdsInAssociation($query, $associationId) {

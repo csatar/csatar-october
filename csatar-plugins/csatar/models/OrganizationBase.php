@@ -50,7 +50,6 @@ class OrganizationBase extends Model
         }
 
         $mandateTypes = MandateType::where('association_id', $this->getAssociationId())->where('organization_type_model_name', $this->getOrganizationTypeModelName())->where('required', true)->get();
-    // !!!DELETE!!!    $mandates = Mandate::where('mandate_model_type', $this->getOrganizationTypeModelName())->where('mandate_model_id', $this->id)->get();
         $mandates = $this->mandates;
         $now = new \DateTime();
 

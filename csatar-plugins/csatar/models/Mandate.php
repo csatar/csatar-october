@@ -117,14 +117,9 @@ class Mandate extends Model
     {
         // from the Organization page
         $modelName = $record::getOrganizationTypeModelName();
-     /* !!!DELETE!!!   if ($modelName == '\Csatar\Csatar\Models\Scout') {
-            $this->scout = $record;
-        }
-        else {*/
-            $this->mandate_model = $record;
-            $this->mandate_model_type = $modelName;
-            $this->mandate_model_name = $record->extendedName;
-     // !!!DELETE!!!  }
+        $this->mandate_model = $record;
+        $this->mandate_model_type = $modelName;
+        $this->mandate_model_name = $record->extendedName;
     }
 
     public function beforeSave()
@@ -194,24 +189,6 @@ class Mandate extends Model
      */
     public function filterFields($fields, $context = null)
     {
-//dd('1', $this, Input::all());
-        // from the Scout screens: populate the Mandate Models dropdown on the basis of Mandate Type if the mandate_type is set and the team id is set
-    /* !!!DELETE!!!    if ($this->scout || $this->scout_id) {
-            $team_id = $this->scout->team_id ?? Input::get('data')['team'];
-            if (isset($fields->mandate_model)) {
-                $fields->mandate_model->options = $this->mandate_type &&
-                    (!empty($team_id) ||
-                        $this->mandate_type->organization_type_model_name == '\Csatar\Csatar\Models\Association') ?
-                        ($this->mandate_type->organization_type_model_name)::getAllByAssociationId($this->mandate_type->association_id, $team_id) :
-                        [];
-            }
-
-            // set the scout and make the field read only
-            $fields->scout->options = [$this->scout_id => $this->scout->name];
-            $fields->scout->value = $this->scout_id;
-            $fields->scout->readOnly = 1;
-        }*/
-//dd(Input::all(), $this);
         $this->mandate_model_type = !$this->mandate_model_type ? $this->belongsTo['mandate_model'] : $this->mandate_model_type;
         $mandate_model_id = null;
         $mandate_model_type = null;
@@ -242,7 +219,7 @@ class Mandate extends Model
                 $mandate_model_type = $this->mandate_model_type;
             }
         }
-//dd($mandate_model_id, $mandate_model_type);
+
         // from the Organization pages: populate the Scouts dropdown
         $scouts = Scout::where('is_active', true)->organization($mandate_model_type, $mandate_model_id)->get();
         $options = [];
@@ -251,15 +228,6 @@ class Mandate extends Model
         }
         asort($options);
         $fields->scout->options = $options;
-
-        //!!!DELETE!!!if ($this->mandate_model_id) {
-           //!!!DELETE!!! $this->mandate_model = !$this->mandate_model ? ($this->mandate_model_type)::find($this->mandate_model_id) : $this->mandate_model;
-
-            /* !!!DELETE!!! // set the mandate model and make the field read only
-            $fields->mandate_model->options = $this->mandate_model ? [$this->mandate_model_id => $this->mandate_model->extendedName] : [];
-            $fields->mandate_model->value = $this->mandate_model_id;
-            $fields->mandate_model->readOnly = 1;  */
-        //!!!DELETE!!!}
     }
 
     /**
