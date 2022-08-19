@@ -1,6 +1,7 @@
 <?php namespace Csatar\Csatar\Models;
 
 use Csatar\Csatar\Models\OrganizationBase;
+use Lang;
 
 /**
  * Model
@@ -70,7 +71,8 @@ class Association extends OrganizationBase
             'key' => 'mandate_model_id',
             'scope' => 'mandateModelType',
             'label' => 'csatar.csatar::lang.plugin.admin.mandate.mandates',
-            'renderableOnForm' => true,
+            'renderableOnCreateForm' => false,
+            'renderableOnUpdateForm' => true,
         ],
     ];
 
@@ -97,5 +99,10 @@ class Association extends OrganizationBase
     public function getAssociationId()
     {
         return $this->id;
+    }
+
+    public static function getOrganizationTypeModelNameUserFriendly()
+    {
+        return Lang::get('csatar.csatar::lang.plugin.admin.association.association');
     }
 }

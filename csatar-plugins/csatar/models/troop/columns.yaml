@@ -33,21 +33,6 @@ columns:
         type: text
         searchable: true
         sortable: true
-    troop_leader_name:
-        label: 'csatar.csatar::lang.plugin.admin.troop.troopLeaderName'
-        type: text
-        searchable: true
-        sortable: true
-    troop_leader_phone:
-        label: 'csatar.csatar::lang.plugin.admin.troop.troopLeaderPhone'
-        type: text
-        searchable: true
-        sortable: true
-    troop_leader_email:
-        label: 'csatar.csatar::lang.plugin.admin.troop.troopLeaderEmail'
-        type: text
-        searchable: true
-        sortable: true
     team_id:
         label: 'csatar.csatar::lang.plugin.admin.troop.team'
         type: number

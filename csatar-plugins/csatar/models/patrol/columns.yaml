@@ -33,21 +33,6 @@ columns:
         type: text
         searchable: true
         sortable: true
-    patrol_leader_name:
-        label: 'csatar.csatar::lang.plugin.admin.patrol.patrolLeaderName'
-        type: text
-        searchable: true
-        sortable: true
-    patrol_leader_phone:
-        label: 'csatar.csatar::lang.plugin.admin.patrol.patrolLeaderPhone'
-        type: text
-        searchable: true
-        sortable: true
-    patrol_leader_email:
-        label: 'csatar.csatar::lang.plugin.admin.patrol.patrolLeaderEmail'
-        type: text
-        searchable: true
-        sortable: true
     age:
         label: 'csatar.csatar::lang.plugin.admin.patrol.ageGroup'
         type: text

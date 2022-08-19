@@ -23,7 +23,7 @@ columns:
         sortable: false
         relation: association
         valueFrom: extendedName
-    organization_type_model_name:
+    organization_type_model_name_user_friendly:
         label: 'csatar.csatar::lang.plugin.admin.mandateType.organizationTypeModelName'
         searchable: true
         sortable: false

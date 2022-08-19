@@ -2,7 +2,7 @@
 
 ## Unreleased
 
-- CS-47 Created basics of the rights system
+- CS-47 - Created basics of the rights system
 - CS-268 - Added new pictograms, and changed definition of existing ones
 - CS-199 - Extended social login plugin to handle Scout and User model connections
 - CS-229 - Changed grid solution using cards
@@ -23,6 +23,9 @@
 - CS-189 - Added name abbreviation to association model and updated seeder
 - CS-172 - Warning and fix for organization name containing organization type
 - CS-193 - Applied basic permissions
+- CS-177 - Create mandate types
+- CS-155 - Update the organization models for the mandates
+- CS-188 - Build in the polimorphic and hasMany relations in the form builder
 - CS-222 - Added foreign keys
 
 ## 1.1.1
