@@ -153,3 +153,6 @@
 1.0.54:
     - 'Updated table csatar_csatar_patrols'
     - builder_table_update_csatar_csatar_patrols_2.php
+1.0.55:
+    - 'Updated table csatar_csatar_mandates'
+    - builder_table_update_csatar_csatar_mandates.php
