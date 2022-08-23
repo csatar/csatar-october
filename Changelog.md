@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-278 - Changed the style of the explanatoy text
 - CS-47 - Created basics of the rights system
 - CS-268 - Added new pictograms, and changed definition of existing ones
 - CS-199 - Extended social login plugin to handle Scout and User model connections

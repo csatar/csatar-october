@@ -214,6 +214,13 @@ a {
     font-weight: 300;
 }
 
+.help-block {
+    font-family: geomanist !important;
+    font-weight: 200;
+    font-size: calc(0.8rem + 0.2vw);
+    line-height: 1.7;
+}
+
 ::placeholder {
     font-weight: 300;
 }
@@ -388,6 +395,10 @@ a:hover {
 
 .errormsg, .invalid-feedback {
     color: #B83222 !important;
+}
+
+.help-block {
+    color: #939393;
 }
 
 /* Flash messages settings */
