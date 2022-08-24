@@ -431,6 +431,26 @@ body>p.flash-message.success, body>p.flash-message.info, body>p.flash-message.wa
     line-height: 1.2;
 }
 
+/* Flash messages positions */
+
+@media (max-width: 767px) {
+    body>p.flash-message.success, body>p.flash-message.info, body>p.flash-message.warning, body>p.flash-message.error {
+        margin-top: 100px;
+    }
+}
+
+@media (max-width: 991px) {
+    body>p.flash-message.success, body>p.flash-message.info, body>p.flash-message.warning, body>p.flash-message.error {
+        margin-top: 120px;
+    }
+}
+
+@media (min-width: 992px) {
+    body>p.flash-message.success, body>p.flash-message.info, body>p.flash-message.warning, body>p.flash-message.error {
+        margin-top: 60px;
+    }
+}
+
 .flash-message.static {
     border-radius: 12px;
     font-family: geomanist !important;
