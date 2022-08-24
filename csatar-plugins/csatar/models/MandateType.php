@@ -143,18 +143,21 @@ class MandateType extends Model
         return $association_id && $mandate_model_type ? $query->where('association_id', $association_id)->where('organization_type_model_name', $mandate_model_type) : $query->whereNull('id');
     }
 
-    function scopeMandateTypeIdsInAssociation($query, $associationId) {
+    public static function getAllMandateTypeIdsInAssociation($associationId): array
+    {
         return self::where('association_id', $associationId)->get()->pluck('id');
     }
 
-    function scopeScoutMandateTypeIdInAssociation($query, $associationId): array {
+    public static function getScoutMandateTypeIdInAssociation($associationId): array
+    {
         $scoutMandateType = self::where('association_id', $associationId)
             ->where('organization_type_model_name', '\Csatar\Csatar\Models\Scout')
             ->first();
         return $scoutMandateType ? [ $scoutMandateType->id ] : [];
     }
 
-    function scopeGuestMandateTypeInAssociation($query, $associationId): array {
+    public static function getGuestMandateTypeInAssociation($associationId): array
+    {
         $guestMandateType = self::where('association_id', $associationId)
             ->where('organization_type_model_name', self::MODEL_NAME_GUEST)
             ->first();

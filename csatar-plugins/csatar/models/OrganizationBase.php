@@ -121,7 +121,7 @@ class OrganizationBase extends Model
             return;
         }
 
-        if(empty($mandateTypeIds) && $guestMandateTypeId = MandateType::guestMandateTypeInAssociation($associationId)) {
+        if(empty($mandateTypeIds) && $guestMandateTypeId = MandateType::getGuestMandateTypeInAssociation($associationId)) {
             $mandateTypeIds = [ $guestMandateTypeId ];
         }
 
