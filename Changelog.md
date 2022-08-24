@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+## 1.2.0
+### 2022-08-24
+
 - CS-229 - Changed grid solution using cards
 - CS-229 - Deleted earlier grid solution from design system
 - CS-229 - Fixed cards bottom rounded corner
