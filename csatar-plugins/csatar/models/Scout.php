@@ -211,7 +211,12 @@ class Scout extends OrganizationBase
         'special_diet' => '\Csatar\Csatar\Models\SpecialDiet',
         'religion' => '\Csatar\Csatar\Models\Religion',
         'tshirt_size' => '\Csatar\Csatar\Models\TShirtSize',
-        'team' => '\Csatar\Csatar\Models\Team',
+        'team' => [
+            '\Csatar\Csatar\Models\Team',
+            'formBuilder' => [
+                'requiredBeforeRender' => true,
+            ],
+        ],
         'troop' => '\Csatar\Csatar\Models\Troop',
         'patrol' => '\Csatar\Csatar\Models\Patrol',
     ];

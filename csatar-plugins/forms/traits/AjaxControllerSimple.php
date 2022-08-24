@@ -768,7 +768,10 @@ trait AjaxControllerSimple {
         // Autoload belongsTo relations
         foreach ($record->belongsTo as $name => $definition) {
 
-            if (!Input::get($name) && !Input::get('data.' . $name)) {
+            if (empty($_POST[$name]) && empty($_POST['data.' . $name]) || $_POST[$name] === $this->createRecordKeyword) {
+                if (!empty($definition['formBuilder']['requiredBeforeRender']) && $definition['formBuilder']['requiredBeforeRender']) {
+                    \App::abort(403, 'Access denied');
+                };
                 continue;
             }
 

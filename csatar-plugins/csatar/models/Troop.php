@@ -41,7 +41,12 @@ class Troop extends OrganizationBase
      */
 
     public $belongsTo = [
-        'team' => '\Csatar\Csatar\Models\Team',
+        'team' => [
+            '\Csatar\Csatar\Models\Team',
+            'formBuilder' => [
+                'requiredBeforeRender' => true,
+            ],
+        ],
     ];
 
     public $hasMany = [

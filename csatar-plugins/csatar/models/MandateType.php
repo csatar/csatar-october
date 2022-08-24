@@ -143,7 +143,7 @@ class MandateType extends Model
         return $association_id && $mandate_model_type ? $query->where('association_id', $association_id)->where('organization_type_model_name', $mandate_model_type) : $query->whereNull('id');
     }
 
-    public static function getAllMandateTypeIdsInAssociation($associationId): array
+    public static function getAllMandateTypeIdsInAssociation($associationId)
     {
         return self::where('association_id', $associationId)->get()->pluck('id');
     }
