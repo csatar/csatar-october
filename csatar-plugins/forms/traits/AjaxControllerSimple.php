@@ -15,6 +15,7 @@ use Backend\Classes\WidgetManager;
 use October\Rain\Exception\ApplicationException;
 use October\Rain\Exception\NotFoundException;
 use October\Rain\Database\Models\DeferredBinding;
+use October\Rain\Database\Collection;
 
 trait AjaxControllerSimple {
 
@@ -63,7 +64,7 @@ trait AjaxControllerSimple {
     }
 
     public function createForm($preview = false)
-    {
+    {//dd(Input::all());
         $form  = Form::find($this->formId);
         $record = $this->getRecord();
 
@@ -71,32 +72,17 @@ trait AjaxControllerSimple {
             throw new NotFoundException();
         }
 
+        $record->fill($data = Input::get('data') ?? []);
+
         $config = $this->makeConfig($form->getFieldsConfig());
+        //update field list and config based on currentUserRights
+        $config->fields = $this->applyUserRightsToForm($config->fields);
         $config->arrayName = 'data';
         $config->alias = $this->alias;
         $config->model = $record;
 
-        // Autoload belongsTo relations
-        foreach($record->belongsTo as $name => $definition) {
-            $inp = Input::get('data.' . $name);
-            if (!Input::get($name) && !Input::get('data.' . $name)) {
-                continue;
-            }
-
-            $key = isset($definition['key']) ? $definition['key'] : $name . '_id';
-            $record->$key = Input::get($name) ?? Input::get('data.' . $name);
-        }
-
-        // Autoload hasMany relations
-        foreach($record->hasMany as $name => $definition) {
-            $inp = Input::get('data.' . $name);
-            if (!Input::get($name) && !Input::get('data.' . $name)) {
-                continue;
-            }
-
-            $key = isset($definition['key']) ? $definition['key'] : $name . '_id';
-            $record->$key = Input::get($name) ?? Input::get('data.' . $name);
-        }
+        $this->autoloadBelongsToRelations($record);
+        $this->autoloadhasManyRelations($record);
 
         $this->widget = new \Backend\Widgets\Form($this, $config);
 
@@ -161,7 +147,7 @@ trait AjaxControllerSimple {
         $allowDuplicates = $isHasManyRelation &&
             isset($record->hasMany[$relationName][0]::$relatedModelAllowDuplicates) &&
             $record->hasMany[$relationName][0]::$relatedModelAllowDuplicates;
-        
+
         $getFunctionName = 'get' . $this->underscoreToCamelCase($relationName, true) . 'Options';
         $options = method_exists($record, $getFunctionName) ? $record->{$getFunctionName}() : null;
 
@@ -351,12 +337,17 @@ trait AjaxControllerSimple {
     public function onSave()
     {
         $isNew = Input::get('recordKeyValue') == 'new' ? true : false;
-        $record = $this->getRecord();
+        $record = $this->record;
 
         if (!$data = Input::get('data')) {
             $error = e(trans('csatar.forms::lang.errors.noDataArray'));
             throw new ApplicationException($error);
         }
+
+        //until this point record was displayed based on rights cached in session
+        $this->currentUserRights = $this->getRights($record, true); // now we get rights from database and ignore session
+
+        $data = $this->filterDataBasedOnUserRightsBeforeSave($data);
 
         // Resolve belongsTo relations
         foreach($record->belongsTo as $name => $definition) {
@@ -396,13 +387,17 @@ trait AjaxControllerSimple {
         // validate the form
         $form = Form::find($this->formId ?? Input::get('formId'));
         $config = $this->makeConfig($form->getFieldsConfig());
+
         $attributeNames = [];
         foreach ($config->fields as $key => $value) {
             $attributeNames[$key] = Lang::get($value['label']);
         }
+
+        $rules = $this->updateRulesBasedOnUserRightsBeforeSave($record->rules, $this->currentUserRights);
+
         $validation = Validator::make(
             $data,
-            $record->rules,
+            $rules,
             [],
             $attributeNames,
         );
@@ -471,7 +466,7 @@ trait AjaxControllerSimple {
             return Redirect::to($redirectUrl)->withInput();
         }
 
-        \Flash::success(e(trans('csatar.forms::lang.success.saved')));
+        Flash::success(e(trans('csatar.forms::lang.success.saved')));
         return Redirect::back()->withInput();
     }
 
@@ -493,7 +488,8 @@ trait AjaxControllerSimple {
     {
         if (!empty($model->rules)) {
             $html = "<div class='validationTags'>";
-            foreach($model->rules as $fieldName => $rule) {
+            $rules = $this->updateRulesBasedOnUserRightsBeforeSave($model->rules, $this->currentUserRights);
+            foreach($rules as $fieldName => $rule) {
                 if (!$forPivot && !$relationName) {
                     $positionData = $fieldName;
                 }
@@ -517,9 +513,12 @@ trait AjaxControllerSimple {
         $key        = $this->recordKeyParam ?? Input::get('recordKeyParam');
         $value      = $this->recordKeyValue ?? Input::get('recordKeyValue');
 
-        $record     = $modelName::where($key, $value)->first();
-        if (!$record && ($value == 'new' || $value == 'letrehozas')) {
-            $record = new $modelName;
+        $record = null;
+        if (!empty($key) && !empty($value)) {
+            $record = $modelName::where($key, $value)->first();
+        }
+        if (!$record && $value == $this->createRecordKeyword) {
+            $record = new $modelName();
         }
 
         if (!$record) {
@@ -546,7 +545,7 @@ trait AjaxControllerSimple {
 
         // render belongsToMany relations
         foreach($record->belongsToMany as $relationName => $definition) {
-            if (!empty($definition['pivot'])) {
+            if ($this->canRead($relationName) && !empty($definition['pivot'])) {
                 $pivotConfig = $this->getConfig($definition[0], 'columnsPivot.yaml');
                 if ($pivotConfig) {
                     $attributesToDisplay = $this->attributesToDisplay($pivotConfig);
@@ -557,7 +556,8 @@ trait AjaxControllerSimple {
 
         // render hasMany relations
         foreach($record->hasMany as $relationName => $definition) {
-            if (is_array($definition)
+            if ($this->canRead($relationName)
+                && is_array($definition)
                 && ((!$record->id
                     && array_key_exists('renderableOnCreateForm', $definition)
                     && $definition['renderableOnCreateForm'])
@@ -594,11 +594,11 @@ trait AjaxControllerSimple {
         $html = '<div class="col-12 mb-4">';
         $html .= '<div class="field-section toolbar-item toolbar-primary mb-2"><h4 style="display:inline;">' . $relationLabel . '</h4>';
 
-        if (!$this->readOnly) {
+        if (!$this->readOnly && $this->canUpdate($relationName)) {
             $html .= '<div class="add-remove-button-container"><button class="btn btn-xs rounded btn-primary me-2"
                 data-request="onListAttachOptions"
                 data-request-data="relationName: \'' . $relationName . '\'"><i class="bi bi-plus-square"></i></button>';
-            $html .= '<button class="btn btn-xs rounded btn-danger"
+            $html .= '<button class="btn btn-xs rounded btn-danger" data-request-flash
                 data-request="onDeletePivotRelation" data-request-data="relationName: \'' . $relationName . '\'"><i class="bi bi-trash"></i></button></div></div>';
             $html .= '<div id="add-edit-' . $relationName . '"></div>';
         } else {
@@ -621,6 +621,10 @@ trait AjaxControllerSimple {
     public function onDeletePivotRelation(){
         $record = $this->getRecord();
         $relationName = Input::get('relationName');
+        if(!$this->canDelete($relationName)){
+            Flash::warning(e(trans('csatar.forms::lang.failed.noPermissionToDelete')));
+            return;
+        }
         $isHasManyRelation = array_key_exists($relationName, $record->hasMany);
         $data = Input::get('data');
         $recordsToDelete = array_key_exists($relationName, $data) ? $data[$relationName] : [];
@@ -747,5 +751,128 @@ trait AjaxControllerSimple {
         }
 
         return false;
+    }
+
+    /**
+     * @param $record
+     * @return void
+     * Presets new record with required values that are not selectable from the from
+     * and should be set before form rendering
+     */
+    public function autoLoadBelongsToRelations(&$record) {
+
+        if (($this->recordKeyValue ?? Input::get('recordKeyValue')) != $this->createRecordKeyword) {
+            return; // do not autoload values if not a new record
+        }
+
+        // Autoload belongsTo relations
+        foreach ($record->belongsTo as $name => $definition) {
+
+            if (!Input::get($name) && !Input::get('data.' . $name)) {
+                continue;
+            }
+
+            $key = isset($definition['key']) ? $definition['key'] : $name . '_id';
+            $record->$key = (Input::get($name) ?? Input::get('data.' . $name));
+        }
+
+    }
+
+    /**
+     * @param $record
+     * @return void
+     * Presets new record with required values that are not selectable from the from
+     * and should be set before form rendering
+     */
+    public function autoLoadHasManyRelations(&$record) {
+
+        if (($this->recordKeyValue ?? Input::get('recordKeyValue')) != $this->createRecordKeyword) {
+            return; // do not autoload values if not a new record
+        }
+
+        // Autoload hasMany relations
+        foreach($record->hasMany as $name => $definition) {
+
+            if (!Input::get($name) && !Input::get('data.' . $name)) {
+                continue;
+            }
+
+            $key = isset($definition['key']) ? $definition['key'] : $name . '_id';
+            $record->$key = Input::get($name) ?? Input::get('data.' . $name);
+        }
+    }
+
+    /**
+     * Applies rights to form fields config. Run before form render
+     */
+    private function applyUserRightsToForm($attributesArray): array
+    {
+        foreach ($attributesArray as $attribute => $settings) {
+
+            if ($settings['type'] == 'section' || $settings['type'] == 'relation') {
+                continue;
+            }
+
+            if (!$this->canRead($attribute)) {
+                unset($attributesArray[$attribute]);
+                continue;
+            }
+
+            $settings['readOnly'] = !$this->canUpdate($attribute); //TODO: how to handle if can't update but can delete?
+            if (!(array_key_exists('readOnly', $settings) && $settings['readOnly'] == 1)) {
+                $settings['readOnly'] = !$this->canUpdate($attribute);
+            }
+
+            if (!(array_key_exists('required', $settings) && $settings['required'] == 1)) {
+                $settings['required'] = $this->isObligatory($attribute) || !$this->canDelete($attribute);
+            }
+            $attributesArray[$attribute] = $settings;
+        }
+
+        return $attributesArray;
+    }
+
+    /**
+     * Filters posted data array, run before $record->save();
+     */
+    private function filterDataBasedOnUserRightsBeforeSave(array $data): array
+    {
+        foreach ($data as $attribute => $value) {
+            if(!$this->canSaveAttribute($attribute)) {
+                unset($data[$attribute]);
+            }
+        }
+        return $data;
+    }
+
+    /**
+     * Applies rights on validation rules, run before rendering validation tags and before form validate.
+     */
+    private function updateRulesBasedOnUserRightsBeforeSave(array $rules, $rights): array
+    {
+        foreach ($rights as $attribute => $right) {
+            if ($this->isObligatory($attribute)) {
+                if (!array_key_exists($attribute, $rules)) {
+                    // if there are no rules for the attribute
+                    $rules[$attribute] = 'required';
+                } elseif (!is_array($rules[$attribute]) && !strpos($rules[$attribute], 'required')) {
+                    // if there are rules for the attribute in string format, but it's not required
+                    $rules[$attribute] = strlen($rules[$attribute]) == 0 ? 'required' : $rules[$attribute] . '|required';
+                } elseif (is_array($rules[$attribute]) && !in_array('required', $rules[$attribute])) {
+                    // if there are rules for the attribute in array format, but it's not required
+                    array_push($rules[$attribute], 'required');
+                }
+            }
+        }
+
+//        $rules = array_intersect_key($rules, $rights->toArray());
+
+        foreach ($rules as $attribute => $value) {
+            if(!$this->canSaveAttribute($attribute) ) {
+                unset($rules[$attribute]);
+            }
+        }
+
+        return $rules;
     }
 }

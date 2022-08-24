@@ -66,7 +66,7 @@
         'formNotFound'          => "The selected form doesn't exist, please check 'Basic Form' component settings on page: ",
         'noDataArray'           => 'Data array is missing. Check form validation and see how could this happen.',
         'canNotSaveValidated'   => 'Can not save validated data. Check form validation and see how could this happen.',
-        'noFiles'               => 'No files'
+        'noFiles'               => 'No files',
     ],
     'validation' => [
         'selectOptionBeforeNext' => 'Please select an option before you click next!',
@@ -74,4 +74,7 @@
     'success' => [
         'saved' => 'Data successfully saved...'
     ],
+    'failed' => [
+        'noPermissionToDelete' => 'You do not have permission to delete this record!'
+    ]
 ];
