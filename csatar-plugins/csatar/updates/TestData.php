@@ -448,6 +448,12 @@ class TestData extends Seeder
 
             $model = new $mandateTypeModel();
             $fields = $model->fillable ?? [];
+            $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'hasOne', 'morphTo', 'morphOne',
+                'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'];
+
+            foreach ($relationArrays as $relationArray){
+                $fields = array_merge($fields, array_keys($model->$relationArray));
+            }
 
             //add permission for the model in general
             Db::table('csatar_csatar_mandates_permissions')
