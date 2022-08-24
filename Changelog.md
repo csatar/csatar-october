@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-278 - Changed the style of the explanatoy text
 - CS-277 - Modified the position of the flash messages, depending on the screen size
 - CS-47 - Created basics of the rights system
 - CS-268 - Added new pictograms, and changed definition of existing ones
