@@ -77,7 +77,8 @@ class District extends OrganizationBase
             'key' => 'mandate_model_id',
             'scope' => 'mandateModelType',
             'label' => 'csatar.csatar::lang.plugin.admin.mandate.mandates',
-            'renderableOnForm' => true,
+            'renderableOnCreateForm' => false,
+            'renderableOnUpdateForm' => true,
         ],
     ];
 
@@ -130,5 +131,10 @@ class District extends OrganizationBase
     public function getAssociationId()
     {
         return $this->association->id;
+    }
+
+    public static function getOrganizationTypeModelNameUserFriendly()
+    {
+        return Lang::get('csatar.csatar::lang.plugin.admin.district.district');
     }
 }

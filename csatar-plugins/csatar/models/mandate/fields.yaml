@@ -8,15 +8,6 @@ fields:
         scope: association
         required: 1
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
-    mandate_model:
-        label: 'csatar.csatar::lang.plugin.admin.mandateType.organizationTypeModelName'
-        span: auto
-        type: dropdown
-        nameFrom: name
-        descriptionFrom: description
-        required: 1
-        dependsOn: mandate_type
-        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
     scout:
         label: 'csatar.csatar::lang.plugin.admin.mandateType.scout'
         span: auto
@@ -32,10 +23,12 @@ fields:
         required: 1
         default: now
         type: datepicker
+        mode: date
     end_date:
         label: 'csatar.csatar::lang.plugin.admin.mandateType.endDate'
         span: auto
         type: datepicker
+        mode: date
     comment:
         label: 'csatar.csatar::lang.plugin.admin.general.comment'
         span: auto

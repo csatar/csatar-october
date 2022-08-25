@@ -142,8 +142,23 @@
     - 'Created table csatar_csatar_mandates'
     - builder_table_create_csatar_csatar_mandates.php
 1.0.51:
+    - 'Created table csatar_csatar_mandates_permissions'
+    - builder_table_create_csatar_csatar_mandates_permissions.php
+1.0.52:
+    - 'Added foreign keys to all the tables'
+    - builder_table_update_add_foreign_keys.php
+1.0.53:
+    - 'Updated table csatar_csatar_troops'
+    - builder_table_update_csatar_csatar_troops.php
+1.0.54:
+    - 'Updated table csatar_csatar_patrols'
+    - builder_table_update_csatar_csatar_patrols_2.php
+1.0.55:
+    - 'Updated table csatar_csatar_mandates'
+    - builder_table_update_csatar_csatar_mandates.php
+1.0.56:
     - 'Created table csatar_csatar_gallery_model'
     - builder_table_create_csatar_csatar_gallery_model.php
-1.0.52:
+1.0.57:
     - 'Updated table csatar_csatar_gallery_model'
     - builder_table_update_csatar_csatar_gallery_model.php

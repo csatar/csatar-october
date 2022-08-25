@@ -17,21 +17,6 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.troop.facebookPage'
         span: auto
         type: text
-    troop_leader_name:
-        label: 'csatar.csatar::lang.plugin.admin.troop.troopLeaderName'
-        span: auto
-        required: 1
-        type: text
-    troop_leader_phone:
-        label: 'csatar.csatar::lang.plugin.admin.troop.troopLeaderPhone'
-        span: auto
-        required: 1
-        type: text
-    troop_leader_email:
-        label: 'csatar.csatar::lang.plugin.admin.troop.troopLeaderEmail'
-        span: auto
-        required: 1
-        type: text
     logo:
         label: 'csatar.csatar::lang.plugin.admin.general.logo'
         mode: image

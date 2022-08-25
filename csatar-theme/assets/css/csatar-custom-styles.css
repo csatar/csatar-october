@@ -214,6 +214,13 @@ a {
     font-weight: 300;
 }
 
+.help-block {
+    font-family: geomanist !important;
+    font-weight: 200;
+    font-size: calc(0.8rem + 0.2vw);
+    line-height: 1.7;
+}
+
 ::placeholder {
     font-weight: 300;
 }
@@ -390,6 +397,10 @@ a:hover {
     color: #B83222 !important;
 }
 
+.help-block {
+    color: #939393;
+}
+
 /* Flash messages settings */
 
 body>p.flash-message.success {
@@ -418,6 +429,26 @@ body>p.flash-message.success, body>p.flash-message.info, body>p.flash-message.wa
     font-weight: 400 !important;
     font-size: calc(0.9rem + 0.2vw) !important;
     line-height: 1.2;
+}
+
+/* Flash messages positions */
+
+@media (max-width: 767px) {
+    body>p.flash-message.success, body>p.flash-message.info, body>p.flash-message.warning, body>p.flash-message.error {
+        margin-top: 100px;
+    }
+}
+
+@media (max-width: 991px) {
+    body>p.flash-message.success, body>p.flash-message.info, body>p.flash-message.warning, body>p.flash-message.error {
+        margin-top: 120px;
+    }
+}
+
+@media (min-width: 992px) {
+    body>p.flash-message.success, body>p.flash-message.info, body>p.flash-message.warning, body>p.flash-message.error {
+        margin-top: 60px;
+    }
 }
 
 .flash-message.static {

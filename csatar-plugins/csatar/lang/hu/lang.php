@@ -111,7 +111,7 @@
                 'leadershipQualifications' => 'Vezetői képesítések',
                 'trainingQualifications' => 'Kiképzői képesítések',
                 'foodSensitivities' => 'Ételérzékenységekek',
-                'additionalDetailsInfo' => 'Allergák, Ételérékenységek, Fogadalmak, Próbák, Különpróbák, Szakági képesítések, Szakági különpróbák, Vezetői képesítések, Kiképzői képesítések és Megbízatások hozzáadása a Cserkész létrehozása után lehetséges. Miután a többi adatot kitöltötted, kattints a Létrehozás gombra.',
+                'additionalDetailsInfo' => 'Allergák, Ételérékenységek, Fogadalmak, Próbák, Különpróbák, Szakági képesítések, Szakági különpróbák, Vezetői képesítések és Kiképzői képesítések hozzáadása a Cserkész létrehozása után lehetséges. Miután a többi adatot kitöltötted, kattints a Létrehozás gombra.',
                 'breadcrumb' => 'Cserkészek',
                 'team' => 'Csapat',
                 'troop' => 'Raj',
@@ -264,6 +264,9 @@
                 'sortOrder' => 'Sorrend',
                 'breadcrumb' => 'Hierarchia',
             ],
+            'organizationBase' => [
+                'organizationBase' => 'Általános szervezeti egység',
+            ],
             'association' => [
                 'association' => 'Szövetség',
                 'associations' => 'Szövetségek',
@@ -326,9 +329,6 @@
                 'nameSuffix' => 'raj',
                 'website' => 'Weboldal',
                 'facebookPage' => 'Facebook oldal',
-                'troopLeaderName' => 'Rajvezető neve',
-                'troopLeaderPhone' => 'Rajvezető telefonszáma',
-                'troopLeaderEmail' => 'Rajvezető e-mail címe',
                 'team' => 'Csapat',
                 'patrolsInfo' => 'Őrsök és Megbízatások hozzáadása a Raj létrehozása után lehetséges. Miután a többi adatot kitöltötted, kattints a Létrehozás gombra.',
                 'breadcrumb' => 'Rajok',
@@ -341,9 +341,6 @@
                 'nameSuffix' => 'őrs',
                 'website' => 'Weboldal',
                 'facebookPage' => 'Facebook oldal',
-                'patrolLeaderName' => 'Őrsvezető neve',
-                'patrolLeaderPhone' => 'Őrsvezető telefonszáma',
-                'patrolLeaderEmail' => 'Őrsvezető e-mail címe',
                 'ageGroup' => 'Korosztály',
                 'team' => 'Csapat',
                 'troop' => 'Raj',
@@ -423,7 +420,11 @@
             ],
             'gallery' => [
                 'gallery' => 'Galéria'
-            ]
+            ],
+            'permissions' => [
+                'permissions' => 'Jogosultságok',
+                'allPermissionsForScout' => 'Minden jogosultság a Cserkész megbízáshoz, az összes model összes mezőjéhez.'
+            ],
         ],
         'component' => [
             'general' => [

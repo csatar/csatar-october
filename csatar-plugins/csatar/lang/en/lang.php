@@ -111,7 +111,7 @@
                 'leadershipQualifications' => 'Leadership qualifications',
                 'trainingQualifications' => 'Training qualifications',
                 'foodSensitivities' => 'Food sensitivities',
-                'additionalDetailsInfo' => 'Allergies, Food Sensitivities, Promises, Tests, Special Tests, Professional Qualifications, Special Qualifications, Leadership Qualifications, Training Qualifications and Mandates can be added after the Scout has been created. Click the Create button after other information is filled.',
+                'additionalDetailsInfo' => 'Allergies, Food Sensitivities, Promises, Tests, Special Tests, Professional Qualifications, Special Qualifications, Leadership Qualifications and Training Qualifications can be added after the Scout has been created. Click the Create button after other information is filled.',
                 'breadcrumb' => 'Scouts',
                 'team' => 'Team',
                 'troop' => 'Troop',
@@ -264,6 +264,9 @@
                 'sortOrder' => 'Sort order',
                 'breadcrumb' => 'Hierarchy',
             ],
+            'organizationBase' => [
+                'organizationBase' => 'Organization base',
+            ],
             'association' => [
                 'association' => 'Association',
                 'associations' => 'Associations',
@@ -326,9 +329,6 @@
                 'nameSuffix' => 'troop',
                 'website' => 'Website',
                 'facebookPage' => 'Facebook page',
-                'troopLeaderName' => 'Troop leader name',
-                'troopLeaderPhone' => 'Troop leader phone',
-                'troopLeaderEmail' => 'Troop leader email',
                 'team' => 'Team',
                 'patrolsInfo' => 'Patrols and Mandates can be added after the Troop has been created. Click the Create button after other information is filled.',
                 'breadcrumb' => 'Troops',
@@ -341,9 +341,6 @@
                 'nameSuffix' => 'patrol',
                 'website' => 'Website',
                 'facebookPage' => 'Facebook page',
-                'patrolLeaderName' => 'Patrol leader name',
-                'patrolLeaderPhone' => 'Patrol leader phone',
-                'patrolLeaderEmail' => 'Patrol leader email',
                 'ageGroup' => 'Age group',
                 'team' => 'Team',
                 'troop' => 'Troop',
@@ -423,7 +420,11 @@
             ],
             'gallery' => [
                 'gallery' => 'Gallery'
-            ]
+            ],
+            'permissions' => [
+                'permissions' => 'Permissions',
+                'allPermissionsForScout' => 'All permissions for every model and field for Scout mandate.'
+            ],
         ],
         'component' => [
             'general' => [

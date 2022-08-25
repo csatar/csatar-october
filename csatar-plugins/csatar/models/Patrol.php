@@ -23,9 +23,6 @@ class Patrol extends OrganizationBase
         'email' => 'email|nullable',
         'website' => 'url|nullable',
         'facebook_page' => 'url|regex:(facebook)|nullable',
-        'patrol_leader_name' => 'required|min:5',
-        'patrol_leader_phone' => 'required|regex:(^[0-9+-.()]{5,}$)',
-        'patrol_leader_email' => 'required|email',
         'logo' => 'image|nullable',
         'age_group' => 'required',
          'team' => 'required',
@@ -34,7 +31,8 @@ class Patrol extends OrganizationBase
     /**
      * Add custom validation
      */
-    public function beforeValidate() {
+    public function beforeValidate()
+    {
         // if we don't have all the data for this validation, then return. The 'required' validation rules will be triggered
         if (!isset($this->team_id)) {
             return;
@@ -42,7 +40,7 @@ class Patrol extends OrganizationBase
 
         // if the selected troop does not belong to the selected team, then throw and exception
         if ($this->troop_id && $this->troop->team->id != $this->team_id) {
-            throw new \ValidationException(['troop' => \Lang::get('csatar.csatar::lang.plugin.admin.patrol.troopNotInTheTeamError')]);
+            throw new \ValidationException(['troop' => Lang::get('csatar.csatar::lang.plugin.admin.patrol.troopNotInTheTeamError')]);
         }
 
         // check that the required mandates are set for now
@@ -71,9 +69,6 @@ class Patrol extends OrganizationBase
         'email',
         'website',
         'facebook_page',
-        'patrol_leader_name',
-        'patrol_leader_phone',
-        'patrol_leader_email',
         'age_group_id',
         'team_id',
         'troop_id',
@@ -108,7 +103,8 @@ class Patrol extends OrganizationBase
             'key' => 'mandate_model_id',
             'scope' => 'mandateModelType',
             'label' => 'csatar.csatar::lang.plugin.admin.mandate.mandates',
-            'renderableOnForm' => true,
+            'renderableOnCreateForm' => true,
+            'renderableOnUpdateForm' => true,
         ],
     ];
 
@@ -120,6 +116,7 @@ class Patrol extends OrganizationBase
     {
         $filterWords = explode(',', Lang::get('csatar.csatar::lang.plugin.admin.patrol.filterOrganizationUnitNameForWords'));
         $this->name = $this->filterNameForWords($this->name, $filterWords);
+        $this->troop_id = $this->troop_id != 0 ? $this->troop_id : null;
     }
 
     /**
@@ -182,5 +179,10 @@ class Patrol extends OrganizationBase
     public function getAssociationId()
     {
         return $this->team->district->association->id;
+    }
+
+    public static function getOrganizationTypeModelNameUserFriendly()
+    {
+        return Lang::get('csatar.csatar::lang.plugin.admin.patrol.patrol');
     }
 }

@@ -57,13 +57,13 @@ class Team extends OrganizationBase
         // iterate through the teams and if there is another team with the same team number, then throw an exception
         foreach($teams as $team) {
             if ($team->id != $this->id && $team->team_number == $this->team_number) {
-                throw new \ValidationException(['team_number' => \Lang::get('csatar.csatar::lang.plugin.admin.team.teamNumberTakenError')]);
+                throw new \ValidationException(['team_number' => Lang::get('csatar.csatar::lang.plugin.admin.team.teamNumberTakenError')]);
             }
         }
 
         // check that the foundation date is not in the future
         if (isset($this->foundation_date) && (new \DateTime($this->foundation_date) > new \DateTime())) {
-            throw new \ValidationException(['foundation_date' => \Lang::get('csatar.csatar::lang.plugin.admin.team.dateInTheFutureError')]);
+            throw new \ValidationException(['foundation_date' => Lang::get('csatar.csatar::lang.plugin.admin.team.dateInTheFutureError')]);
         }
 
         // check that the required mandates are set for now
@@ -125,7 +125,8 @@ class Team extends OrganizationBase
             'key' => 'mandate_model_id',
             'scope' => 'mandateModelType',
             'label' => 'csatar.csatar::lang.plugin.admin.mandate.mandates',
-            'renderableOnForm' => true,
+            'renderableOnCreateForm' => false,
+            'renderableOnUpdateForm' => true,
         ],
     ];
 
@@ -182,5 +183,10 @@ class Team extends OrganizationBase
     public function getAssociationId()
     {
         return $this->district->association->id;
+    }
+
+    public static function getOrganizationTypeModelNameUserFriendly()
+    {
+        return Lang::get('csatar.csatar::lang.plugin.admin.team.team');
     }
 }

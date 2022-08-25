@@ -9,11 +9,6 @@ columns:
         relation: mandate_type
         scope: association
         valueFrom: name
-    mandate_model_name:
-        label: 'csatar.csatar::lang.plugin.admin.mandateType.organizationTypeModelName'
-        type: text
-        searchable: true
-        sortable: false
     scout:
         label: 'csatar.csatar::lang.plugin.admin.mandateType.scout'
         relation: scout
