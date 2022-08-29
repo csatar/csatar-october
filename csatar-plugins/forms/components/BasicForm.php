@@ -307,8 +307,7 @@ class BasicForm extends ComponentBase  {
         if(Auth::user()) {
             return Auth::user()->scout->getRightsForModel($record, $ignoreCache);
         } else {
-            //TODO cache Guest mandate rights;
-            return $record->getRightsForMandateTypes();
+            return $record->getGuestRightsForModel();
         }
     }
 
@@ -335,11 +334,6 @@ class BasicForm extends ComponentBase  {
     private function isObligatory(string $attribute): bool
     {
         return $this->rightsCollectionHasKey($attribute) && $this->currentUserRights[$attribute]['obligatory'] === 1;
-    }
-
-    private function canSaveAttribute(string $attribute): bool
-    {
-        return $this->canRead($attribute) && $this->canUpdate($attribute);
     }
 
     private function rightsCollectionHasKey($attribute): bool

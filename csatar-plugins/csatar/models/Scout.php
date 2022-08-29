@@ -6,6 +6,7 @@ use Db;
 use Lang;
 use Session;
 use Model;
+use Csatar\Csatar\Classes\RightsMatrix;
 use Csatar\Csatar\Models\Association;
 use October\Rain\Database\Collection;
 /**
@@ -537,11 +538,10 @@ class Scout extends OrganizationBase
         }
 
         $key = $associationId . $model::getOrganizationTypeModelName() . ($own ? '_own' : '') . ($twoFA ? '_2fa' : '');
-        $rightsMatrixLastUpdatedAt  = $this->getRightsMatrixLastUpdateTime();
 
         $sessionRecordForModel = $sessionRecord->get($key);
 
-        if (!empty($sessionRecordForModel) && $sessionRecordForModel['savedToSession'] >= $rightsMatrixLastUpdatedAt) {
+        if (!empty($sessionRecordForModel) && $sessionRecordForModel['savedToSession'] >= RightsMatrix::getRightsMatrixLastUpdateTime()) {
            return $sessionRecordForModel['rights'];
         }
 
@@ -569,11 +569,6 @@ class Scout extends OrganizationBase
         ]);
 
         Session::put('scout.rightsForModels', $sessionRecord);
-    }
-
-    public function getRightsMatrixLastUpdateTime() {
-        return Db::table('csatar_csatar_mandates_permissions')->
-            select('updated_at')->orderBy('updated_at','DESC')->first()->updated_at;
     }
 
     public function isOwnOrganization($scout){

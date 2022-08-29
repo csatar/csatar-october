@@ -1,5 +1,12 @@
 {% component 'basicForm' %}
 
+{% if user %}
+<form action="/tag/letrehozas" method="post">
+    <input type="hidden" name="team" value="{{ team_id }}">
+    <input type="submit" class="btn rounded btn-primary" value="{{ 'Tag hozzáadása' | _ }}">
+</form>
+{% endif %}
+
 <p>{{ 'Rajok' | _ }}</p>
 {% component 'builderList' %}
 

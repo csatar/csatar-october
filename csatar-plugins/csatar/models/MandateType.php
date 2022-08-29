@@ -8,6 +8,8 @@ use Csatar\Csatar\Models\Troop;
 use Input;
 use Lang;
 use Model;
+use October\Rain\Database\Collection;
+use Session;
 
 /**
  * Model
@@ -156,11 +158,30 @@ class MandateType extends Model
         return $scoutMandateType ? [ $scoutMandateType->id ] : [];
     }
 
-    public static function getGuestMandateTypeInAssociation($associationId): array
+    public static function getGuestMandateTypeIdInAssociation($associationId): ?int
     {
-        $guestMandateType = self::where('association_id', $associationId)
+        $sessionRecord = Session::get('guest.mandateTypeIds');
+
+        if(!empty($sessionRecord) && $sessionRecordForAssociation = $sessionRecord->where('associationId', $associationId)->first()) {
+            return $sessionRecordForAssociation['guestMandateTypeId'];
+        }
+
+        if(empty($sessionRecord)){
+            $sessionRecord = new Collection([]);
+        }
+
+        $guestMandateTypeId = self::where('association_id', $associationId)
             ->where('organization_type_model_name', self::MODEL_NAME_GUEST)
-            ->first();
-        return $guestMandateType ? [ $guestMandateType->id ] : [];
+            ->first()->id;
+
+        $sessionRecord = $sessionRecord->replace([ $associationId => [
+            'associationId' => $associationId,
+            'savedToSession' => date('Y-m-d H:i'),
+            'guestMandateTypeId'=> $guestMandateTypeId,
+        ]]);
+
+        Session::put('guest.mandateTypeIds', $sessionRecord);
+
+        return $guestMandateTypeId;
     }
 }

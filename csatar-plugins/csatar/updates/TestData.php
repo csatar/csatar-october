@@ -44,7 +44,13 @@ class TestData extends Seeder
             'Orchideák',
         ],
         'permissions' => [
-            'RMCSSZ' => 'allPermissionsForScout',
+            'Horvátországi magyar cserkészek' => 'readPermissionForGuests',
+            'Kárpátaljai Magyar Cserkészszövetség' => 'readPermissionForGuests',
+            'Külföldi Magyar Cserkészszövetség' => 'readPermissionForGuests',
+            'Magyar Cserkészszövetség' => 'readPermissionForGuests',
+            'Romániai Magyar Cserkészszövetség' => ['allPermissionsForScout', 'readPermissionForGuests'],
+            'Szlovákiai Magyar Cserkészszövetség' => 'readPermissionForGuests',
+            'Vajdasági Magyar Cserkészszövetség' => 'readPermissionForGuests',
         ]
     ];
 
@@ -416,6 +422,8 @@ class TestData extends Seeder
         // add all permissions to scout mandate
 
         $this->addAllPermissionsToScouts();
+
+        $this->addReadPermissionsToGuests();
     }
 
     public function getFirstAgeGroupInAssociation($team_id) {
@@ -564,5 +572,65 @@ class TestData extends Seeder
             }
         }
 
+    }
+
+    public function addReadPermissionsToGuests() {
+        $associationIds = Association::all()->pluck('id')->toArray();
+
+        foreach ($associationIds as $associationId) {
+            $mandateTypeModels = Db::table('csatar_csatar_mandate_types')
+                ->where('association_id', $associationId)
+                ->where('organization_type_model_name', '<>', 'GUEST')
+                ->select('organization_type_model_name')->distinct()->get()->pluck('organization_type_model_name'); //get every unique model we have mandate for
+            $guestMandateTypeId = Db::table('csatar_csatar_mandate_types')->select('id')
+                ->where('association_id', $associationId)
+                ->where('organization_type_model_name', 'GUEST')
+                ->first()->id; //get guest mandate type id
+
+            if(empty($mandateTypeModels) || empty($guestMandateTypeId)) return;
+
+            foreach ($mandateTypeModels as $mandateTypeModel) {
+
+                $model = new $mandateTypeModel();
+                $fields = $model->fillable ?? [];
+                $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'hasOne', 'morphTo', 'morphOne',
+                    'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'];
+
+                foreach ($relationArrays as $relationArray){
+                    $fields = array_merge($fields, array_keys($model->$relationArray));
+                }
+
+                //add permission for the model in general
+                Db::table('csatar_csatar_mandates_permissions')
+                    ->updateOrInsert(
+                        ['mandate_type_id' => $guestMandateTypeId, 'model' => $mandateTypeModel, 'field' => 'MODEL_GENERAL'],
+                        [
+                            'obligatory'    => false,
+                            'create'        => false,
+                            'read'          => true,
+                            'update'        => false,
+                            'delete'        => false,
+                        ],
+                    );
+
+                //add permission for each attribute
+
+                foreach ($fields as $field) {
+                    //add permission for the model->field
+                    Db::table('csatar_csatar_mandates_permissions')
+                        ->updateOrInsert(
+                            ['mandate_type_id' => $guestMandateTypeId, 'model' => $mandateTypeModel, 'field' => $field],
+                            [
+                                'obligatory'    => false,
+                                'create'        => false,
+                                'read'          => true,
+                                'update'        => false,
+                                'delete'        => false,
+                            ],
+                        );
+                }
+            }
+
+        }
     }
 }

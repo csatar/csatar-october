@@ -76,7 +76,7 @@ trait AjaxControllerSimple {
 
         $config = $this->makeConfig($form->getFieldsConfig());
         //update field list and config based on currentUserRights
-        $config->fields = $this->applyUserRightsToForm($config->fields);
+        $config->fields = $this->applyUserRightsToForm($config->fields, empty($record->id), $preview);
         $config->arrayName = 'data';
         $config->alias = $this->alias;
         $config->model = $record;
@@ -347,7 +347,29 @@ trait AjaxControllerSimple {
         //until this point record was displayed based on rights cached in session
         $this->currentUserRights = $this->getRights($record, true); // now we get rights from database and ignore session
 
-        $data = $this->filterDataBasedOnUserRightsBeforeSave($data);
+        // validate the form
+        $form = Form::find($this->formId ?? Input::get('formId'));
+        $config = $this->makeConfig($form->getFieldsConfig());
+
+        $attributeNames = [];
+
+        foreach ($config->fields as $key => $value) {
+            $attributeNames[$key] = Lang::get($value['label']);
+        }
+
+        $rules = $this->addRequiredRuleBasedOnUserRights($record->rules, $this->currentUserRights, $isNew);
+
+        $validation = Validator::make(
+            $data,
+            $rules,
+            [],
+            $attributeNames,
+        );
+        if ($validation->fails()) {
+            throw new \ValidationException($validation);
+        }
+
+        $data = $this->filterDataBasedOnUserRightsBeforeSave($data, $isNew);
 
         // Resolve belongsTo relations
         foreach($record->belongsTo as $name => $definition) {
@@ -382,27 +404,6 @@ trait AjaxControllerSimple {
             } else {
                 $record->$relationName()->sync($data[$relationName]);
             }
-        }
-
-        // validate the form
-        $form = Form::find($this->formId ?? Input::get('formId'));
-        $config = $this->makeConfig($form->getFieldsConfig());
-
-        $attributeNames = [];
-        foreach ($config->fields as $key => $value) {
-            $attributeNames[$key] = Lang::get($value['label']);
-        }
-
-        $rules = $this->updateRulesBasedOnUserRightsBeforeSave($record->rules, $this->currentUserRights);
-
-        $validation = Validator::make(
-            $data,
-            $rules,
-            [],
-            $attributeNames,
-        );
-        if ($validation->fails()) {
-            throw new \ValidationException($validation);
         }
 
         // save the data
@@ -488,7 +489,7 @@ trait AjaxControllerSimple {
     {
         if (!empty($model->rules)) {
             $html = "<div class='validationTags'>";
-            $rules = $this->updateRulesBasedOnUserRightsBeforeSave($model->rules, $this->currentUserRights);
+            $rules = $this->addRequiredRuleBasedOnUserRights($model->rules, $this->currentUserRights);
             foreach($rules as $fieldName => $rule) {
                 if (!$forPivot && !$relationName) {
                     $positionData = $fieldName;
@@ -768,7 +769,7 @@ trait AjaxControllerSimple {
         // Autoload belongsTo relations
         foreach ($record->belongsTo as $name => $definition) {
 
-            if (empty($_POST[$name]) && empty($_POST['data.' . $name]) || $_POST[$name] === $this->createRecordKeyword) {
+            if (empty($_POST[$name]) && empty($_POST['data'][$name])) {
                 if (!empty($definition['formBuilder']['requiredBeforeRender']) && $definition['formBuilder']['requiredBeforeRender']) {
                     \App::abort(403, 'Access denied');
                 };
@@ -808,27 +809,53 @@ trait AjaxControllerSimple {
     /**
      * Applies rights to form fields config. Run before form render
      */
-    private function applyUserRightsToForm($attributesArray): array
+    private function applyUserRightsToForm(array $attributesArray, bool $isNewRecord = false, bool $isReadOnly): array
     {
+        // NOTE:
+        // In readOnly mode we do not care about create/update/delete rights.
+        // In create mode, we do not care about read/update/delete rights.
+        // In update mode, we do not care about read/create rights.
+        // This function is called in every mode.
+
+        // NOTE: in create mode, we do not care about update/delete
+
         foreach ($attributesArray as $attribute => $settings) {
 
             if ($settings['type'] == 'section' || $settings['type'] == 'relation') {
                 continue;
             }
 
-            if (!$this->canRead($attribute)) {
-                unset($attributesArray[$attribute]);
-                continue;
+            if ($isReadOnly) {
+                if (!$this->canRead($attribute)) {
+                    unset($attributesArray[$attribute]);
+                    continue;
+                }
             }
 
-            $settings['readOnly'] = !$this->canUpdate($attribute); //TODO: how to handle if can't update but can delete?
-            if (!(array_key_exists('readOnly', $settings) && $settings['readOnly'] == 1)) {
-                $settings['readOnly'] = !$this->canUpdate($attribute);
+            if ($this->isObligatory($attribute)) {
+                $settings['required'] = true;
             }
 
-            if (!(array_key_exists('required', $settings) && $settings['required'] == 1)) {
-                $settings['required'] = $this->isObligatory($attribute) || !$this->canDelete($attribute);
+            if ($isNewRecord) {
+                if (!$this->canCreate($attribute)) {
+                    unset($attributesArray[$attribute]);
+                    continue;
+                }
             }
+
+            if (!$isNewRecord) {
+                if (!$this->canUpdate($attribute)) {
+                    $settings['readOnly'] = true;
+                }
+                //TODO: how to handle if can't update but can delete?
+                // Render the field not readOnly and handle on save? ref.cantUpdateCanDelete
+
+                //handle if user can't delete attribute ref.cantDeleteMakeRequired
+//                if (!$this->canDelete($attribute)) {
+//                    $settings['required'] = true;
+//                }
+            }
+
             $attributesArray[$attribute] = $settings;
         }
 
@@ -838,23 +865,66 @@ trait AjaxControllerSimple {
     /**
      * Filters posted data array, run before $record->save();
      */
-    private function filterDataBasedOnUserRightsBeforeSave(array $data): array
+    private function filterDataBasedOnUserRightsBeforeSave(array $data, bool $isNewRecord = false): array
     {
-        foreach ($data as $attribute => $value) {
-            if(!$this->canSaveAttribute($attribute)) {
-                unset($data[$attribute]);
+        // This function is needed because at the time of rendering the form user rights are loaded from session,
+        // but before save we confirm the rights from database, and if there were changes, not-allowed data should not be saved.
+
+        // NOTE:
+        // In readOnly mode we do not care about create/update/delete rights.
+        // In create mode, we do not care about read/update/delete rights.
+        // In update mode, we do not care about read/create rights.
+        // This function is called only in create/update mode.
+
+        if ($isNewRecord) { //if it's a new record, we care only about create right
+            foreach ($data as $attribute => $value) {
+                if (!$this->canCreate($attribute)) {
+                    unset($data[$attribute]);
+                }
             }
         }
+
+        if (!$isNewRecord) { //if updating an existing record we don't care about create right
+            foreach ($data as $attribute => $value) {
+                //what if is obligatory BUT user can delete ref.obligatoryDelete --> there will be validation error
+
+                //if user can delete attribute, but he is not allowed to update it, accept only empty value for the attribute
+                if ($this->canDelete($attribute) && !$this->canUpdate($attribute) && (!$value != '' || $value != null)) { //TODO ref.cantUpdateCanDelete
+                    unset($data[$attribute]);
+                    continue;
+                }
+                //if user can delete attribute, but he is not allowed to update it and value is empty for the attribute, continue
+                if ($this->canDelete($attribute) && !$this->canUpdate($attribute) && (!$value == '' || $value == null)) { //TODO ref.cantUpdateCanDelete
+                    continue;
+                }
+                //TODO: if user can't delete attribute and $value is empty, throw validation exception?
+                // ref.cantDeleteButEmpty OR ref.cantDeleteMakeRequired
+
+                //if user can't update the attribute, and the above conditions doesn't apply, unset attribute before save
+                if (!$this->canUpdate($attribute)) {
+                    unset($data[$attribute]);
+                }
+            }
+        }
+
         return $data;
     }
 
     /**
      * Applies rights on validation rules, run before rendering validation tags and before form validate.
      */
-    private function updateRulesBasedOnUserRightsBeforeSave(array $rules, $rights): array
+    private function addRequiredRuleBasedOnUserRights(array $rules, $rights): array
     {
+        // NOTE:
+        // In readOnly mode we do not care about create/update/delete rights.
+        // In create mode, we do not care about read/update/delete rights.
+        // In update mode, we do not care about read/create rights.
+        // This function is called only in create/update mode.
+
         foreach ($rights as $attribute => $right) {
             if ($this->isObligatory($attribute)) {
+                //add required rule if is obligatory for user to fill the attribute
+                //BUT this should not remove required rule IF, it's required by model settings
                 if (!array_key_exists($attribute, $rules)) {
                     // if there are no rules for the attribute
                     $rules[$attribute] = 'required';
@@ -868,14 +938,40 @@ trait AjaxControllerSimple {
             }
         }
 
-//        $rules = array_intersect_key($rules, $rights->toArray());
-
-        foreach ($rules as $attribute => $value) {
-            if(!$this->canSaveAttribute($attribute) ) {
-                unset($rules[$attribute]);
-            }
-        }
-
         return $rules;
     }
+
+//    private function removeRulesBasedOnUserRights(array $rules, $rights, bool $isNewRecord): array
+//    {
+//        // Should we remove rules for attributes that user can't create/update?
+//        // If we do, will there be another validation on model level?
+//        //        $rules = array_intersect_key($rules, $rights->toArray());
+//
+//        foreach ($rules as $attribute => $value) {
+//            if(!$this->canSaveAttribute($attribute) ) {
+//                unset($rules[$attribute]);
+//            }
+//        }
+//
+//        return $rules;
+//    }
+//
+//    private function validateDataBasedOnUserRights(array $rules, $rights, array $data, bool $isNewRecord){
+//        if ($isNewRecord) {
+//            //we do not care about read/update/delete rights
+//            //what if can NOT create but is obligatory --> there will be validation error
+//            //what if can NOT create but attribute is required by default --> there will be validation error
+//
+//            // trow exception to contact admin and review rights?
+//        }
+//
+//        if (!$isNewRecord) {
+//            //we do not care about read/create rights.
+//            //what if can NOT update but is obligatory and empty?
+//            // --> field should be read only, and value should not be empty BUT what if it is
+//            //what if can NOT update but attribute is required by default
+//            // --> field should be read only AND there should be no record with empty value
+//            // There will be validation error in both cases
+//        }
+//    }
 }

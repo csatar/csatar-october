@@ -2,16 +2,19 @@
 
 use App;
 use Backend;
+use Csatar\Csatar\Classes\Exceptions\OauthException;
+use Csatar\Csatar\Models\Association;
+use Csatar\Csatar\Models\MandateType;
+use Csatar\Csatar\Models\Scout;
 use Event;
 use Input;
-use Csatar\Csatar\Classes\Exceptions\OauthException;
-use System\Classes\PluginBase;
-use Validator;
-use ValidationException;
 use Lang;
 use RainLab\User\Models\User;
 use Redirect;
-use Csatar\Csatar\Models\Scout;
+use Session;
+use System\Classes\PluginBase;
+use ValidationException;
+use Validator;
 
 /**
  * csatar Plugin Information File
@@ -122,6 +125,8 @@ class Plugin extends PluginBase
                 $user->scout->saveMandateTypeIdsForEveryAssociationToSession();
             }
         });
+
+        $this->saveGuestMandateTypeIdsForEveryAssociationToSession();
     }
 
     /**
@@ -171,5 +176,21 @@ class Plugin extends PluginBase
             ];
 
         });
+    }
+
+    public function saveGuestMandateTypeIdsForEveryAssociationToSession(){
+
+        if(empty(Session::get('guest.mandateTypeIds'))) {
+            $associationIds = Association::all()->pluck('id');
+
+            if(empty($associationIds)){
+                return;
+            }
+
+            foreach($associationIds as $associationId){
+                MandateType::getGuestMandateTypeIdInAssociation($associationId);
+            }
+        }
+
     }
 }

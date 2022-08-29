@@ -1,11 +1,13 @@
 <?php namespace Csatar\Csatar\Models;
 
+use Csatar\Csatar\Classes\RightsMatrix;
 use Csatar\Csatar\Models\MandateType;
 use DateTime;
 use Db;
 use Input;
 use Lang;
 use Model;
+use October\Rain\Database\Collection;
 use Session;
 use ValidationException;
 
@@ -113,6 +115,38 @@ class OrganizationBase extends Model
         return trim(implode(' ', $nameFiltered));
     }
 
+    public function getGuestRightsForModel() {
+        $associationId = $this->getAssociationId();
+        $modelName = $this::getOrganizationTypeModelName();
+        $key = $associationId . $modelName;
+
+        $sessionRecord = Session::get('guest.rightsForModels');
+        $sessionRecordForModel = $sessionRecord ? $sessionRecord->get($key) : null;
+
+        if (!empty($sessionRecordForModel) && $sessionRecordForModel['savedToSession'] >= RightsMatrix::getRightsMatrixLastUpdateTime()) {
+            return $sessionRecordForModel['rights'];
+        }
+
+        if(empty($sessionRecord)){
+            $sessionRecord = new Collection([]);
+        }
+
+        $rights = $this->getRightsForMandateTypes();
+
+        $sessionRecord = $sessionRecord->replace([
+            $key => [
+                'associationId' => $associationId,
+                'model' => $modelName,
+                'savedToSession' => date('Y-m-d H:i'),
+                'rights'=> $rights,
+            ],
+        ]);
+
+        Session::put('guest.rightsForModels', $sessionRecord);
+
+        return $rights;
+    }
+
     public function getRightsForMandateTypes(array $mandateTypeIds = [], bool $own = false, bool $twoFA = false){
 
         $associationId = $this->getAssociationId();
@@ -121,7 +155,7 @@ class OrganizationBase extends Model
             return;
         }
 
-        if(empty($mandateTypeIds) && $guestMandateTypeId = MandateType::getGuestMandateTypeInAssociation($associationId)) {
+        if(empty($mandateTypeIds) && $guestMandateTypeId = MandateType::getGuestMandateTypeIdInAssociation($associationId)) {
             $mandateTypeIds = [ $guestMandateTypeId ];
         }
 
