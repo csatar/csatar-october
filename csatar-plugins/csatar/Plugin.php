@@ -59,6 +59,14 @@ class Plugin extends PluginBase
             return Lang::get('csatar.csatar::lang.frontEnd.authException');
         });
 
+        App::error(function(
+            \Symfony\Component\HttpKernel\Exception\HttpException $exception) {
+
+            if($exception->getStatusCode() == 403) {
+                return Redirect::to('/403');
+            }
+        });
+
         App::error(function (OauthException $exception) {
             if($exception->getCode() == 1) {
                 \Flash::warning($exception->getMessage());

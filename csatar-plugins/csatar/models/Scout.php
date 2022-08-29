@@ -541,7 +541,7 @@ class Scout extends OrganizationBase
 
         $sessionRecordForModel = $sessionRecord->get($key);
 
-        if (!empty($sessionRecordForModel) && $sessionRecordForModel['savedToSession'] >= RightsMatrix::getRightsMatrixLastUpdateTime()) {
+        if (!empty($sessionRecordForModel) && $sessionRecordForModel['savedToSession'] >= RightsMatrix::getRightsMatrixLastUpdateTime() && $sessionRecordForModel['rights']->count() != 0) {
            return $sessionRecordForModel['rights'];
         }
 

@@ -576,12 +576,11 @@ class TestData extends Seeder
 
     public function addReadPermissionsToGuests() {
         $associationIds = Association::all()->pluck('id')->toArray();
+        $mandateTypeModels = Db::table('csatar_csatar_mandate_types')
+            ->where('organization_type_model_name', '<>', 'GUEST')
+            ->select('organization_type_model_name')->distinct()->get()->pluck('organization_type_model_name'); //get every unique model we have mandate for
 
         foreach ($associationIds as $associationId) {
-            $mandateTypeModels = Db::table('csatar_csatar_mandate_types')
-                ->where('association_id', $associationId)
-                ->where('organization_type_model_name', '<>', 'GUEST')
-                ->select('organization_type_model_name')->distinct()->get()->pluck('organization_type_model_name'); //get every unique model we have mandate for
             $guestMandateTypeId = Db::table('csatar_csatar_mandate_types')->select('id')
                 ->where('association_id', $associationId)
                 ->where('organization_type_model_name', 'GUEST')

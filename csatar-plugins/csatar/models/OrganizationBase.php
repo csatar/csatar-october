@@ -123,7 +123,7 @@ class OrganizationBase extends Model
         $sessionRecord = Session::get('guest.rightsForModels');
         $sessionRecordForModel = $sessionRecord ? $sessionRecord->get($key) : null;
 
-        if (!empty($sessionRecordForModel) && $sessionRecordForModel['savedToSession'] >= RightsMatrix::getRightsMatrixLastUpdateTime()) {
+        if (!empty($sessionRecordForModel) && $sessionRecordForModel['savedToSession'] >= RightsMatrix::getRightsMatrixLastUpdateTime() && $sessionRecordForModel['rights']->count() != 0) {
             return $sessionRecordForModel['rights'];
         }
 
@@ -132,7 +132,6 @@ class OrganizationBase extends Model
         }
 
         $rights = $this->getRightsForMandateTypes();
-
         $sessionRecord = $sessionRecord->replace([
             $key => [
                 'associationId' => $associationId,
