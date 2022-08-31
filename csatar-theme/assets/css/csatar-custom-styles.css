@@ -1077,7 +1077,7 @@ table.fixed {
     table-layout: fixed;
 }
 
-th, td, .th, .td {
+th, td, .th, .td, .th-grid {
     border-radius: 12px;
     padding: 4px;
 }
@@ -1091,12 +1091,16 @@ th, .th {
     text-align: center;
 }
 
-.th2 {
+.th2, .th-grid {
     border: 1px solid #99A56B;
     background-color: #99A56B !important;
     color: white;
     font-weight: 400;
     font-size: calc(0.9rem + 0.2vw);
+}
+
+.th-grid {
+    text-align: center;
 }
 
 .th3 {
