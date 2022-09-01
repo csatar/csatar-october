@@ -304,7 +304,7 @@ class BasicForm extends ComponentBase  {
     {
         $this->autoloadBelongsToRelations($record);
 
-        if(Auth::user()) {
+        if(Auth::user() && !empty(Auth::user()->scout)) {
             return Auth::user()->scout->getRightsForModel($record, $ignoreCache);
         } else {
             return $record->getGuestRightsForModel();
