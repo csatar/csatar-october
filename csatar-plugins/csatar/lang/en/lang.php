@@ -194,6 +194,14 @@
                 'foodSensitivities' => 'Food Sensitivities',
                 'breadcrumb' => 'Food Sensitivities',
             ],
+            'contactSettings' => [
+                'offices' => 'Offices',
+                'address' => 'Address',
+                'bank' => 'Bank',
+                'bankAccount' => 'Bank Account',
+                'email' => 'Email',
+                'phoneNumbers' => 'Phone Numbers',
+            ],
             'chronicIllness' => [
                 'chronicIllness' => 'Chronic Illness',
                 'chronicIllnesses' => 'Chronic Illnesses',

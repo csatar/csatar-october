@@ -194,6 +194,14 @@
                 'foodSensitivities' => 'Ételérzékenységek',
                 'breadcrumb' => 'Ételérzékenységek',
             ],
+            'contactSettings' => [
+                'offices' => 'Irodák',
+                'address' => 'Cím',
+                'bank' => 'Bank',
+                'bankAccount' => 'Bankszámla',
+                'email' => 'E-mail cím',
+                'phoneNumbers' => 'Telefonszámok',
+            ],
             'chronicIllness' => [
                 'chronicIllness' => 'Krónikus betegség',
                 'chronicIllnesses' => 'Krónikus betegségek',
