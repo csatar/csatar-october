@@ -36,7 +36,7 @@
                     <div class="card m-2">
                         <div class="card-body">
                             <h5 class="card-title">{{ 'Kártya cím' | _ }}</h5>
-                            <p class="small mb-2 text-subtitle">{{ 'Kártya alcím' | _ }}</p>
+                            <p class="p-small mb-2 text-subtitle">{{ 'Kártya alcím' | _ }}</p>
                             <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore.</p>
                             <button type="button" class="btn btn-sm rounded btn-light">
                                 {{ 'Tovább' | _ }}
@@ -45,6 +45,285 @@
                     </div> 
                 </div>
             </div>
+            
+            <!-- Data sheets -->
+            <hr>
+
+            <div class="row">
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="my-2">
+                        <div class="d-flex justify-content-center pt-2 bg-white">
+                            <img class="rounded-circle csat-data-profile-img" src="{{ 'assets/images/userimg_placeholder.webp' | theme }}" alt="">
+                        </div>
+
+                        <div class="card csat-data-card csat-data-profile mx-auto">
+                            <h3 class="text-white text-center">{{ 'Példa Péter' | _ }}</h3>
+                            <p class="p-bold text-center mb-0">Medve {{ 'örs' | _ }}</p>
+                            <p class="text-center mt-0">{{ 'Örsvezető' | _ }}</p>
+                            <hr class="mt-0">
+                            <p class="card-text text-white text-center">Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum officiis consequuntur culpa similique neque, corrupti sed ratione.</p>
+                            <div class="card-body rounded bg-light">
+                                <p class="p-bold mb-2 text-primary">{{ 'Becenév: ' | _ }}<span class="text-black card-text">Peti</span></p>
+                                <p class="p-bold mb-2 text-primary">{{ 'E-mail cím : ' | _ }}<span class="text-black card-text">peterpelda@email.hu</span></h6>
+                                <p class="p-bold mb-2 text-primary">{{ 'Telefonszám: ' | _ }}<span class="text-black card-text">0123456789</span></p>
+                                <p class="p-bold mb-2 text-primary">{{ 'Személyi szám: ' | _ }}<span class="text-black card-text">1220202123456</span></p>
+                                <p class="p-bold mb-2 text-primary">{{ 'Nem: ' | _ }}<span class="text-black card-text">férfi</span></p>
+                                <p class="p-bold mb-2 text-primary">{{ 'Vallás: ' | _ }}<span class="text-black card-text">római katólikus</span></p>
+                                <p class="p-bold mb-2 text-primary">{{ 'Nemzetiség: ' | _ }}<span class="text-black card-text">magyar</span></p>
+                                <p class="p-bold mb-2 text-primary">{{ 'Pólóméret: ' | _ }}<span class="text-black card-text">M</span></p>
+                                <p class="p-bold mb-2 text-primary">{{ 'Jogviszony: ' | _ }}<span class="text-black card-text"></span></p>
+                            </div>
+
+                            <div class="card-body rounded bg-light mt-2">
+                                <p class="p-bold mb-2 text-primary">{{ 'Egyéb adatok: ' | _ }}<span class="text-black card-text">Lorem ipsum</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-8 col-md-6 col-sm-12">
+                    <div class="row">
+                        <div class="col-lg-4 col-md-6 col-sm-12">
+                            <div class="my-2">
+                                <div class="d-flex justify-content-center pt-2 bg-white">
+                                    <img class="rounded-circle csat-data-profile-img" src="{{ 'assets/images/userimg_placeholder.webp' | theme }}" alt="">
+                                </div>
+                                <div class="card csat-data-card csat-data-profile-sm mx-auto">
+                                    <h3 class="text-center">{{ 'Példa Péter' | _ }}</h3>
+                                    <p class="p-bold text-center mb-0">Medve {{ 'örs' | _ }}</p>
+                                    <p class="text-center">{{ 'Örsvezető' | _ }}</p>
+                                    <button type="button" class="btn btn-sm rounded btn-primary">
+                                        {{ 'Adatok' | _ }}
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="my-2">
+                            <div class="d-flex flex-row">
+                                <div>                                    
+                                    <img class="rounded-circle csat-data-profile-tab-img" src="{{ 'assets/images/userimg_placeholder.webp' | theme }}" alt="">                                    
+                                </div>
+                                <div class="csat-data-profile-tab rounded my-auto">                                    
+                                    <div>
+                                        <h5>{{ 'Példa Péter ' | _ }}</h5>
+                                        <p class="p-bold mb-0">Medve {{ 'örs' | _ }}</p>
+                                        <p>{{ 'Örsvezető' | _ }}</p>
+                                    </div>
+                                </div>                                
+                                <div class="csat-data-profile-sq rounded my-auto">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card shadow csat-data-card csat-data-info mx-auto my-2">
+                                <div class="card-body rounded">
+                                    <a href="#csat-data-aboutus-collapse" data-bs-toggle="collapse" aria-expanded="false" aria-controls="csat-data-aboutus-collapse">
+                                        <img class="p-2" src="{{ 'assets/images/csat_data_card_deco.svg' | theme }}" alt="">
+                                    </a>
+                                    <p class="p-title text-info2">{{ 'Rólunk' | _ }}</p>
+                                    <hr>
+                                    <div class="row collapse collapse-on-sm" id="csat-data-aboutus-collapse">
+                                        <p class="card-text justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint amet temporibus quos labore tempore corporis pariatur possimus consectetur minus suscipit aperiam magni dolores eius blanditiis, impedit debitis officia itaque et accusamus autem rem ipsa assumenda? Ratione saepe, aut, temporibus optio amet rem maxime, vel sunt ipsa consectetur corporis molestias eos?</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card shadow csat-data-card csat-data-birth mx-auto my-2">
+                                <div class="card-body rounded">
+                                    <a href="#csat-data-birth-collapse" data-bs-toggle="collapse" aria-expanded="false" aria-controls="csat-data-birth-collapse">
+                                        <img class="p-2" src="{{ 'assets/images/csat_data_card_deco.svg' | theme }}" alt="">
+                                    </a>
+                                    <p class="p-title">{{ 'Születési adatok' | _ }}</p>
+                                    <hr>
+                                    <div class="row collapse collapse-on-sm" id="csat-data-birth-collapse">
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <p class="p-small mb-2 text-subtitle">{{ 'Születési dátum' | _ }}</p>
+                                            <p class="card-text">2000 május 26</p>
+                                            <p class="p-small mb-2 text-subtitle">{{ 'Születési/leánykori név' | _ }}</p>
+                                            <p class="card-text">-</p>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-12">
+                                            <p class="p-small mb-2 text-subtitle">{{ 'Névnap' | _ }}</p>
+                                            <p class="card-text">május 1</p>
+                                            <p class="p-small mb-2 text-subtitle">{{ 'Születési hely' | _ }}</p>
+                                            <p class="card-text">Sepsiszentgyörgy</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="card shadow csat-data-card csat-data-parent mx-auto my-2">
+                                <div class="card-body rounded">
+                                    <a href="#csat-data-mother-collapse" data-bs-toggle="collapse" aria-expanded="false" aria-controls="csat-data-mother-collapse">
+                                        <img class="p-2" src="{{ 'assets/images/csat_data_card_deco.svg' | theme }}" alt="">
+                                    </a>
+                                    <p class="p-title">{{ 'Anyja adatai' | _ }}</p>
+                                    <hr>
+                                    <div class="collapse collapse-on-sm" id="csat-data-mother-collapse">
+                                        <p class="p-small mb-2 text-subtitle">{{ 'Név' | _ }}</p>
+                                        <p class="card-text">Példa Paula</p>
+                                        <p class="p-small mb-2 text-subtitle">{{ 'Telefonszáma' | _ }}</p>
+                                        <p class="card-text">0123456789</p>
+                                        <p class="p-small mb-2 text-subtitle">{{ 'E-mail címe' | _ }}</p>
+                                        <p class="card-text">peldapaula@email.hu</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-6 col-md-12 col-sm-12">
+                            <div class="card shadow csat-data-card csat-data-parent mx-auto my-2">
+                                <div class="card-body rounded">
+                                    <a href="#csat-data-father-collapse" data-bs-toggle="collapse" aria-expanded="false" aria-controls="csat-data-father-collapse">
+                                        <img class="p-2" src="{{ 'assets/images/csat_data_card_deco.svg' | theme }}" alt="">
+                                    </a>
+                                    <p class="p-title">{{ 'Apja adatai' | _ }}</p>
+                                    <hr>
+                                    <div class="collapse collapse-on-sm" id="csat-data-father-collapse">
+                                        <p class="p-small mb-2 text-subtitle">{{ 'Név' | _ }}</p>
+                                        <p class="card-text">Példa Pál</p>
+                                        <p class="p-small mb-2 text-subtitle">{{ 'Telefonszáma' | _ }}</p>
+                                        <p class="card-text">0123456789</p>
+                                        <p class="p-small mb-2 text-subtitle">{{ 'E-mail címe' | _ }}</p>
+                                        <p class="card-text">peldapal@email.hu</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="card shadow csat-data-card csat-data-occupation mx-auto my-2">
+                                <div class="card-body rounded">
+                                    <a href="#csat-data-occup-collapse" data-bs-toggle="collapse" aria-expanded="false" aria-controls="csat-data-occup-collapse">
+                                        <img class="p-2" src="{{ 'assets/images/csat_data_card_deco.svg' | theme }}" alt="">
+                                    </a>
+                                    <p class="p-title">{{ 'Foglalkozás' | _ }}</p>
+                                    <hr>
+                                    <div class="collapse collapse-on-sm" id="csat-data-occup-collapse">
+                                        <p class="p-small mb-2 text-subtitle">{{ 'Foglalkozás' | _ }}</p>
+                                        <p class="card-text">Tanuló</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6 col-md-12 col-sm-12">
+                    <div class="row">
+                        <div class="col">
+                            <div class="card shadow csat-data-card csat-data-address mx-auto my-2">
+                                <div class="card-body rounded">
+                                    <a href="#csat-data-addr-collapse" data-bs-toggle="collapse" aria-expanded="false" aria-controls="csat-data-addr-collapse">
+                                        <img class="p-2" src="{{ 'assets/images/csat_data_card_deco.svg' | theme }}" alt="">
+                                    </a>
+                                    <p class="p-title">{{ 'Cím' | _ }}</p>
+                                    <hr>
+                                    <div class="row collapse collapse-on-sm" id="csat-data-addr-collapse">
+                                        <div class="row"> 
+                                            <div class="col-lg-4 col-sm-12">
+                                                <p class="p-small mb-2 text-subtitle">{{ 'Ország' | _ }}</p>
+                                                <p class="card-text">RO</p>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-12">
+                                                <p class="p-small mb-2 text-subtitle">{{ 'Irányítószám' | _ }}</p>
+                                                <p class="card-text">520000</p>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-12">
+                                                <p class="p-small mb-2 text-subtitle">{{ 'Megye' | _ }}</p>
+                                                <p class="card-text">Kovászna</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <p class="p-small mb-2 text-subtitle">{{ 'Település' | _ }}</p>
+                                                <p class="card-text">Sepsiszentgyörgy</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-8 col-sm-12">
+                                                <p class="p-small mb-2 text-subtitle">{{ 'Utca' | _ }}</p>
+                                                <p class="card-text">Példa utca</p>
+                                            </div>
+                                            <div class="col-lg-4 col-sm-12">
+                                                <p class="p-small mb-2 text-subtitle">{{ 'Házszám' | _ }}</p>
+                                                <p class="card-text">12</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="card shadow csat-data-card csat-data-studies mx-auto my-2">
+                                <div class="card-body rounded">
+                                    <a href="#csat-data-stud-collapse" data-bs-toggle="collapse" aria-expanded="false" aria-controls="csat-data-stud-collapse">
+                                        <img class="p-2" src="{{ 'assets/images/csat_data_card_deco.svg' | theme }}" alt="">
+                                    </a>
+                                    <p class="p-title">{{ 'Tanulmányok' | _ }}</p>
+                                    <hr>
+                                    <div class="row collapse collapse-on-sm" id="csat-data-stud-collapse">
+                                        <p class="p-small mb-2 text-subtitle">{{ 'Elemi iskola' | _ }}</p>
+                                        <p class="card-text">Példa iskola</p>
+                                        <p class="p-small mb-2 text-subtitle">{{ 'Általános iskola' | _ }}</p>
+                                        <p class="card-text">Példa általános iskola</p>
+                                        <p class="p-small mb-2 text-subtitle">{{ 'Középiskola' | _ }}</p>
+                                        <p class="card-text">Példa középiskola</p>
+                                        <p class="p-small mb-2 text-subtitle">{{ 'Idegen nyelvismeret' | _ }}</p>
+                                        <p class="card-text">román, angol</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col">
+                            <div class="card shadow csat-data-card csat-data-illnesses mx-auto my-2">
+                                <div class="card-body rounded">
+                                    <a href="#csat-data-disease-collapse" data-bs-toggle="collapse" aria-expanded="false" aria-controls="csat-data-disease-collapse">
+                                        <img class="p-2" src="{{ 'assets/images/csat_data_card_deco.svg' | theme }}" alt="">
+                                    </a>
+                                    <p class="p-title">{{ 'Betegségek' | _ }}</p>
+                                    <hr>
+                                    <div class="row collapse collapse-on-sm" id="csat-data-disease-collapse">
+                                        <p class="card-text">Betegség egy</p>
+                                        <p class="card-text">Betegség kettő</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

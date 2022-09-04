@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-257 - Added profile data tabs and profile data cards
 - CS-279 - Changed color of Grid based table heading
 - CS-278 - Changed the style of the explanatoy text
 - CS-277 - Modified the position of the flash messages, depending on the screen size
