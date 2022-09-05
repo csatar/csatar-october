@@ -14,6 +14,7 @@
 - CS-155 - Update the organization models for the mandates
 - CS-188 - Build in the polimorphic and hasMany relations in the form builder
 - CS-222 - Added foreign keys
+- CS-226 - Store the data from the Contact page in the backend settings
 - CS-292 - Fix the server error shown on scout creation
 - CS-248 - Swap the images from the front page
 - CS-258 - Rename the accordions from the organization unit pages
