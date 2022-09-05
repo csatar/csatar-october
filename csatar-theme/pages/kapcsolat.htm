@@ -4,31 +4,38 @@ title = "Kapcsolat"
 
 [contactForm]
 ==
+<?php
+public function onStart(){
+    $this['contactSettings'] = \Csatar\Csatar\Models\ContactSettings::instance();
+}
+?>
+==
 <div class="container">
     <h1>{{ 'Kapcsolat'|_ }}</h1>
 
     <h2 class="mt-4">{{ 'Irodák'|_ }}:</h2>
 
     <ul>
-        <li>{{ 'Csíkszereda, Petőfi Sándor 53 sz., Hargita megye'|_ }}</li>
-        <li>{{ 'Studium-HUB, 21-es iroda, Marosvásárhely, Bolyai utca 15 sz., Maros megye'|_ }}</li>
+        {% for office in contactSettings.offices %}
+            <li>{{ office.address }}</li>
+        {% endfor %}
     </ul>
 
     <h2>{{ 'Számlaszám'|_ }}:</h2>
 
     <p>
-        <span class="p-title">OTB Bank Miercurea Ciuc</span></br>
-        RON: RO35 OTPV 2600 0116 2186 RO01
+        <span class="p-title">{{ contactSettings.bank }}</span></br>
+        {{ contactSettings.bank_account }}
     </p>
 
 
     <h2>{{ 'Email'|_ }}:</h2>
 
-    <p>office[at]rmcssz.ro</p>
+    <p>{{ contactSettings.email }}</p>
 
     <h2>{{ 'Telefonszámok'|_ }}:</h2>
 
-    <p>+40 (723) 273 257</p>
+    <p>{{ contactSettings.phone_numbers }}</p>
 
     <h2>{{ 'Üzenet küldése'|_ }}:</h2>
 

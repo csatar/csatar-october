@@ -31,5 +31,5 @@ class ContactSettings extends Model
         'phone_numbers' => 'regex:(^[0-9+-.()]{5,}$)|nullable',
     ];
 
-    protected $jsonable ['offices'];
+    protected $jsonable = ['offices'];
 }

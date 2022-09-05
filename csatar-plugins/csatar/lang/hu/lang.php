@@ -195,7 +195,10 @@
                 'breadcrumb' => 'Ételérzékenységek',
             ],
             'contactSettings' => [
+                'contactSettings' => 'Kapcsolat beállítások',
+                'description' => 'Adatok a Kapcsolat oldalról.',
                 'offices' => 'Irodák',
+                'promptNew' => 'Új hozzáadása',
                 'address' => 'Cím',
                 'bank' => 'Bank',
                 'bankAccount' => 'Bankszámla',

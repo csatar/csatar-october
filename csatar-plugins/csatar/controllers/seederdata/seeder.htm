@@ -16,12 +16,23 @@
                 else if ($key == 'ageGroups' || $key == 'mandateType') {
                     echo '<ul>';
                         foreach ($value as $association => $agegroups){
-
                             echo '<li>' . $association . ': ' . implode(', ', array_map(function ($agegroup) {
                                 return $agegroup['name'];
-                        }, $agegroups)) . '</li>';
+                            }, $agegroups)) . '</li>';
                         }
                     echo '</ul>';
+                }
+                else if ($key == 'contactSettings') {
+                    foreach ($value as $contact_key => $contact_value) {
+                        if ($contact_key == 'offices') {
+                            foreach ($contact_value as $offices_key => $offices_value) {
+                                echo $offices_value['address'] . '; ';
+                            }
+                        }
+                        else {
+                            echo $contact_value . '; ';
+                        }
+                    }
                 }
                 echo '</li>';
             }
