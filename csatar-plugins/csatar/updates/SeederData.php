@@ -60,6 +60,7 @@ class SeederData extends Seeder
             'Íródeák',
         ],
         'specialDiet' => [
+            'Nem igényel különleges étrendet',
             'Sporttáplálkozás',
             'Gluténmentes',
             'Szénhidrátmentes',
@@ -67,6 +68,7 @@ class SeederData extends Seeder
             'Paleo',
             'Vegán',
             'Vegetáriánus',
+            'Egyéb',
         ],
         'religion' => [
             'Adventista',
@@ -98,6 +100,7 @@ class SeederData extends Seeder
             '5XL'
         ],
         'chronicIllness' => [
+            'Nincs krónikus betegsége',
             'Magas vérnyomás',
             'Szívelégtelenség',
             'Allergia',
@@ -109,6 +112,7 @@ class SeederData extends Seeder
             'Krónikus légzési elégtelenség',
             'Veseelégtelenség',
             'HIV/SIDA',
+            'Egyéb',
         ],
         'hierarchy' => [
             'RMCSSZ',

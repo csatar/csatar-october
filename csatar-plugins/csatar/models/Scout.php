@@ -200,6 +200,7 @@ class Scout extends OrganizationBase
         'comment',
         'profile_image',
         'registration_form',
+        'chronic_illnesses',
     ];
 
     /**
