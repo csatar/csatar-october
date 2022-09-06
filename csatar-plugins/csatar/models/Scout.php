@@ -320,6 +320,8 @@ class Scout extends OrganizationBase
     public function beforeSave()
     {
         $this->nameday = $this->nameday != '' ? $this->nameday : null;
+        $this->troop_id = $this->troop_id != 0 ? $this->troop_id : null;
+        $this->patrol_id = $this->patrol_id != 0 ? $this->patrol_id : null;
     }
 
     private function generateEcsetCode()

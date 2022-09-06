@@ -1,0 +1,29 @@
+fields:
+    offices:
+        label: 'csatar.csatar::lang.plugin.admin.contactSettings.offices'
+        prompt: 'csatar.csatar::lang.plugin.admin.contactSettings.promptNew'
+        style: default
+        span: auto
+        type: repeater
+        form:
+            fields:
+                address:
+                    label: 'csatar.csatar::lang.plugin.admin.contactSettings.address'
+                    span: auto
+                    type: text
+    bank:
+        label: 'csatar.csatar::lang.plugin.admin.contactSettings.bank'
+        span: auto
+        type: text
+    bank_account:
+        label: 'csatar.csatar::lang.plugin.admin.contactSettings.bankAccount'
+        span: auto
+        type: text
+    email:
+        label: 'csatar.csatar::lang.plugin.admin.contactSettings.email'
+        span: auto
+        type: text
+    phone_numbers:
+        label: 'csatar.csatar::lang.plugin.admin.contactSettings.phoneNumbers'
+        span: auto
+        type: text
