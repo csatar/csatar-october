@@ -167,6 +167,7 @@
                     'organizationSystemData' => [
                         'organizationSystemData' => 'Organization System Data',
                         'hierarchy' => 'Hierarchy',
+                        'permissionsMatrix' => 'Permissions Matrix',
                     ],
                     'seederData' => [
                         'data' => 'Data',
@@ -182,6 +183,21 @@
                     'dataToBeAdded' => 'The following data will be added (if doesn\'t already exist):',
                     'updateData' => 'Update data',
                     'updateDataSuccess' => 'The data has been successfully updated.',
+                ],
+                'permissionsMatrix' => [
+                    'permissionsMatrix' => 'Permissions Matrix',
+                    'own' => 'Own',
+                    'notOwn' => 'Not Own',
+                    'model' => 'Model',
+                    'field' => 'Field',
+                    'obligatory' => 'Obligatory',
+                    'create' => 'Create',
+                    'read' => 'Read',
+                    'update' => 'Update',
+                    'delete' => 'Delete',
+                    'confirmSave' => 'Are you sure you want to apply the highlighted changes?',
+                    'confirmCancel' => 'Are you sure you want to cancel the highlighted changes?',
+                    'editPermissions' => 'Edit Permissions',
                 ],
             ],
             'allergy' => [

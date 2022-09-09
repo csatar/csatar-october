@@ -53,6 +53,17 @@ class Plugin extends PluginBase
      */
     public function boot()
     {
+//        Event::listen('backend.list.overrideHeaderValue', function ($listWidget, $column, &$value) {
+//            if ($listWidget->model instanceof \Csatar\Csatar\Models\PermissionsMatrix) {
+//                $value .= '- ' . '<select name="cars" id="cars">
+//  <option value="volvo">Volvo</option>
+//  <option value="saab">Saab</option>
+//  <option value="mercedes">Mercedes</option>
+//  <option value="audi">Audi</option>
+//</select>';
+//            }
+//        });
+
         $this->extendUser();
 
         App::error(function (\October\Rain\Auth\AuthException $exception) {
@@ -189,7 +200,7 @@ class Plugin extends PluginBase
     public function saveGuestMandateTypeIdsForEveryAssociationToSession(){
 
         if(empty(Session::get('guest.mandateTypeIds'))) {
-            $associationIds = Association::all()->pluck('id');
+//            $associationIds = Association::all()->pluck('id');
 
             if(empty($associationIds)){
                 return;

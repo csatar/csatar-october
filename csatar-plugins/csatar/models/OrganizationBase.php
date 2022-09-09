@@ -10,6 +10,7 @@ use Model;
 use October\Rain\Database\Collection;
 use Session;
 use ValidationException;
+use Yaml;
 
 /**
  * Model
@@ -23,6 +24,8 @@ class OrganizationBase extends Model
     public $ignoreValidation = false;
 
     protected $dates = ['deleted_at'];
+
+    protected static $translatedAttributeNames = null;
 
     /**
      * @var array Validation rules
@@ -200,5 +203,27 @@ class OrganizationBase extends Model
 
     public function getAssociationId(){
         return null;
+    }
+
+    public static function getTranslatedAttributeNames(string $organizationTypeModelName = null): array
+    {
+        if ((is_array(self::$translatedAttributeNames) && !array_key_exists($organizationTypeModelName, self::$translatedAttributeNames)) ||
+            !is_array(self::$translatedAttributeNames)
+        ) {
+            $attributes = Yaml::parseFile(plugins_path() . $organizationTypeModelName . '\\fields.yaml');
+            foreach ($attributes['fields'] as $key => $attribute) {
+                self::$translatedAttributeNames[$organizationTypeModelName][$key] = Lang::get($attribute['label']);
+            }
+
+            // add labels from belongsTo->label
+            $model = new $organizationTypeModelName();
+            foreach ($model->belongsToMany as $realtionName => $relationData) {
+                if (is_array($relationData) && array_key_exists('label', $relationData)) {
+                    self::$translatedAttributeNames[$organizationTypeModelName][$realtionName] = Lang::get($relationData['label']);
+                }
+            }
+        }
+
+        return self::$translatedAttributeNames[$organizationTypeModelName];
     }
 }

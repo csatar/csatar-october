@@ -387,6 +387,8 @@ class TestData extends Seeder
 
         $this->addAllPermissionsToScouts();
 
+        $this->addAllPermissionsToPatrolLeader();
+
         $this->addReadPermissionsToGuests();
     }
 
@@ -430,108 +432,135 @@ class TestData extends Seeder
             //add permission for the model in general
             Db::table('csatar_csatar_mandates_permissions')
                 ->updateOrInsert(
-                    ['mandate_type_id' => $scoutMandateTypeId, 'model' => $mandateTypeModel, 'field' => 'MODEL_GENERAL'],
+                    [ 'mandate_type_id' => $scoutMandateTypeId, 'model' => $mandateTypeModel, 'field' => 'MODEL_GENERAL', 'own' => 0],
                     [
-                        'obligatory'    => false,
-                        'create'        => true,
-                        'read'          => true,
-                        'update'        => true,
-                        'delete'        => true,
-                    ],
+                        'create'        => 2,
+                        'read'          => 2,
+                        'update'        => 2,
+                        'delete'        => 1,
+                    ]
                 );
 
             //add permission for the model in general for own
             Db::table('csatar_csatar_mandates_permissions')
                 ->updateOrInsert(
-                    ['mandate_type_id' => $scoutMandateTypeId, 'model' => $mandateTypeModel, 'field' => 'MODEL_GENERAL', 'own' => true],
+                    [ 'mandate_type_id' => $scoutMandateTypeId, 'model' => $mandateTypeModel, 'field' => 'MODEL_GENERAL', 'own' => 1],
                     [
-                        'obligatory'    => false,
-                        'create'        => true,
-                        'read'          => true,
-                        'update'        => true,
-                        'delete'        => true,
-                    ],
+                        'create'        => 2,
+                        'read'          => 2,
+                        'update'        => 2,
+                        'delete'        => 1,
+                    ]
                 );
 
-            //add permission for the model in general for 2fa
-            Db::table('csatar_csatar_mandates_permissions')
-                ->updateOrInsert(
-                    ['mandate_type_id' => $scoutMandateTypeId, 'model' => $mandateTypeModel, 'field' => 'MODEL_GENERAL', '2fa' => true],
-                    [
-                        'obligatory'    => false,
-                        'create'        => true,
-                        'read'          => true,
-                        'update'        => true,
-                        'delete'        => true,
-                    ],
-                );
 
-            //add permission for the model in general for own and 2fa
-            Db::table('csatar_csatar_mandates_permissions')
-                ->updateOrInsert(
-                    ['mandate_type_id' => $scoutMandateTypeId, 'model' => $mandateTypeModel, 'field' => 'MODEL_GENERAL', 'own' => true, '2fa' => true],
-                    [
-                        'obligatory'    => false,
-                        'create'        => true,
-                        'read'          => true,
-                        'update'        => true,
-                        'delete'        => true,
-                    ],
-                );
-
-            //add permission for each attribute for general, own, 2fa
+            //add permission for each attribute for general, own
 
             foreach ($fields as $field) {
                 //add permission for the model->field
                 Db::table('csatar_csatar_mandates_permissions')
                     ->updateOrInsert(
-                        ['mandate_type_id' => $scoutMandateTypeId, 'model' => $mandateTypeModel, 'field' => $field],
+                        [ 'mandate_type_id' => $scoutMandateTypeId, 'model' => $mandateTypeModel, 'field' => $field, 'own' => 0],
                         [
-                            'obligatory'    => false,
-                            'create'        => true,
-                            'read'          => true,
-                            'update'        => true,
-                            'delete'        => true,
-                        ],
+                            'create'        => 2,
+                            'read'          => 2,
+                            'update'        => 2,
+                            'delete'        => 1,
+                        ]
                     );
 
                 //add permission for the model->field for own
                 Db::table('csatar_csatar_mandates_permissions')
                     ->updateOrInsert(
-                        ['mandate_type_id' => $scoutMandateTypeId, 'model' => $mandateTypeModel, 'field' => $field, 'own' => true],
+                        [ 'mandate_type_id' => $scoutMandateTypeId, 'model' => $mandateTypeModel, 'field' => $field, 'own' => 1],
                         [
-                            'obligatory'    => false,
-                            'create'        => true,
-                            'read'          => true,
-                            'update'        => true,
-                            'delete'        => true,
-                        ],
+                            'create'        => 2,
+                            'read'          => 2,
+                            'update'        => 2,
+                            'delete'        => 1,
+                        ]
                     );
+            }
+        }
 
-                //add permission for the model->field for 2fa
+    }
+
+    public function addAllPermissionsToPatrolLeader() {
+        $associationId = Association::where('name_abbreviation', 'RMCSSZ')->first()->id ?? null;
+
+        if(empty($associationId)) return;
+
+        $mandateTypeModels = Db::table('csatar_csatar_mandate_types')
+            ->where('association_id', $associationId)
+            ->select('organization_type_model_name')->distinct()->get()->pluck('organization_type_model_name'); //get every unique model we have mandate for
+        $patrolLeaderMandateTypeId = Db::table('csatar_csatar_mandate_types')->select('id')
+            ->where('association_id', $associationId)
+            ->where('organization_type_model_name', '\Csatar\Csatar\Models\Patrol')
+            ->whereNull('parent_id')
+            ->first()->id; //get Patrol leader mandate type id
+
+        if(empty($mandateTypeModels) || empty($patrolLeaderMandateTypeId)) return;
+
+        foreach ($mandateTypeModels as $mandateTypeModel) {
+            if($mandateTypeModel == MandateType::MODEL_NAME_GUEST) return;
+
+            $model = new $mandateTypeModel();
+            $fields = $model->fillable ?? [];
+            $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'hasOne', 'morphTo', 'morphOne',
+                'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'];
+
+            foreach ($relationArrays as $relationArray){
+                $fields = array_merge($fields, array_keys($model->$relationArray));
+            }
+
+            //add permission for the model in general
+            Db::table('csatar_csatar_mandates_permissions')
+                ->updateOrInsert(
+                    [ 'mandate_type_id' => $patrolLeaderMandateTypeId, 'model' => $mandateTypeModel, 'field' => 'MODEL_GENERAL', 'own' => 0],
+                    [
+                        'create'        => 2,
+                        'read'          => 2,
+                        'update'        => 2,
+                        'delete'        => 1,
+                    ]
+                );
+
+            //add permission for the model in general for own
+            Db::table('csatar_csatar_mandates_permissions')
+                ->updateOrInsert(
+                    [ 'mandate_type_id' => $patrolLeaderMandateTypeId, 'model' => $mandateTypeModel, 'field' => 'MODEL_GENERAL', 'own' => 1],
+                    [
+                        'create'        => 2,
+                        'read'          => 2,
+                        'update'        => 2,
+                        'delete'        => 1,
+                    ]
+                );
+
+            //add permission for each attribute for general, own
+            foreach ($fields as $field) {
+                //add permission for the model->field
                 Db::table('csatar_csatar_mandates_permissions')
                     ->updateOrInsert(
-                        ['mandate_type_id' => $scoutMandateTypeId, 'model' => $mandateTypeModel, 'field' => $field, '2fa' => true],
+                        [ 'mandate_type_id' => $patrolLeaderMandateTypeId, 'model' => $mandateTypeModel, 'field' => $field, 'own' => 0],
                         [
-                            'obligatory'    => false,
-                            'create'        => true,
-                            'read'          => true,
-                            'update'        => true,
-                            'delete'        => true,
-                        ],
+                            'create'        => 2,
+                            'read'          => 2,
+                            'update'        => 2,
+                            'delete'        => 1,
+                        ]
                     );
 
-                //add permission for the model->field for own and 2fa
+                //add permission for the model->field for own
                 Db::table('csatar_csatar_mandates_permissions')
                     ->updateOrInsert(
-                        ['mandate_type_id' => $scoutMandateTypeId, 'model' => $mandateTypeModel, 'field' => $field, 'own' => true, '2fa' => true],
+                        [ 'mandate_type_id' => $patrolLeaderMandateTypeId, 'model' => $mandateTypeModel, 'field' => $field, 'own' => 1],
                         [
-                            'obligatory'    => false,
-                            'create'        => true,
-                            'read'          => true,
-                            'update'        => true,
-                            'delete'        => true,
-                        ],
+                            'create'        => 2,
+                            'read'          => 2,
+                            'update'        => 2,
+                            'delete'        => 1,
+                        ]
                     );
             }
         }
@@ -566,14 +595,10 @@ class TestData extends Seeder
                 //add permission for the model in general
                 Db::table('csatar_csatar_mandates_permissions')
                     ->updateOrInsert(
-                        ['mandate_type_id' => $guestMandateTypeId, 'model' => $mandateTypeModel, 'field' => 'MODEL_GENERAL'],
+                        [ 'mandate_type_id' => $guestMandateTypeId, 'model' => $mandateTypeModel, 'field' => 'MODEL_GENERAL', 'own' => 0],
                         [
-                            'obligatory'    => false,
-                            'create'        => false,
-                            'read'          => true,
-                            'update'        => false,
-                            'delete'        => false,
-                        ],
+                            'read'          => 2,
+                        ]
                     );
 
                 //add permission for each attribute
@@ -582,14 +607,10 @@ class TestData extends Seeder
                     //add permission for the model->field
                     Db::table('csatar_csatar_mandates_permissions')
                         ->updateOrInsert(
-                            ['mandate_type_id' => $guestMandateTypeId, 'model' => $mandateTypeModel, 'field' => $field],
+                            [ 'mandate_type_id' => $guestMandateTypeId, 'model' => $mandateTypeModel, 'field' => $field, 'own' => 0],
                             [
-                                'obligatory'    => false,
-                                'create'        => false,
-                                'read'          => true,
-                                'update'        => false,
-                                'delete'        => false,
-                            ],
+                                'read'          => 2,
+                            ]
                         );
                 }
             }

@@ -9,6 +9,7 @@ use Model;
 use Csatar\Csatar\Classes\RightsMatrix;
 use Csatar\Csatar\Models\Association;
 use October\Rain\Database\Collection;
+
 /**
  * Model
  */
@@ -19,6 +20,8 @@ class Scout extends OrganizationBase
     use \October\Rain\Database\Traits\SoftDelete;
 
     protected $dates = ['deleted_at'];
+
+    protected static $relationLabels = null;
 
     /**
      * @var string The database table used by the model.
@@ -579,4 +582,9 @@ class Scout extends OrganizationBase
     {
         return Lang::get('csatar.csatar::lang.plugin.admin.scout.scout');
     }
+
+//    public static function getTranslatedAttributeNames(string $organizationTypeModelName = null): array
+//    {
+//        return parent::getTranslatedAttributeNames(self::getOrganizationTypeModelName());
+//    }
 }

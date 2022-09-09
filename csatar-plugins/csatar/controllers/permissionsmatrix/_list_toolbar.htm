@@ -1,0 +1,28 @@
+<?php if ($this->action !== 'edit'): ?>
+    <div data-control="toolbar">
+        <a href="<?= Backend::url('csatar/csatar/permissionsmatrix/edit') ?>" class="btn btn-primary oc-icon-edit">
+            <?= e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.editPermissions')) ?>
+        </a>
+    </div>
+<?php endif ?>
+
+<?php if ($this->action === 'edit'): ?>
+    <div data-control="toolbar">
+        <button
+            class="btn btn-default oc-icon-save"
+            data-request="onSave"
+            data-request-confirm="<?= e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.confirmSave')) ?>"
+            data-request-success="removeHiglights();"
+            data-stripe-load-indicator>
+            <?= e(trans('backend::lang.form.save')) ?>
+        </button>
+        <button
+            class="btn btn-default oc-icon-undo"
+            data-request="onCancel"
+            data-request-confirm="<?= e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.confirmCancel')) ?>"
+            data-request-success="resetSelects(); removeHiglights();"
+            data-stripe-load-indicator>
+            <?= e(trans('backend::lang.form.cancel')) ?>
+        </button>
+    </div>
+<?php endif ?>

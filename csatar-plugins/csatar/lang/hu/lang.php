@@ -1,6 +1,6 @@
 <?php return [
     'frontEnd' => [
-        'authException' => 'Az e-mail cím, az ECSET kód vagy a jelszó téves!'
+        'authException' => 'Az e-mail cím, az ECSET kód vagy a jelszó téves!',
     ],
     'plugin' => [
         'name' => 'CSATÁR',
@@ -38,7 +38,7 @@
             ],
             'ageGroups' => [
                 'ageGroups' => 'Korosztályok',
-                'numberOfPatrolsInAgeGroup' => 'Őrsök száma a korosztályban'
+                'numberOfPatrolsInAgeGroup' => 'Őrsök száma a korosztályban',
             ],
             'scout' => [
                 'scout' => 'Cserkész',
@@ -141,7 +141,7 @@
                     'qualificationLeaderRequiredError' => 'A Képzésvezető megadása a %name %category esetén kötelező.',
                     'mandateEndDateBeforeStartDate' => 'A végső időpont nem lehet a kezdeti időpont előtt a %name megbízatás esetén.',
                     'dateInTheFutureError' => 'A Dátum a %name %category esetén nem lehet a jövőben.',
-                ]
+                ],
             ],
             'admin' => [
                 'menu' => [
@@ -167,6 +167,7 @@
                     'organizationSystemData' => [
                         'organizationSystemData' => 'Szervezeti rendszeradatok',
                         'hierarchy' => 'Hierarchia',
+                        'permissionsMatrix' => 'jogosultság Mátrix',
                     ],
                     'seederData' => [
                         'data' => 'Adatok',
@@ -182,6 +183,21 @@
                     'dataToBeAdded' => 'A következő adatok lesznek hozzáadva (ha már nem voltak felvéve):',
                     'updateData' => 'Adatok frissítése',
                     'updateDataSuccess' => 'Az adatok frissítve lettek.',
+                ],
+                'permissionsMatrix' => [
+                    'permissionsMatrix' => 'Jogosultság Matrix',
+                    'own' => 'Saját',
+                    'notOwn' => 'Nem Saját',
+                    'model' => 'Modell',
+                    'field' => 'Mező',
+                    'obligatory' => 'Kötelező',
+                    'create' => 'Létrehozás',
+                    'read' => 'Olvasás',
+                    'update' => 'Módosítás',
+                    'delete' => 'Törlés',
+                    'confirmSave' => 'Biztos benne, hogy menteni szeretné a kijelölt változtatásokat?',
+                    'confirmCancel' => 'Biztos benne, hogy visszavonja a kijelölt változtatásokat?',
+                    'editPermissions' => 'Jogosultságok módosítása',
                 ],
             ],
             'allergy' => [
@@ -377,7 +393,7 @@
                 'total_amount' => 'Befizetendő összeg',
                 'currency' => 'Pénznem',
                 'name' => 'Név',
-                'legalRelationship' => "Jogviszony",
+                'legalRelationship' => 'Jogviszony',
                 'leadershipQualification' => 'Vezetői képesítés',
                 'membershipFee' => 'Tagdíj értéke',
                 'submittedAt' => 'Beküldés ideje',
@@ -426,10 +442,10 @@
         ],
         'component' => [
             'general' => [
-                'validationExceptions'=> [
+                'validationExceptions' => [
                     'emailAlreadyAssigned' => 'Ez az e-mail cím már felhasználói fiókhoz van rendelve.',
                     'passwordRegex' => 'A jelszó kell tartalmazzon legalább 8 karaktert, kis-, és nagybetűt, valamint számot vagy szimbólumot.',
-                ]
+                ],
             ],
             'resetPassword' => [
                 'name' => 'Jelszó visszaállítása',
@@ -451,7 +467,7 @@
                         'title' => 'Model Id',
                         'description' => 'Kezdő model id.',
                     ],
-                ]
+                ],
             ],
             'logos' => [
                 'name' => 'Logók',
@@ -463,7 +479,7 @@
                     'communitasFoundation' => 'Communitas Alapítvány',
                     'toyota' => 'Toyota',
                 ],
-               'discounts' => [
+                'discounts' => [
                     'title' => 'Kedvezményeket kínáló cégek',
                     'mormotaLand' => 'Mormota Land',
                     'tiboo' => 'Tiboo',
@@ -504,11 +520,11 @@
                 'description' => 'A cserkész állapotát téríti vissza a Kérésből származó cserkészazonosító alapján.',
                 'scoutCode' => [
                     'title' => 'Cserkész azonosítója',
-                    'description' => 'Egyedi cserkész azonosító'
+                    'description' => 'Egyedi cserkész azonosító',
                 ],
                 'json' => [
                     'title' => 'JSON formátum',
-                    'description' => 'Ha a JSON formátum értéke \'json\', akkor a választ JSON formátumban téríti vissza.'
+                    'description' => 'Ha a JSON formátum értéke \'json\', akkor a választ JSON formátumban téríti vissza.',
                 ],
             ],
             'createFrontendAccounts' => [
@@ -516,7 +532,7 @@
                 'description' => 'Lehetővé teszi frontend felhasználó létrehozását.',
                 'currentPage' => '- jelenlegi oldal -',
                 'validationExceptions' => [
-                        'invalidEcsetCode' => 'Érvénytelen ECSET kód',
+                    'invalidEcsetCode' => 'Érvénytelen ECSET kód',
                     'emailEcsetCodeMissMatch' => 'Ha nincs email címed, vagy nem egyezik meg a rendszerben levővel, vedd fel a kapcsolatot az őrsvezetőddel.',
                     'noScoutIsSelected' => 'Nincs tag kiválasztva!',
                 ],
@@ -539,5 +555,5 @@
             'canNotFindUser'                    => 'A felhasználói fiók nem található!',
             'userIdAndScoutUserIdMismatch'      => 'A cserkészhez csatolt- és a visszatérített felhasználói fiók nem egyezik!',
         ],
-    ]
+    ],
 ];

@@ -1,0 +1,31 @@
+<div class="form-group form-group-sm">
+    <select
+        id="<?= $column->columnName ?>_<?= $record->id ?>"
+        name="<?= $column->columnName ?>_<?= $record->id ?>"
+        <?php if ($value === 'all'): ?>
+            <?= 'onchange="updateAll(\''. $column->columnName . '\', this.value);"' ?>
+        <?php else: ?>
+            <?= 'data-request="onValueChange"' ?>
+        <?php endif ?>
+        data-request-data="'action': '<?= $column->columnName ?>', 'recordId': '<?= $record->id ?>', 'initialValue': '<?= $value ?>'"
+        data-stripe-load-indicator
+        data-request-success="addChangedClass($(this))"
+        data-request-error="$(this).addClass('bg-danger');"
+        data-initial-value="<?= $value ?>"
+        class="permission-select <?= $column->columnName ?>-permission"
+        <?php if ($this->action !== 'edit'): ?>
+            <?= 'disabled' ?>
+        <?php endif ?>
+    >
+        <option disabled <?php if (empty($value)) { echo ' selected'; } ?>></option>
+        <option value="0" <?php if ($value === 0) { echo ' selected'; } ?>>
+            <?= e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.noRight')) ?>
+        </option>
+        <option value="1" <?php if ($value === 1) { echo ' selected'; } ?>>
+            <?= e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.hasRightWith2FactorAuth')) ?>
+        </option>
+        <option value="2" <?php if ($value === 2) { echo ' selected'; } ?>>
+            <?= e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.hasRight')) ?>
+        </option>
+    </select>
+</div>

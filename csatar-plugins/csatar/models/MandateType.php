@@ -184,4 +184,40 @@ class MandateType extends Model
 
         return $guestMandateTypeId;
     }
+
+    public function getMandateTypeOptions($scopes = null){
+        if (!empty($scopes['association']->value)) {
+            return MandateType::whereIn('association_id', array_keys($scopes['association']->value))
+                ->lists('name', 'id')
+                ;
+        }
+        else {
+            return MandateType::orderBy('name', 'asc')->lists('association_id', 'id');
+        }
+    }
+
+    public function getModelOptions(){
+        return MandateType::distinct()->where('organization_type_model_name', '<>', self::MODEL_NAME_GUEST)->orderBy('organization_type_model_name', 'asc')->lists('organization_type_model_name', 'organization_type_model_name');
+    }
+
+    public static function getMandatesTypesForMatrix () {
+        $associationIds = Association::all()->pluck('id');
+
+        $mandateTypes = [];
+
+        foreach ($associationIds as $associationId) {
+            $mandatesTypesInAssociation = self::where('association_id', $associationId)->orderBy('nest_left', 'desc')->get();
+            $mandateTypes[$associationId] = $mandatesTypesInAssociation->map(function ($item){
+                return [
+                    'id'                            => $item->id,
+                    'name'                          => $item->name,
+                    'joinAsName'                    => str_replace('-', '_', str_slug($item->name)),
+                    'organization_type_model_name'  => $item->organization_type_model_name
+                ];
+            });
+        }
+
+        return $mandateTypes;
+    }
+
 }
