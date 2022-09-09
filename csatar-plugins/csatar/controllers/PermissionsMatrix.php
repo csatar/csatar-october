@@ -22,7 +22,6 @@ class PermissionsMatrix extends Controller
     {
         parent::__construct();
         BackendMenu::setContext('Csatar.Csatar', 'main-menu-item-organization-system-data', 'side-menu-item-permissions-matrix');
-//        $this->backupFilePath = temp_path() . DIRECTORY_SEPARATOR  . 'permissionMatrixBackup.json';
         $this->sessionValues = $this->getSessionValues();
     }
 
@@ -46,49 +45,11 @@ class PermissionsMatrix extends Controller
         }
     }
 
-//    public function listOverrideHeaderValue($column, $value) {
-//        if (in_array($column, ['obligatory', 'create', 'read', 'update', 'delete'])) {
-//            return $value . '- ' . $column;
-//        }
-//        return $column;
-//    }
-
-//    public function listExtendColumns($list) {
-//        $list->addColumns([
-//            'birthday' => [
-//                'label' => 'Birthday'
-//            ]
-//        ]);
-//    }
-
     public function edit() {
         $this->addCss("/plugins/csatar/csatar/assets/permissionsMatrix.css");
         $this->addJs("/plugins/csatar/csatar/assets/permissionsMatrix.js");
-//        $this->serializeAndBackup(PermissionModel::all());
-//        $this->onRestoreBackup();
         $this->makeLists();
     }
-
-    //    public $backupFilePath;
-//    public function serializeAndBackup($data){
-////        $serializedData = serialize($data);
-//        $serializedData = $data->toJson();
-//        File::put($this->backupFilePath, $serializedData);
-//    } // e helyett mentünk a session-ba
-//
-//    public function onDeleteBackup() {
-//        File::delete($this->backupFilePath);
-//    }
-//
-//    public function onRestoreBackup() {
-//        $dataFromBackup = File::get($this->backupFilePath);
-//        $unserializedData = json_decode($dataFromBackup, true);
-//        foreach ($unserializedData as $modelDataFromBackup) {
-//            $modelToUpdate = PermissionModel::firstOrNew([ 'id' => $modelDataFromBackup['id']]);
-//            $modelToUpdate->fill($modelDataFromBackup);
-//            $modelToUpdate->save();
-//        }
-//    }
 
     public function onValueChange(){
 

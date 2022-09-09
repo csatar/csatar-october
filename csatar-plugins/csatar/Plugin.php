@@ -53,17 +53,6 @@ class Plugin extends PluginBase
      */
     public function boot()
     {
-//        Event::listen('backend.list.overrideHeaderValue', function ($listWidget, $column, &$value) {
-//            if ($listWidget->model instanceof \Csatar\Csatar\Models\PermissionsMatrix) {
-//                $value .= '- ' . '<select name="cars" id="cars">
-//  <option value="volvo">Volvo</option>
-//  <option value="saab">Saab</option>
-//  <option value="mercedes">Mercedes</option>
-//  <option value="audi">Audi</option>
-//</select>';
-//            }
-//        });
-
         $this->extendUser();
 
         App::error(function (\October\Rain\Auth\AuthException $exception) {

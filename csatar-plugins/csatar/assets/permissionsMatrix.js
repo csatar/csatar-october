@@ -10,15 +10,6 @@ $(document).on('edit::onPaginate', function (event, context) {
     updateValuesFromSession();
 })
 
-// function insertActionRow() {
-//     var thead = $('thead');
-//     var clone = thead.clone();
-//     clone.children(":first").children().each(function (){
-//         console.log(this)
-//     });
-//     thead.after(clone);
-// }
-
 function updateValuesFromSession() {
     $.request('onGetSessionValues', {
         success: function(data) {
@@ -75,6 +66,5 @@ function updateAll(action, value) {
     $.request('onMultipleValueChange', {
         data: {data: data},
         loading: $.oc.stripeLoadIndicator
-        // success: updateValuesFromSession()
     });
 }

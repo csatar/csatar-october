@@ -585,8 +585,4 @@ class Scout extends OrganizationBase
         return Lang::get('csatar.csatar::lang.plugin.admin.scout.scout');
     }
 
-//    public static function getTranslatedAttributeNames(string $organizationTypeModelName = null): array
-//    {
-//        return parent::getTranslatedAttributeNames(self::getOrganizationTypeModelName());
-//    }
 }
