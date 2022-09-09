@@ -205,7 +205,7 @@ class Plugin extends PluginBase
     public function saveGuestMandateTypeIdsForEveryAssociationToSession(){
 
         if(empty(Session::get('guest.mandateTypeIds'))) {
-//            $associationIds = Association::all()->pluck('id');
+            $associationIds = Association::all()->pluck('id');
 
             if(empty($associationIds)){
                 return;
