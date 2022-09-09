@@ -167,6 +167,22 @@ class Plugin extends PluginBase
         ];
     }
 
+    public function registerSettings()
+    {
+        return [
+            'settings' => [
+                'label' => Lang::get('csatar.csatar::lang.plugin.admin.contactSettings.contactSettings'),
+                'description' => Lang::get('csatar.csatar::lang.plugin.admin.contactSettings.description'),
+                'category' => Lang::get('csatar.csatar::lang.plugin.admin.contactSettings.contactSettings'),
+                'icon' => 'icon-cog',
+                'class' => \Csatar\Csatar\Models\ContactSettings::class,
+                'order' => 500,
+                'keywords' => 'contact',
+                'permissions' => ['csatar.users.access_settings'],
+            ]
+        ];
+    }
+
     /**
      * Registers any mail templates.
      *

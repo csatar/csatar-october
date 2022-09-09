@@ -75,6 +75,6 @@
         'saved' => 'Az adatok sikeresen elmentve...'
     ],
     'failed' => [
-        'noPermissionToDelete' => 'Nincs jogosultsága a törléshez!'
+        'noPermissionToDelete' => 'Nincs jogosúltsága a törléshez!'
     ]
 ];

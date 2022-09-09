@@ -75,6 +75,7 @@
         'saved' => 'Data successfully saved...'
     ],
     'failed' => [
-        'noPermissionToDelete' => 'You do not have permission to delete this record!'
+        'noPermissionToDeleteRecord' => 'You do not have permission to delete this record!',
+        'noPermissionForSomeFields' => 'Data was saved, but you do not have permission to update/delete some of the fields! Those fields were ignored, please contact system administrator.',
     ]
 ];

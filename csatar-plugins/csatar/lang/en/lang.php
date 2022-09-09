@@ -210,6 +210,17 @@
                 'foodSensitivities' => 'Food Sensitivities',
                 'breadcrumb' => 'Food Sensitivities',
             ],
+            'contactSettings' => [
+                'contactSettings' => 'Contact Settings',
+                'description' => 'Data from the Contact Us page.',
+                'offices' => 'Offices',
+                'promptNew' => 'Add new item',
+                'address' => 'Address',
+                'bank' => 'Bank',
+                'bankAccount' => 'Bank Account',
+                'email' => 'Email',
+                'phoneNumbers' => 'Phone Numbers',
+            ],
             'chronicIllness' => [
                 'chronicIllness' => 'Chronic Illness',
                 'chronicIllnesses' => 'Chronic Illnesses',

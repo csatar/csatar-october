@@ -173,7 +173,11 @@ p.justify {
     line-height: 1.7;
 }
 
-.p-small {
+.csat-data-profile-sm .p-bold, .csat-data-profile-sm p, .csat-data-profile-sm h5, .csat-data-profile-tab .p-bold, .csat-data-profile-tab p, .csat-data-profile-tab h5, .csat-data-profile .p-bold, .csat-data-profile p  {
+    line-height: 1;
+}
+
+.p-small, p.small {
     font-family: geomanist !important;
     font-weight: 200;
     font-size: calc(0.8rem + 0.2vw);
@@ -203,6 +207,17 @@ p.data {
     margin: auto 0px;
 }
 
+p.card-text, .card-text {
+    font-family: geomanist !important;
+    font-weight: 300;
+    font-size: calc(0.9rem + 0.2vw);
+    line-height: 1.5;
+}
+
+.csat-data-profile > .card-text {
+    line-height: 1;
+}
+
 .errormsg, .invalid-feedback {
     font-family: geomanist !important;
     font-weight: 300;
@@ -212,6 +227,13 @@ p.data {
 a {
     font-family: geomanist !important;
     font-weight: 300;
+}
+
+.help-block {
+    font-family: geomanist !important;
+    font-weight: 200;
+    font-size: calc(0.8rem + 0.2vw);
+    line-height: 1.7;
 }
 
 ::placeholder {
@@ -390,7 +412,65 @@ a:hover {
     color: #B83222 !important;
 }
 
-/* Flash messages settings */
+.help-block {
+    color: #939393;
+}
+
+.data-card-birth {
+    background-color: #63511C;
+}
+
+.csat-data-card .card-body {
+    background-color: #FFFFFF;
+}
+
+.csat-data-birth {
+    border-color: #9D802F;
+    background-color: #9D802F;
+}
+
+.csat-data-parent {
+    border-color: #99A56B;
+    background-color: #99A56B;
+}
+
+.csat-data-profile, .csat-data-info {
+    border-color: #78863F;
+    background-color: #78863F;
+}
+
+.csat-data-profile-sm {
+    border-color: #99A56B;
+    background-color: #99A56B;
+}
+
+.csat-data-profile-tab {
+    background-color: #99A56B;
+}
+
+.csat-data-profile-sq {
+    background-color: #78863F;
+}
+
+.csat-data-occupation {
+    border-color: #FFF0B2;
+    background-color: #FFF0B2;
+}
+
+.csat-data-address {
+    border-color: #E0C89D;
+    background-color: #E0C89D;
+}
+
+.csat-data-studies {
+    border-color: #5BA3B3;
+    background-color: #5BA3B3;
+}
+
+.csat-data-illnesses {
+    border-color: #FFC5C1;
+    background-color: #FFC5C1;
+}
 
 body>p.flash-message.success {
     background: #78863F !important;
@@ -418,6 +498,26 @@ body>p.flash-message.success, body>p.flash-message.info, body>p.flash-message.wa
     font-weight: 400 !important;
     font-size: calc(0.9rem + 0.2vw) !important;
     line-height: 1.2;
+}
+
+/* Flash messages positions */
+
+@media (max-width: 767px) {
+    body>p.flash-message.success, body>p.flash-message.info, body>p.flash-message.warning, body>p.flash-message.error {
+        margin-top: 100px;
+    }
+}
+
+@media (max-width: 991px) {
+    body>p.flash-message.success, body>p.flash-message.info, body>p.flash-message.warning, body>p.flash-message.error {
+        margin-top: 120px;
+    }
+}
+
+@media (min-width: 992px) {
+    body>p.flash-message.success, body>p.flash-message.info, body>p.flash-message.warning, body>p.flash-message.error {
+        margin-top: 60px;
+    }
 }
 
 .flash-message.static {
@@ -453,6 +553,26 @@ body>p.flash-message.success, body>p.flash-message.info, body>p.flash-message.wa
 .alert-success {
     color: #FFFFFF;
     background-color: #78863F;
+}
+
+/* Flash messages settings */
+
+body>p.flash-message.success, body>p.flash-message.info, body>p.flash-message.warning, body>p.flash-message.error {
+    border-radius: 12px;
+    font-family: geomanist !important;
+    font-weight: 400 !important;
+    font-size: calc(0.9rem + 0.2vw) !important;
+    line-height: 1.2;
+}
+
+.flash-message.static {
+    border-radius: 12px;
+    font-family: geomanist !important;
+    font-weight: 400 !important;
+    font-size: calc(0.9rem + 0.2vw) !important;
+    line-height: 1.2;
+    text-align: center;
+    padding: 10px 0px;
 }
 
 /* Accordion color setting*/
@@ -533,6 +653,11 @@ a.dropdown-item {
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
     background-color: #99A56B;
     border-color: #99A56B;
+}
+
+.csat-data-profile-sm > .btn-primary:hover, .csat-data-profile-sm > .btn-primary:focus, .csat-data-profile-sm > .btn-primary:active, .csat-data-profile-sm > .btn-primary.active {
+    background-color: #99A56B;
+    border-color: #78863f;
 }
 
 .btn-warning {
@@ -1031,6 +1156,87 @@ div.table.csat-grid > div.tr > div.card.csat-resp-gdtable > div.row > * > p.td {
     }
 }
 
+/* Data cards */
+
+.csat-data-card {
+    border-width: 10px;
+    border-radius: 12px;
+} 
+
+.csat-data-card hr {
+    border-top: 5px solid;
+    border-radius: 5px;
+    border-color: #939393;
+}
+
+.csat-data-profile {
+    margin-top: -80px;
+    padding-top: 80px;
+}
+
+.csat-data-profile-sm {
+    margin-top: -50px;
+    padding-top: 50px;
+}
+
+@media (max-width: 991px) {
+    .csat-data-profile, .csat-data-profile-sm {
+        margin-top: -60px;
+        padding-top: 60px;
+    }   
+}
+
+@media (max-width: 767px) {
+    .csat-data-profile, .csat-data-profile-sm {
+        margin-top: -120px;
+        padding-top: 120px;
+    }   
+}
+
+.csat-data-profile hr {
+    border-color: #DDDDDD;
+    opacity: 30;
+}
+
+.csat-data-card img, #csat-data-card-toggle {
+    margin-top: -24px;
+    height: 50px;
+    position: absolute;
+    right: 0px;
+}
+
+@media (max-width: 991px) {
+    .csat-data-card img, #csat-data-card-toggle {
+        height: 60px;
+    }
+}
+
+.csat-data-profile-img {
+    width: 65%;
+    z-index: 1;
+    border: 6px solid #FFFFFF;
+}
+
+.csat-data-profile-sq {
+    margin: 0 5px;
+    height: 70px;
+    width: 70px;
+    background-color: #78863F;
+}
+
+.csat-data-profile-tab {
+    margin: 0 0 0 -50px;
+    padding: 5px 10px 0px 60px;
+    height: 70px;
+    background-color: #99A56B;
+    z-index: -1;
+}
+
+.csat-data-profile-tab-img {
+    height: 100px;
+    border: 4px solid #FFFFFF;
+}
+
 /* TABLE */
 
 table, div.table {
@@ -1046,7 +1252,7 @@ table.fixed {
     table-layout: fixed;
 }
 
-th, td, .th, .td {
+th, td, .th, .td, .th-grid {
     border-radius: 12px;
     padding: 4px;
 }
@@ -1060,12 +1266,16 @@ th, .th {
     text-align: center;
 }
 
-.th2 {
+.th2, .th-grid {
     border: 1px solid #99A56B;
     background-color: #99A56B !important;
     color: white;
     font-weight: 400;
     font-size: calc(0.9rem + 0.2vw);
+}
+
+.th-grid {
+    text-align: center;
 }
 
 .th3 {
@@ -1278,12 +1488,6 @@ a:active {
 ::-webkit-search-results-button,
 ::-webkit-search-results-decoration {
   display: none;
-}
-
-/* Hide visual search hover button in MS Edge */
-
-img {
-    pointer-events: none;
 }
 
 /* Remove colors for autofill fields */

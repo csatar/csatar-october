@@ -7,11 +7,12 @@ use Csatar\Forms\Traits\AjaxControllerSimple;
 use Csatar\Forms\Traits\ManagesUploads;
 use Input;
 use Lang;
-use Session;
+use October\Rain\Database\Collection;
 use October\Rain\Database\Models\DeferredBinding;
 use October\Rain\Exception\ApplicationException;
-use October\Rain\Database\Collection;
+use October\Rain\Exception\NotFoundException;
 use Redirect;
+use Session;
 
 class BasicForm extends ComponentBase  {
 
@@ -105,6 +106,12 @@ class BasicForm extends ComponentBase  {
      * @var array
      */
     public $currentUserRights = null;
+
+    /**
+     * To store custom messages for special cases when now error or validation error is thrown
+     * @var array
+     */
+    public $messages = null;
 
     /**
      * Initialise plugin and parse request
@@ -302,6 +309,10 @@ class BasicForm extends ComponentBase  {
 
     private function getRights($record, $ignoreCache = false)
     {
+        if(!$record) {
+            throw new NotFoundException();
+        }
+
         $this->autoloadBelongsToRelations($record);
 
         if(Auth::user() && !empty(Auth::user()->scout)) {
