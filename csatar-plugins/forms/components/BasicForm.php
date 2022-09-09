@@ -108,6 +108,12 @@ class BasicForm extends ComponentBase  {
     public $currentUserRights = null;
 
     /**
+     * To store custom messages for special cases when now error or validation error is thrown
+     * @var array
+     */
+    public $messages = null;
+
+    /**
      * Initialise plugin and parse request
      */
     public function init() {

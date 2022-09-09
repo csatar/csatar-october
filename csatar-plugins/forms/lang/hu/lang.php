@@ -75,6 +75,7 @@
         'saved' => 'Az adatok sikeresen elmentve...'
     ],
     'failed' => [
-        'noPermissionToDelete' => 'Nincs jogosúltsága a törléshez!'
+        'noPermissionToDeleteRecord' => 'Nincs jogosúltsága a törléshez!',
+        'noPermissionForSomeFields' => 'Az adatok sikeresen elmentve, néhány mező kivételével, amelyekhez nincs jogosultsága. Vegye fel a kapcsolatot az adminisztrátorral.',
     ]
 ];

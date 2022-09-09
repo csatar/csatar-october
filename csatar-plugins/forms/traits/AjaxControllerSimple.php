@@ -467,7 +467,12 @@ trait AjaxControllerSimple {
             return Redirect::to($redirectUrl)->withInput();
         }
 
-        Flash::success(e(trans('csatar.forms::lang.success.saved')));
+        if(!empty($this->messages) && array_key_exists('warning', $this->messages)) {
+            $warnings = implode('\n', $this->messages['warning']);
+            Flash::warning($warnings);
+        } else {
+            Flash::success(e(trans('csatar.forms::lang.success.saved')));
+        }
         return Redirect::back()->withInput();
     }
 
@@ -623,7 +628,7 @@ trait AjaxControllerSimple {
         $record = $this->getRecord();
         $relationName = Input::get('relationName');
         if(!$this->canDelete($relationName)){
-            Flash::warning(e(trans('csatar.forms::lang.failed.noPermissionToDelete')));
+            Flash::warning(e(trans('csatar.forms::lang.failed.noPermissionToDeleteRecord')));
             return;
         }
         $isHasManyRelation = array_key_exists($relationName, $record->hasMany);
@@ -844,16 +849,9 @@ trait AjaxControllerSimple {
             }
 
             if (!$isNewRecord) {
-                if (!$this->canUpdate($attribute)) {
+                if (!$this->canUpdate($attribute) && !$this->canDelete($attribute)) {
                     $settings['readOnly'] = true;
                 }
-                //TODO: how to handle if can't update but can delete?
-                // Render the field not readOnly and handle on save? ref.cantUpdateCanDelete
-
-                //handle if user can't delete attribute ref.cantDeleteMakeRequired
-//                if (!$this->canDelete($attribute)) {
-//                    $settings['required'] = true;
-//                }
             }
 
             $attributesArray[$attribute] = $settings;
@@ -886,22 +884,24 @@ trait AjaxControllerSimple {
 
         if (!$isNewRecord) { //if updating an existing record we don't care about create right
             foreach ($data as $attribute => $value) {
-                //what if is obligatory BUT user can delete ref.obligatoryDelete --> there will be validation error
-
                 //if user can delete attribute, but he is not allowed to update it, accept only empty value for the attribute
-                if ($this->canDelete($attribute) && !$this->canUpdate($attribute) && (!$value != '' || $value != null)) { //TODO ref.cantUpdateCanDelete
+                if ($this->canDelete($attribute) && !$this->canUpdate($attribute)) {
+                    if (!empty($value) && $value != $this->record->{$attribute}){
+                        $this->storeMessage('warning', e(trans('csatar.forms::lang.failed.noPermissionForSomeFields')));
+                        unset($data[$attribute]);
+                    }
+                    //if user can delete attribute, but he is not allowed to update it and value is empty for the attribute, continue
+                    continue;
+                }
+
+                if (!$this->canDelete($attribute) && empty($value)) {
+                    $this->storeMessage('warning', e(trans('csatar.forms::lang.failed.noPermissionForSomeFields')));
                     unset($data[$attribute]);
-                    continue;
                 }
-                //if user can delete attribute, but he is not allowed to update it and value is empty for the attribute, continue
-                if ($this->canDelete($attribute) && !$this->canUpdate($attribute) && (!$value == '' || $value == null)) { //TODO ref.cantUpdateCanDelete
-                    continue;
-                }
-                //TODO: if user can't delete attribute and $value is empty, throw validation exception?
-                // ref.cantDeleteButEmpty OR ref.cantDeleteMakeRequired
 
                 //if user can't update the attribute, and the above conditions doesn't apply, unset attribute before save
                 if (!$this->canUpdate($attribute)) {
+                    $this->storeMessage('warning', e(trans('csatar.forms::lang.failed.noPermissionForSomeFields')));
                     unset($data[$attribute]);
                 }
             }
@@ -939,6 +939,11 @@ trait AjaxControllerSimple {
         }
 
         return $rules;
+    }
+
+    public function storeMessage(string $messageType, string $message): void
+    {
+        $this->messages[$messageType][$message] = $message;
     }
 
 //    private function removeRulesBasedOnUserRights(array $rules, $rights, bool $isNewRecord): array
