@@ -431,7 +431,8 @@
             ],
             'permissions' => [
                 'permissions' => 'Permissions',
-                'allPermissionsForScout' => 'All permissions for every model and field for Scout mandate.'
+                'allPermissionsForScout' => 'All permissions for every model and field for Scout mandate.',
+                'readPermissionForGuests' => 'Read permission for guests.',
             ],
         ],
         'component' => [

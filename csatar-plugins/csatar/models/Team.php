@@ -102,7 +102,12 @@ class Team extends OrganizationBase
      */
 
     public $belongsTo = [
-        'district' => '\Csatar\Csatar\Models\District',
+        'district' => [
+            '\Csatar\Csatar\Models\District',
+            'formBuilder' => [
+                'requiredBeforeRender' => true,
+            ],
+        ],
     ];
 
     public $hasMany = [

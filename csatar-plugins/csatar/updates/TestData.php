@@ -44,7 +44,13 @@ class TestData extends Seeder
             'Orchideák',
         ],
         'permissions' => [
-            'RMCSSZ' => 'allPermissionsForScout',
+            'Horvátországi magyar cserkészek' => 'readPermissionForGuests',
+            'Kárpátaljai Magyar Cserkészszövetség' => 'readPermissionForGuests',
+            'Külföldi Magyar Cserkészszövetség' => 'readPermissionForGuests',
+            'Magyar Cserkészszövetség' => 'readPermissionForGuests',
+            'Romániai Magyar Cserkészszövetség' => ['allPermissionsForScout', 'readPermissionForGuests'],
+            'Szlovákiai Magyar Cserkészszövetség' => 'readPermissionForGuests',
+            'Vajdasági Magyar Cserkészszövetség' => 'readPermissionForGuests',
         ]
     ];
 
@@ -257,9 +263,6 @@ class TestData extends Seeder
                 'name' => $this::DATA['troop'][0],
                 'team_id' => $team_6->id,
             ]);
-            $troop_1->troop_leader_name = 'Anton';
-            $troop_1->troop_leader_phone = '01234';
-            $troop_1->troop_leader_email = 'a@aa.com';
             $troop_1->ignoreValidation = true;
             $troop_1->save();
 
@@ -267,9 +270,6 @@ class TestData extends Seeder
                 'name' => $this::DATA['troop'][1],
                 'team_id' => $team_6->id,
             ]);
-            $troop_2->troop_leader_name = 'Attila';
-            $troop_2->troop_leader_phone = '01234';
-            $troop_2->troop_leader_email = 'a@aa.com';
             $troop_2->ignoreValidation = true;
             $troop_2->save();
         }
@@ -279,9 +279,6 @@ class TestData extends Seeder
                 'name' => $this::DATA['troop'][2],
                 'team_id' => $team_7->id,
             ]);
-            $troop_3->troop_leader_name = 'Edina';
-            $troop_3->troop_leader_phone = '01234';
-            $troop_3->troop_leader_email = 'a@aa.com';
             $troop_3->ignoreValidation = true;
             $troop_3->save();
 
@@ -289,9 +286,6 @@ class TestData extends Seeder
                 'name' => $this::DATA['troop'][3],
                 'team_id' => $team_7->id,
             ]);
-            $troop_4->troop_leader_name = 'Eszter';
-            $troop_4->troop_leader_phone = '01234';
-            $troop_4->troop_leader_email = 'a@aa.com';
             $troop_4->ignoreValidation = true;
             $troop_4->save();
 
@@ -299,9 +293,6 @@ class TestData extends Seeder
                 'name' => $this::DATA['troop'][4],
                 'team_id' => $team_7->id,
             ]);
-            $troop_5->troop_leader_name = 'Erika';
-            $troop_5->troop_leader_phone = '01234';
-            $troop_5->troop_leader_email = 'a@aa.com';
             $troop_5->ignoreValidation = true;
             $troop_5->save();
         }
@@ -315,9 +306,6 @@ class TestData extends Seeder
             if (isset($troop_1)) {
                 $patrol_1->troop_id = $troop_1->id;
             }
-            $patrol_1->patrol_leader_name = 'Szabi';
-            $patrol_1->patrol_leader_phone = '01234';
-            $patrol_1->patrol_leader_email = 'a@aa.com';
             $patrol_1->age_group_id = $this->getFirstAgeGroupInAssociation($team_6->id);
             $patrol_1->ignoreValidation = true;
             $patrol_1->save();
@@ -329,9 +317,6 @@ class TestData extends Seeder
             if (isset($troop_1)) {
                 $patrol_2->troop_id = $troop_1->id;
             }
-            $patrol_2->patrol_leader_name = 'Péter';
-            $patrol_2->patrol_leader_phone = '01234';
-            $patrol_2->patrol_leader_email = 'a@aa.com';
             $patrol_2->age_group_id = $this->getFirstAgeGroupInAssociation($team_6->id);
             $patrol_2->ignoreValidation = true;
             $patrol_2->save();
@@ -340,9 +325,6 @@ class TestData extends Seeder
                 'name' => $this::DATA['patrol'][2],
                 'team_id' => $team_6->id,
             ]);
-            $patrol_3->patrol_leader_name = 'Ferenc';
-            $patrol_3->patrol_leader_phone = '01234';
-            $patrol_3->patrol_leader_email = 'a@aa.com';
             $patrol_3->age_group_id = $this->getFirstAgeGroupInAssociation($team_6->id);
             $patrol_3->ignoreValidation = true;
             $patrol_3->save();
@@ -356,9 +338,6 @@ class TestData extends Seeder
             if (isset($troop_3)) {
                 $patrol_4->troop_id = $troop_3->id;
             }
-            $patrol_4->patrol_leader_name = 'Fruzsina';
-            $patrol_4->patrol_leader_phone = '01234';
-            $patrol_4->patrol_leader_email = 'a@aa.com';
             $patrol_4->age_group_id = $this->getFirstAgeGroupInAssociation($team_7->id);
             $patrol_4->ignoreValidation = true;
             $patrol_4->save();
@@ -370,9 +349,6 @@ class TestData extends Seeder
             if (isset($troop_3)) {
                 $patrol_5->troop_id = $troop_3->id;
             }
-            $patrol_5->patrol_leader_name = 'Verónika';
-            $patrol_5->patrol_leader_phone = '01234';
-            $patrol_5->patrol_leader_email = 'a@aa.com';
             $patrol_5->age_group_id = $this->getFirstAgeGroupInAssociation($team_7->id);
             $patrol_5->ignoreValidation = true;
             $patrol_5->save();
@@ -381,9 +357,6 @@ class TestData extends Seeder
                 'name' => $this::DATA['patrol'][5],
                 'team_id' => $team_7->id,
             ]);
-            $patrol_6->patrol_leader_name = 'Zoltán';
-            $patrol_6->patrol_leader_phone = '01234';
-            $patrol_6->patrol_leader_email = 'a@aa.com';
             $patrol_6->age_group_id = $this->getFirstAgeGroupInAssociation($team_7->id);
             $patrol_6->ignoreValidation = true;
             $patrol_6->save();
@@ -395,9 +368,6 @@ class TestData extends Seeder
             if (isset($troop_4)) {
                 $patrol_7->troop_id = $troop_4->id;
             }
-            $patrol_7->patrol_leader_name = 'Zsuzsa';
-            $patrol_7->patrol_leader_phone = '01234';
-            $patrol_7->patrol_leader_email = 'a@aa.com';
             $patrol_7->age_group_id = $this->getFirstAgeGroupInAssociation($team_7->id);
             $patrol_7->ignoreValidation = true;
             $patrol_7->save();
@@ -416,6 +386,8 @@ class TestData extends Seeder
         // add all permissions to scout mandate
 
         $this->addAllPermissionsToScouts();
+
+        $this->addReadPermissionsToGuests();
     }
 
     public function getFirstAgeGroupInAssociation($team_id) {
@@ -448,6 +420,12 @@ class TestData extends Seeder
 
             $model = new $mandateTypeModel();
             $fields = $model->fillable ?? [];
+            $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'hasOne', 'morphTo', 'morphOne',
+                'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'];
+
+            foreach ($relationArrays as $relationArray){
+                $fields = array_merge($fields, array_keys($model->$relationArray));
+            }
 
             //add permission for the model in general
             Db::table('csatar_csatar_mandates_permissions')
@@ -558,5 +536,64 @@ class TestData extends Seeder
             }
         }
 
+    }
+
+    public function addReadPermissionsToGuests() {
+        $associationIds = Association::all()->pluck('id')->toArray();
+        $mandateTypeModels = Db::table('csatar_csatar_mandate_types')
+            ->where('organization_type_model_name', '<>', 'GUEST')
+            ->select('organization_type_model_name')->distinct()->get()->pluck('organization_type_model_name'); //get every unique model we have mandate for
+
+        foreach ($associationIds as $associationId) {
+            $guestMandateTypeId = Db::table('csatar_csatar_mandate_types')->select('id')
+                ->where('association_id', $associationId)
+                ->where('organization_type_model_name', 'GUEST')
+                ->first()->id; //get guest mandate type id
+
+            if(empty($mandateTypeModels) || empty($guestMandateTypeId)) return;
+
+            foreach ($mandateTypeModels as $mandateTypeModel) {
+
+                $model = new $mandateTypeModel();
+                $fields = $model->fillable ?? [];
+                $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'hasOne', 'morphTo', 'morphOne',
+                    'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'];
+
+                foreach ($relationArrays as $relationArray){
+                    $fields = array_merge($fields, array_keys($model->$relationArray));
+                }
+
+                //add permission for the model in general
+                Db::table('csatar_csatar_mandates_permissions')
+                    ->updateOrInsert(
+                        ['mandate_type_id' => $guestMandateTypeId, 'model' => $mandateTypeModel, 'field' => 'MODEL_GENERAL'],
+                        [
+                            'obligatory'    => false,
+                            'create'        => false,
+                            'read'          => true,
+                            'update'        => false,
+                            'delete'        => false,
+                        ],
+                    );
+
+                //add permission for each attribute
+
+                foreach ($fields as $field) {
+                    //add permission for the model->field
+                    Db::table('csatar_csatar_mandates_permissions')
+                        ->updateOrInsert(
+                            ['mandate_type_id' => $guestMandateTypeId, 'model' => $mandateTypeModel, 'field' => $field],
+                            [
+                                'obligatory'    => false,
+                                'create'        => false,
+                                'read'          => true,
+                                'update'        => false,
+                                'delete'        => false,
+                            ],
+                        );
+                }
+            }
+
+        }
     }
 }

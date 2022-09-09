@@ -7,10 +7,12 @@ use Csatar\Forms\Traits\AjaxControllerSimple;
 use Csatar\Forms\Traits\ManagesUploads;
 use Input;
 use Lang;
-use Session;
+use October\Rain\Database\Collection;
 use October\Rain\Database\Models\DeferredBinding;
 use October\Rain\Exception\ApplicationException;
+use October\Rain\Exception\NotFoundException;
 use Redirect;
+use Session;
 
 class BasicForm extends ComponentBase  {
 
@@ -100,12 +102,27 @@ class BasicForm extends ComponentBase  {
     public $renderedComponent = null;
 
     /**
+     * Current user rights for the record/model
+     * @var array
+     */
+    public $currentUserRights = null;
+
+    /**
+     * To store custom messages for special cases when now error or validation error is thrown
+     * @var array
+     */
+    public $messages = null;
+
+    /**
      * Initialise plugin and parse request
      */
     public function init() {
         $this->getForm();
-        $this->setOrGetSessionKey();
+        $this->getComponentSettings();
+        $this->recordKeyValue = $this->param($this->recordKeyParam);
         $this->record = $this->getRecord();
+        $this->setOrGetSessionKey();
+        $this->currentUserRights = $this->getRights($this->record);
     }
 
     /**
@@ -214,16 +231,18 @@ class BasicForm extends ComponentBase  {
         $this->addJs('/plugins/csatar/forms/assets/js/uploader.js');
         $this->addJs('/plugins/csatar/forms/assets/js/positionValidationTags.js');
 
-        $form = $this->getForm();
-        $this->recordKeyValue = $this->param($this->recordKeyParam);
-
         if($this->readOnly){
+            //check if user has permissions to view record
+            if (!$this->canRead('MODEL_GENERAL')) {
+                \App::abort(403, 'Access denied!');
+            }
             $this->renderedComponent = $this->createForm(true);
         }
 
         if($this->recordKeyValue === $this->createRecordKeyword && !$this->readOnly) {
-            if(!Auth::check()){
-                return Redirect::to('/bejelentkezes');
+            //check if user has permissions to create record
+            if (!$this->canCreate('MODEL_GENERAL')) {
+                \App::abort(403, 'Access denied!');
             }
             $this->renderedComponent = $this->createForm();
         }
@@ -233,18 +252,26 @@ class BasicForm extends ComponentBase  {
 
             switch ($action) {
                 case $this->actionUpdateKeyword:
+                    //check if user has permissions to update record
+                    if (!$this->canUpdate('MODEL_GENERAL')) {
+                        \App::abort(403, 'Access denied!');
+                    }
                     if(!Auth::check()){
                         return Redirect::to('/bejelentkezes');
                     }
                     $this->renderedComponent = $this->createForm();
                     break;
                 case $this->actionDeleteKeyword:
-                    if(!Auth::check()){
-                        return Redirect::to('/bejelentkezes');
+                    $this->currentUserRights = $this->getRights($this->record, true); //getting user rights from database before delete
+                    if (!$this->canDelete('MODEL_GENERAL')) {
+                        \App::abort(403, 'Access denied!');
                     }
                     $this->renderedComponent = $this->onDelete();
                     break;
                 default:
+                    if (!$this->canRead('MODEL_GENERAL')) {
+                        \App::abort(403, 'Access denied!');
+                    }
                     $this->readOnly = true;
                     $this->renderedComponent = $this->createForm(true);
             }
@@ -278,5 +305,50 @@ class BasicForm extends ComponentBase  {
         $sessionKey = Session::get('key') ?? uniqid('session_key', true);
         $this->sessionKey = $sessionKey;
         Session::put('key', $sessionKey);
+    }
+
+    private function getRights($record, $ignoreCache = false)
+    {
+        if(!$record) {
+            throw new NotFoundException();
+        }
+
+        $this->autoloadBelongsToRelations($record);
+
+        if(Auth::user() && !empty(Auth::user()->scout)) {
+            return Auth::user()->scout->getRightsForModel($record, $ignoreCache);
+        } else {
+            return $record->getGuestRightsForModel();
+        }
+    }
+
+    private function canCreate(string $attribute): bool
+    {
+        return $this->rightsCollectionHasKey($attribute) && $this->currentUserRights[$attribute]['create'] === 1;
+    }
+
+    private function canRead(string $attribute): bool
+    {
+        return $this->rightsCollectionHasKey($attribute) && $this->currentUserRights[$attribute]['read'] === 1;
+    }
+
+    private function canUpdate(string $attribute): bool
+    {
+        return $this->rightsCollectionHasKey($attribute) && $this->currentUserRights[$attribute]['update'] === 1;
+    }
+
+    private function canDelete(string $attribute): bool
+    {
+        return $this->rightsCollectionHasKey($attribute) && $this->currentUserRights[$attribute]['delete'] === 1;
+    }
+
+    private function isObligatory(string $attribute): bool
+    {
+        return $this->rightsCollectionHasKey($attribute) && $this->currentUserRights[$attribute]['obligatory'] === 1;
+    }
+
+    private function rightsCollectionHasKey($attribute): bool
+    {
+        return !empty($this->currentUserRights) && $this->currentUserRights->has($attribute);
     }
 }
