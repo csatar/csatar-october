@@ -299,6 +299,7 @@ class Scout extends OrganizationBase
             'table' => 'csatar_csatar_team_reports_scouts',
             'pivot' => ['name', 'legal_relationship_id', 'leadership_qualification_id', 'ecset_code', 'membership_fee'],
             'pivotModel' => '\Csatar\Csatar\Models\TeamReportScoutPivot',
+            'label' => 'csatar.csatar::lang.plugin.admin.teamReport.teamReports',
         ],
     ];
 

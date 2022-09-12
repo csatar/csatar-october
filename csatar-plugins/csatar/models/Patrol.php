@@ -73,7 +73,6 @@ class Patrol extends OrganizationBase
         'team_id',
         'troop_id',
         'logo',
-        'age_group_id'
     ];
 
     /**
@@ -92,7 +91,10 @@ class Patrol extends OrganizationBase
     ];
 
     public $hasMany = [
-        'scouts' => '\Csatar\Csatar\Models\Scout',
+        'scouts' => [
+            '\Csatar\Csatar\Models\Scout',
+            'label' => 'csatar.csatar::lang.plugin.admin.scout.scouts',
+        ],
         'mandates' => [
             '\Csatar\Csatar\Models\Mandate',
             'key' => 'mandate_model_id',

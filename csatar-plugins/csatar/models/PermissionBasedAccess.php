@@ -134,6 +134,12 @@ class PermissionBasedAccess extends Model
                     self::$translatedAttributeNames[$organizationTypeModelName][$realtionName] = Lang::get($relationData['label']);
                 }
             }
+
+            foreach ($model->hasMany as $realtionName => $relationData) {
+                if (is_array($relationData) && array_key_exists('label', $relationData)) {
+                    self::$translatedAttributeNames[$organizationTypeModelName][$realtionName] = Lang::get($relationData['label']);
+                }
+            }
         }
 
         return self::$translatedAttributeNames[$organizationTypeModelName];
