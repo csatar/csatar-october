@@ -149,7 +149,7 @@ class OrganizationBase extends Model
         return $rights;
     }
 
-    public function getRightsForMandateTypes(array $mandateTypeIds = [], bool $own = false, bool $twoFA = false){
+    public function getRightsForMandateTypes(array $mandateTypeIds = [], bool $own = false, bool $is2fa = false){
 
         $associationId = $this->getAssociationId();
 
@@ -172,25 +172,21 @@ class OrganizationBase extends Model
                         return $query->where('own', '<>', 1)->orWhereNull('own');
                     });
             })
-            ->when(!$twoFA, function ($query) {
-                return $query->where(
-                    function ($query) {
-                        return $query->where('2fa', '<>', 1)->orWhereNull('2fa');
-                    });
-            })
             ->whereIn('mandate_type_id', $mandateTypeIds)
             ->where('model', self::getOrganizationTypeModelName())
             ->get();
 
         $rights = $rights->groupBy('field');
 
-        return $rights->map(function ($item, $key){
+        return $rights->map(function ($item, $key) use ($is2fa){
             return [
-                'obligatory' => $item->min('obligatory'),
-                'create' => $item->max('create'),
-                'read' => $item->max('read'),
-                'update' => $item->max('update'),
-                'delete' => $item->max('delete'),
+                'obligatory' => $is2fa ? $item->min('obligatory') : $item->min('obligatory') - 1,
+                'create' => $is2fa ? $item->max('create') : $item->max('create') -1,
+                'read' => $is2fa ? $item->max('read') : $item->max('read') -1,
+                'update' => $is2fa ? $item->max('update') : $item->max('update') -1,
+                'delete' => $is2fa ? $item->max('delete') : $item->max('delete') -1,
+                // in the permissions table we have 0 - if user has no permission, 1 - if has permission only with 2fa, 2 - if has permission without 2fa
+                // if logged in user has NO 2fa, we substract 1 from every value, so where 2fa permission is needed, value will be 0, and no permission is granted
             ];
         });
     }

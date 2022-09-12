@@ -524,25 +524,24 @@ class Scout extends OrganizationBase
             $is2fa = true;
         }
 
-        $rightsForModel = $ignoreCache ? null : $this->getRightsForModelFromSession($model, $associationId, $isOwn, $is2fa);
+        $rightsForModel = $ignoreCache ? null : $this->getRightsForModelFromSession($model, $associationId, $isOwn);
 
         if(empty($rightsForModel) || $rightsForModel->count() == 0) {
-            $rightsForModel = $model->getRightsForMandateTypes($mandateTypeIds, $isOwn, $is2fa, $ignoreCache);
-            $this->saveRightsForModelToSession($model, $rightsForModel, $associationId, $isOwn, $is2fa);
-//            dd('if', $rightsForModel);
+            $rightsForModel = $model->getRightsForMandateTypes($mandateTypeIds, $isOwn, $is2fa);
+            $this->saveRightsForModelToSession($model, $rightsForModel, $associationId, $isOwn);
         }
 
         return $rightsForModel;
     }
 
-    public function getRightsForModelFromSession($model, $associationId, $own = false, $twoFA = false) {
+    public function getRightsForModelFromSession($model, $associationId, $own = false) {
         $sessionRecord = Session::get('scout.rightsForModels');
 
         if(empty($sessionRecord) || empty($model) || empty($associationId)) {
             return;
         }
 
-        $key = $associationId . $model::getOrganizationTypeModelName() . ($own ? '_own' : '') . ($twoFA ? '_2fa' : '');
+        $key = $associationId . $model::getOrganizationTypeModelName() . ($own ? '_own' : '');
 
         $sessionRecordForModel = $sessionRecord->get($key);
 
@@ -553,9 +552,9 @@ class Scout extends OrganizationBase
         return null;
     }
 
-    public function saveRightsForModelToSession($model, $rightsForModel, $associationId, $own, $twoFA) {
+    public function saveRightsForModelToSession($model, $rightsForModel, $associationId, $own) {
         $modelName = $model::getOrganizationTypeModelName();
-        $key = $associationId . $modelName . ($own ? '_own' : '') . ($twoFA ? '_2fa' : '');
+        $key = $associationId . $modelName . ($own ? '_own' : '');
         $sessionRecord = Session::get('scout.rightsForModels');
 
         if(empty($sessionRecord)){
@@ -567,7 +566,6 @@ class Scout extends OrganizationBase
                 'associationId' => $associationId,
                 'model' => $modelName,
                 'own' => $own,
-                'twoFA' => $twoFA,
                 'savedToSession' => date('Y-m-d H:i'),
                 'rights'=> $rightsForModel,
             ],
