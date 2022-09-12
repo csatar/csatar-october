@@ -17,7 +17,7 @@
             <?= 'disabled' ?>
         <?php endif ?>
     >
-        <option disabled <?php if (empty($value)) { echo ' selected'; } ?>></option>
+        <option disabled <?php if (empty($value) || $value === 'all') { echo ' selected'; } ?>></option>
         <option value="0" <?php if ($value === 0) { echo ' selected'; } ?>>
             <?= e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.noRight')) ?>
         </option>
