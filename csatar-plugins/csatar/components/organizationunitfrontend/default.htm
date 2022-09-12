@@ -1,5 +1,6 @@
 {% set content_page = __SELF__.content_page %}
-{% set permission_to_edit = __SELF__.permission_to_edit %}
+{% set model = this.controller.vars.basicForm.record %}
+{% set permissions = __SELF__.permissions %}
 
 <div class=" pb-5">
     <div class="accordion accordion-flush">
@@ -15,7 +16,7 @@
                     <div>
                         {{ content_page.content | raw}}
                     </div>
-                    {% if permission_to_edit %}
+                    {% if permissions['content_page']['update'] > 0 %}
                         <form data-request="onEditContent">
                             <button
                                 type="submit"
@@ -35,6 +36,14 @@
             </h2>
             <div id="collapse-2" class="accordion-collapse collapse show" aria-labelledby="heading-1" data-bs-parent="#accordionFlushExample">
                 <div class="accordion-body">
+                    {% set model = this.controller.vars.basicForm.record %}
+
+                    {% if permissions['MODEL_GENERAL']['update'] > 0 and this.param.action == false %}
+                    <form action="/{{this.page.basicForm.formSlug}}/{{ model[basicForm.recordKeyParam] }}/{{ basicForm.actionUpdateKeyword }}" method="post">
+                        <button type="submit" class="btn rounded btn-primary" value="{{ 'Módosítás' | _ }}"><i class="csat-edit-fill-wh-md"></i></button>
+                    </form>
+                    {% endif %}
+
                     {% partial __SELF__ ~ '::' ~ model_name ~ 'Form' %}
                 </div>
             </div>

@@ -1,9 +1,10 @@
 {% component 'basicForm' %}
+{% set permissions = __SELF__.permissions %}
 
 <p>{{ 'Rajok' | _ }}</p>
 {% component 'builderList' %}
 
-{% if user %}
+{% if permissions['troops']['create'] > 0 %}
     <form action="/raj/letrehozas" method="post">
         <input type="hidden" name="team" value="{{ team_id }}">
         <input type="submit" class="btn rounded btn-primary" value="{{ 'Raj hozzáadása' | _ }}">
@@ -13,21 +14,24 @@
 <p>{{ 'Őrsök' | _ }}</p>
 {% component 'builderList2' %}
 
-{% if user.scout %}
-    {% set team = this.controller.vars.basicForm.record %}
+
+{% if permissions['patrols']['create'] > 0 %}
     <form action="/ors/letrehozas" method="post">
         <input type="hidden" name="team" value="{{ team_id }}">
         <input type="submit" class="btn rounded btn-primary" value="{{ 'Őrs hozzáadása' | _ }}">
     </form>
+{% endif %}
 
-    {% if user.scout.getRightsForModel(team)['scouts']['create'] > 0 %}
-        <form action="/tag/letrehozas" method="post">
-            <input type="hidden" name="team" value="{{ team_id }}">
-            <button type="submit" class="btn rounded btn-primary" value="{{ 'Tag hozzáadása' | _ }}"><i class="csat-useradd-fill-wh-md"></i></button>
-        </form>
-    {% endif %}
+{% if permissions['scouts']['create'] > 0 %}
+    <form action="/tag/letrehozas" method="post">
+        <input type="hidden" name="team" value="{{ team_id }}">
+        <button type="submit" class="btn rounded btn-primary" value="{{ 'Tag hozzáadása' | _ }}"><i class="csat-useradd-fill-wh-md"></i></button>
+    </form>
+{% endif %}
 
+{% if permissions['teamReports']['read'] > 0 %}
     <form action="{{'/csapatjelentesek/' ~ team_id }}" method="post">
         <input type="submit" class="btn rounded btn-primary" value="{{ 'Csapatjelentések' | _ }}">
     </form>
 {% endif %}
+

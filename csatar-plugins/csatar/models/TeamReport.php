@@ -63,7 +63,7 @@ class TeamReport extends PermissionBasedAccess
         }
     }
 
-    protected $fillable = [
+    public $fillable = [
         'team_id',
         'year',
         'scouting_year_report_team_camp',
