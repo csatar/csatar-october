@@ -5,9 +5,13 @@ use Model;
 use Db;
 use RainLab\Builder\Classes\ModelModel;
 use RainLab\Builder\Classes\PluginCode;
+use Yaml;
+use Lang;
 
 class PermissionBasedAccess extends Model
 {
+    protected static $translatedAttributeNames = null;
+
     /**
      * @param $scout
      * @return bool

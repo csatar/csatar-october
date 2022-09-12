@@ -26,8 +26,6 @@ class OrganizationBase extends PermissionBasedAccess
 
     protected $dates = ['deleted_at'];
 
-    protected static $translatedAttributeNames = null;
-
     /**
      * @var array Validation rules
      */
