@@ -8,7 +8,7 @@ use Csatar\Csatar\Models\Scout;
 /**
  * Model
  */
-class TeamReport extends Model
+class TeamReport extends PermissionBasedAccess
 {
     use \October\Rain\Database\Traits\Validation;
 

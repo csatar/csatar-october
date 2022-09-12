@@ -88,11 +88,11 @@ class MandateType extends Model
     function getOrganizationTypeModelNameOptions()
     {
         return [
-            Association::getOrganizationTypeModelName() => Association::getOrganizationTypeModelNameUserFriendly(),
-            District::getOrganizationTypeModelName() => District::getOrganizationTypeModelNameUserFriendly(),
-            Patrol::getOrganizationTypeModelName() => Patrol::getOrganizationTypeModelNameUserFriendly(),
-            Team::getOrganizationTypeModelName() => Team::getOrganizationTypeModelNameUserFriendly(),
-            Troop::getOrganizationTypeModelName() => Troop::getOrganizationTypeModelNameUserFriendly(),
+            Association::getModelName() => Association::getOrganizationTypeModelNameUserFriendly(),
+            District::getModelName() => District::getOrganizationTypeModelNameUserFriendly(),
+            Patrol::getModelName() => Patrol::getOrganizationTypeModelNameUserFriendly(),
+            Team::getModelName() => Team::getOrganizationTypeModelNameUserFriendly(),
+            Troop::getModelName() => Troop::getOrganizationTypeModelNameUserFriendly(),
         ];
     }
 
@@ -129,15 +129,15 @@ class MandateType extends Model
         else {
             $inputData = Input::get('data');
             if ($inputData && array_key_exists('association', $inputData) && !empty($inputData['association'])) {
-                $mandate_model_type = District::getOrganizationTypeModelName();
+                $mandate_model_type = District::getModelName();
                 $association_id = $inputData['association'];
             }
             else if ($inputData && array_key_exists('district', $inputData) && !empty($inputData['district'])) {
-                $mandate_model_type = Team::getOrganizationTypeModelName();
+                $mandate_model_type = Team::getModelName();
                 $association_id = District::find($inputData['district'])->getAssociationId();
             }
             else if ($inputData && array_key_exists('team', $inputData) && !empty($inputData['team'])) {
-                $mandate_model_type = array_key_exists('troop', $inputData) ? Patrol::getOrganizationTypeModelName() : Troop::getOrganizationTypeModelName();
+                $mandate_model_type = array_key_exists('troop', $inputData) ? Patrol::getModelName() : Troop::getModelName();
                 $association_id = Team::find($inputData['team'])->getAssociationId();
             }
         }

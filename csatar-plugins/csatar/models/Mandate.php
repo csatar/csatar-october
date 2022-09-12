@@ -31,23 +31,23 @@ class Mandate extends Model
 
         // on the BE, when clicking the Mandate Create button: modify the mandate_model relation type, in order to the mandate_model relation to be set when creating a new mandate
         $this->belongsTo['mandate_model'] = Input::get('Association') !== null ?
-            Association::getOrganizationTypeModelName() :
+            Association::getModelName() :
             (Input::get('District') !== null ?
-                District::getOrganizationTypeModelName() :
+                District::getModelName() :
                 (Input::get('Team') !== null ?
-                   Team::getOrganizationTypeModelName() :
+                   Team::getModelName() :
                     (Input::get('Troop') !== null ?
-                       Troop::getOrganizationTypeModelName() :
+                       Troop::getModelName() :
                         (Input::get('Patrol') !== null ?
-                            Patrol::getOrganizationTypeModelName() :
-                            OrganizationBase::getOrganizationTypeModelName()))));
+                            Patrol::getModelName() :
+                            OrganizationBase::getModelName()))));
 
         // on the BE, when changing the Mandate Type on the form, which is shown after the Mandate Create button has been clicked: modify the mandate_model relation type, in order to the mandate_model relation to be set
-        if ($this->belongsTo['mandate_model'] == OrganizationBase::getOrganizationTypeModelName()) {
+        if ($this->belongsTo['mandate_model'] == OrganizationBase::getModelName()) {
             $mandate = Input::get('Mandate');
             $mandate_type_id = $mandate ? $mandate['mandate_type'] : null;
             $mandate_type = $mandate_type_id ? MandateType::find($mandate_type_id) : null;
-            $this->belongsTo['mandate_model'] = $mandate_type ? $mandate_type->organization_type_model_name : OrganizationBase::getOrganizationTypeModelName();
+            $this->belongsTo['mandate_model'] = $mandate_type ? $mandate_type->organization_type_model_name : OrganizationBase::getModelName();
         }
     }
 
@@ -116,7 +116,7 @@ class Mandate extends Model
     public function initFromForm($record)
     {
         // from the Organization page
-        $modelName = $record::getOrganizationTypeModelName();
+        $modelName = $record::getModelName();
         $this->mandate_model = $record;
         $this->mandate_model_type = $modelName;
         $this->mandate_model_name = $record->extendedName;
@@ -192,16 +192,16 @@ class Mandate extends Model
         $this->mandate_model_type = !$this->mandate_model_type ? $this->belongsTo['mandate_model'] : $this->mandate_model_type;
         $mandate_model_id = null;
         $mandate_model_type = null;
-        
+
         // in case of troops and patrols, allow anyone from the team. In case of other organization units, allow only scouts from that organization unit
         if (!$this->mandate_model_id && !$this->mandate_model) {
             // we are on a create form on the FE
             $inputData = Input::get('data');
             switch ($this->mandate_model_type) {
-                case Troop::getOrganizationTypeModelName():
-                case Patrol::getOrganizationTypeModelName():
+                case Troop::getModelName():
+                case Patrol::getModelName():
                     $mandate_model_id = $inputData['team'];
-                    $mandate_model_type = Team::getOrganizationTypeModelName();
+                    $mandate_model_type = Team::getModelName();
                     break;
 
                 default:
@@ -210,9 +210,9 @@ class Mandate extends Model
         }
         else {
             // we are on an edit form
-            if ($this->mandate_model_type == Troop::getOrganizationTypeModelName() || $this->mandate_model_type == Patrol::getOrganizationTypeModelName()) {
+            if ($this->mandate_model_type == Troop::getModelName() || $this->mandate_model_type == Patrol::getModelName()) {
                 $mandate_model_id = $this->mandate_model ? $this->mandate_model->team_id : null;
-                $mandate_model_type = Team::getOrganizationTypeModelName();
+                $mandate_model_type = Team::getModelName();
             }
             else {
                 $mandate_model_id = $this->mandate_model_id;
@@ -268,6 +268,6 @@ class Mandate extends Model
      */
     public function scopeMandateModelType($query, $model = null)
     {
-        return $model ? $query->where('mandate_model_type', $model::getOrganizationTypeModelName()) : $query->whereNull('id');
+        return $model ? $query->where('mandate_model_type', $model::getModelName()) : $query->whereNull('id');
     }
 }

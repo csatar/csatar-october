@@ -2,6 +2,7 @@
 
 use Csatar\Csatar\Classes\RightsMatrix;
 use Csatar\Csatar\Models\MandateType;
+use Csatar\Csatar\Models\PermissionBasedAccess;
 use DateTime;
 use Db;
 use Input;
@@ -15,7 +16,7 @@ use Yaml;
 /**
  * Model
  */
-class OrganizationBase extends Model
+class OrganizationBase extends PermissionBasedAccess
 {
     use \October\Rain\Database\Traits\Validation;
 
@@ -54,7 +55,7 @@ class OrganizationBase extends Model
             return;
         }
 
-        $mandateTypes = MandateType::where('association_id', $this->getAssociationId())->where('organization_type_model_name', $this->getOrganizationTypeModelName())->where('required', true)->get();
+        $mandateTypes = MandateType::where('association_id', $this->getAssociationId())->where('organization_type_model_name', $this->getModelName())->where('required', true)->get();
         $mandates = $this->mandates;
         $now = new \DateTime();
 
@@ -94,11 +95,6 @@ class OrganizationBase extends Model
         return $this->attributes['name'];
     }
 
-    public static function getOrganizationTypeModelName()
-    {
-        return '\\' . static::class;
-    }
-
     public static function getOrganizationTypeModelNameUserFriendly()
     {
         return Lang::get('csatar.csatar::lang.plugin.admin.organizationBase.organizationBase');
@@ -116,111 +112,5 @@ class OrganizationBase extends Model
         }, $nameExploded);
 
         return trim(implode(' ', $nameFiltered));
-    }
-
-    public function getGuestRightsForModel() {
-        $associationId = $this->getAssociationId();
-        $modelName = $this::getOrganizationTypeModelName();
-        $key = $associationId . $modelName;
-
-        $sessionRecord = Session::get('guest.rightsForModels');
-        $sessionRecordForModel = $sessionRecord ? $sessionRecord->get($key) : null;
-
-        if (!empty($sessionRecordForModel) && $sessionRecordForModel['savedToSession'] >= RightsMatrix::getRightsMatrixLastUpdateTime() && $sessionRecordForModel['rights']->count() != 0) {
-            return $sessionRecordForModel['rights'];
-        }
-
-        if(empty($sessionRecord)){
-            $sessionRecord = new Collection([]);
-        }
-
-        $rights = $this->getRightsForMandateTypes();
-        $sessionRecord = $sessionRecord->replace([
-            $key => [
-                'associationId' => $associationId,
-                'model' => $modelName,
-                'savedToSession' => date('Y-m-d H:i'),
-                'rights'=> $rights,
-            ],
-        ]);
-
-        Session::put('guest.rightsForModels', $sessionRecord);
-
-        return $rights;
-    }
-
-    public function getRightsForMandateTypes(array $mandateTypeIds = [], bool $own = false, bool $is2fa = false){
-
-        $associationId = $this->getAssociationId();
-
-        if(empty($associationId)) {
-            return;
-        }
-
-        if(empty($mandateTypeIds) && $guestMandateTypeId = MandateType::getGuestMandateTypeIdInAssociation($associationId)) {
-            $mandateTypeIds = [ $guestMandateTypeId ];
-        }
-
-        if(empty($mandateTypeIds)) {
-            return;
-        }
-
-        $rights = Db::table('csatar_csatar_mandates_permissions')
-            ->when(!$own, function ($query) {
-                return $query->where(
-                    function ($query) {
-                        return $query->where('own', '<>', 1)->orWhereNull('own');
-                    });
-            })
-            ->whereIn('mandate_type_id', $mandateTypeIds)
-            ->where('model', self::getOrganizationTypeModelName())
-            ->get();
-
-        $rights = $rights->groupBy('field');
-
-        return $rights->map(function ($item, $key) use ($is2fa){
-            return [
-                'obligatory' => $is2fa ? $item->min('obligatory') : $item->min('obligatory') - 1,
-                'create' => $is2fa ? $item->max('create') : $item->max('create') -1,
-                'read' => $is2fa ? $item->max('read') : $item->max('read') -1,
-                'update' => $is2fa ? $item->max('update') : $item->max('update') -1,
-                'delete' => $is2fa ? $item->max('delete') : $item->max('delete') -1,
-                // in the permissions table we have 0 - if user has no permission, 1 - if has permission only with 2fa, 2 - if has permission without 2fa
-                // if logged in user has NO 2fa, we substract 1 from every value, so where 2fa permission is needed, value will be 0, and no permission is granted
-            ];
-        });
-    }
-
-    public function isOwnOrganization($scout){
-
-        $mandates = $scout->getMandatesForOrganization($this);
-        return count($mandates) > 0;
-    }
-
-    public function getAssociationId(){
-        return null;
-    }
-
-    public static function getTranslatedAttributeNames(string $organizationTypeModelName = null): array
-    {
-        if ((is_array(self::$translatedAttributeNames) && !array_key_exists($organizationTypeModelName, self::$translatedAttributeNames)) ||
-            !is_array(self::$translatedAttributeNames)
-        ) {
-            $path = strtolower(str_replace('\\', DIRECTORY_SEPARATOR, plugins_path() . $organizationTypeModelName . '\\fields.yaml' ));
-            $attributes = Yaml::parseFile($path);
-            foreach ($attributes['fields'] as $key => $attribute) {
-                self::$translatedAttributeNames[$organizationTypeModelName][$key] = Lang::get($attribute['label']);
-            }
-
-            // add labels from belongsTo->label
-            $model = new $organizationTypeModelName();
-            foreach ($model->belongsToMany as $realtionName => $relationData) {
-                if (is_array($relationData) && array_key_exists('label', $relationData)) {
-                    self::$translatedAttributeNames[$organizationTypeModelName][$realtionName] = Lang::get($relationData['label']);
-                }
-            }
-        }
-
-        return self::$translatedAttributeNames[$organizationTypeModelName];
     }
 }

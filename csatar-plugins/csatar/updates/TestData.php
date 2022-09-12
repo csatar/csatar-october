@@ -1,5 +1,6 @@
 <?php namespace Csatar\Csatar\Updates;
 
+use RainLab\Builder\Classes\ComponentHelper;
 use Seeder;
 use Csatar\Csatar\Models\Association;
 use Csatar\Csatar\Models\District;
@@ -7,6 +8,7 @@ use Csatar\Csatar\Models\Patrol;
 use Csatar\Csatar\Models\Team;
 use Csatar\Csatar\Models\Troop;
 use Csatar\Csatar\Models\MandateType;
+use Csatar\Csatar\Models\PermissionBasedAccess;
 use Db;
 
 class TestData extends Seeder
@@ -407,20 +409,18 @@ class TestData extends Seeder
 
         if(empty($associationId)) return;
 
-        $mandateTypeModels = Db::table('csatar_csatar_mandate_types')
-            ->where('association_id', $associationId)
-            ->select('organization_type_model_name')->distinct()->get()->pluck('organization_type_model_name'); //get every unique model we have mandate for
+        $permissionBasedModels = PermissionBasedAccess::getAllChildClasses(); //get every model that needs permissions
         $scoutMandateTypeId = Db::table('csatar_csatar_mandate_types')->select('id')
             ->where('association_id', $associationId)
             ->where('organization_type_model_name', '\Csatar\Csatar\Models\Scout')
             ->first()->id; //get scout mandate type id
 
-        if(empty($mandateTypeModels) || empty($scoutMandateTypeId)) return;
+        if(empty($permissionBasedModels) || empty($scoutMandateTypeId)) return;
 
-        foreach ($mandateTypeModels as $mandateTypeModel) {
-            if($mandateTypeModel == MandateType::MODEL_NAME_GUEST) return;
+        foreach ($permissionBasedModels as $permissionBasedModel) {
+            if($permissionBasedModel == MandateType::MODEL_NAME_GUEST) return;
 
-            $model = new $mandateTypeModel();
+            $model = new $permissionBasedModel();
             $fields = $model->fillable ?? [];
             $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'hasOne', 'morphTo', 'morphOne',
                 'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'];
@@ -432,7 +432,7 @@ class TestData extends Seeder
             //add permission for the model in general
             Db::table('csatar_csatar_mandates_permissions')
                 ->updateOrInsert(
-                    [ 'mandate_type_id' => $scoutMandateTypeId, 'model' => $mandateTypeModel, 'field' => 'MODEL_GENERAL', 'own' => 0],
+                    [ 'mandate_type_id' => $scoutMandateTypeId, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 0],
                     [
                         'create'        => 2,
                         'read'          => 2,
@@ -444,7 +444,7 @@ class TestData extends Seeder
             //add permission for the model in general for own
             Db::table('csatar_csatar_mandates_permissions')
                 ->updateOrInsert(
-                    [ 'mandate_type_id' => $scoutMandateTypeId, 'model' => $mandateTypeModel, 'field' => 'MODEL_GENERAL', 'own' => 1],
+                    [ 'mandate_type_id' => $scoutMandateTypeId, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 1],
                     [
                         'create'        => 2,
                         'read'          => 2,
@@ -460,7 +460,7 @@ class TestData extends Seeder
                 //add permission for the model->field
                 Db::table('csatar_csatar_mandates_permissions')
                     ->updateOrInsert(
-                        [ 'mandate_type_id' => $scoutMandateTypeId, 'model' => $mandateTypeModel, 'field' => $field, 'own' => 0],
+                        [ 'mandate_type_id' => $scoutMandateTypeId, 'model' => $permissionBasedModel, 'field' => $field, 'own' => 0],
                         [
                             'create'        => 2,
                             'read'          => 2,
@@ -472,7 +472,7 @@ class TestData extends Seeder
                 //add permission for the model->field for own
                 Db::table('csatar_csatar_mandates_permissions')
                     ->updateOrInsert(
-                        [ 'mandate_type_id' => $scoutMandateTypeId, 'model' => $mandateTypeModel, 'field' => $field, 'own' => 1],
+                        [ 'mandate_type_id' => $scoutMandateTypeId, 'model' => $permissionBasedModel, 'field' => $field, 'own' => 1],
                         [
                             'create'        => 2,
                             'read'          => 2,
@@ -490,21 +490,19 @@ class TestData extends Seeder
 
         if(empty($associationId)) return;
 
-        $mandateTypeModels = Db::table('csatar_csatar_mandate_types')
-            ->where('association_id', $associationId)
-            ->select('organization_type_model_name')->distinct()->get()->pluck('organization_type_model_name'); //get every unique model we have mandate for
+        $permissionBasedModels = PermissionBasedAccess::getAllChildClasses(); //get every model that needs permissions
         $patrolLeaderMandateTypeId = Db::table('csatar_csatar_mandate_types')->select('id')
             ->where('association_id', $associationId)
             ->where('organization_type_model_name', '\Csatar\Csatar\Models\Patrol')
             ->whereNull('parent_id')
             ->first()->id; //get Patrol leader mandate type id
 
-        if(empty($mandateTypeModels) || empty($patrolLeaderMandateTypeId)) return;
+        if(empty($permissionBasedModels) || empty($patrolLeaderMandateTypeId)) return;
 
-        foreach ($mandateTypeModels as $mandateTypeModel) {
-            if($mandateTypeModel == MandateType::MODEL_NAME_GUEST) return;
+        foreach ($permissionBasedModels as $permissionBasedModel) {
+            if($permissionBasedModel == MandateType::MODEL_NAME_GUEST) return;
 
-            $model = new $mandateTypeModel();
+            $model = new $permissionBasedModel();
             $fields = $model->fillable ?? [];
             $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'hasOne', 'morphTo', 'morphOne',
                 'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'];
@@ -516,7 +514,7 @@ class TestData extends Seeder
             //add permission for the model in general
             Db::table('csatar_csatar_mandates_permissions')
                 ->updateOrInsert(
-                    [ 'mandate_type_id' => $patrolLeaderMandateTypeId, 'model' => $mandateTypeModel, 'field' => 'MODEL_GENERAL', 'own' => 0],
+                    [ 'mandate_type_id' => $patrolLeaderMandateTypeId, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 0],
                     [
                         'create'        => 2,
                         'read'          => 2,
@@ -528,7 +526,7 @@ class TestData extends Seeder
             //add permission for the model in general for own
             Db::table('csatar_csatar_mandates_permissions')
                 ->updateOrInsert(
-                    [ 'mandate_type_id' => $patrolLeaderMandateTypeId, 'model' => $mandateTypeModel, 'field' => 'MODEL_GENERAL', 'own' => 1],
+                    [ 'mandate_type_id' => $patrolLeaderMandateTypeId, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 1],
                     [
                         'create'        => 2,
                         'read'          => 2,
@@ -542,7 +540,7 @@ class TestData extends Seeder
                 //add permission for the model->field
                 Db::table('csatar_csatar_mandates_permissions')
                     ->updateOrInsert(
-                        [ 'mandate_type_id' => $patrolLeaderMandateTypeId, 'model' => $mandateTypeModel, 'field' => $field, 'own' => 0],
+                        [ 'mandate_type_id' => $patrolLeaderMandateTypeId, 'model' => $permissionBasedModel, 'field' => $field, 'own' => 0],
                         [
                             'create'        => 2,
                             'read'          => 2,
@@ -554,7 +552,7 @@ class TestData extends Seeder
                 //add permission for the model->field for own
                 Db::table('csatar_csatar_mandates_permissions')
                     ->updateOrInsert(
-                        [ 'mandate_type_id' => $patrolLeaderMandateTypeId, 'model' => $mandateTypeModel, 'field' => $field, 'own' => 1],
+                        [ 'mandate_type_id' => $patrolLeaderMandateTypeId, 'model' => $permissionBasedModel, 'field' => $field, 'own' => 1],
                         [
                             'create'        => 2,
                             'read'          => 2,
@@ -569,9 +567,7 @@ class TestData extends Seeder
 
     public function addReadPermissionsToGuests() {
         $associationIds = Association::all()->pluck('id')->toArray();
-        $mandateTypeModels = Db::table('csatar_csatar_mandate_types')
-            ->where('organization_type_model_name', '<>', 'GUEST')
-            ->select('organization_type_model_name')->distinct()->get()->pluck('organization_type_model_name'); //get every unique model we have mandate for
+        $permissionBasedModels = PermissionBasedAccess::getAllChildClasses(); //get every model that needs permissions
 
         foreach ($associationIds as $associationId) {
             $guestMandateTypeId = Db::table('csatar_csatar_mandate_types')->select('id')
@@ -579,11 +575,11 @@ class TestData extends Seeder
                 ->where('organization_type_model_name', 'GUEST')
                 ->first()->id; //get guest mandate type id
 
-            if(empty($mandateTypeModels) || empty($guestMandateTypeId)) return;
+            if(empty($permissionBasedModels) || empty($guestMandateTypeId)) return;
 
-            foreach ($mandateTypeModels as $mandateTypeModel) {
+            foreach ($permissionBasedModels as $permissionBasedModel) {
 
-                $model = new $mandateTypeModel();
+                $model = new $permissionBasedModel();
                 $fields = $model->fillable ?? [];
                 $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'hasOne', 'morphTo', 'morphOne',
                     'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'];
@@ -595,7 +591,7 @@ class TestData extends Seeder
                 //add permission for the model in general
                 Db::table('csatar_csatar_mandates_permissions')
                     ->updateOrInsert(
-                        [ 'mandate_type_id' => $guestMandateTypeId, 'model' => $mandateTypeModel, 'field' => 'MODEL_GENERAL', 'own' => 0],
+                        [ 'mandate_type_id' => $guestMandateTypeId, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 0],
                         [
                             'read'          => 2,
                         ]
@@ -607,7 +603,7 @@ class TestData extends Seeder
                     //add permission for the model->field
                     Db::table('csatar_csatar_mandates_permissions')
                         ->updateOrInsert(
-                            [ 'mandate_type_id' => $guestMandateTypeId, 'model' => $mandateTypeModel, 'field' => $field, 'own' => 0],
+                            [ 'mandate_type_id' => $guestMandateTypeId, 'model' => $permissionBasedModel, 'field' => $field, 'own' => 0],
                             [
                                 'read'          => 2,
                             ]

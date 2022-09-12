@@ -391,31 +391,19 @@ class Scout extends OrganizationBase
         return $this->getFullName();
     }
 
-    /**
-     * Returns the id of the association to which the item belongs to.
-     */
-    public function getAssociationId()
-    {
-        if ($this->team_id) {
-            return $this->team->district->association->id;
-        }
-
-        return null;
-    }
-
     public function scopeOrganization($query, $mandate_model_type, $mandate_model_id)
     {
         switch ($mandate_model_type) {
-            case Association::getOrganizationTypeModelName():
+            case Association::getModelName():
                 $districts = \Csatar\Csatar\Models\District::where('association_id', $mandate_model_id)->lists('id');
                 $teams = \Csatar\Csatar\Models\Team::whereIn('district_id', $districts)->lists('id');
                 return $query->whereIn('team_id', $teams);
 
-            case District::getOrganizationTypeModelName():
+            case District::getModelName():
                 $teams = \Csatar\Csatar\Models\Team::where('district_id', $mandate_model_id)->lists('id');
                 return $query->whereIn('team_id', $teams);
 
-            case Team::getOrganizationTypeModelName():
+            case Team::getModelName():
                 return $query->where('team_id', $mandate_model_id);
 
             default:
@@ -489,7 +477,7 @@ class Scout extends OrganizationBase
         return $scoutMandateTypeIds;
     }
 
-    public function getMandatesForOrganization(OrganizationBase $organization) {
+    public function getMandatesForOrganization(PermissionBasedAccess $organization) {
         return $this->getMandatesInAssociation($organization->getAssociationId(), $this->updated_at);
     }
 
@@ -516,7 +504,7 @@ class Scout extends OrganizationBase
 
         $isOwn = false;
         if(Auth::user() && !empty(Auth::user()->scout)){
-            $isOwn = $model->isOwnOrganization(Auth::user()->scout);
+            $isOwn = $model->isOwnModel(Auth::user()->scout);
         }
 
         $is2fa = false;
@@ -541,7 +529,7 @@ class Scout extends OrganizationBase
             return;
         }
 
-        $key = $associationId . $model::getOrganizationTypeModelName() . ($own ? '_own' : '');
+        $key = $associationId . $model::getModelName() . ($own ? '_own' : '');
 
         $sessionRecordForModel = $sessionRecord->get($key);
 
@@ -553,7 +541,7 @@ class Scout extends OrganizationBase
     }
 
     public function saveRightsForModelToSession($model, $rightsForModel, $associationId, $own) {
-        $modelName = $model::getOrganizationTypeModelName();
+        $modelName = $model::getModelName();
         $key = $associationId . $modelName . ($own ? '_own' : '');
         $sessionRecord = Session::get('scout.rightsForModels');
 
@@ -574,7 +562,7 @@ class Scout extends OrganizationBase
         Session::put('scout.rightsForModels', $sessionRecord);
     }
 
-    public function isOwnOrganization($scout){
+    public function isOwnModel($scout){
         return $this->id === $scout->id;
     }
 
