@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+- CS-50 - Set edit and create buttons permission based. Set team report buttons and listing permission based.
+- CS-264 - Added Modify buttons to organization pages.
+- CS-270 - Added new Scout button to Team and Patrol page and made permission based
+- CS-272 - Refactored Model structure for OraganizationBase model and added PermissionBasedAccess class
+- CS-272 - Created permissions matrix admin panel
 - CS-273 - Added permissions handling to form builder
 - CS-257 - Added profile data tabs and profile data cards
 - CS-279 - Changed color of Grid based table heading
