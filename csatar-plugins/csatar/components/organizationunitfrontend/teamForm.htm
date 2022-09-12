@@ -1,12 +1,5 @@
 {% component 'basicForm' %}
 
-{% if user %}
-<form action="/tag/letrehozas" method="post">
-    <input type="hidden" name="team" value="{{ team_id }}">
-    <input type="submit" class="btn rounded btn-primary" value="{{ 'Tag hozzáadása' | _ }}">
-</form>
-{% endif %}
-
 <p>{{ 'Rajok' | _ }}</p>
 {% component 'builderList' %}
 
@@ -24,6 +17,11 @@
     <form action="/ors/letrehozas" method="post">
         <input type="hidden" name="team" value="{{ team_id }}">
         <input type="submit" class="btn rounded btn-primary" value="{{ 'Őrs hozzáadása' | _ }}">
+    </form>
+
+    <form action="/tag/letrehozas" method="post">
+        <input type="hidden" name="team" value="{{ team_id }}">
+        <button type="submit" class="btn rounded btn-primary" value="{{ 'Tag hozzáadása' | _ }}"><i class="csat-useradd-fill-wh-md"></i></button>
     </form>
 
     <form action="{{'/csapatjelentesek/' ~ team_id }}" method="post">
