@@ -186,6 +186,9 @@
                 ],
                 'permissionsMatrix' => [
                     'permissionsMatrix' => 'Permissions Matrix',
+                    'noRight' => 'No',
+                    'hasRightWith2FactorAuth' => '2FA',
+                    'hasRight' => 'Yes',
                     'own' => 'Own',
                     'notOwn' => 'Not Own',
                     'model' => 'Model',

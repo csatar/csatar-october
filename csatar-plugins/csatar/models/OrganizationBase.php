@@ -206,7 +206,8 @@ class OrganizationBase extends Model
         if ((is_array(self::$translatedAttributeNames) && !array_key_exists($organizationTypeModelName, self::$translatedAttributeNames)) ||
             !is_array(self::$translatedAttributeNames)
         ) {
-            $attributes = Yaml::parseFile(plugins_path() . $organizationTypeModelName . '\\fields.yaml');
+            $path = strtolower(str_replace('\\', DIRECTORY_SEPARATOR, plugins_path() . $organizationTypeModelName . '\\fields.yaml' ));
+            $attributes = Yaml::parseFile($path);
             foreach ($attributes['fields'] as $key => $attribute) {
                 self::$translatedAttributeNames[$organizationTypeModelName][$key] = Lang::get($attribute['label']);
             }

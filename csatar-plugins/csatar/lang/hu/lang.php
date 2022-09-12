@@ -167,7 +167,7 @@
                     'organizationSystemData' => [
                         'organizationSystemData' => 'Szervezeti rendszeradatok',
                         'hierarchy' => 'Hierarchia',
-                        'permissionsMatrix' => 'jogosultság Mátrix',
+                        'permissionsMatrix' => 'Jogosultság Mátrix',
                     ],
                     'seederData' => [
                         'data' => 'Adatok',
@@ -186,6 +186,9 @@
                 ],
                 'permissionsMatrix' => [
                     'permissionsMatrix' => 'Jogosultság Matrix',
+                    'noRight' => 'Nem',
+                    'hasRightWith2FactorAuth' => '2FA',
+                    'hasRight' => 'Igen',
                     'own' => 'Saját',
                     'notOwn' => 'Nem Saját',
                     'model' => 'Modell',
