@@ -118,9 +118,9 @@ class PermissionBasedAccess extends Model
 
     public static function getTranslatedAttributeNames(string $organizationTypeModelName = null): array
     {
-        if($organizationTypeModelName == parent::getModelName()){
-            return [];
-        }
+//        if($organizationTypeModelName == parent::getModelName()){
+//            return [];
+//        }
         if ((is_array(self::$translatedAttributeNames) && !array_key_exists($organizationTypeModelName, self::$translatedAttributeNames)) ||
             !is_array(self::$translatedAttributeNames)
         ) {
@@ -139,6 +139,12 @@ class PermissionBasedAccess extends Model
             }
 
             foreach ($model->hasMany as $realtionName => $relationData) {
+                if (is_array($relationData) && array_key_exists('label', $relationData)) {
+                    self::$translatedAttributeNames[$organizationTypeModelName][$realtionName] = Lang::get($relationData['label']);
+                }
+            }
+
+            foreach ($model->morphOne as $realtionName => $relationData) {
                 if (is_array($relationData) && array_key_exists('label', $relationData)) {
                     self::$translatedAttributeNames[$organizationTypeModelName][$realtionName] = Lang::get($relationData['label']);
                 }

@@ -64,8 +64,14 @@ class Association extends OrganizationBase
     ];
 
     public $hasMany = [
-        'ageGroups' => '\Csatar\Csatar\Models\AgeGroup',
-        'districts' => '\Csatar\Csatar\Models\District',
+        'ageGroups' => [
+            '\Csatar\Csatar\Models\AgeGroup',
+            'label' => 'csatar.csatar::lang.plugin.admin.ageGroups.ageGroups',
+        ],
+        'districts' => [
+            '\Csatar\Csatar\Models\District',
+            'label' => 'csatar.csatar::lang.plugin.admin.district.districts',
+        ],
         'mandates' => [
             '\Csatar\Csatar\Models\Mandate',
             'key' => 'mandate_model_id',
@@ -81,7 +87,11 @@ class Association extends OrganizationBase
     ];
 
     public $morphOne = [
-        'content_page' => ['\Csatar\Csatar\Models\ContentPage', 'name' => 'model']
+        'content_page' => [
+            '\Csatar\Csatar\Models\ContentPage',
+            'name' => 'model',
+            'label' => 'csatar.csatar::lang.plugin.admin.general.contentPage',
+        ]
     ];
 
     /**

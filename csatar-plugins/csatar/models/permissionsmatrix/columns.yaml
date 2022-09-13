@@ -1,9 +1,9 @@
 columns:
     association:
-        label: 'Association'
+        label: 'csatar.csatar::lang.plugin.admin.association.association'
         select: '(SELECT `name` FROM `csatar_csatar_associations` WHERE id = (SELECT `association_id` FROM `csatar_csatar_mandate_types` WHERE `csatar_csatar_mandate_types`.`id` = `csatar_csatar_mandates_permissions`.`mandate_type_id`))'
     mandate_type:
-        label: 'Mandate'
+        label: 'csatar.csatar::lang.plugin.admin.mandate.mandate'
         select: '(SELECT `name` FROM `csatar_csatar_mandate_types` WHERE `csatar_csatar_mandate_types`.`id` = `csatar_csatar_mandates_permissions`.`mandate_type_id`)'
     own:
         label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.own'

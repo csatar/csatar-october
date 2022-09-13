@@ -35,6 +35,7 @@
                 'organizationUnitNameWarning' => 'A szervezeti egység neve nem tartalmazhatja a szervezeti egység megnevezését.',
                 'note' => 'Megjegyzés',
                 'sortOrder' => 'Sorszám',
+                'contentPage' => 'Bemutatkozó oldal',
             ],
             'ageGroups' => [
                 'ageGroups' => 'Korosztályok',

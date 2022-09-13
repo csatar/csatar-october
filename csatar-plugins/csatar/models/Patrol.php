@@ -125,7 +125,11 @@ class Patrol extends OrganizationBase
     }
 
     public $morphOne = [
-        'content_page' => ['\Csatar\Csatar\Models\ContentPage', 'name' => 'model']
+        'content_page' => [
+            '\Csatar\Csatar\Models\ContentPage',
+            'name' => 'model',
+            'label' => 'csatar.csatar::lang.plugin.admin.general.contentPage',
+        ],
     ];
 
     /**

@@ -35,6 +35,7 @@
                 'organizationUnitNameWarning' => 'Organization unit name can not contain the unit type.',
                 'note' => 'Note',
                 'sortOrder' => 'Sort Order',
+                'contentPage' => 'Content Page',
             ],
             'ageGroups' => [
                 'ageGroups' => 'Age Groups',
