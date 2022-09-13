@@ -1,6 +1,7 @@
 <?php namespace Csatar\Csatar\Models;
 
 use Model;
+use Db;
 
 /**
  * Model
@@ -61,7 +62,6 @@ class PermissionsMatrix extends Model
         return $this->getTranslatedLabelForFiled($this->field, $this->model);
     }
 
-
     public function getTranslatedLabelForFiled(string $field, string $model): string
     {
         if ($model === self::MODEL_GENERAL_VALUE || $model === self::PALCEHOLDER_VALUE) {
@@ -79,5 +79,49 @@ class PermissionsMatrix extends Model
 
     public function getPlaceHolderValue(){
         return self::PALCEHOLDER_VALUE;
+    }
+
+    public function getFromAssociationOptions(){
+        $mandateTypeIds = Db::table('csatar_csatar_mandates_permissions')
+            ->select('mandate_type_id')
+            ->distinct()
+            ->get()
+            ->pluck('mandate_type_id');
+        $associationIds = Db::table('csatar_csatar_mandate_types')
+            ->whereIn('id', $mandateTypeIds)
+            ->select('association_id')
+            ->distinct()
+            ->get()
+            ->pluck('association_id');
+
+        return Db::table('csatar_csatar_associations')
+            ->whereIn('id', $associationIds)
+            ->orderBy('name', 'asc')
+            ->lists('name', 'id');
+    }
+
+    public function getToAssociationOptions(){
+        return Db::table('csatar_csatar_associations')
+//            ->where('id', '<>', $this->fromAssociation)
+            ->orderBy('name', 'asc')
+            ->lists('name', 'id');
+    }
+
+    public function getFromMandateTypeOptions(){
+        $mandateTypes = [];
+        if($this->fromAssociation) {
+            $mandateTypes = Db::table('csatar_csatar_mandate_types')->where('association_id', $this->fromAssociation)->lists('name', 'id');
+        }
+
+        return $mandateTypes;
+    }
+
+    public function getToMandateTypesOptions(){
+        $mandateTypes = [];
+        if($this->toAssociation) {
+            $mandateTypes = Db::table('csatar_csatar_mandate_types')->where('association_id', $this->toAssociation)->lists('name', 'id');
+        }
+
+        return $mandateTypes;
     }
 }

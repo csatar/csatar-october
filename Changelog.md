@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-300 - Added permissions manage page, with bulk copy/delete option based on Association and Manadate.
 - CS-50 - Set edit and create buttons permission based. Set team report buttons and listing permission based.
 - CS-264 - Added Modify buttons to organization pages.
 - CS-270 - Added new Scout button to Team and Patrol page and made permission based

@@ -5,6 +5,7 @@ use Backend\Classes\Controller;
 use Backend\Widgets\Lists;
 use Csatar\Csatar\Models\MandateType;
 use Csatar\Csatar\Models\PermissionsMatrix as PermissionModel;
+use Db;
 use File;
 use Illuminate\Validation\Rules\In;
 use Input;
@@ -12,9 +13,13 @@ use Session;
 
 class PermissionsMatrix extends Controller
 {
-    public $implement = [        'Backend\Behaviors\ListController'    ];
+    public $implement = [
+        'Backend\Behaviors\ListController',
+        '\Backend\Behaviors\FormController',
+    ];
 
-    public $listConfig = ['config_list.yaml'];
+    public $listConfig = 'config_list.yaml';
+    public $formConfig = 'config_form.yaml';
 
     public $sessionValues;
 
@@ -48,6 +53,7 @@ class PermissionsMatrix extends Controller
     public function edit() {
         $this->addCss("/plugins/csatar/csatar/assets/permissionsMatrix.css");
         $this->addJs("/plugins/csatar/csatar/assets/permissionsMatrix.js");
+        $this->pageTitle = e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.editPermissions'));
         $this->makeLists();
     }
 
@@ -102,8 +108,50 @@ class PermissionsMatrix extends Controller
     {
         return Session::get('permissionValueChanges', []);
     }
+
     public function onGetSessionValues(): array
     {
         return $this->getSessionValues();
+    }
+
+    // permissions manage page
+
+    public function manage() {
+        $this->pageTitle = e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.managePermissions'));
+        $this->initForm(new PermissionModel());
+    }
+
+    public function onExecute() {
+        $formData = Input::get('PermissionsMatrix');
+        if (empty($formData)) {
+            return;
+        }
+
+        if ($formData['action'] === 'copy') {
+            $permissionsToCopy = PermissionModel::where('mandate_type_id', $formData['fromMandateType'])->get();
+            foreach ($permissionsToCopy as $permissionToCopy) { //dd($formData, $permissionToCopy);
+                foreach ($formData['toMandateTypes'] as $toMandateTypeId) {
+                    Db::table('csatar_csatar_mandates_permissions')
+                        ->updateOrInsert(
+                            [
+                                'mandate_type_id'   => $toMandateTypeId,
+                                'model'             => $permissionToCopy->model,
+                                'field'             => $permissionToCopy->field,
+                                'own'               => $permissionToCopy->own,
+                            ],
+                            [
+                                'create'        => $permissionToCopy->create,
+                                'read'          => $permissionToCopy->read,
+                                'update'        => $permissionToCopy->update,
+                                'delete'        => $permissionToCopy->delete,
+                            ]
+                        );
+                }
+            }
+        }
+
+        if ($formData['action'] === 'delete') {
+            PermissionModel::where('mandate_type_id', $formData['fromMandateType'])->delete();
+        }
     }
 }
