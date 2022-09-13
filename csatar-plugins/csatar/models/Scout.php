@@ -572,4 +572,29 @@ class Scout extends OrganizationBase
         return Lang::get('csatar.csatar::lang.plugin.admin.scout.scout');
     }
 
+    public function getStaticMessages(): array
+    {
+        $messages = [];
+
+        if(!$this->isPersonalDataAccepted()){
+            $messages['warning']['personalDataNotAccepted'] =
+                [
+                    'message' => Lang::get('csatar.csatar::lang.plugin.admin.scout.staticMessages.personalDataNotAccepted'),
+                    'actionUrl' => 'tag/' . $this->ecset_code,
+                ];
+        }
+
+        return $messages;
+    }
+
+    public function isPersonalDataAccepted(): bool
+    {
+        return !is_null($this->accepted_at);
+    }
+
+    public function setPersonalDataAccepted(): bool
+    {
+        $this->accepted_at = new \DateTime();
+        return $this->save();
+    }
 }

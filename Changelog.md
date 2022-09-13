@@ -2,10 +2,11 @@
 
 ## Unreleased
 
+- CS-167 - Added warning message and verification option for Scout to verify personal data
 - CS-68 - Added and extended Offline.SiteSearch Plugin
-- CS-300 - Added permissions manage page, with bulk copy/delete option based on Association and Manadate.
-- CS-50 - Set edit and create buttons permission based. Set team report buttons and listing permission based.
-- CS-264 - Added Modify buttons to organization pages.
+- CS-300 - Added permissions manage page, with bulk copy/delete option based on Association and Manadate
+- CS-50 - Set edit and create buttons permission based. Set team report buttons and listing permission based
+- CS-264 - Added Modify buttons to organization pages
 - CS-270 - Added new Scout button to Team and Patrol page and made permission based
 - CS-272 - Refactored Model structure for OraganizationBase model and added PermissionBasedAccess class
 - CS-272 - Created permissions matrix admin panel

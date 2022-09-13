@@ -144,6 +144,9 @@
                     'mandateEndDateBeforeStartDate' => 'A végső időpont nem lehet a kezdeti időpont előtt a %name megbízatás esetén.',
                     'dateInTheFutureError' => 'A Dátum a %name %category esetén nem lehet a jövőben.',
                 ],
+                'staticMessages' => [
+                    'personalDataNotAccepted' => 'Kérlek ellenőrizd, hogy helyesek-e a személyes adataid itt!'
+                ],
             ],
             'admin' => [
                 'menu' => [

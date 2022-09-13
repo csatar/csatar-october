@@ -144,6 +144,9 @@
                     'mandateEndDateBeforeStartDate' => 'The End date cannot be before the Start date for the %name mandate.',
                     'dateInTheFutureError' => 'The selected Date for the %name %category is in the future.',
                 ],
+                'staticMessages' => [
+                    'personalDataNotAccepted' => 'Please verify your personal data here!'
+                ],
             ],
             'admin' => [
                 'menu' => [
