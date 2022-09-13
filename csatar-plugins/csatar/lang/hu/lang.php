@@ -36,6 +36,7 @@
                 'note' => 'Megjegyzés',
                 'sortOrder' => 'Sorszám',
                 'contentPage' => 'Bemutatkozó oldal',
+                'searchResult' => 'Keresés eredménye',
             ],
             'ageGroups' => [
                 'ageGroups' => 'Korosztályok',
