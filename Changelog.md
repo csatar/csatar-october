@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-229 - Replaced table to grid in form builder pivot relations
 - CS-167 - Added warning message and verification option for Scout to verify personal data
 - CS-68 - Added and extended Offline.SiteSearch Plugin
 - CS-300 - Added permissions manage page, with bulk copy/delete option based on Association and Manadate
