@@ -10,12 +10,11 @@ class BuilderTableCreateCsatarCsatarGalleryModel extends Migration
         Schema::create('csatar_csatar_gallery_model', function($table)
         {
             $table->engine = 'InnoDB';
-            $table->integer('id')->unsigned();
+            $table->increments('id')->unsigned();
             $table->string('model_type', 255)->nullable();
             $table->integer('model_id');
             $table->integer('gallery_id');
             $table->integer('parent_id')->nullable();
-            $table->primary(['id']);
         });
     }
 
