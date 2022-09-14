@@ -25,7 +25,7 @@ class Patrol extends OrganizationBase
         'facebook_page' => 'url|regex:(facebook)|nullable',
         'logo' => 'image|nullable',
         'age_group' => 'required',
-         'team' => 'required',
+        'team' => 'required',
     ];
 
     /**
@@ -81,7 +81,12 @@ class Patrol extends OrganizationBase
      */
 
     public $belongsTo = [
-        'team' => '\Csatar\Csatar\Models\Team',
+        'team' => [
+            '\Csatar\Csatar\Models\Team',
+            'formBuilder' => [
+                'requiredBeforeRender' => true,
+            ],
+        ],
         'troop' => '\Csatar\Csatar\Models\Troop',
         'age_group' => '\Csatar\Csatar\Models\AgeGroup',
     ];

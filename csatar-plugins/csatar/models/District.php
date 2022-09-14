@@ -57,7 +57,12 @@ class District extends OrganizationBase
      */
 
     public $belongsTo = [
-        'association' => '\Csatar\Csatar\Models\Association',
+        'association' => [
+            '\Csatar\Csatar\Models\Association',
+            'formBuilder' => [
+                'requiredBeforeRender' => true,
+            ],
+        ],
     ];
 
     public $hasMany = [

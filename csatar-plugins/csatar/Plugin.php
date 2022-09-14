@@ -2,19 +2,22 @@
 
 use App;
 use Backend;
+use Csatar\Csatar\Classes\Exceptions\OauthException;
+use Csatar\Csatar\Models\Association;
+use Csatar\Csatar\Models\MandateType;
+use Csatar\Csatar\Models\Scout;
 use Event;
 use Input;
-use Csatar\Csatar\Classes\Exceptions\OauthException;
 use Media\Classes\MediaLibrary;
 use PolloZen\SimpleGallery\Controllers\Gallery as SimpleGalleryController;
 use PolloZen\SimpleGallery\Models\Gallery as GalleryModel;
-use System\Classes\PluginBase;
-use Validator;
-use ValidationException;
 use Lang;
 use RainLab\User\Models\User;
 use Redirect;
-use Csatar\Csatar\Models\Scout;
+use Session;
+use System\Classes\PluginBase;
+use ValidationException;
+use Validator;
 
 /**
  * csatar Plugin Information File
@@ -59,6 +62,14 @@ class Plugin extends PluginBase
 
         App::error(function (\October\Rain\Auth\AuthException $exception) {
             return Lang::get('csatar.csatar::lang.frontEnd.authException');
+        });
+
+        App::error(function(
+            \Symfony\Component\HttpKernel\Exception\HttpException $exception) {
+
+            if($exception->getStatusCode() == 403) {
+                return Redirect::to('/403');
+            }
         });
 
         App::error(function (OauthException $exception) {
@@ -141,6 +152,8 @@ class Plugin extends PluginBase
                 $user->scout->saveMandateTypeIdsForEveryAssociationToSession();
             }
         });
+
+        $this->saveGuestMandateTypeIdsForEveryAssociationToSession();
     }
 
     /**
@@ -160,6 +173,22 @@ class Plugin extends PluginBase
             \Csatar\Csatar\Components\CreateFrontendAccounts::class => 'createFrontendAccounts',
             \Csatar\Csatar\Components\OrganizationUnitFrontend::class => 'organizationUnitFrontend',
             \Csatar\Csatar\Components\CsatarGallery::class => 'csatargallery',
+        ];
+    }
+
+    public function registerSettings()
+    {
+        return [
+            'settings' => [
+                'label' => Lang::get('csatar.csatar::lang.plugin.admin.contactSettings.contactSettings'),
+                'description' => Lang::get('csatar.csatar::lang.plugin.admin.contactSettings.description'),
+                'category' => Lang::get('csatar.csatar::lang.plugin.admin.contactSettings.contactSettings'),
+                'icon' => 'icon-cog',
+                'class' => \Csatar\Csatar\Models\ContactSettings::class,
+                'order' => 500,
+                'keywords' => 'contact',
+                'permissions' => ['csatar.users.access_settings'],
+            ]
         ];
     }
 
@@ -191,5 +220,21 @@ class Plugin extends PluginBase
             ];
 
         });
+    }
+
+    public function saveGuestMandateTypeIdsForEveryAssociationToSession(){
+
+        if(empty(Session::get('guest.mandateTypeIds'))) {
+            $associationIds = Association::all()->pluck('id');
+
+            if(empty($associationIds)){
+                return;
+            }
+
+            foreach($associationIds as $associationId){
+                MandateType::getGuestMandateTypeIdInAssociation($associationId);
+            }
+        }
+
     }
 }

@@ -2,9 +2,13 @@
 
 ## Unreleased
 
+- CS-273 - Added permissions handling to form builder
+- CS-257 - Added profile data tabs and profile data cards
+- CS-279 - Changed color of Grid based table heading
 - CS-278 - Changed the style of the explanatoy text
 - CS-277 - Modified the position of the flash messages, depending on the screen size
 - CS-47 - Created basics of the rights system
+- CS-47  - Created basics of the rights system
 - CS-268 - Added new pictograms, and changed definition of existing ones
 - CS-199 - Extended social login plugin to handle Scout and User model connections
 - CS-193 - Applied basic permissions
@@ -12,6 +16,11 @@
 - CS-155 - Update the organization models for the mandates
 - CS-188 - Build in the polimorphic and hasMany relations in the form builder
 - CS-222 - Added foreign keys
+- CS-284 - Add empty option and fix validation for chronic illnesses on Scout creation
+- CS-226 - Store the data from the Contact page in the backend settings
+- CS-292 - Fix the server error shown on scout creation
+- CS-248 - Swap the images from the front page
+- CS-258 - Rename the accordions from the organization unit pages
 
 ## 1.2.0
 ### 2022-08-24

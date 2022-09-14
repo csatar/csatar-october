@@ -6,6 +6,7 @@ use Db;
 use Lang;
 use Session;
 use Model;
+use Csatar\Csatar\Classes\RightsMatrix;
 use Csatar\Csatar\Models\Association;
 use October\Rain\Database\Collection;
 /**
@@ -200,6 +201,7 @@ class Scout extends OrganizationBase
         'comment',
         'profile_image',
         'registration_form',
+        'chronic_illnesses',
     ];
 
     /**
@@ -211,7 +213,12 @@ class Scout extends OrganizationBase
         'special_diet' => '\Csatar\Csatar\Models\SpecialDiet',
         'religion' => '\Csatar\Csatar\Models\Religion',
         'tshirt_size' => '\Csatar\Csatar\Models\TShirtSize',
-        'team' => '\Csatar\Csatar\Models\Team',
+        'team' => [
+            '\Csatar\Csatar\Models\Team',
+            'formBuilder' => [
+                'requiredBeforeRender' => true,
+            ],
+        ],
         'troop' => '\Csatar\Csatar\Models\Troop',
         'patrol' => '\Csatar\Csatar\Models\Patrol',
     ];
@@ -314,6 +321,8 @@ class Scout extends OrganizationBase
     public function beforeSave()
     {
         $this->nameday = $this->nameday != '' ? $this->nameday : null;
+        $this->troop_id = $this->troop_id != 0 ? $this->troop_id : null;
+        $this->patrol_id = $this->patrol_id != 0 ? $this->patrol_id : null;
     }
 
     private function generateEcsetCode()
@@ -385,7 +394,11 @@ class Scout extends OrganizationBase
      */
     public function getAssociationId()
     {
-        return $this->team->district->association->id;
+        if ($this->team_id) {
+            return $this->team->district->association->id;
+        }
+
+        return null;
     }
 
     public function scopeOrganization($query, $mandate_model_type, $mandate_model_id)
@@ -423,7 +436,7 @@ class Scout extends OrganizationBase
         }
 
         //get all mandate type ids from association
-        $mandateTypeIdsInAssociation = MandateType::mandateTypeIdsInAssociation($associationId);
+        $mandateTypeIdsInAssociation = MandateType::getAllMandateTypeIdsInAssociation($associationId);
 
         //get scout's mandates with the above mandate types and pluck mandate_type_ids
         $scoutMandates = $this->mandates()
@@ -447,8 +460,31 @@ class Scout extends OrganizationBase
         return $scoutMandates;
     }
 
-    public function getMandateTypeIdsInAssociation($associationId, $savedAfterDate = null){
-        return array_merge($this->getMandatesInAssociation($associationId, $savedAfterDate)->pluck('mandate_type_id')->toArray(), MandateType::scoutMandateTypeIdInAssociation($associationId));
+    public function getMandateTypeIdsInAssociation($associationId, $savedAfterDate = null, $ignoreCache = false)
+    {
+        $sessionRecord = $ignoreCache ? null : Session::get('scout.mandateTypeIds');
+
+        if(!empty($sessionRecord) && $sessionRecordForAssociation = $sessionRecord->where('associationId', $associationId)->first()) {
+            if($sessionRecordForAssociation['savedToSession'] >= $savedAfterDate) {
+                //TODO: implement touch scout when mandate is added or removed CS-288
+                return $sessionRecordForAssociation['mandateTypeIds'];
+            }
+        }
+
+        if(empty($sessionRecord)){
+            $sessionRecord = new Collection([]);
+        }
+
+        $scoutMandateTypeIds = array_merge($this->getMandatesInAssociation($associationId, $savedAfterDate)->pluck('mandate_type_id')->toArray(), MandateType::getScoutMandateTypeIdInAssociation($associationId));
+
+        $sessionRecord = $sessionRecord->replace([ $associationId => [
+            'associationId' => $associationId,
+            'savedToSession' => date('Y-m-d H:i'),
+            'mandateTypeIds'=> $scoutMandateTypeIds,
+        ]]);
+
+        Session::put('scout.mandateTypeIds', $sessionRecord);
+        return $scoutMandateTypeIds;
     }
 
     public function getMandatesForOrganization(OrganizationBase $organization) {
@@ -463,18 +499,18 @@ class Scout extends OrganizationBase
         }
 
         foreach($associationIds as $associationId){
-            $this->getMandatesInAssociation($associationId);
+            $this->getMandateTypeIdsInAssociation($associationId, false, true);
         }
     }
 
-    public function getRightsForModel($model){
+    public function getRightsForModel($model, $ignoreCache = false){
 
         if (empty($model)) {
             return;
         }
 
         $associationId  = $model->getAssociationId();
-        $mandateTypeIds = $this->getMandateTypeIdsInAssociation($associationId, $this->updated_at);
+        $mandateTypeIds = $this->getMandateTypeIdsInAssociation($associationId, $this->updated_at, $ignoreCache);
 
         $isOwn = false;
         if(Auth::user() && !empty(Auth::user()->scout)){
@@ -486,17 +522,18 @@ class Scout extends OrganizationBase
             $is2fa = true;
         }
 
-        $rightsForModel = $this->getRightsForModelFromSession($model, $associationId, $isOwn, $is2fa);
+        $rightsForModel = $ignoreCache ? null : $this->getRightsForModelFromSession($model, $associationId, $isOwn, $is2fa);
 
-        if(empty($rightsForModel)) {
-            $rightsForModel = $model->getRightsForMandateTypes($mandateTypeIds, $isOwn, $is2fa);
+        if(empty($rightsForModel) || $rightsForModel->count() == 0) {
+            $rightsForModel = $model->getRightsForMandateTypes($mandateTypeIds, $isOwn, $is2fa, $ignoreCache);
             $this->saveRightsForModelToSession($model, $rightsForModel, $associationId, $isOwn, $is2fa);
+//            dd('if', $rightsForModel);
         }
 
         return $rightsForModel;
     }
 
-    public function getRightsForModelFromSession($model, $associationId, $own = false, $twoFA = false){
+    public function getRightsForModelFromSession($model, $associationId, $own = false, $twoFA = false) {
         $sessionRecord = Session::get('scout.rightsForModels');
 
         if(empty($sessionRecord) || empty($model) || empty($associationId)) {
@@ -504,11 +541,10 @@ class Scout extends OrganizationBase
         }
 
         $key = $associationId . $model::getOrganizationTypeModelName() . ($own ? '_own' : '') . ($twoFA ? '_2fa' : '');
-        $rightsMatrixLastUpdatedAt  = $this->getRightsMatrixLastUpdateTime();
 
         $sessionRecordForModel = $sessionRecord->get($key);
 
-        if (!empty($sessionRecordForModel) && $sessionRecordForModel['savedToSession'] >= $rightsMatrixLastUpdatedAt) {
+        if (!empty($sessionRecordForModel) && $sessionRecordForModel['savedToSession'] >= RightsMatrix::getRightsMatrixLastUpdateTime() && $sessionRecordForModel['rights']->count() != 0) {
            return $sessionRecordForModel['rights'];
         }
 
@@ -536,11 +572,6 @@ class Scout extends OrganizationBase
         ]);
 
         Session::put('scout.rightsForModels', $sessionRecord);
-    }
-
-    public function getRightsMatrixLastUpdateTime() {
-        return Db::table('csatar_csatar_mandates_permissions')->
-            select('updated_at')->orderBy('updated_at','DESC')->first()->updated_at;
     }
 
     public function isOwnOrganization($scout){

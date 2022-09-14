@@ -4,6 +4,7 @@ use Seeder;
 use Csatar\Csatar\Models\Allergy;
 use Csatar\Csatar\Models\Association;
 use Csatar\Csatar\Models\ChronicIllness;
+use Csatar\Csatar\Models\ContactSettings;
 use Csatar\Csatar\Models\Currency;
 use Csatar\Csatar\Models\FoodSensitivity;
 use Csatar\Csatar\Models\Hierarchy;
@@ -59,6 +60,7 @@ class SeederData extends Seeder
             'Íródeák',
         ],
         'specialDiet' => [
+            'Nem igényel különleges étrendet',
             'Sporttáplálkozás',
             'Gluténmentes',
             'Szénhidrátmentes',
@@ -66,6 +68,7 @@ class SeederData extends Seeder
             'Paleo',
             'Vegán',
             'Vegetáriánus',
+            'Egyéb',
         ],
         'religion' => [
             'Adventista',
@@ -97,6 +100,7 @@ class SeederData extends Seeder
             '5XL'
         ],
         'chronicIllness' => [
+            'Nincs krónikus betegsége',
             'Magas vérnyomás',
             'Szívelégtelenség',
             'Allergia',
@@ -108,6 +112,7 @@ class SeederData extends Seeder
             'Krónikus légzési elégtelenség',
             'Veseelégtelenség',
             'HIV/SIDA',
+            'Egyéb',
         ],
         'hierarchy' => [
             'RMCSSZ',
@@ -372,6 +377,20 @@ class SeederData extends Seeder
                 ],
             ],
         ],
+        'contactSettings' => [
+            'offices' => [
+                [
+                    'address' => 'Csíkszereda, Petőfi Sándor 53 sz., Hargita megye',
+                ],
+                [
+                    'address' => 'Studium-HUB, 21-es iroda, Marosvásárhely, Bolyai utca 15 sz., Maros megye',
+                ],
+            ],
+            'bank' => 'OTP Bank Miercurea Ciuc',
+            'bank_account' => 'RON: RO35 OTPV 2600 0116 2186 RO01',
+            'email' => 'office[at]rmcssz.ro',
+            'phone_numbers' => '+40 (723) 273 257',
+        ],
     ];
 
     public function run()
@@ -603,5 +622,14 @@ class SeederData extends Seeder
                 $newAgeGroup->save();
             }
         }
+
+        // contact page data
+        $contactSettings = ContactSettings::instance();
+        foreach ($this::DATA['contactSettings'] as $contact_key => $contact_value) {
+            if (($contact_key == 'offices' && !isset($contactSettings->{$contact_key})) || ($contact_key != 'offices' && empty($contactSettings->{$contact_key}))) {
+                $contactSettings->{$contact_key} = $contact_value;
+            }
+        }
+        $contactSettings->save();
     }
 }

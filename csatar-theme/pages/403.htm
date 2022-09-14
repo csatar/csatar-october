@@ -1,0 +1,51 @@
+title = "Nem Található (403)"
+url = "/403"
+layout = "default"
+
+[viewBag]
+localeTitle[en] = "Access denied (403)"
+localeTitle[hu] = "Hozzáférés megtagadva (403)"
+==
+<?php
+public function onStart() {
+    $this['message'] = Session::pull('message');
+}
+?>
+==
+<div class="container">
+    <div class="row">
+        <div class="col-1 col-md-2 col-lg-2">
+        </div>
+
+        <div class="col-10 col-md-8 col-lg-8">
+            <div class="flex-md-row-reverse row">
+                <div class="col-lg-6">
+                    <div class="d-flex justify-content-center align-items-end h-100">
+                        <div>
+                            <h1 class="text-center text-lg-start text-danger">{{ '403' | _ }}</h1>
+                            <h1 class="text-center text-lg-start text-primary">{{ 'Hozzáférés megtagadva' | _ }}</h1>
+                            <p class="text-center text-lg-start text-primary">
+                                {% if message is defined and message is not null %}
+                                    {{ message }}
+                                {% else %}
+                                    {{ 'Sajnáljuk, nincs jogosultsága az oldal megjelenítésére!' | _ }}
+                                {% endif %}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-6">
+
+                    <div class="svg-container">
+                    <img src="{{ ('assets/images/404.svg') | theme }}" alt="{{ 404 }}" class="svg-content">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-1 col-md-2 col-lg-2">
+        </div>
+    </div>
+</div>
