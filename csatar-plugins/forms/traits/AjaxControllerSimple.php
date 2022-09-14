@@ -596,7 +596,7 @@ trait AjaxControllerSimple {
     }
 
     public function generatePivotSection($record, $relationName, $definition, $attributesToDisplay) {
-        $relationLabel = array_key_exists('label', $definition) ? \Lang::get($definition['label']) : $relationName;
+        $relationLabel = array_key_exists('label', $definition) ? Lang::get($definition['label']) : $relationName;
         $html = '<div class="col-12 mb-4">';
         $html .= '<div class="field-section toolbar-item toolbar-primary mb-2"><h4 style="display:inline;">' . $relationLabel . '</h4>';
 
@@ -613,10 +613,10 @@ trait AjaxControllerSimple {
 
         if (count($record->$relationName)>0 ||
             (!$record->id && count($record->{$relationName}()->withDeferred($this->sessionKey)->get())>0)) {
-            $html .= '<table style="width: 100%">';
+            $html .= '<div class="table csat-grid">';
             $html .= $this->generatePivotTableHeader($attributesToDisplay);
             $html .= $this->generatePivotTableRows($record, $relationName, $attributesToDisplay);
-            $html .= '</table>';
+            $html .= '</div>';
         }
 
         $html .= '</div>';
@@ -659,16 +659,28 @@ trait AjaxControllerSimple {
     }
 
     public function generatePivotTableHeader($attributesToDisplay){
-        $tableHeaderRow = '<tr>';
+        $tableHeaderRow = '<div class="tr d-none d-lg-block">';
+        $tableHeaderRow .= '<div class="card csat-resp-gdtable csat-border-lg-none">';
+        $tableHeaderRow .= '<div class="row">';
         if(!$this->readOnly){
-            $tableHeaderRow .= '<th></th>';
+            $tableHeaderRow .=
+                '
+                <div class="col-6 col-lg">
+                    <div class="th-grid"></div>
+                </div>
+                ';
         }
         foreach ($attributesToDisplay as $data){
             // generate table header
-            $label = $data['label'];
-            $tableHeaderRow .= '<th>' . \Lang::get($label) . '</th>';
+            $label = Lang::get($data['label']);
+            $tableHeaderRow .=
+                '
+                <div class="col-6 col-lg">
+                    <div class="th-grid">' . $label . '</div>
+                </div>
+                ';
         }
-        $tableHeaderRow .= '</tr>';
+        $tableHeaderRow .= '</div></div></div>';
 
         return $tableHeaderRow;
     }
@@ -709,19 +721,30 @@ trait AjaxControllerSimple {
                     }
                 }
             }
-            $tableRows .= '<tr>';
+            $tableRows .= '<div class="tr">';
+            $tableRows .= '<div class="card csat-resp-gdtable csat-border-lg-none">';
+            $tableRows .= '<div class="row">';
             if (!$this->readOnly) {
-                $tableRows .= '<td><input type="checkbox" name="data[' . $relationName . '][]" value="' . $relatedRecord->id . '"></td>';
+                $tableRows .= '<div class="col-6 col-lg">';
+                $tableRows .= '<p class="td label d-block d-lg-none">' . Lang::get('csatar.forms::lang.components.basicForm.select') . '</p> ';
+                $tableRows .= '<p class="td">';
+                $tableRows .= '<input type="checkbox" name="data[' . $relationName . '][]" value="' . $relatedRecord->id . '">';
+                $tableRows .= '</p></div>';
             }
 
             foreach ($attributesToDisplay as $key => $data) {
-                $tableRows .= '<td>' . (array_key_exists('isPivot', $data) ?
+                $label = Lang::get($data['label']);
+                $tableRows .= '<div class="col-6 col-lg">';
+                $tableRows .= '<p class="td label d-block d-lg-none">' . $label . '</p> ';
+                $tableRows .= '<p class="td">';
+                $tableRows .= (array_key_exists('isPivot', $data) ?
                     $relatedRecord->pivot->{$key} :
                     (is_object($relatedRecord->{$key}) ?
                         $relatedRecord->{$key}->name :
-                        $relatedRecord->{$key})) . '</td>';
+                        $relatedRecord->{$key}));
+                $tableRows .= '</p></div>';
             }
-            $tableRows .= '</tr>';
+            $tableRows .= '</div></div></div>';
         }
 
         return $tableRows;

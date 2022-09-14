@@ -1136,11 +1136,11 @@ div.table.csat-grid > div.tr > div.card.csat-resp-gdtable > div.row > * > p.td {
     div.table.csat-grid > div:nth-child(odd) > div > div .td {
         background-color: #F5F5F5;
         }
-    
+
     div.table.csat-grid > div:nth-child(even) > div > div .td {
         background-color: white;
         }
-    
+
 }
 
 @media (max-width: 991px) {
@@ -1161,7 +1161,7 @@ div.table.csat-grid > div.tr > div.card.csat-resp-gdtable > div.row > * > p.td {
 .csat-data-card {
     border-width: 10px;
     border-radius: 12px;
-} 
+}
 
 .csat-data-card hr {
     border-top: 5px solid;
@@ -1183,14 +1183,14 @@ div.table.csat-grid > div.tr > div.card.csat-resp-gdtable > div.row > * > p.td {
     .csat-data-profile, .csat-data-profile-sm {
         margin-top: -60px;
         padding-top: 60px;
-    }   
+    }
 }
 
 @media (max-width: 767px) {
     .csat-data-profile, .csat-data-profile-sm {
         margin-top: -120px;
         padding-top: 120px;
-    }   
+    }
 }
 
 .csat-data-profile hr {
@@ -1255,6 +1255,7 @@ table.fixed {
 th, td, .th, .td, .th-grid {
     border-radius: 12px;
     padding: 4px;
+    min-height: 35px;
 }
 
 th, .th {
