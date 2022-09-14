@@ -2,11 +2,9 @@
 ==
 <?php
 public function onStart() {
-    if(!Auth::user()->scout) {
-        return;
-    }
-
-    $this['staticMessages'] = Auth::user()->scout->getStaticMessages();
+    if(Auth::user() && Auth::user()->scout) {
+        $this['staticMessages'] = Auth::user()->scout->getStaticMessages();
+    }   
 }
 ?>
 ==
