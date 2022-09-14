@@ -894,7 +894,7 @@ trait AjaxControllerSimple {
                     continue;
                 }
 
-                if (!$this->canDelete($attribute) && empty($value)) {
+                if (!$this->canDelete($attribute) && empty($value) && $value != $this->record->{$attribute}) {
                     $this->storeMessage('warning', e(trans('csatar.forms::lang.failed.noPermissionForSomeFields')));
                     unset($data[$attribute]);
                 }
