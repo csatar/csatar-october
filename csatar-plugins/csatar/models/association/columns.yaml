@@ -67,10 +67,3 @@ columns:
         label: 'csatar.csatar::lang.plugin.admin.association.leadershipPresentation'
         type: text
         searchable: true
-    galleries:
-        label: 'csatar.csatar::lang.plugin.admin.gallery.gallery'
-        type: text
-        searchable: true
-        sortable: false
-        relation: galleries
-        valueFrom: name

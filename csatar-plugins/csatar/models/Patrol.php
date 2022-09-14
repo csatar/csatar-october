@@ -86,16 +86,6 @@ class Patrol extends OrganizationBase
         'age_group' => '\Csatar\Csatar\Models\AgeGroup',
     ];
 
-    public $belongsToMany = [
-        'galleries' => [
-            '\PolloZen\SimpleGallery\Models\Gallery',
-            'table' => 'csatar_csatar_gallery_model',
-            'key' => 'model_id',
-            'pivot' => ['model_type'],
-            'label' => 'csatar.csatar::lang.plugin.admin.gallery.gallery',
-        ],
-    ];
-
     public $hasMany = [
         'scouts' => '\Csatar\Csatar\Models\Scout',
         'mandates' => [

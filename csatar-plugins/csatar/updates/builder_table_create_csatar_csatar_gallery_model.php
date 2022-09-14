@@ -14,6 +14,7 @@ class BuilderTableCreateCsatarCsatarGalleryModel extends Migration
             $table->string('model_type', 255)->nullable();
             $table->integer('model_id');
             $table->integer('gallery_id');
+            $table->integer('parent_id')->nullable();
             $table->primary(['id']);
         });
     }

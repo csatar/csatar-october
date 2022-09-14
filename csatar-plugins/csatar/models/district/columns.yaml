@@ -76,10 +76,3 @@ columns:
         sortable: false
         relation: association
         valueFrom: extendedName
-    galleries:
-        label: 'csatar.csatar::lang.plugin.admin.gallery.gallery'
-        type: text
-        searchable: true
-        sortable: false
-        relation: galleries
-        valueFrom: name
