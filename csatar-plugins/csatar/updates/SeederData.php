@@ -21,6 +21,7 @@ use Csatar\Csatar\Models\TShirtSize;
 use Csatar\Csatar\Models\Training;
 use Csatar\Forms\Models\Form;
 use Seeder;
+use Db;
 
 class SeederData extends Seeder
 {
