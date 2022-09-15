@@ -461,6 +461,9 @@
             'trainings' => [
                 'trainings' => 'Képzések',
             ],
+            'gallery' => [
+                'gallery' => 'Galéria'
+            ],
             'permissions' => [
                 'permissions' => 'Jogosultságok',
                 'allPermissionsForScout' => 'Minden jogosultság a Cserkész megbízatáshoz, az összes model összes mezőjéhez.',

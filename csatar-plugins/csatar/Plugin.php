@@ -9,6 +9,9 @@ use Csatar\Csatar\Models\Scout;
 use Csatar\Csatar\Classes\ContentPageSearchProvider;
 use Event;
 use Input;
+use Media\Classes\MediaLibrary;
+use PolloZen\SimpleGallery\Controllers\Gallery as SimpleGalleryController;
+use PolloZen\SimpleGallery\Models\Gallery as GalleryModel;
 use Lang;
 use RainLab\User\Models\User;
 use Redirect;
@@ -131,6 +134,20 @@ class Plugin extends PluginBase
 
         });
 
+        if (class_exists('PolloZen\SimpleGallery\Controllers\Gallery')) {
+            SimpleGalleryController::extendFormFields(function($form, $model, $context) {
+                if ($form->arrayName === 'Gallery[images]') {
+                    $form->addFields([
+                        'is_public' => [
+                                'label' => 'Public',
+                                'type'  => 'checkbox',
+                                'default'   => false
+                        ]
+                    ]);
+                }
+            });
+        }
+
         Event::listen('rainlab.user.login', function($user) {
             if(!empty($user->scout)){
                 $user->scout->saveMandateTypeIdsForEveryAssociationToSession();
@@ -160,6 +177,7 @@ class Plugin extends PluginBase
             \Csatar\Csatar\Components\CheckScoutStatus::class => 'checkScoutStatus',
             \Csatar\Csatar\Components\CreateFrontendAccounts::class => 'createFrontendAccounts',
             \Csatar\Csatar\Components\OrganizationUnitFrontend::class => 'organizationUnitFrontend',
+            \Csatar\Csatar\Components\CsatarGallery::class => 'csatargallery',
         ];
     }
 

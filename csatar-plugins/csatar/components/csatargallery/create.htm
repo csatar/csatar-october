@@ -1,0 +1,28 @@
+{{ form_ajax('onCreateGallery', {update: {'csatargallery::galleryImages': '#galleries'}, files: true }) }}
+    <label for="title" class="form-label">{{ 'Cím' | _ }}</label>
+    <input type="text" name="title" id="title" class="form-control rounded"><br>
+
+    <label for="description" class="form-label">{{ 'Leírás' | _ }}</label>
+    <input type="text" name="description" id="description" class="form-control rounded"><br>
+
+    <label class="form-label">{{ 'Képek' | _ }}</label>
+    <input type="file" name="images[]" accept="image/*" class="form-control rounded" multiple="multiple"><br>
+
+    {% if parent_id %}
+        <input type="hidden" name="parent_id" value="{{ parent_id }}">
+    {% endif %}
+
+    <button
+        type="submit"
+        class="btn btn-sm rounded btn-primary">
+        {{ 'Mentés' | _ }}
+    </button>
+    <button
+        type="submit"
+        class="btn btn-sm rounded btn-light"
+        data-request="onRefreshPage">
+        {{ 'Mégse' | _ }}
+    </button>
+
+{{ form_close() }}
+

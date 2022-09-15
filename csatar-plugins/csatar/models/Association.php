@@ -60,7 +60,7 @@ class Association extends OrganizationBase
             'pivot' => ['membership_fee'],
             'pivotModel' => '\Csatar\Csatar\Models\AssociationLegalRelationshipPivot',
             'label' => 'csatar.csatar::lang.plugin.admin.legalRelationship.legalRelationships',
-        ],
+        ]
     ];
 
     public $hasMany = [

@@ -462,6 +462,9 @@
             'trainings' => [
                 'trainings' => 'Trainings',
             ],
+            'gallery' => [
+                'gallery' => 'Gallery'
+            ],
             'permissions' => [
                 'permissions' => 'Permissions',
                 'allPermissionsForScout' => 'All permissions for every model and field for Scout mandate.',
