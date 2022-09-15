@@ -148,10 +148,19 @@ class PermissionsMatrix extends Controller
                         );
                 }
             }
+            \Flash::success(e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.copySuccess')));
+            if (Input::get('close')) {
+                return \Backend::redirect('csatar/csatar/permissionsmatrix');
+            }
+
         }
 
         if ($formData['action'] === 'delete') {
             PermissionModel::where('mandate_type_id', $formData['fromMandateType'])->delete();
+            \Flash::success(e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.deleteSuccess')));
+            if (Input::get('close')) {
+                return \Backend::redirect('csatar/csatar/permissionsmatrix');
+            }
         }
     }
 }

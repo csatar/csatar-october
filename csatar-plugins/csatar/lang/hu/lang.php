@@ -214,6 +214,8 @@
                     'toSection' => 'Válassza ki, hogy hová szeretné másolni a fent kiválasztott jogosultságokat',
                     'execute' => 'Végrehajtás',
                     'executeAndClose' => 'Végrehajtás és bezárás',
+                    'copySuccess' => 'Jogosultságok sikeresen átmásolva.',
+                    'deleteSuccess' => 'Jogosultságok törölve.'
                 ],
             ],
             'allergy' => [

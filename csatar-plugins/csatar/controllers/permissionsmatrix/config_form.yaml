@@ -2,5 +2,4 @@ title: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.permissionsMatr
 form: $/csatar/csatar/models/permissionsmatrix/manageform.yaml
 modelClass: Csatar\Csatar\Models\PermissionsMatrix
 manage:
-    redirect: 'csatar/csatar/permissionsmatrix'
-    redirectClose: csatar/csatar/permissionsmatrix
+

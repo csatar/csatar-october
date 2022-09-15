@@ -215,6 +215,8 @@
                     'toSection' => 'Select destination',
                     'execute' => 'Execute',
                     'executeAndClose' => 'Execute and close',
+                    'copySuccess' => 'Permissions copied successfuly.',
+                    'deleteSuccess' => 'Permissions deleted successfuly.'
                 ],
             ],
             'allergy' => [
