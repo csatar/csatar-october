@@ -45,7 +45,7 @@ class OrganizationUnitFrontend extends ComponentBase
         $modelName = "Csatar\Csatar\Models\\" . $this->property('model_name');
         if (is_numeric($this->property('model_id'))) {
             $this->model = $modelName::find($this->property('model_id'));
-            if(Auth::user()->scout) {
+            if(isset(Auth::user()->scout)) {
                 $this->permissions = Auth::user()->scout->getRightsForModel($this->model);
             }
             if (empty($this->model->content_page))

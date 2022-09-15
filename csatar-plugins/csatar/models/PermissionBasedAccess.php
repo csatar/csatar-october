@@ -7,6 +7,8 @@ use RainLab\Builder\Classes\ModelModel;
 use RainLab\Builder\Classes\PluginCode;
 use Yaml;
 use Lang;
+use Session;
+use October\Rain\Database\Collection;
 
 class PermissionBasedAccess extends Model
 {
