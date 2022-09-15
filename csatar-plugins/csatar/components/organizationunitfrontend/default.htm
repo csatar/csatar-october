@@ -10,7 +10,7 @@
                     {{ 'Rólunk' | _ }}
                 </button>
             </h2>
-            <div id="collapse-1" class="accordion-collapse collapse show" aria-labelledby="heading-1" data-bs-parent="#accordionFlushExample">
+            <div id="collapse-1" class="accordion-collapse collapse show" aria-labelledby="heading-1" data-bs-parent="#accordionFlushContent">
                 <div class="accordion-body" id="content">
                     <h2>{{ content_page.title | raw }}</h2>
                     <div>
@@ -34,7 +34,7 @@
                     {{ 'Részletek' | _ }}
                 </button>
             </h2>
-            <div id="collapse-2" class="accordion-collapse collapse show" aria-labelledby="heading-1" data-bs-parent="#accordionFlushExample">
+            <div id="collapse-2" class="accordion-collapse collapse show" aria-labelledby="heading-1" data-bs-parent="#accordionFlushForm">
                 <div class="accordion-body">
                     {% partial __SELF__ ~ '::' ~ model_name ~ 'Form' %}
                 </div>
@@ -46,7 +46,7 @@
                     {{ 'Kapcsolati szintek' | _ }}
                 </button>
             </h2>
-            <div id="collapse-3" class="accordion-collapse collapse show" aria-labelledby="heading-3" data-bs-parent="#accordionFlushExample">
+            <div id="collapse-3" class="accordion-collapse collapse show" aria-labelledby="heading-3" data-bs-parent="#accordionFlushStructure">
                 <div class="accordion-body">
                     {% component "structure" %}
                 </div>
@@ -58,7 +58,7 @@
                     {{ 'Galléria' | _ }}
                 </button>
             </h2>
-            <div id="collapse-4" class="accordion-collapse collapse show" aria-labelledby="heading-4" data-bs-parent="#accordionFlushExample">
+            <div id="collapse-4" class="accordion-collapse collapse show" aria-labelledby="heading-4" data-bs-parent="#accordionFlushGallery">
                 <div class="accordion-body">
                     {% component "csatargallery" %}
                 </div>
