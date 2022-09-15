@@ -464,7 +464,7 @@
             ],
             'permissions' => [
                 'permissions' => 'Jogosultságok',
-                'allPermissionsForScout' => 'Minden jogosultság a Cserkész megbízáshoz, az összes model összes mezőjéhez.',
+                'allPermissionsForScout' => 'Minden jogosultság a Cserkész megbízatás, az összes model összes mezőjéhez.',
                 'readPermissionForGuests' => 'Olvasási jog vendégeknek.',
             ],
         ],
