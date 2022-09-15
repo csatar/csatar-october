@@ -124,4 +124,8 @@ class PermissionsMatrix extends Model
 
         return $mandateTypes;
     }
+
+    public function getModelOptions(){
+        return self::distinct()->orderBy('model', 'asc')->lists('model', 'model');
+    }
 }

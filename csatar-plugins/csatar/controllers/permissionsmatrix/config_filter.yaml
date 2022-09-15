@@ -19,7 +19,7 @@ scopes:
 
     model:
         label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.model'
-        modelClass: Csatar\Csatar\Models\MandateType
+        modelClass: Csatar\Csatar\Models\PermissionsMatrix
         conditions: csatar_csatar_mandates_permissions.model in (:filtered)
         nameFrom: organization_type_model_name
         options: getModelOptions
