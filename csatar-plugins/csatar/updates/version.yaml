@@ -157,5 +157,11 @@
     - 'Updated table csatar_csatar_mandates'
     - builder_table_update_csatar_csatar_mandates.php
 1.0.56:
+    - 'Updated table csatar_csatar_mandates_permissions'
+    - builder_table_update_csatar_csatar_mandates_permissions.php
+1.0.57:
+    - 'Updated table csatar_csatar_scouts'
+    - builder_table_update_csatar_csatar_scouts.php
+1.0.58:
     - 'Created table csatar_csatar_gallery_model'
     - builder_table_create_csatar_csatar_gallery_model.php

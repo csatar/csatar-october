@@ -6,6 +6,7 @@ use Csatar\Csatar\Classes\Exceptions\OauthException;
 use Csatar\Csatar\Models\Association;
 use Csatar\Csatar\Models\MandateType;
 use Csatar\Csatar\Models\Scout;
+use Csatar\Csatar\Classes\ContentPageSearchProvider;
 use Event;
 use Input;
 use Media\Classes\MediaLibrary;
@@ -151,6 +152,10 @@ class Plugin extends PluginBase
             if(!empty($user->scout)){
                 $user->scout->saveMandateTypeIdsForEveryAssociationToSession();
             }
+        });
+
+        Event::listen('offline.sitesearch.extend', function () {
+            return new ContentPageSearchProvider();
         });
 
         $this->saveGuestMandateTypeIdsForEveryAssociationToSession();

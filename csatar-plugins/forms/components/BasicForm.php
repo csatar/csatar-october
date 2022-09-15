@@ -324,27 +324,27 @@ class BasicForm extends ComponentBase  {
 
     private function canCreate(string $attribute): bool
     {
-        return $this->rightsCollectionHasKey($attribute) && $this->currentUserRights[$attribute]['create'] === 1;
+        return $this->rightsCollectionHasKey($attribute) && $this->currentUserRights[$attribute]['create'] > 0;
     }
 
     private function canRead(string $attribute): bool
     {
-        return $this->rightsCollectionHasKey($attribute) && $this->currentUserRights[$attribute]['read'] === 1;
+        return $this->rightsCollectionHasKey($attribute) && $this->currentUserRights[$attribute]['read'] > 0;
     }
 
     private function canUpdate(string $attribute): bool
     {
-        return $this->rightsCollectionHasKey($attribute) && $this->currentUserRights[$attribute]['update'] === 1;
+        return $this->rightsCollectionHasKey($attribute) && $this->currentUserRights[$attribute]['update'] > 0;
     }
 
     private function canDelete(string $attribute): bool
     {
-        return $this->rightsCollectionHasKey($attribute) && $this->currentUserRights[$attribute]['delete'] === 1;
+        return $this->rightsCollectionHasKey($attribute) && $this->currentUserRights[$attribute]['delete'] > 0;
     }
 
     private function isObligatory(string $attribute): bool
     {
-        return $this->rightsCollectionHasKey($attribute) && $this->currentUserRights[$attribute]['obligatory'] === 1;
+        return $this->rightsCollectionHasKey($attribute) && $this->currentUserRights[$attribute]['obligatory'] > 0;
     }
 
     private function rightsCollectionHasKey($attribute): bool

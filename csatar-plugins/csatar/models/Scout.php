@@ -9,6 +9,7 @@ use Model;
 use Csatar\Csatar\Classes\RightsMatrix;
 use Csatar\Csatar\Models\Association;
 use October\Rain\Database\Collection;
+
 /**
  * Model
  */
@@ -19,6 +20,8 @@ class Scout extends OrganizationBase
     use \October\Rain\Database\Traits\SoftDelete;
 
     protected $dates = ['deleted_at'];
+
+    protected static $relationLabels = null;
 
     /**
      * @var string The database table used by the model.
@@ -297,6 +300,7 @@ class Scout extends OrganizationBase
             'table' => 'csatar_csatar_team_reports_scouts',
             'pivot' => ['name', 'legal_relationship_id', 'leadership_qualification_id', 'ecset_code', 'membership_fee'],
             'pivotModel' => '\Csatar\Csatar\Models\TeamReportScoutPivot',
+            'label' => 'csatar.csatar::lang.plugin.admin.teamReport.teamReports',
         ],
     ];
 
@@ -389,31 +393,19 @@ class Scout extends OrganizationBase
         return $this->getFullName();
     }
 
-    /**
-     * Returns the id of the association to which the item belongs to.
-     */
-    public function getAssociationId()
-    {
-        if ($this->team_id) {
-            return $this->team->district->association->id;
-        }
-
-        return null;
-    }
-
     public function scopeOrganization($query, $mandate_model_type, $mandate_model_id)
     {
         switch ($mandate_model_type) {
-            case Association::getOrganizationTypeModelName():
+            case Association::getModelName():
                 $districts = \Csatar\Csatar\Models\District::where('association_id', $mandate_model_id)->lists('id');
                 $teams = \Csatar\Csatar\Models\Team::whereIn('district_id', $districts)->lists('id');
                 return $query->whereIn('team_id', $teams);
 
-            case District::getOrganizationTypeModelName():
+            case District::getModelName():
                 $teams = \Csatar\Csatar\Models\Team::where('district_id', $mandate_model_id)->lists('id');
                 return $query->whereIn('team_id', $teams);
 
-            case Team::getOrganizationTypeModelName():
+            case Team::getModelName():
                 return $query->where('team_id', $mandate_model_id);
 
             default:
@@ -487,7 +479,7 @@ class Scout extends OrganizationBase
         return $scoutMandateTypeIds;
     }
 
-    public function getMandatesForOrganization(OrganizationBase $organization) {
+    public function getMandatesForOrganization(PermissionBasedAccess $organization) {
         return $this->getMandatesInAssociation($organization->getAssociationId(), $this->updated_at);
     }
 
@@ -514,7 +506,7 @@ class Scout extends OrganizationBase
 
         $isOwn = false;
         if(Auth::user() && !empty(Auth::user()->scout)){
-            $isOwn = $model->isOwnOrganization(Auth::user()->scout);
+            $isOwn = $model->isOwnModel(Auth::user()->scout);
         }
 
         $is2fa = false;
@@ -522,25 +514,24 @@ class Scout extends OrganizationBase
             $is2fa = true;
         }
 
-        $rightsForModel = $ignoreCache ? null : $this->getRightsForModelFromSession($model, $associationId, $isOwn, $is2fa);
+        $rightsForModel = $ignoreCache ? null : $this->getRightsForModelFromSession($model, $associationId, $isOwn);
 
         if(empty($rightsForModel) || $rightsForModel->count() == 0) {
-            $rightsForModel = $model->getRightsForMandateTypes($mandateTypeIds, $isOwn, $is2fa, $ignoreCache);
-            $this->saveRightsForModelToSession($model, $rightsForModel, $associationId, $isOwn, $is2fa);
-//            dd('if', $rightsForModel);
+            $rightsForModel = $model->getRightsForMandateTypes($mandateTypeIds, $isOwn, $is2fa);
+            $this->saveRightsForModelToSession($model, $rightsForModel, $associationId, $isOwn);
         }
 
         return $rightsForModel;
     }
 
-    public function getRightsForModelFromSession($model, $associationId, $own = false, $twoFA = false) {
+    public function getRightsForModelFromSession($model, $associationId, $own = false) {
         $sessionRecord = Session::get('scout.rightsForModels');
 
         if(empty($sessionRecord) || empty($model) || empty($associationId)) {
             return;
         }
 
-        $key = $associationId . $model::getOrganizationTypeModelName() . ($own ? '_own' : '') . ($twoFA ? '_2fa' : '');
+        $key = $associationId . $model::getModelName() . ($own ? '_own' : '');
 
         $sessionRecordForModel = $sessionRecord->get($key);
 
@@ -551,9 +542,9 @@ class Scout extends OrganizationBase
         return null;
     }
 
-    public function saveRightsForModelToSession($model, $rightsForModel, $associationId, $own, $twoFA) {
-        $modelName = $model::getOrganizationTypeModelName();
-        $key = $associationId . $modelName . ($own ? '_own' : '') . ($twoFA ? '_2fa' : '');
+    public function saveRightsForModelToSession($model, $rightsForModel, $associationId, $own) {
+        $modelName = $model::getModelName();
+        $key = $associationId . $modelName . ($own ? '_own' : '');
         $sessionRecord = Session::get('scout.rightsForModels');
 
         if(empty($sessionRecord)){
@@ -565,7 +556,6 @@ class Scout extends OrganizationBase
                 'associationId' => $associationId,
                 'model' => $modelName,
                 'own' => $own,
-                'twoFA' => $twoFA,
                 'savedToSession' => date('Y-m-d H:i'),
                 'rights'=> $rightsForModel,
             ],
@@ -574,12 +564,38 @@ class Scout extends OrganizationBase
         Session::put('scout.rightsForModels', $sessionRecord);
     }
 
-    public function isOwnOrganization($scout){
+    public function isOwnModel($scout){
         return $this->id === $scout->id;
     }
 
     public static function getOrganizationTypeModelNameUserFriendly()
     {
         return Lang::get('csatar.csatar::lang.plugin.admin.scout.scout');
+    }
+
+    public function getStaticMessages(): array
+    {
+        $messages = [];
+
+        if(!$this->isPersonalDataAccepted()){
+            $messages['warning']['personalDataNotAccepted'] =
+                [
+                    'message' => Lang::get('csatar.csatar::lang.plugin.admin.scout.staticMessages.personalDataNotAccepted'),
+                    'actionUrl' => 'tag/' . $this->ecset_code,
+                ];
+        }
+
+        return $messages;
+    }
+
+    public function isPersonalDataAccepted(): bool
+    {
+        return !is_null($this->accepted_at);
+    }
+
+    public function setPersonalDataAccepted(): bool
+    {
+        $this->accepted_at = new \DateTime();
+        return $this->save();
     }
 }

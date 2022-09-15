@@ -1,0 +1,7 @@
+<?php Block::put('breadcrumb') ?>
+<ul>
+    <li><a href="<?= Backend::url('csatar/csatar/permissionsmatrix') ?>"><?= e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.permissionsMatrix')) ?></a></li>
+    <li><?= e($this->pageTitle) ?></li>
+</ul>
+<?php Block::endPut() ?>
+<?= $this->listRender() ?>

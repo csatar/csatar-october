@@ -1,6 +1,6 @@
 <?php return [
     'frontEnd' => [
-        'authException' => 'Az e-mail cím, az ECSET kód vagy a jelszó téves!'
+        'authException' => 'Az e-mail cím, az ECSET kód vagy a jelszó téves!',
     ],
     'plugin' => [
         'name' => 'CSATÁR',
@@ -35,10 +35,12 @@
                 'organizationUnitNameWarning' => 'A szervezeti egység neve nem tartalmazhatja a szervezeti egység megnevezését.',
                 'note' => 'Megjegyzés',
                 'sortOrder' => 'Sorszám',
+                'contentPage' => 'Bemutatkozó oldal',
+                'searchResult' => 'Keresés eredménye',
             ],
             'ageGroups' => [
                 'ageGroups' => 'Korosztályok',
-                'numberOfPatrolsInAgeGroup' => 'Őrsök száma a korosztályban'
+                'numberOfPatrolsInAgeGroup' => 'Őrsök száma a korosztályban',
             ],
             'scout' => [
                 'scout' => 'Cserkész',
@@ -141,7 +143,10 @@
                     'qualificationLeaderRequiredError' => 'A Képzésvezető megadása a %name %category esetén kötelező.',
                     'mandateEndDateBeforeStartDate' => 'A végső időpont nem lehet a kezdeti időpont előtt a %name megbízatás esetén.',
                     'dateInTheFutureError' => 'A Dátum a %name %category esetén nem lehet a jövőben.',
-                ]
+                ],
+                'staticMessages' => [
+                    'personalDataNotAccepted' => 'Kérlek ellenőrizd, hogy helyesek-e a személyes adataid itt!'
+                ],
             ],
             'admin' => [
                 'menu' => [
@@ -167,6 +172,7 @@
                     'organizationSystemData' => [
                         'organizationSystemData' => 'Szervezeti rendszeradatok',
                         'hierarchy' => 'Hierarchia',
+                        'permissionsMatrix' => 'Jogosultság Mátrix',
                     ],
                     'seederData' => [
                         'data' => 'Adatok',
@@ -182,6 +188,32 @@
                     'dataToBeAdded' => 'A következő adatok lesznek hozzáadva (ha már nem voltak felvéve):',
                     'updateData' => 'Adatok frissítése',
                     'updateDataSuccess' => 'Az adatok frissítve lettek.',
+                ],
+                'permissionsMatrix' => [
+                    'permissionsMatrix' => 'Jogosultság Matrix',
+                    'noRight' => 'Nem',
+                    'hasRightWith2FactorAuth' => '2FA',
+                    'hasRight' => 'Igen',
+                    'own' => 'Saját',
+                    'notOwn' => 'Nem Saját',
+                    'model' => 'Modell',
+                    'field' => 'Mező',
+                    'obligatory' => 'Kötelező',
+                    'create' => 'Létrehozás',
+                    'read' => 'Olvasás',
+                    'update' => 'Módosítás',
+                    'delete' => 'Törlés',
+                    'confirmSave' => 'Biztos benne, hogy menteni szeretné a kijelölt változtatásokat?',
+                    'confirmCancel' => 'Biztos benne, hogy visszavonja a kijelölt változtatásokat?',
+                    'editPermissions' => 'Jogosultságok módosítása',
+                    'managePermissions' => 'Jogosultságok mendzselése',
+                    'selectItems' => 'Válassza ki a másolandó/törlendő jogosultságokat',
+                    'actionSetion' => 'Action',
+                    'manageAction' => 'Művelet',
+                    'copy' => 'Másolás',
+                    'toSection' => 'Válassza ki, hogy hová szeretné másolni a fent kiválasztott jogosultságokat',
+                    'execute' => 'Végrehajtás',
+                    'executeAndClose' => 'Végrehajtás és bezárás',
                 ],
             ],
             'allergy' => [
@@ -388,7 +420,7 @@
                 'total_amount' => 'Befizetendő összeg',
                 'currency' => 'Pénznem',
                 'name' => 'Név',
-                'legalRelationship' => "Jogviszony",
+                'legalRelationship' => 'Jogviszony',
                 'leadershipQualification' => 'Vezetői képesítés',
                 'membershipFee' => 'Tagdíj értéke',
                 'submittedAt' => 'Beküldés ideje',
@@ -434,16 +466,16 @@
             ],
             'permissions' => [
                 'permissions' => 'Jogosultságok',
-                'allPermissionsForScout' => 'Minden jogosultság a Cserkész megbízáshoz, az összes model összes mezőjéhez.',
+                'allPermissionsForScout' => 'Minden jogosultság a Cserkész megbízatáshoz, az összes model összes mezőjéhez.',
                 'readPermissionForGuests' => 'Olvasási jog vendégeknek.',
             ],
         ],
         'component' => [
             'general' => [
-                'validationExceptions'=> [
+                'validationExceptions' => [
                     'emailAlreadyAssigned' => 'Ez az e-mail cím már felhasználói fiókhoz van rendelve.',
                     'passwordRegex' => 'A jelszó kell tartalmazzon legalább 8 karaktert, kis-, és nagybetűt, valamint számot vagy szimbólumot.',
-                ]
+                ],
             ],
             'resetPassword' => [
                 'name' => 'Jelszó visszaállítása',
@@ -465,7 +497,7 @@
                         'title' => 'Model Id',
                         'description' => 'Kezdő model id.',
                     ],
-                ]
+                ],
             ],
             'logos' => [
                 'name' => 'Logók',
@@ -477,7 +509,7 @@
                     'communitasFoundation' => 'Communitas Alapítvány',
                     'toyota' => 'Toyota',
                 ],
-               'discounts' => [
+                'discounts' => [
                     'title' => 'Kedvezményeket kínáló cégek',
                     'mormotaLand' => 'Mormota Land',
                     'tiboo' => 'Tiboo',
@@ -518,11 +550,11 @@
                 'description' => 'A cserkész állapotát téríti vissza a Kérésből származó cserkészazonosító alapján.',
                 'scoutCode' => [
                     'title' => 'Cserkész azonosítója',
-                    'description' => 'Egyedi cserkész azonosító'
+                    'description' => 'Egyedi cserkész azonosító',
                 ],
                 'json' => [
                     'title' => 'JSON formátum',
-                    'description' => 'Ha a JSON formátum értéke \'json\', akkor a választ JSON formátumban téríti vissza.'
+                    'description' => 'Ha a JSON formátum értéke \'json\', akkor a választ JSON formátumban téríti vissza.',
                 ],
             ],
             'createFrontendAccounts' => [
@@ -530,7 +562,7 @@
                 'description' => 'Lehetővé teszi frontend felhasználó létrehozását.',
                 'currentPage' => '- jelenlegi oldal -',
                 'validationExceptions' => [
-                        'invalidEcsetCode' => 'Érvénytelen ECSET kód',
+                    'invalidEcsetCode' => 'Érvénytelen ECSET kód',
                     'emailEcsetCodeMissMatch' => 'Ha nincs email címed, vagy nem egyezik meg a rendszerben levővel, vedd fel a kapcsolatot az őrsvezetőddel.',
                     'noScoutIsSelected' => 'Nincs tag kiválasztva!',
                 ],
@@ -538,20 +570,20 @@
                     'scoutHasNoEmail' => ':name nem rendelkezik e-mail címmel!',
                     'scoutAlreadyHasUserAccount' => ':name már rendelkezik felhasználói fiókkal!',
                     'userAccountCreated' => ':name cserkésznek létrejött a felhasználói fiókja!',
-                ]
+                ],
             ],
             'organizationUnitFrontend' => [
                 'name' => 'Szervezeti Egység Frontend',
-                'description' => 'Megyjeleníti egy szerevezeti egyszég frontend oldalát.'
+                'description' => 'Megyjeleníti egy szerevezeti egyszég frontend oldalát.',
             ],
         ],
         'oauth' => [
-            'onlyExistingUsersCanLogin'         => 'Jelenleg csak létező felhasználók léphetnek be oAuth-al!',
-            'canNotRegisterLoginWithoutEmail'   => 'Nincs e-mail cím a visszatérített adatok között!',
-            'canNotFindScoutWithEmail'          => 'Nem található cserkész a visszatérített e-mail címmel!',
-            'scoutAlreadyHasUserAccount'        => 'A cserkész már rendelkezik felhasználói fiókkal!',
-            'canNotFindUser'                    => 'A felhasználói fiók nem található!',
-            'userIdAndScoutUserIdMismatch'      => 'A cserkészhez csatolt- és a visszatérített felhasználói fiók nem egyezik!',
+            'onlyExistingUsersCanLogin' => 'Jelenleg csak létező felhasználók léphetnek be oAuth-al!',
+            'canNotRegisterLoginWithoutEmail' => 'Nincs e-mail cím a visszatérített adatok között!',
+            'canNotFindScoutWithEmail' => 'Nem található cserkész a visszatérített e-mail címmel!',
+            'scoutAlreadyHasUserAccount' => 'A cserkész már rendelkezik felhasználói fiókkal!',
+            'canNotFindUser' => 'A felhasználói fiók nem található!',
+            'userIdAndScoutUserIdMismatch' => 'A cserkészhez csatolt- és a visszatérített felhasználói fiók nem egyezik!',
         ],
-    ]
+    ],
 ];
