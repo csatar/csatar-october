@@ -54,7 +54,9 @@ class Plugin extends PluginBase
      */
     public function boot()
     {
-        $this->extendUser();
+        if (class_exists('RainLab\User\Models\User')) {
+            $this->extendUser();
+        }
 
         App::error(function (\October\Rain\Auth\AuthException $exception) {
             return Lang::get('csatar.csatar::lang.frontEnd.authException');
