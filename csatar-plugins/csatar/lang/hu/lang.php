@@ -211,7 +211,6 @@
                     'actionSetion' => 'Action',
                     'manageAction' => 'Művelet',
                     'copy' => 'Másolás',
-                    'delete' => 'Törlés',
                     'toSection' => 'Válassza ki, hogy hová szeretné másolni a fent kiválasztott jogosultságokat',
                     'execute' => 'Végrehajtás',
                     'executeAndClose' => 'Végrehajtás és bezárás',
