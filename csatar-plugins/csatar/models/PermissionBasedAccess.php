@@ -120,9 +120,10 @@ class PermissionBasedAccess extends Model
 
     public static function getTranslatedAttributeNames(string $organizationTypeModelName = null): array
     {
-//        if($organizationTypeModelName == parent::getModelName()){
-//            return [];
-//        }
+        if($organizationTypeModelName == '\Csatar\Csatar\Models\OrganizationBase'){
+            return [];
+        }
+
         if ((is_array(self::$translatedAttributeNames) && !array_key_exists($organizationTypeModelName, self::$translatedAttributeNames)) ||
             !is_array(self::$translatedAttributeNames)
         ) {
