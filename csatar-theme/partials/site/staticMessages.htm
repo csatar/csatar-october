@@ -1,0 +1,27 @@
+[viewBag]
+==
+<?php
+public function onStart() {
+    if(Auth::user() && Auth::user()->scout) {
+        $this['staticMessages'] = Auth::user()->scout->getStaticMessages();
+    }   
+}
+?>
+==
+{% if staticMessages %}
+    <div class="container">
+        {% for messageCategory, messagesInCategory in staticMessages %}
+            {% for messageArray in messagesInCategory %}
+                    <p class="flash-message static {{ messageCategory }}">
+                        {% if messageArray['actionUrl'] %}
+                            <a href="{{ url('/') }}/{{ messageArray['actionUrl'] }}" rel="noopener noreferrer">
+                        {% endif %}
+                            {{ messageArray['message'] }}                        
+                        {% if messageArray['actionUrl'] %}
+                            </a>
+                        {% endif %}
+                    </p>
+            {% endfor %}
+        {% endfor %}
+    </div>    
+{% endif %}

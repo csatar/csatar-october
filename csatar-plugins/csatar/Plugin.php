@@ -6,6 +6,7 @@ use Csatar\Csatar\Classes\Exceptions\OauthException;
 use Csatar\Csatar\Models\Association;
 use Csatar\Csatar\Models\MandateType;
 use Csatar\Csatar\Models\Scout;
+use Csatar\Csatar\Classes\ContentPageSearchProvider;
 use Event;
 use Input;
 use Lang;
@@ -53,7 +54,9 @@ class Plugin extends PluginBase
      */
     public function boot()
     {
-        $this->extendUser();
+        if (class_exists('RainLab\User\Models\User')) {
+            $this->extendUser();
+        }
 
         App::error(function (\October\Rain\Auth\AuthException $exception) {
             return Lang::get('csatar.csatar::lang.frontEnd.authException');
@@ -132,6 +135,10 @@ class Plugin extends PluginBase
             if(!empty($user->scout)){
                 $user->scout->saveMandateTypeIdsForEveryAssociationToSession();
             }
+        });
+
+        Event::listen('offline.sitesearch.extend', function () {
+            return new ContentPageSearchProvider();
         });
 
         $this->saveGuestMandateTypeIdsForEveryAssociationToSession();

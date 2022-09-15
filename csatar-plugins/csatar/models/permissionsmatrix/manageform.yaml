@@ -1,0 +1,60 @@
+fields:
+    items:
+        label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.selectItems'
+        span: full
+        type: section
+    fromAssociation:
+        label: 'csatar.csatar::lang.plugin.admin.association.association'
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        showSearch: true
+        span: auto
+        required: 1
+        type: dropdown
+    fromMandateType:
+        label: 'csatar.csatar::lang.plugin.admin.mandateType.mandateTypes'
+        span: auto
+        type: dropdown
+        required: 1
+        dependsOn: fromAssociation
+    actionSection:
+        label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.actionSetion'
+        span: full
+        type: section
+    action:
+        label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.manageAction'
+        options:
+            copy: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.copy'
+            delete: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.delete'
+        span: auto
+        required: 1
+        type: balloon-selector
+    toSection:
+        label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.toSection'
+        span: full
+        type: section
+        trigger:
+            action: show
+            field: action
+            condition: 'value[copy]'
+    toAssociation:
+        label: 'csatar.csatar::lang.plugin.admin.association.association'
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        showSearch: true
+        span: auto
+        type: dropdown
+        required: 1
+        dependsOn: fromAssociation
+        trigger:
+            action: show
+            field: action
+            condition: 'value[copy]'
+    toMandateTypes:
+        label: 'csatar.csatar::lang.plugin.admin.mandateType.mandateTypes'
+        span: auto
+        type: checkboxlist
+        dependsOn: toAssociation
+        required: 1
+        trigger:
+            action: show
+            field: action
+            condition: 'value[copy]'

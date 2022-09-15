@@ -1,5 +1,6 @@
 <?php namespace Csatar\Csatar\Updates;
 
+use RainLab\Builder\Classes\ComponentHelper;
 use Seeder;
 use Csatar\Csatar\Models\Association;
 use Csatar\Csatar\Models\District;
@@ -7,6 +8,7 @@ use Csatar\Csatar\Models\Patrol;
 use Csatar\Csatar\Models\Team;
 use Csatar\Csatar\Models\Troop;
 use Csatar\Csatar\Models\MandateType;
+use Csatar\Csatar\Models\PermissionBasedAccess;
 use Db;
 
 class TestData extends Seeder
@@ -43,15 +45,6 @@ class TestData extends Seeder
             'Zergék',
             'Orchideák',
         ],
-        'permissions' => [
-            'Horvátországi magyar cserkészek' => 'readPermissionForGuests',
-            'Kárpátaljai Magyar Cserkészszövetség' => 'readPermissionForGuests',
-            'Külföldi Magyar Cserkészszövetség' => 'readPermissionForGuests',
-            'Magyar Cserkészszövetség' => 'readPermissionForGuests',
-            'Romániai Magyar Cserkészszövetség' => ['allPermissionsForScout', 'readPermissionForGuests'],
-            'Szlovákiai Magyar Cserkészszövetség' => 'readPermissionForGuests',
-            'Vajdasági Magyar Cserkészszövetség' => 'readPermissionForGuests',
-        ]
     ];
 
     public function run()
@@ -382,12 +375,6 @@ class TestData extends Seeder
                 ['item' => 'janvince_smallcontactform_setting'],
                 ['value' => $contactFormSettings],
             );
-
-        // add all permissions to scout mandate
-
-        $this->addAllPermissionsToScouts();
-
-        $this->addReadPermissionsToGuests();
     }
 
     public function getFirstAgeGroupInAssociation($team_id) {
@@ -398,202 +385,5 @@ class TestData extends Seeder
         }
 
         return 0;
-    }
-
-    public function addAllPermissionsToScouts() {
-        $associationId = Association::where('name_abbreviation', 'RMCSSZ')->first()->id ?? null;
-
-        if(empty($associationId)) return;
-
-        $mandateTypeModels = Db::table('csatar_csatar_mandate_types')
-            ->where('association_id', $associationId)
-            ->select('organization_type_model_name')->distinct()->get()->pluck('organization_type_model_name'); //get every unique model we have mandate for
-        $scoutMandateTypeId = Db::table('csatar_csatar_mandate_types')->select('id')
-            ->where('association_id', $associationId)
-            ->where('organization_type_model_name', '\Csatar\Csatar\Models\Scout')
-            ->first()->id; //get scout mandate type id
-
-        if(empty($mandateTypeModels) || empty($scoutMandateTypeId)) return;
-
-        foreach ($mandateTypeModels as $mandateTypeModel) {
-            if($mandateTypeModel == MandateType::MODEL_NAME_GUEST) return;
-
-            $model = new $mandateTypeModel();
-            $fields = $model->fillable ?? [];
-            $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'hasOne', 'morphTo', 'morphOne',
-                'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'];
-
-            foreach ($relationArrays as $relationArray){
-                $fields = array_merge($fields, array_keys($model->$relationArray));
-            }
-
-            //add permission for the model in general
-            Db::table('csatar_csatar_mandates_permissions')
-                ->updateOrInsert(
-                    ['mandate_type_id' => $scoutMandateTypeId, 'model' => $mandateTypeModel, 'field' => 'MODEL_GENERAL'],
-                    [
-                        'obligatory'    => false,
-                        'create'        => true,
-                        'read'          => true,
-                        'update'        => true,
-                        'delete'        => true,
-                    ],
-                );
-
-            //add permission for the model in general for own
-            Db::table('csatar_csatar_mandates_permissions')
-                ->updateOrInsert(
-                    ['mandate_type_id' => $scoutMandateTypeId, 'model' => $mandateTypeModel, 'field' => 'MODEL_GENERAL', 'own' => true],
-                    [
-                        'obligatory'    => false,
-                        'create'        => true,
-                        'read'          => true,
-                        'update'        => true,
-                        'delete'        => true,
-                    ],
-                );
-
-            //add permission for the model in general for 2fa
-            Db::table('csatar_csatar_mandates_permissions')
-                ->updateOrInsert(
-                    ['mandate_type_id' => $scoutMandateTypeId, 'model' => $mandateTypeModel, 'field' => 'MODEL_GENERAL', '2fa' => true],
-                    [
-                        'obligatory'    => false,
-                        'create'        => true,
-                        'read'          => true,
-                        'update'        => true,
-                        'delete'        => true,
-                    ],
-                );
-
-            //add permission for the model in general for own and 2fa
-            Db::table('csatar_csatar_mandates_permissions')
-                ->updateOrInsert(
-                    ['mandate_type_id' => $scoutMandateTypeId, 'model' => $mandateTypeModel, 'field' => 'MODEL_GENERAL', 'own' => true, '2fa' => true],
-                    [
-                        'obligatory'    => false,
-                        'create'        => true,
-                        'read'          => true,
-                        'update'        => true,
-                        'delete'        => true,
-                    ],
-                );
-
-            //add permission for each attribute for general, own, 2fa
-
-            foreach ($fields as $field) {
-                //add permission for the model->field
-                Db::table('csatar_csatar_mandates_permissions')
-                    ->updateOrInsert(
-                        ['mandate_type_id' => $scoutMandateTypeId, 'model' => $mandateTypeModel, 'field' => $field],
-                        [
-                            'obligatory'    => false,
-                            'create'        => true,
-                            'read'          => true,
-                            'update'        => true,
-                            'delete'        => true,
-                        ],
-                    );
-
-                //add permission for the model->field for own
-                Db::table('csatar_csatar_mandates_permissions')
-                    ->updateOrInsert(
-                        ['mandate_type_id' => $scoutMandateTypeId, 'model' => $mandateTypeModel, 'field' => $field, 'own' => true],
-                        [
-                            'obligatory'    => false,
-                            'create'        => true,
-                            'read'          => true,
-                            'update'        => true,
-                            'delete'        => true,
-                        ],
-                    );
-
-                //add permission for the model->field for 2fa
-                Db::table('csatar_csatar_mandates_permissions')
-                    ->updateOrInsert(
-                        ['mandate_type_id' => $scoutMandateTypeId, 'model' => $mandateTypeModel, 'field' => $field, '2fa' => true],
-                        [
-                            'obligatory'    => false,
-                            'create'        => true,
-                            'read'          => true,
-                            'update'        => true,
-                            'delete'        => true,
-                        ],
-                    );
-
-                //add permission for the model->field for own and 2fa
-                Db::table('csatar_csatar_mandates_permissions')
-                    ->updateOrInsert(
-                        ['mandate_type_id' => $scoutMandateTypeId, 'model' => $mandateTypeModel, 'field' => $field, 'own' => true, '2fa' => true],
-                        [
-                            'obligatory'    => false,
-                            'create'        => true,
-                            'read'          => true,
-                            'update'        => true,
-                            'delete'        => true,
-                        ],
-                    );
-            }
-        }
-
-    }
-
-    public function addReadPermissionsToGuests() {
-        $associationIds = Association::all()->pluck('id')->toArray();
-        $mandateTypeModels = Db::table('csatar_csatar_mandate_types')
-            ->where('organization_type_model_name', '<>', 'GUEST')
-            ->select('organization_type_model_name')->distinct()->get()->pluck('organization_type_model_name'); //get every unique model we have mandate for
-
-        foreach ($associationIds as $associationId) {
-            $guestMandateTypeId = Db::table('csatar_csatar_mandate_types')->select('id')
-                ->where('association_id', $associationId)
-                ->where('organization_type_model_name', 'GUEST')
-                ->first()->id; //get guest mandate type id
-
-            if(empty($mandateTypeModels) || empty($guestMandateTypeId)) return;
-
-            foreach ($mandateTypeModels as $mandateTypeModel) {
-
-                $model = new $mandateTypeModel();
-                $fields = $model->fillable ?? [];
-                $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'hasOne', 'morphTo', 'morphOne',
-                    'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'];
-
-                foreach ($relationArrays as $relationArray){
-                    $fields = array_merge($fields, array_keys($model->$relationArray));
-                }
-
-                //add permission for the model in general
-                Db::table('csatar_csatar_mandates_permissions')
-                    ->updateOrInsert(
-                        ['mandate_type_id' => $guestMandateTypeId, 'model' => $mandateTypeModel, 'field' => 'MODEL_GENERAL'],
-                        [
-                            'obligatory'    => false,
-                            'create'        => false,
-                            'read'          => true,
-                            'update'        => false,
-                            'delete'        => false,
-                        ],
-                    );
-
-                //add permission for each attribute
-
-                foreach ($fields as $field) {
-                    //add permission for the model->field
-                    Db::table('csatar_csatar_mandates_permissions')
-                        ->updateOrInsert(
-                            ['mandate_type_id' => $guestMandateTypeId, 'model' => $mandateTypeModel, 'field' => $field],
-                            [
-                                'obligatory'    => false,
-                                'create'        => false,
-                                'read'          => true,
-                                'update'        => false,
-                                'delete'        => false,
-                            ],
-                        );
-                }
-            }
-
-        }
     }
 }

@@ -34,10 +34,6 @@ navigation:
                 label: 'csatar.csatar::lang.plugin.admin.patrol.patrols'
                 url: /csatar/csatar/patrols
                 icon: icon-sitemap
-            side-menu-item-mandate-types:
-                label: 'csatar.csatar::lang.plugin.admin.mandateType.mandateTypes'
-                url: csatar/csatar/mandatetypes
-                icon: icon-sitemap
             side-menu-item-team-reports:
                 label: 'csatar.csatar::lang.plugin.admin.teamReport.teamReports'
                 url: csatar/csatar/teamreports
@@ -49,6 +45,14 @@ navigation:
             side-menu-item-ageGroups:
                 label: 'csatar.csatar::lang.plugin.admin.ageGroups.ageGroups'
                 url: csatar/csatar/agegroups
+                icon: icon-sitemap
+            side-menu-item-mandate-types:
+                label: 'csatar.csatar::lang.plugin.admin.mandateType.mandateTypes'
+                url: csatar/csatar/mandatetypes
+                icon: icon-sitemap
+            side-menu-item-permissions-matrix:
+                label: 'csatar.csatar::lang.plugin.admin.admin.menu.organizationSystemData.permissionsMatrix'
+                url: csatar/csatar/permissionsmatrix
                 icon: icon-sitemap
     main-menu-item-scout-system-data:
         label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.scoutSystemData'
