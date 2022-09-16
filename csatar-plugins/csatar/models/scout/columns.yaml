@@ -26,20 +26,20 @@ columns:
     team_id:
         label: 'csatar.csatar::lang.plugin.admin.scout.team'
         type: number
-        searchable: true
+        searchable: false
         valueFrom: extendedName
         relation: team
     troop_id:
         label: 'csatar.csatar::lang.plugin.admin.scout.troop'
         type: number
-        searchable: true
+        searchable: false
         sortable: false
         relation: troop
         valueFrom: extendedName
     patrol_id:
         label: 'csatar.csatar::lang.plugin.admin.scout.patrol'
         type: number
-        searchable: true
+        searchable: false
         sortable: false
         relation: patrol
         valueFrom: extendedName
