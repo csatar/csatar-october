@@ -472,6 +472,13 @@
                 'allPermissionsForScout' => 'All permissions for every model and field for Scout mandate.',
                 'readPermissionForGuests' => 'Read permission for guests.',
             ],
+            'contactFormSettings' => [
+                'contactFormSettings' => 'Contact Form Plugin Settings',
+            ],
+            'sitesearchSettings' => [
+                'sitesearchSettings' => 'Sites Search Plugin Settings',
+                'enabledOnOrgCMSpages' => 'Enabled on organization unit frontend pages'
+            ],
         ],
         'component' => [
             'general' => [

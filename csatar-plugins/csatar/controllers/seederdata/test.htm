@@ -4,8 +4,10 @@
     <ul>
         <?php
             foreach ($testData as $key => $value) {
-                if (array_key_exists(0, $value) && !is_array($value[0])) {
+                if (is_array($value) && array_key_exists(0, $value) && !is_array($value[0])) {
                     echo '<li>' . e(trans('csatar.csatar::lang.plugin.admin.' . $key . '.' . $key)) . ': ' . implode(', ', $value) . '</li>';
+                } else {
+                    echo '<li>' . e(trans('csatar.csatar::lang.plugin.admin.' . $value . '.' . $value)) . '</li>';
                 }
             }
         ?>

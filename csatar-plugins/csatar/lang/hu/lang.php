@@ -471,6 +471,13 @@
                 'allPermissionsForScout' => 'Minden jogosultság a Cserkész megbízatáshoz, az összes model összes mezőjéhez.',
                 'readPermissionForGuests' => 'Olvasási jog vendégeknek.',
             ],
+            'contactFormSettings' => [
+                'contactFormSettings' => 'Kapcsolat űrlap plugin beállítások'
+            ],
+            'sitesearchSettings' => [
+                'sitesearchSettings' => 'Sites Search plugin beállítások',
+                'enabledOnOrgCMSpages' => 'Bekapcsolva a szervezeti egységek frontend oldalain.'
+            ],
         ],
         'component' => [
             'general' => [
@@ -576,7 +583,7 @@
             ],
             'organizationUnitFrontend' => [
                 'name' => 'Szervezeti Egység Frontend',
-                'description' => 'Megyjeleníti egy szerevezeti egyszég frontend oldalát.',
+                'description' => 'Megyjeleníti egy szerevezeti egység frontend oldalát.',
             ],
         ],
         'oauth' => [
