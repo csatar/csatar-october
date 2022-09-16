@@ -35,6 +35,8 @@
                 'organizationUnitNameWarning' => 'Organization unit name can not contain the unit type.',
                 'note' => 'Note',
                 'sortOrder' => 'Sort Order',
+                'contentPage' => 'Content Page',
+                'searchResult' => 'Search Result'
             ],
             'ageGroups' => [
                 'ageGroups' => 'Age Groups',
@@ -142,6 +144,9 @@
                     'mandateEndDateBeforeStartDate' => 'The End date cannot be before the Start date for the %name mandate.',
                     'dateInTheFutureError' => 'The selected Date for the %name %category is in the future.',
                 ],
+                'staticMessages' => [
+                    'personalDataNotAccepted' => 'Please verify your personal data here!'
+                ],
             ],
             'admin' => [
                 'menu' => [
@@ -167,6 +172,7 @@
                     'organizationSystemData' => [
                         'organizationSystemData' => 'Organization System Data',
                         'hierarchy' => 'Hierarchy',
+                        'permissionsMatrix' => 'Permissions Matrix',
                     ],
                     'seederData' => [
                         'data' => 'Data',
@@ -182,6 +188,35 @@
                     'dataToBeAdded' => 'The following data will be added (if doesn\'t already exist):',
                     'updateData' => 'Update data',
                     'updateDataSuccess' => 'The data has been successfully updated.',
+                ],
+                'permissionsMatrix' => [
+                    'permissionsMatrix' => 'Permissions Matrix',
+                    'noRight' => 'No',
+                    'hasRightWith2FactorAuth' => '2FA',
+                    'hasRight' => 'Yes',
+                    'own' => 'Own',
+                    'notOwn' => 'Not Own',
+                    'model' => 'Model',
+                    'field' => 'Field',
+                    'obligatory' => 'Obligatory',
+                    'create' => 'Create',
+                    'read' => 'Read',
+                    'update' => 'Update',
+                    'delete' => 'Delete',
+                    'confirmSave' => 'Are you sure you want to apply the highlighted changes?',
+                    'confirmCancel' => 'Are you sure you want to cancel the highlighted changes?',
+                    'editPermissions' => 'Edit Permissions',
+                    'managePermissions' => 'Manage Permissions',
+                    'selectItems' => 'Select permission to Copy/Delete',
+                    'actionSetion' => 'Action',
+                    'manageAction' => 'Action',
+                    'copy' => 'Copy',
+                    'delete' => 'Delete',
+                    'toSection' => 'Select destination',
+                    'execute' => 'Execute',
+                    'executeAndClose' => 'Execute and close',
+                    'copySuccess' => 'Permissions copied successfuly.',
+                    'deleteSuccess' => 'Permissions deleted successfuly.'
                 ],
             ],
             'allergy' => [
@@ -429,9 +464,20 @@
             'trainings' => [
                 'trainings' => 'Trainings',
             ],
+            'gallery' => [
+                'gallery' => 'Gallery'
+            ],
             'permissions' => [
                 'permissions' => 'Permissions',
-                'allPermissionsForScout' => 'All permissions for every model and field for Scout mandate.'
+                'allPermissionsForScout' => 'All permissions for every model and field for Scout mandate.',
+                'readPermissionForGuests' => 'Read permission for guests.',
+            ],
+            'contactFormSettings' => [
+                'contactFormSettings' => 'Contact Form Plugin Settings',
+            ],
+            'sitesearchSettings' => [
+                'sitesearchSettings' => 'Sites Search Plugin Settings',
+                'enabledOnOrgCMSpages' => 'Enabled on organization unit frontend pages'
             ],
         ],
         'component' => [

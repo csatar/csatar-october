@@ -1,5 +1,6 @@
 <?php namespace Csatar\Csatar\Updates;
 
+use RainLab\Builder\Classes\ComponentHelper;
 use Seeder;
 use Csatar\Csatar\Models\Association;
 use Csatar\Csatar\Models\District;
@@ -7,6 +8,7 @@ use Csatar\Csatar\Models\Patrol;
 use Csatar\Csatar\Models\Team;
 use Csatar\Csatar\Models\Troop;
 use Csatar\Csatar\Models\MandateType;
+use Csatar\Csatar\Models\PermissionBasedAccess;
 use Db;
 
 class TestData extends Seeder
@@ -43,9 +45,7 @@ class TestData extends Seeder
             'Zergék',
             'Orchideák',
         ],
-        'permissions' => [
-            'RMCSSZ' => 'allPermissionsForScout',
-        ]
+        'contactFormSettings',
     ];
 
     public function run()
@@ -257,9 +257,6 @@ class TestData extends Seeder
                 'name' => $this::DATA['troop'][0],
                 'team_id' => $team_6->id,
             ]);
-            $troop_1->troop_leader_name = 'Anton';
-            $troop_1->troop_leader_phone = '01234';
-            $troop_1->troop_leader_email = 'a@aa.com';
             $troop_1->ignoreValidation = true;
             $troop_1->save();
 
@@ -267,9 +264,6 @@ class TestData extends Seeder
                 'name' => $this::DATA['troop'][1],
                 'team_id' => $team_6->id,
             ]);
-            $troop_2->troop_leader_name = 'Attila';
-            $troop_2->troop_leader_phone = '01234';
-            $troop_2->troop_leader_email = 'a@aa.com';
             $troop_2->ignoreValidation = true;
             $troop_2->save();
         }
@@ -279,9 +273,6 @@ class TestData extends Seeder
                 'name' => $this::DATA['troop'][2],
                 'team_id' => $team_7->id,
             ]);
-            $troop_3->troop_leader_name = 'Edina';
-            $troop_3->troop_leader_phone = '01234';
-            $troop_3->troop_leader_email = 'a@aa.com';
             $troop_3->ignoreValidation = true;
             $troop_3->save();
 
@@ -289,9 +280,6 @@ class TestData extends Seeder
                 'name' => $this::DATA['troop'][3],
                 'team_id' => $team_7->id,
             ]);
-            $troop_4->troop_leader_name = 'Eszter';
-            $troop_4->troop_leader_phone = '01234';
-            $troop_4->troop_leader_email = 'a@aa.com';
             $troop_4->ignoreValidation = true;
             $troop_4->save();
 
@@ -299,9 +287,6 @@ class TestData extends Seeder
                 'name' => $this::DATA['troop'][4],
                 'team_id' => $team_7->id,
             ]);
-            $troop_5->troop_leader_name = 'Erika';
-            $troop_5->troop_leader_phone = '01234';
-            $troop_5->troop_leader_email = 'a@aa.com';
             $troop_5->ignoreValidation = true;
             $troop_5->save();
         }
@@ -315,9 +300,6 @@ class TestData extends Seeder
             if (isset($troop_1)) {
                 $patrol_1->troop_id = $troop_1->id;
             }
-            $patrol_1->patrol_leader_name = 'Szabi';
-            $patrol_1->patrol_leader_phone = '01234';
-            $patrol_1->patrol_leader_email = 'a@aa.com';
             $patrol_1->age_group_id = $this->getFirstAgeGroupInAssociation($team_6->id);
             $patrol_1->ignoreValidation = true;
             $patrol_1->save();
@@ -329,9 +311,6 @@ class TestData extends Seeder
             if (isset($troop_1)) {
                 $patrol_2->troop_id = $troop_1->id;
             }
-            $patrol_2->patrol_leader_name = 'Péter';
-            $patrol_2->patrol_leader_phone = '01234';
-            $patrol_2->patrol_leader_email = 'a@aa.com';
             $patrol_2->age_group_id = $this->getFirstAgeGroupInAssociation($team_6->id);
             $patrol_2->ignoreValidation = true;
             $patrol_2->save();
@@ -340,9 +319,6 @@ class TestData extends Seeder
                 'name' => $this::DATA['patrol'][2],
                 'team_id' => $team_6->id,
             ]);
-            $patrol_3->patrol_leader_name = 'Ferenc';
-            $patrol_3->patrol_leader_phone = '01234';
-            $patrol_3->patrol_leader_email = 'a@aa.com';
             $patrol_3->age_group_id = $this->getFirstAgeGroupInAssociation($team_6->id);
             $patrol_3->ignoreValidation = true;
             $patrol_3->save();
@@ -356,9 +332,6 @@ class TestData extends Seeder
             if (isset($troop_3)) {
                 $patrol_4->troop_id = $troop_3->id;
             }
-            $patrol_4->patrol_leader_name = 'Fruzsina';
-            $patrol_4->patrol_leader_phone = '01234';
-            $patrol_4->patrol_leader_email = 'a@aa.com';
             $patrol_4->age_group_id = $this->getFirstAgeGroupInAssociation($team_7->id);
             $patrol_4->ignoreValidation = true;
             $patrol_4->save();
@@ -370,9 +343,6 @@ class TestData extends Seeder
             if (isset($troop_3)) {
                 $patrol_5->troop_id = $troop_3->id;
             }
-            $patrol_5->patrol_leader_name = 'Verónika';
-            $patrol_5->patrol_leader_phone = '01234';
-            $patrol_5->patrol_leader_email = 'a@aa.com';
             $patrol_5->age_group_id = $this->getFirstAgeGroupInAssociation($team_7->id);
             $patrol_5->ignoreValidation = true;
             $patrol_5->save();
@@ -381,9 +351,6 @@ class TestData extends Seeder
                 'name' => $this::DATA['patrol'][5],
                 'team_id' => $team_7->id,
             ]);
-            $patrol_6->patrol_leader_name = 'Zoltán';
-            $patrol_6->patrol_leader_phone = '01234';
-            $patrol_6->patrol_leader_email = 'a@aa.com';
             $patrol_6->age_group_id = $this->getFirstAgeGroupInAssociation($team_7->id);
             $patrol_6->ignoreValidation = true;
             $patrol_6->save();
@@ -395,9 +362,6 @@ class TestData extends Seeder
             if (isset($troop_4)) {
                 $patrol_7->troop_id = $troop_4->id;
             }
-            $patrol_7->patrol_leader_name = 'Zsuzsa';
-            $patrol_7->patrol_leader_phone = '01234';
-            $patrol_7->patrol_leader_email = 'a@aa.com';
             $patrol_7->age_group_id = $this->getFirstAgeGroupInAssociation($team_7->id);
             $patrol_7->ignoreValidation = true;
             $patrol_7->save();
@@ -412,10 +376,6 @@ class TestData extends Seeder
                 ['item' => 'janvince_smallcontactform_setting'],
                 ['value' => $contactFormSettings],
             );
-
-        // add all permissions to scout mandate
-
-        $this->addAllPermissionsToScouts();
     }
 
     public function getFirstAgeGroupInAssociation($team_id) {
@@ -426,137 +386,5 @@ class TestData extends Seeder
         }
 
         return 0;
-    }
-
-    public function addAllPermissionsToScouts() {
-        $associationId = Association::where('name_abbreviation', 'RMCSSZ')->first()->id ?? null;
-
-        if(empty($associationId)) return;
-
-        $mandateTypeModels = Db::table('csatar_csatar_mandate_types')
-            ->where('association_id', $associationId)
-            ->select('organization_type_model_name')->distinct()->get()->pluck('organization_type_model_name'); //get every unique model we have mandate for
-        $scoutMandateTypeId = Db::table('csatar_csatar_mandate_types')->select('id')
-            ->where('association_id', $associationId)
-            ->where('organization_type_model_name', '\Csatar\Csatar\Models\Scout')
-            ->first()->id; //get scout mandate type id
-
-        if(empty($mandateTypeModels) || empty($scoutMandateTypeId)) return;
-
-        foreach ($mandateTypeModels as $mandateTypeModel) {
-            if($mandateTypeModel == MandateType::MODEL_NAME_GUEST) return;
-
-            $model = new $mandateTypeModel();
-            $fields = $model->fillable ?? [];
-
-            //add permission for the model in general
-            Db::table('csatar_csatar_mandates_permissions')
-                ->updateOrInsert(
-                    ['mandate_type_id' => $scoutMandateTypeId, 'model' => $mandateTypeModel, 'field' => 'MODEL_GENERAL'],
-                    [
-                        'obligatory'    => false,
-                        'create'        => true,
-                        'read'          => true,
-                        'update'        => true,
-                        'delete'        => true,
-                    ],
-                );
-
-            //add permission for the model in general for own
-            Db::table('csatar_csatar_mandates_permissions')
-                ->updateOrInsert(
-                    ['mandate_type_id' => $scoutMandateTypeId, 'model' => $mandateTypeModel, 'field' => 'MODEL_GENERAL', 'own' => true],
-                    [
-                        'obligatory'    => false,
-                        'create'        => true,
-                        'read'          => true,
-                        'update'        => true,
-                        'delete'        => true,
-                    ],
-                );
-
-            //add permission for the model in general for 2fa
-            Db::table('csatar_csatar_mandates_permissions')
-                ->updateOrInsert(
-                    ['mandate_type_id' => $scoutMandateTypeId, 'model' => $mandateTypeModel, 'field' => 'MODEL_GENERAL', '2fa' => true],
-                    [
-                        'obligatory'    => false,
-                        'create'        => true,
-                        'read'          => true,
-                        'update'        => true,
-                        'delete'        => true,
-                    ],
-                );
-
-            //add permission for the model in general for own and 2fa
-            Db::table('csatar_csatar_mandates_permissions')
-                ->updateOrInsert(
-                    ['mandate_type_id' => $scoutMandateTypeId, 'model' => $mandateTypeModel, 'field' => 'MODEL_GENERAL', 'own' => true, '2fa' => true],
-                    [
-                        'obligatory'    => false,
-                        'create'        => true,
-                        'read'          => true,
-                        'update'        => true,
-                        'delete'        => true,
-                    ],
-                );
-
-            //add permission for each attribute for general, own, 2fa
-
-            foreach ($fields as $field) {
-                //add permission for the model->field
-                Db::table('csatar_csatar_mandates_permissions')
-                    ->updateOrInsert(
-                        ['mandate_type_id' => $scoutMandateTypeId, 'model' => $mandateTypeModel, 'field' => $field],
-                        [
-                            'obligatory'    => false,
-                            'create'        => true,
-                            'read'          => true,
-                            'update'        => true,
-                            'delete'        => true,
-                        ],
-                    );
-
-                //add permission for the model->field for own
-                Db::table('csatar_csatar_mandates_permissions')
-                    ->updateOrInsert(
-                        ['mandate_type_id' => $scoutMandateTypeId, 'model' => $mandateTypeModel, 'field' => $field, 'own' => true],
-                        [
-                            'obligatory'    => false,
-                            'create'        => true,
-                            'read'          => true,
-                            'update'        => true,
-                            'delete'        => true,
-                        ],
-                    );
-
-                //add permission for the model->field for 2fa
-                Db::table('csatar_csatar_mandates_permissions')
-                    ->updateOrInsert(
-                        ['mandate_type_id' => $scoutMandateTypeId, 'model' => $mandateTypeModel, 'field' => $field, '2fa' => true],
-                        [
-                            'obligatory'    => false,
-                            'create'        => true,
-                            'read'          => true,
-                            'update'        => true,
-                            'delete'        => true,
-                        ],
-                    );
-
-                //add permission for the model->field for own and 2fa
-                Db::table('csatar_csatar_mandates_permissions')
-                    ->updateOrInsert(
-                        ['mandate_type_id' => $scoutMandateTypeId, 'model' => $mandateTypeModel, 'field' => $field, 'own' => true, '2fa' => true],
-                        [
-                            'obligatory'    => false,
-                            'create'        => true,
-                            'read'          => true,
-                            'update'        => true,
-                            'delete'        => true,
-                        ],
-                    );
-            }
-        }
-
     }
 }

@@ -1,6 +1,8 @@
 <?php namespace Csatar\Csatar\Components;
 
 use Auth;
+use Csatar\Csatar\Models\GalleryModelPivot;
+use Db;
 use Lang;
 use Cms\Classes\ComponentBase;
 use Redirect;
@@ -9,7 +11,8 @@ class OrganizationUnitFrontend extends ComponentBase
 {
     public $model;
     public $content_page;
-    public $permission_to_edit;
+    public $permissions;
+    public $gallery_id;
 
     public function componentDetails()
     {
@@ -42,7 +45,9 @@ class OrganizationUnitFrontend extends ComponentBase
         $modelName = "Csatar\Csatar\Models\\" . $this->property('model_name');
         if (is_numeric($this->property('model_id'))) {
             $this->model = $modelName::find($this->property('model_id'));
-            $this->permission_to_edit = Auth::user() ? true : false;
+            if(isset(Auth::user()->scout)) {
+                $this->permissions = Auth::user()->scout->getRightsForModel($this->model);
+            }
             if (empty($this->model->content_page))
             {
                 $this->content_page = $this->model->content_page()->create([
@@ -52,6 +57,9 @@ class OrganizationUnitFrontend extends ComponentBase
             } else {
                 $this->content_page = $this->model->content_page;
             }
+
+            $this->gallery_id = GalleryModelPivot::where('model_type', $modelName)->where('model_id', $this->property('model_id'))->value('gallery_id');
+
         }
     }
 

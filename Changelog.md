@@ -2,17 +2,28 @@
 
 ## Unreleased
 
+- CS-229 - Replaced table to grid in form builder pivot relations
+- CS-167 - Added warning message and verification option for Scout to verify personal data
+- CS-68 - Added and extended Offline.SiteSearch Plugin
+- CS-300 - Added permissions manage page, with bulk copy/delete option based on Association and Manadate
+- CS-50 - Set edit and create buttons permission based. Set team report buttons and listing permission based
+- CS-264 - Added Modify buttons to organization pages
+- CS-270 - Added new Scout button to Team and Patrol page and made permission based
+- CS-272 - Refactored Model structure for OraganizationBase model and added PermissionBasedAccess class
+- CS-272 - Created permissions matrix admin panel
+- CS-273 - Added permissions handling to form builder
 - CS-257 - Added profile data tabs and profile data cards
 - CS-279 - Changed color of Grid based table heading
-- CS-278 - Changed the style of the explanatoy text
+- CS-278 - Changed the style of the explanatory text
 - CS-277 - Modified the position of the flash messages, depending on the screen size
 - CS-47 - Created basics of the rights system
+- CS-47  - Created basics of the rights system
 - CS-268 - Added new pictograms, and changed definition of existing ones
 - CS-199 - Extended social login plugin to handle Scout and User model connections
 - CS-193 - Applied basic permissions
 - CS-177 - Create mandate types
 - CS-155 - Update the organization models for the mandates
-- CS-188 - Build in the polimorphic and hasMany relations in the form builder
+- CS-188 - Build in the polymorphic and hasMany relations in the form builder
 - CS-222 - Added foreign keys
 - CS-284 - Add empty option and fix validation for chronic illnesses on Scout creation
 - CS-226 - Store the data from the Contact page in the backend settings

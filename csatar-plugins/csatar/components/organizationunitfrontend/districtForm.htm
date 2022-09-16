@@ -1,11 +1,12 @@
 {% component 'basicForm' %}
+{% set permissions = __SELF__.permissions %}
 
 <p>{{ 'Csapatok' | _ }}</p>
 {% component 'builderList' %}
 
-{% if user %}
+{% if permissions['teams']['create'] > 0 %}
     <form action="/csapat/letrehozas" method="post">
         <input type="hidden" name="district" value="{{ district_id }}">
-        <input type="submit" class="btn btn-default" value="{{ 'Csapat hozzáadása' | _ }}">
+        <button type="submit" class="btn rounded btn-primary" value="{{ 'Csapat hozzáadása' | _ }}">{{ 'Csapat hozzáadása' | _ }}</button>
     </form>
 {% endif %}

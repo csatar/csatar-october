@@ -5,15 +5,20 @@
         <?php
             foreach ($seederData as $key => $value) {
                 echo '<li>' . e(trans('csatar.csatar::lang.plugin.admin.' . $key . '.' . $key)) . ': ';
-                if (array_key_exists(0, $value) && !is_array($value[0])) {
+                if (is_array($value) && $key == 'sitesearchSettings') {
+                    foreach ($value as $setting) {
+                        echo e(trans('csatar.csatar::lang.plugin.admin.' . $key . '.' . $setting));
+                    }
+                }
+                elseif (is_array($value) && array_key_exists(0, $value) && !is_array($value[0])) {
                     echo implode(', ', $value);
                 }
-                else if (array_key_exists(0, $value) && $value[0]['title'] != null) {
+                else if (is_array($value) && array_key_exists(0, $value) && $value[0]['title'] != null) {
                     foreach ($value as $valueItem) {
                         echo $valueItem['title'] . ', ';
                     }
                 }
-                else if ($key == 'ageGroups' || $key == 'mandateType') {
+                else if (is_array($value) && $key == 'ageGroups' || $key == 'mandateType') {
                     echo '<ul>';
                         foreach ($value as $association => $agegroups){
                             echo '<li>' . $association . ': ' . implode(', ', array_map(function ($agegroup) {
@@ -33,6 +38,18 @@
                             echo $contact_value . '; ';
                         }
                     }
+                } elseif ($key == 'permissions') {
+                    echo '<ul>';
+                    foreach ($value as $key => $permissions) {
+                        if (!is_array($permissions)) {
+                            echo '<li>' . $key . ': ' . e(trans('csatar.csatar::lang.plugin.admin.permissions.' . $permissions)) . '</li>';
+                        } else {
+                            foreach($permissions as $permission) {
+                                echo '<li>' . $key . ': ' . e(trans('csatar.csatar::lang.plugin.admin.permissions.' . $permission)) . '</li>';
+                            }
+                        }
+                    }
+                    echo '</ul>';
                 }
                 echo '</li>';
             }

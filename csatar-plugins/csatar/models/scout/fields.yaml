@@ -20,6 +20,7 @@ fields:
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
+        readOnly: 1
         required: 1
         type: relation
         formBuilder:

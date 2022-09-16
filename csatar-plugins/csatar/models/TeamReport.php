@@ -8,7 +8,7 @@ use Csatar\Csatar\Models\Scout;
 /**
  * Model
  */
-class TeamReport extends Model
+class TeamReport extends PermissionBasedAccess
 {
     use \October\Rain\Database\Traits\Validation;
 
@@ -63,7 +63,7 @@ class TeamReport extends Model
         }
     }
 
-    protected $fillable = [
+    public $fillable = [
         'team_id',
         'year',
         'scouting_year_report_team_camp',

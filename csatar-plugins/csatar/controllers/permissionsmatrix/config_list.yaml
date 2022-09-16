@@ -1,0 +1,13 @@
+title: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.permissionsMatrix'
+modelClass: Csatar\Csatar\Models\PermissionsMatrix
+list: $/csatar/csatar/models/permissionsmatrix/columns.yaml
+customViewPath: $/csatar/csatar/controllers/permissionsmatrix/list
+noRecordsMessage: 'backend::lang.list.no_records'
+recordsPerPage: 20
+showSetup: true
+showCheckboxes: false
+filter: config_filter.yaml
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'

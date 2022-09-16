@@ -1,5 +1,6 @@
 <?php namespace Csatar\Csatar\Components;
 
+use Auth;
 use DateTime;
 use Lang;
 use Redirect;
@@ -10,7 +11,7 @@ use Csatar\Csatar\Models\TeamReport;
 
 class TeamReports extends ComponentBase
 {
-    public $id, $waitingForApprovalMode, $team, $teamReports, $legalRelationships, $teamReportData, $showTeamReportCreateButton;
+    public $id, $waitingForApprovalMode, $team, $teamReports, $legalRelationships, $teamReportData, $showTeamReportCreateButton, $permissions;
 
     public function componentDetails()
     {
@@ -22,6 +23,10 @@ class TeamReports extends ComponentBase
 
     public function onRender()
     {
+        if(!Auth::user()->scout) {
+            \App::abort(403, 'Access denied!');
+        }
+
         // retrieve the parameters
         $this->id = $this->param('id');
 
@@ -35,14 +40,16 @@ class TeamReports extends ComponentBase
             // create the array with the data to display in the table
             $this->teamReportData = [];
             foreach ($this->teamReports as $teamReport) {
-                array_push($this->teamReportData, [
-                    'id' => $teamReport->id,
-                    'team_name' => $teamReport->team->extendedName,
-                    'year' => $teamReport->year,
-                    'members_count' => count($teamReport->scouts),
-                    'total_amount' => $teamReport->total_amount . ' ' . $teamReport->currency->code,
-                    'submitted_at' => (new DateTime($teamReport->submitted_at))->format('Y-m-d'),
-                ]);
+                if (Auth::user()->scout->getRightsForModel($teamReport)['MODEL_GENERAL']['read']) {
+                    array_push($this->teamReportData, [
+                        'id' => $teamReport->id,
+                        'team_name' => $teamReport->team->extendedName,
+                        'year' => $teamReport->year,
+                        'members_count' => count($teamReport->scouts),
+                        'total_amount' => $teamReport->total_amount . ' ' . $teamReport->currency->code,
+                        'submitted_at' => (new DateTime($teamReport->submitted_at))->format('Y-m-d'),
+                    ]);
+                }
             }
         }
         else {
@@ -54,13 +61,16 @@ class TeamReports extends ComponentBase
                 return Redirect::to('404')->with('message', Lang::get('csatar.csatar::lang.plugin.component.teamReport.validationExceptions.teamCannotBeFound'));
             }
 
+            $this->permissions = Auth::user()->scout->getRightsForModel($this->team);
+
             // retrieve the team reports
             $this->teamReports = TeamReport::where('team_id', $this->id)->orderBy('year', 'desc')->get();
-            
+
             // determine whether the Team Report Create button should be shown
             $month = date('n');
             $year = $month == 1 ? date('Y') - 1 : date('Y');
-            $this->showTeamReportCreateButton = count($this->teamReports->where('year', $year)) == 0 /*&& ($month == 1 || $month == 12 || $month == 6)*/;
+            $hasPermission = isset($this->permissions['teamReports']['create']) && $this->permissions['teamReports']['create'] > 0;
+            $this->showTeamReportCreateButton = count($this->teamReports->where('year', $year)) == 0 && $hasPermission /*&& ($month == 1 || $month == 12 || $month == 6)*/;
 
             // create the list of the defined legal relationships for the association
             $this->legalRelationships = $this->team->district->association->legal_relationships;
@@ -72,7 +82,7 @@ class TeamReports extends ComponentBase
                 $scouts = Scout::where('team_id', $teamReport->team_id)->withTrashed()->get()->map(function ($scout) {
                     return $scout->team_reports->lists('pivot');
                 });
-                
+
                 // count the scouts
                 $scoutsCount = 0;
                 $scoutsDataCountPerLegalRelationship = [];
@@ -84,7 +94,7 @@ class TeamReports extends ComponentBase
                         }
                     }
                 }
-                
+
                 // construct the array containing the data, which will be displayed in the table
                 $data = [
                     'year' => $teamReport->year,

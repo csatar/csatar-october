@@ -1,5 +1,7 @@
 {% set content_page = __SELF__.content_page %}
-{% set permission_to_edit = __SELF__.permission_to_edit %}
+{% set model = this.controller.vars.basicForm.record %}
+{% set permissions = __SELF__.permissions %}
+{% set gallery_id = __SELF__.gallery_id %}
 
 <div class=" pb-5">
     <div class="accordion accordion-flush">
@@ -9,13 +11,13 @@
                     {{ 'Rólunk' | _ }}
                 </button>
             </h2>
-            <div id="collapse-1" class="accordion-collapse collapse show" aria-labelledby="heading-1" data-bs-parent="#accordionFlushExample">
+            <div id="collapse-1" class="accordion-collapse collapse show" aria-labelledby="heading-1" data-bs-parent="#accordionFlushContent">
                 <div class="accordion-body" id="content">
                     <h2>{{ content_page.title | raw }}</h2>
                     <div>
                         {{ content_page.content | raw}}
                     </div>
-                    {% if permission_to_edit %}
+                    {% if permissions['content_page']['update'] > 0 %}
                         <form data-request="onEditContent">
                             <button
                                 type="submit"
@@ -33,8 +35,16 @@
                     {{ 'Részletek' | _ }}
                 </button>
             </h2>
-            <div id="collapse-2" class="accordion-collapse collapse show" aria-labelledby="heading-1" data-bs-parent="#accordionFlushExample">
+            <div id="collapse-2" class="accordion-collapse collapse show" aria-labelledby="heading-1" data-bs-parent="#accordionFlushForm">
                 <div class="accordion-body">
+                    {% set model = this.controller.vars.basicForm.record %}
+
+                    {% if permissions['MODEL_GENERAL']['update'] > 0 and this.param.action == false %}
+                    <form action="/{{this.page.basicForm.formSlug}}/{{ model[basicForm.recordKeyParam] }}/{{ basicForm.actionUpdateKeyword }}" method="post">
+                        <button type="submit" class="btn rounded btn-primary" value="{{ 'Módosítás' | _ }}"><i class="csat-edit-fill-wh-md"></i></button>
+                    </form>
+                    {% endif %}
+
                     {% partial __SELF__ ~ '::' ~ model_name ~ 'Form' %}
                 </div>
             </div>
@@ -45,9 +55,21 @@
                     {{ 'Kapcsolati szintek' | _ }}
                 </button>
             </h2>
-            <div id="collapse-3" class="accordion-collapse collapse show" aria-labelledby="heading-3" data-bs-parent="#accordionFlushExample">
+            <div id="collapse-3" class="accordion-collapse collapse show" aria-labelledby="heading-3" data-bs-parent="#accordionFlushStructure">
                 <div class="accordion-body">
                     {% component "structure" %}
+                </div>
+            </div>
+        </div>
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading-4">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-4" aria-expanded="true" aria-controls="collapse-3">
+                    {{ 'Galléria' | _ }}
+                </button>
+            </h2>
+            <div id="collapse-4" class="accordion-collapse collapse show" aria-labelledby="heading-4" data-bs-parent="#accordionFlushGallery">
+                <div class="accordion-body">
+                    {% component "csatargallery" %}
                 </div>
             </div>
         </div>

@@ -2,16 +2,23 @@
 
 use App;
 use Backend;
+use Csatar\Csatar\Classes\Exceptions\OauthException;
+use Csatar\Csatar\Models\Association;
+use Csatar\Csatar\Models\MandateType;
+use Csatar\Csatar\Models\Scout;
+use Csatar\Csatar\Classes\ContentPageSearchProvider;
 use Event;
 use Input;
-use Csatar\Csatar\Classes\Exceptions\OauthException;
-use System\Classes\PluginBase;
-use Validator;
-use ValidationException;
+use Media\Classes\MediaLibrary;
+use PolloZen\SimpleGallery\Controllers\Gallery as SimpleGalleryController;
+use PolloZen\SimpleGallery\Models\Gallery as GalleryModel;
 use Lang;
 use RainLab\User\Models\User;
 use Redirect;
-use Csatar\Csatar\Models\Scout;
+use Session;
+use System\Classes\PluginBase;
+use ValidationException;
+use Validator;
 
 /**
  * csatar Plugin Information File
@@ -50,10 +57,20 @@ class Plugin extends PluginBase
      */
     public function boot()
     {
-        $this->extendUser();
+        if (class_exists('RainLab\User\Models\User')) {
+            $this->extendUser();
+        }
 
         App::error(function (\October\Rain\Auth\AuthException $exception) {
             return Lang::get('csatar.csatar::lang.frontEnd.authException');
+        });
+
+        App::error(function(
+            \Symfony\Component\HttpKernel\Exception\HttpException $exception) {
+
+            if($exception->getStatusCode() == 403) {
+                return Redirect::to('/403');
+            }
         });
 
         App::error(function (OauthException $exception) {
@@ -117,11 +134,31 @@ class Plugin extends PluginBase
 
         });
 
+        if (class_exists('PolloZen\SimpleGallery\Controllers\Gallery')) {
+            SimpleGalleryController::extendFormFields(function($form, $model, $context) {
+                if ($form->arrayName === 'Gallery[images]') {
+                    $form->addFields([
+                        'is_public' => [
+                                'label' => 'Public',
+                                'type'  => 'checkbox',
+                                'default'   => false
+                        ]
+                    ]);
+                }
+            });
+        }
+
         Event::listen('rainlab.user.login', function($user) {
             if(!empty($user->scout)){
                 $user->scout->saveMandateTypeIdsForEveryAssociationToSession();
             }
         });
+
+        Event::listen('offline.sitesearch.extend', function () {
+            return new ContentPageSearchProvider();
+        });
+
+        $this->saveGuestMandateTypeIdsForEveryAssociationToSession();
     }
 
     /**
@@ -140,6 +177,7 @@ class Plugin extends PluginBase
             \Csatar\Csatar\Components\CheckScoutStatus::class => 'checkScoutStatus',
             \Csatar\Csatar\Components\CreateFrontendAccounts::class => 'createFrontendAccounts',
             \Csatar\Csatar\Components\OrganizationUnitFrontend::class => 'organizationUnitFrontend',
+            \Csatar\Csatar\Components\CsatarGallery::class => 'csatargallery',
         ];
     }
 
@@ -187,5 +225,21 @@ class Plugin extends PluginBase
             ];
 
         });
+    }
+
+    public function saveGuestMandateTypeIdsForEveryAssociationToSession(){
+
+        if(empty(Session::get('guest.mandateTypeIds'))) {
+            $associationIds = Association::all()->pluck('id');
+
+            if(empty($associationIds)){
+                return;
+            }
+
+            foreach($associationIds as $associationId){
+                MandateType::getGuestMandateTypeIdInAssociation($associationId);
+            }
+        }
+
     }
 }

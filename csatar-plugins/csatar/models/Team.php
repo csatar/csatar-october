@@ -102,14 +102,32 @@ class Team extends OrganizationBase
      */
 
     public $belongsTo = [
-        'district' => '\Csatar\Csatar\Models\District',
+        'district' => [
+            '\Csatar\Csatar\Models\District',
+            'formBuilder' => [
+                'requiredBeforeRender' => true,
+            ],
+            'label' => 'csatar.csatar::lang.plugin.admin.district.district',
+        ],
     ];
 
     public $hasMany = [
-        'troops' => '\Csatar\Csatar\Models\Troop',
-        'patrols' => '\Csatar\Csatar\Models\Patrol',
-        'scouts' => '\Csatar\Csatar\Models\Scout',
-        'teamReports' => '\Csatar\Csatar\Models\TeamReport',
+        'troops' => [
+            '\Csatar\Csatar\Models\Troop',
+            'label' => 'csatar.csatar::lang.plugin.admin.troop.troops',
+        ],
+        'patrols' => [
+            '\Csatar\Csatar\Models\Patrol',
+            'label' => 'csatar.csatar::lang.plugin.admin.patrol.patrols',
+        ],
+        'scouts' => [
+            '\Csatar\Csatar\Models\Scout',
+            'label' => 'csatar.csatar::lang.plugin.admin.scout.scouts',
+        ],
+        'teamReports' => [
+            '\Csatar\Csatar\Models\TeamReport',
+            'label' => 'csatar.csatar::lang.plugin.admin.teamReport.teamReports',
+        ],
         'mandates' => [
             '\Csatar\Csatar\Models\Mandate',
             'key' => 'mandate_model_id',
@@ -147,7 +165,11 @@ class Team extends OrganizationBase
     }
 
     public $morphOne = [
-        'content_page' => ['\Csatar\Csatar\Models\ContentPage', 'name' => 'model']
+        'content_page' => [
+            '\Csatar\Csatar\Models\ContentPage',
+            'name' => 'model',
+            'label' => 'csatar.csatar::lang.plugin.admin.general.contentPage',
+        ]
     ];
 
     /**
