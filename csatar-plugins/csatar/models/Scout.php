@@ -434,7 +434,10 @@ class Scout extends OrganizationBase
         $scoutMandates = $this->mandates()
             ->whereIn('mandate_type_id', $mandateTypeIdsInAssociation)
             ->where('start_date', '<=', date('Y-m-d H:i'))
-            ->where('end_date', '>=', date('Y-m-d H:i'))
+            ->where(function ($query) {
+                $query->whereNull('end_date')
+                      ->orWhere('end_date', '>=', date('Y-m-d H:i'));
+            })
             ->get();
 
         if(empty($sessionRecord)){
@@ -480,7 +483,14 @@ class Scout extends OrganizationBase
     }
 
     public function getMandatesForOrganization(PermissionBasedAccess $organization) {
-        return $this->getMandatesInAssociation($organization->getAssociationId(), $this->updated_at);
+        return $this->mandates()
+            ->where('mandate_model_id', $organization->id)
+            ->where('start_date', '<=', date('Y-m-d H:i'))
+            ->where(function ($query) {
+                $query->whereNull('end_date')
+                    ->orWhere('end_date', '>=', date('Y-m-d H:i'));
+            })
+            ->get();
     }
 
     public function saveMandateTypeIdsForEveryAssociationToSession(){
