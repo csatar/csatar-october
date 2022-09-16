@@ -54,13 +54,15 @@
         {% partial __SELF__ ~ '::galleryCover' gallery=child permision_to_edit=permission_to_edit %}
     {% endfor %}
 </div>
-<div class="row">
-    <form data-request="onOpenCreateForm">
-        <input type="hidden" name="parent_id" value="{{ gallery.id }}">
-        <button
-            type="submit"
-            class="btn btn-sm rounded btn-primary">
-            {{ 'Új galléria' | _ }}
-        </button>
-    </form>
-</div>
+{% if permission_to_edit %}
+    <div class="row">
+        <form data-request="onOpenCreateForm">
+            <input type="hidden" name="parent_id" value="{{ gallery.id }}">
+            <button
+                type="submit"
+                class="btn btn-sm rounded btn-primary">
+                {{ 'Új galléria' | _ }}
+            </button>
+        </form>
+    </div>
+{% endif %}
