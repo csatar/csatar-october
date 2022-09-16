@@ -270,6 +270,7 @@ trait AjaxControllerSimple {
                 $this->getConfig($record->belongsToMany[$relationName][0], 'fieldsPivot.yaml');
             $attributeNames = [];
             foreach ($pivotConfig->fields as $key => $value) {
+                $key = str_replace(']', '', str_replace('pivot[', '', $key));
                 $attributeNames[$key] = Lang::get($value['label']);
             }
 
