@@ -45,6 +45,7 @@ class TestData extends Seeder
             'Zergék',
             'Orchideák',
         ],
+        'contactFormSettings',
     ];
 
     public function run()
