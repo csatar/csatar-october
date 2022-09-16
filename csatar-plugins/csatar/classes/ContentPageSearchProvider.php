@@ -26,7 +26,7 @@ class ContentPageSearchProvider extends ResultsProvider
         // Create a new Result for every match
         foreach ($matching as $match) {
             $result            = $this->newResult();
-            $model = strtolower(('\\'.$match->model_type)::getOrganizationTypeModelNameUserFriendly());
+            $model = str_slug(('\\'.$match->model_type)::getOrganizationTypeModelNameUserFriendly());
 
             $result->relevance = 1;
             $result->title     = $match->title;
