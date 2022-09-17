@@ -92,14 +92,14 @@ trait ManagesUploads {
 
     private function validateUpload($model_field) {
 
-        if(array_key_exists($model_field, $this->record->rules)){
+        if (isset($this->record->rules[$model_field])) {
             $validationRules = $this->record->rules[$model_field];
         } else {
             $validationRules = ['max:' . (string) file_upload_max_size()];
         }
 
         $attributeNames = [];
-        if(array_key_exists($model_field, $this->record->attributeNames)){
+        if (isset($this->record->attributeNames[$model_field])) {
             $attributeNames['file_data'] = $this->record->attributeNames[$model_field];
         }
 

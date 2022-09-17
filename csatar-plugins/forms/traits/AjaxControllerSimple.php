@@ -270,6 +270,7 @@ trait AjaxControllerSimple {
                 $this->getConfig($record->belongsToMany[$relationName][0], 'fieldsPivot.yaml');
             $attributeNames = [];
             foreach ($pivotConfig->fields as $key => $value) {
+                $key = str_replace(']', '', str_replace('pivot[', '', $key));
                 $attributeNames[$key] = Lang::get($value['label']);
             }
 
@@ -662,10 +663,10 @@ trait AjaxControllerSimple {
         $tableHeaderRow = '<div class="tr d-none d-lg-block">';
         $tableHeaderRow .= '<div class="card csat-resp-gdtable csat-border-lg-none">';
         $tableHeaderRow .= '<div class="row">';
-        if(!$this->readOnly){
+        if(!$this->readOnly){ //this is the checkbox column header
             $tableHeaderRow .=
                 '
-                <div class="col-6 col-lg">
+                <div class="col-6 col-lg-1">
                     <div class="th-grid"></div>
                 </div>
                 ';
@@ -725,7 +726,7 @@ trait AjaxControllerSimple {
             $tableRows .= '<div class="card csat-resp-gdtable csat-border-lg-none">';
             $tableRows .= '<div class="row">';
             if (!$this->readOnly) {
-                $tableRows .= '<div class="col-6 col-lg">';
+                $tableRows .= '<div class="col-6 col-lg-1">';
                 $tableRows .= '<p class="td label d-block d-lg-none">' . Lang::get('csatar.forms::lang.components.basicForm.select') . '</p> ';
                 $tableRows .= '<p class="td">';
                 $tableRows .= '<input type="checkbox" name="data[' . $relationName . '][]" value="' . $relatedRecord->id . '">';

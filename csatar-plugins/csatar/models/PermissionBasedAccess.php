@@ -21,7 +21,6 @@ class PermissionBasedAccess extends Model
      */
     public function isOwnModel($scout)
     {
-
         $mandates = $scout->getMandatesForOrganization($this);
         return count($mandates) > 0;
     }
