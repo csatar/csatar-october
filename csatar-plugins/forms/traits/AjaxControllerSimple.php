@@ -101,10 +101,13 @@ trait AjaxControllerSimple {
         $this->widget = new \Backend\Widgets\Form($this, $config);
 
         $this->loadBackendFormWidgets();
-
-        $html = $this->widget->render(['preview' => $preview]);
+        
         if (!$preview){
+            $html = $this->widget->render(['preview' => $preview]);
             $html .= $this->renderValidationTags($record);
+        }
+        else {
+            $html = $this->renderViewMode($this->widget);
         }
 
         $html .= $this->renderBelongsToManyWithPivotDataAndHasManyRelations($record);
@@ -121,6 +124,117 @@ trait AjaxControllerSimple {
         ];
 
         return $this->renderPartial('@partials/form', $variablesToPass);
+    }
+
+    public function renderViewMode($widget)
+    {
+        $mainCardVariablesToPass = [];
+        $sheetCardVariablesToPass = [];
+        $fieldsToPass = [];
+        
+        // gather all cards and fields in arrays
+        foreach ($widget->fields as $key => $field) {
+            // if no formBuilder data is set; or if any of the mandatory formBuilder attributes are not set, then continue
+            if (!isset($field->formBuilder) || !isset($field->formBuilder->type)) {
+                continue;
+            }
+
+            // gather all cards and fields in arrays
+            if ($field->formBuilder->type == 'card') {
+                if ($field->formBuilder->position == 'main') {
+                    $mainCardVariablesToPass->name = $key;
+                    $mainCardVariablesToPass->class = $field->formBuilder->class;
+                }
+                else if ($field->formBuilder->position == 'sheets') {
+                    $sheetCardVariablesToPass->{$key} = [];
+                    $sheetCardVariablesToPass->{$key}->name = $key;
+                    $sheetCardVariablesToPass->{$key}->class = $field->formBuilder->class;
+                    $sheetCardVariablesToPass->{$key}->color = $field->formBuilder->color;
+                    $sheetCardVariablesToPass->{$key}->order = $field->formBuilder->order;
+                }
+            }
+            else if ($field->formBuilder->type == 'field') {
+                if (!isset($field->formBuilder->card)) {
+                    continue;
+                }
+                if (!isset($fieldsToPass->{$field->formBuilder->card})) {
+                    $fieldsToPass->{$field->formBuilder->card} = [];
+                }
+                $fieldsToPass->{$field->formBuilder->card}->label = $field->label;
+                $fieldsToPass->{$field->formBuilder->card}->value = $widget->model->attributes->{$key} ?? '-';
+                $fieldsToPass->{$field->formBuilder->card}->position = $field->formBuilder->position;
+                $fieldsToPass->{$field->formBuilder->card}->order = $field->formBuilder->order;
+            }
+        }
+
+        // sort the sheets
+        $this->sortArrayByOrder($sheetCardVariablesToPass);
+
+        // set the appropriate field array for each of the cards
+        foreach ($fieldsToPass as $key => $fields) {
+            if ($key == $mainCardVariablesToPass->name) {
+                $titleFields = [];
+                $mainCardVariablesToPass->subtitleFields = [];
+                $mainCardVariablesToPass->fields = [];
+
+                // gather the fields by position
+                foreach ($fields as $field) {
+                    if ($field->position == 'image') {
+
+                    }
+                    else if ($field->position == 'title') {
+                        array_push($titleFields, $field);
+                    }
+                    else if ($field->position == 'subtitle') {
+                        array_push($mainCardVariablesToPass->subtitleFields, $field);
+                    }
+                    else if ($field->position == 'details') {
+                        array_push($mainCardVariablesToPass->fields, $field);
+                    }
+                }
+
+                // sort the title fields and create the title
+                $this->sortArrayByOrder($titleFields);
+                $mainCardVariablesToPass->title = '';
+                foreach ($titleFields as $field) {
+                    $mainCardVariablesToPass->title .= $field->value . ' ';
+                }
+
+                // sort the subtitle fields
+                $this->sortArrayByOrder($mainCardVariablesToPass->subtitleFields);
+
+                // sort the fields array
+                $this->sortArrayByOrder($mainCardVariablesToPass->fields);
+            }
+            else if (isset($sheetCardVariablesToPass->{$key})) {
+                $this->sortArrayByOrder($fields);
+                $sheetCardVariablesToPass->{$key}->fields = $fields;
+            }
+        }
+
+        // render the main card
+        $html = $this->renderPartial('@partials/mainCard', $mainCardVariablesToPass);
+        
+        // render the sheets
+        foreach ($sheetCardVariablesToPass as $sheet) {
+            $html .= $this->renderPartial('@partials/sheetCard', $sheet);
+        }
+
+        // return the html
+        return $html;
+    }
+
+    private function sortArrayByOrder(&$array)
+    {
+        for ($i = 0; $i < count($array) - 1; ++$i) {
+            for ($i = 1; $j < count($array); ++$j) {
+                if ($array[$i]->order > $array[$j]->order) {
+                    $v = $array[$i];
+                    $array[$i] = $array[$j]
+                    $array[$j] = $v;
+                }
+            }
+        }
     }
 
     public function onAddPivotRelation(){
