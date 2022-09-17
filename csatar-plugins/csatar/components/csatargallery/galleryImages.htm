@@ -6,48 +6,57 @@
         <button
             type="submit"
             class="btn btn-sm rounded btn-light">
+            <i class="csat-directionleft-fill-sm"></i>
             {{ 'Vissza' | _ }}
         </button>
     </form>
 </div>
 
-<h2>{{ gallery.name }}</h2>
 <div>
-    {{ gallery.description }}
+    <h4 class="text-primary mb-0">{{ gallery.name }}</h4>
+    <p class="p-gallery text-subtitle p-2">{{ gallery.description }}</p>
 </div>
 
+<div class="card rounded bg-light p-3 mb-3">
+<div class="d-flex flex-wrap justify-content-center">
 {% for image in gallery.images %}
-<div class="col-12 col-sm-6 col-md-4 col-lg-3 mx-auto">
-    <a class="colorbox" data-fancybox="gallery" href="{{ image.path }}" title="{{image.title}}">
-        <img src="{{ image.path }}"  class="fr-fic fr-dib p-2 w-100 pe-auto">
-    </a>
-</div>
+    <div>
+        <a class="colorbox" data-fancybox="gallery" href="{{ image.path }}" title="{{image.title}}">
+            <img src="{{ image.path }}"  class="fr-fic fr-dib img-fluid csat-gallery-img m-1">
+        </a>
+    </div>
 {% endfor %}
+</div>
+</div>
 
 {% if permission_to_edit %}
-<div>
-    <div class="text-left">
+<div class="d-flex justify-content-center">
+    <div class="px-1">
         <form data-request="onOpenEditForm">
             <input type="hidden" name="gallery_id" value="{{ gallery.id }}">
             <button
                 type="submit"
                 class="btn btn-sm rounded btn-primary">
+                <i class="csat-edit-fill-wh-sm"></i>
                 {{ 'Módosít' | _ }}
             </button>
         </form>
     </div>
-    <div class="text-right">
+    <div class="px-1">
         <form data-request="onDeleteGallery">
             <input type="hidden" name="gallery_id" value="{{ gallery.id }}">
             <button
                 type="submit"
                 class="btn btn-sm rounded btn-danger">
+                <i class="csat-binclosed-out-wh-sm"></i>
                 {{ 'Töröl' | _ }}
             </button>
         </form>
     </div>
 </div>
 {% endif %}
+
+<hr class="hr-single bg-gray">
 
 <div class="row">
     {% for child in childGalleries %}
@@ -60,7 +69,8 @@
             <input type="hidden" name="parent_id" value="{{ gallery.id }}">
             <button
                 type="submit"
-                class="btn btn-sm rounded btn-primary">
+                class="btn btn-sm rounded btn-primary mt-2">
+                <i class="csat-gallery-add-out-wh-sm"></i>
                 {{ 'Új galléria' | _ }}
             </button>
         </form>
