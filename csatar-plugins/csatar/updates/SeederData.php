@@ -27,6 +27,7 @@ class SeederData extends Seeder
 {
     public const DATA = [
         'allergy' => [
+            'Nincs',
             'Ételintollerancia',
             'Ételallergiák',
             'Pollen alergia/Szénanátha',
