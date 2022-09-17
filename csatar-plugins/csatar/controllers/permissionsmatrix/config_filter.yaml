@@ -1,0 +1,93 @@
+scopes:
+
+    association:
+        type: group
+        label: 'csatar.csatar::lang.plugin.admin.association.association'
+        modelClass: Csatar\Csatar\Models\Association
+        conditions: csatar_csatar_mandate_types.association_id in (:filtered)
+        nameFrom: name
+        default:
+            5: 'Romániai Magyar Cserkészszövetség'
+
+    mandate:
+        label: 'csatar.csatar::lang.plugin.admin.mandate.mandate'
+        modelClass: Csatar\Csatar\Models\MandateType
+        conditions: csatar_csatar_mandates_permissions.mandate_type_id in (:filtered)
+        nameFrom: name
+        options: getMandateTypeOptions
+        dependsOn: association
+
+    model:
+        label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.model'
+        modelClass: Csatar\Csatar\Models\PermissionsMatrix
+        conditions: csatar_csatar_mandates_permissions.model in (:filtered)
+        nameFrom: organization_type_model_name
+        options: getModelOptions
+
+    field:
+        label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.field'
+        modelClass: Csatar\Csatar\Models\PermissionsMatrix
+        conditions: csatar_csatar_mandates_permissions.field in (:filtered)
+        nameFrom: organization_type_model_name
+        options: getFieldOptions
+        dependsOn: model
+
+    own:
+        label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.own'
+        type: group
+        conditions: own = (:filtered)
+        options:
+            1: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.own'
+            0: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.notOwn'
+
+#    obligatory:
+#        label: Obligatory
+#        type: switch
+#        conditions:
+#            - (csatar_csatar_mandates_permissions.obligatory != 1 OR 2fa.obligatory !=1 OR own.obligatory != 1)
+#            - (csatar_csatar_mandates_permissions.obligatory = 1 OR 2fa.obligatory =1 OR own.obligatory = 1)
+#
+#    read:
+#        label: Read
+#        type: switch
+#        conditions:
+#            - (csatar_csatar_mandates_permissions.read != 1 OR 2fa.read !=1 OR own.read != 1)
+#            - (csatar_csatar_mandates_permissions.read = 1 OR 2fa.read !=1 OR own.read != 1)
+#
+#    create:
+#        label: Create
+#        type: switch
+#        conditions:
+#            - (csatar_csatar_mandates_permissions.create != 1 OR 2fa.create !=1 OR own.create != 1)
+#            - (csatar_csatar_mandates_permissions.create = 1 OR 2fa.create !=1 OR own.create != 1)
+#
+#    update:
+#        label: Update
+#        type: switch
+#        conditions:
+#            - (csatar_csatar_mandates_permissions.update != 1 OR 2fa.update !=1 OR own.update != 1)
+#            - (csatar_csatar_mandates_permissions.update = 1 OR 2fa.update !=1 OR own.update != 1)
+#
+#    delete:
+#        label: Delete
+#        type: switch
+#        conditions:
+#            - (csatar_csatar_mandates_permissions.delete != 1 OR 2fa.update !=1 OR own.update != 1)
+#            - (csatar_csatar_mandates_permissions.delete =1 OR 2fa.update !=1 OR own.update != 1)
+#    own:
+#        label: Own
+#        type: switch
+#        conditions:
+#            - own.own != 1
+#            - own.own = 1
+#
+#    2fa:
+#        label: 2fa
+#        type: switch
+#        conditions:
+#            - 2fa.2fa != 1
+#            - 2fa.2fa = 1
+
+#    clear:
+#        label: Clear Filters
+#        type: clear

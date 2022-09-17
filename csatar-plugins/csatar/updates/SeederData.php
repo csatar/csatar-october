@@ -1,6 +1,6 @@
 <?php namespace Csatar\Csatar\Updates;
 
-use Seeder;
+use Csatar\Csatar\Models\AgeGroup;
 use Csatar\Csatar\Models\Allergy;
 use Csatar\Csatar\Models\Association;
 use Csatar\Csatar\Models\ChronicIllness;
@@ -11,20 +11,23 @@ use Csatar\Csatar\Models\Hierarchy;
 use Csatar\Csatar\Models\LeadershipQualification;
 use Csatar\Csatar\Models\LegalRelationship;
 use Csatar\Csatar\Models\MandateType;
+use Csatar\Csatar\Models\PermissionBasedAccess;
 use Csatar\Csatar\Models\ProfessionalQualification;
 use Csatar\Csatar\Models\Promise;
 use Csatar\Csatar\Models\Religion;
 use Csatar\Csatar\Models\SpecialDiet;
 use Csatar\Csatar\Models\SpecialTest;
 use Csatar\Csatar\Models\TShirtSize;
-use Csatar\Forms\Models\Form;
 use Csatar\Csatar\Models\Training;
-use Csatar\Csatar\Models\AgeGroup;
+use Csatar\Forms\Models\Form;
+use Seeder;
+use Db;
 
 class SeederData extends Seeder
 {
     public const DATA = [
         'allergy' => [
+            'Nincs',
             'Ételintollerancia',
             'Ételallergiák',
             'Pollen alergia/Szénanátha',
@@ -377,6 +380,15 @@ class SeederData extends Seeder
                 ],
             ],
         ],
+        'permissions' => [
+            'Horvátországi magyar cserkészek' => 'readPermissionForGuests',
+            'Kárpátaljai Magyar Cserkészszövetség' => 'readPermissionForGuests',
+            'Külföldi Magyar Cserkészszövetség' => 'readPermissionForGuests',
+            'Magyar Cserkészszövetség' => 'readPermissionForGuests',
+            'Romániai Magyar Cserkészszövetség' => ['allPermissionsForScout', 'readPermissionForGuests'],
+            'Szlovákiai Magyar Cserkészszövetség' => 'readPermissionForGuests',
+            'Vajdasági Magyar Cserkészszövetség' => 'readPermissionForGuests',
+        ],
         'contactSettings' => [
             'offices' => [
                 [
@@ -390,6 +402,9 @@ class SeederData extends Seeder
             'bank_account' => 'RON: RO35 OTPV 2600 0116 2186 RO01',
             'email' => 'office[at]rmcssz.ro',
             'phone_numbers' => '+40 (723) 273 257',
+        ],
+        'sitesearchSettings' => [
+            'enabledOnOrgCMSpages'
         ],
     ];
 
@@ -631,5 +646,169 @@ class SeederData extends Seeder
             }
         }
         $contactSettings->save();
+
+        // add all permissions to scout mandate
+
+        $this->addAllPermissionsToScouts();
+
+        // add read permissions to guest mandate
+
+        $this->addReadPermissionsToGuests();
+
+        // seed site search plugin settings
+
+        $sitesearchSettings = '{"mark_results":"1","log_queries":"0","excerpt_length":"250","log_keep_days":365,"rainlab_blog_enabled":"0","rainlab_blog_label":"Blog","rainlab_blog_page":"403","rainlab_pages_enabled":"0","rainlab_pages_label":"Page","indikator_news_enabled":"0","indikator_news_label":"News","indikator_news_posturl":"\/news","octoshop_products_enabled":"0","octoshop_products_label":"","octoshop_products_itemurl":"\/product","snipcartshop_products_enabled":"0","snipcartshop_products_label":"","jiri_jkshop_enabled":"0","jiri_jkshop_label":"","jiri_jkshop_itemurl":"\/product","radiantweb_problog_enabled":"0","radiantweb_problog_label":"Blog","arrizalamin_portfolio_enabled":"0","arrizalamin_portfolio_label":"Portfolio","arrizalamin_portfolio_url":"\/portfolio\/project","vojtasvoboda_brands_enabled":"0","vojtasvoboda_brands_label":"Brands","vojtasvoboda_brands_url":"\/brand","responsiv_showcase_enabled":"0","responsiv_showcase_label":"Showcase","responsiv_showcase_url":"\/showcase\/project","graker_photoalbums_enabled":"0","graker_photoalbums_label":"PhotoAlbums","graker_photoalbums_album_page":"403","graker_photoalbums_photo_page":"403","cms_pages_enabled":"0","cms_pages_label":"Page"}';
+
+        Db::table('system_settings')
+          ->updateOrInsert(
+              ['item' => 'offline_sitesearch_settings'],
+              ['value' => $sitesearchSettings],
+          );
+    }
+
+    public function addAllPermissionsToScouts() {
+        $associationId = Association::where('name_abbreviation', 'RMCSSZ')->first()->id ?? null;
+
+        if(empty($associationId)) return;
+
+        $permissionBasedModels = PermissionBasedAccess::getAllChildClasses(); //get every model that needs permissions
+        $scoutMandateTypeId = Db::table('csatar_csatar_mandate_types')->select('id')
+            ->where('association_id', $associationId)
+            ->where('organization_type_model_name', '\Csatar\Csatar\Models\Scout')
+            ->first()->id; //get scout mandate type id
+
+        if(empty($permissionBasedModels) || empty($scoutMandateTypeId)) return;
+
+        foreach ($permissionBasedModels as $permissionBasedModel) {
+            if($permissionBasedModel == MandateType::MODEL_NAME_GUEST) return;
+
+            $model = new $permissionBasedModel();
+            $fields = $model->fillable ?? [];
+            $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'hasOne', 'morphTo', 'morphOne',
+                'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'];
+
+            foreach ($relationArrays as $relationArray){
+                $fields = array_merge($fields, array_keys($model->$relationArray));
+            }
+
+            $this->filterFieldsForRealtionKeys($fields);
+            //add permission for the model in general
+            Db::table('csatar_csatar_mandates_permissions')
+                ->updateOrInsert(
+                    [ 'mandate_type_id' => $scoutMandateTypeId, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 0],
+                    [
+                        'create'        => 2,
+                        'read'          => 2,
+                        'update'        => 2,
+                        'delete'        => 2,
+                    ]
+                );
+
+            //add permission for the model in general for own
+            Db::table('csatar_csatar_mandates_permissions')
+                ->updateOrInsert(
+                    [ 'mandate_type_id' => $scoutMandateTypeId, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 1],
+                    [
+                        'create'        => 2,
+                        'read'          => 2,
+                        'update'        => 2,
+                        'delete'        => 2,
+                    ]
+                );
+
+
+            //add permission for each attribute for general, own
+
+            foreach ($fields as $field) {
+                //add permission for the model->field
+                Db::table('csatar_csatar_mandates_permissions')
+                    ->updateOrInsert(
+                        [ 'mandate_type_id' => $scoutMandateTypeId, 'model' => $permissionBasedModel, 'field' => $field, 'own' => 0],
+                        [
+                            'create'        => 2,
+                            'read'          => 2,
+                            'update'        => 2,
+                            'delete'        => 2,
+                        ]
+                    );
+
+                //add permission for the model->field for own
+                Db::table('csatar_csatar_mandates_permissions')
+                    ->updateOrInsert(
+                        [ 'mandate_type_id' => $scoutMandateTypeId, 'model' => $permissionBasedModel, 'field' => $field, 'own' => 1],
+                        [
+                            'create'        => 2,
+                            'read'          => 2,
+                            'update'        => 2,
+                            'delete'        => 2,
+                        ]
+                    );
+            }
+        }
+
+    }
+
+    public function addReadPermissionsToGuests() {
+        $associationIds = Association::all()->pluck('id')->toArray();
+        $permissionBasedModels = PermissionBasedAccess::getAllChildClasses(); //get every model that needs permissions
+
+        foreach ($associationIds as $associationId) {
+            $guestMandateTypeId = Db::table('csatar_csatar_mandate_types')->select('id')
+                ->where('association_id', $associationId)
+                ->where('organization_type_model_name', 'GUEST')
+                ->first()->id; //get guest mandate type id
+
+            if(empty($permissionBasedModels) || empty($guestMandateTypeId)) return;
+
+            foreach ($permissionBasedModels as $permissionBasedModel) {
+
+                $model = new $permissionBasedModel();
+                $fields = $model->fillable ?? [];
+                $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'hasOne', 'morphTo', 'morphOne',
+                    'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'];
+
+                foreach ($relationArrays as $relationArray){
+                    $fields = array_merge($fields, array_keys($model->$relationArray));
+                }
+
+                $this->filterFieldsForRealtionKeys($fields);
+
+                //add permission for the model in general
+                Db::table('csatar_csatar_mandates_permissions')
+                    ->updateOrInsert(
+                        [ 'mandate_type_id' => $guestMandateTypeId, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 0],
+                        [
+                            'read'          => 2,
+                        ]
+                    );
+
+                //add permission for each attribute
+
+                foreach ($fields as $field) {
+                    //add permission for the model->field
+                    Db::table('csatar_csatar_mandates_permissions')
+                        ->updateOrInsert(
+                            [ 'mandate_type_id' => $guestMandateTypeId, 'model' => $permissionBasedModel, 'field' => $field, 'own' => 0],
+                            [
+                                'read'          => 2,
+                            ]
+                        );
+                }
+            }
+
+        }
+    }
+
+    public function filterFieldsForRealtionKeys(&$fields) {
+        // filters the $fields array to remove relation key field, if relation field exists
+        // for example removes: "currency_id" field if there is "currency" field in the array
+        foreach ($fields as $key => $field) {
+            if (substr($field, -3) === '_id') {
+                $relationField = str_replace('_id', '', $field);
+                if (in_array($relationField, $fields)) {
+                    unset($fields[$key]);
+                }
+            }
+        }
     }
 }

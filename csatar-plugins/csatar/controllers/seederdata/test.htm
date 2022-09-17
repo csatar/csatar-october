@@ -4,15 +4,10 @@
     <ul>
         <?php
             foreach ($testData as $key => $value) {
-                if (array_key_exists(0, $value) && !is_array($value[0])) {
+                if (is_array($value) && array_key_exists(0, $value) && !is_array($value[0])) {
                     echo '<li>' . e(trans('csatar.csatar::lang.plugin.admin.' . $key . '.' . $key)) . ': ' . implode(', ', $value) . '</li>';
-                } elseif ($key == 'permissions') {
-                    echo '<li>' . e(trans('csatar.csatar::lang.plugin.admin.' . $key . '.' . $key)) . ': </li>';
-                    echo '<ul>';
-                    foreach ($value as $key => $permissions) {
-                        echo '<li>' . $key . ': ' . e(trans('csatar.csatar::lang.plugin.admin.permissions.' . $permissions)) . '</li>';
-                    }
-                    echo '</ul>';
+                } else {
+                    echo '<li>' . e(trans('csatar.csatar::lang.plugin.admin.' . $value . '.' . $value)) . '</li>';
                 }
             }
         ?>

@@ -57,11 +57,19 @@ class District extends OrganizationBase
      */
 
     public $belongsTo = [
-        'association' => '\Csatar\Csatar\Models\Association',
+        'association' => [
+            '\Csatar\Csatar\Models\Association',
+            'formBuilder' => [
+                'requiredBeforeRender' => true,
+            ],
+        ],
     ];
 
     public $hasMany = [
-        'teams' => '\Csatar\Csatar\Models\Team',
+        'teams' => [
+            '\Csatar\Csatar\Models\Team',
+            'label' => 'csatar.csatar::lang.plugin.admin.team.teams',
+        ],
         'mandates' => [
             '\Csatar\Csatar\Models\Mandate',
             'key' => 'mandate_model_id',
@@ -77,7 +85,11 @@ class District extends OrganizationBase
     ];
 
     public $morphOne = [
-        'content_page' => ['\Csatar\Csatar\Models\ContentPage', 'name' => 'model']
+        'content_page' => [
+            '\Csatar\Csatar\Models\ContentPage',
+            'name' => 'model',
+            'label' => 'csatar.csatar::lang.plugin.admin.general.contentPage',
+        ],
     ];
 
     /**

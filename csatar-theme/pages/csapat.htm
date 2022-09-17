@@ -26,7 +26,7 @@ modelClass = "Csatar\Csatar\Models\Patrol"
 scope = "scopeTeamId"
 scopeValue = "{{ :id }}"
 displayColumn = "extendedName"
-noRecordsMessage = "No records found"
+noRecordsMessage = "backend::lang.list.no_records"
 detailsPage = "ors"
 detailsKeyColumn = "id"
 detailsUrlParameter = "id"
@@ -42,6 +42,10 @@ model_id = "{{ :id }}"
 
 [structure]
 level = 3
+model_name = "Team"
+model_id = "{{ :id }}"
+
+[csatargallery]
 model_name = "Team"
 model_id = "{{ :id }}"
 ==

@@ -1,5 +1,5 @@
 url = "/tag/:ecset_code/:action?"
-layout = "basicAuth"
+layout = "default"
 title = "Tag"
 
 [basicForm]
@@ -14,7 +14,33 @@ actionDeleteKeyword = "torles"
 localeTitle[en] = "Scout"
 localeTitle[hu] = "Tag"
 ==
+<?php
+public function onAcceptPersonalData(){
+    if (Auth::user()->scout->setPersonalDataAccepted()) {
+        return \Redirect::refresh();
+    }
+}
+?>
+==
 <div class="container">
+
+    {% set scout = this.controller.vars.basicForm.record %}
+
+    {% if user.scout.getRightsForModel(scout)['MODEL_GENERAL']['update'] > 0
+        and this.param.action == false
+        and this.param[this.controller.vars.basicForm.recordKeyParam] != this.controller.vars.basicForm.createRecordKeyword %}
+        <form action="/tag/{{ scout[basicForm.recordKeyParam] }}/{{ basicForm.actionUpdateKeyword }}" method="post">
+            <button type="submit" class="btn rounded btn-primary" value="{{ 'Tag módosítása' | _ }}"><i class="csat-useredit-fill-wh-md"></i></button>
+        </form>
+    {% endif %}
+
+    {% if user.scout.isOwnModel(scout) and not scout.isPersonalDataAccepted()
+        and this.param.action == false
+        and this.param[this.controller.vars.basicForm.recordKeyParam] != this.controller.vars.basicForm.createRecordKeyword %}
+        <form data-request="onAcceptPersonalData" data-request-loading>
+            <button type="submit" class="btn rounded btn-primary" value="{{ 'Személyes adataim jóváhagyása' | _ }}">{{ 'Személyes adataim jóváhagyása' | _ }}</button>
+        </form>
+    {% endif %}
 
     {% component 'basicForm' %}
 

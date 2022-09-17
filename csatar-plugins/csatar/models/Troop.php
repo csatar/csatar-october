@@ -41,12 +41,24 @@ class Troop extends OrganizationBase
      */
 
     public $belongsTo = [
-        'team' => '\Csatar\Csatar\Models\Team',
+        'team' => [
+            '\Csatar\Csatar\Models\Team',
+            'formBuilder' => [
+                'requiredBeforeRender' => true,
+            ],
+
+        ],
     ];
 
     public $hasMany = [
-        'patrols' => '\Csatar\Csatar\Models\Patrol',
-        'scouts' => '\Csatar\Csatar\Models\Scout',
+        'patrols' => [
+            '\Csatar\Csatar\Models\Patrol',
+            'label' => 'csatar.csatar::lang.plugin.admin.patrol.patrols',
+        ],
+        'scouts' => [
+            '\Csatar\Csatar\Models\Scout',
+            'label' => 'csatar.csatar::lang.plugin.admin.scout.scouts',
+        ],
         'mandates' => [
             '\Csatar\Csatar\Models\Mandate',
             'key' => 'mandate_model_id',
@@ -76,7 +88,11 @@ class Troop extends OrganizationBase
     }
 
     public $morphOne = [
-        'content_page' => ['\Csatar\Csatar\Models\ContentPage', 'name' => 'model']
+        'content_page' => [
+            '\Csatar\Csatar\Models\ContentPage',
+            'name' => 'model',
+            'label' => 'csatar.csatar::lang.plugin.admin.general.contentPage',
+        ],
     ];
 
     /**

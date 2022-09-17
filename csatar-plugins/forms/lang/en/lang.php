@@ -45,7 +45,8 @@
                     'formNotSelected'       => "Please select a form from the dropdown list. If the form you're looking for is not there, you need to create it in the Forms menu.",
                     'recordKeyNotSelected'  => "Record key parameter is not specified."
                 ],
-            ]
+            ],
+            'select' => 'Select',
         ],
     ],
     'widgets' => [
@@ -66,7 +67,7 @@
         'formNotFound'          => "The selected form doesn't exist, please check 'Basic Form' component settings on page: ",
         'noDataArray'           => 'Data array is missing. Check form validation and see how could this happen.',
         'canNotSaveValidated'   => 'Can not save validated data. Check form validation and see how could this happen.',
-        'noFiles'               => 'No files'
+        'noFiles'               => 'No files',
     ],
     'validation' => [
         'selectOptionBeforeNext' => 'Please select an option before you click next!',
@@ -74,4 +75,8 @@
     'success' => [
         'saved' => 'Data successfully saved...'
     ],
+    'failed' => [
+        'noPermissionToDeleteRecord' => 'You do not have permission to delete this record!',
+        'noPermissionForSomeFields' => 'Data was saved, but you do not have permission to update/delete some of the fields! Those fields were ignored, please contact system administrator.',
+    ]
 ];

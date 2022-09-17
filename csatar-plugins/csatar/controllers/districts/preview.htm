@@ -16,6 +16,9 @@
     <div class="layout-row">
         <?= $this->relationRender('mandates') ?>
     </div>
+    <div class="layout-row">
+        <?= $this->relationRender('galleries') ?>
+    </div>
 
 <?php else: ?>
     <p class="flash-message static error"><?= e($this->fatalError) ?></p>
