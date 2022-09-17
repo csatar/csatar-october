@@ -62,10 +62,19 @@ class PermissionsMatrix extends Model
         return $this->getTranslatedLabelForFiled($this->field, $this->model);
     }
 
+    public function getModelUserFriendlyAttribute()
+    {
+        return ($this->model)::getOrganizationTypeModelNameUserFriendly();
+    }
+
     public function getTranslatedLabelForFiled(string $field, string $model): string
     {
-        if ($model === self::MODEL_GENERAL_VALUE || $model === self::PALCEHOLDER_VALUE) {
+        if ($model === self::PALCEHOLDER_VALUE) {
             return '';
+        }
+
+        if ($field === self::MODEL_GENERAL_VALUE) {
+            return e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.' . self::MODEL_GENERAL_VALUE));
         }
 
         $translatedLabelsForFields = ($model)::getTranslatedAttributeNames($model);
@@ -126,6 +135,10 @@ class PermissionsMatrix extends Model
     }
 
     public function getModelOptions(){
-        return self::distinct()->orderBy('model', 'asc')->lists('model', 'model');
+        $modelOptions = self::distinct()->orderBy('model', 'asc')->lists('model', 'model');
+        array_walk($modelOptions, function (&$item) {
+            $item = ($item)::getOrganizationTypeModelNameUserFriendly();
+        });
+        return $modelOptions;
     }
 }

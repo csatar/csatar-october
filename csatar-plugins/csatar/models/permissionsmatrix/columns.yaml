@@ -7,12 +7,11 @@ columns:
         select: '(SELECT `name` FROM `csatar_csatar_mandate_types` WHERE `csatar_csatar_mandate_types`.`id` = `csatar_csatar_mandates_permissions`.`mandate_type_id`)'
     own:
         label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.own'
-        type: partial
+        type: switch
         path: ~/plugins/csatar/csatar/models/permissionsmatrix/_custom_cell.htm
     model:
         label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.model'
-        type: partial
-        path: ~/plugins/csatar/csatar/models/permissionsmatrix/_custom_cell.htm
+        displayFrom: model_user_friendly
     field:
         label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.field'
         displayFrom: translated_label

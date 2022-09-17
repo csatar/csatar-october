@@ -211,7 +211,10 @@ class Scout extends OrganizationBase
      * Relations
      */
     public $belongsTo = [
-        'user' => '\Rainlab\User\Models\User',
+        'user' => [
+            '\Rainlab\User\Models\User',
+            'label' => 'csatar.csatar::lang.plugin.admin.scout.user',
+        ],
         'legal_relationship' => '\Csatar\Csatar\Models\LegalRelationship',
         'special_diet' => '\Csatar\Csatar\Models\SpecialDiet',
         'religion' => '\Csatar\Csatar\Models\Religion',
