@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-303 - Changed gallery design
 - CS-229 - Replaced table to grid in form builder pivot relations
 - CS-167 - Added warning message and verification option for Scout to verify personal data
 - CS-68 - Added and extended Offline.SiteSearch Plugin
