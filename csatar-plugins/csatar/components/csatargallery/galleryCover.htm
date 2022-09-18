@@ -1,40 +1,53 @@
 {% set permission_to_edit = __SELF__.permission_to_edit %}
 
-<div class="col-3 text-center">
-    <h2>{{ gallery.name }}</h2>
-    <div>
-        {{ gallery.description }}
+<div class="col-12 col-md-6 col-lg-3 text-center mb-3">
+    <div class="card bg-light rounded text-center pt-3 h-100">
+        
+            <div class="card-header bg-light rounded border-0">
+                <h4 class="text-primary mb-0">{{ gallery.name }}</h4>      
+                <p class="p-gallery text-subtitle p-2">{{ gallery.description }}</p>
+            </div>
+
+            <div class="card-body mt-auto">
+                <form data-request="onOpenGallery">
+                    <input type="hidden" name="gallery_id" value="{{ gallery.id }}">
+                    <button class="bg-transparent border-0">
+                        <div class="d-flex justify-content-center align-items-center">
+                            <img class="csat-gallery-decor img-fluid" src="{{ 'assets/images/csat-gallery-cover-bg.webp' | theme }}" alt="">
+                            <img class="csat-gallery-cover img-fluid" src="{{ gallery.images[0].path }}" alt="">
+                        </div>
+                    </button>
+                </form>
+            </div>
+
+            <div class="card-footer bg-light rounded border-0">
+                {% if permission_to_edit %}        
+                <div class="d-flex justify-content-center">
+                    <div class="px-1">
+                        <form data-request="onOpenEditForm">
+                        <input type="hidden" name="gallery_id" value="{{ gallery.id }}">
+                        <button
+                            type="submit"
+                            class="btn btn-sm rounded btn-primary">
+                            <i class="csat-edit-fill-wh-sm"></i>
+                            {{ 'Módosít' | _ }}
+                        </button>
+                        </form>
+                    </div>
+                    <div class="px-1">
+                        <form data-request="onDeleteGallery">
+                            <input type="hidden" name="gallery_id" value="{{ gallery.id }}">
+                            <button
+                                type="submit"
+                                class="btn btn-sm rounded btn-danger">
+                                <i class="csat-binclosed-out-wh-sm"></i>
+                                {{ 'Töröl' | _ }}
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+        
     </div>
-    <div>
-        <form data-request="onOpenGallery">
-            <input type="hidden" name="gallery_id" value="{{ gallery.id }}">
-            <button class="bg-transparent border-0">
-                <img src="{{ gallery.images[0].path }}"  class="fr-fic fr-dib p-2 w-50 pe-auto">
-            </button>
-        </form>
-    </div>
-    {% if permission_to_edit %}
-    <div>
-        <div class="text-left">
-            <form data-request="onOpenEditForm">
-            <input type="hidden" name="gallery_id" value="{{ gallery.id }}">
-            <button
-                type="submit"
-                class="btn btn-sm rounded btn-primary">
-                {{ 'Módosít' | _ }}
-            </button>
-            </form>
-        </div>
-        <div class="text-right">
-            <form data-request="onDeleteGallery">
-                <input type="hidden" name="gallery_id" value="{{ gallery.id }}">
-                <button
-                    type="submit"
-                    class="btn btn-sm rounded btn-danger">
-                    {{ 'Töröl' | _ }}
-                </button>
-            </form>
-        </div>
-    </div>
-    {% endif %}
 </div>

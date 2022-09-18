@@ -49,6 +49,7 @@
                 'scouts' => 'Cserkészek',
                 'scoutData' => 'Cserkész adatai',
                 'userId' => 'Felhasználó azonosítója',
+                'user' => 'Felhasználói fiók',
                 'namePrefix' => 'Név előtag',
                 'familyName' => 'Családnév',
                 'givenName' => 'Keresztnév',
@@ -217,7 +218,8 @@
                     'execute' => 'Végrehajtás',
                     'executeAndClose' => 'Végrehajtás és bezárás',
                     'copySuccess' => 'Jogosultságok sikeresen átmásolva.',
-                    'deleteSuccess' => 'Jogosultságok törölve.'
+                    'deleteSuccess' => 'Jogosultságok törölve.',
+                    'MODEL_GENERAL' => 'ÁLTALÁNOS HOZZÁFÉRÉS',
                 ],
             ],
             'allergy' => [

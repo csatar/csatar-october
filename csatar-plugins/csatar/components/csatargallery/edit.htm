@@ -19,24 +19,34 @@
         <input type="file" name="images[]" accept="image/*" class="form-control rounded" multiple="multiple"><br>
 
     <!-- Existing files -->
-    <div class="row upload-files-container">
+    <div class="d-flex justify-content-center flex-wrap upload-files-container">
         {% for image in gallery.images %}
-        <div class="col-4 upload-object is-success" data-id="{{ image.id }}" data-path="{{ image.path }}">
-            <div class="icon-container">
-                <img src="{{ image.path }}" alt="" class="fr-fic fr-dib p-2 w-50 pe-auto"/>
-            </div>
-            <div class="info">
-                <h4 class="filename">
-                    <span data-dz-name>{{ image.file_name }}</span>
-                </h4>
-            </div>
-            <div class="meta">
-                <a
-                    href="javascript:;"
-                    class="upload-remove-button"
-                    data-request="onRemoveImage"
-                    data-request-data="file_id: {{ image.id }}, gallery_id: {{ gallery.id }}"
-                >&times;</a>
+        <div class="upload-object is-success mb-3" data-id="{{ image.id }}" data-path="{{ image.path }}">
+            <div class="bg-light rounded m-3  h-100">
+                
+                <div class="bg-light rounded px-2 border-0 position-absolute">
+                    <div class="meta">
+                        <a
+                            href="javascript:;"
+                            class="upload-remove-button"
+                            data-request="onRemoveImage"
+                            data-request-data="file_id: {{ image.id }}, gallery_id: {{ gallery.id }}"
+                        >&times;</a>
+                    </div>
+                </div>
+
+                <div>
+                    <img src="{{ image.path }}" alt="" class="fr-fic fr-dib csat-gallery-edit p-2">
+                </div>
+
+                <div>
+                    <div class="info">
+                        <p class="filename px-2">
+                            <span data-dz-name>{{ image.file_name }}</span>
+                        </p>
+                    </div>
+                </div>
+
             </div>
         </div>
         {% endfor %}
@@ -78,12 +88,14 @@
         <button
             type="submit"
             class="btn btn-sm rounded btn-primary">
+            <i class="csat-save-out-wh-sm"></i>
             {{ 'Mentés' | _ }}
         </button>
         <button
             type="submit"
             class="btn btn-sm rounded btn-light"
             data-request="onRefreshPage">
+            <i class="csat-denied-fill-sm"></i>
             {{ 'Mégse' | _ }}
         </button>
 {{ form_close() }}

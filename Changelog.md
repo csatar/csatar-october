@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- CS-247 - Added breadcrumb design
+
+## 1.3.0
+### 2022-09-18
+
+- CS-303 - Changed gallery design
 - CS-229 - Replaced table to grid in form builder pivot relations
 - CS-167 - Added warning message and verification option for Scout to verify personal data
 - CS-68 - Added and extended Offline.SiteSearch Plugin
@@ -30,6 +36,7 @@
 - CS-292 - Fix the server error shown on scout creation
 - CS-248 - Swap the images from the front page
 - CS-258 - Rename the accordions from the organization unit pages
+- CS-117 - Created gallery module
 
 ## 1.2.0
 ### 2022-08-24

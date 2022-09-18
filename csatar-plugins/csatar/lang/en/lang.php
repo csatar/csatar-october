@@ -49,6 +49,7 @@
                 'scouts' => 'Scouts',
                 'scoutData' => 'Scout data',
                 'userId' => 'User Id',
+                'user' => 'User Account',
                 'namePrefix' => 'Name prefix',
                 'familyName' => 'Family name',
                 'givenName' => 'Given name',
@@ -218,7 +219,8 @@
                     'execute' => 'Execute',
                     'executeAndClose' => 'Execute and close',
                     'copySuccess' => 'Permissions copied successfuly.',
-                    'deleteSuccess' => 'Permissions deleted successfuly.'
+                    'deleteSuccess' => 'Permissions deleted successfuly.',
+                    'MODEL_GENERAL' => 'GENERAL ACCESS',
                 ],
             ],
             'allergy' => [

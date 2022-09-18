@@ -86,7 +86,10 @@ class TeamReport extends PermissionBasedAccess
     public $belongsTo = [
         'team' => '\Csatar\Csatar\Models\Team',
         'spiritual_leader_religion' => '\Csatar\Csatar\Models\Religion',
-        'currency' => '\Csatar\Csatar\Models\Currency',
+        'currency' => [
+            '\Csatar\Csatar\Models\Currency',
+            'label' => 'csatar.csatar::lang.plugin.admin.teamReport.currency',
+        ],
     ];
 
     public $belongsToMany = [
@@ -95,6 +98,7 @@ class TeamReport extends PermissionBasedAccess
             'table' => 'csatar_csatar_team_reports_scouts',
             'pivot' => ['name', 'legal_relationship_id', 'leadership_qualification_id', 'ecset_code', 'membership_fee'],
             'pivotModel' => '\Csatar\Csatar\Models\TeamReportScoutPivot',
+            'label' => 'csatar.csatar::lang.plugin.admin.scout.scouts',
         ],
         'ageGroups' => [
             '\Csatar\Csatar\Models\AgeGroup',
@@ -200,5 +204,10 @@ class TeamReport extends PermissionBasedAccess
             return $ageGroups;
         }
         return [];
+    }
+
+    public static function getOrganizationTypeModelNameUserFriendly()
+    {
+        return Lang::get('csatar.csatar::lang.plugin.admin.teamReport.teamReport');
     }
 }

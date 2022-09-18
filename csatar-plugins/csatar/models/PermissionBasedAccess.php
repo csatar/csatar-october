@@ -126,14 +126,21 @@ class PermissionBasedAccess extends Model
         if ((is_array(self::$translatedAttributeNames) && !array_key_exists($organizationTypeModelName, self::$translatedAttributeNames)) ||
             !is_array(self::$translatedAttributeNames)
         ) {
-            $path = strtolower(str_replace('\\', DIRECTORY_SEPARATOR, plugins_path() . $organizationTypeModelName . '\\fields.yaml'));
-            $attributes = Yaml::parseFile($path);
-            foreach ($attributes['fields'] as $key => $attribute) {
+            $fields = strtolower(str_replace('\\', DIRECTORY_SEPARATOR, plugins_path() . $organizationTypeModelName . '\\fields.yaml'));
+            $columns = strtolower(str_replace('\\', DIRECTORY_SEPARATOR, plugins_path() . $organizationTypeModelName . '\\columns.yaml'));
+            $attributes = array_merge(Yaml::parseFile($fields)['fields'], Yaml::parseFile($columns)['columns']);
+            foreach ($attributes as $key => $attribute) {
                 self::$translatedAttributeNames[$organizationTypeModelName][$key] = Lang::get($attribute['label']);
             }
 
             // add labels from belongsTo->label
             $model = new $organizationTypeModelName();
+            foreach ($model->belongsTo as $realtionName => $relationData) {
+                if (is_array($relationData) && array_key_exists('label', $relationData)) {
+                    self::$translatedAttributeNames[$organizationTypeModelName][$realtionName] = Lang::get($relationData['label']);
+                }
+            }
+
             foreach ($model->belongsToMany as $realtionName => $relationData) {
                 if (is_array($relationData) && array_key_exists('label', $relationData)) {
                     self::$translatedAttributeNames[$organizationTypeModelName][$realtionName] = Lang::get($relationData['label']);
@@ -180,5 +187,10 @@ class PermissionBasedAccess extends Model
         }
 
         return $result;
+    }
+
+    public static function getOrganizationTypeModelNameUserFriendly()
+    {
+        return '';
     }
 }
