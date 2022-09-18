@@ -64,7 +64,10 @@ class PermissionsMatrix extends Model
 
     public function getModelUserFriendlyAttribute()
     {
-        return ($this->model)::getOrganizationTypeModelNameUserFriendly();
+        if (class_exists($this->model)) {
+            return ($this->model)::getOrganizationTypeModelNameUserFriendly();
+        }
+        return '';
     }
 
     public function getTranslatedLabelForFiled(string $field, string $model): string
