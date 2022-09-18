@@ -1122,6 +1122,13 @@ i {
     vertical-align: middle;
 }
 
+/* breadcrumb */
+
+.csat-breadcrumb {
+    content: url(../images/icons/csat-directionright-fill.svg);
+    height: 12px;    
+}
+
 /* CARDS, GRID */
 
 div.table.csat-grid > .tr {
@@ -1382,6 +1389,10 @@ textarea {
 
 .form-check-input {
     border: 2px solid #78863F;
+}
+
+.checkbox input[type=checkbox], .checkbox-inline input[type=checkbox], .radio input[type=radio], .radio-inline input[type=radio] {
+    border: 2px solid #78863F !important;
 }
 
 .form-check-input:invalid {
