@@ -36,7 +36,9 @@
                 'note' => 'Note',
                 'sortOrder' => 'Sort Order',
                 'contentPage' => 'Content Page',
-                'searchResult' => 'Search Result'
+                'searchResult' => 'Search Result',
+                'yes' => 'Yes',
+                'no' => 'No',
             ],
             'ageGroups' => [
                 'ageGroups' => 'Age Groups',

@@ -1,10 +1,10 @@
 <div class="{{ class }}">
     <div class="row">
         <div class="col">
-            <div class="{{ 'card shadow csat-data-card ' . color . ' mx-auto my-2' }}">
+            <div class="{{ 'card shadow csat-data-card ' ~ color ~ ' mx-auto my-2' }}">
                 <div class="card-body rounded">
                     <a href="#csat-data-birth-collapse" data-bs-toggle="collapse" aria-expanded="false" aria-controls="csat-data-birth-collapse">
-                        <img class="p-2" src="{{ 'assets/images/csat_data_card_deco.svg' | theme }}" alt="">
+                        <img class="p-2" src="{{ 'assets/images/csat_data_card_deco.svg' | theme }}" alt="" />
                     </a>
                     <p class="p-title">{{ name }}</p>
                     <hr>
@@ -20,3 +20,4 @@
             </div>
         </div>
     </div>
+</div>

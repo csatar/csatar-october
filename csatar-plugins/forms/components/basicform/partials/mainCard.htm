@@ -1,7 +1,11 @@
-<div class="{{ class }}">
+<div class="{{ 'col ' ~ class }}">
     <div class="my-2">
         <div class="d-flex justify-content-center pt-2 bg-white">
-            <img class="rounded-circle csat-data-profile-img" src="{{ 'assets/images/userimg_placeholder.webp' | theme }}" alt="">
+            {% if customImage == true %}
+                <img class="rounded-circle csat-data-profile-img" src="{{ image }}" alt="" />
+            {% else %}
+                <img class="rounded-circle csat-data-profile-img" src="{{ image | theme }}" alt="" />
+            {% endif %}
         </div>
 
         <div class="card csat-data-card csat-data-profile mx-auto">
@@ -14,12 +18,8 @@
             <p class="card-text text-white text-center"> </p>
             <div class="card-body rounded bg-light">
                 {% for field in fields %}
-                    <p class="p-bold mb-2 text-primary">{{ field.label }}<span class="text-black card-text">{{ field.value }}</span></p>
+                    <p class="p-bold mb-2 text-primary">{{ field.label ~ ': ' }}<span class="text-black card-text">{{ field.value }}</span></p>
                 {% endfor %}
-            </div>
-
-            <div class="card-body rounded bg-light mt-2">
-                <p class="p-bold mb-2 text-primary"> <span class="text-black card-text"> </span></p>
             </div>
         </div>
     </div>

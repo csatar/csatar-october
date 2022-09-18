@@ -37,6 +37,8 @@
                 'sortOrder' => 'Sorszám',
                 'contentPage' => 'Bemutatkozó oldal',
                 'searchResult' => 'Keresés eredménye',
+                'yes' => 'Igen',
+                'no' => 'Nem',
             ],
             'ageGroups' => [
                 'ageGroups' => 'Korosztályok',
