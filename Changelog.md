@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- CS-247 - Added breadcrumb design
+
 ## 1.3.0
 ### 2022-09-18
 
