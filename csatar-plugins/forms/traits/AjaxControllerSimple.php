@@ -76,7 +76,7 @@ trait AjaxControllerSimple {
 
         $config = $this->makeConfig($form->getFieldsConfig());
         //update field list and config based on currentUserRights
-        $config->fields = $this->applyUserRightsToForm($config->fields, empty($record->id), $preview);
+        $config->fields = $this->applyUserRightsToForm($config->fields, $preview, empty($record->id));
         $config->arrayName = 'data';
         $config->alias = $this->alias;
         $config->model = $record;
@@ -838,7 +838,7 @@ trait AjaxControllerSimple {
     /**
      * Applies rights to form fields config. Run before form render
      */
-    private function applyUserRightsToForm(array $attributesArray, bool $isNewRecord = false, bool $isReadOnly): array
+    private function applyUserRightsToForm(array $attributesArray, bool $isReadOnly, bool $isNewRecord = false): array
     {
         // NOTE:
         // In readOnly mode we do not care about create/update/delete rights.
