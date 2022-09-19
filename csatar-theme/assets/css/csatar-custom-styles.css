@@ -1306,8 +1306,8 @@ th, .th {
 }
 
 .th2, .th-grid {
-    border: 1px solid #99A56B;
-    background-color: #99A56B !important;
+    border: 1px solid #5BA3B3;
+    background-color: #5BA3B3 !important;
     color: white;
     font-weight: 400;
     font-size: calc(0.9rem + 0.2vw);
@@ -1352,6 +1352,11 @@ body > div.pika-single.is-bound > div > table > tbody > tr > td {
     background-color: #F5F5F5;
     border: none;
     padding: 0px;
+}
+
+.pika-lendar abbr {
+    color: #FFFFFF;
+    text-decoration: none;
 }
 
 /* FORMS */
