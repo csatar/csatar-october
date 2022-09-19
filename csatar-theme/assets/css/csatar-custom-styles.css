@@ -1207,6 +1207,11 @@ div.table.csat-grid > div.tr > div.card.csat-resp-gdtable > div.row > * > p.td {
     padding-top: 80px;
 }
 
+.csat-data-profile-no-image {
+    margin-top: 0 !important;
+    padding-top: 20px !important;
+}
+
 .csat-data-profile-sm {
     margin-top: -50px;
     padding-top: 50px;

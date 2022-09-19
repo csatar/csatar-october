@@ -132,10 +132,16 @@ trait AjaxControllerSimple {
                 }
                 else if ($field['formBuilder']['position'] == 'sheets') {
                     $sheetCardVariablesToPass[$key] = [];
-                    $sheetCardVariablesToPass[$key]['name'] = Lang::get($field['label']);
-                    $sheetCardVariablesToPass[$key]['class'] = $field['formBuilder']['class'];
-                    $sheetCardVariablesToPass[$key]['color'] = $field['formBuilder']['color'];
-                    $sheetCardVariablesToPass[$key]['order'] = $field['formBuilder']['order'];
+                    $sheetCardVariablesToPass[$key]['name'] = array_key_exists('label', $field) ? Lang::get($field['label']) : null;
+                    if (array_key_exists('class', $field['formBuilder'])) {
+                        $sheetCardVariablesToPass[$key]['class'] = $field['formBuilder']['class'];
+                    }
+                    if (array_key_exists('color', $field['formBuilder'])) {
+                        $sheetCardVariablesToPass[$key]['color'] = $field['formBuilder']['color'];
+                    }
+                    if (array_key_exists('order', $field['formBuilder'])) {
+                        $sheetCardVariablesToPass[$key]['order'] = $field['formBuilder']['order'];
+                    }
                 }
             }
             else if ($field['formBuilder']['type'] == 'field') {
@@ -171,7 +177,7 @@ trait AjaxControllerSimple {
                             }
                         }
                     }
-                    else if ($field['type'] == 'dropdown' && is_array($field['options']) && count($field['options']) > 0) { // dropdown fields
+                    else if ($field['type'] == 'dropdown' && array_key_exists('options', $field) && is_array($field['options']) && count($field['options']) > 0) { // dropdown fields
                         $value = Lang::get($field['options'][$widget->model->{$key}]);
                     }
                     else if ($field['type'] == 'checkbox') { // bool fields
@@ -260,6 +266,9 @@ trait AjaxControllerSimple {
     {
         foreach ($array as $i => $field) {
             foreach ($array as $j => $field) {
+                if (!array_key_exists('order', $array[$i]) || !array_key_exists('order', $array[$j])) {
+                    continue;
+                }
                 if ($array[$i]['order'] < $array[$j]['order']) {
                     $v = $array[$i];
                     $array[$i] = $array[$j];
@@ -515,7 +524,9 @@ trait AjaxControllerSimple {
         $attributeNames = [];
 
         foreach ($config->fields as $key => $value) {
-            $attributeNames[$key] = Lang::get($value['label']);
+            if ($value['type'] !== 'section') {
+                $attributeNames[$key] = Lang::get($value['label']);
+            }
         }
 
         $rules = $this->addRequiredRuleBasedOnUserRights($record->rules, $this->currentUserRights, $isNew);
@@ -707,7 +718,7 @@ trait AjaxControllerSimple {
         return $this->makeConfig($config);
     }
 
-    public function renderBelongsToManyWithPivotDataAndHasManyRelations($record, $showEmpty){
+    public function renderBelongsToManyWithPivotDataAndHasManyRelations($record, $showEmpty = true){
         $html = '<div class="row" id="pivotSection">';
 
         // render belongsToMany relations
@@ -725,12 +736,13 @@ trait AjaxControllerSimple {
         foreach($record->hasMany as $relationName => $definition) {
             if ($this->canRead($relationName)
                 && is_array($definition)
+                && (count($record->{$relationName}) > 0 || $showEmpty)
                 && ((!$record->id
                     && array_key_exists('renderableOnCreateForm', $definition)
                     && $definition['renderableOnCreateForm'])
-                || ($record->id
-                    && array_key_exists('renderableOnUpdateForm', $definition)
-                    && $definition['renderableOnUpdateForm']))) {
+                    || ($record->id
+                        && array_key_exists('renderableOnUpdateForm', $definition)
+                        && $definition['renderableOnUpdateForm']))) {
                 $pivotConfig = $this->getConfig($definition[0], 'columns.yaml');
                 $attributesToDisplay = $pivotConfig->columns;
                 $html .= $this->generatePivotSection($record, $relationName, $definition, $attributesToDisplay);

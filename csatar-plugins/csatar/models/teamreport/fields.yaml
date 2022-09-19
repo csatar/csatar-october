@@ -1,4 +1,12 @@
 fields:
+    teamReportData:
+        span: full
+        type: section
+        hidden: 1
+        formBuilder:
+            type: card
+            position: main
+            class: col-lg-4 col-md-6 col-sm-12
     team:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.team'
         span: auto
@@ -8,35 +16,79 @@ fields:
         required: 1
         readOnly: 1
         type: relation
+        formBuilder:
+            type: field
+            card: teamReportData
+            position: title
+    scoutingYearReportData:
+        label: 'csatar.csatar::lang.plugin.admin.teamReport.scouting_year_report'
+        span: full
+        type: section
+        hidden: 1
+        formBuilder:
+            type: card
+            position: sheets
+            class: col-lg-12 col-md-12 col-sm-12
+            color: csat-data-address
     scouting_year_report_team_camp:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.scouting_year_report_team_camp'
         size: ''
         span: auto
         required: 1
         type: textarea
+        formBuilder:
+            type: field
+            card: scoutingYearReportData
+            position: details
+            default: '-'
+            order: 1
     scouting_year_report_homesteading:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.scouting_year_report_homesteading'
         size: ''
         span: auto
         required: 1
         type: textarea
+        formBuilder:
+            type: field
+            card: scoutingYearReportData
+            position: details
+            default: '-'
+            order: 2
     scouting_year_report_programs:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.scouting_year_report_programs'
         size: ''
         span: auto
         required: 1
         type: textarea
+        formBuilder:
+            type: field
+            card: scoutingYearReportData
+            position: details
+            default: '-'
+            order: 3
     scouting_year_team_applications:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.scouting_year_team_applications'
         size: ''
         span: auto
         required: 1
         type: textarea
+        formBuilder:
+            type: field
+            card: scoutingYearReportData
+            position: details
+            default: '-'
+            order: 4
     spiritual_leader_name:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.spiritual_leader_name'
         span: auto
         required: 1
         type: text
+        formBuilder:
+            type: field
+            card: teamReportData
+            position: details
+            order: 1
+            default: '-'
     spiritual_leader_religion:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.spiritual_leader_religion_id'
         nameFrom: name
@@ -45,8 +97,20 @@ fields:
         span: auto
         required: 1
         type: relation
+        formBuilder:
+            type: field
+            card: teamReportData
+            position: details
+            order: 2
+            default: '-'
     spiritual_leader_occupation:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.spiritual_leader_occupation'
         span: auto
         required: 1
         type: text
+        formBuilder:
+            type: field
+            card: teamReportData
+            position: details
+            order: 3
+            default: '-'

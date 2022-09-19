@@ -415,6 +415,7 @@
                 'number_of_scout_patrols' => 'Cserkész őrsök száma',
                 'number_of_cub_scout_patrols' => 'Kiscserkész őrsök száma',
                 'number_of_mixed_patrols' => 'Vegyes őrsök száma',
+                'scouting_year_report' => 'Előző cserkérkészév beszámoló',
                 'scouting_year_report_team_camp' => 'Előző cserkérkészév beszámoló (csapat tábor)',
                 'scouting_year_report_homesteading' => 'Előző cserkérkészév beszámoló (tanyázás)',
                 'scouting_year_report_programs' => 'Előző cserkészév beszámoló (programok)',

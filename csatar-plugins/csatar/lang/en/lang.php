@@ -416,6 +416,7 @@
                 'number_of_scout_patrols' => 'Number of scout patrols',
                 'number_of_cub_scout_patrols' => 'Number of little scout patrols',
                 'number_of_mixed_patrols' => 'Number of mixed patrols',
+                'scouting_year_report' => 'Scouting year report',
                 'scouting_year_report_team_camp' => 'Scouting year report (team camp)',
                 'scouting_year_report_homesteading' => 'Scouting year report (homesteading)',
                 'scouting_year_report_programs' => 'Scouting year report (programs)',

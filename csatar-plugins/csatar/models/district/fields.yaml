@@ -1,4 +1,12 @@
 fields:
+    districtData:
+        span: full
+        type: section
+        hidden: 1
+        formBuilder:
+            type: card
+            position: main
+            class: col-lg-4 col-md-6 col-sm-12
     name:
         label: 'csatar.csatar::lang.plugin.admin.general.name'
         span: auto
@@ -10,55 +18,141 @@ fields:
         span: auto
         required: 1
         type: text
+        formBuilder:
+            type: field
+            card: districtData
+            position: details
+            order: 1
+            default: '-'
     phone:
         label: 'csatar.csatar::lang.plugin.admin.general.phone'
         span: auto
         required: 1
         type: text
+        formBuilder:
+            type: field
+            card: districtData
+            position: details
+            order: 2
+            default: '-'
     email:
         label: 'csatar.csatar::lang.plugin.admin.general.email'
         span: auto
         required: 1
         type: text
+        formBuilder:
+            type: field
+            card: districtData
+            position: details
+            order: 3
+            default: '-'
     website:
         label: 'csatar.csatar::lang.plugin.admin.district.website'
         span: auto
         type: text
+        formBuilder:
+            type: field
+            card: districtData
+            position: details
+            order: 4
+            default: '-'
     facebook_page:
         label: 'csatar.csatar::lang.plugin.admin.district.facebookPage'
         span: auto
         type: text
+        formBuilder:
+            type: field
+            card: districtData
+            position: details
+            order: 5
+            default: '-'
     coordinates:
         label: 'csatar.csatar::lang.plugin.admin.general.coordinates'
         size: ''
         span: auto
         type: textarea
+        formBuilder:
+            type: field
+            card: districtData
+            position: details
+            order: 6
+            default: '-'
     contact_name:
         label: 'csatar.csatar::lang.plugin.admin.district.contactName'
         span: auto
         required: 1
         type: text
+        formBuilder:
+            type: field
+            card: districtData
+            position: details
+            order: 7
+            default: '-'
     contact_email:
         label: 'csatar.csatar::lang.plugin.admin.general.contactEmail'
         span: auto
         required: 1
         type: text
+        formBuilder:
+            type: field
+            card: districtData
+            position: details
+            order: 8
+            default: '-'
+    leadershipPresentationData:
+        label: 'csatar.csatar::lang.plugin.admin.team.leadershipPresentation'
+        span: full
+        type: section
+        hidden: 1
+        formBuilder:
+            type: card
+            position: sheets
+            class: col-lg-12 col-md-12 col-sm-12
+            color: csat-data-address
+            order: 2
     leadership_presentation:
         label: 'csatar.csatar::lang.plugin.admin.district.leadershipPresentation'
         size: ''
         span: auto
         required: 1
         type: textarea
+        formBuilder:
+            type: field
+            card: leadershipPresentationData
+            position: details
+            default: '-'
+    descriptionData:
+        label: 'csatar.csatar::lang.plugin.admin.team.description'
+        span: full
+        type: section
+        hidden: 1
+        formBuilder:
+            type: card
+            position: sheets
+            class: col-lg-12 col-md-12 col-sm-12
+            color: csat-data-birth
+            order: 1
     description:
         label: 'csatar.csatar::lang.plugin.admin.district.description'
         size: ''
         span: auto
         required: 1
         type: textarea
+        formBuilder:
+            type: field
+            card: descriptionData
+            position: details
+            default: '-'
     bank_account:
         label: 'csatar.csatar::lang.plugin.admin.district.bankAccount'
         span: auto
         type: text
+        formBuilder:
+            type: field
+            card: districtData
+            position: details
+            order: 9
+            default: '-'
     logo:
         label: 'csatar.csatar::lang.plugin.admin.general.logo'
         mode: image
@@ -69,6 +163,11 @@ fields:
         maxFilesize: '5'
         span: auto
         type: fileupload
+        formBuilder:
+            type: field
+            card: districtData
+            position: image
+            default: 'assets/images/general_placeholder.png'
     association:
         label: 'csatar.csatar::lang.plugin.admin.district.association'
         nameFrom: extendedName
@@ -77,3 +176,8 @@ fields:
         span: auto
         required: 1
         type: relation
+        formBuilder:
+            type: field
+            card: districtData
+            position: subtitle
+            default: '-'
