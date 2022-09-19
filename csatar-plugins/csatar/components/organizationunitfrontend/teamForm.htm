@@ -34,6 +34,8 @@
     {% endfor %}
 </ul>
 
+<a href="/tagok" class="btn rounded btn-primary"><i class="csat-add-fill-wh-sm"></i> {{ 'Felhasználói fiók létrehozása'|_ }}</a>
+
 
 {% if permissions['patrols']['create'] > 0 %}
     <form action="/ors/letrehozas" method="post">
@@ -45,7 +47,7 @@
 {% if permissions['scouts']['create'] > 0 %}
     <form action="/tag/letrehozas" method="post">
         <input type="hidden" name="team" value="{{ team_id }}">
-        <button type="submit" class="btn rounded btn-primary" value="{{ 'Tag hozzáadása' | _ }}"><i class="csat-useradd-fill-wh-md"></i></button>
+        <button type="submit" class="btn rounded btn-primary" value="{{ 'Tag hozzáadása' | _ }}"><i class="csat-useradd-fill-wh-md"></i> {{ 'Tag hozzáadása' |_ }}</button>
     </form>
 {% endif %}
 
