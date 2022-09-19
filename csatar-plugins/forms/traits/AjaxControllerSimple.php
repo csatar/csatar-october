@@ -739,13 +739,11 @@ trait AjaxControllerSimple {
                 $tableRows .= '<p class="td label d-block d-lg-none">' . $label . '</p> ';
                 $tableRows .= '<p class="td">';
                 if (array_key_exists('isPivot', $data)) {
-                    $value = isset($relatedRecord->pivot->{$key}) ?
-                        $relatedRecord->pivot->{$key} :
-                        (is_object($relatedRecord->{$key}) ?
-                            $relatedRecord->{$key}->name :
-                            $relatedRecord->{$key});
+                    $value = $relatedRecord->pivot->{$key} ?? '';
                 } else {
-                    $value = $relatedRecord->{$key} ?? '';
+                    $value = (is_object($relatedRecord->{$key}) ?
+                        $relatedRecord->{$key}->name :
+                        $relatedRecord->{$key});
                 }
                 $tableRows .= $value;
                 $tableRows .= '</p></div>';
