@@ -30,11 +30,11 @@ function onStart()
                                     <ul class="dropdown-menu bg-primary">
                                         {% if user %}
                                         <li class="nav-item">
-                                            <a class="dropdown-item" href="/tag/{{ ecset_code}}">{{ 'Tagnyilvántartás' | _ }}</a>
+                                            <a class="dropdown-item" href="/csapat/{{ user.scout.team_id }}">{{ 'Tagnyilvántartás' | _ }}</a>
                                         </li>
                                         {% else %}
                                         <li class="nav-item">
-                                            <a class="dropdown-item" href="/tagok">{{ 'Tagnyilvántartás' | _ }}</a>
+                                            <a class="dropdown-item" href="/bejelentkezes">{{ 'Tagnyilvántartás' | _ }}</a>
                                         </li>
                                         {% endif %}
                                         <li>
