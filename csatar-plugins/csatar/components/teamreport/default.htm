@@ -6,6 +6,7 @@
             data-request="{{ __SELF__ }}::onSubmit"
             data-request-data="id: {{ __SELF__.id }}"
             data-request-loading="#fs-saving-loader">
+            <i class="csat-check-fill-wh-sm"></i>
             {{ 'Csapatjelentés beküldése'|_ }}
         </button>
     {% endif %}
@@ -15,6 +16,7 @@
             data-request="{{ __SELF__ }}::onApprove"
             data-request-data="id: {{ __SELF__.id }}, redirectFromWaitingForApproval: {{ __SELF__.redirectFromWaitingForApproval }}"
             data-request-loading="#fs-saving-loader">
+            <i class="csat-check-fill-wh-sm"></i>
             {{ 'Csapatjelentés jóváhagyása'|_ }}
         </button>
     {% endif %}
