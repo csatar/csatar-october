@@ -48,6 +48,17 @@ model_id = "{{ :id }}"
 [csatargallery]
 model_name = "Team"
 model_id = "{{ :id }}"
+
+[builderList builderList3]
+modelClass = "Csatar\Csatar\Models\Scout"
+scope = "scopeTeamId"
+scopeValue = "{{ :id }}"
+displayColumn = "getFullName()"
+noRecordsMessage = "backend::lang.list.no_records"
+detailsPage = "tag"
+detailsKeyColumn = "ecset_code"
+detailsUrlParameter = "ecset_code"
+pageNumber = "{{ :page }}"
 ==
 <?php
 public function onStart() {

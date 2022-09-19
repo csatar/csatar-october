@@ -416,6 +416,11 @@ class Scout extends OrganizationBase
         }
     }
 
+    public function scopeTeamId($query, $id)
+    {
+        return $query->where('team_id', $id);
+    }
+
     /*
      * Returns all the mandates scout has in a specific association
      */
