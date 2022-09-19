@@ -19,6 +19,7 @@ use Session;
 use System\Classes\PluginBase;
 use ValidationException;
 use Validator;
+use Csatar\Csatar\Classes\Validators\CnpValidator;
 
 /**
  * csatar Plugin Information File
@@ -159,6 +160,8 @@ class Plugin extends PluginBase
         });
 
         $this->saveGuestMandateTypeIdsForEveryAssociationToSession();
+
+        Validator::extend('cnp', CnpValidator::class);
     }
 
     /**
