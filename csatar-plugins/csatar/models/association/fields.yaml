@@ -153,4 +153,4 @@ fields:
             type: field
             card: associationData
             position: image
-            default: 'assets/images/general_placeholder.png'
+            default: 'assets/images/groupimg_placeholder.webp'

@@ -62,7 +62,7 @@ fields:
             type: field
             card: troopData
             position: image
-            default: 'assets/images/general_placeholder.png'
+            default: 'assets/images/groupimg_placeholder.webp'
     team:
         label: 'csatar.csatar::lang.plugin.admin.troop.team'
         nameFrom: extendedName
