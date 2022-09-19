@@ -7,7 +7,7 @@
 {% if permissions['troops']['create'] > 0 %}
     <form action="/raj/letrehozas" method="post">
         <input type="hidden" name="team" value="{{ team_id }}">
-        <input type="submit" class="btn rounded btn-primary" value="{{ 'Raj hozzáadása' | _ }}">
+        <button type="submit" class="btn rounded btn-primary" value="{{ 'Raj hozzáadása' | _ }}"><i class="csat-add-fill-wh-sm"></i> {{ 'Raj hozzáadása' | _ }}</button>
     </form>
 {% endif %}
 
@@ -18,7 +18,7 @@
 {% if permissions['patrols']['create'] > 0 %}
     <form action="/ors/letrehozas" method="post">
         <input type="hidden" name="team" value="{{ team_id }}">
-        <input type="submit" class="btn rounded btn-primary" value="{{ 'Őrs hozzáadása' | _ }}">
+        <button type="submit" class="btn rounded btn-primary" value="{{ 'Őrs hozzáadása' | _ }}"><i class="csat-add-fill-wh-sm"></i> {{ 'Őrs hozzáadása' | _ }}</button>
     </form>
 {% endif %}
 
@@ -31,7 +31,7 @@
 
 {% if permissions['teamReports']['read'] > 0 %}
     <form action="{{'/csapatjelentesek/' ~ team_id }}" method="post">
-        <input type="submit" class="btn rounded btn-primary" value="{{ 'Csapatjelentések' | _ }}">
+        <button type="submit" class="btn rounded btn-primary" value="{{ 'Csapatjelentések' | _ }}"><i class="csat-report-fill-wh-sm"></i> {{ 'Csapatjelentések' | _ }}</button>
     </form>
 {% endif %}
 
