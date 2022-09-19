@@ -64,7 +64,7 @@ fields:
         formBuilder:
             type: card
             position: main
-            class: col-lg-4 col-md-6 col-sm-12
+            class: col-lg-3 col-md-6 col-sm-12
     name_prefix:
         label: 'csatar.csatar::lang.plugin.admin.scout.namePrefix'
         span: auto
@@ -223,7 +223,7 @@ fields:
         formBuilder:
             type: card
             position: sheets
-            class: col-lg-6 col-md-12 col-sm-12
+            class: col-lg-4 col-md-12 col-sm-12
             color: csat-data-birth
             order: 1
     birthdate:
@@ -275,7 +275,7 @@ fields:
         formBuilder:
             type: card
             position: sheets
-            class: col-lg-6 col-md-12 col-sm-12
+            class: col-lg-4 col-md-12 col-sm-12
             color: csat-data-address
             order: 2
     address_country:
@@ -338,6 +338,34 @@ fields:
             card: addressData
             order: 6
             default: '-'
+    occupationData:
+        label: 'csatar.csatar::lang.plugin.admin.scout.sections.occupation'
+        span: full
+        type: section
+        formBuilder:
+            type: card
+            position: sheets
+            class: col-lg-4 col-md-12 col-sm-12
+            color: csat-data-occupation
+            order: 3
+    occupation:
+        label: 'csatar.csatar::lang.plugin.admin.scout.occupation'
+        span: auto
+        type: text
+        formBuilder:
+            type: field
+            card: occupationData
+            order: 1
+            default: '-'
+    workplace:
+        label: 'csatar.csatar::lang.plugin.admin.scout.workplace'
+        span: auto
+        type: text
+        formBuilder:
+            type: field
+            card: occupationData
+            order: 2
+            default: '-'
     mothersData:
         label: 'csatar.csatar::lang.plugin.admin.scout.sections.mothersData'
         span: full
@@ -347,7 +375,7 @@ fields:
             position: sheets
             class: col-lg-4 col-md-12 col-sm-12
             color: csat-data-parent
-            order: 3
+            order: 4
     mothers_name:
         label: 'csatar.csatar::lang.plugin.admin.scout.mothersName'
         span: auto
@@ -384,7 +412,7 @@ fields:
             position: sheets
             class: col-lg-4 col-md-12 col-sm-12
             color: csat-data-parent
-            order: 4
+            order: 5
     fathers_name:
         label: 'csatar.csatar::lang.plugin.admin.scout.fathersName'
         span: auto
@@ -421,7 +449,7 @@ fields:
             position: sheets
             class: col-lg-4 col-md-12 col-sm-12
             color: csat-data-parent
-            order: 5
+            order: 6
     legal_representative_name:
         label: 'csatar.csatar::lang.plugin.admin.scout.legalRepresentativeName'
         span: auto
@@ -458,7 +486,7 @@ fields:
             position: sheets
             class: col-lg-6 col-md-12 col-sm-12
             color: csat-data-studies
-            order: 6
+            order: 7
     elementary_school:
         label: 'csatar.csatar::lang.plugin.admin.scout.elementarySchool'
         span: auto
@@ -530,34 +558,6 @@ fields:
             type: field
             card: schoolData
             order: 8
-            default: '-'
-    occupationData:
-        label: 'csatar.csatar::lang.plugin.admin.scout.sections.occupation'
-        span: full
-        type: section
-        formBuilder:
-            type: card
-            position: sheets
-            class: col-lg-6 col-md-12 col-sm-12
-            color: csat-data-occupation
-            order: 7
-    occupation:
-        label: 'csatar.csatar::lang.plugin.admin.scout.occupation'
-        span: auto
-        type: text
-        formBuilder:
-            type: field
-            card: occupationData
-            order: 1
-            default: '-'
-    workplace:
-        label: 'csatar.csatar::lang.plugin.admin.scout.workplace'
-        span: auto
-        type: text
-        formBuilder:
-            type: field
-            card: occupationData
-            order: 2
             default: '-'
     otherData:
         label: 'csatar.csatar::lang.plugin.admin.scout.sections.otherData'
