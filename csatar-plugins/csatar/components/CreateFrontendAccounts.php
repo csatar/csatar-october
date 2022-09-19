@@ -76,10 +76,6 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
             return $redirect;
         }
 
-        if (!Auth::user()) {
-            return Redirect::to('/bejelentkezes');
-        }
-
         $this->prepareVars();
 
     }
