@@ -230,6 +230,7 @@ class BasicForm extends ComponentBase  {
         $this->addJs('/plugins/csatar/forms/assets/vendor/dropzone/dropzone.js');
         $this->addJs('/plugins/csatar/forms/assets/js/uploader.js');
         $this->addJs('/plugins/csatar/forms/assets/js/positionValidationTags.js');
+        $this->addJs('/plugins/csatar/forms/assets/js/addCheckboxClass.js');
 
         if($this->readOnly){
             //check if user has permissions to view record
