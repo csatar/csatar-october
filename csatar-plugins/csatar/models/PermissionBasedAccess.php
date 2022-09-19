@@ -130,7 +130,7 @@ class PermissionBasedAccess extends Model
             $columns = strtolower(str_replace('\\', DIRECTORY_SEPARATOR, plugins_path() . $organizationTypeModelName . '\\columns.yaml'));
             $attributes = array_merge(Yaml::parseFile($fields)['fields'], Yaml::parseFile($columns)['columns']);
             foreach ($attributes as $key => $attribute) {
-                if (is_array($attributes) && array_key_exists('label', $attributes)) {
+                if (is_array($attribute) && array_key_exists('label', $attribute)) {
                     self::$translatedAttributeNames[$organizationTypeModelName][$key] = Lang::get($attribute['label']);
                 }
             }
