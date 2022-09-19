@@ -88,12 +88,12 @@ trait AjaxControllerSimple {
 
         $this->loadBackendFormWidgets();
         
-        if (!$preview){
-            $html = $this->widget->render(['preview' => $preview]);
-            $html .= $this->renderValidationTags($record);
+        if (isset($config->formBuilder_card_design) && $config->formBuilder_card_design && $preview) {
+            $html = $this->renderViewMode($this->widget);
         }
         else {
-            $html = $this->renderViewMode($this->widget);
+            $html = $this->widget->render(['preview' => $preview]);
+            $html .= $this->renderValidationTags($record);
         }
         $html .= $this->renderBelongsToManyWithPivotDataAndHasManyRelations($record, !$preview);
 

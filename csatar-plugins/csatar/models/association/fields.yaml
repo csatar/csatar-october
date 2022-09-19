@@ -1,3 +1,4 @@
+formBuilder_card_design: true
 fields:
     associationData:
         span: full
