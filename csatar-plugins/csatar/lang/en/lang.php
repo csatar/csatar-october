@@ -214,7 +214,6 @@
                     'actionSetion' => 'Action',
                     'manageAction' => 'Action',
                     'copy' => 'Copy',
-                    'delete' => 'Delete',
                     'toSection' => 'Select destination',
                     'execute' => 'Execute',
                     'executeAndClose' => 'Execute and close',
@@ -594,7 +593,7 @@
         ],
         'oauth' => [
             'onlyExistingUsersCanLogin'         => 'At the moment, only existing users are allowed to log in with oAuth!',
-            'canNotRegisterLoginWithoutEmail'   => 'No email address was returned!',
+            'canNotRegisterLoginWithoutEmail'   => 'We cannot log you in, because there in no email address associated with this account!',
             'canNotFindScoutWithEmail'          => 'There is no scout with the returned email address!',
             'scoutAlreadyHasUserAccount'        => 'Scout already has a user account!',
             'canNotFindUser'                    => 'We can not find your user account!',

@@ -593,7 +593,7 @@
         ],
         'oauth' => [
             'onlyExistingUsersCanLogin' => 'Jelenleg csak létező felhasználók léphetnek be oAuth-al!',
-            'canNotRegisterLoginWithoutEmail' => 'Nincs e-mail cím a visszatérített adatok között!',
+            'canNotRegisterLoginWithoutEmail' => 'Nem tudunk beléptetni, mert ehhez a fiókhoz nincs email cím rendelve!',
             'canNotFindScoutWithEmail' => 'Nem található cserkész a visszatérített e-mail címmel!',
             'scoutAlreadyHasUserAccount' => 'A cserkész már rendelkezik felhasználói fiókkal!',
             'canNotFindUser' => 'A felhasználói fiók nem található!',
