@@ -36,7 +36,10 @@ class Scout extends OrganizationBase
         'family_name' => 'required',
         'given_name' => 'required',
         'email' => 'email',
-        'phone' => 'required|regex:(^[0-9+-.()]{5,}$)',
+        'phone' => 'regex:(^[0-9+-.()]{10,}$)',
+        'legal_representative_phone' => 'regex:(^[0-9+-.()]{10,}$)',
+        'mothers_phone' => 'regex:(^[0-9+-.()]{10,}$)',
+        'fathers_phone' => 'regex:(^[0-9+-.()]{10,}$)',
         'personal_identification_number' => 'required',
         'gender' => 'required',
         'is_active' => 'required',
@@ -62,6 +65,31 @@ class Scout extends OrganizationBase
         'chronic_illnesses' => 'required',
         'special_diet' => 'required',
     ];
+
+    // this conditional rules work in form builder if there are functions defined with validationFunctionName name in class
+    public $conditionalRules = [
+        [
+            'fields' => ['legal_representative_phone'],
+            'rules' => 'required_without_all:mothers_phone,fathers_phone',
+            'validationFunctionName' => 'legalRepresentativePhoneForUnderAge'
+        ],
+        [
+            'fields' => ['mothers_phone'],
+            'rules' => 'required_without_all:legal_representative_phone,fathers_phone',
+            'validationFunctionName' => 'legalRepresentativePhoneForUnderAge'
+        ],
+        [
+            'fields' => ['fathers_phone'],
+            'rules' => 'required_without_all:legal_representative_phone,mothers_phone',
+            'validationFunctionName' => 'legalRepresentativePhoneForUnderAge'
+        ]
+    ];
+
+    public function legalRepresentativePhoneForUnderAge($input) {
+        $birthdate = strtotime($input->birthdate);
+        $birthday18th = strtotime('+18 years', $birthdate);
+        return $birthday18th > time();
+    }
 
     public $attributeNames = [];
 
