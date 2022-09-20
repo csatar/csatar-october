@@ -64,7 +64,7 @@ trait AjaxControllerSimple {
     }
 
     public function createForm($preview = false)
-    {//dd(Input::all());
+    {
         $form  = Form::find($this->formId);
         $record = $this->getRecord();
 
@@ -87,13 +87,15 @@ trait AjaxControllerSimple {
         $this->widget = new \Backend\Widgets\Form($this, $config);
 
         $this->loadBackendFormWidgets();
-
-        $html = $this->widget->render(['preview' => $preview]);
-        if (!$preview){
+        
+        if (isset($config->formBuilder_card_design) && $config->formBuilder_card_design && $preview) {
+            $html = $this->renderViewMode($this->widget);
+        }
+        else {
+            $html = $this->widget->render(['preview' => $preview]);
             $html .= $this->renderValidationTags($record);
         }
-
-        $html .= $this->renderBelongsToManyWithPivotDataAndHasManyRelations($record);
+        $html .= $this->renderBelongsToManyWithPivotDataAndHasManyRelations($record, !$preview);
 
         $variablesToPass = [
             'form' => $html,
@@ -107,6 +109,173 @@ trait AjaxControllerSimple {
         ];
 
         return $this->renderPartial('@partials/form', $variablesToPass);
+    }
+
+    public function renderViewMode($widget)
+    {
+        $mainCardVariablesToPass = [];
+        $sheetCardVariablesToPass = [];
+        $fieldsToPass = [];
+
+        // gather all cards and fields in arrays
+        foreach ($widget->fields as $key => $field) {
+            // if no formBuilder data is set; or if any of the mandatory formBuilder attributes are not set, then continue
+            if (!array_key_exists('formBuilder', $field) || !array_key_exists('type', $field['formBuilder'])) {
+                continue;
+            }
+
+            // gather all cards and fields in arrays
+            if ($field['formBuilder']['type'] == 'card') {
+                if ($field['formBuilder']['position'] == 'main') {
+                    $mainCardVariablesToPass['name'] = $key;
+                    $mainCardVariablesToPass['class'] = $field['formBuilder']['class'];
+                }
+                else if ($field['formBuilder']['position'] == 'sheets') {
+                    $sheetCardVariablesToPass[$key] = [];
+                    $sheetCardVariablesToPass[$key]['name'] = array_key_exists('label', $field) ? Lang::get($field['label']) : null;
+                    if (array_key_exists('class', $field['formBuilder'])) {
+                        $sheetCardVariablesToPass[$key]['class'] = $field['formBuilder']['class'];
+                    }
+                    if (array_key_exists('color', $field['formBuilder'])) {
+                        $sheetCardVariablesToPass[$key]['color'] = $field['formBuilder']['color'];
+                    }
+                    if (array_key_exists('order', $field['formBuilder'])) {
+                        $sheetCardVariablesToPass[$key]['order'] = $field['formBuilder']['order'];
+                    }
+                }
+            }
+            else if ($field['formBuilder']['type'] == 'field') {
+                // if mandatory config is not set, then don't show the field
+                if (!isset($field['formBuilder']['card'])) {
+                    continue;
+                }
+
+                // if no value is set and no default is set, then don't show the field
+                if ((!isset($widget->model->{$key}) || empty(($widget->model->{$key}))) && !isset($field['formBuilder']['default'])) {
+                    continue;
+                }
+
+                // if an array for the card does not exist yet, then create it
+                if (!array_key_exists($field['formBuilder']['card'], $fieldsToPass)) {
+                    $fieldsToPass[$field['formBuilder']['card']] = [];
+                }
+
+                $newField = [];
+                $newField['label'] = Lang::get($field['label']);
+
+                // retrieve the value for the field
+                $value = isset($field['formBuilder']['default']) ? $field['formBuilder']['default'] : '';
+                if (isset($widget->model->{$key})) {
+                    if (is_object($widget->model->{$key}) && array_key_exists('nameFrom', $field) && isset($widget->model->{$key}->{$field['nameFrom']})) { // relation fields
+                        $value = $widget->model->{$key}->{$field['nameFrom']};
+                    }
+                    else if (is_a($widget->model->{$key}, 'Illuminate\Database\Eloquent\Collection') && count($widget->model->{$key}) > 0 && array_key_exists('nameFrom', $field)) { // belongs to many with no pivot data
+                        $value = '';
+                        foreach ($widget->model->{$key} as $item) {
+                            if (isset($item->{$field['nameFrom']})) {
+                                $value .= $item->{$field['nameFrom']} . ', ';
+                            }
+                        }
+                    }
+                    else if ($field['type'] == 'dropdown' && array_key_exists('options', $field) && is_array($field['options']) && count($field['options']) > 0) { // dropdown fields
+                        $value = Lang::get($field['options'][$widget->model->{$key}]);
+                    }
+                    else if ($field['type'] == 'checkbox') { // bool fields
+                        $value = $widget->model->{$key} == 1 ? Lang::get('csatar.csatar::lang.plugin.admin.general.yes') : Lang::get('csatar.csatar::lang.plugin.admin.general.no');
+                    }
+                    else if ($field['type'] == 'fileupload' && $field['mode'] == 'image') { // images
+                        $value = $widget->model->{$key}->getPath();
+                        $mainCardVariablesToPass['customImage'] = true;
+                    }
+                    else if (isset($widget->model->attributes[$key]) && !empty($widget->model->attributes[$key])) { // regular fields
+                        $value = $widget->model->attributes[$key];
+                    }
+                }
+                $newField['value'] = $value;
+
+                if (array_key_exists('position', $field['formBuilder'])) {
+                    $newField['position'] = $field['formBuilder']['position'];
+                }
+                if (array_key_exists('order', $field['formBuilder'])) {
+                    $newField['order'] = $field['formBuilder']['order'];
+                }
+                array_push($fieldsToPass[$field['formBuilder']['card']], $newField);
+            }
+        }
+
+        // sort the sheets
+        $this->sortArrayByOrder($sheetCardVariablesToPass);
+
+        // set the appropriate field array for each of the cards
+        foreach ($fieldsToPass as $key => $fields) {
+            if ($key == $mainCardVariablesToPass['name']) {
+                $titleFields = [];
+                $mainCardVariablesToPass['subtitleFields'] = [];
+                $mainCardVariablesToPass['fields'] = [];
+
+                // gather the fields by position
+                foreach ($fields as $field) {
+                    if ($field['position'] == 'image') {
+                        $mainCardVariablesToPass['image'] = $field['value'];
+                    }
+                    else if ($field['position'] == 'title') {
+                        array_push($titleFields, $field);
+                    }
+                    else if ($field['position'] == 'subtitle') {
+                        array_push($mainCardVariablesToPass['subtitleFields'], $field);
+                    }
+                    else if ($field['position'] == 'details') {
+                        array_push($mainCardVariablesToPass['fields'], $field);
+                    }
+                }
+
+                // sort the title fields and create the title
+                $this->sortArrayByOrder($titleFields);
+                $mainCardVariablesToPass['title'] = '';
+                foreach ($titleFields as $field) {
+                    $mainCardVariablesToPass['title'] .= $field['value'] . ' ';
+                }
+
+                // sort the subtitle fields
+                $this->sortArrayByOrder($mainCardVariablesToPass['subtitleFields']);
+
+                // sort the fields array
+                $this->sortArrayByOrder($mainCardVariablesToPass['fields']);
+            }
+            else if (isset($sheetCardVariablesToPass[$key])) {
+                $this->sortArrayByOrder($fields);
+                $sheetCardVariablesToPass[$key]['fields'] = $fields;
+            }
+        }
+
+        // render the main card
+        $html = '<div class="row">';
+        $html .= $this->renderPartial('@partials/mainCard', $mainCardVariablesToPass);
+        
+        // render the sheets
+        $html .= '<div class="col"><div class="row">';
+        foreach ($sheetCardVariablesToPass as $sheet) {
+            $html .= $this->renderPartial('@partials/sheetCard', $sheet);
+        }
+
+        $html .= '</div></div></div>';
+        return $html;
+    }
+
+    private function sortArrayByOrder(&$array)
+    {
+        foreach ($array as $i => $field) {
+            foreach ($array as $j => $field) {
+                if (!array_key_exists('order', $array[$i]) || !array_key_exists('order', $array[$j])) {
+                    continue;
+                }
+                if ($array[$i]['order'] < $array[$j]['order']) {
+                    $v = $array[$i];
+                    $array[$i] = $array[$j];
+                    $array[$j] = $v;
+                }
+            }
+        }
     }
 
     public function onAddPivotRelation(){
@@ -355,7 +524,9 @@ trait AjaxControllerSimple {
         $attributeNames = [];
 
         foreach ($config->fields as $key => $value) {
-            $attributeNames[$key] = Lang::get($value['label']);
+            if ($value['type'] !== 'section') {
+                $attributeNames[$key] = Lang::get($value['label']);
+            }
         }
 
         $rules = $this->addRequiredRuleBasedOnUserRights($record->rules, $this->currentUserRights, $isNew);
@@ -547,12 +718,12 @@ trait AjaxControllerSimple {
         return $this->makeConfig($config);
     }
 
-    public function renderBelongsToManyWithPivotDataAndHasManyRelations($record){
+    public function renderBelongsToManyWithPivotDataAndHasManyRelations($record, $showEmpty = true){
         $html = '<div class="row" id="pivotSection">';
 
         // render belongsToMany relations
         foreach($record->belongsToMany as $relationName => $definition) {
-            if ($this->canRead($relationName) && !empty($definition['pivot'])) {
+            if ($this->canRead($relationName) && !empty($definition['pivot']) && (count($record->{$relationName}) > 0 || $showEmpty)) {
                 $pivotConfig = $this->getConfig($definition[0], 'columnsPivot.yaml');
                 if ($pivotConfig) {
                     $attributesToDisplay = $this->attributesToDisplay($pivotConfig);
@@ -565,12 +736,13 @@ trait AjaxControllerSimple {
         foreach($record->hasMany as $relationName => $definition) {
             if ($this->canRead($relationName)
                 && is_array($definition)
+                && (count($record->{$relationName}) > 0 || $showEmpty)
                 && ((!$record->id
                     && array_key_exists('renderableOnCreateForm', $definition)
                     && $definition['renderableOnCreateForm'])
-                || ($record->id
-                    && array_key_exists('renderableOnUpdateForm', $definition)
-                    && $definition['renderableOnUpdateForm']))) {
+                    || ($record->id
+                        && array_key_exists('renderableOnUpdateForm', $definition)
+                        && $definition['renderableOnUpdateForm']))) {
                 $pivotConfig = $this->getConfig($definition[0], 'columns.yaml');
                 $attributesToDisplay = $pivotConfig->columns;
                 $html .= $this->generatePivotSection($record, $relationName, $definition, $attributesToDisplay);
@@ -738,11 +910,14 @@ trait AjaxControllerSimple {
                 $tableRows .= '<div class="col-6 col-lg">';
                 $tableRows .= '<p class="td label d-block d-lg-none">' . $label . '</p> ';
                 $tableRows .= '<p class="td">';
-                $tableRows .= (array_key_exists('isPivot', $data) ?
-                    $relatedRecord->pivot->{$key} :
-                    (is_object($relatedRecord->{$key}) ?
+                if (array_key_exists('isPivot', $data)) {
+                    $value = $relatedRecord->pivot->{$key} ?? '';
+                } else {
+                    $value = (is_object($relatedRecord->{$key}) ?
                         $relatedRecord->{$key}->name :
-                        $relatedRecord->{$key}));
+                        $relatedRecord->{$key});
+                }
+                $tableRows .= $value;
                 $tableRows .= '</p></div>';
             }
             $tableRows .= '</div></div></div>';

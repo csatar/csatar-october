@@ -64,7 +64,10 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
         $this->page['user'] = $this->user();
         $this->page['canRegister'] = $this->canRegister();
         $this->page['loginAttribute'] = $this->loginAttribute();
-        $this->scouts = Scout::all();
+        if (isset(Auth::user()->scout)) {
+            $this->scouts = Scout::where('team_id', Auth::user()->scout->team_id)->get();
+        }
+
     }
 
     public function onRun()

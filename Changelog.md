@@ -3,6 +3,15 @@
 ## Unreleased
 
 - CS-247 - Added breadcrumb design
+- CS-299 - Changed user symbol on site header
+- CS-299 - Changed text size for sponsors on main page
+- CS-299 - Changed thickness of accordion bar on main page
+- CS-299 - Changed header color for grid table
+- CS-299 - Redesigned the contact page
+- CS-299 - Corrected text appearance in calendar box
+- CS-299 - Corrected checkbox design
+- CS-186 - Create card design for the form builder view mode
+- CS-309 - Add icon to all the buttons
 
 ## 1.3.0
 ### 2022-09-18

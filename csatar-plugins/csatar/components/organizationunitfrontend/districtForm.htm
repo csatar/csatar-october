@@ -7,6 +7,9 @@
 {% if permissions['teams']['create'] > 0 %}
     <form action="/csapat/letrehozas" method="post">
         <input type="hidden" name="district" value="{{ district_id }}">
-        <button type="submit" class="btn rounded btn-primary" value="{{ 'Csapat hozzáadása' | _ }}">{{ 'Csapat hozzáadása' | _ }}</button>
+        <button type="submit" class="btn rounded btn-primary" value="{{ 'Csapat hozzáadása' | _ }}">
+            <i class="csat-add-fill-wh-sm"></i>
+            {{ 'Csapat hozzáadása' | _ }}
+        </button>
     </form>
 {% endif %}

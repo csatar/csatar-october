@@ -19,3 +19,10 @@ mandates:
     toolbarButtons: create|delete
   manage:
     form: $/csatar/csatar/models/mandate/fields.yaml
+scouts:
+    label: 'csatar.csatar::lang.plugin.admin.scout.scouts'
+    view:
+        list: $/csatar/csatar/models/scout/columns.yaml
+        toolbarButtons: create
+    manage:
+        form: $/csatar/csatar/models/scout/fields.yaml

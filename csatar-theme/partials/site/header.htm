@@ -30,11 +30,11 @@ function onStart()
                                     <ul class="dropdown-menu bg-primary">
                                         {% if user %}
                                         <li class="nav-item">
-                                            <a class="dropdown-item" href="/tag/{{ ecset_code}}">{{ 'Tagnyilvántartás' | _ }}</a>
+                                            <a class="dropdown-item" href="/csapat/{{ user.scout.team_id }}">{{ 'Tagnyilvántartás' | _ }}</a>
                                         </li>
                                         {% else %}
                                         <li class="nav-item">
-                                            <a class="dropdown-item" href="/tagok">{{ 'Tagnyilvántartás' | _ }}</a>
+                                            <a class="dropdown-item" href="/bejelentkezes">{{ 'Tagnyilvántartás' | _ }}</a>
                                         </li>
                                         {% endif %}
                                         <li>
@@ -75,7 +75,11 @@ function onStart()
                     <div class="ms-auto px-3">
                         <form action="{{ 'kereses-erdmenyek' | page }}" method="get">
                             <div class="input-group rounded bg-light">
-                            <input type="search" name="q" class="form-control rounded bg-light border-0" placeholder="{{ 'Keresés' | _ }}" aria-label="Search" aria-describedby="search-addon" />
+                            <input type="search" name="q" 
+                                class="form-control rounded bg-light border-0" 
+                                placeholder="{{ 'Keresés' | _ }}" 
+                                aria-label="Search" 
+                                aria-describedby="search-addon" />
                             <span>
                                 <button class="search-btn" type="submit">
                                 <i class="csat-magnif-fill-sm"></i>
@@ -90,13 +94,20 @@ function onStart()
                 <div class="col-9 col-sm-10 col-md-9 col-lg-2 order-3 order-md-3 d-flex pt-1 pe-4 text-light justify-content-end">
                     {% if user %}
                     <a href="/elfelejtett-jelszo" class="btn controls" type="button">
-                    <i class="csat-gear-out-wh-md"></i>
+                        <i class="csat-gear-out-wh-md"></i>
                     </a>
                     <a href="/tag/{{ ecset_code}}" class="btn controls" type="button">
-                    <i class="csat-user-out-wh-md"></i>
+                        {% if user.scout.gender == 1 %}
+                            <i class="csat-male-out-wh-md"></i>
+                        {% elseif user.scout.gender == 2 %}
+                            <i class="csat-female-out-wh-md"></i>
+                        {% else %}
+                            <i class="csat-user-out-wh-md"></i>
+                        {% endif %}
+                        
                     </a>
                     <a data-request="onLogout" data-request-data="redirect: '/bejelentkezes'" class="btn controls" type="button">
-                    <i class="csat-exit-out-wh-md"></i>
+                        <i class="csat-exit-out-wh-md"></i>
                     </a>
                     {% else %}
                     <a href="/bejelentkezes" class="btn controls" type="button">

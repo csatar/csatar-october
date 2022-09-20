@@ -22,7 +22,7 @@
 {% for image in gallery.images %}
     <div>
         <a class="colorbox" data-fancybox="gallery" href="{{ image.path }}" title="{{image.title}}">
-            <img src="{{ image.path }}"  class="fr-fic fr-dib img-fluid csat-gallery-img m-1">
+            <img src="{{ image.thumb(auto, 200) }}"  class="fr-fic fr-dib img-fluid csat-gallery-img m-1">
         </a>
     </div>
 {% endfor %}
@@ -71,7 +71,7 @@
                 type="submit"
                 class="btn btn-sm rounded btn-primary mt-2">
                 <i class="csat-gallery-add-out-wh-sm"></i>
-                {{ 'Új galléria' | _ }}
+                {{ 'Új galéria' | _ }}
             </button>
         </form>
     </div>

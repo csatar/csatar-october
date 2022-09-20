@@ -11,33 +11,41 @@ public function onStart(){
 ?>
 ==
 <div class="container">
-    <h1>{{ 'Kapcsolat'|_ }}</h1>
+    <div class="row mb-4">
+        <h3 class="text-primary">{{ 'Kapcsolat'|_ }}</h3>
+    </div>
+    <div class="row">
+        <div class="col-12 col-md-6">
+            
+            <h6><i class="csat-location-fill-sm"></i> {{ 'Irodák'|_ }}:</h6>
 
-    <h2 class="mt-4">{{ 'Irodák'|_ }}:</h2>
+            <ul>
+                {% for office in contactSettings.offices %}
+                    <li>{{ office.address }}</li>
+                {% endfor %}
+            </ul>
 
-    <ul>
-        {% for office in contactSettings.offices %}
-            <li>{{ office.address }}</li>
-        {% endfor %}
-    </ul>
+            <h6><i class="csat-wallet-fill-sm"></i> {{ 'Számlaszám'|_ }}:</h6>
 
-    <h2>{{ 'Számlaszám'|_ }}:</h2>
-
-    <p>
-        <span class="p-title">{{ contactSettings.bank }}</span></br>
-        {{ contactSettings.bank_account }}
-    </p>
+            <p class="ms-4">
+                <span class="p-title">{{ contactSettings.bank }}</span></br>
+                {{ contactSettings.bank_account }}
+            </p>
 
 
-    <h2>{{ 'Email'|_ }}:</h2>
+            <h6><i class="csat-envelope-fill-sm"></i> {{ 'Email'|_ }}:</h6>
 
-    <p>{{ contactSettings.email }}</p>
+            <p class="ms-4">{{ contactSettings.email }}</p>
 
-    <h2>{{ 'Telefonszámok'|_ }}:</h2>
+            <h6><i class="csat-phone-fill-sm"></i> {{ 'Telefonszámok'|_ }}:</h6>
 
-    <p>{{ contactSettings.phone_numbers }}</p>
+            <p class="ms-4">{{ contactSettings.phone_numbers }}</p>
 
-    <h2>{{ 'Üzenet küldése'|_ }}:</h2>
-
-    {% component 'contactForm' %}
+        </div>
+        <div class="separator bg-primary rounded d-block d-md-none mx-auto mb-4"></div>
+        <div class="col-12 col-md-6">
+            <h6 class="text-primary"><i class="csat-edit-fill-sm"></i> {{ 'Üzenet küldése'|_ }}:</h6>
+            {% component 'contactForm' %}
+        </div>
+    </div>
 </div>
