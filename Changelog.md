@@ -1,6 +1,7 @@
 # Csatar Changelog
 
-## Unreleased
+## 1.4.0
+### 2022-09-19
 
 - CS-247 - Added breadcrumb design
 - CS-299 - Changed user symbol on site header
