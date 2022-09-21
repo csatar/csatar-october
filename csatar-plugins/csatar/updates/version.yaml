@@ -165,3 +165,6 @@
 1.0.58:
     - 'Created table csatar_csatar_gallery_model'
     - builder_table_create_csatar_csatar_gallery_model.php
+1.0.59:
+    - 'Updated table csatar_csatar_associations'
+    - builder_table_update_csatar_csatar_associations_3.php

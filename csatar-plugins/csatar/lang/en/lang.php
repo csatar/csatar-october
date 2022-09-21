@@ -1,6 +1,6 @@
 <?php return [
     'frontEnd' => [
-        'authException' => 'The email address, the ECSET code or the password is incorrect.'
+        'authException' => 'The email address, the ECSET code or the password is incorrect.',
     ],
     'plugin' => [
         'name' => 'CSATÁR',
@@ -42,7 +42,7 @@
             ],
             'ageGroups' => [
                 'ageGroups' => 'Age Groups',
-                'numberOfPatrolsInAgeGroup' => 'Number of patrols in age group'
+                'numberOfPatrolsInAgeGroup' => 'Number of patrols in age group',
             ],
             'scout' => [
                 'scout' => 'Scout',
@@ -146,9 +146,10 @@
                     'qualificationLeaderRequiredError' => 'The Qualification Leader for the %name %category is required.',
                     'mandateEndDateBeforeStartDate' => 'The End date cannot be before the Start date for the %name mandate.',
                     'dateInTheFutureError' => 'The selected Date for the %name %category is in the future.',
+                    'invalidPersonalIdentificationNumber' => 'Invalid Personal Identification Number.',
                 ],
                 'staticMessages' => [
-                    'personalDataNotAccepted' => 'Please verify your personal data here!'
+                    'personalDataNotAccepted' => 'Please verify your personal data here!',
                 ],
             ],
             'admin' => [
@@ -214,7 +215,6 @@
                     'actionSetion' => 'Action',
                     'manageAction' => 'Action',
                     'copy' => 'Copy',
-                    'delete' => 'Delete',
                     'toSection' => 'Select destination',
                     'execute' => 'Execute',
                     'executeAndClose' => 'Execute and close',
@@ -331,6 +331,7 @@
                 'teamFee' => 'Team fee',
                 'membershipFee' => 'Membership fee',
                 'currency' => 'Currency',
+                'personalIdentificationNumberValidator' => 'Personal Identification Number Validator',
             ],
             'district' => [
                 'district' => 'District',
@@ -470,7 +471,7 @@
                 'trainings' => 'Trainings',
             ],
             'gallery' => [
-                'gallery' => 'Gallery'
+                'gallery' => 'Gallery',
             ],
             'permissions' => [
                 'permissions' => 'Permissions',
@@ -482,7 +483,7 @@
             ],
             'sitesearchSettings' => [
                 'sitesearchSettings' => 'Sites Search Plugin Settings',
-                'enabledOnOrgCMSpages' => 'Enabled on organization unit frontend pages'
+                'enabledOnOrgCMSpages' => 'Enabled on organization unit frontend pages',
             ],
         ],
         'component' => [
@@ -593,12 +594,12 @@
             ],
         ],
         'oauth' => [
-            'onlyExistingUsersCanLogin'         => 'At the moment, only existing users are allowed to log in with oAuth!',
-            'canNotRegisterLoginWithoutEmail'   => 'No email address was returned!',
-            'canNotFindScoutWithEmail'          => 'There is no scout with the returned email address!',
-            'scoutAlreadyHasUserAccount'        => 'Scout already has a user account!',
-            'canNotFindUser'                    => 'We can not find your user account!',
-            'userIdAndScoutUserIdMismatch'      => 'The user attached to scout doesn\'t match with the returned user!',
+            'onlyExistingUsersCanLogin' => 'At the moment, only existing users are allowed to log in with oAuth!',
+            'canNotRegisterLoginWithoutEmail' => 'No email address was returned!',
+            'canNotFindScoutWithEmail' => 'There is no scout with the returned email address!',
+            'scoutAlreadyHasUserAccount' => 'Scout already has a user account!',
+            'canNotFindUser' => 'We can not find your user account!',
+            'userIdAndScoutUserIdMismatch' => 'The user attached to scout doesn\'t match with the returned user!',
         ],
     ],
 ];
