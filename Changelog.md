@@ -3,6 +3,11 @@
 ## Unreleased
 
 - CS-244 - Created Personal Identification Number Validator
+- CS-317 - Made scout's phone number optional if scout is above 18 year
+- CS-317 - If underage, legal_representative_phone, mothers_phone or fathers_phone is required
+- CS-317 - oAuth error message update for missing email in returned data
+- CS-317 - If scout's data isn't accepted navigation is not allowed for logged in scout. He always gets redirected to own page
+- CS-317 - Implemented search in organization names, including scout
 
 - CS-247 - Added breadcrumb design
 - CS-299 - Changed user symbol on site header
