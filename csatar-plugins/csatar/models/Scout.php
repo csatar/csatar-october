@@ -24,6 +24,11 @@ class Scout extends OrganizationBase
     protected static $relationLabels = null;
 
     /**
+     * @var array The columns that should be searchable by ContentPageSearchProvider
+     */
+    protected static $searchable = ['family_name', 'given_name'];
+
+    /**
      * @var string The database table used by the model.
      */
     public $table = 'csatar_csatar_scouts';

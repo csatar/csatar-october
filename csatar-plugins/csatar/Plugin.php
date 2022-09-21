@@ -7,6 +7,7 @@ use Csatar\Csatar\Models\Association;
 use Csatar\Csatar\Models\MandateType;
 use Csatar\Csatar\Models\Scout;
 use Csatar\Csatar\Classes\ContentPageSearchProvider;
+use Csatar\Csatar\Classes\OrganizationSearchProvider;
 use Event;
 use Input;
 use Media\Classes\MediaLibrary;
@@ -155,7 +156,7 @@ class Plugin extends PluginBase
         });
 
         Event::listen('offline.sitesearch.extend', function () {
-            return new ContentPageSearchProvider();
+            return [ new ContentPageSearchProvider(), new OrganizationSearchProvider() ];
         });
 
         $this->saveGuestMandateTypeIdsForEveryAssociationToSession();
