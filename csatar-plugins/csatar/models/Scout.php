@@ -113,6 +113,10 @@ class Scout extends OrganizationBase
             return;
         }
 
+        if (!empty($this->team->district->association->personal_identification_number_validator)) {
+            $this->rules['personal_identification_number'] .= '|' . $this->team->district->association->personal_identification_number_validator;
+        }
+
         // if the selected troop does not belong to the selected team, then throw and exception
         if ($this->troop_id && $this->troop->team->id != $this->team_id) {
             throw new \ValidationException(['troop' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.troopNotInTheTeam')]);

@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- CS-244 - Created Personal Identification Number Validator
+
 - CS-247 - Added breadcrumb design
 - CS-299 - Changed user symbol on site header
 - CS-299 - Changed text size for sponsors on main page
