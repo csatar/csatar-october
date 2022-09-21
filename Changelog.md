@@ -1,6 +1,7 @@
 # Csatar Changelog
 
-## Unreleased
+## 1.4.0
+### 2022-09-19
 
 - CS-244 - Created Personal Identification Number Validator
 
