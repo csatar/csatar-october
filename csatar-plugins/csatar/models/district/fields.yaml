@@ -182,3 +182,4 @@ fields:
             card: districtData
             position: subtitle
             default: '-'
+            disabledIfPreselected: true
