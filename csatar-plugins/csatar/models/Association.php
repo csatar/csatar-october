@@ -34,6 +34,7 @@ class Association extends OrganizationBase
      */
     public $fillable = [
         'name',
+        'name_abbreviation',
         'coordinates',
         'contact_name',
         'contact_email',
@@ -44,6 +45,7 @@ class Association extends OrganizationBase
         'ecset_code_suffix',
         'team_fee',
         'currency_id',
+        'personal_identification_number_validator'
     ];
 
     /**
@@ -114,5 +116,9 @@ class Association extends OrganizationBase
     public static function getOrganizationTypeModelNameUserFriendly()
     {
         return Lang::get('csatar.csatar::lang.plugin.admin.association.association');
+    }
+
+    public function getPersonalIdentificationNumberValidatorOptions() {
+        return ['cnp' => 'CNP'];
     }
 }

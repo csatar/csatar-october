@@ -146,9 +146,10 @@
                     'qualificationLeaderRequiredError' => 'A Képzésvezető megadása a %name %category esetén kötelező.',
                     'mandateEndDateBeforeStartDate' => 'A végső időpont nem lehet a kezdeti időpont előtt a %name megbízatás esetén.',
                     'dateInTheFutureError' => 'A Dátum a %name %category esetén nem lehet a jövőben.',
+                    'invalidPersonalIdentificationNumber' => 'Érvénytelen személyi szám.',
                 ],
                 'staticMessages' => [
-                    'personalDataNotAccepted' => 'Kérlek ellenőrizd, hogy helyesek-e a személyes adataid itt!'
+                    'personalDataNotAccepted' => 'Kérlek ellenőrizd, hogy helyesek-e a személyes adataid itt!',
                 ],
             ],
             'admin' => [
@@ -330,6 +331,7 @@
                 'teamFee' => 'Csapat fenntartói díj',
                 'membershipFee' => 'Tagdíj értéke',
                 'currency' => 'Pénznem',
+                'personalIdentificationNumberValidator' => 'Személyi szám hitelesítő',
             ],
             'district' => [
                 'district' => 'Körzet',
@@ -469,7 +471,7 @@
                 'trainings' => 'Képzések',
             ],
             'gallery' => [
-                'gallery' => 'Galéria'
+                'gallery' => 'Galéria',
             ],
             'permissions' => [
                 'permissions' => 'Jogosultságok',
@@ -477,11 +479,11 @@
                 'readPermissionForGuests' => 'Olvasási jog vendégeknek.',
             ],
             'contactFormSettings' => [
-                'contactFormSettings' => 'Kapcsolat űrlap plugin beállítások'
+                'contactFormSettings' => 'Kapcsolat űrlap plugin beállítások',
             ],
             'sitesearchSettings' => [
                 'sitesearchSettings' => 'Sites Search plugin beállítások',
-                'enabledOnOrgCMSpages' => 'Bekapcsolva a szervezeti egységek frontend oldalain.'
+                'enabledOnOrgCMSpages' => 'Bekapcsolva a szervezeti egységek frontend oldalain.',
             ],
         ],
         'component' => [

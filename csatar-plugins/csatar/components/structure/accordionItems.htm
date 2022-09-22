@@ -1,5 +1,4 @@
 {% if level == 1 %}
-    <h2>{{ 'Szövetségek' | _ }}</h2>
     {% set childArrayName = 'districts' %}
     {% set noItemsMessage = 'Nincsenek Szövetségek.' %}
     {% set organizationTypeForUrl = 'szovetseg' %}
@@ -25,15 +24,7 @@
     <div class="accordion accordion-flush">
         {% for item in array %}
             <div class="accordion-item my-3">
-                <h2 class="accordion-header" id="{{ headingId ~ item.id }}">
-                    <button class="accordion-button py-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="{{ '#' ~ collapseId ~ item.id }}" aria-expanded="false" aria-controls="{{ collapseId ~ item.id }}">
-                        <a href="{{ url('/') ~ '/' ~ organizationTypeForUrl ~ '/' ~ item.id }}" title="{{ 'Látogasd meg a(z) ' ~ item.extendedName ~ ' oldalát' | _ }}">
-                            <span>{{ item.extendedName }}</span>
-                            <span class="bi bi-box-arrow-up-right"></span>
-                        </a>
-                    </button>
-                </h2>
-                <div id="{{ collapseId ~ item.id }}" class="accordion-collapse collapse" aria-labelledby="{{ headingId ~ item.id }}" data-bs-parent="#accordionFlushExample">
+                {% if organizationTypeForUrl in this.page.id %}
                     <div class="accordion-body py-0">
 
                         {# Show the number of scouts in the Teams, Troops and Patrols #}
@@ -43,16 +34,45 @@
 
                         {# Render child accordions for Associations, Districts, Teams and Troops #}
                         {% if level < 5 %}
-                            {% partial __SELF__ ~ '::accordionItems' array=attribute(item, childArrayName) level=level+1 headingId=headingId~item.id~'-' collapseId=collapseId~item.id~'-' %}
+                        {% partial __SELF__ ~ '::accordionItems' array=attribute(item, childArrayName) level=level+1 headingId=headingId~item.id~'-' collapseId=collapseId~item.id~'-' %}
                         {% endif %}
 
                         {# Render the Patrols too for the Teams #}
                         {% if level == 3 %}
-                            {% partial __SELF__ ~ '::accordionItems' array=attribute(item, child2ArrayName) level=5 headingId=headingId~item.id~'-0-' collapseId=collapseId~item.id~'-0-' %}
+                        {% partial __SELF__ ~ '::accordionItems' array=attribute(item, child2ArrayName) level=5 headingId=headingId~item.id~'-0-' collapseId=collapseId~item.id~'-0-' %}
                         {% endif %}
 
                     </div>
-                </div>
+                {% else %}
+                    <h2 class="accordion-header" id="{{ headingId ~ item.id }}">
+                        <button class="accordion-button py-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="{{ '#' ~ collapseId ~ item.id }}" aria-expanded="false" aria-controls="{{ collapseId ~ item.id }}">
+                            <a href="{{ url('/') ~ '/' ~ organizationTypeForUrl ~ '/' ~ item.id }}" title="{{ 'Látogasd meg a(z) ' ~ item.extendedName ~ ' oldalát' | _ }}">
+                                <span>{{ item.extendedName }}</span>
+                                <span class="bi bi-box-arrow-up-right"></span>
+                            </a>
+                        </button>
+                    </h2>
+                    <div id="{{ collapseId ~ item.id }}" class="accordion-collapse collapse" aria-labelledby="{{ headingId ~ item.id }}" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body py-0">
+
+                            {# Show the number of scouts in the Teams, Troops and Patrols #}
+                            {% if level > 2 %}
+                            <p>{{ 'Tagok száma: ' ~ (item.scouts | length) | _ }}</p>
+                            {% endif %}
+
+                            {# Render child accordions for Associations, Districts, Teams and Troops #}
+                            {% if level < 5 %}
+                                {% partial __SELF__ ~ '::accordionItems' array=attribute(item, childArrayName) level=level+1 headingId=headingId~item.id~'-' collapseId=collapseId~item.id~'-' %}
+                            {% endif %}
+
+                            {# Render the Patrols too for the Teams #}
+                            {% if level == 3 %}
+                                {% partial __SELF__ ~ '::accordionItems' array=attribute(item, child2ArrayName) level=5 headingId=headingId~item.id~'-0-' collapseId=collapseId~item.id~'-0-' %}
+                            {% endif %}
+
+                        </div>
+                    </div>
+                {% endif %}
             </div>
         {% endfor %}
     </div>

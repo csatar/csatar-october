@@ -8,6 +8,7 @@ class Structure extends ComponentBase
 {
     public $structureArray;
     public $level;
+    public $displayHeader = false;
 
     public function componentDetails()
     {
@@ -48,6 +49,7 @@ class Structure extends ComponentBase
             $modelName = "Csatar\Csatar\Models\\" . $this->property('model_name');
             $this->structureArray = $modelName::where('id', $this->property('model_id'))->get();
         } else {
+            $this->displayHeader = true;
             $this->level = 1;
             $this->structureArray = Association::all();
         }

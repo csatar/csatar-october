@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+- CS-247 - Modified breadcrumb design in the design system
+- CS-244 - Created Personal Identification Number Validator
+
+## 1.4.0
+### 2022-09-19
+
 - CS-247 - Added breadcrumb design
 - CS-299 - Changed user symbol on site header
 - CS-299 - Changed text size for sponsors on main page
