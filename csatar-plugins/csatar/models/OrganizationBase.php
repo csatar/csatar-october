@@ -90,7 +90,7 @@ class OrganizationBase extends PermissionBasedAccess
      */
     public function getExtendedNameAttribute()
     {
-        return $this->attributes['name'];
+        return $this->attributes['name'] ?? '';
     }
 
     public static function getOrganizationTypeModelNameUserFriendly()

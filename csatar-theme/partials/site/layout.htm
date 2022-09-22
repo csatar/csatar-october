@@ -1,4 +1,6 @@
 description = "Default layout"
+
+[csatarBreadcrumb]
 ==
 <!DOCTYPE html>
 <html class='h-100'>
@@ -18,6 +20,7 @@ description = "Default layout"
 <div class="spacer-lg d-none d-lg-block">
 </div>
 <section id="layout-content" class="flex-grow-1">
+    {% component 'csatarBreadcrumb' %}
     {% partial "site/staticMessages" %}
     {% page %}
 </section>
