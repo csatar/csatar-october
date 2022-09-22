@@ -288,6 +288,10 @@ label {
     background-color: #99A56B !important;
 }
 
+.border-primary {
+    border-color: #78863F !important;
+}
+
 .bg-secondary {
     background-color: #FFCE00 !important;
 }
@@ -1252,7 +1256,10 @@ div.table.csat-grid > div.tr > div.card.csat-resp-gdtable > div.row > * > p.td {
 .csat-data-profile-img {
     width: 65%;
     z-index: 1;
+    background-color: #FFFFFF;
     border: 6px solid #FFFFFF;
+    object-fit: cover;
+    object-position: 25% 25%;
 }
 
 .csat-data-profile-sq {
@@ -1518,7 +1525,7 @@ a.login:link, a.login:visited, a.login:active {
     transform: translate(-50%, -50%);
 }
 
-.main-sponsor{
+.main-sponsor {
     width: 100%;
     height: 150px;
     margin-bottom: 100px;
@@ -1583,4 +1590,15 @@ input:-webkit-autofill:active {
 
 .csat-gallery-edit {
     height: 120px;
+}
+
+/* create user elements */
+
+.csat-usr-icon-cont img {
+    height: 120px;
+}
+
+.csat-x-button {
+    background-color: #FFFFFF;
+    border-bottom-right-radius: 12px;
 }

@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- CS-299 - Modified the profile card image class so it can accept photos and images with every aspect ratio
+- CS-299 - Added white background to the profile picture on profile page card, so it supports transparent logos/photos
+- CS-299 - Corrected the appearance of the Registration form on "crate/edit user" page (file-name size, position of the delete button, image size)
+- CS-299 - Modified the social network log-in card on the log-in page
 - CS-247 - Modified breadcrumb design in the design system
 - CS-244 - Created Personal Identification Number Validator
 

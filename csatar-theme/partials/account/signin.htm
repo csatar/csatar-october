@@ -7,7 +7,7 @@
         <div class="col-10 col-md-8 col-lg-8 py-5">
             <div class="flex-grow-1 flex-md-row-reverse row g-2">
                 <div class="col-lg-6">
-                    <div class="card bg-light text-primary rounded h-100">
+                    <div class="card bg-white text-primary border-primary border-1 rounded h-100">
                         <div class="card-body">
                         <div class="d-flex flex-column align-items-center">
                             <i class="csat-key-out-lg"></i>
@@ -59,7 +59,7 @@
                 </div>
 
                 <div class="col-lg-6">
-                    <div class="card bg-primary text-light rounded h-100">
+                    <div class="card bg-light text-light rounded h-100">
                         <div class="card-body">
                         <div class="d-flex flex-column align-items-center pt-2">
 
@@ -70,17 +70,17 @@
                                     <i class="csat-socgoogleg-lg"></i>
                                     </div>
                                     <div>
-                                    <a href="{{ link }}" class="btn rounded btn-light mt-3">
+                                    <a href="{{ link }}" class="btn rounded btn-primary mt-3">
                                     {{ 'Belépés Google fiókkal'|_ }}
                                     </a>
                                     </div>
-                                    <div class="separator bg-light rounded my-4"></div>
+                                    <div class="separator bg-primary rounded my-4"></div>
                                 {% elseif name == "Facebook"%}
                                     <div>
                                     <i class="csat-socfacebookf-lg"></i>
                                     </div>
                                     <div>
-                                    <a href="{{ link }}" class="btn rounded btn-light mt-3">
+                                    <a href="{{ link }}" class="btn rounded btn-primary mt-3">
                                     {{ 'Belépés Facebook fiókkal'|_ }}
                                     </a>
                                     </div>
@@ -90,6 +90,7 @@
 
                         </div>
                         </div>
+                        <div class="card-footer bg-primary rounded-bottom"></div>
                     </div>
                 </div>
             </div>
