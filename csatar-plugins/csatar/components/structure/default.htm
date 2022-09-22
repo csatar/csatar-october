@@ -1,10 +1,14 @@
 {% set structureArray = __SELF__.structureArray %}
 {% set starter_level = __SELF__.level %}
+{% set displayHeader = __SELF__.displayHeader %}
 <div class="row">
     <div class="col-lg-2 col-md-2">
     </div>
 
     <div class="col-lg-8 col-md-8 col-sm-12 pb-5">
+    {% if displayHeader %}
+        <h2>{{ 'Szövetségek' | _ }}</h2>
+    {% endif %}
     {% partial __SELF__ ~ '::accordionItems' array=structureArray level=starter_level headingId='flush-heading-' collapseId='flush-collapse-' %}
     </div>
 
