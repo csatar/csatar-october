@@ -26,6 +26,8 @@ class OrganizationBase extends PermissionBasedAccess
 
     protected $dates = ['deleted_at'];
 
+    protected static $searchable = null;
+
     /**
      * @var array Validation rules
      */
@@ -90,7 +92,7 @@ class OrganizationBase extends PermissionBasedAccess
      */
     public function getExtendedNameAttribute()
     {
-        return $this->attributes['name'];
+        return isset($this->attributes['name']) ? $this->attributes['name'] : '';
     }
 
     public static function getOrganizationTypeModelNameUserFriendly()
@@ -110,5 +112,9 @@ class OrganizationBase extends PermissionBasedAccess
         }, $nameExploded);
 
         return trim(implode(' ', $nameFiltered));
+    }
+
+    public static function getSearchableColumns () {
+        return (self::getModelName())::$searchable;
     }
 }

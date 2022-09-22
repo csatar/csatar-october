@@ -13,4 +13,21 @@ autoCompleteResultCount = 5
 showProviderBadge = 1
 searchPage = "kereses-erdmenyek.htm"
 ==
+<?php
+function onStart()
+{
+    if (isset(Auth::user()->scout) && !Auth::user()->scout->accepted_at) {
+        $allowedUrl = $this->controller->pageUrl('tag', [ 'ecset_code'=> Auth::user()->scout->ecset_code ] );
+        $errorUrls = [
+            $this->controller->pageUrl('error'),
+            $this->controller->pageUrl('403'),
+            $this->controller->pageUrl('404'),
+        ];
+        if ($this->controller->currentPageUrl() != $allowedUrl && !in_array($this->controller->currentPageUrl(), $errorUrls)) {
+            return Redirect::to($allowedUrl);
+        }
+    }
+}
+?>
+==
 {% partial "site/layout" %}

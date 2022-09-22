@@ -24,6 +24,11 @@ class Scout extends OrganizationBase
     protected static $relationLabels = null;
 
     /**
+     * @var array The columns that should be searchable by ContentPageSearchProvider
+     */
+    protected static $searchable = ['family_name', 'given_name'];
+
+    /**
      * @var string The database table used by the model.
      */
     public $table = 'csatar_csatar_scouts';
@@ -36,7 +41,10 @@ class Scout extends OrganizationBase
         'family_name' => 'required',
         'given_name' => 'required',
         'email' => 'email',
-        'phone' => 'required|regex:(^[0-9+-.()]{5,}$)',
+        'phone' => 'regex:(^[0-9+-.()]{10,}$)',
+        'legal_representative_phone' => 'regex:(^[0-9+-.()]{10,}$)',
+        'mothers_phone' => 'regex:(^[0-9+-.()]{10,}$)',
+        'fathers_phone' => 'regex:(^[0-9+-.()]{10,}$)',
         'personal_identification_number' => 'required',
         'gender' => 'required',
         'is_active' => 'required',
@@ -51,17 +59,39 @@ class Scout extends OrganizationBase
         'address_location' => 'required',
         'address_street' => 'required',
         'address_number' => 'required',
-        'mothers_phone' => 'regex:(^[0-9+-.()]{5,}$)',
         'mothers_email' => 'email',
-        'fathers_phone' => 'regex:(^[0-9+-.()]{5,}$)',
         'fathers_email' => 'email',
-        'legal_representative_phone' => 'regex:(^[0-9+-.()]{5,}$)',
         'legal_representative_email' => 'email',
         'profile_image' => 'image|nullable|max:5120',
         'registration_form' => 'mimes:jpg,png,pdf|nullable|max:1536',
         'chronic_illnesses' => 'required',
         'special_diet' => 'required',
     ];
+
+    // this conditional rules work in form builder if there are functions defined with validationFunctionName name in class
+    public $conditionalRules = [
+        [
+            'fields' => ['legal_representative_phone'],
+            'rules' => 'required_without_all:mothers_phone,fathers_phone',
+            'validationFunctionName' => 'legalRepresentativePhoneForUnderAge'
+        ],
+        [
+            'fields' => ['mothers_phone'],
+            'rules' => 'required_without_all:legal_representative_phone,fathers_phone',
+            'validationFunctionName' => 'legalRepresentativePhoneForUnderAge'
+        ],
+        [
+            'fields' => ['fathers_phone'],
+            'rules' => 'required_without_all:legal_representative_phone,mothers_phone',
+            'validationFunctionName' => 'legalRepresentativePhoneForUnderAge'
+        ]
+    ];
+
+    public function legalRepresentativePhoneForUnderAge($input) {
+        $birthdate = strtotime($input->birthdate);
+        $birthday18th = strtotime('+18 years', $birthdate);
+        return $birthday18th > time();
+    }
 
     public $attributeNames = [];
 
