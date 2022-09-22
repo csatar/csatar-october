@@ -14,11 +14,16 @@ class District extends OrganizationBase
     public $table = 'csatar_csatar_districts';
 
     /**
+     * @var array The columns that should be searchable by ContentPageSearchProvider
+     */
+    protected static $searchable = ['name'];
+
+    /**
      * @var array Validation rules
      */
     public $rules = [
         'name' => 'required',
-        'phone' => 'required|regex:(^[0-9+-.()]{5,}$)',
+        'phone' => 'regex:(^[0-9+-.()]{10,}$)',
         'email' => 'required|email',
         'website' => 'url|nullable',
         'facebook_page' => 'url|regex:(facebook)|nullable',

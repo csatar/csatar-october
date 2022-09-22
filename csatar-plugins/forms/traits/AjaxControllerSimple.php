@@ -87,7 +87,7 @@ trait AjaxControllerSimple {
         $this->widget = new \Backend\Widgets\Form($this, $config);
 
         $this->loadBackendFormWidgets();
-        
+
         if (isset($config->formBuilder_card_design) && $config->formBuilder_card_design && $preview) {
             $html = $this->renderViewMode($this->widget);
         }
@@ -252,7 +252,7 @@ trait AjaxControllerSimple {
         // render the main card
         $html = '<div class="row">';
         $html .= $this->renderPartial('@partials/mainCard', $mainCardVariablesToPass);
-        
+
         // render the sheets
         $html .= '<div class="col"><div class="row">';
         foreach ($sheetCardVariablesToPass as $sheet) {
@@ -538,6 +538,16 @@ trait AjaxControllerSimple {
             [],
             $attributeNames,
         );
+
+        //validate for conditional rules
+        if (isset($record->conditionalRules)) {
+            foreach ($record->conditionalRules as $conditionalRule) {
+                $validation->sometimes($conditionalRule['fields'], $conditionalRule['rules'], function ($input) use ($record, $conditionalRule) {
+                    return $record->{$conditionalRule['validationFunctionName']}($input);
+                });
+            }
+        }
+
         if ($validation->fails()) {
             throw new \ValidationException($validation);
         }

@@ -14,6 +14,11 @@ class Association extends OrganizationBase
     public $table = 'csatar_csatar_associations';
 
     /**
+     * @var array The columns that should be searchable by ContentPageSearchProvider
+     */
+    protected static $searchable = ['name'];
+
+    /**
      * @var array Validation rules
      */
     public $rules = [
