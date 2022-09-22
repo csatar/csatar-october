@@ -23,7 +23,7 @@ class District extends OrganizationBase
      */
     public $rules = [
         'name' => 'required',
-        'phone' => 'required|regex:(^[0-9+-.()]{5,}$)',
+        'phone' => 'regex:(^[0-9+-.()]{10,}$)',
         'email' => 'required|email',
         'website' => 'url|nullable',
         'facebook_page' => 'url|regex:(facebook)|nullable',

@@ -26,7 +26,7 @@ class Team extends OrganizationBase
         'team_number' => 'required|numeric|min:1|max:9999',
         'address' => 'required|min:5',
         'foundation_date' => 'required',
-        'phone' => 'required|regex:(^[0-9+-.()]{5,}$)',
+        'phone' => 'regex:(^[0-9+-.()]{10,}$)',
         'email' => 'required|email',
         'website' => 'url|nullable',
         'facebook_page' => 'url|regex:(facebook)|nullable',
