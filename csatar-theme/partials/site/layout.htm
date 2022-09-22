@@ -13,11 +13,10 @@ description = "Default layout"
 </header>
 
 <!-- Content -->
-<div class="spacer-sm d-lg-none">
+<div class="spacer-brdcrmb">
+{% partial 'site/breadcrumb' %}
 </div>
-<div class="spacer-lg d-none d-lg-block">
-</div>
-<section id="layout-content" class="flex-grow-1">
+<section id="layout-content" class="flex-grow-1 mt-4 mt-md-4 mt-lg-3">
     {% partial "site/staticMessages" %}
     {% page %}
 </section>
