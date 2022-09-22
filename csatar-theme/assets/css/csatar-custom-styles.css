@@ -1474,6 +1474,20 @@ a.login:link, a.login:visited, a.login:active {
     padding: 0px 5px;
 }
 
+ /* Breadcrumb */
+
+.csat-brdcrmb {
+    --bs-breadcrumb-divider: '>';
+}
+
+.breadcrumb-item::before {
+    color: #78863F !important;
+}
+
+.breadcrumb-item.active {
+    color: #99A56B;
+}
+
 /* Image size control */
 
 .svg-container {
