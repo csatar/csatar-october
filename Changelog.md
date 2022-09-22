@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-247 - Modified breadcrumb design in the design system
 - CS-244 - Created Personal Identification Number Validator
 
 ## 1.4.0
