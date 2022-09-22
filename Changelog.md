@@ -9,6 +9,9 @@
 - CS-317 - If scout's data isn't accepted navigation is not allowed for logged in scout. He always gets redirected to own page
 - CS-317 - Implemented search in organization names, including scout
 
+## 1.4.0
+### 2022-09-19
+
 - CS-247 - Added breadcrumb design
 - CS-299 - Changed user symbol on site header
 - CS-299 - Changed text size for sponsors on main page
