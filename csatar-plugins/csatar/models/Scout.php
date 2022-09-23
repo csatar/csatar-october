@@ -422,7 +422,8 @@ class Scout extends OrganizationBase
 
     public function getFullName()
     {
-        return $this->family_name . ' ' . $this->given_name;
+        $fullName = $this->family_name . ' ' . $this->given_name;
+        return $fullName != ' ' ? $fullName : '';
     }
 
     public function getNameAttribute()

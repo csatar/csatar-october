@@ -182,6 +182,7 @@ class Plugin extends PluginBase
             \Csatar\Csatar\Components\CreateFrontendAccounts::class => 'createFrontendAccounts',
             \Csatar\Csatar\Components\OrganizationUnitFrontend::class => 'organizationUnitFrontend',
             \Csatar\Csatar\Components\CsatarGallery::class => 'csatargallery',
+            \Csatar\Csatar\Components\Breadcrumb::class => 'csatarBreadcrumb',
         ];
     }
 
