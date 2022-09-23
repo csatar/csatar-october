@@ -123,7 +123,7 @@ class CsatarGallery extends Gallery
     public function onSaveGallery()
     {
         $gallery = GalleryModel::find(post('gallery_id'));
-        $gallery->name = post('title');
+        $gallery->name = post('name');
         $gallery->description = post('description');
 
         if (empty(Input::file('images')) && $gallery->images()->count() === 0) {
