@@ -71,6 +71,7 @@ class Breadcrumb extends ComponentBase
             }
 
         } else {
+
             $this->urlList[] = [
                 'linkTitle' => $this->page->title ?? '',
                 'url'       => '',

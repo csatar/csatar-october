@@ -1,21 +1,23 @@
-{% set urlList = __SELF__.urlList %}
-<div class="container">
-    <nav class="csat-brdcrmb" aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{{ url('/') }}">
-                <i class="csat-home-out-sm"></i></a>
-            </li>
-            {% for url in urlList|reverse %}
-            {% if url['url'] %}
-            <li class="breadcrumb-item">
-                <a href="{{ url['url'] }}">{{ url['linkTitle'] }}</a>
-            </li>
-            {% else %}
-            <li class="breadcrumb-item active" aria-current="page">
-                {{ url['linkTitle'] }}
-            </li>
-            {% endif %}
-            {% endfor %}
-        </ol>
-    </nav>
-</div>
+{% if this.page.url != '/' %}
+    {% set urlList = __SELF__.urlList %}
+    <div class="row ms-1 ms-sm-2 ms-md-4 ms-lg-5">
+        <nav class="csat-brdcrmb" aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="{{ url('/') }}">
+                    <i class="csat-home-bc"></i></a>
+                </li>
+                {% for url in urlList|reverse %}
+                {% if url['url'] %}
+                <li class="breadcrumb-item">
+                    <a href="{{ url['url'] }}">{{ url['linkTitle'] }}</a>
+                </li>
+                {% else %}
+                <li class="breadcrumb-item active" aria-current="page">
+                    {{ url['linkTitle'] }}
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ol>
+        </nav>
+    </div>
+{% endif %}
