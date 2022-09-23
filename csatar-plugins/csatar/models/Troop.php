@@ -14,6 +14,11 @@ class Troop extends OrganizationBase
     public $table = 'csatar_csatar_troops';
 
     /**
+     * @var array The columns that should be searchable by ContentPageSearchProvider
+     */
+    protected static $searchable = ['name'];
+
+    /**
      * @var array Validation rules
      */
     public $rules = [

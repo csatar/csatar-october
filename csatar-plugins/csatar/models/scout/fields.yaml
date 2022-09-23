@@ -118,14 +118,13 @@ fields:
     phone:
         label: 'csatar.csatar::lang.plugin.admin.general.phone'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
             card: scoutData
             position: details
             order: 4
-            default: '-'  
+            default: '-'
     personal_identification_number:
         label: 'csatar.csatar::lang.plugin.admin.scout.personalIdentificationNumber'
         span: auto
@@ -163,7 +162,7 @@ fields:
             card: scoutData
             position: details
             order: 7
-            default: '-'      
+            default: '-'
     legal_relationship:
         label: 'csatar.csatar::lang.plugin.admin.scout.legalRelationship'
         nameFrom: name
