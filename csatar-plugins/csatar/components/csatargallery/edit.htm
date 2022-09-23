@@ -1,7 +1,8 @@
 <div id="editForm">
-{{ form_ajax('onSaveGallery', {update: {'csatargallery::galleryImages': '#galleries'}, files: true }) }}
-    <label for="title" class="form-label">{{ 'Cím' | _ }}</label>
-    <input type="text" name="title" id="title" class="form-control rounded" value="{{ gallery.name }}"><br>
+{{ form_ajax('onSaveGallery', {update: {'csatargallery::galleryImages': '#galleries'}, files: true, flash: true, validate: true }) }}
+    <label for="name" class="form-label">{{ 'Cím' | _ }} <span class="text-danger">*</span></label>
+    <input type="text" name="name" id="name" class="form-control rounded" value="{{ gallery.name }}">
+    <span data-validate-for="name" class="errormsg"></span><br>
 
     <label for="description" class="form-label">{{ 'Leírás' | _ }}</label>
     <input type="text" name="description" id="description" class="form-control rounded" value="{{ gallery.description }}"><br>
@@ -14,16 +15,17 @@
         data-template="#uploaderTemplateGallery"
         data-unique-id="images">
 
-        <label class="form-label">{{ 'Képek' | _ }}</label><br>
+        <label class="form-label">{{ 'Képek' | _ }} <span class="text-danger">*</span></label><br>
 
-        <input type="file" name="images[]" accept="image/*" class="form-control rounded" multiple="multiple"><br>
+        <input type="file" name="images[]" id="images" accept="image/*" class="form-control rounded" multiple="multiple">
+        <span data-validate-for="images" class="errormsg"></span><br><br>
 
     <!-- Existing files -->
     <div class="d-flex justify-content-center flex-wrap upload-files-container">
         {% for image in gallery.images %}
         <div class="upload-object is-success mb-3" data-id="{{ image.id }}" data-path="{{ image.path }}">
             <div class="bg-light rounded m-3  h-100">
-                
+
                 <div class="bg-light rounded px-2 border-0 position-absolute">
                     <div class="meta">
                         <a

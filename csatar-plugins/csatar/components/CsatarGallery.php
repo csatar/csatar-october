@@ -8,6 +8,8 @@ use System\Models\File;
 use Input;
 use Illuminate\Support\Facades\Log;
 use Redirect;
+use ValidationException;
+use Lang;
 
 class CsatarGallery extends Gallery
 {
@@ -91,9 +93,13 @@ class CsatarGallery extends Gallery
     public function onCreateGallery()
     {
         $gallery = new GalleryModel();
-        $gallery->name = post('title');
+        $gallery->name = post('name');
         $gallery->description = post('description');
         $gallery->save();
+
+        if (empty(Input::file('images'))) {
+            throw new ValidationException(['images' => 'Képet feltölteni kötelező!']);
+        }
 
         foreach (Input::file('images') as $file) {
             $gallery->images()->create(['data' => $file]);
@@ -119,6 +125,10 @@ class CsatarGallery extends Gallery
         $gallery = GalleryModel::find(post('gallery_id'));
         $gallery->name = post('title');
         $gallery->description = post('description');
+
+        if (empty(Input::file('images')) && $gallery->images()->count() === 0) {
+            throw new ValidationException(['images' => 'Képet feltölteni kötelező!']);
+        }
 
         if (Input::file('images') != []) {
             foreach (Input::file('images') as $file) {

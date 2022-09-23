@@ -1,14 +1,16 @@
 <div class="row">
     <div class="col-6">
-        {{ form_ajax('onCreateGallery', {update: {'csatargallery::galleryImages': '#galleries'}, files: true }) }}
-            <label for="title" class="form-label">{{ 'Cím' | _ }}</label>
-            <input type="text" name="title" id="title" class="form-control rounded"><br>
+        {{ form_ajax('onCreateGallery', {update: {'csatargallery::galleryImages': '#galleries'}, files: true, flash: true, validate: true }) }}
+            <label for="name" class="form-label">{{ 'Cím' | _ }} <span class="text-danger">*</span></label>
+            <input type="text" name="name" id="name" class="form-control rounded">
+            <span data-validate-for="name" class="errormsg"></span><br>
 
             <label for="description" class="form-label">{{ 'Leírás' | _ }}</label>
             <input type="text" name="description" id="description" class="form-control rounded"><br>
 
-            <label class="form-label">{{ 'Képek' | _ }}</label>
-            <input type="file" name="images[]" accept="image/*" class="form-control rounded" multiple="multiple"><br>
+            <label class="form-label">{{ 'Képek' | _ }} <span class="text-danger">*</span></label>
+            <input type="file" name="images[]" id="images" accept="image/*" class="form-control rounded" multiple="multiple">
+            <span data-validate-for="images" class="errormsg"></span><br><br>
 
             {% if parent_id %}
                 <input type="hidden" name="parent_id" value="{{ parent_id }}">
