@@ -1,7 +1,4 @@
 columns:
-    id:
-        label: 'csatar.csatar::lang.plugin.admin.general.id'
-        type: number
     name:
         label: 'csatar.csatar::lang.plugin.admin.general.name'
         type: text

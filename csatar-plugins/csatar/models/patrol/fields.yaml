@@ -89,6 +89,7 @@ fields:
             card: patrolData
             position: subtitle
             order: 1
+            disabledIfPreselected: true
     troop:
         label: 'csatar.csatar::lang.plugin.admin.patrol.troop'
         nameFrom: extendedName

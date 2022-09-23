@@ -92,6 +92,7 @@ trait AjaxControllerSimple {
             $html = $this->renderViewMode($this->widget);
         }
         else {
+            $this->disablePreselectedFields();
             $html = $this->widget->render(['preview' => $preview]);
             $html .= $this->renderValidationTags($record);
         }
@@ -693,6 +694,15 @@ trait AjaxControllerSimple {
             return $html;
         }
         return '';
+    }
+
+    public function disablePreselectedFields()
+    {
+        foreach ($this->widget->fields as $key => &$field) {
+            if (isset($field['formBuilder']) && isset($field['formBuilder']['disabledIfPreselected']) && $field['formBuilder']['disabledIfPreselected'] && isset($this->widget->model->{$key}) && !empty($this->widget->model->{$key})) {
+                $field['disabled'] = 1;
+            }
+        }
     }
 
     private function getRecord() {
