@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+## 1.5.0
+### 2022-09-23
+
 - CS-315 - Implemented breadcrumb
 - CS-299 - Modified the profile card image class so it can accept photos and images with every aspect ratio
 - CS-299 - Added white background to the profile picture on profile page card, so it supports transparent logos/photos
