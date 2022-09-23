@@ -3,6 +3,7 @@
 use DateTime;
 use Lang;
 use Model;
+use Csatar\Csatar\Models\Religion;
 use Csatar\Csatar\Models\Scout;
 
 /**
@@ -117,6 +118,15 @@ class TeamReport extends PermissionBasedAccess
         if (isset($fields->currency)) {
             $fields->currency->value = $this->team ? $this->team->district->association->currency->code : '';
         }
+
+        // set the spiritual leader data
+        $this->year = date('n') == 1 ? date('Y') - 1 : date('Y');
+        $lastYearTeamReport = $this::where('team_id', $this->team_id)->where('year', $this->year - 1)->first();
+        if (isset($lastYearTeamReport)) {
+            $fields->spiritual_leader_name->value = $lastYearTeamReport->spiritual_leader_name;
+            $fields->spiritual_leader_religion->value = $lastYearTeamReport->spiritual_leader_religion_id;
+            $fields->spiritual_leader_occupation->value = $lastYearTeamReport->spiritual_leader_occupation;
+        }
     }
 
     /**
@@ -128,7 +138,6 @@ class TeamReport extends PermissionBasedAccess
         $association = $this->team->district->association;
 
         // save additional data
-        $this->year = date('n') == 1 ? date('Y') - 1 : date('Y');
         $this->team_fee = $association->team_fee;
         $this->total_amount = $this->team_fee;
         $this->currency_id = $association->currency_id;

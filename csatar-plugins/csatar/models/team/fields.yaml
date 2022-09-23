@@ -117,27 +117,6 @@ fields:
             position: details
             order: 8
             default: '-'
-    historyData:
-        label: 'csatar.csatar::lang.plugin.admin.team.history'
-        span: full
-        type: section
-        hidden: 1
-        formBuilder:
-            type: card
-            position: sheets
-            class: col-lg-12 col-md-12 col-sm-12
-            color: csat-data-occupation
-            order: 2
-    history:
-        label: 'csatar.csatar::lang.plugin.admin.team.history'
-        size: ''
-        span: auto
-        type: textarea
-        formBuilder:
-            type: field
-            card: historyData
-            position: details
-            default: '-'
     coordinates:
         label: 'csatar.csatar::lang.plugin.admin.general.coordinates'
         size: ''
@@ -148,28 +127,6 @@ fields:
             card: teamData
             position: details
             order: 9
-            default: '-'
-    leadershipPresentationData:
-        label: 'csatar.csatar::lang.plugin.admin.team.leadershipPresentation'
-        span: full
-        type: section
-        hidden: 1
-        formBuilder:
-            type: card
-            position: sheets
-            class: col-lg-12 col-md-12 col-sm-12
-            color: csat-data-address
-            order: 3
-    leadership_presentation:
-        label: 'csatar.csatar::lang.plugin.admin.team.leadershipPresentation'
-        size: ''
-        span: auto
-        required: 1
-        type: textarea
-        formBuilder:
-            type: field
-            card: leadershipPresentationData
-            position: details
             default: '-'
     descriptionData:
         label: 'csatar.csatar::lang.plugin.admin.team.description'
@@ -191,6 +148,49 @@ fields:
         formBuilder:
             type: field
             card: descriptionData
+            position: details
+            default: '-'
+    historyData:
+        label: 'csatar.csatar::lang.plugin.admin.team.history'
+        span: full
+        type: section
+        hidden: 1
+        formBuilder:
+            type: card
+            position: sheets
+            class: col-lg-12 col-md-12 col-sm-12
+            color: csat-data-occupation
+            order: 2
+    history:
+        label: 'csatar.csatar::lang.plugin.admin.team.history'
+        size: ''
+        span: auto
+        type: textarea
+        formBuilder:
+            type: field
+            card: historyData
+            position: details
+            default: '-'
+    leadershipPresentationData:
+        label: 'csatar.csatar::lang.plugin.admin.team.leadershipPresentation'
+        span: full
+        type: section
+        hidden: 1
+        formBuilder:
+            type: card
+            position: sheets
+            class: col-lg-12 col-md-12 col-sm-12
+            color: csat-data-address
+            order: 3
+    leadership_presentation:
+        label: 'csatar.csatar::lang.plugin.admin.team.leadershipPresentation'
+        size: ''
+        span: auto
+        required: 1
+        type: textarea
+        formBuilder:
+            type: field
+            card: leadershipPresentationData
             position: details
             default: '-'
     juridical_person_name:
