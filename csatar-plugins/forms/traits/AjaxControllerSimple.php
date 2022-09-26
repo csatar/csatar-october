@@ -254,12 +254,15 @@ trait AjaxControllerSimple {
         $html .= $this->renderPartial('@partials/mainCard', $mainCardVariablesToPass);
 
         // render the sheets
-        $html .= '<div class="col"><div class="row">';
-        foreach ($sheetCardVariablesToPass as $sheet) {
-            $html .= $this->renderPartial('@partials/sheetCard', $sheet);
+        if (count($sheetCardVariablesToPass) > 0) {
+            $html .= '<div class="col"><div class="row">';
+            foreach ($sheetCardVariablesToPass as $sheet) {
+                $html .= $this->renderPartial('@partials/sheetCard', $sheet);
+            }
+            $html .= '</div></div>';
         }
 
-        $html .= '</div></div></div>';
+        $html .= '</div>';
         return $html;
     }
 
