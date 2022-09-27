@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- CS-302 - Modified navigation bar to support multi-level
+
 ## 1.5.0
 ### 2022-09-23
 

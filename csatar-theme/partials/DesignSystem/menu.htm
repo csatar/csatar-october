@@ -1,0 +1,75 @@
+<div class="container">
+    <div class="row align-items-start">
+        <div class="col-lg-2 col-md-12">
+            <h5 class="pb-3">{{ 'Menü' | _ }}</h5>
+        </div>
+
+        <div class="col-lg-8 col-md-12">
+            <!-- green bacground container -->
+            <div class="bg-white d-flex justify-content-center">
+                <div class="bg-primary py-2 rounded-bottom" style="width:97%">
+            <!-- green background container end -->
+                    <div class="row">
+
+                        <!-- navbar starts here -->
+                        <div class="col-1 col-sm-1 col-md-1 col-lg-6 order-2 order-md-2 pt-1 text-light">
+                            <nav class="navbar navbar-expand-md navbar-dark m-0 p-0">
+                                <div class="container-fluid">
+                                    <!-- mobile hamburger button -->
+                                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#collapsibleNavbar">
+                                    <span class="navbar-toggler-icon"></span>
+                                    </button>
+                                    <!-- mobile hamburger button end -->
+                                    <div class="collapse navbar-collapse" id="collapsibleNavbar">
+                                    <ul class="navbar-nav">
+                                        <!-- single link with no dropdown -->
+                                        <li class="nav-item">
+                                        <a class="nav-link text-nowrap" href="#">{{ 'Link 1' | _ }}</a>
+                                        </li>
+
+                                        <!-- link with simple dropdown -->
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Link 2</a>
+                                            <ul class="dropdown-menu bg-primary">
+                                              <li><a class="dropdown-item" href="#">Link 2-1</a></li>
+                                              <li><a class="dropdown-item" href="#">Link 2-2</a></li>
+                                            </ul>
+                                        </li>
+                                        
+                                        <!-- link with simple dropdown and sublinks -->
+                                        <li class="nav-item dropdown">
+                                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">Link 3</a>
+                                            <ul class="dropdown-menu bg-primary">
+                                              <li><a class="dropdown-item" href="#">Link 3-1</a></li>
+                                              <li><a class="dropdown-item" href="#">Link 3-2 &#9205;</a>
+                                                   <ul class="submenu dropdown-menu bg-primary">
+                                                    <li><a class="dropdown-item" href="#">Link 3-2-1</a></li>
+                                                    <li><a class="dropdown-item" href="#">Link 3-2-2</a></li>
+                                                    <li><a class="dropdown-item" href="#">Link 3-2-3 &#9205;</a>
+                                                        <ul class="submenu dropdown-menu bg-primary">
+                                                            <li><a class="dropdown-item" href="#">Link 3-2-3-1</a></li>
+                                                            <li><a class="dropdown-item" href="#">Link 3-2-3-2</a></li>
+                                                        </ul>
+                                                    </li>
+                                                    <li><a class="dropdown-item" href="#">Link 3-2-4</a></li>
+                                                    <li><a class="dropdown-item" href="#">Link 3-2-5</a></li>
+                                                 </ul>
+                                              </li>
+                                              <li><a class="dropdown-item" href="#">Link 3-3</a></li>
+                                            </ul>
+                                        </li>
+
+                                    </ul>
+                                    </div>
+                                </div>
+                            </nav>
+                        </div>
+
+                        <!-- navbar ends here -->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
