@@ -170,19 +170,19 @@ class MandateType extends Model
             $sessionRecord = new Collection([]);
         }
 
-        $guestMandateTypeId = self::where('association_id', $associationId)
+        $guestMandateType = self::where('association_id', $associationId)
             ->where('organization_type_model_name', self::MODEL_NAME_GUEST)
-            ->first()->id;
+            ->first();
 
         $sessionRecord = $sessionRecord->replace([ $associationId => [
             'associationId' => $associationId,
             'savedToSession' => date('Y-m-d H:i'),
-            'guestMandateTypeId'=> $guestMandateTypeId,
+            'guestMandateTypeId'=> $guestMandateType ? $guestMandateType->id : null,
         ]]);
 
         Session::put('guest.mandateTypeIds', $sessionRecord);
 
-        return $guestMandateTypeId;
+        return $guestMandateType ? $guestMandateType->id : null;
     }
 
     public function getMandateTypeOptions($scopes = null){
