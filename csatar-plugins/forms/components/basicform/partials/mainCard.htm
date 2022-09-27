@@ -3,9 +3,13 @@
         {% if image %}
             <div class="d-flex justify-content-center pt-2 bg-white">
                 {% if customImage == true %}
-                    <img class="rounded-circle csat-data-profile-img" src="{{ image }}" alt="" />
+                    <div class="ratio ratio-1x1 w-75">
+                        <img class="rounded-circle csat-data-profile-img" src="{{ image }}" alt="" />
+                    </div>
                 {% else %}
-                    <img class="rounded-circle csat-data-profile-img" src="{{ image | theme }}" alt="" />
+                    <div class="ratio ratio-1x1 w-75">
+                        <img class="rounded-circle csat-data-profile-img" src="{{ image | theme }}" alt="" />
+                    </div>
                 {% endif %}
             </div>
 
