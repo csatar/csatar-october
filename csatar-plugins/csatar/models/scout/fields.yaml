@@ -30,7 +30,7 @@ fields:
             card: scoutData
             position: subtitle
             order: 1
-            disabledIfPreselected: true
+            readOnlyIfPreselected: true
     troop:
         label: 'csatar.csatar::lang.plugin.admin.scout.troop'
         nameFrom: extendedName
