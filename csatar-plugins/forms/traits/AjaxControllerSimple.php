@@ -92,7 +92,7 @@ trait AjaxControllerSimple {
             $html = $this->renderViewMode($this->widget);
         }
         else {
-            $this->disablePreselectedFields();
+            $this->makePreselectedFieldsReadOnly();
             $html = $this->widget->render(['preview' => $preview]);
             $html .= $this->renderValidationTags($record);
         }
@@ -696,11 +696,11 @@ trait AjaxControllerSimple {
         return '';
     }
 
-    public function disablePreselectedFields()
+    public function makePreselectedFieldsReadOnly()
     {
         foreach ($this->widget->fields as $key => &$field) {
-            if (isset($field['formBuilder']) && isset($field['formBuilder']['disabledIfPreselected']) && $field['formBuilder']['disabledIfPreselected'] && isset($this->widget->model->{$key}) && !empty($this->widget->model->{$key})) {
-                $field['disabled'] = 1;
+            if (isset($field['formBuilder']) && isset($field['formBuilder']['readOnlyIfPreselected']) && $field['formBuilder']['readOnlyIfPreselected'] && isset($this->widget->model->{$key}) && !empty($this->widget->model->{$key})) {
+                $field['readOnly'] = 1;
             }
         }
     }

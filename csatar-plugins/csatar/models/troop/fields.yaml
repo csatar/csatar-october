@@ -75,4 +75,4 @@ fields:
             type: field
             card: troopData
             position: subtitle
-            disabledIfPreselected: true
+            readOnlyIfPreselected: true
