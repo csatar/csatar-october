@@ -1,5 +1,5 @@
 title: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.permissionsMatrix'
 form: $/csatar/csatar/models/permissionsmatrix/manageform.yaml
-modelClass: Csatar\Csatar\Models\PermissionsMatrix
+modelClass: Csatar\Csatar\Models\MandatePermission
 manage:
 

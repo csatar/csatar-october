@@ -168,3 +168,6 @@
 1.0.59:
     - 'Updated table csatar_csatar_associations'
     - builder_table_update_csatar_csatar_associations_3.php
+1.0.60:
+    - 'Updated table csatar_csatar_mandates_permissions'
+    - builder_table_update_csatar_csatar_mandates_permissions_2.php

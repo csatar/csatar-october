@@ -4,7 +4,7 @@ use BackendMenu;
 use Backend\Classes\Controller;
 use Backend\Widgets\Lists;
 use Csatar\Csatar\Models\MandateType;
-use Csatar\Csatar\Models\PermissionsMatrix as PermissionModel;
+use Csatar\Csatar\Models\MandatePermission;
 use Db;
 use File;
 use Illuminate\Validation\Rules\In;
@@ -37,10 +37,10 @@ class PermissionsMatrix extends Controller
     public function listExtendRecords($records) {
         if ($this->action === 'edit') {
             // this is needed to instert special first row that can manipulate the selects in every row below it
-            $model = new PermissionModel();
+            $model = new MandatePermission();
             $model->id = 'all';
-            $model->field = PermissionModel::PALCEHOLDER_VALUE;
-            $model->model = PermissionModel::PALCEHOLDER_VALUE;
+            $model->field = MandatePermission::PALCEHOLDER_VALUE;
+            $model->model = MandatePermission::PALCEHOLDER_VALUE;
             $model->obligatory = 'all';
             $model->create = 'all';
             $model->read = 'all';
@@ -89,10 +89,10 @@ class PermissionsMatrix extends Controller
             return; //flash nothing to save
         }
         foreach ($sessionValues as $sessionValue) {
-            $permissionModel = PermissionModel::find($sessionValue['id']);
-            if ($permissionModel) {
-                $permissionModel->{$sessionValue['action']} = $sessionValue['value'];
-                $permissionModel->save();
+            $MandatePermission = MandatePermission::find($sessionValue['id']);
+            if ($MandatePermission) {
+                $MandatePermission->{$sessionValue['action']} = $sessionValue['value'];
+                $MandatePermission->save();
             }
 
         }
@@ -118,7 +118,7 @@ class PermissionsMatrix extends Controller
 
     public function manage() {
         $this->pageTitle = e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.managePermissions'));
-        $this->initForm(new PermissionModel());
+        $this->initForm(new MandatePermission());
     }
 
     public function onExecute() {
@@ -128,7 +128,7 @@ class PermissionsMatrix extends Controller
         }
 
         if ($formData['action'] === 'copy') {
-            $permissionsToCopy = PermissionModel::where('mandate_type_id', $formData['fromMandateType'])->get();
+            $permissionsToCopy = MandatePermission::where('mandate_type_id', $formData['fromMandateType'])->get();
             foreach ($permissionsToCopy as $permissionToCopy) { //dd($formData, $permissionToCopy);
                 foreach ($formData['toMandateTypes'] as $toMandateTypeId) {
                     Db::table('csatar_csatar_mandates_permissions')
@@ -156,7 +156,7 @@ class PermissionsMatrix extends Controller
         }
 
         if ($formData['action'] === 'delete') {
-            PermissionModel::where('mandate_type_id', $formData['fromMandateType'])->delete();
+            MandatePermission::where('mandate_type_id', $formData['fromMandateType'])->delete();
             \Flash::success(e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.deleteSuccess')));
             if (Input::get('close')) {
                 return \Backend::redirect('csatar/csatar/permissionsmatrix');
