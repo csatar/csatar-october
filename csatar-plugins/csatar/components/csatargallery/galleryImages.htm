@@ -17,17 +17,7 @@
     <p class="p-gallery text-subtitle p-2">{{ gallery.description }}</p>
 </div>
 
-<div class="card rounded bg-light p-3 mb-3">
-<div class="d-flex flex-wrap justify-content-center">
-{% for image in gallery.images %}
-    <div>
-        <a class="colorbox" data-fancybox="gallery" href="{{ image.path }}" title="{{image.title}}">
-            <img src="{{ image.thumb(auto, 200) }}"  class="fr-fic fr-dib img-fluid csat-gallery-img m-1">
-        </a>
-    </div>
-{% endfor %}
-</div>
-</div>
+<hr class="hr-single bg-gray">
 
 {% if permission_to_edit %}
 <div class="d-flex justify-content-center">
@@ -55,6 +45,18 @@
     </div>
 </div>
 {% endif %}
+
+<div class="card rounded bg-light p-3 mb-3">
+<div class="d-flex flex-wrap justify-content-center">
+{% for image in gallery.images %}
+    <div>
+        <a class="colorbox" data-fancybox="gallery" href="{{ image.path }}" data-caption="<h2>{{image.title}}</h2><br>{{ image.description }}" title="{{image.title}}">
+            <img src="{{ image.thumb(auto, 200) }}"  class="fr-fic fr-dib img-fluid csat-gallery-img m-1">
+        </a>
+    </div>
+{% endfor %}
+</div>
+</div>
 
 <hr class="hr-single bg-gray">
 

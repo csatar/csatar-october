@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Log;
 use Redirect;
 use ValidationException;
 use Lang;
+use Resizer;
 
 class CsatarGallery extends Gallery
 {
@@ -101,8 +102,25 @@ class CsatarGallery extends Gallery
             throw new ValidationException(['images' => 'Képet feltölteni kötelező!']);
         }
 
+        if (sizeof(Input::file('images')) > 30) {
+            throw new ValidationException(['images' => 'Maximum 30 képet lehet feltölteni a galériához!']);
+        }
+
         foreach (Input::file('images') as $file) {
-            $gallery->images()->create(['data' => $file]);
+            $newFile = new File();
+            $newFile->data = $file;
+            $newFile->save();
+
+            list($width, $height) = getimagesize($newFile->getLocalPath());
+
+            if ($width > 1920) {
+                $resizer = new Resizer();
+                $resizer::open($newFile->getLocalPath())
+                    ->resize(1920, null, ['mode' => 'auto'])
+                    ->save($newFile->getLocalPath());
+            }
+
+            $gallery->images()->add($newFile);
         }
 
         $gallery->save();
@@ -130,9 +148,28 @@ class CsatarGallery extends Gallery
             throw new ValidationException(['images' => 'Képet feltölteni kötelező!']);
         }
 
+        $imagesSize = empty(Input::file('images')) ? 0 : sizeof(Input::file('images'));
+
+        if (($imagesSize + $gallery->images()->count()) > 30 ) {
+            throw new ValidationException(['images' => 'Maximum 30 képet lehet feltölteni a galériához!']);
+        }
+
         if (Input::file('images') != []) {
             foreach (Input::file('images') as $file) {
-                $gallery->images()->create(['data' => $file]);
+                $newFile = new File();
+                $newFile->data = $file;
+                $newFile->save();
+
+                list($width, $height) = getimagesize($newFile->getLocalPath());
+
+                if ($width > 1920) {
+                    $resizer = new Resizer();
+                    $resizer::open($newFile->getLocalPath())
+                        ->resize(1920, null, ['mode' => 'auto'])
+                        ->save($newFile->getLocalPath());
+                }
+
+                $gallery->images()->add($newFile);
             }
         }
 
@@ -251,6 +288,16 @@ class CsatarGallery extends Gallery
         $file = File ::find($file_id);
 
         $gallery->images()->remove($file);
+    }
+
+    public function onSaveImage()
+    {
+        $gallery = GalleryModel::find(post('gallery_id'));
+        $file_id = post('file_id');
+        $file = File ::find($file_id);
+        $file->title = post('title-' . $file_id);
+        $file->description = post('description-' . $file_id);
+        $file->save();
     }
 
 }

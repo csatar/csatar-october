@@ -23,8 +23,8 @@
     <!-- Existing files -->
     <div class="d-flex justify-content-center flex-wrap upload-files-container">
         {% for image in gallery.images %}
-        <div class="upload-object is-success mb-3" data-id="{{ image.id }}" data-path="{{ image.path }}">
-            <div class="bg-light rounded m-3  h-100">
+        <div class="upload-object mb-3" data-id="{{ image.id }}" data-path="{{ image.path }}">
+            <div class="bg-light rounded m-3">
 
                 <div class="bg-light rounded px-2 border-0 position-absolute">
                     <div class="meta">
@@ -41,12 +41,34 @@
                     <img src="{{ image.path }}" alt="" class="fr-fic fr-dib csat-gallery-edit p-2">
                 </div>
 
-                <div>
-                    <div class="info">
+                <div id="info-{{ image.id }}">
+                    <div class="info d-flex">
+                        <a class="btn btn-xs rounded btn-light edit-content" data-id="{{ image.id }}" title="{{ image.description }}">
+                            <i class="csat-edit-out-sm"></i>
+                        </a>
                         <p class="filename px-2">
-                            <span data-dz-name>{{ image.file_name }}</span>
+                            <span data-dz-name id="title-span-{{ image.id }}">{{ image.title }}</span>
                         </p>
                     </div>
+                </div>
+
+                <div id="edit-image-{{ image.id }}" style="display: none">
+                    <input type="text" name="title-{{ image.id }}" id="title-{{ image.id }}" class="form-control rounded" value="{{ image.title }}">
+                    <textarea name="description-{{ image.id }}" id="description-{{ image.id }}" class="form-control rounded">{{ image.description }}</textarea>
+                    <button
+                        type="submit"
+                        class="btn btn-sm rounded btn-primary saveimage"
+                        data-id="{{ image.id }}"
+                        data-request="onSaveImage"
+                        data-request-data="file_id: {{ image.id }}, gallery_id: {{ gallery.id }}">
+                        <i class="csat-save-out-wh-sm"></i>
+                        {{ 'Mentés' | _ }}
+                    </button>
+                    <a
+                        class="btn btn-sm rounded btn-danger cancelimage"
+                        data-id="{{ image.id }}">
+                        {{ 'Mégse' | _ }}
+                    </a>
                 </div>
 
             </div>
@@ -89,6 +111,7 @@
 
         <button
             type="submit"
+            id="save"
             class="btn btn-sm rounded btn-primary">
             <i class="csat-save-out-wh-sm"></i>
             {{ 'Mentés' | _ }}
@@ -103,3 +126,48 @@
 {{ form_close() }}
 </div>
 </div>
+
+<script>
+    $(document).ready(function(){
+        $(".edit-content").click(function(){
+            var id = $(this).attr("data-id");
+            $("#info-" + id).hide();
+            $("#edit-image-" + id).show();
+        });
+        $(".saveimage").click(function(){
+            var id = $(this).attr("data-id");
+            var title = $("#title-" + id).val();
+            $("#info-" + id).show();
+            $("#title-span-" + id).text(title);
+            $("#edit-image-" + id).hide();
+        });
+        $(".cancelimage").click(function(){
+            var id = $(this).attr("data-id");
+            $("#info-" + id).show();
+            $("#edit-image-" + id).hide();
+        });
+
+        $("#images").on("change", function(){
+            const fi = document.getElementById('images');
+            // Check if any file is selected.
+            if (fi.files.length > 0) {
+                var filesSize = 0;
+                for (var i = 0; i <= fi.files.length - 1; i++) {
+
+                    const fsize = fi.files.item(i).size;
+                    const file = Math.round((fsize / 1024));
+
+                    filesSize += file;
+                }
+                if (filesSize > 100000)
+                {
+                    alert('A képek mérete nem lehet nagyobb mint 100mb!')
+                    $("#save").prop('disabled', true);
+                } else {
+                    $("#save").prop('disabled', false);
+                }
+            }
+        });
+
+    });
+</script>

@@ -18,6 +18,7 @@
 
             <button
                 type="submit"
+                id="save"
                 class="btn btn-sm rounded btn-primary">
                 <i class="csat-save-fill-wh-sm"></i>
                 {{ 'Mentés' | _ }}
@@ -32,3 +33,31 @@
         {{ form_close() }}
     </div>
 </div>
+
+
+<script>
+    $(document).ready(function(){
+        $("#images").on("change", function(){
+            const fi = document.getElementById('images');
+            // Check if any file is selected.
+            if (fi.files.length > 0) {
+                var filesSize = 0;
+                for (var i = 0; i <= fi.files.length - 1; i++) {
+
+                    const fsize = fi.files.item(i).size;
+                    const file = Math.round((fsize / 1024));
+
+                    filesSize += file;
+                }
+                if (filesSize > 100000)
+                {
+                    alert('A képek mérete nem lehet nagyobb mint 100mb!')
+                    $("#save").prop('disabled', true);
+                } else {
+                    $("#save").prop('disabled', false);
+                }
+            }
+        });
+
+    });
+</script>
