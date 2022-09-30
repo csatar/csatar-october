@@ -3,9 +3,13 @@
         {% if image %}
             <div class="d-flex justify-content-center pt-2 bg-white">
                 {% if customImage == true %}
-                    <img class="rounded-circle csat-data-profile-img" src="{{ image }}" alt="" />
+                    <div class="ratio ratio-1x1 w-75">
+                        <img class="rounded-circle csat-data-profile-img" src="{{ image }}" alt="" />
+                    </div>
                 {% else %}
-                    <img class="rounded-circle csat-data-profile-img" src="{{ image | theme }}" alt="" />
+                    <div class="ratio ratio-1x1 w-75">
+                        <img class="rounded-circle csat-data-profile-img" src="{{ image | theme }}" alt="" />
+                    </div>
                 {% endif %}
             </div>
 
@@ -20,7 +24,12 @@
             {% endfor %}
             <p class="text-center mt-0"> </p>
             <hr class="mt-0">
-            <p class="card-text text-white text-center"> </p>
+            <p class="card-text text-white text-center">
+                {% for description in descriptionList %}
+                    <p class="p-bold text-center mb-0">{{ description.title }}</p>
+                    <p class="text-center mt-0">{{ description.value }}</p>
+                {% endfor %}
+            </p>
             <div class="card-body rounded bg-light">
                 {% for field in fields %}
                     <p class="p-bold mb-2 text-primary">{{ field.label ~ ': ' }}<span class="text-black card-text">{{ field.value }}</span></p>

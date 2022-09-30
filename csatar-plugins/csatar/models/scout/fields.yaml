@@ -30,7 +30,7 @@ fields:
             card: scoutData
             position: subtitle
             order: 1
-            disabledIfPreselected: true
+            readOnlyIfPreselected: true
     troop:
         label: 'csatar.csatar::lang.plugin.admin.scout.troop'
         nameFrom: extendedName
@@ -59,6 +59,13 @@ fields:
             card: scoutData
             position: subtitle
             order: 3
+    active_mandates:
+        hidden: 1
+        type: custom
+        formBuilder:
+            type: field
+            card: scoutData
+            position: descriptionList
     scoutData:
         label: 'csatar.csatar::lang.plugin.admin.scout.scoutData'
         span: full

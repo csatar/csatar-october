@@ -14,6 +14,10 @@ fields:
         required: 1
         type: text
         comment: 'csatar.csatar::lang.plugin.admin.district.organizationUnitNameWarning'
+        formBuilder:
+            type: field
+            card: districtData
+            position: title
     address:
         label: 'csatar.csatar::lang.plugin.admin.general.address'
         span: auto
@@ -182,4 +186,4 @@ fields:
             card: districtData
             position: subtitle
             default: '-'
-            disabledIfPreselected: true
+            readOnlyIfPreselected: true
