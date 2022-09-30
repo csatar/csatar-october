@@ -8,6 +8,7 @@ use Session;
 use Model;
 use Csatar\Csatar\Classes\RightsMatrix;
 use Csatar\Csatar\Models\Association;
+use Csatar\Csatar\Models\Mandate;
 use October\Rain\Database\Collection;
 
 /**
@@ -22,6 +23,7 @@ class Scout extends OrganizationBase
     protected $dates = ['deleted_at'];
 
     protected static $relationLabels = null;
+    public $active_mandates = [];
 
     /**
      * @var array The columns that should be searchable by ContentPageSearchProvider
@@ -156,6 +158,24 @@ class Scout extends OrganizationBase
         }
     }
 
+    public function initFromForm()
+    {
+        // set the mandates of the user
+        $mandates = Mandate::where('scout_id', $this->id)
+            ->where('start_date', '<=', date('Y-m-d H:i'))
+            ->where(function ($query) {
+                $query->whereNull('end_date')
+                  ->orWhere('end_date', '>=', date('Y-m-d H:i'));
+            })->get();
+
+        foreach ($mandates as $key => $value) {
+            array_push($this->active_mandates, [
+                'title' => $value->mandate_model_name,
+                'value' => MandateType::find($value->mandate_type_id)->name,
+            ]);
+        }
+    }
+
     /**
      * Handle the team-troop-patrol dependencies
      */
@@ -183,7 +203,7 @@ class Scout extends OrganizationBase
             }
         }
 
-        // populate the Legal Relationships dropdown with legal relationships that belong to the selected teamás association
+        // populate the Legal Relationships dropdown with legal relationships that belong to the selected team's association
         $fields->legal_relationship->options = $this->team ? \Csatar\Csatar\Models\LegalRelationship::associationId($this->team->district->association->id)->lists('name', 'id') : [];
     }
 

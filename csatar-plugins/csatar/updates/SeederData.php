@@ -344,7 +344,7 @@ class SeederData extends Seeder
                     'required' => true,
                 ],
                 [
-                    'name' => 'Őrsvezető helyettes',
+                    'name' => 'Segédőrsvezető',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Patrol',
                     'required' => false,
                     'overlap_allowed' => true,
@@ -676,7 +676,7 @@ class SeederData extends Seeder
             ->where('association_id', $associationId)
             ->where('organization_type_model_name', '\Csatar\Csatar\Models\Scout')
             ->first()->id; //get scout mandate type id
-
+        
         if(empty($permissionBasedModels) || empty($scoutMandateTypeId)) return;
 
         foreach ($permissionBasedModels as $permissionBasedModel) {

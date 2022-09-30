@@ -81,6 +81,9 @@ trait AjaxControllerSimple {
         $config->alias = $this->alias;
         $config->model = $record;
 
+        if (method_exists($record, 'initFromForm')) {
+            $record->initFromForm();
+        }
         $this->autoloadBelongsToRelations($record);
         $this->autoloadhasManyRelations($record);
 
@@ -162,7 +165,9 @@ trait AjaxControllerSimple {
                 }
 
                 $newField = [];
-                $newField['label'] = Lang::get($field['label']);
+                if (isset($field['label'])) {
+                    $newField['label'] = Lang::get($field['label']);
+                }
 
                 // retrieve the value for the field
                 $value = isset($field['formBuilder']['default']) ? $field['formBuilder']['default'] : '';
@@ -187,6 +192,9 @@ trait AjaxControllerSimple {
                     else if ($field['type'] == 'fileupload' && $field['mode'] == 'image') { // images
                         $value = $widget->model->{$key}->getPath();
                         $mainCardVariablesToPass['customImage'] = true;
+                    }
+                    else if ($field['type'] == 'custom') { // custom field type, which permits to list title-value pairs in the descriptionList part of the mainCard
+                        $value = $widget->model->{$key};
                     }
                     else if (isset($widget->model->attributes[$key]) && !empty($widget->model->attributes[$key])) { // regular fields
                         $value = $widget->model->attributes[$key];
@@ -228,6 +236,9 @@ trait AjaxControllerSimple {
                     else if ($field['position'] == 'details') {
                         array_push($mainCardVariablesToPass['fields'], $field);
                     }
+                    else if ($field['position'] == 'descriptionList') {
+                        $mainCardVariablesToPass['descriptionList'] = $field['value'];
+                    }
                 }
 
                 // sort the title fields and create the title
@@ -254,12 +265,15 @@ trait AjaxControllerSimple {
         $html .= $this->renderPartial('@partials/mainCard', $mainCardVariablesToPass);
 
         // render the sheets
-        $html .= '<div class="col"><div class="row">';
-        foreach ($sheetCardVariablesToPass as $sheet) {
-            $html .= $this->renderPartial('@partials/sheetCard', $sheet);
+        if (count($sheetCardVariablesToPass) > 0) {
+            $html .= '<div class="col"><div class="row">';
+            foreach ($sheetCardVariablesToPass as $sheet) {
+                $html .= $this->renderPartial('@partials/sheetCard', $sheet);
+            }
+            $html .= '</div></div>';
         }
 
-        $html .= '</div></div></div>';
+        $html .= '</div>';
         return $html;
     }
 
@@ -1045,7 +1059,7 @@ trait AjaxControllerSimple {
 
         foreach ($attributesArray as $attribute => $settings) {
 
-            if ($settings['type'] == 'section' || $settings['type'] == 'relation') {
+            if ($settings['type'] == 'custom' || $settings['type'] == 'section' || $settings['type'] == 'relation') {
                 continue;
             }
 
