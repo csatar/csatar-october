@@ -1631,8 +1631,13 @@ input:-webkit-autofill:active {
     height: 200px;
 }
 
-.csat-gallery-edit {
-    height: 120px;
+.csat-gallery-edit-img {
+    max-width: 200px;
+    max-height: 150px;
+}
+
+.csat-gallery-edit-input {
+    width: 300px;
 }
 
 /* create user elements */
