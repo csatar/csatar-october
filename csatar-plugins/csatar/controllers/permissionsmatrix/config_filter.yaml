@@ -19,14 +19,14 @@ scopes:
 
     model:
         label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.model'
-        modelClass: Csatar\Csatar\Models\PermissionsMatrix
+        modelClass: Csatar\Csatar\Models\MandatePermission
         conditions: csatar_csatar_mandates_permissions.model in (:filtered)
         nameFrom: organization_type_model_name
         options: getModelOptions
 
     field:
         label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.field'
-        modelClass: Csatar\Csatar\Models\PermissionsMatrix
+        modelClass: Csatar\Csatar\Models\MandatePermission
         conditions: csatar_csatar_mandates_permissions.field in (:filtered)
         nameFrom: organization_type_model_name
         options: getFieldOptions

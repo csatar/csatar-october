@@ -6,8 +6,12 @@ use Db;
 /**
  * Model
  */
-class PermissionsMatrix extends Model
+class MandatePermission extends Model
 {
+    use \October\Rain\Database\Traits\SoftDelete;
+
+    protected $dates = ['deleted_at'];
+
     /**
      * @var array Validation rules
      */
@@ -15,6 +19,10 @@ class PermissionsMatrix extends Model
 
     public const MODEL_GENERAL_VALUE = 'MODEL_GENERAL';
     public const PALCEHOLDER_VALUE = 'PALCEHOLDER';
+
+    public $belongsTo = [
+        'mandateType' => '\Csatar\Csatar\Models\MandateType',
+    ];
 
     public $translatedLabelsForFields = [];
 

@@ -675,8 +675,9 @@ class SeederData extends Seeder
         $scoutMandateTypeId = Db::table('csatar_csatar_mandate_types')->select('id')
             ->where('association_id', $associationId)
             ->where('organization_type_model_name', '\Csatar\Csatar\Models\Scout')
+            ->whereNull('deleted_at')
             ->first()->id; //get scout mandate type id
-        
+
         if(empty($permissionBasedModels) || empty($scoutMandateTypeId)) return;
 
         foreach ($permissionBasedModels as $permissionBasedModel) {
@@ -756,6 +757,7 @@ class SeederData extends Seeder
             $guestMandateTypeId = Db::table('csatar_csatar_mandate_types')->select('id')
                 ->where('association_id', $associationId)
                 ->where('organization_type_model_name', 'GUEST')
+                ->whereNull('deleted_at')
                 ->first()->id; //get guest mandate type id
 
             if(empty($permissionBasedModels) || empty($guestMandateTypeId)) return;

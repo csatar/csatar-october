@@ -1,5 +1,5 @@
 title: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.permissionsMatrix'
-modelClass: Csatar\Csatar\Models\PermissionsMatrix
+modelClass: Csatar\Csatar\Models\MandatePermission
 list: $/csatar/csatar/models/permissionsmatrix/columns.yaml
 customViewPath: $/csatar/csatar/controllers/permissionsmatrix/list
 noRecordsMessage: 'backend::lang.list.no_records'

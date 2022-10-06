@@ -5,6 +5,7 @@ use Csatar\Csatar\Models\District;
 use Csatar\Csatar\Models\Patrol;
 use Csatar\Csatar\Models\Team;
 use Csatar\Csatar\Models\Troop;
+use Csatar\Csatar\Models\MandatePermission;
 use Input;
 use Lang;
 use Model;
@@ -30,6 +31,17 @@ class MandateType extends Model
      * @var string The database table used by the model.
      */
     public $table = 'csatar_csatar_mandate_types';
+
+    public static function boot() {
+
+        parent::boot();
+
+        static::deleting(function($item) {
+
+            MandatePermission::where('mandate_type_id', $item->id)->delete();
+
+        });
+    }
 
     /**
      * @var array Validation rules
@@ -83,6 +95,10 @@ class MandateType extends Model
             'key' => 'parent_id',
             'count' => true,
         ],
+        'mandatePermissions' => [
+            '\Csatar\Csatar\Models\MandatePermission',
+            'delete' => true,
+        ]
     ];
 
     function getOrganizationTypeModelNameOptions()
