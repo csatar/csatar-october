@@ -539,7 +539,7 @@ trait AjaxControllerSimple {
         $attributeNames = [];
 
         foreach ($config->fields as $key => $value) {
-            if ($value['type'] !== 'section') {
+            if ($value['type'] !== 'section' && isset($value['label'])) {
                 $attributeNames[$key] = Lang::get($value['label']);
             }
         }

@@ -396,13 +396,23 @@ class Scout extends OrganizationBase
 
         $sufix = $team->district->association->ecset_code_suffix ?? substr($team->district->association->name, 0, 2);
 
-        $ecset_code = strtoupper(substr(uniqid(), 0, -3) . '-' . $sufix);
+        $uid = uniqid();
+        $ecset_code = strtoupper(substr($uid, 0, 6) . '-' . $sufix);
 
-        if(Scout::where('ecset_code', $ecset_code)->exists()){
+        if($this->ecsetCodeExists($ecset_code)){
+            $ecset_code = strtoupper(substr($uid, 6, 6) . '-' . $sufix);
+        }
+
+        if($this->ecsetCodeExists($ecset_code)){
             return $this->generateEcsetCode();
         }
 
         return $ecset_code;
+    }
+
+    private function ecsetCodeExists(string $code): bool
+    {
+        return Scout::where('ecset_code', $code)->exists();
     }
 
     private function validatePivotDateAndLocationFields($fields, $category)
