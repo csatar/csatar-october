@@ -396,10 +396,11 @@ class Scout extends OrganizationBase
 
         $sufix = $team->district->association->ecset_code_suffix ?? substr($team->district->association->name, 0, 2);
 
-        $ecset_code = strtoupper(substr(uniqid(), 0, 6) . '-' . $sufix);
+        $uid = uniqid();
+        $ecset_code = strtoupper(substr($uid, 0, 6) . '-' . $sufix);
 
         if($this->ecsetCodeExists($ecset_code)){
-            $ecset_code = strtoupper(substr(uniqid(), 1, 6) . '-' . $sufix);
+            $ecset_code = strtoupper(substr($uid, 6, 6) . '-' . $sufix);
         }
 
         if($this->ecsetCodeExists($ecset_code)){
