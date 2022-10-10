@@ -171,7 +171,7 @@ class Scout extends OrganizationBase
         foreach ($mandates as $key => $value) {
             array_push($this->active_mandates, [
                 'title' => $value->mandate_model_name,
-                'value' => MandateType::find($value->mandate_type_id)->name,
+                'value' => isset(MandateType::find($value->mandate_type_id)->name) ? MandateType::find($value->mandate_type_id)->name : '',
             ]);
         }
     }
