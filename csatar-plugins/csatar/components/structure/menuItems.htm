@@ -25,7 +25,7 @@
 {% if array | length > 0 %}
     {% for item in array %}
         {% if childArrayName and attribute(item, childArrayName)|length > 0 and level < maxLevel %}
-            <li><a class="dropdown-item" href="#">{{ item.extendedName }}</a>
+            <li><a class="dropdown-item" href="#">{{ item.extendedName }} &#9205;</a>
             <ul class="submenu dropdown-menu bg-primary">
                 <li><a class="dropdown-item" href="{{ url('/') ~ '/' ~ organizationTypeForUrl ~ '/' ~ item.id }}">{{ item.extendedName }}</a>
                 {% partial __SELF__ ~ '::menuItems' array=attribute(item, childArrayName) level=level+1 %}
