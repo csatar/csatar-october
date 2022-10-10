@@ -513,6 +513,12 @@
                         'title' => 'Model Id',
                         'description' => 'Kezdő model id.',
                     ],
+                    'mode' => [
+                        'title' => 'Megjelenítési mód',
+                        'description' => 'A szervezeti struktúra megjelenítéi módja',
+                        'accordion' => 'Akkordion',
+                        'menu' => 'Menü',
+                    ],
                 ],
             ],
             'logos' => [

@@ -513,6 +513,12 @@
                         'title' => 'Model Id',
                         'description' => 'Starter model id.',
                     ],
+                    'mode' => [
+                        'title' => 'Display mode',
+                        'description' => 'The display mode of the structure',
+                        'accordion' => 'Accordion',
+                        'menu' => 'Menu',
+                    ],
                 ],
             ],
             'logos' => [
