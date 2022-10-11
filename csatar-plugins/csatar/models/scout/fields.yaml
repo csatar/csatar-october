@@ -595,6 +595,11 @@ fields:
         span: auto
         type: fileupload
         comment: 'csatar.csatar::lang.plugin.admin.scout.profile_image_comment'
+        formBuilder:
+            type: field
+            card: scoutData
+            position: image
+            default: 'assets/images/userimg_placeholder.webp'
     registration_form:
         label: 'csatar.csatar::lang.plugin.admin.scout.registrationForm'
         mode: file
