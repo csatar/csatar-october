@@ -9,6 +9,7 @@ class Structure extends ComponentBase
     public $structureArray;
     public $level;
     public $displayHeader = false;
+    public $mode;
 
     public function componentDetails()
     {
@@ -38,7 +39,16 @@ class Structure extends ComponentBase
                 'description'       => 'csatar.csatar::lang.plugin.component.structure.properties.model_id.description',
                 'type'              => 'string',
                 'default'           => null
-            ]
+            ],
+            'mode' => [
+                'title'             => 'csatar.csatar::lang.plugin.component.structure.properties.mode.title',
+                'description'       => 'csatar.csatar::lang.plugin.component.structure.properties.mode.description',
+                'type'              => 'dropdown',
+                'options'           => [
+                    'accordion' => 'csatar.csatar::lang.plugin.component.structure.properties.mode.accordion',
+                    'menu'      => 'csatar.csatar::lang.plugin.component.structure.properties.mode.menu',
+                ],
+            ],
         ];
     }
 
@@ -53,5 +63,7 @@ class Structure extends ComponentBase
             $this->level = 1;
             $this->structureArray = Association::all();
         }
+
+        $this->mode = $this->property('mode');
     }
 }
