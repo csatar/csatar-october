@@ -52,7 +52,6 @@ class Scout extends OrganizationBase
         'is_active' => 'required',
         'legal_relationship' => 'required',
         'religion' => 'required',
-        'tshirt_size' => 'required',
         'birthdate' => 'required',
         'birthplace' => 'required',
         'address_country' => 'required',
