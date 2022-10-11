@@ -122,6 +122,7 @@
                 'troop' => 'Troop',
                 'patrol' => 'Patrol',
                 'profile_image' => 'Profile image',
+                'profile_image_comment' => 'Id format (above chest), in scout uniform.',
                 'sections' => [
                     'birthData' => 'Birth data',
                     'addressData' => 'Address',

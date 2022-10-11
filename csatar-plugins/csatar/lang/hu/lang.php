@@ -122,6 +122,7 @@
                 'troop' => 'Raj',
                 'patrol' => 'Őrs',
                 'profile_image' => 'Profilkép',
+                'profile_image_comment' => 'Igazolványkép formátumban (mellkastól felfele), "cserkészdíszben".',
                 'sections' => [
                     'birthData' => 'Születési adatok',
                     'addressData' => 'Cím',
