@@ -104,28 +104,6 @@ fields:
             position: details
             order: 8
             default: '-'
-    leadershipPresentationData:
-        label: 'csatar.csatar::lang.plugin.admin.team.leadershipPresentation'
-        span: full
-        type: section
-        hidden: 1
-        formBuilder:
-            type: card
-            position: sheets
-            class: col-lg-12 col-md-12 col-sm-12
-            color: csat-data-address
-            order: 2
-    leadership_presentation:
-        label: 'csatar.csatar::lang.plugin.admin.district.leadershipPresentation'
-        size: ''
-        span: auto
-        required: 1
-        type: textarea
-        formBuilder:
-            type: field
-            card: leadershipPresentationData
-            position: details
-            default: '-'
     descriptionData:
         label: 'csatar.csatar::lang.plugin.admin.team.description'
         span: full
@@ -146,6 +124,28 @@ fields:
         formBuilder:
             type: field
             card: descriptionData
+            position: details
+            default: '-'
+    leadershipPresentationData:
+        label: 'csatar.csatar::lang.plugin.admin.team.leadershipPresentation'
+        span: full
+        type: section
+        hidden: 1
+        formBuilder:
+            type: card
+            position: sheets
+            class: col-lg-12 col-md-12 col-sm-12
+            color: csat-data-address
+            order: 2
+    leadership_presentation:
+        label: 'csatar.csatar::lang.plugin.admin.district.leadershipPresentation'
+        size: ''
+        span: auto
+        required: 1
+        type: textarea
+        formBuilder:
+            type: field
+            card: leadershipPresentationData
             position: details
             default: '-'
     bank_account:

@@ -1,3 +1,4 @@
+formBuilder_card_design: true
 fields:
     ecset_code:
         label: 'csatar.csatar::lang.plugin.admin.general.ecsetCode'
