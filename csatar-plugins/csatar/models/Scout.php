@@ -167,11 +167,24 @@ class Scout extends OrganizationBase
                   ->orWhere('end_date', '>=', date('Y-m-d H:i'));
             })->get();
 
+        // first add the team mandates in the mandates list
         foreach ($mandates as $key => $value) {
-            array_push($this->active_mandates, [
-                'title' => $value->mandate_model_name,
-                'value' => isset(MandateType::find($value->mandate_type_id)->name) ? MandateType::find($value->mandate_type_id)->name : '',
-            ]);
+            if ($value->mandate_model_type == '\Csatar\Csatar\Models\Team') {
+                array_push($this->active_mandates, [
+                    'title' => '',
+                    'value' => isset(MandateType::find($value->mandate_type_id)->name) ? MandateType::find($value->mandate_type_id)->name : '',
+                ]);
+            }
+        }
+
+        // add all other mandates to the mandates list
+        foreach ($mandates as $key => $value) {
+            if ($value->mandate_model_type != '\Csatar\Csatar\Models\Team') {
+                array_push($this->active_mandates, [
+                    'title' => $value->mandate_model_name,
+                    'value' => isset(MandateType::find($value->mandate_type_id)->name) ? MandateType::find($value->mandate_type_id)->name : '',
+                ]);
+            }
         }
     }
 
