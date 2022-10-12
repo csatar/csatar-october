@@ -65,6 +65,6 @@ class TwoFactorAuthentication extends ComponentBase
 
     private function is2FAuthenticated()
     {
-        return Session::get('scout.twoFA') == true;
+        return Session::get('scout.twoFA', false);
     }
 }
