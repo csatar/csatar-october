@@ -171,3 +171,6 @@
 1.0.60:
     - 'Updated table csatar_csatar_mandates_permissions'
     - builder_table_update_csatar_csatar_mandates_permissions_2.php
+1.0.61:
+    - 'Updated table csatar_csatar_scouts'
+    - builder_table_update_csatar_csatar_scouts_2.php

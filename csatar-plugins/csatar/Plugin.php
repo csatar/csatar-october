@@ -28,6 +28,20 @@ use Csatar\Csatar\Classes\Validators\CnpValidator;
 class Plugin extends PluginBase
 {
     /**
+     * @var array Plugin dependencies
+     */
+    public $require = [
+        'Flynsarmy.SocialLogin',
+        'JanVince.SmallContactForm',
+        'OFFLINE.GDPR',
+        'OFFLINE.SiteSearch',
+        'PolloZen.SimpleGallery',
+        'RainLab.Translate',
+        'Rainlab.User',
+        'Vdlp.TwoFactorAuthentication',
+    ];
+
+    /**
      * Returns information about this plugin.
      *
      * @return array
@@ -71,6 +85,7 @@ class Plugin extends PluginBase
             \Symfony\Component\HttpKernel\Exception\HttpException $exception) {
 
             if($exception->getStatusCode() == 403) {
+                Session::put('urlBefore403Redirect', Session::get('_previous.url'));
                 return Redirect::to('/403');
             }
         });
@@ -183,6 +198,7 @@ class Plugin extends PluginBase
             \Csatar\Csatar\Components\OrganizationUnitFrontend::class => 'organizationUnitFrontend',
             \Csatar\Csatar\Components\CsatarGallery::class => 'csatargallery',
             \Csatar\Csatar\Components\Breadcrumb::class => 'csatarBreadcrumb',
+            \Csatar\Csatar\Components\TwoFactorAuthentication::class => 'twoFactorAuthentication',
         ];
     }
 

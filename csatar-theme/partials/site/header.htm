@@ -107,8 +107,12 @@ function onStart()
                         {% else %}
                             <i class="csat-user-out-wh-md"></i>
                         {% endif %}
-
                     </a>
+
+                    <a class="btn controls" data-bs-toggle="modal" data-bs-target="#twoFactorAuthModal">
+                        <i class="csat-key-out-wh-md"></i>
+                    </a>
+
                     <a data-request="onLogout" data-request-data="redirect: '/bejelentkezes'" class="btn controls" type="button">
                         <i class="csat-exit-out-wh-md"></i>
                     </a>
@@ -123,3 +127,5 @@ function onStart()
         </div>
     </div>
 </div>
+
+{% component 'twoFactorAuthentication' %}

@@ -599,6 +599,12 @@
                 'name' => 'Szervezeti Egység Frontend',
                 'description' => 'Megyjeleníti egy szerevezeti egység frontend oldalát.',
             ],
+            'twoFactorAuthentication' => [
+                'name' => 'Két faktoros hitelesítése',
+                'description' => 'Két faktoros hitelesítése plugin.',
+                'twoFactorAuthFailed' => 'A hitelesítés sikertelen, kérlek próbáld újra!',
+                'twoFactorAuthSuccess' => 'A hitelesítés sikeres, köszönjük!',
+            ],
         ],
         'oauth' => [
             'onlyExistingUsersCanLogin' => 'Jelenleg csak létező felhasználók léphetnek be oAuth-al!',

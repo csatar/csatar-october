@@ -605,7 +605,7 @@ class Scout extends OrganizationBase
         }
 
         $is2fa = false;
-        if(Auth::user() && !empty(Auth::user()->twoFA)){ //TODO: this will be implemented with task CS-287
+        if(Auth::user() && Session::get('scout.twoFA', false)){
             $is2fa = true;
         }
 

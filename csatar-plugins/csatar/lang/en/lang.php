@@ -599,6 +599,12 @@
                 'name' => 'Organization Unit Frontend',
                 'description' => 'Display the organization unit frontend page.',
             ],
+            'twoFactorAuthentication' => [
+                'name' => 'Two Factor Authentication',
+                'description' => 'Enables two factor authentication.',
+                'twoFactorAuthFailed' => 'Authentication failed, please try again!',
+                'twoFactorAuthSuccess' => 'Authentication successful, thank you!',
+            ],
         ],
         'oauth' => [
             'onlyExistingUsersCanLogin'         => 'At the moment, only existing users are allowed to log in with oAuth!',

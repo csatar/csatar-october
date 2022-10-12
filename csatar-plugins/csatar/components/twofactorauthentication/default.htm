@@ -1,0 +1,43 @@
+{% set qrCodeData = __SELF__.qrCodeData %}
+{% set is2FAuthenticated = __SELF__.is2FAuthenticated %}
+
+<div id="twoFactorAuth">
+    <div class="modal fade" id="twoFactorAuthModal" tabindex="-1" aria-labelledby="twoFactorAuthModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="twoFactorAuthModalLabel">{{ 'Két faktoros hitelesítés'|_ }}</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <div id="qrInputContainer">
+                        {% if not is2FAuthenticated %}
+                            <img src="{{ qrCodeData }}" class="rounded mx-auto d-block">
+                            <form
+                                data-request="{{ __SELF__ }}::onVerifyCode"
+                                data-request-validate
+                                novalidate
+                                data-request-flash>
+                                <div class="form-group">
+                                    <label for="code">{{ 'Ellenőrző kód:' | _ }}</label>
+                                    <input name="code" type="text" class="form-control rounded bg-white" id="code" placeholder="{{ 'Írd be a kódot' | _ }}">
+                                    <div class="text-center">
+                                        <span data-validate-for="code" class="errormsg" ></span>
+                                    </div>
+                                </div>
+                                <div class="d-grid mx-auto">
+                                    <button type="submit" class="btn rounded btn-primary my-3">{{ 'Hitelesítés' | _ }}</button>
+                                </div>
+                            </form>
+                        {% else %}
+                            {% partial '@success' %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">{{ 'Bezárás'|_ }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
