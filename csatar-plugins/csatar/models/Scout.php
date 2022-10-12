@@ -106,53 +106,55 @@ class Scout extends OrganizationBase
      * Add custom validation
      */
     public function beforeValidate() {
-        // if we don't have all the data for this validation, then return. The 'required' validation rules will be triggered
-        if (!isset($this->team_id)) {
-            return;
-        }
+        if (!$this->ignoreValidation) {
+            // if we don't have all the data for this validation, then return. The 'required' validation rules will be triggered
+            if (!isset($this->team_id)) {
+                return;
+            }
 
-        if (!empty($this->team->district->association->personal_identification_number_validator)) {
-            $this->rules['personal_identification_number'] .= '|' . $this->team->district->association->personal_identification_number_validator;
-        }
+            if (!empty($this->team->district->association->personal_identification_number_validator)) {
+                $this->rules['personal_identification_number'] .= '|' . $this->team->district->association->personal_identification_number_validator;
+            }
 
-        // if the selected troop does not belong to the selected team, then throw and exception
-        if ($this->troop_id && $this->troop->team->id != $this->team_id) {
-            throw new \ValidationException(['troop' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.troopNotInTheTeam')]);
-        }
+            // if the selected troop does not belong to the selected team, then throw and exception
+            if ($this->troop_id && $this->troop->team->id != $this->team_id) {
+                throw new \ValidationException(['troop' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.troopNotInTheTeam')]);
+            }
 
-        // if the selected patrol does not belong to the selected team or to the selected troop, then throw and exception
-        if ($this->patrol_id &&                                             // a Patrol is set
+            // if the selected patrol does not belong to the selected team or to the selected troop, then throw and exception
+            if ($this->patrol_id &&                                             // a Patrol is set
                 ($this->patrol->team->id != $this->team_id ||               // the Patrol does not belong to the selected Team
                     ($this->troop_id &&                                     // a Troop is set as well
                         (!$this->patrol->troop ||                           // the Patrol does not belong to any Troop
-                        $this->patrol->troop->id != $this->troop_id)))) {   // the Patrol belongs to a different Troop than the one selected
-            throw new \ValidationException(['troop' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.troopNotInTheTeamOrTroop')]);
-        }
+                            $this->patrol->troop->id != $this->troop_id)))) {   // the Patrol belongs to a different Troop than the one selected
+                throw new \ValidationException(['troop' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.troopNotInTheTeamOrTroop')]);
+            }
 
-        // check that the birthdate is not in the future
-        if (isset($this->birthdate) && (new \DateTime($this->birthdate) > new \DateTime())) {
-            throw new \ValidationException(['birthdate' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.dateInTheFuture')]);
-        }
+            // check that the birthdate is not in the future
+            if (isset($this->birthdate) && (new \DateTime($this->birthdate) > new \DateTime())) {
+                throw new \ValidationException(['birthdate' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.dateInTheFuture')]);
+            }
 
-        // the registration form is required
-        $registration_form = $this->registration_form()->withDeferred($this->sessionKey)->first();
-        if (!isset($registration_form)) {
-            throw new \ValidationException(['registration_form' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.registrationFormRequired')]);
-        }
+            // the registration form is required
+            $registration_form = $this->registration_form()->withDeferred($this->sessionKey)->first();
+            if (!isset($registration_form)) {
+                throw new \ValidationException(['registration_form' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.registrationFormRequired')]);
+            }
 
-        // the Date and Location pivot fields are required and the Date cannot be in the future
-        $this->validatePivotDateAndLocationFields($this->promises, Lang::get('csatar.csatar::lang.plugin.admin.promise.promise'));
-        $this->validatePivotDateAndLocationFields($this->tests, Lang::get('csatar.csatar::lang.plugin.admin.test.test'));
-        $this->validatePivotDateAndLocationFields($this->special_tests, Lang::get('csatar.csatar::lang.plugin.admin.specialTest.specialTest'));
-        $this->validatePivotDateAndLocationFields($this->professional_qualifications, Lang::get('csatar.csatar::lang.plugin.admin.professionalQualification.professionalQualification'));
-        $this->validatePivotDateAndLocationFields($this->special_qualifications, Lang::get('csatar.csatar::lang.plugin.admin.specialQualification.specialQualification'));
-        $this->validatePivotQualificationFields($this->leadership_qualifications, Lang::get('csatar.csatar::lang.plugin.admin.leadershipQualification.leadershipQualification'));
-        $this->validatePivotQualificationFields($this->training_qualifications, Lang::get('csatar.csatar::lang.plugin.admin.trainingQualification.trainingQualification'));
+            // the Date and Location pivot fields are required and the Date cannot be in the future
+            $this->validatePivotDateAndLocationFields($this->promises, Lang::get('csatar.csatar::lang.plugin.admin.promise.promise'));
+            $this->validatePivotDateAndLocationFields($this->tests, Lang::get('csatar.csatar::lang.plugin.admin.test.test'));
+            $this->validatePivotDateAndLocationFields($this->special_tests, Lang::get('csatar.csatar::lang.plugin.admin.specialTest.specialTest'));
+            $this->validatePivotDateAndLocationFields($this->professional_qualifications, Lang::get('csatar.csatar::lang.plugin.admin.professionalQualification.professionalQualification'));
+            $this->validatePivotDateAndLocationFields($this->special_qualifications, Lang::get('csatar.csatar::lang.plugin.admin.specialQualification.specialQualification'));
+            $this->validatePivotQualificationFields($this->leadership_qualifications, Lang::get('csatar.csatar::lang.plugin.admin.leadershipQualification.leadershipQualification'));
+            $this->validatePivotQualificationFields($this->training_qualifications, Lang::get('csatar.csatar::lang.plugin.admin.trainingQualification.trainingQualification'));
 
-        // mandates: check that end date is not after the start date
-        foreach ($this->mandates as $field) {
-            if (isset($field->pivot->start_date) && isset($field->pivot->end_date) && (new \DateTime($field->pivot->end_date) < new \DateTime($field->pivot->start_date))) {
-                throw new \ValidationException(['' => str_replace('%name', $field->name, Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.mandateEndDateBeforeStartDate'))]);
+            // mandates: check that end date is not after the start date
+            foreach ($this->mandates as $field) {
+                if (isset($field->pivot->start_date) && isset($field->pivot->end_date) && (new \DateTime($field->pivot->end_date) < new \DateTime($field->pivot->start_date))) {
+                    throw new \ValidationException(['' => str_replace('%name', $field->name, Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.mandateEndDateBeforeStartDate'))]);
+                }
             }
         }
     }

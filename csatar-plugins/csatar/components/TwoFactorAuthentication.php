@@ -56,6 +56,7 @@ class TwoFactorAuthentication extends ComponentBase
 
         if (empty($scout->google_two_fa_secret_key)) {
             $scout->google_two_fa_secret_key = $this->google2FA->generateSecretKey();
+            $scout->ignoreValidation = true;
             $scout->forceSave();
         }
 
