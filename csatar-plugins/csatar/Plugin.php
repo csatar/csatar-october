@@ -28,6 +28,20 @@ use Csatar\Csatar\Classes\Validators\CnpValidator;
 class Plugin extends PluginBase
 {
     /**
+     * @var array Plugin dependencies
+     */
+    public $require = [
+        'Flynsarmy.SocialLogin',
+        'JanVince.SmallContactForm',
+        'OFFLINE.GDPR',
+        'OFFLINE.SiteSearch',
+        'PolloZen.SimpleGallery',
+        'RainLab.Translate',
+        'Rainlab.User',
+        'Vdlp.TwoFactorAuthentication',
+    ];
+
+    /**
      * Returns information about this plugin.
      *
      * @return array
