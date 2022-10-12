@@ -11,6 +11,7 @@ use Redirect;
 use ValidationException;
 use Lang;
 use Resizer;
+use Flash;
 
 class CsatarGallery extends Gallery
 {
@@ -93,6 +94,7 @@ class CsatarGallery extends Gallery
 
     public function onCreateGallery()
     {
+
         $gallery = new GalleryModel();
         $gallery->name = post('name');
         $gallery->description = post('description');
@@ -105,6 +107,8 @@ class CsatarGallery extends Gallery
         if (sizeof(Input::file('images')) > 30) {
             throw new ValidationException(['images' => 'Maximum 30 képet lehet feltölteni a galériához!']);
         }
+
+        \Flash::success('A galéria sikeresen elkészült.');
 
         foreach (Input::file('images') as $file) {
             $newFile = new File();
@@ -153,6 +157,8 @@ class CsatarGallery extends Gallery
         if (($imagesSize + $gallery->images()->count()) > 30 ) {
             throw new ValidationException(['images' => 'Maximum 30 képet lehet feltölteni a galériához!']);
         }
+
+        \Flash::success('A galéria sikeresen módosult.');
 
         if (Input::file('images') != []) {
             foreach (Input::file('images') as $file) {

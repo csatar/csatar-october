@@ -17,13 +17,13 @@
 
         <label class="form-label">{{ 'Képek' | _ }} <span class="text-danger">*</span></label><br>
 
-        <input type="file" name="images[]" id="images" accept="image/*" class="form-control rounded" multiple="multiple">
+        <input type="file" name="images[]" id="images" accept="image/*" class="form-control rounded" multiple="multiple" size="30">
         <span data-validate-for="images" class="errormsg"></span><br><br>
 
     <!-- Existing files -->
     <div class="d-flex flex-wrap">
         {% for image in gallery.images %}
-        <div class="upload-object mb-3" data-id="{{ image.id }}" data-path="{{ image.path }}">            
+        <div class="upload-object mb-3" data-id="{{ image.id }}" data-path="{{ image.path }}">
             <div class="bg-light d-flex flex-column flex-md-row rounded mx-2 mb-1 h-100">
                 <div>
                     <div class="d-flex flex-column h-100">
@@ -45,16 +45,19 @@
                         </div>
 
                         <div id="info-{{ image.id }}" class="mt-auto">
-                            <div class="info d-flex">
+                            <div class="info d-flex ">
                                 <a class="btn btn-xs rounded btn-light edit-content ms-2" data-id="{{ image.id }}" title="{{ image.description }}">
                                     <i class="csat-edit-out-sm"></i>
                                 </a>
-                                <p class="p text-primary px-2 mt-1">{{ 'Cím/leírás módosítása' | _ }}</p>
+                                <p class="p text-primary px-2 mt-1 csat-gallery-title" id="image-title-{{ image.id }}">{{ image.title }}</p>
+                            </div>
+                            <div class="info d-flex">
+                                <p class="p text-primary px-2 mt-1 csat-gallery-description" id="image-description-{{ image.id }}">{{ image.description }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
-                    
+
                 <div>
                     <div id="edit-image-{{ image.id }}" class="mx-2" style="display: none">
                         <p class="p text-primary my-0">{{ 'Cím' | _ }}</p>
@@ -143,8 +146,11 @@
         $(".saveimage").click(function(){
             var id = $(this).attr("data-id");
             var title = $("#title-" + id).val();
+            var description = $("#description-" + id).val();
             $("#info-" + id).show();
             $("#title-span-" + id).text(title);
+            $("#image-title-" + id).text(title);
+            $("#image-description-" + id).text(description);
             $("#edit-image-" + id).hide();
         });
         $(".cancelimage").click(function(){
@@ -173,6 +179,18 @@
                     $("#save").prop('disabled', false);
                 }
             }
+        });
+
+        $('form').submit(function() {
+            $(this).find("#save").prop('disabled',true);
+        });
+
+        $('#name').on("change",function(){
+            $("#save").prop('disabled', false);
+        });
+
+        $('#description').on("change",function(){
+            $("#save").prop('disabled', false);
         });
 
     });

@@ -59,5 +59,17 @@
             }
         });
 
+        $('form').submit(function() {
+            $(this).find("#save").prop('disabled',true);
+        });
+
+        $('#name').on("change",function(){
+            $("#save").prop('disabled', false);
+        });
+
+        $('#description').on("change",function(){
+            $("#save").prop('disabled', false);
+        });
+
     });
 </script>

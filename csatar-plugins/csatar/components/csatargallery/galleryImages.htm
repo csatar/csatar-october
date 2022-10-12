@@ -50,9 +50,17 @@
 <div class="d-flex flex-wrap justify-content-center">
 {% for image in gallery.images %}
     <div>
-        <a class="colorbox" data-fancybox="gallery" href="{{ image.path }}" data-caption="<h2>{{image.title}}</h2><br>{{ image.description }}" title="{{image.title}}">
-            <img src="{{ image.thumb(auto, 200) }}"  class="fr-fic fr-dib img-fluid csat-gallery-img m-1">
-        </a>
+        <div id="info-{{ image.id }}" class="mt-auto d-inline-block">
+            <a class="colorbox" data-fancybox="gallery" href="{{ image.path }}" data-caption="<h2>{{image.title}}</h2><br>{{ image.description }}" title="{{image.title}}">
+                <img src="{{ image.thumb(auto, 200) }}"  class="fr-fic fr-dib img-fluid csat-gallery-img m-1">
+            </a>
+            <div class="csat-gallery-content">
+                <h2 class="p text-primary" id="image-title-{{ image.id }}">{{ image.title }}</h2>
+            </div>
+            <div class="csat-gallery-content">
+                <p class="p text-primary px-2 mt-1" id="image-description-{{ image.id }}">{{ image.description }}</p>
+            </div>
+        </div>
     </div>
 {% endfor %}
 </div>
