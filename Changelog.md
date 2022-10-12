@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+## 1.5.1
+### 2022-10-12
+
 - CS-340 - Hotfix - Changed preselected disabled fields to readonly
 - CS-302 - Modified navigation bar to support multi-level
 
