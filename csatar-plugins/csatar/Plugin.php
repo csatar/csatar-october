@@ -85,6 +85,7 @@ class Plugin extends PluginBase
             \Symfony\Component\HttpKernel\Exception\HttpException $exception) {
 
             if($exception->getStatusCode() == 403) {
+                Session::put('urlBefore403Redirect', Session::get('_previous.url'));
                 return Redirect::to('/403');
             }
         });

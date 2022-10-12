@@ -602,7 +602,8 @@
             'twoFactorAuthentication' => [
                 'name' => 'Two Factor Authentication',
                 'description' => 'Enables two factor authentication.',
-                'twoFactorAuthFailed' => 'Authentication failed, please try again!'
+                'twoFactorAuthFailed' => 'Authentication failed, please try again!',
+                'twoFactorAuthSuccess' => 'Authentication successful, thank you!',
             ],
         ],
         'oauth' => [
