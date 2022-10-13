@@ -1045,7 +1045,11 @@ trait AjaxControllerSimple {
 
         foreach ($attributesArray as $attribute => $settings) {
 
-            if ($settings['type'] == 'section' || $settings['type'] == 'relation') {
+            if ($settings['type'] == 'section') {
+                continue;
+            }
+
+            if ($settings['type'] == 'relation' && $this->hasPivotColumns($attribute)) {
                 continue;
             }
 
@@ -1077,6 +1081,21 @@ trait AjaxControllerSimple {
         }
 
         return $attributesArray;
+    }
+
+    /**
+     * Checks if relation has pivot data
+     */
+
+    private function hasPivotColumns(string $relationName): bool
+    {
+        $relationTypesToCheck = ['belongsToMany', 'hasMany'];
+        foreach ($relationTypesToCheck as $relationType) {
+            if (isset($this->record->{$relationType}[$relationName]['pivot'])) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
