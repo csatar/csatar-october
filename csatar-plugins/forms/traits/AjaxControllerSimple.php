@@ -162,7 +162,9 @@ trait AjaxControllerSimple {
                 }
 
                 $newField = [];
-                $newField['label'] = Lang::get($field['label']);
+                if (isset($field['label'])) {
+                    $newField['label'] = Lang::get($field['label']);
+                }
 
                 // retrieve the value for the field
                 $value = isset($field['formBuilder']['default']) ? $field['formBuilder']['default'] : '';
