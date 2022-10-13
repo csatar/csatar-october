@@ -165,9 +165,7 @@ trait AjaxControllerSimple {
                 }
 
                 $newField = [];
-                if (isset($field['label'])) {
-                    $newField['label'] = Lang::get($field['label']);
-                }
+                $newField['label'] = Lang::get($field['label']);
 
                 // retrieve the value for the field
                 $value = isset($field['formBuilder']['default']) ? $field['formBuilder']['default'] : '';
@@ -1091,6 +1089,21 @@ trait AjaxControllerSimple {
         }
 
         return $attributesArray;
+    }
+
+    /**
+     * Checks if relation has pivot data
+     */
+
+    private function hasPivotColumns(string $relationName): bool
+    {
+        $relationTypesToCheck = ['belongsToMany', 'hasMany'];
+        foreach ($relationTypesToCheck as $relationType) {
+            if (isset($this->record->{$relationType}[$relationName]['pivot'])) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
