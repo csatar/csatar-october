@@ -470,6 +470,18 @@ class Scout extends OrganizationBase
         return $fullName != ' ' ? $fullName : '';
     }
 
+    public function getTeam() {
+        return $this->team_id ? $this->team : null;
+    }
+
+    public function getTroop() {
+        return $this->troop_id ? $this->troop : null;
+    }
+
+    public function getPatrol() {
+        return $this->patrol_id ? $this->patrol : null;
+    }
+
     public function getNameAttribute()
     {
         return $this->getFullName();
@@ -598,9 +610,6 @@ class Scout extends OrganizationBase
             return;
         }
 
-        $associationId  = $model->getAssociationId();
-        $mandateTypeIds = $this->getMandateTypeIdsInAssociation($associationId, $this->updated_at, $ignoreCache);
-
         $isOwn = false;
         if(Auth::user() && !empty(Auth::user()->scout)){
             $isOwn = $model->isOwnModel(Auth::user()->scout);
@@ -609,6 +618,39 @@ class Scout extends OrganizationBase
         $is2fa = false;
         if(Auth::user() && Session::get('scout.twoFA', false)){
             $is2fa = true;
+        }
+
+        $associationId  = $model->getAssociationId();
+        if ($model->getModelName() === '\Csatar\Csatar\Models\Scout' && !$isOwn) {
+            $modelTeam = $model->getTeam();
+            $modelTroop = $model->getTroop();
+            $modelPatrol = $model->getPatrol();
+
+            if (!empty($modelTeam)) {
+                $mandateIdsForTeam = $this->getMandatesForOrganization($modelTeam)
+                                          ->pluck('mandate_type_id')->toArray();
+            }
+
+            if (!empty($modelTroop)) {
+                $mandateIdsForTroop = $this->getMandatesForOrganization($modelTroop)
+                                          ->pluck('mandate_type_id')->toArray();
+            }
+
+            if (!empty($modelPatrol)) {
+                $mandateIdsForPatrol = $this->getMandatesForOrganization($modelPatrol)
+                                          ->pluck('mandate_type_id')->toArray();
+            }
+
+            $mandateTypeIds = array_merge(
+                $mandateIdsForTeam ?? [],
+                $mandateIdsForTroop ?? [],
+                $mandateIdsForPatrol ?? [],
+                MandateType::getScoutMandateTypeIdInAssociation($associationId)
+            );
+            $ignoreCache = true;
+
+        } else {
+            $mandateTypeIds = $this->getMandateTypeIdsInAssociation($associationId, $this->updated_at, $ignoreCache);
         }
 
         $rightsForModel = $ignoreCache ? null : $this->getRightsForModelFromSession($model, $associationId, $isOwn);
@@ -666,6 +708,10 @@ class Scout extends OrganizationBase
 
     public function isOwnModel($scout){
         return $this->id === $scout->id;
+    }
+
+    public function belongsToOwnOrganization(){
+
     }
 
     public static function getOrganizationTypeModelNameUserFriendly()
