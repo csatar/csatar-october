@@ -699,6 +699,12 @@ a.dropdown-item {
     border-color: #99A56B;
 }
 
+.btn-primary:disabled, .btn-primary.disabled {
+    color: #fff;
+    background-color: #99A56B;
+    border-color: #99A56B;
+}
+
 .csat-data-profile-sm > .btn-primary:hover, .csat-data-profile-sm > .btn-primary:focus, .csat-data-profile-sm > .btn-primary:active, .csat-data-profile-sm > .btn-primary.active {
     background-color: #99A56B;
     border-color: #78863f;
