@@ -6,6 +6,11 @@
 - CS-338 - Reduced EcsetCode length to 6 characters + separator + suffix
 - CS-302 - Modified navigation bar to support multi-level
 
+## 1.5.2
+### 2022-10-14
+
+- CS-353 - Fixed permissions for relation fields without pivot data.
+
 ## 1.5.1
 ### 2022-10-12
 
