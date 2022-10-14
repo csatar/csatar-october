@@ -1059,7 +1059,11 @@ trait AjaxControllerSimple {
 
         foreach ($attributesArray as $attribute => $settings) {
 
-            if ($settings['type'] == 'custom' || $settings['type'] == 'section' || $settings['type'] == 'relation') {
+            if ($settings['type'] == 'custom' || $settings['type'] == 'section') {
+                continue;
+            }
+
+            if ($settings['type'] == 'relation' && $this->hasPivotColumns($attribute)) {
                 continue;
             }
 
