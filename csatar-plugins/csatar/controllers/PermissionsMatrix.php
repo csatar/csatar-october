@@ -122,7 +122,7 @@ class PermissionsMatrix extends Controller
     }
 
     public function onExecute() {
-        $formData = Input::get('PermissionsMatrix');
+        $formData = Input::get('MandatePermission');
         if (empty($formData)) {
             return;
         }
