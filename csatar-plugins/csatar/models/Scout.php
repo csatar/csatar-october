@@ -470,6 +470,14 @@ class Scout extends OrganizationBase
         return $fullName != ' ' ? $fullName : '';
     }
 
+    public function getAssociation() {
+        return $this->team->district->association ?? null;
+    }
+
+    public function getDistrict() {
+        return $this->team->district ?? null;
+    }
+
     public function getTeam() {
         return $this->team_id ? $this->team : null;
     }
@@ -622,9 +630,21 @@ class Scout extends OrganizationBase
 
         $associationId  = $model->getAssociationId();
         if ($model->getModelName() === '\Csatar\Csatar\Models\Scout' && !$isOwn) {
+            $modelAssociation = $model->getAssociation();
+            $modelDistrict = $model->getDistrict();
             $modelTeam = $model->getTeam();
             $modelTroop = $model->getTroop();
             $modelPatrol = $model->getPatrol();
+
+            if (!empty($modelAssociation)) {
+                $mandateIdsForAssociation = $this->getMandatesForOrganization($modelAssociation)
+                                          ->pluck('mandate_type_id')->toArray();
+            }
+
+            if (!empty($modelDistrict)) {
+                $mandateIdsForDistrict = $this->getMandatesForOrganization($modelDistrict)
+                                          ->pluck('mandate_type_id')->toArray();
+            }
 
             if (!empty($modelTeam)) {
                 $mandateIdsForTeam = $this->getMandatesForOrganization($modelTeam)
@@ -642,6 +662,8 @@ class Scout extends OrganizationBase
             }
 
             $mandateTypeIds = array_merge(
+                $mandateIdsForAssociation ?? [],
+                $mandateIdsForDistrict ?? [],
                 $mandateIdsForTeam ?? [],
                 $mandateIdsForTroop ?? [],
                 $mandateIdsForPatrol ?? [],
@@ -708,10 +730,6 @@ class Scout extends OrganizationBase
 
     public function isOwnModel($scout){
         return $this->id === $scout->id;
-    }
-
-    public function belongsToOwnOrganization(){
-
     }
 
     public static function getOrganizationTypeModelNameUserFriendly()
