@@ -103,11 +103,13 @@ class MandatePermission extends Model
 
     public function getFromAssociationOptions(){
         $mandateTypeIds = Db::table('csatar_csatar_mandates_permissions')
+            ->whereNull('deleted_at')
             ->select('mandate_type_id')
             ->distinct()
             ->get()
             ->pluck('mandate_type_id');
         $associationIds = Db::table('csatar_csatar_mandate_types')
+            ->whereNull('deleted_at')
             ->whereIn('id', $mandateTypeIds)
             ->select('association_id')
             ->distinct()
@@ -115,6 +117,7 @@ class MandatePermission extends Model
             ->pluck('association_id');
 
         return Db::table('csatar_csatar_associations')
+            ->whereNull('deleted_at')
             ->whereIn('id', $associationIds)
             ->orderBy('name', 'asc')
             ->lists('name', 'id');
@@ -130,7 +133,7 @@ class MandatePermission extends Model
     public function getFromMandateTypeOptions(){
         $mandateTypes = [];
         if($this->fromAssociation) {
-            $mandateTypes = Db::table('csatar_csatar_mandate_types')->where('association_id', $this->fromAssociation)->lists('name', 'id');
+            $mandateTypes = Db::table('csatar_csatar_mandate_types')->whereNull('deleted_at')->where('association_id', $this->fromAssociation)->lists('name', 'id');
         }
 
         return $mandateTypes;
@@ -139,7 +142,7 @@ class MandatePermission extends Model
     public function getToMandateTypesOptions(){
         $mandateTypes = [];
         if($this->toAssociation) {
-            $mandateTypes = Db::table('csatar_csatar_mandate_types')->where('association_id', $this->toAssociation)->lists('name', 'id');
+            $mandateTypes = Db::table('csatar_csatar_mandate_types')->whereNull('deleted_at')->where('association_id', $this->toAssociation)->lists('name', 'id');
         }
 
         return $mandateTypes;
