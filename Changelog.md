@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+## 1.5.3
+### 2022-10-14
+
 - CS-36 - Implemented two-factor authentication 
 - CS-338 - Reduced EcsetCode length to 6 characters + separator + suffix
 - CS-302 - Modified navigation bar to support multi-level
