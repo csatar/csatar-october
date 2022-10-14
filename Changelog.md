@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+## 1.5.2
+### 2022-10-14
+
+- CS-353 - Fixed permissions for relation fields without pivot data.
+
 ## 1.5.1
 ### 2022-10-12
 
