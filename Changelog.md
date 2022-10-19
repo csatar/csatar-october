@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-302 - Updated navigation: added navigation overlay for submenus on desktop view, reorganized on tablet view, added off-canvas sidebar on mobile view, visual updates
 - CS-36 - Implemented two-factor authentication 
 - CS-338 - Reduced EcsetCode length to 6 characters + separator + suffix
 - CS-302 - Modified navigation bar to support multi-level
