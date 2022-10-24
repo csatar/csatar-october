@@ -2,6 +2,7 @@
 
 use Auth;
 use Cms\Classes\ComponentBase;
+use Csatar\Csatar\Classes\UserRigthsProvider;
 use Csatar\Forms\Models\Form;
 use Csatar\Forms\Traits\AjaxControllerSimple;
 use Csatar\Forms\Traits\ManagesUploads;
@@ -316,11 +317,7 @@ class BasicForm extends ComponentBase  {
 
         $this->autoloadBelongsToRelations($record);
 
-        if(Auth::user() && !empty(Auth::user()->scout)) {
-            return Auth::user()->scout->getRightsForModel($record, $ignoreCache);
-        } else {
-            return $record->getGuestRightsForModel();
-        }
+        return UserRigthsProvider::getUserRigths($record, $ignoreCache);
     }
 
     private function canCreate(string $attribute): bool

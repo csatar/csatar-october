@@ -2,9 +2,16 @@
 mode = "menu"
 ==
 <?php
+use Csatar\Csatar\Classes\AccidentLogRigthsProvider;
+
 function onStart()
 {
     $this['ecset_code'] = isset(Auth::user()->scout->ecset_code) ? Auth::user()->scout->ecset_code : null;
+    if ($user = Auth::user()) {
+        $this['isAccidentLogUser'] = AccidentLogRigthsProvider::isAccidentLogUser($user);
+        $this['inAccidentLogEntryGroup'] = AccidentLogRigthsProvider::inAccidentLogEntryGroup($user);
+        $this['inAccidentLogAdminGroup'] = AccidentLogRigthsProvider::inAccidentLogAdminGroup($user);
+    }
 }
 ?>
 ==
@@ -51,7 +58,25 @@ function onStart()
                                                 </li>
                                             </ul>
                                         </li>
+
                                         {% component 'structure_menu' %}
+
+                                        {% if isAccidentLogUser %}
+                                            <li class="nav-item dropdown">
+                                                <a class="nav dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">{{ 'Balesetek' | _ }}</a>
+                                                <ul class="dropdown-menu bg-primary">
+                                                    <li>
+                                                        <a class="dropdown-item" href="/uj-baleset">{{ 'Új baleset' | _ }}</a>
+                                                    </li>
+                                                    {% if inAccidentLogAdminGroup %}
+                                                    <li class="nav-item">
+                                                        <a class="dropdown-item" href="/balesetek">{{ 'Adatok' | _ }}</a>
+                                                    </li>
+                                                    {% endif %} 
+                                                </ul>
+                                            </li>
+                                        {% endif %}
+                                        
                                         {% if user %}
                                         <li class="nav-item">
                                             <a class="nav" href="/csapatjelentesek/elfogadasravaro">{{ 'Csapatjelentések' | _ }}</a>

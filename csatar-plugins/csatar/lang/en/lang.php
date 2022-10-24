@@ -486,6 +486,11 @@
                 'sitesearchSettings' => 'Sites Search Plugin Settings',
                 'enabledOnOrgCMSpages' => 'Enabled on organization unit frontend pages',
             ],
+            'userGroups' => [
+                'userGroups' => 'User Groups',
+                'dataEntry' => 'Accident log data entry group',
+                'admin' => 'Accident log admin group',
+            ],
         ],
         'component' => [
             'general' => [

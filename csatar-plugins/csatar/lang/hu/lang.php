@@ -486,6 +486,11 @@
                 'sitesearchSettings' => 'Sites Search plugin beállítások',
                 'enabledOnOrgCMSpages' => 'Bekapcsolva a szervezeti egységek frontend oldalain.',
             ],
+            'userGroups' => [
+                'userGroups' => 'Felhasználó csoportok',
+                'dataEntry' => 'Baleseti log adatbevívó',
+                'admin' => 'Baleseti log adminisztrátor',
+            ],
         ],
         'component' => [
             'general' => [
