@@ -191,4 +191,24 @@ class Patrol extends OrganizationBase
     {
         return Lang::get('csatar.csatar::lang.plugin.admin.patrol.patrol');
     }
+
+    public function getAssociation() {
+        return $this->team->district->association ?? null;
+    }
+
+    public function getDistrict() {
+        return $this->team->district ?? null;
+    }
+
+    public function getTeam() {
+        return $this->team_id ? $this->team : null;
+    }
+
+    public function getTroop() {
+        return $this->troop_id ? $this->troop : null;
+    }
+
+    public function getPatrol() {
+        return $this;
+    }
 }
