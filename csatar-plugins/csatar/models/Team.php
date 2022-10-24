@@ -206,4 +206,16 @@ class Team extends OrganizationBase
     {
         return Lang::get('csatar.csatar::lang.plugin.admin.team.team');
     }
+
+    public function getAssociation() {
+        return $this->district->association ?? null;
+    }
+
+    public function getDistrict() {
+        return $this->district ?? null;
+    }
+
+    public function getTeam() {
+        return $this;
+    }
 }

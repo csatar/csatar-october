@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-360 - Refactored permissions system to limit mandate permissions to organization units based on organization tree
 - CS-354 - Added disabled button design to the design system
 - CS-354 - Added padlock symbols
 - CS-302 - Updated navigation: added navigation overlay for submenus on desktop view, reorganized on tablet view, added off-canvas sidebar on mobile view, visual updates

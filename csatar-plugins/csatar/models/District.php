@@ -144,4 +144,12 @@ class District extends OrganizationBase
     {
         return Lang::get('csatar.csatar::lang.plugin.admin.district.district');
     }
+
+    public function getAssociation() {
+        return $this->association ?? null;
+    }
+
+    public function getDistrict() {
+        return $this;
+    }
 }
