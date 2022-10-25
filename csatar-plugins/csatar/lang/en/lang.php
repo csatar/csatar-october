@@ -152,6 +152,7 @@
                 'staticMessages' => [
                     'personalDataNotAccepted' => 'Please verify your personal data here!',
                 ],
+                'activeMandateDeleteError' => 'The Scout having the %name name has active Mandates, thus this Scout cannot be deleted.',
             ],
             'admin' => [
                 'menu' => [
@@ -461,6 +462,7 @@
                 'startDate' => 'Start date',
                 'endDate' => 'End date',
                 'breadcrumb' => 'Mandate types',
+                'activeMandateDeleteError' => 'There exist active Mandates of %name type, thus this Mandate type cannot be deleted.',
             ],
             'mandate' => [
                 'mandate' => 'Mandate',

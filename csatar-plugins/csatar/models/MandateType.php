@@ -6,6 +6,8 @@ use Csatar\Csatar\Models\Patrol;
 use Csatar\Csatar\Models\Team;
 use Csatar\Csatar\Models\Troop;
 use Csatar\Csatar\Models\MandatePermission;
+use DateTime;
+use Flash;
 use Input;
 use Lang;
 use Model;
@@ -100,6 +102,18 @@ class MandateType extends Model
             'delete' => true,
         ]
     ];
+
+    function beforeDelete()
+    {
+        $now = new DateTime();
+        $mandates = Mandate::where('mandate_type_id', $this->id)->get();
+        foreach ($mandates as $mandate) {
+            if ($mandate->start_date < $now && ($mandate->end_date > $now || $mandate->end_date == null)) {
+                Flash::error(str_replace('%name', $this->name, Lang::get('csatar.csatar::lang.plugin.admin.mandateType.activeMandateDeleteError')));
+                return false;
+            }
+        }
+    }
 
     function getOrganizationTypeModelNameOptions()
     {
