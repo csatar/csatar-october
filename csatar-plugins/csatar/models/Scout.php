@@ -603,8 +603,52 @@ class Scout extends OrganizationBase
         return $scoutMandateTypeIds;
     }
 
+    public function getMandateTypeIdsInOrganizationTree(PermissionBasedAccess $model, int $associationId): ?array
+    {
+        $modelAssociation = $model->getAssociation();
+        $modelDistrict = $model->getDistrict();
+        $modelTeam = $model->getTeam();
+        $modelTroop = $model->getTroop();
+        $modelPatrol = $model->getPatrol();
+
+        if (!empty($modelAssociation)) {
+            $mandateIdsForAssociation = $this->getMandatesForOrganization($modelAssociation)
+                                             ->pluck('mandate_type_id')->toArray();
+        }
+
+        if (!empty($modelDistrict)) {
+            $mandateIdsForDistrict = $this->getMandatesForOrganization($modelDistrict)
+                                          ->pluck('mandate_type_id')->toArray();
+        }
+
+        if (!empty($modelTeam)) {
+            $mandateIdsForTeam = $this->getMandatesForOrganization($modelTeam)
+                                      ->pluck('mandate_type_id')->toArray();
+        }
+
+        if (!empty($modelTroop)) {
+            $mandateIdsForTroop = $this->getMandatesForOrganization($modelTroop)
+                                       ->pluck('mandate_type_id')->toArray();
+        }
+
+        if (!empty($modelPatrol)) {
+            $mandateIdsForPatrol = $this->getMandatesForOrganization($modelPatrol)
+                                        ->pluck('mandate_type_id')->toArray();
+        }
+
+        return array_merge(
+            $mandateIdsForAssociation ?? [],
+            $mandateIdsForDistrict ?? [],
+            $mandateIdsForTeam ?? [],
+            $mandateIdsForTroop ?? [],
+            $mandateIdsForPatrol ?? [],
+            MandateType::getScoutMandateTypeIdInAssociation($associationId)
+        );
+    }
+
     public function getMandatesForOrganization(PermissionBasedAccess $organization) {
         return $this->mandates()
+            ->where('mandate_model_type', $organization->getModelName())
             ->where('mandate_model_id', $organization->id)
             ->where('start_date', '<=', date('Y-m-d H:i'))
             ->where(function ($query) {
@@ -643,103 +687,9 @@ class Scout extends OrganizationBase
         }
 
         $associationId  = $model->getAssociationId();
-        if ($model->getModelName() === '\Csatar\Csatar\Models\Scout' && !$isOwn) {
-            $modelAssociation = $model->getAssociation();
-            $modelDistrict = $model->getDistrict();
-            $modelTeam = $model->getTeam();
-            $modelTroop = $model->getTroop();
-            $modelPatrol = $model->getPatrol();
+        $mandateTypeIds = $this->getMandateTypeIdsInOrganizationTree($model, $associationId);
 
-            if (!empty($modelAssociation)) {
-                $mandateIdsForAssociation = $this->getMandatesForOrganization($modelAssociation)
-                                          ->pluck('mandate_type_id')->toArray();
-            }
-
-            if (!empty($modelDistrict)) {
-                $mandateIdsForDistrict = $this->getMandatesForOrganization($modelDistrict)
-                                          ->pluck('mandate_type_id')->toArray();
-            }
-
-            if (!empty($modelTeam)) {
-                $mandateIdsForTeam = $this->getMandatesForOrganization($modelTeam)
-                                          ->pluck('mandate_type_id')->toArray();
-            }
-
-            if (!empty($modelTroop)) {
-                $mandateIdsForTroop = $this->getMandatesForOrganization($modelTroop)
-                                          ->pluck('mandate_type_id')->toArray();
-            }
-
-            if (!empty($modelPatrol)) {
-                $mandateIdsForPatrol = $this->getMandatesForOrganization($modelPatrol)
-                                          ->pluck('mandate_type_id')->toArray();
-            }
-
-            $mandateTypeIds = array_merge(
-                $mandateIdsForAssociation ?? [],
-                $mandateIdsForDistrict ?? [],
-                $mandateIdsForTeam ?? [],
-                $mandateIdsForTroop ?? [],
-                $mandateIdsForPatrol ?? [],
-                MandateType::getScoutMandateTypeIdInAssociation($associationId)
-            );
-            $ignoreCache = true;
-
-        } else {
-            $mandateTypeIds = $this->getMandateTypeIdsInAssociation($associationId, $this->updated_at, $ignoreCache);
-        }
-
-        $rightsForModel = $ignoreCache ? null : $this->getRightsForModelFromSession($model, $associationId, $isOwn);
-
-        if(empty($rightsForModel) || $rightsForModel->count() == 0) {
-            $rightsForModel = $model->getRightsForMandateTypes($mandateTypeIds, $isOwn, $is2fa);
-            $this->saveRightsForModelToSession($model, $rightsForModel, $associationId, $isOwn);
-        }
-
-        return $rightsForModel;
-    }
-
-    public function getRightsForModelFromSession($model, $associationId, $own = false) {
-        $sessionRecord = Session::get('scout.rightsForModels');
-
-        if(empty($sessionRecord) || empty($model) || empty($associationId)) {
-            return;
-        }
-
-        $key = $associationId . $model::getModelName() . ($own ? '_own' : '');
-
-        $sessionRecordForModel = $sessionRecord->get($key);
-
-        if (!empty($sessionRecordForModel)
-            && $sessionRecordForModel['savedToSession'] >= RightsMatrix::getRightsMatrixLastUpdateTime()
-            && isset($sessionRecordForModel['rights'])
-            && $sessionRecordForModel['rights']->count() != 0) {
-           return $sessionRecordForModel['rights'];
-        }
-
-        return null;
-    }
-
-    public function saveRightsForModelToSession($model, $rightsForModel, $associationId, $own) {
-        $modelName = $model::getModelName();
-        $key = $associationId . $modelName . ($own ? '_own' : '');
-        $sessionRecord = Session::get('scout.rightsForModels');
-
-        if(empty($sessionRecord)){
-            $sessionRecord = new Collection([]);
-        }
-
-        $sessionRecord = $sessionRecord->replace([
-            $key => [
-                'associationId' => $associationId,
-                'model' => $modelName,
-                'own' => $own,
-                'savedToSession' => date('Y-m-d H:i'),
-                'rights'=> $rightsForModel,
-            ],
-        ]);
-
-        Session::put('scout.rightsForModels', $sessionRecord);
+        return $model->getRightsForMandateTypes($mandateTypeIds, $isOwn, $is2fa, $ignoreCache);
     }
 
     public function isOwnModel($scout){

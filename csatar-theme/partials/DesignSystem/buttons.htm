@@ -164,6 +164,59 @@
                 </div>
             </div>
 
+            {#Disabled button#}
+            <div class="row pb-3">
+                <div class="col-3">
+                    <p class="m-0">{{ 'Letiltott gombok' | _ }}</p>
+                </div>
+
+                <div class="col-8">
+                    <button type="button" class="btn btn-sm rounded btn-primary me-2" disabled>
+                        {{ 'Letiltott' | _ }}
+                    </button>
+                    <button type="button" class="btn btn-sm rounded btn-light me-2" disabled>
+                        {{ 'Letiltott' | _ }}
+                    </button>
+                    <button type="button" class="btn btn-sm rounded btn-danger me-2" disabled>
+                        {{ 'Letiltott' | _ }}
+                    </button>
+                </div>
+            </div>
+
+            {#Disabled code snippet#}
+            <div class="row">
+                <div class="col-3">
+                </div>
+
+                <div class="col-9 bg-gray pb-3">
+                    <code>
+                    <span class="code-blue">&lt;button </span><span class="code-bluel">type=</span><span class="code-red">"button"</span> <span class="code-bluel">class=</span><span class="code-red">"btn btn-sm rounded btn-primary"</span> <span class="code-bluel">disabled</span><span class="code-blue">&gt;</span><span class="code-blue"></span><span class="text-black"><br/>{{ 'Letiltott' | _ }}</span><span class="code-blue"></span><br/><span class="code-blue">&lt;/button&gt;</span>
+                    </code>
+                </div>   
+            </div>
+
+            <div class="row">
+                <div class="col-3">
+                </div>
+
+                <div class="col-9 bg-gray pb-3">
+                    <code>
+                    <span class="code-blue">&lt;button </span><span class="code-bluel">type=</span><span class="code-red">"button"</span> <span class="code-bluel">class=</span><span class="code-red">"btn btn-sm rounded btn-light"</span> <span class="code-bluel">disabled<span class="code-blue">&gt;</span><span class="code-blue"></span><span class="text-black"><br/>{{ 'Letiltott' | _ }}</span><span class="code-blue"></span><br/><span class="code-blue">&lt;/button&gt;</span>
+                    </code>
+                </div>   
+            </div>
+
+            <div class="row pb-3">
+                <div class="col-3">
+                </div>
+
+                <div class="col-9 bg-gray pb-3">
+                    <code>
+                    <span class="code-blue">&lt;button </span><span class="code-bluel">type=</span><span class="code-red">"button"</span> <span class="code-bluel">class=</span><span class="code-red">"btn btn-sm rounded btn-danger"</span> <span class="code-bluel">disabled<span class="code-blue">&gt;</span><span class="code-blue"></span><span class="text-black"><br/>{{ 'Letiltott' | _ }}</span><span class="code-blue"></span><br/><span class="code-blue">&lt;/button&gt;</span>
+                    </code>
+                </div>   
+            </div>
+
             {#Buttons with icons#}
             <div class="row pb-3">
                 <div class="col-3">

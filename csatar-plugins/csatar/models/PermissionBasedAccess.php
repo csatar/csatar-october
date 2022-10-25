@@ -42,7 +42,7 @@ class PermissionBasedAccess extends Model
         return '\\' . static::class;
     }
 
-    public function getRightsForMandateTypes(array $mandateTypeIds = [], bool $own = false, bool $is2fa = false)
+    public function getRightsForMandateTypes(array $mandateTypeIds = [], bool $own = false, bool $is2fa = false, bool $ignoreCache = false)
     {
 
         $associationId = $this->getAssociationId();
@@ -59,17 +59,22 @@ class PermissionBasedAccess extends Model
             return;
         }
 
-        $rights = Db::table('csatar_csatar_mandates_permissions')
-            ->when(!$own, function ($query) {
-                return $query->where(
-                    function ($query) {
-                        return $query->where('own', '<>', 1)->orWhereNull('own');
-                    });
-            })
-            ->whereIn('mandate_type_id', $mandateTypeIds)
-            ->where('model', self::getModelName())
-            ->get();
+        if (!$ignoreCache) {
+            $rights = $this->getRightsForMandateTypesFromSession($mandateTypeIds);
+        }
 
+        if ($ignoreCache || empty($rights) || $rights->count() == 0) {
+            $rights = MandatePermission::whereIn('mandate_type_id', $mandateTypeIds)
+               ->where('model', self::getModelName())
+               ->get();
+            $this->saveRightsForMandateTypesToSession($rights);
+        }
+
+        $rights = $rights->when(!$own, function ($collection) {
+            return $collection->reject(function ($item) {
+                return $item->own == 1;
+            });
+        });
         $rights = $rights->groupBy('field');
 
         return $rights->map(function ($item, $key) use ($is2fa) {
@@ -83,6 +88,15 @@ class PermissionBasedAccess extends Model
                 // if logged in user has NO 2fa, we substract 1 from every value, so where 2fa permission is needed, value will be 0, and no permission is granted
             ];
         });
+    }
+
+    public function getRightsForMandateTypesFromSession(array $mandateTypeIds){
+        $sessionRecord = Session::get('scout.rightsForMandateTypes');
+        return $sessionRecord ? $sessionRecord->whereIn('mandate_type_id', $mandateTypeIds) : null;
+    }
+
+    public function saveRightsForMandateTypesToSession($rights){
+        Session::put('scout.rightsForMandateTypes', $rights);
     }
 
     public function getGuestRightsForModel()
@@ -194,5 +208,25 @@ class PermissionBasedAccess extends Model
     public static function getOrganizationTypeModelNameUserFriendly()
     {
         return '';
+    }
+
+    public function getAssociation() {
+        return null;
+    }
+
+    public function getDistrict() {
+        return null;
+    }
+
+    public function getTeam() {
+        return null;
+    }
+
+    public function getTroop() {
+        return null;
+    }
+
+    public function getPatrol() {
+        return null;
     }
 }

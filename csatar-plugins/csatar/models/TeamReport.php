@@ -219,4 +219,16 @@ class TeamReport extends PermissionBasedAccess
     {
         return Lang::get('csatar.csatar::lang.plugin.admin.teamReport.teamReport');
     }
+
+    public function getAssociation() {
+        return $this->team->district->association ?? null;
+    }
+
+    public function getDistrict() {
+        return $this->team->district ?? null;
+    }
+
+    public function getTeam() {
+        return $this->team_id ? $this->team : null;
+    }
 }
