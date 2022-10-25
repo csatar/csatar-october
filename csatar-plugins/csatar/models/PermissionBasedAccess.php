@@ -108,7 +108,10 @@ class PermissionBasedAccess extends Model
         $sessionRecord = Session::get('guest.rightsForModels');
         $sessionRecordForModel = $sessionRecord ? $sessionRecord->get($key) : null;
 
-        if (!empty($sessionRecordForModel) && $sessionRecordForModel['savedToSession'] >= RightsMatrix::getRightsMatrixLastUpdateTime() && $sessionRecordForModel['rights']->count() != 0) {
+        if (!empty($sessionRecordForModel)
+            && $sessionRecordForModel['savedToSession'] >= RightsMatrix::getRightsMatrixLastUpdateTime()
+            && $sessionRecordForModel['rights']->count() != 0)
+        {
             return $sessionRecordForModel['rights'];
         }
 

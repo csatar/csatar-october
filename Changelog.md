@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- CS-297 - Implemented UserRigthsProvider user rigths provider class
+- CS-297 - Created menu items for accident log
+- CS-297 - Created seeder for accident log user groups
+- CS-297 - Implemented rights for accident
 - CS-360 - Refactored permissions system to limit mandate permissions to organization units based on organization tree
 - CS-354 - Added disabled button design to the design system
 - CS-354 - Added padlock symbols
