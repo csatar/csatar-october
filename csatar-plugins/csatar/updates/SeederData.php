@@ -22,6 +22,7 @@ use Csatar\Csatar\Models\Training;
 use Csatar\Forms\Models\Form;
 use Seeder;
 use Db;
+use RainLab\User\Models\UserGroup;
 
 class SeederData extends Seeder
 {
@@ -406,6 +407,10 @@ class SeederData extends Seeder
         'sitesearchSettings' => [
             'enabledOnOrgCMSpages'
         ],
+        'userGroups' => [
+            ['Accident log data entry', 'dataEntry'],
+            ['Accident log admin', 'admin']
+        ],
     ];
 
     public function run()
@@ -636,6 +641,14 @@ class SeederData extends Seeder
                 $newAgeGroup->note = $ageGroup['note'];
                 $newAgeGroup->save();
             }
+        }
+
+        // userGroups
+        foreach($this::DATA['userGroups'] as $name) {
+            $allergy = UserGroup::firstOrCreate([
+                'name' => $name[0],
+                'code' => str_slug($name[0]),
+            ]);
         }
 
         // contact page data

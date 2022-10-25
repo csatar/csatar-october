@@ -13,6 +13,11 @@
                 elseif (is_array($value) && array_key_exists(0, $value) && !is_array($value[0])) {
                     echo implode(', ', $value);
                 }
+                else if (is_array($value) && $key == 'userGroups') {
+                    foreach ($value as $valueItem) {
+                        echo e(trans('csatar.csatar::lang.plugin.admin.' . $key . '.' . $valueItem[1])) . ', ';
+                    }
+                }
                 else if (is_array($value) && array_key_exists(0, $value) && $value[0]['title'] != null) {
                     foreach ($value as $valueItem) {
                         echo $valueItem['title'] . ', ';
