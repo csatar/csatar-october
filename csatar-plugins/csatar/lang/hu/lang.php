@@ -152,6 +152,7 @@
                 'staticMessages' => [
                     'personalDataNotAccepted' => 'Kérlek ellenőrizd, hogy helyesek-e a személyes adataid itt!',
                 ],
+                'activeMandateDeleteError' => 'A(z) %name nevű Tagnak létezik aktív Megbízatása, így ez a Tag nem törölhető.',
             ],
             'admin' => [
                 'menu' => [
@@ -461,6 +462,7 @@
                 'startDate' => 'Kezdete',
                 'endDate' => 'Vége',
                 'breadcrumb' => 'Megbízatás típusok',
+                'activeMandateDeleteError' => 'Létezik %name típusú aktív Megbízatás, így ez a Megbízatás típus nem törölhető.',
             ],
             'mandate' => [
                 'mandate' => 'Megbízatás',

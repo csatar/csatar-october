@@ -2,7 +2,9 @@
 
 use Auth;
 use Csatar\Csatar\Models\MandateType;
+use DateTime;
 use Db;
+use Flash;
 use Lang;
 use Session;
 use Model;
@@ -398,6 +400,18 @@ class Scout extends OrganizationBase
         $this->nameday = $this->nameday != '' ? $this->nameday : null;
         $this->troop_id = $this->troop_id != 0 ? $this->troop_id : null;
         $this->patrol_id = $this->patrol_id != 0 ? $this->patrol_id : null;
+    }
+
+    function beforeDelete()
+    {
+        $now = new DateTime();
+        $mandates = Mandate::where('scout_id', $this->id)->get();
+        foreach ($mandates as $mandate) {
+            if ($mandate->start_date < $now && ($mandate->end_date > $now || $mandate->end_date == null)) {
+                Flash::error(str_replace('%name', $this->getFullName(), Lang::get('csatar.csatar::lang.plugin.admin.scout.activeMandateDeleteError')));
+                return false;
+            }
+        }
     }
 
     private function generateEcsetCode()
