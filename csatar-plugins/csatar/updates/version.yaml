@@ -174,3 +174,6 @@
 1.0.61:
     - 'Updated table csatar_csatar_scouts'
     - builder_table_update_csatar_csatar_scouts_2.php
+1.0.62:
+    - 'Created table csatar_csatar_accident_log_records'
+    - builder_table_create_csatar_csatar_accident_log_records.php

@@ -55,6 +55,7 @@
         ],
         'frontendFileUploadValidation' => [
             'mimeTypeMismatch' => 'The :attribute must be a file of type: :values.',
+            'maxNumberOfAttachements' => 'The maximum number of files you can upload is: :value.',
         ],
         'frontendFileUploadException' => [
             'fileExceedsUploadLimit' => 'File exceeds file upload limit of ',

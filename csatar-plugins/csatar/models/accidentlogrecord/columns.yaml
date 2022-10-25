@@ -1,0 +1,118 @@
+columns:
+    id:
+        label: id
+        type: number
+        searchable: true
+        sortable: true
+    created_by:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.createdBy'
+        type: text
+        searchable: true
+        sortable: true
+        relation: user
+        select: concat(name, " ", surname)
+    created_at:
+        label: 'csatar.csatar::lang.plugin.admin.general.createdAt'
+        type: datetime
+        searchable: true
+        sortable: true
+    updated_at:
+        label: 'csatar.csatar::lang.plugin.admin.general.updatedAt'
+        type: datetime
+        searchable: true
+        sortable: true
+    accident_date_time:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.accidentDateTime'
+        type: text
+        searchable: true
+        sortable: true
+    examiner_name:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.examinerName'
+        type: text
+        searchable: true
+        sortable: true
+    instructors:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.instructors'
+        type: text
+        searchable: true
+        sortable: true
+    program_name:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.programName'
+        type: text
+        searchable: true
+        sortable: true
+    program_type:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.programName'
+        type: text
+        searchable: true
+        sortable: true
+    location:
+        label: 'csatar.csatar::lang.plugin.admin.general.location'
+        type: text
+        searchable: true
+        sortable: true
+    activity:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.activity'
+        type: text
+        searchable: true
+        sortable: true
+    reason:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.reason'
+        type: text
+        searchable: true
+        sortable: true
+    injured_person_age:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.injuredPersonAge'
+        type: text
+        searchable: true
+        sortable: true
+    injured_person_gender:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.injuredPersonGender'
+        type: text
+        searchable: true
+        sortable: true
+    injured_person_name:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.injuredPersonName'
+        type: text
+        searchable: true
+        sortable: true
+    injury:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.injury'
+        type: text
+        searchable: true
+        sortable: true
+    injury_severity:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.injurySeverity.injurySeverity'
+        type: text
+        searchable: true
+        sortable: true
+    skipped_days_number:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.skippedDaysNumber'
+        type: text
+        searchable: true
+        sortable: true
+    tools_used:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.toolsUsed'
+        type: text
+        searchable: true
+        sortable: true
+    transport_to_doctor:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.transportToDoctor'
+        type: text
+        searchable: true
+        sortable: true
+    evacuation:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.evacuation'
+        type: text
+        searchable: true
+        sortable: true
+    persons_involved_in_care:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.personsInvolvedInCare'
+        searchable: true
+        sortable: true
+        type: text
+    url:
+        label: 'csatar.csatar::lang.plugin.admin.general.url'
+        type: text
+        searchable: true
+        sortable: true

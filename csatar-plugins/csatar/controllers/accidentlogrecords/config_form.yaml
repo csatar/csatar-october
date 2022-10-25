@@ -1,0 +1,10 @@
+name: AccidentLogRecords
+form: $/csatar/csatar/models/accidentlogrecord/fields.yaml
+modelClass: Csatar\Csatar\Models\AccidentLogRecord
+defaultRedirect: csatar/csatar/accidentlogrecords
+create:
+    redirect: 'csatar/csatar/accidentlogrecords/update/:id'
+    redirectClose: csatar/csatar/accidentlogrecords
+update:
+    redirect: csatar/csatar/accidentlogrecords
+    redirectClose: csatar/csatar/accidentlogrecords

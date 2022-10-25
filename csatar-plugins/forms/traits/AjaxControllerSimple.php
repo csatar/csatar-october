@@ -1152,7 +1152,7 @@ trait AjaxControllerSimple {
                 }
 
                 //if user can't update the attribute, and the above conditions doesn't apply, unset attribute before save
-                if (!$this->canUpdate($attribute)) {
+                if (!$this->canUpdate($attribute) && $value != $this->record->{$attribute}) {
                     $this->storeMessage('warning', e(trans('csatar.forms::lang.failed.noPermissionForSomeFields')));
                     unset($data[$attribute]);
                 }
