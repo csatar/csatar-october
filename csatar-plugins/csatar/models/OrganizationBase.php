@@ -89,7 +89,7 @@ class OrganizationBase extends PermissionBasedAccess
 
     function afterUpdate()
     {
-        if ($this->name !== $this->original['name']) {
+        if (isset($this->original['name']) && $this->name !== $this->original['name']) {
             $mandates = Mandate::where('mandate_model_type', '\\' . static::class)->where('mandate_model_id', $this->id)->get();
             foreach ($mandates as $mandate) {
                 if ($mandate->start_date < $now) {
