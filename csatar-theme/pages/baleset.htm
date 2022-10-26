@@ -1,6 +1,6 @@
-title = "Baleset"
-layout = "default"
 url = "/baleset/:id/:action?"
+layout = "default"
+title = "Baleset"
 
 [basicForm]
 formSlug = "baleseti-log"
@@ -11,5 +11,7 @@ actionUpdateKeyword = "modositas"
 actionDeleteKeyword = "torles"
 ==
 <div class="container">
-    {% component 'basicForm' %}
+    {% if isAccidentLogUser %}
+        {% component 'basicForm' %}
+    {% endif %} 
 </div>

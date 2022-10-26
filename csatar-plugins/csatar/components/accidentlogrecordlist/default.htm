@@ -1,0 +1,29 @@
+{% set recordList = __SELF__.recordList %}
+{% set attributesWithLabels = __SELF__.attributesWithLabels %}
+{% set maxColumns = __SELF__.maxColumns %}
+
+<button
+    type="button"
+    class="btn btn-lg rounded btn-light mb-4"
+    data-request="onExportToCsv"
+    data-request-loading="false"
+    data-request-complete="$.oc.stripeLoadIndicator.hide();"
+    >
+    {{ 'Adatok letöltése csv-ben'|_ }}
+</button>
+
+<div class="table-responsive">
+    <table>
+        <tbody>
+            <tr>
+                {#% for attribute, label in attributesWithLabels|slice(0, maxColumns) %#}
+                {% for attribute, label in attributesWithLabels %}
+                    <th class="th-grid">{{ label }}</th>
+                {% endfor %}
+            </tr>
+        {% for record in recordList %}
+            {% partial __SELF__ ~ '::listItem' record=record attributesWithLabels=attributesWithLabels maxColumns=maxColumns %}
+        {% endfor %}
+        </tbody>
+    </table>
+</div>

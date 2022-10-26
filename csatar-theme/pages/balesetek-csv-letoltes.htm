@@ -1,0 +1,18 @@
+title = "Balesetek csv letöltés"
+layout = "default"
+url = "/balesetek-csv-letoltes/:file"
+==
+<?php
+function onStart()
+{
+    $csvPath = temp_path() . '/' . $this->param('file');
+    $fileName = $this->param('file');
+    $headers = [
+        'Content-Type' => 'text/csv',
+        'charset' => 'UTF-8',
+    ];
+
+    return Response::download($csvPath, $fileName, $headers)->deleteFileAfterSend(true);;
+}
+?>
+==

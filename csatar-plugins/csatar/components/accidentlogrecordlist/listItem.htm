@@ -1,0 +1,16 @@
+<tr>
+    {% for attribute, label in attributesWithLabels %}
+        <td>
+            {% if attribute == 'attachmentLinks' %}
+                <ul>
+                    {% for filename, url in record[attribute] %}
+                        <li><a href="{{ url }}" target="_blank">{{ filename }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                {{ record[attribute] }}
+            {% endif %}
+
+        </td>
+    {% endfor %}
+</tr>

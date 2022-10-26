@@ -614,6 +614,7 @@
             ],
             'accidentLog' => [
                 'accidentLog' => 'Accident Log',
+                'accidentLogRecordList' => 'Accident Log Record List',
                 'createdBy' => 'Created by',
                 'accidentDateTime' => 'Accident date-time',
                 'examinerName' => 'Examiner name',
