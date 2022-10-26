@@ -28,7 +28,7 @@ fields:
         span: auto
         type: text
     program_type:
-        label: 'csatar.csatar::lang.plugin.component.accidentLog.programName'
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.programType'
         span: auto
         type: text
     location:

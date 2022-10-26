@@ -1264,7 +1264,7 @@ div.table.csat-grid > div.tr > div.card.csat-resp-gdtable > div.row > * > p.td {
     div.card.csat-resp-gdtable > div.row > * > .td {
         border-width: 0px;
         padding: 0px;
-        margin: 0px 0px 0px 10p;
+        margin: 0px 0px 0px 10px;
     }
 
     div.table.csat-grid> div.tr {

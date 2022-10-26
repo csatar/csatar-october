@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-296 - Created accident log record list page and csv export option
 - CS-297 - Implemented UserRigthsProvider user rigths provider class
 - CS-297 - Created menu items for accident log
 - CS-297 - Created seeder for accident log user groups

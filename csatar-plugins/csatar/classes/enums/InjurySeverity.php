@@ -12,7 +12,7 @@ class InjurySeverity
 
     public static $optionsWithLables = [];
 
-    public static function getGptionsWithLables(){
+    public static function getOptionsWithLables(){
         return self::$optionsWithLables = [
             self::SLIGHT => e(trans('csatar.csatar::lang.plugin.component.accidentLog.injurySeverity.slight')),
             self::MEDIUM => e(trans('csatar.csatar::lang.plugin.component.accidentLog.injurySeverity.medium')),
