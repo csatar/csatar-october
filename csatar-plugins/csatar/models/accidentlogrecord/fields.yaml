@@ -1,0 +1,100 @@
+fields:
+    created_at:
+        label: 'csatar.csatar::lang.plugin.admin.general.createdAt'
+        mode: datetime
+        span: auto
+        disabled: true
+        type: datepicker
+    updated_at:
+        label: 'csatar.csatar::lang.plugin.admin.general.updatedAt'
+        span: auto
+        mode: datetime
+        disabled: 1
+        type: datepicker
+    accident_date_time:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.accidentDateTime'
+        span: auto
+        type: datepicker
+    examiner_name:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.examinerName'
+        span: auto
+        type: text
+    instructors:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.instructors'
+        span: auto
+        type: text
+    program_name:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.programName'
+        span: auto
+        type: text
+    program_type:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.programType'
+        span: auto
+        type: text
+    location:
+        label: 'csatar.csatar::lang.plugin.admin.general.location'
+        span: auto
+        type: text
+    activity:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.activity'
+        span: auto
+        type: textarea
+    reason:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.reason'
+        span: auto
+        type: textarea
+    injured_person_age:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.injuredPersonAge'
+        span: auto
+        type: number
+    injured_person_gender:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.injuredPersonGender'
+        span: auto
+        type: dropdown
+    injured_person_name:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.injuredPersonName'
+        span: auto
+        type: text
+    injury:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.injury'
+        span: auto
+        type: textarea
+    injury_severity:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.injurySeverity.injurySeverity'
+        span: auto
+        type: dropdown
+    skipped_days_number:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.skippedDaysNumber'
+        span: auto
+        type: text
+    tools_used:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.toolsUsed'
+        span: auto
+        type: text
+    transport_to_doctor:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.transportToDoctor'
+        span: auto
+        type: text
+    evacuation:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.evacuation'
+        span: auto
+        type: text
+    persons_involved_in_care:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.personsInvolvedInCare'
+        span: auto
+        type: textarea
+    url:
+        label: 'csatar.csatar::lang.plugin.admin.general.url'
+        span: auto
+        type: textarea
+    attachments:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.attachments'
+        mode: image
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        maxFilesize: '5'
+        span: auto
+        type: fileupload
+        comment: 'csatar.csatar::lang.plugin.component.accidentLog.attachmentsComment'

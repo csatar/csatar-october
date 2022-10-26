@@ -55,6 +55,7 @@
         ],
         'frontendFileUploadValidation' => [
             'mimeTypeMismatch' => 'A(z) :attribute fájltípusa kizárólag :values lehet.',
+            'maxNumberOfAttachements' => 'A maximálisan feltölthető fájlok száma: :value.',
         ],
         'frontendFileUploadException' => [
             'fileExceedsUploadLimit' => 'A fájl mérete nagyobb mint a megengedtett ',

@@ -37,11 +37,11 @@ class AccidentLogRigthsProvider
         }
 
         if (self::isInGroup($user, self::GROUP_CODE_ADMIN)) {
-            return empty($record) ? self::ADMIN_RIGHTS : self::addRecordSpecificRights($record, self::ADMIN_RIGHTS, true);
+            return collect(self::addRecordSpecificRights($record, self::ADMIN_RIGHTS, true));
         }
 
         if (self::isInGroup($user, self::GROUP_CODE_ENTRY)) {
-            return empty($record) ? self::ENTRY_RIGHTS : self::addRecordSpecificRights($record, self::ENTRY_RIGHTS);
+            return collect(self::addRecordSpecificRights($record, self::ENTRY_RIGHTS));
         }
     }
 
@@ -51,12 +51,12 @@ class AccidentLogRigthsProvider
 
     private static function addRecordSpecificRights(AccidentLogRecord $record, array $recordGeneralRights, bool $isAdmin = false) {
         if (empty($record) || empty($record->fillable)) {
-            return null;
+            return $recordGeneralRights;
         }
 
         $rights = $recordGeneralRights;
         $fields = $record->fillable ?? [];
-        $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'hasOne', 'morphTo', 'morphOne',
+        $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'attachMany', 'hasOne', 'morphTo', 'morphOne',
                            'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'];
 
         foreach ($relationArrays as $relationArray){
@@ -68,6 +68,7 @@ class AccidentLogRigthsProvider
         foreach ($fields as $field) {
             //add rights for the record->field
             $rights[$field] = [
+                "obligatory" => 0,
                 'create' => 2,
                 'read'   => $isAdmin ? 2 : 0,
                 'update' => $isAdmin ? 2 : 0,

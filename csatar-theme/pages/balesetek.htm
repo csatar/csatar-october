@@ -1,0 +1,11 @@
+url = "/balesetek"
+layout = "default"
+title = "Balesetek"
+
+[accidentLogRecordList]
+==
+<div class="container">
+    {% if inAccidentLogAdminGroup %}
+        {% component 'accidentLogRecordList' %}
+    {% endif %} 
+</div>

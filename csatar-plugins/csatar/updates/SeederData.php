@@ -199,6 +199,10 @@ class SeederData extends Seeder
             [
                 'title' => 'Képzés',
                 'model' => 'Csatar\Csatar\Models\Training',
+            ],
+            [
+                'title' => 'Baleseti log',
+                'model' => 'Csatar\Csatar\Models\AccidentLogRecord',
             ]
         ],
         'ageGroups' => [
