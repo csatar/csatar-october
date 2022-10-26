@@ -1,9 +1,4 @@
 columns:
-    id:
-        label: id
-        type: number
-        searchable: true
-        sortable: true
     created_by:
         label: 'csatar.csatar::lang.plugin.component.accidentLog.createdBy'
         type: text
@@ -42,7 +37,7 @@ columns:
         searchable: true
         sortable: true
     program_type:
-        label: 'csatar.csatar::lang.plugin.component.accidentLog.programName'
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.programType'
         type: text
         searchable: true
         sortable: true
