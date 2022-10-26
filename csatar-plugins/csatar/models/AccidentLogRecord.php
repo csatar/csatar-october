@@ -56,6 +56,7 @@ class AccidentLogRecord extends Model
     ];
 
     protected $nullable = [
+        'accident_date_time',
         'injured_person_age',
         'injured_person_gender',
         'injury_severity',
