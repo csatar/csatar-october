@@ -1,0 +1,15 @@
+title = "Baleset"
+layout = "default"
+url = "/baleset/:id/:action?"
+
+[basicForm]
+formSlug = "baleseti-log"
+recordKeyParam = "id"
+recordActionParam = "action"
+createRecordKeyword = "letrehozas"
+actionUpdateKeyword = "modositas"
+actionDeleteKeyword = "torles"
+==
+<div class="container">
+    {% component 'basicForm' %}
+</div>

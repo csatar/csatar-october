@@ -1,12 +1,13 @@
 <?php namespace Csatar\Forms\Traits;
 
+use File;
 use Input;
 use Lang;
+use October\Rain\Database\Models\DeferredBinding;
 use Request;
 use Response;
-use File;
-use Validator;
 use Session;
+use Validator;
 
 // Returns a file size limit in bytes based on the PHP upload_max_filesize
 // and post_max_size
@@ -92,7 +93,24 @@ trait ManagesUploads {
 
     private function validateUpload($model_field) {
 
-        if (isset($this->record->rules[$model_field])) {
+        if (isset($this->record->rules[$model_field . '.*'])) {
+            $validationRules = $this->record->rules[$model_field . '.*'];
+            if(isset($this->record->rules[$model_field])) {
+                $arrayRule = $this->record->rules[$model_field];
+                // check if there is validation rule for $attachMany attachments and search for rule regarding max number of files
+                if ((preg_match('/max:(.*?)\|/', $arrayRule, $match) == 1
+                        || preg_match('/max:(.*?)$/', $arrayRule, $match))
+                    && (count($this->record->{$model_field}) >= $match[1]
+                        || $this->getNumberOfDeferredBindings($model_field, Session::get('key'))
+                    )) {
+                        throw new \ValidationException([
+                            'attachments' => Lang::get('csatar.forms::lang.widgets.frontendFileUploadValidation.maxNumberOfAttachements',
+                                                                ['value' => $match[1]])
+                        ]);
+                    }
+            }
+        }
+        elseif (isset($this->record->rules[$model_field])) {
             $validationRules = $this->record->rules[$model_field];
         } else {
             $validationRules = ['max:' . (string) file_upload_max_size()];
@@ -300,6 +318,12 @@ trait ManagesUploads {
         }
 
         return $cssDimensions;
+    }
+
+    public function getNumberOfDeferredBindings($relationName, $sessionKey) {
+        return DeferredBinding::where('master_field', $relationName)
+                       ->where('session_key', $sessionKey)
+                       ->count();
     }
 
 }

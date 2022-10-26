@@ -48,6 +48,10 @@ class Breadcrumb extends ComponentBase
             $basicForm = $this->controller->vars['basicForm'];
             $currentRecord = $basicForm->record;
 
+            if (!($currentRecord instanceof PermissionBasedAccess)) {
+                return;
+            }
+
             if (!empty($currentRecord)) {
                 $currentRecordName = $currentRecord->getModelName();
                 $this->getRecordUrl($currentRecord, $currentRecordName, true);
