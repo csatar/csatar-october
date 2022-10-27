@@ -2,6 +2,9 @@
 
 use Auth;
 use Csatar\Csatar\Models\GalleryModelPivot;
+use Csatar\Csatar\Models\MandateType;
+use Csatar\Csatar\Models\Team;
+use Csatar\Csatar\Models\Troop;
 use PolloZen\SimpleGallery\Components\Gallery;
 use PolloZen\SimpleGallery\Models\Gallery as GalleryModel;
 use System\Models\File;
@@ -18,6 +21,13 @@ class CsatarGallery extends Gallery
     public $model;
     public $gallery_id;
     public $permission_to_edit;
+    public $permission_to_watch;
+
+    public $associationMandateTypes = ['Elnök', 'Ügyvezető elnök', 'Mozgalmi vezető', 'Iroda'];
+    public $disctrictMandateTypes = ['Körzetvezető'];
+    public $teamMandateTypes = ['Csapatvezető'];
+    public $troopMandateTypes = ['Rajvezető'];
+    public $patrolMandateTypes = ['Őrsvezető'];
 
     public function defineProperties()
     {
@@ -41,9 +51,10 @@ class CsatarGallery extends Gallery
     {
         $this->prepareMarkup();
 
-        $this->permission_to_edit = $this->getPermissionToEdit();
         $modelName = "Csatar\Csatar\Models\\" . $this->property('model_name');
         $this->model = $modelName::find($this->property('model_id'));
+        $this->permission_to_edit = $this->getPermissionToEdit();
+        $this->permission_to_watch = $this->getPermissiontoWatch();
 
         $galleryIDs = GalleryModelPivot::select('gallery_id')->where('model_type', $modelName)->where('model_id', $this->property('model_id'))->where('parent_id', null)->get();
         $galleries = [];
@@ -98,6 +109,7 @@ class CsatarGallery extends Gallery
         $gallery = new GalleryModel();
         $gallery->name = post('name');
         $gallery->description = post('description');
+        $gallery->is_public = post('is_public') ? 1 : 0;
         $gallery->save();
 
         if (empty(Input::file('images'))) {
@@ -147,6 +159,7 @@ class CsatarGallery extends Gallery
         $gallery = GalleryModel::find(post('gallery_id'));
         $gallery->name = post('name');
         $gallery->description = post('description');
+        $gallery->is_public = post('is_public') ? 1 : 0;
 
         if (empty(Input::file('images')) && $gallery->images()->count() === 0) {
             throw new ValidationException(['images' => 'Képet feltölteni kötelező!']);
@@ -185,7 +198,11 @@ class CsatarGallery extends Gallery
         $this->gallery = $this->page['gallery'] = GalleryModel::find($gallery->id);
         $this->childGalleries = $this->page['childGalleries'] = $this->getChildGalleries($gallery->id);
 
+        $modelName = "Csatar\Csatar\Models\\" . $this->property('model_name');
+        $this->model = $modelName::find($this->property('model_id'));
+
         $this->permission_to_edit = $this->getPermissionToEdit();
+        $this->permission_to_watch = $this->getPermissiontoWatch();
 
         return [
             '#galleries' => $this->renderPartial('@galleryImages')
@@ -197,7 +214,11 @@ class CsatarGallery extends Gallery
         $this->gallery = $this->page['gallery'] = GalleryModel::find($gallery_id ?: post('gallery_id'));
         $this->childGalleries = $this->page['childGalleries'] = $this->getChildGalleries($gallery_id ?: post('gallery_id'));
 
+        $modelName = "Csatar\Csatar\Models\\" . $this->property('model_name');
+        $this->model = $modelName::find($this->property('model_id'));
+
         $this->permission_to_edit = $this->getPermissionToEdit();
+        $this->permission_to_watch = $this->getPermissiontoWatch();
 
         return [
             '#galleries' => $this->renderPartial('@galleryImages')
@@ -270,7 +291,65 @@ class CsatarGallery extends Gallery
 
     public function getPermissionToEdit()
     {
-        return Auth::user() ? true : false;
+        if (!Auth::user()) {
+            return false;
+        }
+
+        $associationId  = $this->model->getAssociationId();
+        $mandateTypeIds = [];
+        $mandateTypeIds = array_merge($mandateTypeIds, Auth::user()->scout->getMandateTypeIdsInOrganizationTree($this->model, $associationId));
+        $checkInMandates = [];
+
+        if ($this->property('model_name') == 'Association') {
+            $checkInMandates = ['associationMandateTypes'];
+        }
+
+        if ($this->property('model_name') == 'District') {
+            $checkInMandates = ['disctrictMandateTypes'];
+        }
+
+        if ($this->property('model_name') == 'Team') {
+            $checkInMandates = ['teamMandateTypes'];
+        }
+
+        if ($this->property('model_name') == 'Troop') {
+            $team = Team::find($this->model->team_id);
+            $mandateTypeIds = array_merge($mandateTypeIds, Auth::user()->scout->getMandateTypeIdsInOrganizationTree($team, $associationId));
+            $checkInMandates = ['teamMandateTypes', 'troopMandateTypes'];
+        }
+
+        if ($this->property('model_name') == 'Patrol') {
+            $team = Team::find($this->model->team_id);
+            $mandateTypeIds = array_merge($mandateTypeIds, Auth::user()->scout->getMandateTypeIdsInOrganizationTree($team, $associationId));
+            if ($this->model->troop_id != null) {
+                $troop = Troop::find($this->model->troop_id);
+                $mandateTypeIds = array_merge($mandateTypeIds, Auth::user()->scout->getMandateTypeIdsInOrganizationTree($troop, $associationId));
+            }
+            $checkInMandates = ['teamMandateTypes', 'troopMandateTypes', 'patrolMandateTypes'];
+        }
+
+        foreach ($mandateTypeIds as $mandateTypeId) {
+            $mandate = MandateType::find($mandateTypeId);
+            foreach ($checkInMandates as $checkInMandate) {
+                if (in_array($mandate->name, $this->$checkInMandate)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public function getPermissiontoWatch()
+    {
+        if (!Auth::user()) {
+            return false;
+        }
+
+        $getModel = 'get' . $this->property('model_name');
+        if (isset(Auth::user()->scout->$getModel()->id) && Auth::user()->scout->$getModel()->id == $this->model->id) {
+            return true;
+        }
+        return false;
     }
 
     public function renderGalleryComponent()
