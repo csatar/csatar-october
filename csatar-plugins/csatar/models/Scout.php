@@ -534,6 +534,15 @@ class Scout extends OrganizationBase
         return $query->where('team_id', $id);
     }
 
+    public function scopeAssociations($query, array $associationIds)
+    {
+        return $query->whereHas('team', function ($query) use ($associationIds) {
+            $query->whereHas('district', function ($query) use ($associationIds) {
+                $query->whereIn('association_id', $associationIds);
+            });
+        });
+    }
+
     /*
      * Returns all the mandates scout has in a specific association
      */
@@ -698,6 +707,20 @@ class Scout extends OrganizationBase
     public static function getOrganizationTypeModelNameUserFriendly()
     {
         return Lang::get('csatar.csatar::lang.plugin.admin.scout.scout');
+    }
+
+    public function getScoutOptions($scopes = null){
+        if (!empty($scopes['association']->value)) {
+            return self::associations(array_keys($scopes['association']->value))
+                ->select(Db::raw("concat(family_name, ' - ', given_name) as name, id"))
+                 ->lists('name', 'id')
+                ;
+        }
+        else {
+            return self::all()
+                ->select(Db::raw("concat(family_name, ' - ', given_name) as name, id"))
+                ->lists('name', 'id');
+        }
     }
 
     public function getStaticMessages(): array
