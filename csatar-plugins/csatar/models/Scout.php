@@ -603,7 +603,7 @@ class Scout extends OrganizationBase
         return $scoutMandateTypeIds;
     }
 
-    public function getMandateTypeIdsInOrganizationTree(PermissionBasedAccess $model, int $associationId): ?array
+    public function getMandateTypeIdsInOrganizationTree(PermissionBasedAccess $model): ?array
     {
         $modelAssociation = $model->getAssociation();
         $modelDistrict = $model->getDistrict();
@@ -642,7 +642,7 @@ class Scout extends OrganizationBase
             $mandateIdsForTeam ?? [],
             $mandateIdsForTroop ?? [],
             $mandateIdsForPatrol ?? [],
-            MandateType::getScoutMandateTypeIdInAssociation($associationId)
+            MandateType::getScoutMandateTypeIdInAssociation($modelAssociation->id)
         );
     }
 
@@ -686,8 +686,7 @@ class Scout extends OrganizationBase
             $is2fa = true;
         }
 
-        $associationId  = $model->getAssociationId();
-        $mandateTypeIds = $this->getMandateTypeIdsInOrganizationTree($model, $associationId);
+        $mandateTypeIds = $this->getMandateTypeIdsInOrganizationTree($model);
 
         return $model->getRightsForMandateTypes($mandateTypeIds, $isOwn, $is2fa, $ignoreCache);
     }
