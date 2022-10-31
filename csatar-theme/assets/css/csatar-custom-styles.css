@@ -604,6 +604,11 @@ body>p.flash-message.success, body>p.flash-message.info, body>p.flash-message.wa
 
 /* Link, nav and menu settings */
 
+#offcanvasWithBackdrop {
+    transition: 0.3s;
+    width: 90%;
+}
+
 a:link, a:visited, a:hover, a:active {
      text-decoration: none;
 }
@@ -668,6 +673,13 @@ a.dropdown-item {
 
 .navbar-dark .navbar-toggler {
     border-color: transparent;
+}
+
+@media (max-width: 767px) {
+    .csat-nav-txt-wrap {
+        white-space: normal;
+        word-wrap: break-word;
+    }
 }
 
 /* ============ desktop view ============ */
