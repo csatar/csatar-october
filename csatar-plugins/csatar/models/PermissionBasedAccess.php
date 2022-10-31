@@ -59,9 +59,9 @@ class PermissionBasedAccess extends Model
             return;
         }
 
-        if (!$ignoreCache) {
-            $rights = $this->getRightsForMandateTypesFromSession($mandateTypeIds);
-        }
+//        if (!$ignoreCache) {
+//            $rights = $this->getRightsForMandateTypesFromSession($mandateTypeIds);
+//        }
 
         if ($ignoreCache || empty($rights) || $rights->count() == 0) {
             $rights = MandatePermission::whereIn('mandate_type_id', $mandateTypeIds)
