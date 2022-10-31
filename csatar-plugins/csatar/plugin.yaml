@@ -136,6 +136,10 @@ navigation:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.testData'
                 url: /csatar/csatar/seederdata/test
                 icon: icon-database
+            side-menu-import-data:
+                label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.importData'
+                url: /csatar/csatar/seederdata/import
+                icon: icon-database
     main-menu-item-accident-log:
         label: 'csatar.csatar::lang.plugin.component.accidentLog.accidentLog'
         url: csatar/csatar/accidentlogrecords

@@ -7,8 +7,13 @@ use Backend\Classes\Controller;
 
 class SeederData extends Controller
 {
-    public $seederData, $testData, $data;
+    public $implement = [
+        \Backend\Behaviors\ImportExportController::class
+    ];
 
+    public $seederData, $testData, $importData, $data;
+    public $importExportConfig = 'config_import_export.yaml';
+    
     public function __construct()
     {
         // initialize values
@@ -29,6 +34,11 @@ class SeederData extends Controller
         BackendMenu::setContext('Csatar.Csatar', 'main-menu-item-seeder-data', 'side-menu-test-data');
     }
 
+    public function import()
+    {
+        BackendMenu::setContext('Csatar.Csatar', 'main-menu-item-seeder-data', 'side-menu-import-data');
+    }
+
     public function onSeederDataUpdateButtonClick()
     {
         $seederData = new \Csatar\Csatar\Updates\SeederData();
@@ -41,5 +51,9 @@ class SeederData extends Controller
         $testData = new \Csatar\Csatar\Updates\TestData();
         $testData->run();
         Flash::success(Lang::get('csatar.csatar::lang.plugin.admin.admin.seederData.updateDataSuccess'));
+    }
+
+    public function onImportDataButtonClick()
+    {
     }
 }
