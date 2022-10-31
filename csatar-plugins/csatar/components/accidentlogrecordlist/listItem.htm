@@ -1,16 +1,17 @@
-<tr>
-    {% for attribute, label in attributesWithLabels %}
-        <td>
-            {% if attribute == 'attachmentLinks' %}
-                <ul>
-                    {% for filename, url in record[attribute] %}
-                        <li><a href="{{ url }}" target="_blank">{{ filename }}</a></li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                {{ record[attribute] }}
-            {% endif %}
-
-        </td>
-    {% endfor %}
-</tr>
+<div class="tr">
+    <div class="card csat-resp-gdtable csat-border-lg-none">
+        <div class="row">
+            {% for attribute, label in attributesWithLabels %}
+                <div class="col">
+                    <p class="td label d-block d-lg-none">{{ label }}</p>
+                    <p class="td">{{ record[attribute] }}</p>
+                </div>
+            {% endfor %}
+            <div class="col">
+                <a class="btn rounded btn-light m-lg-0 m-2" href="/baleset/{{ record.id }}">
+                    {{ 'Részletek' | _ }}
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
