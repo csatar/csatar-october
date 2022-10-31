@@ -6,6 +6,7 @@ use Csatar\Csatar\Models\Patrol;
 use Csatar\Csatar\Models\Team;
 use Csatar\Csatar\Models\Troop;
 use Csatar\Csatar\Models\MandatePermission;
+use Db;
 use DateTime;
 use Flash;
 use Input;
@@ -223,6 +224,19 @@ class MandateType extends Model
         }
         else {
             return MandateType::orderBy('name', 'asc')->lists('association_id', 'id');
+        }
+    }
+
+    public function getMandateListMandateTypeOptions($scopes = null){
+        if (!empty($scopes['association']->value)) {
+            return MandateType::whereIn('association_id', array_keys($scopes['association']->value))
+                              ->lists('name', 'id')
+                ;
+        }
+        else {
+            return MandateType::orderBy('name', 'asc')
+                ->select(Db::raw("concat(association_id, ' - ', name) as name, id"))
+                ->lists('name', 'id');
         }
     }
 

@@ -12,18 +12,22 @@
     {{ 'Adatok letöltése csv-ben'|_ }}
 </button>
 
-<div class="table-responsive">
-    <table>
-        <tbody>
-            <tr>
+<div class="table csat-grid">
+    <div class="tr d-none d-lg-block">
+        <div class="card csat-resp-gdtable csat-border-lg-none">
+            <div class="row">
                 {#% for attribute, label in attributesWithLabels|slice(0, maxColumns) %#}
                 {% for attribute, label in attributesWithLabels %}
-                    <th class="th-grid">{{ label }}</th>
+                    <div class="col">
+                        <div class="th-grid">{{ label }}</div>
+                    </div>
                 {% endfor %}
-            </tr>
-        {% for record in recordList %}
-            {% partial __SELF__ ~ '::listItem' record=record attributesWithLabels=attributesWithLabels maxColumns=maxColumns %}
-        {% endfor %}
-        </tbody>
-    </table>
+                <div class="col"></div>
+            </div>
+        </div>
+    </div>
+
+    {% for record in recordList %}
+        {% partial __SELF__ ~ '::listItem' record=record attributesWithLabels=attributesWithLabels maxColumns=maxColumns %}
+    {% endfor %}
 </div>
