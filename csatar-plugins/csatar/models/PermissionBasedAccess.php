@@ -60,7 +60,7 @@ class PermissionBasedAccess extends Model
         }
 
         if (!$ignoreCache) {
-            $rights = $this->getRightsForMandateTypesFromSession($mandateTypeIds);
+            $rights = $this->getRightsForMandateTypesFromSession($mandateTypeIds, self::getModelName());
         }
 
         if ($ignoreCache || empty($rights) || $rights->count() == 0) {
@@ -90,9 +90,9 @@ class PermissionBasedAccess extends Model
         });
     }
 
-    public function getRightsForMandateTypesFromSession(array $mandateTypeIds){
+    public function getRightsForMandateTypesFromSession(array $mandateTypeIds, string $model){
         $sessionRecord = Session::get('scout.rightsForMandateTypes');
-        return $sessionRecord ? $sessionRecord->whereIn('mandate_type_id', $mandateTypeIds) : null;
+        return $sessionRecord ? $sessionRecord->whereIn('mandate_type_id', $mandateTypeIds)->where('model', $model) : null;
     }
 
     public function saveRightsForMandateTypesToSession($rights){
