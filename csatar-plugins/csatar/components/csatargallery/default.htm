@@ -1,4 +1,5 @@
 {% set permission_to_edit = __SELF__.permission_to_edit %}
+{% set permission_to_watch = __SELF__.permission_to_watch %}
 <div class="row" id="galleries">
     {% for gallery in galleries %}
         {% partial __SELF__ ~ '::galleryCover' gallery=gallery permision_to_edit=permission_to_edit %}
