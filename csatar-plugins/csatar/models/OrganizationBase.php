@@ -95,7 +95,7 @@ class OrganizationBase extends PermissionBasedAccess
             foreach ($mandates as $mandate) {
                 if ($mandate->start_date < $now) {
                     $mandate->mandate_model_name = $this->name;
-                    $mandate::save();
+                    $mandate->save();
                 }
             }
         }
