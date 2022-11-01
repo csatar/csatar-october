@@ -245,11 +245,16 @@ input[type=checkbox], input[type=radio] {
     pointer-events: none;
     color: #bdbdbd;
     font-size: 15px;
-    margin-top: -1px
+    margin-top: -1px;
+    z-index: 1;
 }
 
 .input-with-icon.right-align > .icon {
     right: 0
+}
+
+div.input-with-icon.input-with-icon.right-align {
+    position: relative;
 }
 
 .input-with-icon.right-align input {
