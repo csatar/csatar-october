@@ -79,30 +79,38 @@ class AccidentLogRecord extends Model
         return '\\' . static::class;
     }
 
-    public static function getAttributesWithLabels(){
+    public static function getAttributesWithLabels(bool $forTable = false){
+        if ($forTable) {
+            return [
+                'accident_date_time'    => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.accidentDateTime'),
+                'injured_person_age'    => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.injuredPersonAge'),
+                'injury_severity'   => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.injurySeverity.injurySeverity'),
+                'createdBy'   => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.createdBy'),
+            ];
+        }
         return [
-//            'created_at'    => Lang::get('csatar.csatar::lang.plugin.admin.general.createdAt'),
-//            'updated_at'    => Lang::get('csatar.csatar::lang.plugin.admin.general.updatedAt'),
+            'created_at'    => Lang::get('csatar.csatar::lang.plugin.admin.general.createdAt'),
+            'updated_at'    => Lang::get('csatar.csatar::lang.plugin.admin.general.updatedAt'),
             'accident_date_time'    => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.accidentDateTime'),
-//            'examiner_name' => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.examinerName'),
-//            'instructors'   => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.instructors'),
-//            'program_name'  => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.programName'),
-//            'program_type'  => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.programType'),
-//            'location'  => Lang::get('csatar.csatar::lang.plugin.admin.general.location'),
-//            'activity'  => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.activity'),
-//            'reason'    => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.reason'),
+            'examiner_name' => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.examinerName'),
+            'instructors'   => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.instructors'),
+            'program_name'  => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.programName'),
+            'program_type'  => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.programType'),
+            'location'  => Lang::get('csatar.csatar::lang.plugin.admin.general.location'),
+            'activity'  => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.activity'),
+            'reason'    => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.reason'),
             'injured_person_age'    => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.injuredPersonAge'),
-//            'injured_person_gender' => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.injuredPersonGender'),
-//            'injured_person_name'   => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.injuredPersonName'),
-//            'injury'    => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.injury'),
+            'injured_person_gender' => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.injuredPersonGender'),
+            'injured_person_name'   => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.injuredPersonName'),
+            'injury'    => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.injury'),
             'injury_severity'   => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.injurySeverity.injurySeverity'),
-//            'skipped_days_number'   => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.skippedDaysNumber'),
-//            'tools_used'    => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.toolsUsed'),
-//            'transport_to_doctor'   => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.transportToDoctor'),
-//            'evacuation'    => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.evacuation'),
-//            'persons_involved_in_care'  => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.personsInvolvedInCare'),
-//            'attachmentLinks' => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.attachments'),
-//            'url'   => Lang::get('csatar.csatar::lang.plugin.admin.general.url'),
+            'skipped_days_number'   => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.skippedDaysNumber'),
+            'tools_used'    => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.toolsUsed'),
+            'transport_to_doctor'   => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.transportToDoctor'),
+            'evacuation'    => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.evacuation'),
+            'persons_involved_in_care'  => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.personsInvolvedInCare'),
+            'attachmentLinks' => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.attachments'),
+            'url'   => Lang::get('csatar.csatar::lang.plugin.admin.general.url'),
             'createdBy'   => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.createdBy'),
         ];
     }
