@@ -245,11 +245,16 @@ input[type=checkbox], input[type=radio] {
     pointer-events: none;
     color: #bdbdbd;
     font-size: 15px;
-    margin-top: -1px
+    margin-top: -1px;
+    z-index: 1;
 }
 
 .input-with-icon.right-align > .icon {
     right: 0
+}
+
+div.input-with-icon.input-with-icon.right-align {
+    position: relative;
 }
 
 .input-with-icon.right-align input {
@@ -706,4 +711,289 @@ input[type=checkbox], input[type=radio] {
     float: right;
     padding: 0;
     margin: -7px
+}
+
+.icon-clock-o:before, .oc-icon-clock-o:before {
+    content: "\f017"
+}
+
+.octo-icon-clock:before {
+    content: "\e975"
+}
+
+.octo-icon-calendar-clock:before {
+    content: "\e955"
+}
+
+.clockpicker-popover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    max-width: 276px;
+    padding: 1px;
+    text-align: left;
+    white-space: normal;
+    background-color: #fff;
+    background-clip: padding-box
+}
+
+.clockpicker-popover.top {
+    margin-top: -10px
+}
+
+.clockpicker-popover.right {
+    margin-left: 10px
+}
+
+.clockpicker-popover.bottom {
+    margin-top: 10px
+}
+
+.clockpicker-popover.left {
+    margin-left: -10px
+}
+
+.clockpicker-popover .popover-title {
+    padding: 8px 14px;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 18px;
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #ebebeb;
+    border-radius: 5px 5px 0 0
+}
+
+.clockpicker-popover .popover-content {
+    padding: 9px 14px
+}
+
+.clockpicker .input-group-addon {
+    cursor: pointer
+}
+
+.clockpicker-moving {
+    cursor: move
+}
+
+.clockpicker-align-left.popover > .arrow {
+    left: 25px
+}
+
+.clockpicker-align-top.popover > .arrow {
+    top: 17px
+}
+
+.clockpicker-align-right.popover > .arrow {
+    left: auto;
+    right: 25px
+}
+
+.clockpicker-align-bottom.popover > .arrow {
+    top: auto;
+    bottom: 6px
+}
+
+.clockpicker-popover .popover-title {
+    background-color: #fff;
+    color: #999;
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 30px;
+    text-align: center
+}
+
+.clockpicker-popover .popover-title span {
+    cursor: pointer
+}
+
+.clockpicker-popover .popover-content {
+    background-color: #f8f8f8;
+    padding: 12px
+}
+
+.clockpicker-popover .popover-content:last-child {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px
+}
+
+.clockpicker-plate {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 50%;
+    width: 200px;
+    height: 200px;
+    overflow: visible;
+    position: relative;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none
+}
+
+.clockpicker-canvas, .clockpicker-dial {
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    left: -1px;
+    top: -1px
+}
+
+.clockpicker-minutes {
+    visibility: hidden
+}
+
+.clockpicker-tick {
+    border-radius: 50%;
+    color: #666;
+    line-height: 26px;
+    text-align: center;
+    width: 26px;
+    height: 26px;
+    position: absolute;
+    cursor: pointer
+}
+
+.clockpicker-tick.active, .clockpicker-tick:hover {
+    background-color: #c0e5f7;
+    background-color: rgba(0, 149, 221, .25)
+}
+
+.clockpicker-dial {
+    -webkit-transition: transform 350ms, opacity 350ms;
+    transition: transform 350ms, opacity 350ms
+}
+
+.clockpicker-dial-out {
+    opacity: 0
+}
+
+.clockpicker-hours.clockpicker-dial-out {
+    -webkit-transform: scale(1.2, 1.2);
+    -ms-transform: scale(1.2, 1.2);
+    transform: scale(1.2, 1.2)
+}
+
+.clockpicker-minutes.clockpicker-dial-out {
+    -webkit-transform: scale(.8, .8);
+    -ms-transform: scale(.8, .8);
+    transform: scale(.8, .8)
+}
+
+.clockpicker-canvas {
+    -webkit-transition: opacity 175ms;
+    transition: opacity 175ms
+}
+
+.clockpicker-canvas-out {
+    opacity: .25
+}
+
+.clockpicker-canvas-bearing, .clockpicker-canvas-fg {
+    stroke: none;
+    fill: #0095dd
+}
+
+.clockpicker-canvas-bg {
+    stroke: none;
+    fill: #c0e5f7
+}
+
+.clockpicker-canvas-bg-trans {
+    fill: rgba(0, 149, 221, .25)
+}
+
+.clockpicker-canvas line {
+    stroke: #0095dd;
+    stroke-width: 1;
+    stroke-linecap: round
+}
+
+.clockpicker-button.am-button {
+    margin: 1px;
+    padding: 5px;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: 4px
+}
+
+.clockpicker-button.pm-button {
+    margin: 1px 1px 1px 136px;
+    padding: 5px;
+    border: 1px solid rgba(0, 0, 0, .2);
+    border-radius: 4px
+}
+
+.icon-calendar:before, .oc-icon-calendar:before {
+    content: "\f073"
+}
+
+.icon-calendar-o:before, .oc-icon-calendar-o:before {
+    content: "\f133"
+}
+
+.icon-calendar-plus-o:before, .oc-icon-calendar-plus-o:before {
+    content: "\f271"
+}
+
+.icon-calendar-minus-o:before, .oc-icon-calendar-minus-o:before {
+    content: "\f272"
+}
+
+.icon-calendar-times-o:before, .oc-icon-calendar-times-o:before {
+    content: "\f273"
+}
+
+.icon-calendar-check-o:before, .oc-icon-calendar-check-o:before {
+    content: "\f274"
+}
+
+.octo-icon-calendar:before {
+    content: "\e9b7"
+}
+
+.octo-icon-calendar-o:before {
+    content: "\ea47"
+}
+
+.octo-icon-calendar-plus-o:before {
+    content: "\eb0f"
+}
+
+.octo-icon-calendar-minus-o:before {
+    content: "\eb10"
+}
+
+.octo-icon-calendar-times-o:before {
+    content: "\eb11"
+}
+
+.octo-icon-calendar-check-o:before {
+    content: "\eb12"
+}
+
+.octo-icon-calendar-add:before {
+    content: "\e951"
+}
+
+.octo-icon-calendar-3:before {
+    content: "\e952"
+}
+
+.octo-icon-calendar-disable:before {
+    content: "\e953"
+}
+
+.octo-icon-calendar-check:before {
+    content: "\e954"
+}
+
+.octo-icon-calendar-clock:before {
+    content: "\e955"
+}
+
+.octo-icon-calendar-check-1:before {
+    content: "\e959"
 }

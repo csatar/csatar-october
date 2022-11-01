@@ -226,6 +226,7 @@ class BasicForm extends ComponentBase  {
         $this->getComponentSettings();
 
         // Render frontend
+//        $this->addCss('/modules/system/assets/ui/storm.css');
         $this->addCss('/plugins/csatar/forms/assets/css/storm.css');
         $this->addJs('/modules/system/assets/ui/storm-min.js');
         $this->addJs('/plugins/csatar/forms/assets/vendor/dropzone/dropzone.js');
