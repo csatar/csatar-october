@@ -21,12 +21,21 @@ class TeamReports extends ComponentBase
         ];
     }
 
-    public function onRender()
-    {
+    public function onRun() {
         if(!Auth::user()->scout) {
             \App::abort(403, 'Access denied!');
         }
 
+        $newTeamReport = new TeamReport();
+        $newTeamReport->team_id = Auth::user()->scout->team_id;
+
+        if (Auth::user()->scout->getRightsForModel($newTeamReport)['MODEL_GENERAL']['read'] < 1) {
+            \App::abort(403, 'Access denied!');
+        }
+    }
+
+    public function onRender()
+    {
         // retrieve the parameters
         $this->id = $this->param('id');
 
