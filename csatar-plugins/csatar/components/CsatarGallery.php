@@ -346,7 +346,9 @@ class CsatarGallery extends Gallery
         }
 
         $getModel = 'get' . $this->property('model_name');
-        if (isset(Auth::user()->scout->$getModel()->id) && Auth::user()->scout->$getModel()->id == $this->model->id) {
+
+        if (isset(Auth::user()->scout->$getModel()->id) && isset($this->model)
+                && Auth::user()->scout->$getModel()->id == $this->model->id) {
             return true;
         }
         return false;
