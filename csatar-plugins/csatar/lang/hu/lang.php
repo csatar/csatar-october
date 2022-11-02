@@ -225,6 +225,7 @@
                     'copySuccess' => 'Jogosultságok sikeresen átmásolva.',
                     'deleteSuccess' => 'Jogosultságok törölve.',
                     'MODEL_GENERAL' => 'ÁLTALÁNOS HOZZÁFÉRÉS',
+                    'noPermissionChanged' => 'A jogosultságok nem változtak. Ha volt sárgával kijelölt legördülő menü és mégis ezt az üzentet kaptad, próbáld újra vagy szólj a rendszergazdának.'
                 ],
             ],
             'allergy' => [
