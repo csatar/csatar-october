@@ -3,12 +3,12 @@
 use BackendMenu;
 use Backend\Classes\Controller;
 use Backend\Widgets\Lists;
-use Csatar\Csatar\Models\MandateType;
 use Csatar\Csatar\Models\MandatePermission;
 use Db;
 use File;
 use Illuminate\Validation\Rules\In;
 use Input;
+use Log;
 use Session;
 
 class PermissionsMatrix extends Controller
@@ -84,15 +84,28 @@ class PermissionsMatrix extends Controller
     }
 
     public function onSave(){
-        $sessionValues = $this->getSessionValues();
-        if(empty($sessionValues)) {
-            return; //flash nothing to save
+        $sessionValuesGroupedByAction = (collect($this->getSessionValues()))->groupBy('action');
+        if($sessionValuesGroupedByAction->count() === 0) {
+            \Flash::warning(e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.noPermissionChanged')));
+            return;
         }
-        foreach ($sessionValues as $sessionValue) {
-            $MandatePermission = MandatePermission::find($sessionValue['id']);
-            if ($MandatePermission) {
-                $MandatePermission->{$sessionValue['action']} = $sessionValue['value'];
-                $MandatePermission->save();
+
+        foreach ($sessionValuesGroupedByAction as $action => $actionGroup ) {
+            $groupedByValue = $actionGroup->groupBy('value');
+            foreach ($groupedByValue as $value => $valueGroup) {
+                $permissionsIdsToUpdate = $valueGroup->pluck('id');
+                $numberOfUpdatedPermissions = MandatePermission::whereIn('id', $permissionsIdsToUpdate)
+                    ->update([$action => $value]);
+                if ($numberOfUpdatedPermissions < $valueGroup->count()) {
+                    Log::warning(
+                        sprintf('Could not update all mandate permissions with ids: %s for action: %s->%s vale. Updated %s of %s. ',
+                            implode(', ', $permissionsIdsToUpdate->toArray()),
+                            $action,
+                            $value,
+                            $numberOfUpdatedPermissions,
+                            $valueGroup->count())
+                    );
+                }
             }
 
         }
