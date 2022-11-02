@@ -35,17 +35,6 @@ class MandateType extends Model
      */
     public $table = 'csatar_csatar_mandate_types';
 
-    public static function boot() {
-
-        parent::boot();
-
-        static::deleting(function($item) {
-
-            MandatePermission::where('mandate_type_id', $item->id)->delete();
-
-        });
-    }
-
     /**
      * @var array Validation rules
      */
@@ -108,12 +97,15 @@ class MandateType extends Model
     {
         $now = new DateTime();
         $mandates = Mandate::where('mandate_type_id', $this->id)->get();
+
         foreach ($mandates as $mandate) {
             if ($mandate->start_date < $now && ($mandate->end_date > $now || $mandate->end_date == null)) {
                 Flash::error(str_replace('%name', $this->name, Lang::get('csatar.csatar::lang.plugin.admin.mandateType.activeMandateDeleteError')));
                 return false;
             }
         }
+
+        MandatePermission::where('mandate_type_id', $this->id)->delete();
     }
 
     function getOrganizationTypeModelNameOptions()
