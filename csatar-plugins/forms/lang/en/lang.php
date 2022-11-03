@@ -69,6 +69,7 @@
         'noDataArray'           => 'Data array is missing. Check form validation and see how could this happen.',
         'canNotSaveValidated'   => 'Can not save validated data. Check form validation and see how could this happen.',
         'noFiles'               => 'No files',
+        'nothingSelectedOnPivotRelation'    => 'Please select and option from the dropdown...',
     ],
     'validation' => [
         'selectOptionBeforeNext' => 'Please select an option before you click next!',

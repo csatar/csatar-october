@@ -39,6 +39,12 @@ class BasicForm extends ComponentBase  {
     public $formId = null;
 
     /**
+     * The unique Id of the form instance
+     * @var type
+     */
+    public $formUniqueId = null;
+
+    /**
      * The URL parameter and DB column
      * to identify a record(id, slug etc.)
      * @var int
@@ -119,6 +125,7 @@ class BasicForm extends ComponentBase  {
      */
     public function init() {
         $this->getForm();
+        $this->setOrGetFormUniqueId();
         $this->getComponentSettings();
         $this->recordKeyValue = $this->param($this->recordKeyParam);
         $this->record = $this->getRecord();
@@ -304,10 +311,15 @@ class BasicForm extends ComponentBase  {
         }
     }
 
+    public function setOrGetFormUniqueId(){
+        $this->formUniqueId = Input::get('formUniqueId') ?? uniqid();
+    }
+
     public function setOrGetSessionKey(){
-        $sessionKey = Session::get('key') ?? uniqid('session_key', true);
+        $prefix = $this->formUniqueId . '_form_key_';
+        $sessionKey = Session::get($this->formUniqueId) ?? uniqid($prefix, true);
         $this->sessionKey = $sessionKey;
-        Session::put('key', $sessionKey);
+        Session::put($this->formUniqueId, $sessionKey);
     }
 
     private function getRights($record, $ignoreCache = false)
