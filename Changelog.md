@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+## 1.6.0
+### 2022-11-03
+
 - CS-296 - Created accident log record list page and csv export option
 - CS-297 - Implemented UserRigthsProvider user rigths provider class
 - CS-297 - Created menu items for accident log
