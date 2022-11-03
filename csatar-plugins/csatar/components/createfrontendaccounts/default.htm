@@ -1,11 +1,12 @@
 {% set scouts = __SELF__.scouts %}
+{% set permissions = __SELF__.permissions %}
 
 <div id="scoutList">
     <form data-request="onCreateFrontendAccounts"
         data-request-loading
         data-request-flash>
 
-        {% if user %}
+        {% if permissions['MODEL_GENERAL']['create'] > 0 %}
             <button
                 type="submit"
                 class="btn btn-sm rounded btn-primary">
@@ -18,7 +19,7 @@
 
         {% for record in scouts %}
             <div class="form-check d-flex mb-2">
-                {% if user %}
+                {% if permissions['MODEL_GENERAL']['create'] > 0 %}
                     <input class="form-check-input me-2" type="checkbox" value="{{ record.id }}" id="scout-{{ record.id }}" name="scouts[]"/>
                 {% endif %}
                 <label class="form-check-label" for="scout-{{ record.id }}">

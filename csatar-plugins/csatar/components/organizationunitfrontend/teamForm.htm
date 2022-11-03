@@ -34,8 +34,9 @@
     {% endfor %}
 </ul>
 
-<a href="/tagok" class="btn rounded btn-primary"><i class="csat-add-fill-wh-sm"></i> {{ 'Felhasználói fiók létrehozása'|_ }}</a>
-
+{% if (permissions['scouts']['create'] > 0) %}
+    <a href="/tagok" class="btn rounded btn-primary"><i class="csat-add-fill-wh-sm"></i> {{ 'Felhasználói fiók létrehozása'|_ }}</a>
+{% endif %}
 
 {% if permissions['patrols']['create'] > 0 %}
     <form action="/ors/letrehozas" method="post">

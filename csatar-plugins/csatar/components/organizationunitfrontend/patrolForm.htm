@@ -6,6 +6,7 @@
     <form action="/tag/letrehozas" method="post">
         <input type="hidden" name="team" value="{{ patrol.team_id }}">
         <input type="hidden" name="patrol" value="{{ patrol.id }}">
+        <input type="hidden" name="troop" value="{{ patrol.troop_id }}">
         <button type="submit" class="btn rounded btn-primary" value="{{ 'Tag hozzáadása' | _ }}"><i class="csat-useradd-fill-wh-md"></i></button>
     </form>
 {% endif %}

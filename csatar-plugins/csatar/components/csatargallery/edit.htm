@@ -7,6 +7,9 @@
     <label for="description" class="form-label">{{ 'Leírás' | _ }}</label>
     <input type="text" name="description" id="description" class="form-control rounded" value="{{ gallery.description }}"><br>
 
+    <input type="checkbox" name="is_public" id="is_public" class="form-check-input me-2" {% if gallery.is_public %}checked {% endif %}>
+    <label for="is_public" class="form-check-label">{{ 'Publikus' | _ }}</label><br><br>
+
     <input type="hidden" name="gallery_id" value="{{ gallery.id }}">
 
     <div
