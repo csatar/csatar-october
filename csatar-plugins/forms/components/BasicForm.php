@@ -2,6 +2,7 @@
 
 use Auth;
 use Cms\Classes\ComponentBase;
+use Csatar\Csatar\Classes\UserRigthsProvider;
 use Csatar\Forms\Models\Form;
 use Csatar\Forms\Traits\AjaxControllerSimple;
 use Csatar\Forms\Traits\ManagesUploads;
@@ -36,6 +37,12 @@ class BasicForm extends ComponentBase  {
      * @var type
      */
     public $formId = null;
+
+    /**
+     * The unique Id of the form instance
+     * @var type
+     */
+    public $formUniqueId = null;
 
     /**
      * The URL parameter and DB column
@@ -118,6 +125,7 @@ class BasicForm extends ComponentBase  {
      */
     public function init() {
         $this->getForm();
+        $this->setOrGetFormUniqueId();
         $this->getComponentSettings();
         $this->recordKeyValue = $this->param($this->recordKeyParam);
         $this->record = $this->getRecord();
@@ -225,6 +233,7 @@ class BasicForm extends ComponentBase  {
         $this->getComponentSettings();
 
         // Render frontend
+//        $this->addCss('/modules/system/assets/ui/storm.css');
         $this->addCss('/plugins/csatar/forms/assets/css/storm.css');
         $this->addJs('/modules/system/assets/ui/storm-min.js');
         $this->addJs('/plugins/csatar/forms/assets/vendor/dropzone/dropzone.js');
@@ -302,10 +311,15 @@ class BasicForm extends ComponentBase  {
         }
     }
 
+    public function setOrGetFormUniqueId(){
+        $this->formUniqueId = Input::get('formUniqueId') ?? uniqid();
+    }
+
     public function setOrGetSessionKey(){
-        $sessionKey = Session::get('key') ?? uniqid('session_key', true);
+        $prefix = $this->formUniqueId . '_form_key_';
+        $sessionKey = Session::get($this->formUniqueId) ?? uniqid($prefix, true);
         $this->sessionKey = $sessionKey;
-        Session::put('key', $sessionKey);
+        Session::put($this->formUniqueId, $sessionKey);
     }
 
     private function getRights($record, $ignoreCache = false)
@@ -316,11 +330,7 @@ class BasicForm extends ComponentBase  {
 
         $this->autoloadBelongsToRelations($record);
 
-        if(Auth::user() && !empty(Auth::user()->scout)) {
-            return Auth::user()->scout->getRightsForModel($record, $ignoreCache);
-        } else {
-            return $record->getGuestRightsForModel();
-        }
+        return UserRigthsProvider::getUserRigths($record, $ignoreCache);
     }
 
     private function canCreate(string $attribute): bool

@@ -1,0 +1,25 @@
+scopes:
+
+    association:
+        type: group
+        label: 'csatar.csatar::lang.plugin.admin.association.association'
+        modelClass: Csatar\Csatar\Models\Association
+        conditions: mandate_type_id in (select id from csatar_csatar_mandate_types where association_id in (:filtered))
+        nameFrom: name
+        default:
+            5: 'Romániai Magyar Cserkészszövetség'
+
+    mandate_type:
+        type: group
+        label: 'csatar.csatar::lang.plugin.admin.mandateType.mandateType'
+        modelClass: Csatar\Csatar\Models\MandateType
+        conditions: mandate_type_id in (:filtered)
+        options: getMandateListMandateTypeOptions
+        dependsOn: association
+
+    scout:
+        label: 'csatar.csatar::lang.plugin.admin.mandateType.scout'
+        modelClass: Csatar\Csatar\Models\Scout
+        conditions: scout_id in (:filtered)
+        dependsOn: association
+        options: getScoutOptions

@@ -55,6 +55,7 @@
         ],
         'frontendFileUploadValidation' => [
             'mimeTypeMismatch' => 'A(z) :attribute fájltípusa kizárólag :values lehet.',
+            'maxNumberOfAttachements' => 'A maximálisan feltölthető fájlok száma: :value.',
         ],
         'frontendFileUploadException' => [
             'fileExceedsUploadLimit' => 'A fájl mérete nagyobb mint a megengedtett ',
@@ -67,7 +68,8 @@
         'formNotFound'          => 'A kiválasztott űrlap nem található. Ellenőrizd az \'Alap űrlap\' komponens beállításait a követketző oldalon: ',
         'noDataArray'           => 'Az adatok hiányoznak. Ellenőrizd az űrlap érvényesítését.',
         'canNotSaveValidated'   => 'Nem sikerült elmenteni az érvényesített adatokat. Ellenőrizd az űrlap érvényesítését.',
-        'noFiles'               => 'Nincsenek fájlok megadva'
+        'noFiles'               => 'Nincsenek fájlok megadva',
+        'nothingSelectedOnPivotRelation'    => 'Kérjük válasszon ki egy opciót...',
     ],
     'validation' => [
         'selectOptionBeforeNext' => 'Válasszon egy opciót!',

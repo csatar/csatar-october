@@ -1,5 +1,6 @@
 <?php namespace Csatar\Csatar\Components;
 
+use Auth;
 use Csatar\Csatar\Models\Scout;
 use Csatar\Csatar\Models\Team;
 use Lang;
@@ -70,6 +71,10 @@ class CheckScoutStatus extends ComponentBase
             'team_id' => $team->id,
             'team_name' => $team->name,
             'team_number' => $team->team_number,
+            'district_name' => $team->district->name,
+            'district_id' => $team->district_id,
+            'scout_name' => $scout->name,
+            'is_user_logged_id' => Auth::user() ? true : false
         ];
 
         if ($this->json) {

@@ -15,6 +15,8 @@ searchPage = "kereses-erdmenyek.htm"
 [twoFactorAuthentication]
 ==
 <?php
+use Csatar\Csatar\Classes\AccidentLogRigthsProvider;
+
 function onStart()
 {
     if (isset(Auth::user()->scout) && !Auth::user()->scout->accepted_at) {
@@ -27,6 +29,12 @@ function onStart()
         if ($this->controller->currentPageUrl() != $allowedUrl && !in_array($this->controller->currentPageUrl(), $errorUrls)) {
             return Redirect::to($allowedUrl);
         }
+    }
+
+    if ($user = Auth::user()) {
+        $this['isAccidentLogUser'] = AccidentLogRigthsProvider::isAccidentLogUser($user);
+        $this['inAccidentLogEntryGroup'] = AccidentLogRigthsProvider::inAccidentLogEntryGroup($user);
+        $this['inAccidentLogAdminGroup'] = AccidentLogRigthsProvider::inAccidentLogAdminGroup($user);
     }
 }
 ?>

@@ -6,6 +6,9 @@ use Csatar\Csatar\Models\Patrol;
 use Csatar\Csatar\Models\Team;
 use Csatar\Csatar\Models\Troop;
 use Csatar\Csatar\Models\MandatePermission;
+use Db;
+use DateTime;
+use Flash;
 use Input;
 use Lang;
 use Model;
@@ -31,17 +34,6 @@ class MandateType extends Model
      * @var string The database table used by the model.
      */
     public $table = 'csatar_csatar_mandate_types';
-
-    public static function boot() {
-
-        parent::boot();
-
-        static::deleting(function($item) {
-
-            MandatePermission::where('mandate_type_id', $item->id)->delete();
-
-        });
-    }
 
     /**
      * @var array Validation rules
@@ -100,6 +92,21 @@ class MandateType extends Model
             'delete' => true,
         ]
     ];
+
+    function beforeDelete()
+    {
+        $now = new DateTime();
+        $mandates = Mandate::where('mandate_type_id', $this->id)->get();
+
+        foreach ($mandates as $mandate) {
+            if ($mandate->start_date < $now && ($mandate->end_date > $now || $mandate->end_date == null)) {
+                Flash::error(str_replace('%name', $this->name, Lang::get('csatar.csatar::lang.plugin.admin.mandateType.activeMandateDeleteError')));
+                return false;
+            }
+        }
+
+        MandatePermission::where('mandate_type_id', $this->id)->delete();
+    }
 
     function getOrganizationTypeModelNameOptions()
     {
@@ -209,6 +216,19 @@ class MandateType extends Model
         }
         else {
             return MandateType::orderBy('name', 'asc')->lists('association_id', 'id');
+        }
+    }
+
+    public function getMandateListMandateTypeOptions($scopes = null){
+        if (!empty($scopes['association']->value)) {
+            return MandateType::whereIn('association_id', array_keys($scopes['association']->value))
+                              ->lists('name', 'id')
+                ;
+        }
+        else {
+            return MandateType::orderBy('name', 'asc')
+                ->select(Db::raw("concat(association_id, ' - ', name) as name, id"))
+                ->lists('name', 'id');
         }
     }
 

@@ -50,6 +50,10 @@ navigation:
                 label: 'csatar.csatar::lang.plugin.admin.mandateType.mandateTypes'
                 url: csatar/csatar/mandatetypes
                 icon: icon-sitemap
+            side-menu-item-mandates:
+                label: 'csatar.csatar::lang.plugin.admin.mandate.mandates'
+                url: /csatar/csatar/mandates
+                icon: icon-sitemap
             side-menu-item-permissions-matrix:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.organizationSystemData.permissionsMatrix'
                 url: csatar/csatar/permissionsmatrix
@@ -136,3 +140,7 @@ navigation:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.testData'
                 url: /csatar/csatar/seederdata/test
                 icon: icon-database
+    main-menu-item-accident-log:
+        label: 'csatar.csatar::lang.plugin.component.accidentLog.accidentLog'
+        url: csatar/csatar/accidentlogrecords
+        icon: icon-life-ring

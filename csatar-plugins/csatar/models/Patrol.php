@@ -57,13 +57,16 @@ class Patrol extends OrganizationBase
      */
     public function filterFields($fields, $context = null) {
         // populate the Troop dropdown with troops that belong to the selected team
-        $fields->troop->options = [];
-        $team_id = $this->team_id;
-        if ($team_id) {
-            foreach (\Csatar\Csatar\Models\Troop::teamId($team_id)->get() as $troop) {
-                $fields->troop->options += [$troop['id'] => $troop['extendedName']];
+        if (isset($fields->troop)) {
+            $fields->troop->options = [];
+            $team_id = $this->team_id;
+            if ($team_id) {
+                foreach (\Csatar\Csatar\Models\Troop::teamId($team_id)->get() as $troop) {
+                    $fields->troop->options += [$troop['id'] => $troop['extendedName']];
+                }
             }
         }
+
     }
 
     /**
@@ -190,5 +193,25 @@ class Patrol extends OrganizationBase
     public static function getOrganizationTypeModelNameUserFriendly()
     {
         return Lang::get('csatar.csatar::lang.plugin.admin.patrol.patrol');
+    }
+
+    public function getAssociation() {
+        return $this->team->district->association ?? null;
+    }
+
+    public function getDistrict() {
+        return $this->team->district ?? null;
+    }
+
+    public function getTeam() {
+        return $this->team_id ? $this->team : null;
+    }
+
+    public function getTroop() {
+        return $this->troop_id ? $this->troop : null;
+    }
+
+    public function getPatrol() {
+        return $this;
     }
 }

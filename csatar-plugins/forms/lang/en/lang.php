@@ -55,6 +55,7 @@
         ],
         'frontendFileUploadValidation' => [
             'mimeTypeMismatch' => 'The :attribute must be a file of type: :values.',
+            'maxNumberOfAttachements' => 'The maximum number of files you can upload is: :value.',
         ],
         'frontendFileUploadException' => [
             'fileExceedsUploadLimit' => 'File exceeds file upload limit of ',
@@ -68,6 +69,7 @@
         'noDataArray'           => 'Data array is missing. Check form validation and see how could this happen.',
         'canNotSaveValidated'   => 'Can not save validated data. Check form validation and see how could this happen.',
         'noFiles'               => 'No files',
+        'nothingSelectedOnPivotRelation'    => 'Please select and option from the dropdown...',
     ],
     'validation' => [
         'selectOptionBeforeNext' => 'Please select an option before you click next!',

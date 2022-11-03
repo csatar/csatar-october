@@ -39,6 +39,7 @@
                 'searchResult' => 'Keresés eredménye',
                 'yes' => 'Igen',
                 'no' => 'Nem',
+                'url' => 'URL',
             ],
             'ageGroups' => [
                 'ageGroups' => 'Korosztályok',
@@ -59,6 +60,7 @@
                     'gender' => 'Nem',
                     'male' => 'Férfi',
                     'female' => 'Nő',
+                    'other' => 'Egyéb',
                 ],
                 'isActive' => 'Aktív',
                 'allergy' => 'Allergia',
@@ -152,6 +154,7 @@
                 'staticMessages' => [
                     'personalDataNotAccepted' => 'Kérlek ellenőrizd, hogy helyesek-e a személyes adataid itt!',
                 ],
+                'activeMandateDeleteError' => 'A(z) %name nevű Tagnak létezik aktív Megbízatása, így ez a Tag nem törölhető.',
             ],
             'admin' => [
                 'menu' => [
@@ -222,6 +225,7 @@
                     'copySuccess' => 'Jogosultságok sikeresen átmásolva.',
                     'deleteSuccess' => 'Jogosultságok törölve.',
                     'MODEL_GENERAL' => 'ÁLTALÁNOS HOZZÁFÉRÉS',
+                    'noPermissionChanged' => 'A jogosultságok nem változtak. Ha volt sárgával kijelölt legördülő mező és mégis ezt az üzentet kaptad, próbáld újra vagy szólj a rendszergazdának.'
                 ],
             ],
             'allergy' => [
@@ -461,6 +465,7 @@
                 'startDate' => 'Kezdete',
                 'endDate' => 'Vége',
                 'breadcrumb' => 'Megbízatás típusok',
+                'activeMandateDeleteError' => 'Létezik %name típusú aktív Megbízatás, így ez a Megbízatás típus nem törölhető.',
             ],
             'mandate' => [
                 'mandate' => 'Megbízatás',
@@ -485,6 +490,11 @@
             'sitesearchSettings' => [
                 'sitesearchSettings' => 'Sites Search plugin beállítások',
                 'enabledOnOrgCMSpages' => 'Bekapcsolva a szervezeti egységek frontend oldalain.',
+            ],
+            'userGroups' => [
+                'userGroups' => 'Felhasználó csoportok',
+                'dataEntry' => 'Baleseti log adatbevívó',
+                'admin' => 'Baleseti log adminisztrátor',
             ],
         ],
         'component' => [
@@ -604,6 +614,37 @@
                 'description' => 'Két faktoros hitelesítése plugin.',
                 'twoFactorAuthFailed' => 'A hitelesítés sikertelen, kérlek próbáld újra!',
                 'twoFactorAuthSuccess' => 'A hitelesítés sikeres, köszönjük!',
+            ],
+            'accidentLog' => [
+                'accidentLog' => 'Baleseti napló',
+                'createdBy' => 'Lérehozta',
+                'accidentDateTime' => 'Baleset dátum és időpont',
+                'examinerName' => 'Vizsgálatot végző neve',
+                'instructors' => 'Oktatók',
+                'programName' => 'Program neve',
+                'programType' => 'Program típusa',
+                'activity' => 'Tevékenység',
+                'reason' => 'Ok',
+                'injuredPersonAge' => 'Sérült/ beteg életkora',
+                'injuredPersonGender' => 'Sérült/ beteg neme',
+                'injuredPersonName' => 'Sérült/ beteg neve',
+                'injury' => 'Sérülés/betegség megnevezése',
+                'injurySeverity' => [
+                    'injurySeverity' => 'Eset súlyossága',
+                    'slight' => 'Enyhe',
+                    'medium' => 'Közepes',
+                    'serious' => 'Súlyos',
+                    'fatal' => 'Végzetes',
+                ],
+                'skippedDaysNumber' => 'Kiesett programnapok száma',
+                'toolsUsed' => 'Használt eszközök',
+                'transportToDoctor' => 'Orvoshoz szállítás',
+                'evacuation' => 'Evakuáció',
+                'personsInvolvedInCare' => 'Ellátásba bevont személyek',
+                'attachments' => 'Csatolt fájlok',
+                'attachmentsComment' => 'Maximum öt fájlt lehet feltölteni',
+                'attachmentsValidationException' => 'Maximum öt fájlt lehet feltölteni',
+                'created_by' => 'Created by',
             ],
         ],
         'oauth' => [

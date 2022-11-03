@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- CS-296 - Created accident log record list page and csv export option
+- CS-297 - Implemented UserRigthsProvider user rigths provider class
+- CS-297 - Created menu items for accident log
+- CS-297 - Created seeder for accident log user groups
+- CS-297 - Implemented rights for accident
+- CS-360 - Refactored permissions system to limit mandate permissions to organization units based on organization tree
+- CS-354 - Added disabled button design to the design system
+- CS-354 - Added padlock symbols
+- CS-302 - Updated navigation: added navigation overlay for submenus on desktop view, reorganized on tablet view, added off-canvas sidebar on mobile view, visual updates
+- CS-316 - Added permissions to the gallery 
+
 ## 1.5.3
 ### 2022-10-14
 

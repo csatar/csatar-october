@@ -133,4 +133,20 @@ class Troop extends OrganizationBase
     {
         return Lang::get('csatar.csatar::lang.plugin.admin.troop.troop');
     }
+
+    public function getAssociation() {
+        return $this->team->district->association ?? null;
+    }
+
+    public function getDistrict() {
+        return $this->team->district ?? null;
+    }
+
+    public function getTeam() {
+        return $this->team_id ? $this->team : null;
+    }
+
+    public function getTroop() {
+        return $this;
+    }
 }

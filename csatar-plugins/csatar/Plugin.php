@@ -199,6 +199,7 @@ class Plugin extends PluginBase
             \Csatar\Csatar\Components\CsatarGallery::class => 'csatargallery',
             \Csatar\Csatar\Components\Breadcrumb::class => 'csatarBreadcrumb',
             \Csatar\Csatar\Components\TwoFactorAuthentication::class => 'twoFactorAuthentication',
+            \Csatar\Csatar\Components\AccidentLogRecordList::class => 'accidentLogRecordList',
         ];
     }
 

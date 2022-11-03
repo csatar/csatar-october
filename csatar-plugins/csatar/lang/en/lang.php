@@ -39,6 +39,7 @@
                 'searchResult' => 'Search Result',
                 'yes' => 'Yes',
                 'no' => 'No',
+                'url' => 'Hivatkozás',
             ],
             'ageGroups' => [
                 'ageGroups' => 'Age Groups',
@@ -59,6 +60,7 @@
                     'gender' => 'Gender',
                     'male' => 'Male',
                     'female' => 'Female',
+                    'other' => 'Other',
                 ],
                 'isActive' => 'Is active',
                 'allergy' => 'Allergies',
@@ -152,6 +154,7 @@
                 'staticMessages' => [
                     'personalDataNotAccepted' => 'Please verify your personal data here!',
                 ],
+                'activeMandateDeleteError' => 'The Scout having the %name name has active Mandates, thus this Scout cannot be deleted.',
             ],
             'admin' => [
                 'menu' => [
@@ -222,6 +225,7 @@
                     'copySuccess' => 'Permissions copied successfuly.',
                     'deleteSuccess' => 'Permissions deleted successfuly.',
                     'MODEL_GENERAL' => 'GENERAL ACCESS',
+                    'noPermissionChanged' => 'No permissions were changed. If there was any dropdown highlighted with yellow and you received this message, please try again or contact administrator.'
                 ],
             ],
             'allergy' => [
@@ -461,6 +465,7 @@
                 'startDate' => 'Start date',
                 'endDate' => 'End date',
                 'breadcrumb' => 'Mandate types',
+                'activeMandateDeleteError' => 'There exist active Mandates of %name type, thus this Mandate type cannot be deleted.',
             ],
             'mandate' => [
                 'mandate' => 'Mandate',
@@ -485,6 +490,11 @@
             'sitesearchSettings' => [
                 'sitesearchSettings' => 'Sites Search Plugin Settings',
                 'enabledOnOrgCMSpages' => 'Enabled on organization unit frontend pages',
+            ],
+            'userGroups' => [
+                'userGroups' => 'User Groups',
+                'dataEntry' => 'Accident log data entry group',
+                'admin' => 'Accident log admin group',
             ],
         ],
         'component' => [
@@ -604,6 +614,37 @@
                 'description' => 'Enables two factor authentication.',
                 'twoFactorAuthFailed' => 'Authentication failed, please try again!',
                 'twoFactorAuthSuccess' => 'Authentication successful, thank you!',
+            ],
+            'accidentLog' => [
+                'accidentLog' => 'Accident Log',
+                'accidentLogRecordList' => 'Accident Log Record List',
+                'createdBy' => 'Created by',
+                'accidentDateTime' => 'Accident date-time',
+                'examinerName' => 'Examiner name',
+                'instructors' => 'Instructors',
+                'programName' => 'Program name',
+                'programType' => 'Program type',
+                'activity' => 'Activity',
+                'reason' => 'Reason',
+                'injuredPersonAge' => 'Injured Person Age',
+                'injuredPersonGender' => 'Injured Person Gender',
+                'injuredPersonName' => 'Injured Person Name',
+                'injury' => 'Injury',
+                'injurySeverity' => [
+                    'injurySeverity' => 'Injury Severity',
+                    'slight' => 'Slight',
+                    'medium' => 'Medium',
+                    'serious' => 'Serious',
+                    'fatal' => 'Fatal',
+                ],
+                'skippedDaysNumber' => 'Skipped Days Number',
+                'toolsUsed' => 'Tools Used',
+                'transportToDoctor' => 'Transport to Doctor',
+                'evacuation' => 'Evacuation',
+                'personsInvolvedInCare' => 'Persons Involved in Care',
+                'attachments' => 'Attachments',
+                'attachmentsComment' => 'Max. five files can be uploaded',
+                'attachmentsValidationException' => 'Max. five files can be uploaded',
             ],
         ],
         'oauth' => [

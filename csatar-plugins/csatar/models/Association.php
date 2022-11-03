@@ -126,4 +126,8 @@ class Association extends OrganizationBase
     public function getPersonalIdentificationNumberValidatorOptions() {
         return ['cnp' => 'CNP'];
     }
+
+    public function getAssociation() {
+        return $this;
+    }
 }
