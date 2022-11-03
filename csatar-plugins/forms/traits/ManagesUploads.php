@@ -101,7 +101,7 @@ trait ManagesUploads {
                 if ((preg_match('/max:(.*?)\|/', $arrayRule, $match) == 1
                         || preg_match('/max:(.*?)$/', $arrayRule, $match))
                     && (count($this->record->{$model_field}) >= $match[1]
-                        || $this->getNumberOfDeferredBindings($model_field, Session::get('key'))
+                        || $this->getNumberOfDeferredBindings($model_field, Session::get('key') ) >= $match[1]
                     )) {
                         throw new \ValidationException([
                             'attachments' => Lang::get('csatar.forms::lang.widgets.frontendFileUploadValidation.maxNumberOfAttachements',
