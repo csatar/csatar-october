@@ -49,6 +49,7 @@ function removeHiglightsResetInitial() {
         });
 
         $(this).attr("data-request-data", dataRequestData.join());
+        $(this).data('request-data', dataRequestData.join());
         $(this).attr("data-initial-value", $(this).val());
         $(this).data('initial-value', $(this).val());
     });
