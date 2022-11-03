@@ -228,6 +228,7 @@
                     'copySuccess' => 'Permissions copied successfuly.',
                     'deleteSuccess' => 'Permissions deleted successfuly.',
                     'MODEL_GENERAL' => 'GENERAL ACCESS',
+                    'noPermissionChanged' => 'No permissions were changed. If there was any dropdown highlighted with yellow and you received this message, please try again or contact administrator.'
                 ],
             ],
             'allergy' => [

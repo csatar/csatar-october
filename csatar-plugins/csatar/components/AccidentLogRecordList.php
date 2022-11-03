@@ -13,7 +13,7 @@ class AccidentLogRecordList extends ComponentBase
 {
     public $recordList;
     public $attributesWithLabels;
-    public $maxColumns = 6;
+    public $columnsToDisplay;
 
     public function componentDetails()
     {
@@ -30,6 +30,7 @@ class AccidentLogRecordList extends ComponentBase
     public function prepareVars() {
         $this->recordList = AccidentLogRecord::all();
         $this->attributesWithLabels = AccidentLogRecord::getAttributesWithLabels();
+        $this->columnsToDisplay = AccidentLogRecord::getAttributesWithLabels(true);
     }
 
     public function onExportToCsv(){

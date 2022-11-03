@@ -26,6 +26,8 @@ use Csatar\Csatar\Models\Scout;
 
 class CreateFrontendAccounts extends \RainLab\User\Components\Account
 {
+    public $permissions;
+
     public $messages = [
         'error' => [],
         'success' => [],
@@ -75,6 +77,19 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
         if ($redirect = $this->redirectForceSecure()) {
             return $redirect;
         }
+
+        if(!Auth::user()->scout) {
+            \App::abort(403, 'Access denied!');
+        }
+
+        $tempScout = new Scout();
+        $tempScout->team_id = Auth::user()->scout->team_id;
+
+        if (Auth::user()->scout->getRightsForModel($tempScout)['MODEL_GENERAL']['read'] < 1) {
+            \App::abort(403, 'Access denied!');
+        }
+
+        $this->permissions = Auth::user()->scout->getRightsForModel($tempScout);
 
         $this->prepareVars();
 

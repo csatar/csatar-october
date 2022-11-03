@@ -177,3 +177,6 @@
 1.0.62:
     - 'Created table csatar_csatar_accident_log_records'
     - builder_table_create_csatar_csatar_accident_log_records.php
+1.0.63:
+    - 'Updated table pollozen_simplegallery_galleries'
+    - builder_table_update_pollozen_simplegallery_galleries.php

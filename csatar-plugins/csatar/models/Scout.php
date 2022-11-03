@@ -6,6 +6,7 @@ use DateTime;
 use Db;
 use Flash;
 use Lang;
+use Log;
 use Session;
 use Model;
 use Csatar\Csatar\Classes\RightsMatrix;
@@ -197,30 +198,36 @@ class Scout extends OrganizationBase
      */
     public function filterFields($fields, $context = null) {
         // populate the Troop and Patrol dropdowns with troops and patrols that belong to the selected team
-        $fields->troop->options = [];
-        $team_id = $this->team_id;
-        if ($team_id) {
-            foreach (\Csatar\Csatar\Models\Troop::teamId($team_id)->get() as $troop) {
-                $fields->troop->options += [$troop['id'] => $troop['extendedName']];
+        if (isset($fields->troop)) {
+            $fields->troop->options = [];
+            $team_id = $this->team_id;
+            if ($team_id) {
+                foreach (\Csatar\Csatar\Models\Troop::teamId($team_id)->get() as $troop) {
+                    $fields->troop->options += [$troop['id'] => $troop['extendedName']];
+                }
             }
         }
 
         // populate the Patrol dropdown with patrols that belong to the selected team and to the selected troop
-        $fields->patrol->options = [];
-        $troop_id = $this->troop_id;
-        if ($troop_id) {
-            foreach (\Csatar\Csatar\Models\Patrol::troopId($troop_id)->get() as $patrol) {
-                $fields->patrol->options += [$patrol['id'] => $patrol['extendedName']];
+        if (isset($fields->patrol)) {
+            $fields->patrol->options = [];
+            $troop_id = $this->troop_id;
+            if ($troop_id) {
+                foreach (\Csatar\Csatar\Models\Patrol::troopId($troop_id)->get() as $patrol) {
+                    $fields->patrol->options += [$patrol['id'] => $patrol['extendedName']];
+                }
             }
-        }
-        else if ($team_id) {
-            foreach (\Csatar\Csatar\Models\Patrol::teamId($team_id)->get() as $patrol) {
-                $fields->patrol->options += [$patrol['id'] => $patrol['extendedName']];
+            else if ($team_id) {
+                foreach (\Csatar\Csatar\Models\Patrol::teamId($team_id)->get() as $patrol) {
+                    $fields->patrol->options += [$patrol['id'] => $patrol['extendedName']];
+                }
             }
         }
 
         // populate the Legal Relationships dropdown with legal relationships that belong to the selected team's association
-        $fields->legal_relationship->options = $this->team ? \Csatar\Csatar\Models\LegalRelationship::associationId($this->team->district->association->id)->lists('name', 'id') : [];
+        if (isset($fields->legal_relationship)) {
+            $fields->legal_relationship->options = $this->team ? \Csatar\Csatar\Models\LegalRelationship::associationId($this->team->district->association->id)->lists('name', 'id') : [];
+        }
     }
 
     public $fillable = [
@@ -534,6 +541,15 @@ class Scout extends OrganizationBase
         return $query->where('team_id', $id);
     }
 
+    public function scopeAssociations($query, array $associationIds)
+    {
+        return $query->whereHas('team', function ($query) use ($associationIds) {
+            $query->whereHas('district', function ($query) use ($associationIds) {
+                $query->whereIn('association_id', $associationIds);
+            });
+        });
+    }
+
     /*
      * Returns all the mandates scout has in a specific association
      */
@@ -603,7 +619,7 @@ class Scout extends OrganizationBase
         return $scoutMandateTypeIds;
     }
 
-    public function getMandateTypeIdsInOrganizationTree(PermissionBasedAccess $model, int $associationId): ?array
+    public function getMandateTypeIdsInOrganizationTree(PermissionBasedAccess $model): ?array
     {
         $modelAssociation = $model->getAssociation();
         $modelDistrict = $model->getDistrict();
@@ -642,7 +658,7 @@ class Scout extends OrganizationBase
             $mandateIdsForTeam ?? [],
             $mandateIdsForTroop ?? [],
             $mandateIdsForPatrol ?? [],
-            MandateType::getScoutMandateTypeIdInAssociation($associationId)
+            MandateType::getScoutMandateTypeIdInAssociation($modelAssociation->id)
         );
     }
 
@@ -686,8 +702,7 @@ class Scout extends OrganizationBase
             $is2fa = true;
         }
 
-        $associationId  = $model->getAssociationId();
-        $mandateTypeIds = $this->getMandateTypeIdsInOrganizationTree($model, $associationId);
+        $mandateTypeIds = $this->getMandateTypeIdsInOrganizationTree($model);
 
         return $model->getRightsForMandateTypes($mandateTypeIds, $isOwn, $is2fa, $ignoreCache);
     }
@@ -699,6 +714,20 @@ class Scout extends OrganizationBase
     public static function getOrganizationTypeModelNameUserFriendly()
     {
         return Lang::get('csatar.csatar::lang.plugin.admin.scout.scout');
+    }
+
+    public function getScoutOptions($scopes = null){
+        if (!empty($scopes['association']->value)) {
+            return self::associations(array_keys($scopes['association']->value))
+                ->select(Db::raw("concat(family_name, ' - ', given_name) as name, id"))
+                 ->lists('name', 'id')
+                ;
+        }
+        else {
+            return self::all()
+                ->select(Db::raw("concat(family_name, ' - ', given_name) as name, id"))
+                ->lists('name', 'id');
+        }
     }
 
     public function getStaticMessages(): array

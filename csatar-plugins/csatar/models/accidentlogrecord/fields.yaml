@@ -51,6 +51,7 @@ fields:
         label: 'csatar.csatar::lang.plugin.component.accidentLog.injuredPersonGender'
         span: auto
         type: dropdown
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
     injured_person_name:
         label: 'csatar.csatar::lang.plugin.component.accidentLog.injuredPersonName'
         span: auto
@@ -63,6 +64,7 @@ fields:
         label: 'csatar.csatar::lang.plugin.component.accidentLog.injurySeverity.injurySeverity'
         span: auto
         type: dropdown
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
     skipped_days_number:
         label: 'csatar.csatar::lang.plugin.component.accidentLog.skippedDaysNumber'
         span: auto

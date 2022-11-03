@@ -79,7 +79,15 @@ class AccidentLogRecord extends Model
         return '\\' . static::class;
     }
 
-    public static function getAttributesWithLabels(){
+    public static function getAttributesWithLabels(bool $forTable = false){
+        if ($forTable) {
+            return [
+                'accident_date_time'    => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.accidentDateTime'),
+                'injured_person_age'    => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.injuredPersonAge'),
+                'injury_severity'   => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.injurySeverity.injurySeverity'),
+                'createdBy'   => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.createdBy'),
+            ];
+        }
         return [
             'created_at'    => Lang::get('csatar.csatar::lang.plugin.admin.general.createdAt'),
             'updated_at'    => Lang::get('csatar.csatar::lang.plugin.admin.general.updatedAt'),

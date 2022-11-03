@@ -1,5 +1,7 @@
 {% set permission_to_edit = __SELF__.permission_to_edit %}
+{% set permission_to_watch = __SELF__.permission_to_watch %}
 
+{% if gallery.is_public or permission_to_watch %}
 <div class="col-12 col-md-6 col-lg-3 text-center mb-3">
     <div class="card bg-light rounded text-center pt-3 h-100">
 
@@ -51,3 +53,4 @@
 
     </div>
 </div>
+{% endif %}

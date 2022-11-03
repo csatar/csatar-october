@@ -57,13 +57,16 @@ class Patrol extends OrganizationBase
      */
     public function filterFields($fields, $context = null) {
         // populate the Troop dropdown with troops that belong to the selected team
-        $fields->troop->options = [];
-        $team_id = $this->team_id;
-        if ($team_id) {
-            foreach (\Csatar\Csatar\Models\Troop::teamId($team_id)->get() as $troop) {
-                $fields->troop->options += [$troop['id'] => $troop['extendedName']];
+        if (isset($fields->troop)) {
+            $fields->troop->options = [];
+            $team_id = $this->team_id;
+            if ($team_id) {
+                foreach (\Csatar\Csatar\Models\Troop::teamId($team_id)->get() as $troop) {
+                    $fields->troop->options += [$troop['id'] => $troop['extendedName']];
+                }
             }
         }
+
     }
 
     /**

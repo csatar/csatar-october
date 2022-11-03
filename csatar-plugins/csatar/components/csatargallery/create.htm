@@ -8,6 +8,9 @@
             <label for="description" class="form-label">{{ 'Leírás' | _ }}</label>
             <input type="text" name="description" id="description" class="form-control rounded"><br>
 
+            <input type="checkbox" name="is_public" id="is_public" class="form-check-input me-2" checked>
+            <label for="is_public" class="form-check-label">{{ 'Publikus' | _ }}</label><br><br>
+
             <label class="form-label">{{ 'Képek' | _ }} <span class="text-danger">*</span></label>
             <input type="file" name="images[]" id="images" accept="image/*" class="form-control rounded" multiple="multiple">
             <span data-validate-for="images" class="errormsg"></span><br><br>
