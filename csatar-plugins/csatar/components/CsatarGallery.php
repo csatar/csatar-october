@@ -345,6 +345,10 @@ class CsatarGallery extends Gallery
             return false;
         }
 
+        if ($this->getPermissionToEdit()) {
+            return true;
+        }
+
         $getModel = 'get' . $this->property('model_name');
 
         if (isset(Auth::user()->scout->$getModel()->id) && isset($this->model)

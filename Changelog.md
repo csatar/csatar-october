@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+## 1.6.0
+### 2022-11-03
+
 - CS-296 - Created accident log record list page and csv export option
 - CS-297 - Implemented UserRigthsProvider user rigths provider class
 - CS-297 - Created menu items for accident log
@@ -11,10 +14,14 @@
 - CS-354 - Added disabled button design to the design system
 - CS-354 - Added padlock symbols
 - CS-302 - Updated navigation: added navigation overlay for submenus on desktop view, reorganized on tablet view, added off-canvas sidebar on mobile view, visual updates
+- CS-316 - Added permissions to the gallery 
+
+## 1.5.3
+### 2022-10-14
+
 - CS-36 - Implemented two-factor authentication 
 - CS-338 - Reduced EcsetCode length to 6 characters + separator + suffix
 - CS-302 - Modified navigation bar to support multi-level
-- CS-316 - Added permissions to the gallery 
 
 ## 1.5.2
 ### 2022-10-14

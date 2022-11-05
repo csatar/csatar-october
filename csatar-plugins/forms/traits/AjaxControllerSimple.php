@@ -103,6 +103,7 @@ trait AjaxControllerSimple {
 
         $variablesToPass = [
             'form' => $html,
+            'formUniqueId' => $this->formUniqueId,
             'additionalData' => $this->additionalData,
             'recordKeyParam' => $this->recordKeyParam ?? Input::get('recordKeyParam'),
             'recordKeyValue' => $record->{$this->recordKeyParam ?? Input::get('recordKeyParam')} ?? 'new',
@@ -296,11 +297,13 @@ trait AjaxControllerSimple {
     public function onAddPivotRelation(){
         $relationName = Input::get('relationName');
         $relationId = Input::get($relationName);
-        if(empty($relationId)){
-            $error = e(trans('csatar.forms::lang.validation.selectOptionBeforeNext'));
-            throw new \ValidationException([ $relationName => $error]);
+
+        if($relationName && $relationId) {
+            return $this->createPivotForm($relationName, $relationId);
         }
-        return $this->createPivotForm($relationName, $relationId);
+
+        $error = e(trans('csatar.forms::lang.errors.nothingSelectedOnPivotRelation'));
+        throw new \ValidationException([$relationName => $error]);
     }
 
     public function onCloseAddEditArea(){
@@ -674,6 +677,8 @@ trait AjaxControllerSimple {
     }
 
     public function onCloseForm(){
+        DeferredBinding::cleanUp(1); //Destroys all bindings that have not been committed and are older than 1 day
+        $this->record->cancelDeferred($this->sessionKey); //Destroys current form's bindings
         return Redirect::to(Input::get('redirectOnClose') ?? '/');
     }
 

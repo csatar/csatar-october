@@ -35,6 +35,26 @@ function removeHiglights() {
     });
 }
 
+function removeHiglightsResetInitial() {
+    $('.permission-select').each(function () {
+        $(this).removeClass('select-changed');
+        var dataRequestData = ($(this).data('request-data')).split(',');
+
+        dataRequestData = dataRequestData.map( element => {
+            if(element.search('initialValue') > 0) {
+                return " 'initialValue': '" + $(this).val() + "'";
+            } else {
+                return element
+            }
+        });
+
+        $(this).attr("data-request-data", dataRequestData.join());
+        $(this).data('request-data', dataRequestData.join());
+        $(this).attr("data-initial-value", $(this).val());
+        $(this).data('initial-value', $(this).val());
+    });
+}
+
 function addChangedClass(select) {
     if (select.val() == select.data('initial-value')) {
         select.removeClass('select-changed');
