@@ -100,10 +100,10 @@ class AccidentLogRecord extends Model
             'activity'  => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.activity'),
             'reason'    => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.reason'),
             'injured_person_age'    => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.injuredPersonAge'),
-            'injured_person_gender' => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.injuredPersonGender'),
+            'injured_person_gender_list' => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.injuredPersonGender'),
             'injured_person_name'   => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.injuredPersonName'),
             'injury'    => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.injury'),
-            'injury_severity'   => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.injurySeverity.injurySeverity'),
+            'injury_severity_list'   => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.injurySeverity.injurySeverity'),
             'skipped_days_number'   => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.skippedDaysNumber'),
             'tools_used'    => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.toolsUsed'),
             'transport_to_doctor'   => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.transportToDoctor'),
@@ -130,12 +130,12 @@ class AccidentLogRecord extends Model
         return InjurySeverity::getOptionsWithLables();
     }
 
-    public function getInjuredPersonGenderAttribute($value)
+    public function getInjuredPersonGenderListAttribute($value)
     {
         return Gender::getOptionsWithLables()[$value] ?? null;;
     }
 
-    public function getInjurySeverityAttribute($value)
+    public function getInjurySeverityListAttribute($value)
     {
         return InjurySeverity::getOptionsWithLables()[$value] ?? null;;
     }

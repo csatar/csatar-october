@@ -36,12 +36,14 @@ class AccidentLogRigthsProvider
             return null;
         }
 
+        $isOwn = $user->id == $record->user_id;
+
         if (self::isInGroup($user, self::GROUP_CODE_ADMIN)) {
-            return collect(self::addRecordSpecificRights($record, self::ADMIN_RIGHTS, true));
+            return collect(self::addRecordSpecificRights($record, self::ADMIN_RIGHTS, true, $isOwn));
         }
 
         if (self::isInGroup($user, self::GROUP_CODE_ENTRY)) {
-            return collect(self::addRecordSpecificRights($record, self::ENTRY_RIGHTS));
+            return collect(self::addRecordSpecificRights($record, self::ENTRY_RIGHTS, false, $isOwn));
         }
     }
 
@@ -49,7 +51,7 @@ class AccidentLogRigthsProvider
         return $user->groups->where('code', $code)->count() > 0;
     }
 
-    private static function addRecordSpecificRights(AccidentLogRecord $record, array $recordGeneralRights, bool $isAdmin = false) {
+    private static function addRecordSpecificRights(AccidentLogRecord $record, array $recordGeneralRights, bool $isAdmin = false, bool $isOwn) {
         if (empty($record) || empty($record->fillable)) {
             return $recordGeneralRights;
         }
@@ -65,17 +67,21 @@ class AccidentLogRigthsProvider
 
         self::filterFieldsForRealtionKeys($fields);
 
+        if ($isOwn) {
+            $rights['MODEL_GENERAL']['read'] = 2;
+            $rights['MODEL_GENERAL']['update'] = 2;
+        }
+
         foreach ($fields as $field) {
             //add rights for the record->field
             $rights[$field] = [
                 "obligatory" => 0,
                 'create' => 2,
-                'read'   => $isAdmin ? 2 : 0,
-                'update' => $isAdmin ? 2 : 0,
-                'delete' => $isAdmin ? 2 : 0,
+                'read'   => ($isAdmin || $isOwn) ? 2 : 0,
+                'update' => ($isAdmin || $isOwn) ? 2 : 0,
+                'delete' => ($isAdmin || $isOwn) ? 2 : 0,
             ];
         }
-
         return $rights;
     }
 
