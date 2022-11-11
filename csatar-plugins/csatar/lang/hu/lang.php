@@ -198,6 +198,7 @@
                     'updateDataSuccess' => 'Az adatok frissítve lettek.',
                 ],
                 'permissionsMatrix' => [
+                    'all' => 'Összes',
                     'permissionsMatrix' => 'Jogosultság Matrix',
                     'noRight' => 'Nem',
                     'hasRightWith2FactorAuth' => '2FA',
@@ -225,7 +226,11 @@
                     'copySuccess' => 'Jogosultságok sikeresen átmásolva.',
                     'deleteSuccess' => 'Jogosultságok törölve.',
                     'MODEL_GENERAL' => 'ÁLTALÁNOS HOZZÁFÉRÉS',
-                    'noPermissionChanged' => 'A jogosultságok nem változtak. Ha volt sárgával kijelölt legördülő mező és mégis ezt az üzentet kaptad, próbáld újra vagy szólj a rendszergazdának.'
+                    'noPermissionChanged' => 'A jogosultságok nem változtak. Ha volt sárgával kijelölt legördülő mező és mégis ezt az üzentet kaptad, próbáld újra vagy szólj a rendszergazdának.',
+                    'importPermissions' => 'Jogosultságok importálása',
+                    'exportPermissions' => 'Jogosultságok exportálása',
+                    'errorCanNotFindAssociation' => 'Nem található ":associationName" nevű szövetség!',
+                    'errorCanNotFindMandateType' => 'Nem található ":mandateTypeName" nevű megbízatás típus a ":associationName" nevű szövetségben!',
                 ],
             ],
             'allergy' => [

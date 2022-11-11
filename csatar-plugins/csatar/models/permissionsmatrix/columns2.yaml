@@ -1,0 +1,37 @@
+columns:
+    association:
+        label: 'csatar.csatar::lang.plugin.admin.association.association'
+        select: '(SELECT `id` FROM `csatar_csatar_associations` WHERE id = (SELECT `association_id` FROM `csatar_csatar_mandate_types` WHERE `csatar_csatar_mandate_types`.`id` = `csatar_csatar_mandates_permissions`.`mandate_type_id`))'
+    mandate_type:
+        label: 'csatar.csatar::lang.plugin.admin.mandate.mandate'
+        select: '(SELECT `id` FROM `csatar_csatar_mandate_types` WHERE `csatar_csatar_mandate_types`.`id` = `csatar_csatar_mandates_permissions`.`mandate_type_id`)'
+    own:
+        label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.own'
+        type: number
+    model:
+        label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.model'
+        type: text
+    field:
+        label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.field'
+        type: text
+
+    obligatory:
+        label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.obligatory'
+        num: number
+
+    create:
+        label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.create'
+        type: number
+
+    read:
+        label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.read'
+        type: number
+
+    update:
+        label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.update'
+        type: number
+
+    delete:
+        label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.delete'
+        type: number
+

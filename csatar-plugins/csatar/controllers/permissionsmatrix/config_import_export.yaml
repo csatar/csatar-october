@@ -1,0 +1,14 @@
+# ===================================
+#  Import/Export Behavior Config
+# ===================================
+
+import:
+    title: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.importPermissions'
+    modelClass: Csatar\Csatar\Models\PermissionImport
+    list: $/csatar/csatar/models/permissionimport/columns.yaml
+
+export:
+    title: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.exportPermissions'
+    modelClass: Csatar\Csatar\Models\PermissionExport
+    list: $/csatar/csatar/models/permissionexport/columns.yaml
+    form: $/csatar/csatar/models/permissionexport/fields.yaml
