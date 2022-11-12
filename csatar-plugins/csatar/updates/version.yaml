@@ -180,6 +180,3 @@
 1.0.63:
     - 'Updated table pollozen_simplegallery_galleries'
     - builder_table_update_pollozen_simplegallery_galleries.php
-1.0.64:
-    - 'Updated table csatar_csatar_mandates_permissions'
-    - builder_table_update_csatar_csatar_mandates_permissions_3.php
