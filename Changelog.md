@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- CS-378 Created csv import-export for permissions matrix.
+
 ## 1.6.0
 ### 2022-11-03
 

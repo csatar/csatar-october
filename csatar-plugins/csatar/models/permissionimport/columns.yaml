@@ -1,0 +1,21 @@
+columns:
+    association:
+        label: 'csatar.csatar::lang.plugin.admin.association.association'
+    mandate_type:
+        label: 'csatar.csatar::lang.plugin.admin.mandate.mandate'
+    own:
+        label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.own'
+    model:
+        label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.model'
+    field:
+        label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.field'
+    obligatory:
+        label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.obligatory'
+    create:
+        label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.create'
+    read:
+        label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.read'
+    update:
+        label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.update'
+    delete:
+        label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.delete'
