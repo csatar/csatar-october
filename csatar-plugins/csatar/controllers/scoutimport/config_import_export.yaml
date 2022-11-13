@@ -1,0 +1,4 @@
+import:
+    modelClass: Csatar\Csatar\Models\ScoutImport
+    list: $/csatar/csatar/models/scoutimport/columns.yaml
+    redirect: csatar/csatar/scoutimport/import

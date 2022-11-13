@@ -310,6 +310,8 @@ class Scout extends OrganizationBase
         'chronic_illnesses' => [
             '\Csatar\Csatar\Models\ChronicIllness',
             'table' => 'csatar_csatar_scouts_chronic_illnesses',
+            'pivot' => ['comment'],
+            'pivotModel' => '\Csatar\Csatar\Models\ScoutChronicIllnessPivot',
             'label' => 'csatar.csatar::lang.plugin.admin.chronicIllness.chronicIllnesses',
         ],
         'allergies' => [

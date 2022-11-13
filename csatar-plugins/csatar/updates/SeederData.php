@@ -104,10 +104,8 @@ class SeederData extends Seeder
             '5XL'
         ],
         'chronicIllness' => [
-            'Nincs krónikus betegsége',
             'Magas vérnyomás',
             'Szívelégtelenség',
-            'Allergia',
             'Cukorbetegség',
             'Mozgásszervi betegségek',
             'Pajzsmirigy működési zavar',
@@ -152,6 +150,7 @@ class SeederData extends Seeder
             'dió',
             'kagyló',
             'eper',
+            'Egyéb',
         ],
         'promise' => [
             'Kiscserkész igéret',

@@ -611,18 +611,6 @@ fields:
         span: auto
         required: 1
         type: fileupload
-    chronic_illnesses:
-        label: 'csatar.csatar::lang.plugin.admin.scout.chronicIllnesses'
-        nameFrom: name
-        descriptionFrom: description
-        span: auto
-        required: 1
-        type: relation
-        formBuilder:
-            type: field
-            card: otherData
-            order: 1
-            default: '-'
     special_diet:
         label: 'csatar.csatar::lang.plugin.admin.scout.specialDiet'
         nameFrom: name
@@ -634,5 +622,5 @@ fields:
         formBuilder:
             type: field
             card: otherData
-            order: 2
+            order: 1
             default: '-'
