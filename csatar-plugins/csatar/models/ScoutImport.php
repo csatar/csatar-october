@@ -92,7 +92,7 @@ class ScoutImport extends \Backend\Models\ImportModel
                 }
 
                 // manipulate fields - chronic illnesses
-                $allergiesStrings = explode(',', $data['chronic_illnesses']);
+                $chronicIllnessesStrings = explode(',', $data['chronic_illnesses']);
                 unset($data['chronic_illnesses']);
 
                 // manipulate fields - allergies
@@ -100,7 +100,7 @@ class ScoutImport extends \Backend\Models\ImportModel
                 unset($data['allergies']);
 
                 // manipulate fields - food sensitivities
-                $allergiesStrings = explode(',', $data['food_sensitivities']);
+                $foodSensitivitieStrings = explode(',', $data['food_sensitivities']);
                 unset($data['food_sensitivities']);
 
                 // manipulate fields - mother's maiden name
@@ -149,7 +149,7 @@ class ScoutImport extends \Backend\Models\ImportModel
                 }
 
                 // save the pivot data - food sensitivities
-                foreach ($foodSensitivitiestrings as $foodSensitivityString) {
+                foreach ($foodSensitivitieStrings as $foodSensitivityString) {
                     $foodSensitivity = FoodSensitivity::where('name', $foodSensitivityString)->first();
                     $comment = '';
                     if (!isset($foodSensitivity)) {
