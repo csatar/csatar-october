@@ -201,6 +201,7 @@
                     'updateDataSuccess' => 'The data has been successfully updated.',
                 ],
                 'permissionsMatrix' => [
+                    'all' => 'All',
                     'permissionsMatrix' => 'Permissions Matrix',
                     'noRight' => 'No',
                     'hasRightWith2FactorAuth' => '2FA',
@@ -228,7 +229,11 @@
                     'copySuccess' => 'Permissions copied successfuly.',
                     'deleteSuccess' => 'Permissions deleted successfuly.',
                     'MODEL_GENERAL' => 'GENERAL ACCESS',
-                    'noPermissionChanged' => 'No permissions were changed. If there was any dropdown highlighted with yellow and you received this message, please try again or contact administrator.'
+                    'noPermissionChanged' => 'No permissions were changed. If there was any dropdown highlighted with yellow and you received this message, please try again or contact administrator.',
+                    'importPermissions' => 'Import Permissions',
+                    'exportPermissions' => 'Export Permissions',
+                    'errorCanNotFindAssociation' => 'Can not find association with name: :associationName',
+                    'errorCanNotFindMandateType' => 'Can not find mandate type with name: :mandateTypeName in association: associationName',
                 ],
             ],
             'allergy' => [

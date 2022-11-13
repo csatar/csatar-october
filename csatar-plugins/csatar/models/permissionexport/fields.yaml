@@ -1,0 +1,14 @@
+fields:
+    association:
+        label: 'csatar.csatar::lang.plugin.admin.association.association'
+        span: auto
+        type: dropdown
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        required: 1
+    mandate_type:
+        label: 'csatar.csatar::lang.plugin.admin.mandate.mandate'
+        span: auto
+        type: dropdown
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        required: 1
+        dependsOn: association

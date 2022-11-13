@@ -7,6 +7,17 @@
         <a href="<?= Backend::url('csatar/csatar/permissionsmatrix/manage') ?>" class="btn btn-primary oc-icon-gears">
             <?= e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.managePermissions')) ?>
         </a>
+
+        <a href="<?= Backend::url('csatar/csatar/permissionsmatrix/import') ?>"
+            class="btn btn-default oc-icon-upload">
+            <?= e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.importPermissions')) ?>
+        </a>
+
+        <a href="<?= Backend::url('csatar/csatar/permissionsmatrix/export') ?>"
+            class="btn btn-default oc-icon-download">
+            <?= e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.exportPermissions')) ?>
+        </a>
+
     </div>
 <?php endif ?>
 
