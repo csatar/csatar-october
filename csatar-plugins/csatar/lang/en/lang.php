@@ -40,6 +40,7 @@
                 'yes' => 'Yes',
                 'no' => 'No',
                 'url' => 'Hivatkozás',
+                'warning' => 'Warning',
             ],
             'ageGroups' => [
                 'ageGroups' => 'Age Groups',
@@ -231,6 +232,11 @@
                     'exportPermissions' => 'Export Permissions',
                     'errorCanNotFindAssociation' => 'Can not find association with name: :associationName',
                     'errorCanNotFindMandateType' => 'Can not find mandate type with name: :mandateTypeName in association: associationName',
+                    'importWarning' => 'Current values will be overwritten and lost!',
+                    'exportInfoTitle' => 'In the exported csv, the following is the meaning of the values:',
+                    'valueZeroNull' => '0 empty field - no access',
+                    'valueOne' => '1 - access 2FA',
+                    'valueTwo' => '2 - access, no 2FA needed',
                 ],
             ],
             'allergy' => [

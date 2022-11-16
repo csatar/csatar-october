@@ -40,6 +40,7 @@
                 'yes' => 'Igen',
                 'no' => 'Nem',
                 'url' => 'URL',
+                'warning' => 'FIGYELEM',
             ],
             'ageGroups' => [
                 'ageGroups' => 'Korosztályok',
@@ -231,6 +232,11 @@
                     'exportPermissions' => 'Jogosultságok exportálása',
                     'errorCanNotFindAssociation' => 'Nem található ":associationName" nevű szövetség!',
                     'errorCanNotFindMandateType' => 'Nem található ":mandateTypeName" nevű megbízatás típus a ":associationName" nevű szövetségben!',
+                    'importWarning' => 'A jelenlegi értékek visszavonhatatlanul el fognak veszni!',
+                    'exportInfoTitle' => 'Az exportált csv-ben, az következő az értékek jelentése:',
+                    'valueZeroNull' => '0 vagy üres mező - nincs hozzáférés',
+                    'valueOne' => '1 - hozzáférés csak 2FA-val',
+                    'valueTwo' => '2 - hozzáférés 2FA nélkül is',
                 ],
             ],
             'allergy' => [
