@@ -1,5 +1,17 @@
 <?= Form::open(['class' => 'layout']) ?>
 
+<div class="callout fade in callout-info no-subheader">
+    <div class="header">
+        <i class="icon-info"></i>
+        <h3><?= e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.exportInfoTitle')) ?></h3>
+        <ul>
+            <li><?= e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.valueZeroNull')) ?></li>
+            <li><?= e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.valueOne')) ?></li>
+            <li><?= e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.valueTwo')) ?></li>
+        </ul>
+    </div>
+</div>
+
 <div class="layout-row">
     <?= $this->exportRender() ?>
 </div>
