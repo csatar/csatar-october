@@ -606,7 +606,18 @@ body>p.flash-message.success, body>p.flash-message.info, body>p.flash-message.wa
 
 #offcanvasWithBackdrop {
     transition: 0.3s;
-    width: 90%;
+}
+
+@media (max-width: 767px) {
+    #offcanvasWithBackdrop {
+        width: 90%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+    #offcanvasWithBackdrop {
+        width: 50%;
+    }
 }
 
 a:link, a:visited, a:hover, a:active {
@@ -675,7 +686,7 @@ a.dropdown-item {
     border-color: transparent;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 992px) {
     .csat-nav-txt-wrap {
         white-space: normal;
         word-wrap: break-word;
@@ -703,7 +714,7 @@ a.dropdown-item {
 	}
 }
 
-@media (min-width: 768px) {
+@media (min-width: 992px) {
     .submenu.dropdown-menu {
         border: 3px solid #FFFFFF !important;
     }
@@ -1575,15 +1586,21 @@ a.login:link, a.login:visited, a.login:active {
     color: #99A56B;
 }
 
-@media (max-width: 992px) {
+@media (max-width: 767px) {
     .spacer-brdcrmb {
         margin-top: 120px;
     }
 }
 
+@media (min-width: 768px) and (max-width: 991px) {
+    .spacer-brdcrmb {
+        margin-top: 70px;
+    }
+}
+
 @media (min-width: 992px) {
     .spacer-brdcrmb {
-        margin-top: 60px;
+        margin-top: 100px;
     }
 }
 
