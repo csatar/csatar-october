@@ -51,7 +51,7 @@ class AccidentLogRigthsProvider
         return $user->groups->where('code', $code)->count() > 0;
     }
 
-    private static function addRecordSpecificRights(AccidentLogRecord $record, array $recordGeneralRights, bool $isAdmin = false, bool $isOwn) {
+    private static function addRecordSpecificRights(AccidentLogRecord $record, array $recordGeneralRights, bool $isAdmin = false, bool $isOwn = false) {
         if (empty($record) || empty($record->fillable)) {
             return $recordGeneralRights;
         }
