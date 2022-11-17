@@ -477,6 +477,11 @@
             ],
             'gallery' => [
                 'gallery' => 'Galéria',
+                'rules' => [
+                    'nameRequired' => 'A cím megadása kötelező.',
+                    'nameBetween'  => 'A cím 3 - 64 karakter között kell legyen.',
+                    'descriptionMax' => 'A leírás maximum 255 karakter lehet',
+                ]
             ],
             'permissions' => [
                 'permissions' => 'Jogosultságok',

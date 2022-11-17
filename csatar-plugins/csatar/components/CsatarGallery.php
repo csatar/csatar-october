@@ -116,9 +116,9 @@ class CsatarGallery extends Gallery
         ];
 
         $customMessages = [
-            'name.required' => 'A cím megadása kötelező.',
-            'name.between' => 'A cím 3 - 64 karakter között kell legyen.',
-            'description.max'  => 'A leírás maximum 255 karakter lehet.',
+            'name.required' => Lang::get('csatar.csatar::lang.plugin.admin.gallery.rules.nameRequired'),
+            'name.between' => Lang::get('csatar.csatar::lang.plugin.admin.gallery.rules.nameBetween'),
+            'description.max'  => Lang::get('csatar.csatar::lang.plugin.admin.gallery.rules.descriptionMax')
         ];
 
         $validation = Validator::make(
@@ -191,9 +191,9 @@ class CsatarGallery extends Gallery
         ];
 
         $customMessages = [
-            'name.required' => 'A cím megadása kötelező.',
-            'name.between' => 'A cím 3 - 64 karakter között kell legyen.',
-            'description.max'  => 'A leírás maximum 255 karakter lehet.'
+            'name.required' => Lang::get('csatar.csatar::lang.plugin.admin.gallery.rules.nameRequired'),
+            'name.between' => Lang::get('csatar.csatar::lang.plugin.admin.gallery.rules.nameBetween'),
+            'description.max'  => Lang::get('csatar.csatar::lang.plugin.admin.gallery.rules.descriptionMax')
         ];
 
         $validation = Validator::make(
