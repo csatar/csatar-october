@@ -78,7 +78,7 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
             return $redirect;
         }
 
-        if(!Auth::user()->scout) {
+        if(!isset(Auth::user()->scout)) {
             \App::abort(403, 'Access denied!');
         }
 

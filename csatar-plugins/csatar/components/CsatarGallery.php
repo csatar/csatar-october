@@ -341,7 +341,7 @@ class CsatarGallery extends Gallery
 
     public function getPermissionToEdit()
     {
-        if (!Auth::user() || !isset($this->model)) {
+        if (!Auth::user() || !isset($this->model) || !isset(Auth::user()->scout)) {
             return false;
         }
 
