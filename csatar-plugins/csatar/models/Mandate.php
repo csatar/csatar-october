@@ -20,6 +20,8 @@ class Mandate extends Model
 
     protected $touches = ['scout'];
 
+    public $ignoreValidation = false;
+
     function __construct(array $attributes = []) {
         parent::__construct($attributes);
         $this->setValidationAttributeNames([
@@ -87,13 +89,16 @@ class Mandate extends Model
      */
     public function beforeValidate()
     {
-        // if the validation is called from backend: check that the end date is not after the start date
-        if (isset($this->start_date) && isset($this->end_date) && (new DateTime($this->end_date) < new DateTime($this->start_date))) {
-            throw new ValidationException(['end_date' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.endDateBeforeStartDate')]);
-        }
+        if (!$this->ignoreValidation) {
+            // if the validation is called from backend: check that the end date is not after the start date
+            // exception to this rule when scout team is changed and he has mandates that did not start yet, but should expire because of team change
+            if (isset($this->start_date) && isset($this->end_date) && (new DateTime($this->end_date) < new DateTime($this->start_date))) {
+                throw new ValidationException(['end_date' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.endDateBeforeStartDate')]);
+            }
 
-        // check that this mandate doesn't overlap with an already existing one
-        $this->validateWithExistingMandates($this->attributes);
+            // check that this mandate doesn't overlap with an already existing one
+            $this->validateWithExistingMandates($this->attributes);
+        }
     }
 
     public function beforeValidateFromForm(&$data)
@@ -170,7 +175,7 @@ class Mandate extends Model
             }
 
             // check that the date isn't (partially) overlapping with a different assignment for the same period: if the overlapping is not enabled or if it's the same user: overlap if max(start1, start2) < min(end1, end2)
-            if (!$mandateType->overlap_enabled || $mandate->scout_id == $scout_id) {
+            if (!$mandateType->overlap_enabled || $mandate->scout_id == $scoutId) {
                 $mandateStartDate = new DateTime($mandate['start_date']);
                 $mandateEndDate = isset($mandate['end_date']) ? new DateTime($mandate['end_date']) : null;
 
