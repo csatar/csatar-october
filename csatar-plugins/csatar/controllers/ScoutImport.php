@@ -6,12 +6,12 @@ use Backend\Classes\Controller;
 class ScoutImport extends Controller
 {
     public $implement = [
-        \Backend\Behaviors\ImportExportController::class
+        \Csatar\Csatar\Behaviors\ImportExportControllerForScoutImport::class
     ];
 
     public $importExportConfig = 'config_import_export.yaml';
     
-    public function __construct()
+    public function __construct($parent = null)
     {
         BackendMenu::setContext('Csatar.Csatar', 'main-menu-item-seeder-data', 'side-menu-import-data');
 

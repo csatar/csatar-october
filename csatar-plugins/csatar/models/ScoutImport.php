@@ -7,6 +7,7 @@ use Csatar\Csatar\Models\FoodSensitivity;
 use Csatar\Csatar\Models\LegalRelationship;
 use Csatar\Csatar\Models\Religion;
 use Csatar\Csatar\Models\Scout;
+use October\Rain\Filesystem\Zip;
 use File;
 use Lang;
 
@@ -26,11 +27,6 @@ class ScoutImport extends \Backend\Models\ImportModel
      * @var array The rules to be applied to the data.
      */
     public $rules = [];
-
-    public function processImportData($filePath, $matches, $options)
-    {
-        dd($filePath);
-    }
 
     public function importData($results, $sessionKey = null)
     {
@@ -173,5 +169,86 @@ class ScoutImport extends \Backend\Models\ImportModel
                 $this->logError($row, $ex->getMessage());
             }
         }
+    }
+
+    private function stripFileExtension($file) 
+    {
+        return substr($file, 0, strlen($file) - 4);
+    }
+
+    private function unzip($file)
+    {
+        $dir = $this->stripFileExtension($file->getLocalPath()) . '/' . $this->stripFileExtension($file->file_name);
+        if (!file_exists($dir)) {     
+            Zip::extract($file->getLocalPath(), $dir);
+        }
+        $files = array_diff(scandir($dir), array('.', '..'));
+        $fileArray = [];
+        foreach ($files as $file) {
+            $fileArray[$this->stripFileExtension($file)] = $dir . '/' . $file;
+        }
+        return $fileArray;
+    }
+
+    private function getImportFile($sessionKey = null)
+    {
+        return $this
+            ->import_file()
+            ->withDeferred($sessionKey)
+            ->orderBy('id', 'desc')
+            ->first()
+        ;
+    }
+
+    /**
+     * Returns an attached imported file local path, if available.
+     * @return string
+     */
+    public function getImportFilePath($sessionKey = null)
+    {
+        $file = $this->getImportFile($sessionKey);
+
+        if (!$file) {
+            return null;
+        }
+        if (str_ends_with($file->file_name, '.csv')) {
+            return $file->getLocalPath();
+        }
+        if (str_ends_with($file->file_name, '.zip')) {
+            $files = $this->unzip($file);
+            return isset($files) && count($files) > 0 ? array_values($files)[0] : null;
+        }
+        return null;
+    }
+
+    public function import($matches, $options = [])
+    {
+        $files = [];
+        $data = [];
+
+        $sessionKey = array_get($options, 'sessionKey');
+        $file = $this->getImportFile($sessionKey);
+        if (str_ends_with($file->file_name, '.csv')) {
+            $files[$this->stripFileExtension($file->file_name)] = $file->getLocalPath();
+        }
+        if (str_ends_with($file->file_name, '.zip')) {
+            $files = $this->unzip($file);
+        }
+
+        $importData = [];
+        for ($i = 0; $i < count($files); ++$i) {
+            $path = array_values($files)[$i];
+            $data = $this->processImportData($path, $matches, $options);
+
+            // set the team id
+            $teamId = array_keys($files)[$i];
+            for ($j = 0; $j < count($data); ++$j) {
+                $data[$j]['team_id'] = $teamId;
+            }
+
+            $importData += $data;
+        }
+
+        return $this->importData($importData, $sessionKey);
     }
 }
