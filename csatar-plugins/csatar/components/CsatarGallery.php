@@ -15,6 +15,7 @@ use ValidationException;
 use Lang;
 use Resizer;
 use Flash;
+use Validator;
 
 class CsatarGallery extends Gallery
 {
@@ -105,6 +106,30 @@ class CsatarGallery extends Gallery
 
     public function onCreateGallery()
     {
+        $data = Input::all();
+
+        $rules = [
+            'name'            => 'required|between:3,64',
+            'description'     => 'max:255',
+            'image'           => 'nullable',
+            'images.*'          => 'mimes:jpeg,jpg,png',
+        ];
+
+        $customMessages = [
+            'name.required' => Lang::get('csatar.csatar::lang.plugin.admin.gallery.rules.nameRequired'),
+            'name.between' => Lang::get('csatar.csatar::lang.plugin.admin.gallery.rules.nameBetween'),
+            'description.max'  => Lang::get('csatar.csatar::lang.plugin.admin.gallery.rules.descriptionMax')
+        ];
+
+        $validation = Validator::make(
+            $data,
+            $rules,
+            $customMessages
+        );
+
+        if ($validation->fails()) {
+            throw new ValidationException($validation);
+        }
 
         $gallery = new GalleryModel();
         $gallery->name = post('name');
@@ -156,6 +181,31 @@ class CsatarGallery extends Gallery
 
     public function onSaveGallery()
     {
+        $data = Input::all();
+
+        $rules = [
+            'name'            => 'required|between:3,64',
+            'description'     => 'max:255',
+            'image'           => 'nullable',
+            'images.*'          => 'mimes:jpeg,jpg,png',
+        ];
+
+        $customMessages = [
+            'name.required' => Lang::get('csatar.csatar::lang.plugin.admin.gallery.rules.nameRequired'),
+            'name.between' => Lang::get('csatar.csatar::lang.plugin.admin.gallery.rules.nameBetween'),
+            'description.max'  => Lang::get('csatar.csatar::lang.plugin.admin.gallery.rules.descriptionMax')
+        ];
+
+        $validation = Validator::make(
+            $data,
+            $rules,
+            $customMessages
+        );
+
+        if ($validation->fails()) {
+            throw new ValidationException($validation);
+        }
+
         $gallery = GalleryModel::find(post('gallery_id'));
         $gallery->name = post('name');
         $gallery->description = post('description');
@@ -291,7 +341,7 @@ class CsatarGallery extends Gallery
 
     public function getPermissionToEdit()
     {
-        if (!Auth::user() || !isset($this->model)) {
+        if (!Auth::user() || !isset($this->model) || !isset(Auth::user()->scout)) {
             return false;
         }
 

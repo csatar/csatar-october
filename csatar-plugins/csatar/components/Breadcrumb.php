@@ -25,6 +25,15 @@ class Breadcrumb extends ComponentBase
         '\Csatar\Csatar\Models\District' => '\Csatar\Csatar\Models\Association'
     ];
 
+    public $modelLinkTitleMap = [
+        '\Csatar\Csatar\Models\Association' => 'name_abbreviation',
+        '\Csatar\Csatar\Models\District' => 'name',
+        '\Csatar\Csatar\Models\Team' => 'team_number',
+        '\Csatar\Csatar\Models\Troop' => 'extendedName',
+        '\Csatar\Csatar\Models\Patrol' => 'name',
+        '\Csatar\Csatar\Models\Scout' => 'name',
+    ];
+
     public $urlList = [];
 
     public function componentDetails()
@@ -138,7 +147,7 @@ class Breadcrumb extends ComponentBase
     private function getRecordUrl (PermissionBasedAccess $model, string $modelName, bool $isLastDescendant = false): void
     {
         $modelNameUserFriendly = $modelName::getOrganizationTypeModelNameUserFriendly();
-        $recordName = $model->extendedName ?: ($model->name ?? '');
+        $recordName = isset($this->modelLinkTitleMap[$modelName]) ? $model->{$this->modelLinkTitleMap[$modelName]} : '';
         $modelSlug = str_slug($modelNameUserFriendly);
         $url   = $this->controller->pageUrl($modelSlug, [ 'id'=> $model->id ] );
         $this->urlList[] = [

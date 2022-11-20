@@ -492,6 +492,11 @@
             ],
             'gallery' => [
                 'gallery' => 'Gallery',
+                'rules' => [
+                    'nameRequired' => 'The title is required.',
+                    'nameBetween'  => 'The title must be between 3-64 character.',
+                    'descriptionMax' => 'The description must be maximum 255 character.',
+                ]
             ],
             'permissions' => [
                 'permissions' => 'Permissions',
