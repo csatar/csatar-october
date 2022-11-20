@@ -720,6 +720,10 @@ a.dropdown-item {
     }
 }
 
+.nav-line-width {
+    width: 97%;
+}
+
 /* ============ desktop view .end// ============ */
 
 /* ============ small devices ============ */
