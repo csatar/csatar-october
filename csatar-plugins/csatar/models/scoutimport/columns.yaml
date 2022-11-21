@@ -26,8 +26,10 @@ columns:
         label: Státusz
     legal_relationship_id:
         label: Jogviszony
+        required: 1
     religion_id:
         label: Felekezet
+        required: 1
     nationality:
         label: Nemzetiség
     birthdate:

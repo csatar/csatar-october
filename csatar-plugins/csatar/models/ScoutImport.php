@@ -25,7 +25,6 @@ class ScoutImport extends \Backend\Models\ImportModel
     const MOTHERSMAIDENNAME = 'Anyja leánykori neve';
     const STR_OTHER = 'Egyéb';
     const DEFAULT = '-';
-    const DEFAULT_PHONE = '0000000000';
 
     /**
      * @var array The rules to be applied to the data.
@@ -36,6 +35,7 @@ class ScoutImport extends \Backend\Models\ImportModel
     {
         $legalRelationshipInvalidDataId = LegalRelationship::getInvalidDataId();
         $specialDietNoneId = SpecialDiet::getNoneId();
+        $religionOtherId = Religion::getOtherReligionId();
 
         foreach ($results as $row => $data) {
             try {
@@ -131,13 +131,16 @@ class ScoutImport extends \Backend\Models\ImportModel
                     $config = $this->makeConfig($config);
                     foreach ($config->columns as $column => $columnData) {
                         if (isset($columnData['required']) && $columnData['required'] == 1 && empty($data[$column])) {
-                            switch ($column) {
-                                case 'phone':
-                                    $data[$column] = $this::DEFAULT_PHONE;
+                            switch($column) {
+                                case 'religion_id':
+                                    $data[$column] = $religionOtherId;
+                                    break;
                                 default:
                                     $data[$column] = $this::DEFAULT;
+                                    break;
                             }
                             $data['legal_relationship_id'] = $legalRelationshipInvalidDataId;
+                            $data['is_active'] = 0;
                         }
                     }
                 }
@@ -158,7 +161,7 @@ class ScoutImport extends \Backend\Models\ImportModel
                 }
 
                 // save the scout
-                $scout->save();
+                $scout->forceSave();
 
                 // save the pivot data
                 $this->savePivotData($scout, $chronicIllnessesStrings, ChronicIllness::class, 'chronic_illnesses');

@@ -138,11 +138,11 @@ navigation:
                 icon: icon-database
             side-menu-test-data:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.testData'
-                url: /csatar/csatar/seederdata/test
+                url: csatar/csatar/seederdata/test
                 icon: icon-database
             side-menu-import-data:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.importData'
-                url: /csatar/csatar/seederdata/import
+                url: csatar/csatar/scoutimport/import
                 icon: icon-database
     main-menu-item-accident-log:
         label: 'csatar.csatar::lang.plugin.component.accidentLog.accidentLog'
