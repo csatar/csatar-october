@@ -7,7 +7,7 @@ use Backend\Classes\Controller;
 
 class SeederData extends Controller
 {
-    public $seederData, $testData, $importData, $data;
+    public $seederData, $testData, $data;
     
     public function __construct()
     {
