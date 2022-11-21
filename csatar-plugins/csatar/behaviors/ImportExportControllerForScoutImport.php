@@ -359,7 +359,6 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
             return null;
         }
 
-//        $widgetConfig = $this->makeConfig('~/modules/backend/behaviors/importexportcontroller/partials/fields_import.yaml');
         $widgetConfig = $this->makeConfig('$/csatar/csatar/behaviors/importexportcontrollerforscoutimport/fields_import.yaml');
         $widgetConfig->model = $this->importGetModel();
         $widgetConfig->alias = 'importUploadForm';

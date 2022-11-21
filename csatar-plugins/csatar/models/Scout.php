@@ -47,9 +47,9 @@ class Scout extends OrganizationBase
         'given_name' => 'required',
         'email' => 'email',
         'phone' => 'regex:(^[0-9+-.()]{10,}$)',
-        'legal_representative_phone' => 'regex:(^[0-9+-.()]{10,}$)',
-        'mothers_phone' => 'regex:(^[0-9+-.()]{10,}$)',
-        'fathers_phone' => 'regex:(^[0-9+-.()]{10,}$)',
+        'legal_representative_phone' => 'regex:(^[0-9+-.()]{10,}$)|nullable',
+        'mothers_phone' => 'regex:(^[0-9+-.()]{10,}$)|nullable',
+        'fathers_phone' => 'regex:(^[0-9+-.()]{10,}$)|nullable',
         'personal_identification_number' => 'required',
         'gender' => 'required',
         'is_active' => 'required',
@@ -63,12 +63,11 @@ class Scout extends OrganizationBase
         'address_location' => 'required',
         'address_street' => 'required',
         'address_number' => 'required',
-        'mothers_email' => 'email',
-        'fathers_email' => 'email',
-        'legal_representative_email' => 'email',
+        'mothers_email' => 'email|nullable',
+        'fathers_email' => 'email|nullable',
+        'legal_representative_email' => 'email|nullable',
         'profile_image' => 'image|nullable|max:5120',
         'registration_form' => 'mimes:jpg,png,pdf|nullable|max:1536',
-        'chronic_illnesses' => 'required',
         'special_diet' => 'required',
     ];
 
@@ -139,7 +138,7 @@ class Scout extends OrganizationBase
             }
 
             // the registration form is required
-            $registration_form = $this->registration_form()->withDeferred($this->sessionKey)->first();
+            $registration_form = $this->registration_form()->withDeferred($this->sessionKey)->first() ?? $this->registration_form();
             if (!isset($registration_form)) {
                 throw new \ValidationException(['registration_form' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.registrationFormRequired')]);
             }
@@ -282,6 +281,7 @@ class Scout extends OrganizationBase
         'profile_image',
         'registration_form',
         'chronic_illnesses',
+        'ecset_code',
     ];
 
     /**
@@ -401,7 +401,7 @@ class Scout extends OrganizationBase
 
     public function beforeCreate()
     {
-        $this->ecset_code = strtoupper($this->generateEcsetCode());
+        $this->ecset_code = isset($this->ecset_code) && !empty($this->ecset_code) ? $this->ecset_code : strtoupper($this->generateEcsetCode());
     }
 
     public function beforeSave()

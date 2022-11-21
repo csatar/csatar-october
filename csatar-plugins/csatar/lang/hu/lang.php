@@ -142,6 +142,7 @@
                     'troopNotInTheTeamOrTroop' => 'A kiválasztott Őrs nem tartózik a kiválasztott Csapathoz vagy Rajhoz.',
                     'dateInTheFuture' => 'A Dátum nem lehet a jövőben.',
                     'endDateBeforeStartDate' => 'A végső időpont nem lehet a kezdeti időpont előtt.',
+                    'associationRequired' => 'A Szövetséget kötelező megadni.',
                     'registrationFormRequired' => 'A Bejelentkezési és nyilvántartási lap kötelező.',
                     'dateRequiredError' => 'A Dátum megadása a %name %category esetén kötelező.',
                     'locationRequiredError' => 'A Helyszín megadása a %name %category esetén kötelező.',

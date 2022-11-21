@@ -2,11 +2,14 @@
 
 use Csatar\Csatar\Classes\Enums\Gender;
 use Csatar\Csatar\Models\Allergy;
+use Csatar\Csatar\Models\Association;
 use Csatar\Csatar\Models\ChronicIllness;
 use Csatar\Csatar\Models\FoodSensitivity;
 use Csatar\Csatar\Models\LegalRelationship;
 use Csatar\Csatar\Models\Religion;
 use Csatar\Csatar\Models\Scout;
+use Csatar\Csatar\Models\SpecialDiet;
+use Csatar\Csatar\Models\Team;
 use October\Rain\Filesystem\Zip;
 use File;
 use Lang;
@@ -22,6 +25,7 @@ class ScoutImport extends \Backend\Models\ImportModel
     const MOTHERSMAIDENNAME = 'Anyja leánykori neve';
     const STR_OTHER = 'Egyéb';
     const DEFAULT = '-';
+    const DEFAULT_PHONE = '0000000000';
 
     /**
      * @var array The rules to be applied to the data.
@@ -30,19 +34,11 @@ class ScoutImport extends \Backend\Models\ImportModel
 
     public function importData($results, $sessionKey = null)
     {
+        $legalRelationshipInvalidDataId = LegalRelationship::getInvalidDataId();
+        $specialDietNoneId = SpecialDiet::getNoneId();
+
         foreach ($results as $row => $data) {
             try {
-                // add a "-" to all required fields
-                $config = File::symbolizePath('$/csatar/csatar/models/scoutimport/columns.yaml');
-                if (File::isFile($config)) {
-                    $config = $this->makeConfig($config);
-                    foreach ($config->columns as $column => $columnData) {
-                        if (isset($columnData['required']) && $columnData['required'] == 1 && empty($data[$column])) {
-                            $data[$column] = $this::DEFAULT;
-                        }
-                    }
-                }
-
                 // manipulate fields - gender
                 if ($data['gender'] == $this::GENDER_MALE) {
                     $data['gender'] = Gender::MALE;
@@ -88,15 +84,15 @@ class ScoutImport extends \Backend\Models\ImportModel
                 }
 
                 // manipulate fields - chronic illnesses
-                $chronicIllnessesStrings = explode(',', $data['chronic_illnesses']);
+                $chronicIllnessesStrings = !empty($data['chronic_illnesses']) ? explode(',', $data['chronic_illnesses']) : [];
                 unset($data['chronic_illnesses']);
 
                 // manipulate fields - allergies
-                $allergiesStrings = explode(',', $data['allergies']);
+                $allergiesStrings = !empty($data['allergies']) ? explode(',', $data['allergies']) : [];
                 unset($data['allergies']);
 
                 // manipulate fields - food sensitivities
-                $foodSensitivitieStrings = explode(',', $data['food_sensitivities']);
+                $foodSensitivitieStrings = !empty($data['food_sensitivities']) ? explode(',', $data['food_sensitivities']) : [];
                 unset($data['food_sensitivities']);
 
                 // manipulate fields - mother's maiden name
@@ -105,57 +101,69 @@ class ScoutImport extends \Backend\Models\ImportModel
                     unset($data['mothers_maiden_name']);
                 }
 
-                // manipulate fields - address number
-                $data['address_number'] = $this::DEFAULT;
+                // manipulate fields - address street and address number
+                $data['address_street'] = trim($data['address_street']);
+                $streetLastSpaceCharacter = strrpos($data['address_street'], ' ');
+                if ($streetLastSpaceCharacter != false) {
+                    $streetLastSection = substr($data['address_street'], $streetLastSpaceCharacter + 1);
+                    if (preg_match('/[0-9]/i', $streetLastSection)) {
+                        $data['address_number'] = $streetLastSection;
+                        $data['address_street'] = trim(substr($data['address_street'], 0, $streetLastSpaceCharacter));
+                    }
+                }
+                if (!isset($data['address_number'])) {
+                    $data['address_number'] = $this::DEFAULT;
+                    $data['legal_relationship_id'] = $legalRelationshipInvalidDataId;
+                }
 
                 // manipulate fields - update reason
                 unset($data['update_reason']);
 
-                // save the scout
+                // manipulate fields - registration form
+                unset($data['registration_form']);
+
+                // manipulate fields - special diet
+                $data['special_diet_id'] = $specialDietNoneId;
+
+                // add a "-" to all required fields
+                $config = File::symbolizePath('$/csatar/csatar/models/scoutimport/columns.yaml');
+                if (File::isFile($config)) {
+                    $config = $this->makeConfig($config);
+                    foreach ($config->columns as $column => $columnData) {
+                        if (isset($columnData['required']) && $columnData['required'] == 1 && empty($data[$column])) {
+                            switch ($column) {
+                                case 'phone':
+                                    $data[$column] = $this::DEFAULT_PHONE;
+                                default:
+                                    $data[$column] = $this::DEFAULT;
+                            }
+                            $data['legal_relationship_id'] = $legalRelationshipInvalidDataId;
+                        }
+                    }
+                }
+
+                // retrieve/create the scout
                 $scout = Scout::firstOrNew([
                     'ecset_code' => $data['ecset_code'],
                 ]);
                 $scout->fill($data);
+
+                // generate an empty registration form
+                if ($scout->wasRecentlyCreated) {
+                    $file = (new \System\Models\File)->fromData('', $data['ecset_code'] . '.pdf');
+                    $file->is_public = true;
+                    $file->content_type = 'application/pdf';
+                    $file->save();
+                    $scout->registration_form()->add($file);
+                }
+
+                // save the scout
                 $scout->save();
 
-                // save the pivot data - chronic illnesses
-                foreach ($chronicIllnessesStrings as $chronicIllnessString) {
-                    $chroniclIllness = ChronicIllness::where('name', $chronicIllnessString)->first();
-                    $comment = '';
-                    if (!isset($chroniclIllness)) {
-                        $chroniclIllness = ChronicIllness::where('name', $this::STR_OTHER)->first();
-                        $comment = $chronicIllnessString;
-                    }
-                    if ($scout->allergies->where('id', $chroniclIllness->id)->first() == null) {
-                        $scout->allergies()->attach($chroniclIllness, ['comment' => $comment]);
-                    }
-                }
-
-                // save the pivot data - allergies
-                foreach ($allergiesStrings as $allergyString) {
-                    $allergy = Allergy::where('name', $allergyString)->first();
-                    $comment = '';
-                    if (!isset($allergy)) {
-                        $allergy = Allergy::where('name', $this::STR_OTHER)->first();
-                        $comment = $allergyString;
-                    }
-                    if ($scout->allergies->where('id', $allergy->id)->first() == null) {
-                        $scout->allergies()->attach($allergy, ['comment' => $comment]);
-                    }
-                }
-
-                // save the pivot data - food sensitivities
-                foreach ($foodSensitivitieStrings as $foodSensitivityString) {
-                    $foodSensitivity = FoodSensitivity::where('name', $foodSensitivityString)->first();
-                    $comment = '';
-                    if (!isset($foodSensitivity)) {
-                        $foodSensitivity = FoodSensitivity::where('name', $this::STR_OTHER)->first();
-                        $comment = $foodSensitivityString;
-                    }
-                    if ($scout->allergies->where('id', $foodSensitivity->id)->first() == null) {
-                        $scout->allergies()->attach($foodSensitivity, ['comment' => $comment]);
-                    }
-                }
+                // save the pivot data
+                $this->savePivotData($scout, $chronicIllnessesStrings, ChronicIllness::class, 'chronic_illnesses');
+                $this->savePivotData($scout, $allergiesStrings, Allergy::class, 'allergies');
+                $this->savePivotData($scout, $foodSensitivitieStrings, FoodSensitivity::class, 'food_sensitivities');
 
                 // count the action
                 if ($scout->wasRecentlyCreated) {
@@ -167,6 +175,28 @@ class ScoutImport extends \Backend\Models\ImportModel
             }
             catch (\Exception $ex) {
                 $this->logError($row, $ex->getMessage());
+            }
+        }
+    }
+
+    private function savePivotData($scout, $dataString, $modelName, $attributeName)
+    {
+        $comment = '';
+        foreach ($dataString as $dataItemString) {
+            $data = ($modelName)::where('name', $dataItemString)->first();
+            if (isset($data)) {
+                if ($scout->{$attributeName}->where('id', $data->id)->first() == null) {
+                    $scout->{$attributeName}()->attach($data, ['comment' => $comment]);
+                }
+            }
+            else {
+                $comment = $comment . (!empty($comment) ? ', ' : '') . $dataItemString;
+            }
+        }
+        if (!empty($comment)) {
+            $data = ($modelName)::where('name', $this::STR_OTHER)->first();
+            if ($scout->{$attributeName}->where('id', $data->id)->first() == null) {
+                $scout->{$attributeName}()->attach($data, ['comment' => $comment]);
             }
         }
     }
@@ -223,6 +253,10 @@ class ScoutImport extends \Backend\Models\ImportModel
 
     public function import($matches, $options = [])
     {
+        if (empty($this->association)) {
+            throw new \ApplicationException(Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.associationRequired'));
+        }
+
         $files = [];
         $data = [];
 
@@ -241,7 +275,8 @@ class ScoutImport extends \Backend\Models\ImportModel
             $data = $this->processImportData($path, $matches, $options);
 
             // set the team id
-            $teamId = array_keys($files)[$i];
+            $teamNumber = array_keys($files)[$i];
+            $teamId = Team::getTeamIdByAssociationAndTeamNumber($this->association, $teamNumber);
             for ($j = 0; $j < count($data); ++$j) {
                 $data[$j]['team_id'] = $teamId;
             }
@@ -250,5 +285,10 @@ class ScoutImport extends \Backend\Models\ImportModel
         }
 
         return $this->importData($importData, $sessionKey);
+    }
+
+    public function getAssociationOptions()
+    {
+        return Association::lists('name', 'id');
     }
 }

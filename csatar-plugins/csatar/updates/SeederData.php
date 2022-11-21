@@ -42,7 +42,8 @@ class SeederData extends Seeder
             'Alakuló csapat tag',
             'Újonc',
             'Tag',
-            'Tiszteletbeli tag'
+            'Tiszteletbeli tag',
+            'Érvénytelen adat',
         ],
         'specialTest' => [
             'Szakács',

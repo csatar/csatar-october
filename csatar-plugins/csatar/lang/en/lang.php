@@ -142,6 +142,7 @@
                     'troopNotInTheTeamOrTroop' => 'The selected Patrol does not belong to the selected Team or to the selected Troop.',
                     'dateInTheFuture' => 'The selected Date is in the future.',
                     'endDateBeforeStartDate' => 'The End date cannot be before the Start date.',
+                    'associationRequired' => 'The Association is required.',
                     'registrationFormRequired' => 'The Registration form is required.',
                     'dateRequiredError' => 'The Date for the %name %category is required.',
                     'locationRequiredError' => 'The Location for the %name %category is required.',
