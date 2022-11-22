@@ -161,6 +161,13 @@ class Team extends OrganizationBase
         return isset($this->attributes['team_number']) && isset($this->attributes['name']) ? str_pad($this->attributes['team_number'], 3, '0', STR_PAD_LEFT) . ' - ' . $this->attributes['name'] . ' ' . Lang::get('csatar.csatar::lang.plugin.admin.team.nameSuffix') : null;
     }
 
+    public function getExtendedNameWithAssociationAttribute()
+    {
+        $associationAbbreviation = isset($this->district->association->name_abbreviation) ? $this->district->association->name_abbreviation . ' - ' : '';
+
+        return $associationAbbreviation . $this->getExtendedNameAttribute();
+    }
+
     /**
      * Retrieve the team by Id.
      */

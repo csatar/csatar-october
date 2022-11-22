@@ -99,7 +99,7 @@ class MandateType extends Model
         $mandates = Mandate::where('mandate_type_id', $this->id)->get();
 
         foreach ($mandates as $mandate) {
-            if ($mandate->start_date < $now && ($mandate->end_date > $now || $mandate->end_date == null)) {
+            if (new DateTime($mandate->start_date) < $now && (new DateTime($mandate->end_date) > $now || $mandate->end_date == null)) {
                 Flash::error(str_replace('%name', $this->name, Lang::get('csatar.csatar::lang.plugin.admin.mandateType.activeMandateDeleteError')));
                 return false;
             }
