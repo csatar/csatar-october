@@ -36,7 +36,7 @@
                                                 type="text"
                                                 class="form-control rounded bg-white"
                                                 id="userRegisterEcsetCode"
-                                                placeholder="{{ 'ECSET kód'|_ }} "/>
+                                                placeholder="{{ 'Igazolványszám'|_ }} "/>
                                         </div>
                                         <span data-validate-for="ecset_code" class="errormsg"></span>
 
@@ -49,7 +49,7 @@
                                             placeholder="{{ 'Jelszó'|_ }}" />
                                             <span>
                                                 <button class="search-btn" type="button">
-                                                <i class="bi bi-eye text-primary" 
+                                                <i class="bi bi-eye text-primary"
                                                 id="togglePassword"></i>
                                                 </button>
                                             </span>
@@ -65,12 +65,12 @@
                                             class="form-control rounded bg-white border-0 userRegisterPassword"
                                             placeholder="{{ 'Jelszó megerősítése'|_ }}" />
                                             </div>
-                                        </div> 
+                                        </div>
                                         <span data-validate-for="password_confirmation" class="errormsg"></span>
 
                                         <a class="login" href="{{ url('/bejelentkezes') }}" rel="noopener noreferrer"><h5>{{ 'Már van fiókom, bejelentkezem!'|_ }}</h5></a>
                                         <button type="submit" class="btn rounded btn-primary my-3">{{ 'Fiók létrehozása'|_ }}</button>
-                                        
+
                                     </form>
                                 </div>
                             </div>
@@ -88,12 +88,12 @@
 </div>
 
 <script>
-    $(document).ready(function() {        
+    $(document).ready(function() {
     $( "#togglePassword" ).on( "click", function() {
             $( this ).toggleClass( "bi-eye bi-eye-slash" );
-            $(".userRegisterPassword").attr('type') === 'password' ? 
-                $(".userRegisterPassword").attr('type', 'text') : 
-                $(".userRegisterPassword").attr('type', 'password' )  
+            $(".userRegisterPassword").attr('type') === 'password' ?
+                $(".userRegisterPassword").attr('type', 'text') :
+                $(".userRegisterPassword").attr('type', 'password' )
         });
     });
 </script>
