@@ -180,3 +180,6 @@
 1.0.63:
     - 'Updated table pollozen_simplegallery_galleries'
     - builder_table_update_pollozen_simplegallery_galleries.php
+1.0.64:
+    - 'Change columns to nullable in associations, districts, scouts, team_reports'
+    - migration_1064.php

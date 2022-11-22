@@ -552,7 +552,7 @@ trait AjaxControllerSimple {
         $validation = Validator::make(
             $data,
             $rules,
-            [],
+            $record->customMessages ?? [],
             $attributeNames,
         );
 

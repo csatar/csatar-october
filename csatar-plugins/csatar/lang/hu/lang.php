@@ -151,6 +151,7 @@
                     'mandateEndDateBeforeStartDate' => 'A végső időpont nem lehet a kezdeti időpont előtt a %name megbízatás esetén.',
                     'dateInTheFutureError' => 'A Dátum a %name %category esetén nem lehet a jövőben.',
                     'invalidPersonalIdentificationNumber' => 'Érvénytelen személyi szám.',
+                    'legalRepresentativePhoneUnderAge' => 'Kiskorú cserkés esetén kötelező megadni az egyik szülő vagy törvényes képviselő telefonszámát.',
                 ],
                 'staticMessages' => [
                     'personalDataNotAccepted' => 'Kérlek ellenőrizd, hogy helyesek-e a személyes adataid itt!',

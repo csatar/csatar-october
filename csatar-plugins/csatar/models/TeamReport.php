@@ -28,13 +28,7 @@ class TeamReport extends PermissionBasedAccess
      */
     public $rules = [
         'team' => 'required',
-        'scouting_year_report_team_camp' => 'required',
-        'scouting_year_report_homesteading' => 'required',
-        'scouting_year_report_programs' => 'required',
-        'scouting_year_team_applications' => 'required',
-        'spiritual_leader_name' => 'required',
         'spiritual_leader_religion' => 'required',
-        'spiritual_leader_occupation' => 'required',
     ];
 
     /**

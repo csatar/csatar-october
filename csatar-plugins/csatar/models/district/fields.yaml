@@ -21,7 +21,6 @@ fields:
     address:
         label: 'csatar.csatar::lang.plugin.admin.general.address'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
@@ -32,7 +31,6 @@ fields:
     phone:
         label: 'csatar.csatar::lang.plugin.admin.general.phone'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
@@ -43,7 +41,6 @@ fields:
     email:
         label: 'csatar.csatar::lang.plugin.admin.general.email'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
@@ -85,7 +82,6 @@ fields:
     contact_name:
         label: 'csatar.csatar::lang.plugin.admin.district.contactName'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
@@ -96,7 +92,6 @@ fields:
     contact_email:
         label: 'csatar.csatar::lang.plugin.admin.general.contactEmail'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
@@ -119,7 +114,6 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.district.description'
         size: ''
         span: auto
-        required: 1
         type: textarea
         formBuilder:
             type: field
@@ -141,7 +135,6 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.district.leadershipPresentation'
         size: ''
         span: auto
-        required: 1
         type: textarea
         formBuilder:
             type: field

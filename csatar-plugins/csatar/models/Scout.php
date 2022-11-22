@@ -23,6 +23,8 @@ class Scout extends OrganizationBase
 
     use \October\Rain\Database\Traits\SoftDelete;
 
+    use \October\Rain\Database\Traits\Nullable;
+
     protected $dates = ['deleted_at'];
 
     protected static $relationLabels = null;
@@ -38,39 +40,129 @@ class Scout extends OrganizationBase
      */
     public $table = 'csatar_csatar_scouts';
 
+    public $fillable = [
+        'user_id',
+        'team_id',
+        'troop_id',
+        'patrol_id',
+        'name_prefix',
+        'family_name',
+        'given_name',
+        'nickname',
+        'email',
+        'phone',
+        'personal_identification_number',
+        'gender',
+        'is_active',
+        'legal_relationship_id',
+        'special_diet_id',
+        'religion_id',
+        'nationality',
+        'tshirt_size_id',
+        'birthdate',
+        'nameday',
+        'maiden_name',
+        'birthplace',
+        'address_country',
+        'address_zipcode',
+        'address_county',
+        'address_location',
+        'address_street',
+        'address_number',
+        'mothers_name',
+        'mothers_phone',
+        'mothers_email',
+        'fathers_name',
+        'fathers_phone',
+        'fathers_email',
+        'legal_representative_name',
+        'legal_representative_phone',
+        'legal_representative_email',
+        'elementary_school',
+        'primary_school',
+        'secondary_school',
+        'post_secondary_school',
+        'college',
+        'university',
+        'other_trainings',
+        'foreign_language_knowledge',
+        'occupation',
+        'workplace',
+        'comment',
+        'profile_image',
+        'registration_form',
+        'chronic_illnesses',
+    ];
+
+    protected $nullable = [
+        'user_id',
+        'troop_id',
+        'patrol_id',
+        'name_prefix',
+        'family_name',
+        'given_name',
+        'nickname',
+        'email',
+        'phone',
+        'personal_identification_number',
+        'gender',
+        'is_active',
+        'legal_relationship_id',
+        'special_diet_id',
+        'religion_id',
+        'nationality',
+        'tshirt_size_id',
+        'birthdate',
+        'nameday',
+        'maiden_name',
+        'birthplace',
+        'address_country',
+        'address_zipcode',
+        'address_county',
+        'address_location',
+        'address_street',
+        'address_number',
+        'mothers_name',
+        'mothers_email',
+        'fathers_name',
+        'fathers_email',
+        'legal_representative_name',
+        'legal_representative_email',
+        'elementary_school',
+        'primary_school',
+        'secondary_school',
+        'post_secondary_school',
+        'college',
+        'university',
+        'other_trainings',
+        'foreign_language_knowledge',
+        'occupation',
+        'workplace',
+        'comment',
+    ];
+
     /**
      * @var array Validation rules
      */
     public $rules = [
         'team' => 'required',
-        'family_name' => 'required',
-        'given_name' => 'required',
-        'email' => 'email',
-        'phone' => 'regex:(^[0-9+-.()]{10,}$)',
+        'phone' => 'nullable|regex:(^[0-9+-.()]{10,}$)',
+        'birthdate' => 'required',
         'legal_representative_phone' => 'regex:(^[0-9+-.()]{10,}$)',
         'mothers_phone' => 'regex:(^[0-9+-.()]{10,}$)',
         'fathers_phone' => 'regex:(^[0-9+-.()]{10,}$)',
-        'personal_identification_number' => 'required',
-        'gender' => 'required',
-        'is_active' => 'required',
-        'legal_relationship' => 'required',
-        'religion' => 'required',
-        'birthdate' => 'required',
-        'birthplace' => 'required',
-        'address_country' => 'required',
-        'address_zipcode' => 'required',
-        'address_county' => 'required',
-        'address_location' => 'required',
-        'address_street' => 'required',
-        'address_number' => 'required',
-        'mothers_email' => 'email',
-        'fathers_email' => 'email',
-        'legal_representative_email' => 'email',
+        'mothers_email' => 'email|nullable',
+        'fathers_email' => 'email|nullable',
+        'legal_representative_email' => 'email|nullable',
         'profile_image' => 'image|nullable|max:5120',
         'registration_form' => 'mimes:jpg,png,pdf|nullable|max:1536',
+        'legal_relationship' => 'required',
         'chronic_illnesses' => 'required',
         'special_diet' => 'required',
     ];
+
+    public $customMessages = [];
+
 
     // this conditional rules work in form builder if there are functions defined with validationFunctionName name in class
     public $conditionalRules = [
@@ -103,6 +195,9 @@ class Scout extends OrganizationBase
         parent::__construct($attributes);
         $this->attributeNames['registration_form'] = e(trans('csatar.csatar::lang.plugin.admin.scout.registrationForm'));
         $this->attributeNames['profile_image'] = e(trans('csatar.csatar::lang.plugin.admin.scout.profile_image'));
+        $this->customMessages['mothers_phone.required_without_all'] = e(trans('csatar.csatar::lang.plugin.admin.scout.validationExceptions.legalRepresentativePhoneUnderAge'));
+        $this->customMessages['fathers_phone.required_without_all'] = e(trans('csatar.csatar::lang.plugin.admin.scout.validationExceptions.legalRepresentativePhoneUnderAge'));
+        $this->customMessages['legal_representative_phone.required_without_all'] = e(trans('csatar.csatar::lang.plugin.admin.scout.validationExceptions.legalRepresentativePhoneUnderAge'));
     }
 
     /**
@@ -136,12 +231,6 @@ class Scout extends OrganizationBase
             // check that the birthdate is not in the future
             if (isset($this->birthdate) && (new \DateTime($this->birthdate) > new \DateTime())) {
                 throw new \ValidationException(['birthdate' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.dateInTheFuture')]);
-            }
-
-            // the registration form is required
-            $registration_form = $this->registration_form()->withDeferred($this->sessionKey)->first();
-            if (!isset($registration_form)) {
-                throw new \ValidationException(['registration_form' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.registrationFormRequired')]);
             }
 
             // the Date and Location pivot fields are required and the Date cannot be in the future
@@ -229,60 +318,6 @@ class Scout extends OrganizationBase
             $fields->legal_relationship->options = $this->team ? \Csatar\Csatar\Models\LegalRelationship::associationId($this->team->district->association->id)->lists('name', 'id') : [];
         }
     }
-
-    public $fillable = [
-        'user_id',
-        'team_id',
-        'troop_id',
-        'patrol_id',
-        'name_prefix',
-        'family_name',
-        'given_name',
-        'nickname',
-        'email',
-        'phone',
-        'personal_identification_number',
-        'gender',
-        'is_active',
-        'legal_relationship_id',
-        'special_diet_id',
-        'religion_id',
-        'nationality',
-        'tshirt_size_id',
-        'birthdate',
-        'nameday',
-        'maiden_name',
-        'birthplace',
-        'address_country',
-        'address_zipcode',
-        'address_county',
-        'address_location',
-        'address_street',
-        'address_number',
-        'mothers_name',
-        'mothers_phone',
-        'mothers_email',
-        'fathers_name',
-        'fathers_phone',
-        'fathers_email',
-        'legal_representative_name',
-        'legal_representative_phone',
-        'legal_representative_email',
-        'elementary_school',
-        'primary_school',
-        'secondary_school',
-        'post_secondary_school',
-        'college',
-        'university',
-        'other_trainings',
-        'foreign_language_knowledge',
-        'occupation',
-        'workplace',
-        'comment',
-        'profile_image',
-        'registration_form',
-        'chronic_illnesses',
-    ];
 
     /**
      * Relations
