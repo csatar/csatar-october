@@ -107,14 +107,3 @@ USER root
 
 # Provides container inside image for data persistence
 VOLUME ["/var/www/html"]
-
-RUN pecl install -o -f xdebug-3.1.0 \
-    &&  rm -rf /tmp/pear \
-    &&  docker-php-ext-enable xdebug
-
-ENV XDEBUG_CONFIG="idekey=anything-works-here"
-ENV PHP_IDE_CONFIG="serverName=Docker"
-
-RUN echo 'xdebug.remote_port=9000' >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-RUN echo 'xdebug.remote_enable=1' >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
-RUN echo 'xdebug.remote_host=host.docker.internal' >> /usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
