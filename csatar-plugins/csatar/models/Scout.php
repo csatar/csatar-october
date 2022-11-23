@@ -156,9 +156,6 @@ class Scout extends OrganizationBase
         'legal_representative_email' => 'email|nullable',
         'profile_image' => 'image|nullable|max:5120',
         'registration_form' => 'mimes:jpg,png,pdf|nullable|max:1536',
-        'legal_relationship' => 'required',
-        'chronic_illnesses' => 'required',
-        'special_diet' => 'required',
     ];
 
     public $customMessages = [];

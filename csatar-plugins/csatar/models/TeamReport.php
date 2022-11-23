@@ -28,7 +28,6 @@ class TeamReport extends PermissionBasedAccess
      */
     public $rules = [
         'team' => 'required',
-        'spiritual_leader_religion' => 'required',
     ];
 
     /**

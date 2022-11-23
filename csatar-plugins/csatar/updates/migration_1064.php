@@ -56,8 +56,6 @@ class Migration1064 extends Migration
             $table->string('address_location', 255)->nullable()->change();
             $table->string('address_street', 255)->nullable()->change();
             $table->string('address_number', 255)->nullable()->change();
-            $table->dropForeign('csatar_csatar_scouts_religion_id_foreign');
-            $table->dropForeign('csatar_csatar_scouts_tshirt_size_id_foreign');
         });
 
         Schema::table('csatar_csatar_team_reports', function($table)
@@ -67,6 +65,9 @@ class Migration1064 extends Migration
             $table->integer('number_of_scout_patrols')->nullable()->change();
             $table->integer('number_of_cub_scout_patrols')->nullable()->change();
             $table->integer('number_of_mixed_patrols')->nullable()->change();
+            $table->dropForeign('csatar_csatar_team_reports_spiritual_leader_religion_id_foreign');
+            $table->integer('spiritual_leader_religion_id')->nullable()->unsigned()->change();
+            $table->foreign('spiritual_leader_religion_id')->references('id')->on('csatar_csatar_religions');
             $table->text('scouting_year_report_team_camp')->nullable()->change();
             $table->text('scouting_year_report_homesteading')->nullable()->change();
             $table->text('scouting_year_report_programs')->nullable()->change();
@@ -127,8 +128,6 @@ class Migration1064 extends Migration
             $table->string('address_location', 255)->nullable(false)->change();
             $table->string('address_street', 255)->nullable(false)->change();
             $table->string('address_number', 255)->nullable(false)->change();
-            $table->foreign('religion_id')->references('id')->on('csatar_csatar_religions');
-            $table->foreign('tshirt_size_id')->references('id')->on('csatar_csatar_tshirt_sizes');
         });
 
         Schema::table('csatar_csatar_team_reports', function($table)
@@ -138,6 +137,9 @@ class Migration1064 extends Migration
             $table->integer('number_of_scout_patrols')->nullable(false)->change();
             $table->integer('number_of_cub_scout_patrols')->nullable(false)->change();
             $table->integer('number_of_mixed_patrols')->nullable(false)->change();
+            $table->dropForeign('csatar_csatar_team_reports_spiritual_leader_religion_id_foreign');
+            $table->integer('spiritual_leader_religion_id')->nullable(false)->unsigned()->change();
+            $table->foreign('spiritual_leader_religion_id')->references('id')->on('csatar_csatar_religions');
             $table->text('scouting_year_report_team_camp')->nullable(false)->change();
             $table->text('scouting_year_report_homesteading')->nullable(false)->change();
             $table->text('scouting_year_report_programs')->nullable(false)->change();
@@ -145,5 +147,6 @@ class Migration1064 extends Migration
             $table->string('spiritual_leader_name', 255)->nullable(false)->change();
             $table->string('spiritual_leader_occupation', 255)->nullable(false)->change();
         });
+
     }
 }
