@@ -198,7 +198,7 @@
                     'seederDataConfirmMessage' => 'Szeretnéd frissíteni az alapértelmezett adatokat?',
                     'testDataConfirmMessage' => 'Szeretnéd frissíteni a teszt adatokat?',
                     'dataToBeAdded' => 'A következő adatok lesznek hozzáadva (ha már nem voltak felvéve):',
-                    'importDataDescription' => 'Adj meg egy .csv fájlot, vagy egy .csv fájlokat tartalmazó .zip fájlot.',
+                    'importDataDescription' => 'Adj meg egy .csv fájlt, vagy egy .csv fájlokat tartalmazó .zip fájlt.',
                     'updateData' => 'Adatok frissítése',
                     'updateDataSuccess' => 'Az adatok frissítve lettek.',
                 ],
