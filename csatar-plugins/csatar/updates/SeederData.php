@@ -115,6 +115,9 @@ class SeederData extends Seeder
             'Krónikus légzési elégtelenség',
             'Veseelégtelenség',
             'HIV/SIDA',
+            'Epilepszia',
+            'Autizmus',
+            'Mentális beteg',
             'Egyéb',
         ],
         'hierarchy' => [
