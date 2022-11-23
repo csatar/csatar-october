@@ -58,7 +58,7 @@ class TestData extends Seeder
                 'association_id' => $association_magyar->id,
             ]);
             $district_1->address = 'Balassagyarmat, Jácint utca, 21';
-            $district_1->phone = '00361223454';
+            $district_1->phone = '0123456789';
             $district_1->email = 'erika@yahoo.com';
             $district_1->contact_name = 'Vass Erika';
             $district_1->contact_email = 'erika@yahoo.com';
@@ -74,7 +74,7 @@ class TestData extends Seeder
                 'association_id' => $association_rmcssz->id,
             ]);
             $district_2->address = 'Abcde';
-            $district_2->phone = '012345';
+            $district_2->phone = '0123456789';
             $district_2->email = 'a@aa.com';
             $district_2->contact_name = 'Szőcs Szilveszter';
             $district_2->contact_email = 'a@aa.com';
@@ -87,7 +87,7 @@ class TestData extends Seeder
                 'association_id' => $association_rmcssz->id,
             ]);
             $district_3->address = 'Abcde';
-            $district_3->phone = '012345';
+            $district_3->phone = '0123456789';
             $district_3->email = 'a@aa.com';
             $district_3->contact_name = 'Szénás Zalán';
             $district_3->contact_email = 'a@aa.com';
@@ -100,7 +100,7 @@ class TestData extends Seeder
                 'association_id' => $association_rmcssz->id,
             ]);
             $district_4->address = 'Abcde';
-            $district_4->phone = '012345';
+            $district_4->phone = '0123456789';
             $district_4->email = 'a@aa.com';
             $district_4->contact_name = 'Székely István';
             $district_4->contact_email = 'a@aa.com';
@@ -118,7 +118,7 @@ class TestData extends Seeder
             $team_1->team_number = '1';
             $team_1->address = 'Balassagyarmat, Ady Endre utca, 10';
             $team_1->foundation_date = '2000-06-06';
-            $team_1->phone = '0877665';
+            $team_1->phone = '0123456789';
             $team_1->email = 'edina@yahoo.com';
             $team_1->contact_name = 'Edina';
             $team_1->contact_email = 'edina@yahoo.com';
@@ -139,7 +139,7 @@ class TestData extends Seeder
             $team_2->team_number = '4';
             $team_2->address = 'Abcde';
             $team_2->foundation_date = '2000-06-18';
-            $team_2->phone = '01234';
+            $team_2->phone = '0123456789';
             $team_2->email = 'a@aa.com';
             $team_2->contact_name = 'Bálint Lajos Lóránt';
             $team_2->contact_email = 'a@aa.com';
@@ -158,7 +158,7 @@ class TestData extends Seeder
             $team_3->team_number = '18';
             $team_3->address = 'Abcde';
             $team_3->foundation_date = '2000-06-18';
-            $team_3->phone = '01234';
+            $team_3->phone = '0123456789';
             $team_3->email = 'a@aa.com';
             $team_3->contact_name = 'Fodor Csaba';
             $team_3->contact_email = 'a@aa.com';
@@ -177,7 +177,7 @@ class TestData extends Seeder
             $team_4->team_number = '152';
             $team_4->address = 'Abcde';
             $team_4->foundation_date = '2000-06-18';
-            $team_4->phone = '01234';
+            $team_4->phone = '0123456789';
             $team_4->email = 'a@aa.com';
             $team_4->contact_name = 'Lázár Annamária';
             $team_4->contact_email = 'a@aa.com';
@@ -198,7 +198,7 @@ class TestData extends Seeder
             $team_5->team_number = '146';
             $team_5->address = 'Abcde';
             $team_5->foundation_date = '2000-06-18';
-            $team_5->phone = '01234';
+            $team_5->phone = '0123456789';
             $team_5->email = 'a@aa.com';
             $team_5->contact_name = 'Keresztes Annamária';
             $team_5->contact_email = 'a@aa.com';
@@ -219,7 +219,7 @@ class TestData extends Seeder
             $team_6->team_number = '40';
             $team_6->address = 'Abcde';
             $team_6->foundation_date = '2000-06-18';
-            $team_6->phone = '01234';
+            $team_6->phone = '0123456789';
             $team_6->email = 'a@aa.com';
             $team_6->contact_name = 'Szabó Lajos';
             $team_6->contact_email = 'a@aa.com';
@@ -238,7 +238,7 @@ class TestData extends Seeder
             $team_7->team_number = '141';
             $team_7->address = 'Abcde';
             $team_7->foundation_date = '2000-06-18';
-            $team_7->phone = '01234';
+            $team_7->phone = '0123456789';
             $team_7->email = 'a@aa.com';
             $team_7->contact_name = 'Illyés Botond';
             $team_7->contact_email = 'a@aa.com';

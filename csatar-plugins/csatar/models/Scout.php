@@ -406,6 +406,25 @@ class Scout extends OrganizationBase
 
     public function beforeSave()
     {
+        if (isset($this->original['team_id']) && $this->original['team_id'] != $this->team_id) {
+            $team = Team::find($this->original['team_id']);
+            $troop = Troop::find($this->original['troop_id']);
+            $patrol = Patrol::find($this->original['patrol_id']);
+
+            if (!empty($team)) {
+                $this->setAllMandatesToExpiredInOrganization($team);
+            }
+
+            if (!empty($troop)) {
+                $this->setAllMandatesToExpiredInOrganization($troop);
+                $this->troop_id = $troop->id == $this->troop_id ? null : $this->troop_id;
+            }
+
+            if (!empty($patrol)) {
+                $this->setAllMandatesToExpiredInOrganization($patrol);
+                $this->patrol_id = $patrol->id == $this->patrol_id ? null : $this->patrol_id;
+            }
+        }
         $this->nameday = $this->nameday != '' ? $this->nameday : null;
         $this->troop_id = $this->troop_id != 0 ? $this->troop_id : null;
         $this->patrol_id = $this->patrol_id != 0 ? $this->patrol_id : null;
@@ -416,9 +435,20 @@ class Scout extends OrganizationBase
         $now = new DateTime();
         $mandates = Mandate::where('scout_id', $this->id)->get();
         foreach ($mandates as $mandate) {
-            if ($mandate->start_date < $now && ($mandate->end_date > $now || $mandate->end_date == null)) {
+            if (new DateTime($mandate->start_date) < $now && (new DateTime($mandate->end_date) > $now || $mandate->end_date == null)) {
                 Flash::error(str_replace('%name', $this->getFullName(), Lang::get('csatar.csatar::lang.plugin.admin.scout.activeMandateDeleteError')));
                 return false;
+            }
+        }
+    }
+
+    public function setAllMandatesToExpiredInOrganization(OrganizationBase $organization): void
+    {
+        if (!empty($organization) && $mandates = $this->getMandatesForOrganization($organization, true)) {
+            foreach ($mandates as $mandate) {
+                $mandate->ignoreValidation = true;
+                $mandate->end_date = (new DateTime($mandate->end_date) > new DateTime() || is_null($mandate->end_date)) ? date('Y-m-d') : $mandate->end_date;
+                $mandate->save();
             }
         }
     }
@@ -664,14 +694,16 @@ class Scout extends OrganizationBase
         );
     }
 
-    public function getMandatesForOrganization(PermissionBasedAccess $organization) {
+    public function getMandatesForOrganization(PermissionBasedAccess $organization, bool $withInactive = false) {
         return $this->mandates()
             ->where('mandate_model_type', $organization->getModelName())
             ->where('mandate_model_id', $organization->id)
-            ->where('start_date', '<=', date('Y-m-d H:i'))
-            ->where(function ($query) {
-                $query->whereNull('end_date')
-                    ->orWhere('end_date', '>=', date('Y-m-d H:i'));
+            ->when(!$withInactive, function ($query){
+                $query->where('start_date', '<=', date('Y-m-d H:i'))
+                      ->where(function ($query) {
+                    $query->whereNull('end_date')
+                          ->orWhere('end_date', '>=', date('Y-m-d H:i'));
+                });
             })
             ->get();
     }

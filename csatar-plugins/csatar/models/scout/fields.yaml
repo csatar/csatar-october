@@ -18,11 +18,10 @@ fields:
         type: section
     team:
         label: 'csatar.csatar::lang.plugin.admin.scout.team'
-        nameFrom: extendedName
+        nameFrom: extendedNameWithAssociation
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
-        readOnly: 1
         required: 1
         type: relation
         formBuilder:
