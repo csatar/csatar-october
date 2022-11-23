@@ -1,6 +1,6 @@
 <?php return [
     'frontEnd' => [
-        'authException' => 'Az e-mail cím, az ECSET kód vagy a jelszó téves!',
+        'authException' => 'Az e-mail cím, az Igazolványszám vagy a jelszó téves!',
     ],
     'plugin' => [
         'name' => 'CSATÁR',
@@ -22,7 +22,7 @@
                 'select' => 'Válassz...',
                 'logo' => 'Logó',
                 'coordinates' => 'Koordináták',
-                'ecsetCode' => 'ECSET kód',
+                'ecsetCode' => 'Igazolványszám',
                 'date' => 'Dátum',
                 'location' => 'Helyszín',
                 'qualificationCertificateNumber' => 'Képesítési Igazolás Száma',
@@ -342,7 +342,7 @@
                 'additionalDetailsInfo' => 'Körzetek, Pénznemek és Megbízatások hozzáadása a Szövetség létrehozása után lehetséges. Miután a többi adatot kitöltötted, kattints a Létrehozás gombra.',
                 'breadcrumb' => 'Szövetségek',
                 'ecsetCode' => [
-                    'suffix' => 'ECSET kód utótag',
+                    'suffix' => 'Igazolványszám utótag',
                 ],
                 'teamFee' => 'Csapat fenntartói díj',
                 'membershipFee' => 'Tagdíj értéke',
@@ -611,7 +611,7 @@
                 'description' => 'Lehetővé teszi frontend felhasználó létrehozását.',
                 'currentPage' => '- jelenlegi oldal -',
                 'validationExceptions' => [
-                    'invalidEcsetCode' => 'Érvénytelen ECSET kód',
+                    'invalidEcsetCode' => 'Érvénytelen Igazolványszám',
                     'emailEcsetCodeMissMatch' => 'Ha nincs email címed, vagy nem egyezik meg a rendszerben levővel, vedd fel a kapcsolatot az őrsvezetőddel.',
                     'noScoutIsSelected' => 'Nincs tag kiválasztva!',
                 ],
