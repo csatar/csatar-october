@@ -333,6 +333,7 @@ class BasicForm extends ComponentBase  {
         return UserRigthsProvider::getUserRigths($record, $ignoreCache);
     }
 
+
     private function canCreate(string $attribute): bool
     {
         return $this->rightsCollectionHasKey($attribute) && $this->currentUserRights[$attribute]['create'] > 0;

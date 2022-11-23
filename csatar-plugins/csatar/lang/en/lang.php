@@ -1,6 +1,6 @@
 <?php return [
     'frontEnd' => [
-        'authException' => 'The email address, the ECSET code or the password is incorrect.',
+        'authException' => 'The email address, the ID number or the password is incorrect.',
     ],
     'plugin' => [
         'name' => 'CSATÁR',
@@ -22,7 +22,7 @@
                 'select' => 'Select...',
                 'logo' => 'Logo',
                 'coordinates' => 'Coordinates',
-                'ecsetCode' => 'ECSET code',
+                'ecsetCode' => 'ID number',
                 'date' => 'Date',
                 'location' => 'Location',
                 'qualificationCertificateNumber' => 'Képesítési Igazolás Száma',
@@ -346,7 +346,7 @@
                 'additionalDetailsInfo' => 'Districts, Currencies and Mandates can be added after the Association has been created. Click the Create button after other information is filled.',
                 'breadcrumb' => 'Associations',
                 'ecsetCode' => [
-                    'suffix' => 'ECSET code suffix',
+                    'suffix' => 'ID number suffix',
                 ],
                 'teamFee' => 'Team fee',
                 'membershipFee' => 'Membership fee',
@@ -615,7 +615,7 @@
                 'description' => 'Creates a Frontend user account for an existing Scout.',
                 'currentPage' => '- current page -',
                 'validationExceptions' => [
-                    'invalidEcsetCode' => 'Invalid ECSET code',
+                    'invalidEcsetCode' => 'Invalid ID number',
                     'emailEcsetCodeMissMatch' => 'If you don\'t have an email address or your email address is different from the registered one please contact your patrol leader!',
                     'noScoutIsSelected' => 'No Scout is selected!',
                 ],
