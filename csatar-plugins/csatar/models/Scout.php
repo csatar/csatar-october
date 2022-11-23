@@ -138,7 +138,7 @@ class Scout extends OrganizationBase
             }
 
             // the registration form is required
-            $registration_form = $this->registration_form()->withDeferred($this->sessionKey)->first() ?? $this->registration_form();
+            $registration_form = $this->registration_form()->withDeferred($this->sessionKey)->first();
             if (!isset($registration_form)) {
                 throw new \ValidationException(['registration_form' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.registrationFormRequired')]);
             }
