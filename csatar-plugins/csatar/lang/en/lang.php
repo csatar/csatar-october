@@ -119,7 +119,7 @@
                 'leadershipQualifications' => 'Leadership qualifications',
                 'trainingQualifications' => 'Training qualifications',
                 'foodSensitivities' => 'Food sensitivities',
-                'additionalDetailsInfo' => 'Allergies, Food Sensitivities, Promises, Tests, Special Tests, Professional Qualifications, Special Qualifications, Leadership Qualifications and Training Qualifications can be added after the Scout has been created. Click the Create button after other information is filled.',
+                'additionalDetailsInfo' => 'Allergies, Chronic Illnesses, Food Sensitivities, Promises, Tests, Special Tests, Professional Qualifications, Special Qualifications, Leadership Qualifications and Training Qualifications can be added after the Scout has been created. Click the Create button after other information is filled.',
                 'breadcrumb' => 'Scouts',
                 'team' => 'Team',
                 'troop' => 'Troop',
