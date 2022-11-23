@@ -12,6 +12,7 @@ fields:
             position: details
             order: 1
             default: '-'
+            ignoreUserRights: 1
     relations:
         label: 'csatar.csatar::lang.plugin.admin.general.relations'
         span: full

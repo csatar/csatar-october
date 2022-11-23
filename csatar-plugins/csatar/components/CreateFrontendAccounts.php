@@ -103,7 +103,7 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
     }
 
 
-     // Self register with email and ECSET code
+     // Self register with email and ID number
 
     public function onRegister(){
 
