@@ -228,6 +228,7 @@
                     'deleteSuccess' => 'Jogosultságok törölve.',
                     'MODEL_GENERAL' => 'ÁLTALÁNOS HOZZÁFÉRÉS',
                     'noPermissionChanged' => 'A jogosultságok nem változtak. Ha volt sárgával kijelölt legördülő mező és mégis ezt az üzentet kaptad, próbáld újra vagy szólj a rendszergazdának.',
+                    'notAllPermissionChanged' => 'Csak :updated jogosultságot sikerült elmenteni a :from-ból a következő műveletre és értékre: :action->:value. A következők jogosultságok kellett volna változzanak: :ids.',
                     'importPermissions' => 'Jogosultságok importálása',
                     'exportPermissions' => 'Jogosultságok exportálása',
                     'errorCanNotFindAssociation' => 'Nem található ":associationName" nevű szövetség!',

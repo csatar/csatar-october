@@ -9,6 +9,7 @@ use File;
 use Illuminate\Validation\Rules\In;
 use Input;
 use Log;
+use Lang;
 use Session;
 
 class PermissionsMatrix extends Controller
@@ -81,7 +82,7 @@ class PermissionsMatrix extends Controller
     public function onMultipleValueChange(){
         $sessionValues = $this->getSessionValues();
         $ajaxData = Input::get('data');
-        $sessionValues = array_replace($sessionValues, $ajaxData);
+        $sessionValues = array_replace($sessionValues, $ajaxData ?? []);
         Session::put('permissionValueChanges', $sessionValues);
     }
 
@@ -99,19 +100,20 @@ class PermissionsMatrix extends Controller
                 $numberOfUpdatedPermissions = MandatePermission::whereIn('id', $permissionsIdsToUpdate)
                     ->update([$action => $value]);
                 if ($numberOfUpdatedPermissions < $valueGroup->count()) {
-                    Log::warning(
-                        sprintf('Could not update all mandate permissions with ids: %s for action: %s->%s vale. Updated %s of %s. ',
-                            implode(', ', $permissionsIdsToUpdate->toArray()),
-                            $action,
-                            $value,
-                            $numberOfUpdatedPermissions,
-                            $valueGroup->count())
-                    );
+                    $warning = Lang::get('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.notAllPermissionChanged',
+                        [
+                            'ids' => implode(', ', $permissionsIdsToUpdate->toArray()),
+                            'action' => $action,
+                            'value' => $value,
+                            'updated' => $numberOfUpdatedPermissions,
+                            'from' => $valueGroup->count()
+                        ]);
+                    Log::warning($warning);
+                    \Flash::warning($warning);
                 }
             }
 
         }
-
         Session::forget('permissionValueChanges');
     }
 
