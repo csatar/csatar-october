@@ -23,13 +23,13 @@ class Association extends OrganizationBase
      */
     public $rules = [
         'name' => 'required',
-        'contact_name' => 'required|min:5',
-        'contact_email' => 'required|email',
-        'address' => 'required|min:5',
+        'contact_name' => 'min:5|nullable',
+        'contact_email' => 'email|nullable',
+        'address' => 'min:5|nullable',
         'bank_account' => 'min:5|nullable',
-        'leadership_presentation' => 'required',
+        'leadership_presentation' => 'nullable',
         'logo' => 'image|nullable',
-        'ecset_code_suffix' => 'max:2|alpha',
+        'ecset_code_suffix' => 'max:2|alpha|nullable',
         'team_fee' => 'required|digits_between:1,20',
         'currency' => 'required',
     ];

@@ -86,7 +86,6 @@ fields:
     family_name:
         label: 'csatar.csatar::lang.plugin.admin.scout.familyName'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
@@ -96,7 +95,6 @@ fields:
     given_name:
         label: 'csatar.csatar::lang.plugin.admin.scout.givenName'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
@@ -136,7 +134,6 @@ fields:
     personal_identification_number:
         label: 'csatar.csatar::lang.plugin.admin.scout.personalIdentificationNumber'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
@@ -152,7 +149,6 @@ fields:
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         showSearch: true
         span: auto
-        required: 1
         type: dropdown
         formBuilder:
             type: field
@@ -178,7 +174,6 @@ fields:
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         dependsOn: team
         span: auto
-        required: 1
         type: dropdown
         formBuilder:
             type: field
@@ -192,7 +187,6 @@ fields:
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
-        required: 1
         type: relation
         formBuilder:
             type: field
@@ -239,7 +233,6 @@ fields:
         maxDate: now
         yearRange: '100'
         span: auto
-        required: 1
         type: datepicker
         formBuilder:
             type: field
@@ -268,7 +261,6 @@ fields:
     birthplace:
         label: 'csatar.csatar::lang.plugin.admin.scout.birthplace'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
@@ -288,7 +280,6 @@ fields:
     address_country:
         label: 'csatar.csatar::lang.plugin.admin.scout.addressCountry'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
@@ -298,7 +289,6 @@ fields:
     address_zipcode:
         label: 'csatar.csatar::lang.plugin.admin.scout.addressZipcode'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
@@ -308,7 +298,6 @@ fields:
     address_county:
         label: 'csatar.csatar::lang.plugin.admin.scout.addressCounty'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
@@ -318,7 +307,6 @@ fields:
     address_location:
         label: 'csatar.csatar::lang.plugin.admin.scout.addressLocation'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
@@ -328,7 +316,6 @@ fields:
     address_street:
         label: 'csatar.csatar::lang.plugin.admin.scout.addressStreet'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
@@ -338,7 +325,6 @@ fields:
     address_number:
         label: 'csatar.csatar::lang.plugin.admin.scout.addressNumber'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
@@ -609,7 +595,6 @@ fields:
             extension: auto
         maxFilesize: '5'
         span: auto
-        required: 1
         type: fileupload
     special_diet:
         label: 'csatar.csatar::lang.plugin.admin.scout.specialDiet'
@@ -617,7 +602,6 @@ fields:
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
-        required: 1
         type: relation
         formBuilder:
             type: field

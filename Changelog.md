@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-395 - Made database fields and attributes nullable
 - CS-38 - Import Scouts from ECSET.
 - CS-302 - Reorganized navigation to fit more items, modified hamburger menu so it is activated on tablet view
 - CS-320 - Simplified scout's page. Removed section names from labels.
