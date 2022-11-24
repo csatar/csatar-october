@@ -220,6 +220,20 @@ class Team extends OrganizationBase
     }
 
     /**
+     * Return the team, which the given id
+     */
+    public static function getTeamIdByAssociationAndTeamNumber($associationId, $teamNumber)
+    {
+        $items = self::where('team_number', $teamNumber)->get();
+        foreach ($items as $item) {
+            if ($item->district->association->id == $associationId) {
+                return $item->id;
+            }
+        }
+        return null;
+    }
+
+    /**
      * Returns the id of the association to which the item belongs to.
      */
     public function getAssociationId()

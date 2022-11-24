@@ -1,6 +1,6 @@
 list: $/csatar/csatar/models/foodsensitivity/columns.yaml
 modelClass: Csatar\Csatar\Models\FoodSensitivity
-title: 'csatar.csatar::lang.plugin.admin.allergy.foodSensitivities'
+title: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.foodSensitivityCategories'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: true

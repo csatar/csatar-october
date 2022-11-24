@@ -12,6 +12,7 @@ fields:
             position: details
             order: 1
             default: '-'
+            ignoreUserRights: 1
     relations:
         label: 'csatar.csatar::lang.plugin.admin.general.relations'
         span: full
@@ -595,17 +596,6 @@ fields:
         maxFilesize: '5'
         span: auto
         type: fileupload
-    chronic_illnesses:
-        label: 'csatar.csatar::lang.plugin.admin.scout.chronicIllnesses'
-        nameFrom: name
-        descriptionFrom: description
-        span: auto
-        type: relation
-        formBuilder:
-            type: field
-            card: otherData
-            order: 1
-            default: '-'
     special_diet:
         label: 'csatar.csatar::lang.plugin.admin.scout.specialDiet'
         nameFrom: name
@@ -616,5 +606,5 @@ fields:
         formBuilder:
             type: field
             card: otherData
-            order: 2
+            order: 1
             default: '-'

@@ -8,7 +8,7 @@ use Backend\Classes\Controller;
 class SeederData extends Controller
 {
     public $seederData, $testData, $data;
-
+    
     public function __construct()
     {
         // initialize values

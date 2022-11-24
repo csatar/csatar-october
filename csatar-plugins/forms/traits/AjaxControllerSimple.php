@@ -1072,6 +1072,15 @@ trait AjaxControllerSimple {
                 continue;
             }
 
+            if (isset($settings['formBuilder']['ignoreUserRights']) && $settings['formBuilder']['ignoreUserRights'] == 1) {
+                continue;
+            }
+
+            if (!$this->rightsCollectionHasKey($attribute)) {
+                unset($attributesArray[$attribute]);
+                continue;
+            }
+
             if ($isReadOnly) {
                 if (!$this->canRead($attribute)) {
                     unset($attributesArray[$attribute]);

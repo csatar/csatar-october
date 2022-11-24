@@ -139,6 +139,7 @@ class Scout extends OrganizationBase
         'occupation',
         'workplace',
         'comment',
+        'ecset_code',
     ];
 
     /**
@@ -342,6 +343,8 @@ class Scout extends OrganizationBase
         'chronic_illnesses' => [
             '\Csatar\Csatar\Models\ChronicIllness',
             'table' => 'csatar_csatar_scouts_chronic_illnesses',
+            'pivot' => ['comment'],
+            'pivotModel' => '\Csatar\Csatar\Models\ScoutChronicIllnessPivot',
             'label' => 'csatar.csatar::lang.plugin.admin.chronicIllness.chronicIllnesses',
         ],
         'allergies' => [
@@ -431,7 +434,7 @@ class Scout extends OrganizationBase
 
     public function beforeCreate()
     {
-        $this->ecset_code = strtoupper($this->generateEcsetCode());
+        $this->ecset_code = isset($this->ecset_code) && !empty($this->ecset_code) ? $this->ecset_code : strtoupper($this->generateEcsetCode());
     }
 
     public function beforeSave()
