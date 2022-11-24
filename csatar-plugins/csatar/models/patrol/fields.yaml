@@ -27,7 +27,6 @@ fields:
             card: patrolData
             position: details
             order: 1
-            default: '-'
     website:
         label: 'csatar.csatar::lang.plugin.admin.patrol.website'
         span: auto
@@ -37,7 +36,6 @@ fields:
             card: patrolData
             position: details
             order: 2
-            default: '-'
     facebook_page:
         label: 'csatar.csatar::lang.plugin.admin.patrol.facebookPage'
         span: auto
@@ -47,7 +45,6 @@ fields:
             card: patrolData
             position: details
             order: 3
-            default: '-'
     age_group:
         label: 'csatar.csatar::lang.plugin.admin.patrol.ageGroup'
         required: 1
@@ -60,7 +57,6 @@ fields:
             card: patrolData
             position: details
             order: 4
-            default: '-'
     logo:
         label: 'csatar.csatar::lang.plugin.admin.general.logo'
         mode: image

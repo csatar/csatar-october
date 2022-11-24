@@ -27,7 +27,6 @@ fields:
             card: associationData
             position: details
             order: 1
-            default: '-'
     ecset_code_suffix:
         label: 'csatar.csatar::lang.plugin.admin.association.ecsetCode.suffix'
         span: auto
@@ -37,7 +36,6 @@ fields:
             card: associationData
             position: details
             order: 2
-            default: '-'
     coordinates:
         label: 'csatar.csatar::lang.plugin.admin.general.coordinates'
         size: ''
@@ -48,7 +46,6 @@ fields:
             card: associationData
             position: details
             order: 3
-            default: '-'
     contact_name:
         label: 'csatar.csatar::lang.plugin.admin.association.contactName'
         span: auto
@@ -59,7 +56,6 @@ fields:
             card: associationData
             position: details
             order: 4
-            default: '-'
     contact_email:
         label: 'csatar.csatar::lang.plugin.admin.general.contactEmail'
         span: auto
@@ -70,7 +66,6 @@ fields:
             card: associationData
             position: details
             order: 5
-            default: '-'
     address:
         label: 'csatar.csatar::lang.plugin.admin.general.address'
         span: auto
@@ -81,7 +76,6 @@ fields:
             card: associationData
             position: details
             order: 6
-            default: '-'
     bank_account:
         label: 'csatar.csatar::lang.plugin.admin.association.bankAccount'
         span: auto
@@ -91,7 +85,6 @@ fields:
             card: associationData
             position: details
             order: 7
-            default: '-'
     team_fee:
         label: 'csatar.csatar::lang.plugin.admin.association.teamFee'
         span: auto
@@ -103,7 +96,6 @@ fields:
             card: associationData
             position: details
             order: 8
-            default: '-'
     currency:
         label: 'csatar.csatar::lang.plugin.admin.association.currency'
         nameFrom: code
@@ -117,7 +109,6 @@ fields:
             card: associationData
             position: details
             order: 9
-            default: '-'
     leadershipPresentationData:
         label: 'csatar.csatar::lang.plugin.admin.team.leadershipPresentation'
         span: full
@@ -138,7 +129,6 @@ fields:
             type: field
             card: leadershipPresentationData
             position: details
-            default: '-'
     logo:
         label: 'csatar.csatar::lang.plugin.admin.general.logo'
         mode: image

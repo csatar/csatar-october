@@ -39,7 +39,6 @@ fields:
             card: teamData
             position: details
             order: 1
-            default: '-'
     foundation_date:
         label: 'csatar.csatar::lang.plugin.admin.team.foundationDate'
         mode: date
@@ -52,7 +51,6 @@ fields:
             card: teamData
             position: details
             order: 2
-            default: '-'
     phone:
         label: 'csatar.csatar::lang.plugin.admin.general.phone'
         span: auto
@@ -63,7 +61,6 @@ fields:
             card: teamData
             position: details
             order: 3
-            default: '-'
     email:
         label: 'csatar.csatar::lang.plugin.admin.general.email'
         span: auto
@@ -74,7 +71,6 @@ fields:
             card: teamData
             position: details
             order: 4
-            default: '-'
     website:
         label: 'csatar.csatar::lang.plugin.admin.team.website'
         span: auto
@@ -84,7 +80,6 @@ fields:
             card: teamData
             position: details
             order: 5
-            default: '-'
     facebook_page:
         label: 'csatar.csatar::lang.plugin.admin.team.facebookPage'
         span: auto
@@ -94,7 +89,6 @@ fields:
             card: teamData
             position: details
             order: 6
-            default: '-'
     contact_name:
         label: 'csatar.csatar::lang.plugin.admin.team.contactName'
         span: auto
@@ -105,7 +99,6 @@ fields:
             card: teamData
             position: details
             order: 7
-            default: '-'
     contact_email:
         label: 'csatar.csatar::lang.plugin.admin.general.contactEmail'
         span: auto
@@ -116,7 +109,6 @@ fields:
             card: teamData
             position: details
             order: 8
-            default: '-'
     coordinates:
         label: 'csatar.csatar::lang.plugin.admin.general.coordinates'
         size: ''
@@ -127,7 +119,6 @@ fields:
             card: teamData
             position: details
             order: 9
-            default: '-'
     descriptionData:
         label: 'csatar.csatar::lang.plugin.admin.team.description'
         span: full
@@ -149,7 +140,6 @@ fields:
             type: field
             card: descriptionData
             position: details
-            default: '-'
     historyData:
         label: 'csatar.csatar::lang.plugin.admin.team.history'
         span: full
@@ -170,7 +160,6 @@ fields:
             type: field
             card: historyData
             position: details
-            default: '-'
     leadershipPresentationData:
         label: 'csatar.csatar::lang.plugin.admin.team.leadershipPresentation'
         span: full
@@ -192,7 +181,6 @@ fields:
             type: field
             card: leadershipPresentationData
             position: details
-            default: '-'
     juridical_person_name:
         label: 'csatar.csatar::lang.plugin.admin.team.juridicalPersonName'
         span: auto
@@ -203,7 +191,6 @@ fields:
             card: teamData
             position: details
             order: 10
-            default: '-'
     juridical_person_address:
         label: 'csatar.csatar::lang.plugin.admin.team.juridicalPersonAddress'
         span: auto
@@ -214,7 +201,6 @@ fields:
             card: teamData
             position: details
             order: 11
-            default: '-'
     juridical_person_tax_number:
         label: 'csatar.csatar::lang.plugin.admin.team.juridicalPersonTaxNumber'
         span: auto
@@ -225,7 +211,6 @@ fields:
             card: teamData
             position: details
             order: 12
-            default: '-'
     juridical_person_bank_account:
         label: 'csatar.csatar::lang.plugin.admin.team.juridicalPersonBankAccount'
         span: auto
@@ -236,7 +221,6 @@ fields:
             card: teamData
             position: details
             order: 13
-            default: '-'
     home_supplier_name:
         label: 'csatar.csatar::lang.plugin.admin.team.homeSupplierName'
         span: auto
@@ -246,7 +230,6 @@ fields:
             card: teamData
             position: details
             order: 14
-            default: '-'
     logo:
         label: 'csatar.csatar::lang.plugin.admin.general.logo'
         mode: image
@@ -274,5 +257,4 @@ fields:
             type: field
             card: teamData
             position: subtitle
-            default: '-'
             readOnlyIfPreselected: true
