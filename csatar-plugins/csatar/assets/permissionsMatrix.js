@@ -71,15 +71,20 @@ function updateAll(action, value) {
         let selectId = $(this).attr('id')
         let dataRequestDataFromSelect = '{' + $(this).data('request-data') + '}';
         let dataRequestDataFromSelectJson = JSON.parse(dataRequestDataFromSelect.replace(/'/g, '"'));
-        if (dataRequestDataFromSelectJson.recordId != "0") {
+        if (dataRequestDataFromSelectJson.recordId != "0" && value != dataRequestDataFromSelectJson.initialValue) {
             data[selectId] = {
                 'id': dataRequestDataFromSelectJson.recordId,
                 'action': action,
                 'value': value,
                 'initialValue': dataRequestDataFromSelectJson.initialValue
             }
-            $(this).val(value);
+        }
+        $(this).val(value);
+        if (value != $(this).data('initial-value')) {
             $(this).addClass('select-changed');
+        }
+        if (value == $(this).data('initial-value')) {
+            $(this).removeClass('select-changed');
         }
     });
 

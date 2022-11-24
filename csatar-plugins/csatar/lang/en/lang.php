@@ -233,6 +233,7 @@
                     'deleteSuccess' => 'Permissions deleted successfuly.',
                     'MODEL_GENERAL' => 'GENERAL ACCESS',
                     'noPermissionChanged' => 'No permissions were changed. If there was any dropdown highlighted with yellow and you received this message, please try again or contact administrator.',
+                    'notAllPermissionChanged' => 'Updated only :updated of :from for action: :action->:value vale. The following mandate permissions should have been updated: :ids .',
                     'importPermissions' => 'Import Permissions',
                     'exportPermissions' => 'Export Permissions',
                     'errorCanNotFindAssociation' => 'Can not find association with name: :associationName',
