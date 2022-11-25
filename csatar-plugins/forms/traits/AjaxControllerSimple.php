@@ -155,23 +155,13 @@ trait AjaxControllerSimple {
                     continue;
                 }
 
-                // if no value is set and no default is set, then don't show the field
-                if ((!isset($widget->model->{$key}) || empty(($widget->model->{$key}))) && !isset($field['formBuilder']['default'])) {
+                // if no value is set, then don't show the field
+                if (!isset($widget->model->{$key}) || empty(($widget->model->{$key}))) {
                     continue;
                 }
 
-                // if an array for the card does not exist yet, then create it
-                if (!array_key_exists($field['formBuilder']['card'], $fieldsToPass)) {
-                    $fieldsToPass[$field['formBuilder']['card']] = [];
-                }
-
-                $newField = [];
-                if (isset($field['label'])) {
-                    $newField['label'] = Lang::get($field['label']);
-                }
-
                 // retrieve the value for the field
-                $value = isset($field['formBuilder']['default']) ? $field['formBuilder']['default'] : '';
+                $value = '';
                 if (isset($widget->model->{$key})) {
                     if (is_object($widget->model->{$key}) && array_key_exists('nameFrom', $field) && isset($widget->model->{$key}->{$field['nameFrom']})) { // relation fields
                         $value = $widget->model->{$key}->{$field['nameFrom']};
@@ -200,6 +190,19 @@ trait AjaxControllerSimple {
                     else if (isset($widget->model->attributes[$key]) && !empty($widget->model->attributes[$key])) { // regular fields
                         $value = $widget->model->attributes[$key];
                     }
+                    else {
+                        continue;
+                    }
+                }
+
+                // if an array for the card does not exist yet, then create it
+                if (!array_key_exists($field['formBuilder']['card'], $fieldsToPass)) {
+                    $fieldsToPass[$field['formBuilder']['card']] = [];
+                }
+
+                $newField = [];
+                if (isset($field['label'])) {
+                    $newField['label'] = Lang::get($field['label']);
                 }
                 $newField['value'] = $value;
 
@@ -258,6 +261,13 @@ trait AjaxControllerSimple {
             else if (isset($sheetCardVariablesToPass[$key])) {
                 $this->sortArrayByOrder($fields);
                 $sheetCardVariablesToPass[$key]['fields'] = $fields;
+            }
+        }
+
+        // hide the empty boxes
+        foreach ($sheetCardVariablesToPass as $key => $card) {
+            if (!isset($card['fields'])) {
+                unset($sheetCardVariablesToPass[$key]);
             }
         }
 
@@ -552,7 +562,7 @@ trait AjaxControllerSimple {
         $validation = Validator::make(
             $data,
             $rules,
-            [],
+            $record->customMessages ?? [],
             $attributeNames,
         );
 
@@ -573,7 +583,7 @@ trait AjaxControllerSimple {
 
         // Resolve belongsTo relations
         foreach($record->belongsTo as $name => $definition) {
-            if (! isset($data[$name])) {
+            if (empty($data[$name])) {
                 continue;
             }
 

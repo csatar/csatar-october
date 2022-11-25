@@ -11,30 +11,25 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.scouting_year_report_team_camp'
         size: ''
         span: auto
-        required: 1
         type: textarea
     scouting_year_report_homesteading:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.scouting_year_report_homesteading'
         size: ''
         span: auto
-        required: 1
         type: textarea
     scouting_year_report_programs:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.scouting_year_report_programs'
         size: ''
         span: auto
-        required: 1
         type: textarea
     scouting_year_team_applications:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.scouting_year_team_applications'
         size: ''
         span: auto
-        required: 1
         type: textarea
     spiritual_leader_name:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.spiritual_leader_name'
         span: auto
-        required: 1
         type: text
     spiritual_leader_religion:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.spiritual_leader_religion_id'
@@ -47,7 +42,6 @@ fields:
     spiritual_leader_occupation:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.spiritual_leader_occupation'
         span: auto
-        required: 1
         type: text
     team_fee:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.team_fee'
