@@ -1,0 +1,23 @@
+<div class="layout-row">
+    <h1><?= e(trans('csatar.csatar::lang.plugin.admin.admin.seederData.importData')) ?></h1>
+    <p><?= e(trans('csatar.csatar::lang.plugin.admin.admin.seederData.importDataDescription')) ?></p>
+
+    <?= Form::open(['class' => 'layout']) ?>
+
+        <div class="layout-row">
+            <?= $this->importRender() ?>
+        </div>
+
+        <div class="form-buttons">
+            <button
+                type="submit"
+                data-control="popup"
+                data-handler="onImportLoadForm"
+                data-keyboard="false"
+                class="btn btn-primary">
+                <?= e(trans('csatar.csatar::lang.plugin.admin.admin.seederData.importData')) ?>
+            </button>
+        </div>
+
+    <?= Form::close() ?>
+</div>

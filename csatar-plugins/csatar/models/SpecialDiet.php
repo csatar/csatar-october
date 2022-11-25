@@ -39,4 +39,10 @@ class SpecialDiet extends Model
     public $belongsToMany = [
         'scouts' => '\Csatar\Csatar\Models\Scouts'
     ];
+
+    public static function getNoneId()
+    {
+        $data = self::where('name', 'Nem igényel különleges étrendet')->first();
+        return isset($data) ? $data->id : null;
+    }
 }

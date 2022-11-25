@@ -40,4 +40,10 @@ class Religion extends Model
         'scouts' => '\Csatar\Csatar\Models\Scout',
         'team_reports' => '\Csatar\Csatar\Models\TeamReport',
     ];
+
+    public static function getOtherReligionId()
+    {
+        $data = self::where('name', 'Más felekezethez tartozó')->first();
+        return isset($data) ? $data->id : null;
+    }
 }

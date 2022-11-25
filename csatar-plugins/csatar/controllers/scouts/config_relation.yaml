@@ -1,3 +1,13 @@
+chronic_illnesses:
+  label: 'csatar.csatar::lang.plugin.admin.chronicIllness.chronicIllness'
+  view:
+    list: $/csatar/csatar/models/chronicillness/columnsPivot.yaml
+    toolbarButtons: add|remove|create
+  manage:
+    list: $/csatar/csatar/models/chronicillness/columns.yaml
+    form: $/csatar/csatar/models/chronicillness/fields.yaml
+  pivot:
+    form: $/csatar/csatar/models/chronicillness/fieldsPivot.yaml
 allergies:
   label: 'csatar.csatar::lang.plugin.admin.allergy.allergy'
   view:

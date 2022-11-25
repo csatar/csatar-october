@@ -8,6 +8,8 @@ use Csatar\Csatar\Models\OrganizationBase;
  */
 class Team extends OrganizationBase
 {
+    use \October\Rain\Database\Traits\Nullable;
+
     /**
      * @var string The database table used by the model.
      */
@@ -24,20 +26,15 @@ class Team extends OrganizationBase
     public $rules = [
         'name' => 'required',
         'team_number' => 'required|numeric|min:1|max:9999',
-        'address' => 'required|min:5',
-        'foundation_date' => 'required',
-        'phone' => 'regex:(^[0-9+-.()]{10,}$)',
-        'email' => 'required|email',
+        'address' => 'min:5|nullable',
+        'phone' => 'nullable|regex:(^[0-9+-.()]{10,}$)',
+        'email' => 'email|nullable',
         'website' => 'url|nullable',
         'facebook_page' => 'url|regex:(facebook)|nullable',
-        'contact_name' => 'required|min:5',
-        'contact_email' => 'required|email',
-        'leadership_presentation' => 'required',
-        'description' => 'required',
-        'juridical_person_name' => 'required',
-        'juridical_person_address' => 'required|min:5',
-        'juridical_person_tax_number' => 'required',
-        'juridical_person_bank_account' => 'required|min:5',
+        'contact_name' => 'min:5|nullable',
+        'contact_email' => 'email|nullable',
+        'juridical_person_address' => 'min:5|nullable',
+        'juridical_person_bank_account' => 'min:5|nullable',
         'district' => 'required',
         'logo' => 'image|nullable',
     ];
@@ -100,6 +97,27 @@ class Team extends OrganizationBase
         'home_supplier_name',
         'district_id',
         'logo',
+    ];
+
+    protected $nullable = [
+        'address',
+        'foundation_date',
+        'phone',
+        'email',
+        'website',
+        'facebook_page',
+        'contact_name',
+        'contact_email',
+        'history',
+        'coordinates',
+        'leadership_presentation',
+        'description',
+        'juridical_person_name',
+        'juridical_person_address',
+        'juridical_person_tax_number',
+        'juridical_person_bank_account',
+        'home_supplier_name',
+        'district_id',
     ];
 
     /**
@@ -199,6 +217,20 @@ class Team extends OrganizationBase
     {
         $item = self::find($teamId);
         return [$item->id => $item->extendedName];
+    }
+
+    /**
+     * Return the team, which the given id
+     */
+    public static function getTeamIdByAssociationAndTeamNumber($associationId, $teamNumber)
+    {
+        $items = self::where('team_number', $teamNumber)->get();
+        foreach ($items as $item) {
+            if ($item->district->association->id == $associationId) {
+                return $item->id;
+            }
+        }
+        return null;
     }
 
     /**

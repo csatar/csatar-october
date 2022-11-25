@@ -1,0 +1,11 @@
+fields:
+    name:
+        label: 'csatar.csatar::lang.plugin.admin.general.name'
+        span: auto
+        readOnly: 1
+        required: 0
+        type: text
+    'pivot[comment]':
+        label: 'csatar.csatar::lang.plugin.admin.general.comment'
+        span: auto
+        type: textarea

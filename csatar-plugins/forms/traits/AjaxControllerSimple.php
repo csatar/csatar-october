@@ -552,7 +552,7 @@ trait AjaxControllerSimple {
         $validation = Validator::make(
             $data,
             $rules,
-            [],
+            $record->customMessages ?? [],
             $attributeNames,
         );
 
@@ -573,7 +573,7 @@ trait AjaxControllerSimple {
 
         // Resolve belongsTo relations
         foreach($record->belongsTo as $name => $definition) {
-            if (! isset($data[$name])) {
+            if (empty($data[$name])) {
                 continue;
             }
 
@@ -1069,6 +1069,15 @@ trait AjaxControllerSimple {
             }
 
             if ($settings['type'] == 'relation' && $this->hasPivotColumns($attribute)) {
+                continue;
+            }
+
+            if (isset($settings['formBuilder']['ignoreUserRights']) && $settings['formBuilder']['ignoreUserRights'] == 1) {
+                continue;
+            }
+
+            if (!$this->rightsCollectionHasKey($attribute)) {
+                unset($attributesArray[$attribute]);
                 continue;
             }
 

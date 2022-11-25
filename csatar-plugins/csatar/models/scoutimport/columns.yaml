@@ -1,0 +1,100 @@
+columns:
+    ecset_code:
+        label: ECSET kód
+    name_prefix:
+        label: Név el?tag
+    family_name:
+        label: Vezetéknév
+        required: 1
+    given_name:
+        label: Keresztnév
+        required: 1
+    nickname:
+        label: Becenév
+    email:
+        label: Email
+    phone:
+        label: Telefonszám
+        required: 1
+    personal_identification_number:
+        label: Személyi szám (CNP)
+        required: 1
+    gender:
+        label: Nem
+        required: 1
+    is_active:
+        label: Státusz
+    legal_relationship_id:
+        label: Jogviszony
+        required: 1
+    religion_id:
+        label: Felekezet
+        required: 1
+    nationality:
+        label: Nemzetiség
+    birthdate:
+        label: Születési dátum
+    maiden_name:
+        label: Születési/leánykori név
+    birthplace:
+        label: Születési hely
+        required: 1
+    address_country:
+        label: Cím - ország
+        required: 1
+    address_zipcode:
+        label: Cím - irányítószám
+        required: 1
+    address_county:
+        label: Cím - megye
+        required: 1
+    address_location:
+        label: Cím - település
+        required: 1
+    address_street:
+        label: Cím - utca, házszám
+        required: 1
+    mothers_name:
+        label: Anyja neve
+    mothers_maiden_name:
+        label: Anyja leánykori neve
+    mothers_phone:
+        label: Anyja telefonszáma
+    mothers_email:
+        label: Anyja e-mail címe
+    fathers_name:
+        label: Apja neve
+    fathers_phone:
+        label: Apja telefonszáma
+    fathers_email:
+        label: Apja e-mail címe
+    elementary_school:
+        label: Elemi iskola
+    primary_school:
+        label: Általános iskola
+    secondary_school:
+        label: Középiskola
+    post_secondary_school:
+        label: Posztliceális iskola
+    college:
+        label: F?iskola
+    university:
+        label: Egyetem
+    foreign_language_knowledge:
+        label: Idegen nyelvismeret
+    occupation:
+        label: Foglalkozás
+    workplace:
+        label: Munkahely
+    comment:
+        label: Megjegyzés
+    chronic_illnesses:
+        label: Krónikus betegségek
+    allergies:
+        label: Allergia
+    food_sensitivities:
+        label: Ételérzékenység
+    sign_up_form:
+        label: Bejelentkezési és Nyilvántartási lap
+    update_reason:
+        label: Módosítás indoka
