@@ -14,7 +14,7 @@ name = "Team Report layout"
 </head>
 <body>
     <header>
-        <img class="logo" src="https://csatar-develop.adminner.com/themes/csatar/assets/images/android-chrome-192x192.png" >
+        <img class="logo" src="{{ 'assets/images/android-chrome-192x192.png' | theme }}" >
         <div>{{ teamReport.team.association.name }}</div>
         <div>{{ teamReport.team.association.address }}</div>
     </header>
