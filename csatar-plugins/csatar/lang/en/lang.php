@@ -41,6 +41,7 @@
                 'no' => 'No',
                 'url' => 'Hivatkozás',
                 'warning' => 'Warning',
+                'status' => 'Status',
             ],
             'ageGroups' => [
                 'ageGroups' => 'Age Groups',
@@ -395,6 +396,10 @@
                 'dateInTheFutureError' => 'The selected date is in the future.',
                 'organizationUnitNameWarning' => 'The name of the team can not contain the word "team."',
                 'filterOrganizationUnitNameForWords' => 'team',
+                'active' => 'Active',
+                'inActive' => 'Inactive',
+                'suspended' => 'Suspended',
+                'forming' => 'Forming',
             ],
             'troop' => [
                 'troop' => 'Troop',

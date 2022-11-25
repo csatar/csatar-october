@@ -41,6 +41,7 @@
                 'no' => 'Nem',
                 'url' => 'URL',
                 'warning' => 'FIGYELEM',
+                'status' => 'Státusz',
             ],
             'ageGroups' => [
                 'ageGroups' => 'Korosztályok',
@@ -395,6 +396,10 @@
                 'dateInTheFutureError' => 'A dátum nem lehet a jövőben.',
                 'organizationUnitNameWarning' => 'A csapat neve nem tartalmazhatja a "csapat" szót.',
                 'filterOrganizationUnitNameForWords' => 'cserkészcsapat, csapat',
+                'active' => 'Aktív',
+                'inActive' => 'Megszünt',
+                'suspended' => 'Szünetelő',
+                'forming' => 'Alakuló/újraalakuló',
             ],
             'troop' => [
                 'troop' => 'Raj',

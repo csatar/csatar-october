@@ -20,6 +20,11 @@ class Team extends OrganizationBase
      */
     protected static $searchable = ['name'];
 
+    public const ACTIVE = 1;
+    public const INACTIVE = 2;
+    public const SUSPENDED = 3;
+    public const FORMING = 4;
+
     /**
      * @var array Validation rules
      */
@@ -77,6 +82,7 @@ class Team extends OrganizationBase
      */
     public $fillable = [
         'name',
+        'status',
         'team_number',
         'address',
         'foundation_date',
@@ -100,6 +106,7 @@ class Team extends OrganizationBase
     ];
 
     protected $nullable = [
+        'status',
         'address',
         'foundation_date',
         'phone',
@@ -169,6 +176,15 @@ class Team extends OrganizationBase
     {
         $filterWords = explode(',', Lang::get('csatar.csatar::lang.plugin.admin.team.filterOrganizationUnitNameForWords'));
         $this->name = $this->filterNameForWords($this->name, $filterWords);
+    }
+
+    public static function getStatusOptions(){
+        return [
+            self::ACTIVE => e(trans('csatar.csatar::lang.plugin.admin.team.active')),
+            self::INACTIVE => e(trans('csatar.csatar::lang.plugin.admin.team.inActive')),
+            self::SUSPENDED => e(trans('csatar.csatar::lang.plugin.admin.team.suspended')),
+            self::FORMING => e(trans('csatar.csatar::lang.plugin.admin.team.forming')),
+        ];
     }
 
     /**
