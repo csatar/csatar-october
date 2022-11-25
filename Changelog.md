@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-395 - Made database fields and attributes nullable
 - CS-38 - Import Scouts from ECSET.
 - CS-333 - Add additional chronic illnesses
 - CS-349 - Remove empty boxes on forms

@@ -23,16 +23,14 @@ class District extends OrganizationBase
      */
     public $rules = [
         'name' => 'required',
-        'phone' => 'regex:(^[0-9+-.()]{10,}$)',
-        'email' => 'required|email',
+        'phone' => 'nullable|regex:(^[0-9+-.()]{10,}$)',
+        'email' => 'email|nullable',
         'website' => 'url|nullable',
         'facebook_page' => 'url|regex:(facebook)|nullable',
-        'contact_name' => 'required|min:5',
-        'contact_email' => 'required|email',
-        'address' => 'required|min:5',
+        'contact_name' => 'min:5|nullable',
+        'contact_email' => 'email|nullable',
+        'address' => 'min:5|nullable',
         'bank_account' => 'min:5|nullable',
-        'leadership_presentation' => 'required',
-        'description' => 'required',
         'association' => 'required',
         'logo' => 'image|nullable',
     ];

@@ -1,18 +1,28 @@
 columns:
     association:
+        searchable: false
+        sortable: false
         label: 'csatar.csatar::lang.plugin.admin.association.association'
         select: '(SELECT `name` FROM `csatar_csatar_associations` WHERE id = (SELECT `association_id` FROM `csatar_csatar_mandate_types` WHERE `csatar_csatar_mandate_types`.`id` = `csatar_csatar_mandates_permissions`.`mandate_type_id`))'
     mandate_type:
+        searchable: false
+        sortable: false
         label: 'csatar.csatar::lang.plugin.admin.mandate.mandate'
         select: '(SELECT `name` FROM `csatar_csatar_mandate_types` WHERE `csatar_csatar_mandate_types`.`id` = `csatar_csatar_mandates_permissions`.`mandate_type_id`)'
     own:
+        searchable: false
+        sortable: false
         label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.own'
         type: switch
         path: ~/plugins/csatar/csatar/models/permissionsmatrix/_custom_cell.htm
     model:
+        searchable: false
+        sortable: false
         label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.model'
         displayFrom: model_user_friendly
     field:
+        searchable: false
+        sortable: false
         label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.field'
         displayFrom: translated_label
 #        type: partial
@@ -20,22 +30,32 @@ columns:
 #        searchable: true
 #        sortable: true
     obligatory:
+        searchable: false
+        sortable: false
         label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.obligatory'
         type: partial
         path: ~/plugins/csatar/csatar/models/permissionsmatrix/_3option_select.htm
     create:
+        searchable: false
+        sortable: false
         label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.create'
         type: partial
         path: ~/plugins/csatar/csatar/models/permissionsmatrix/_3option_select.htm
     read:
+        searchable: false
+        sortable: false
         label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.read'
         type: partial
         path: ~/plugins/csatar/csatar/models/permissionsmatrix/_3option_select.htm
     update:
+        searchable: false
+        sortable: false
         label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.update'
         type: partial
         path: ~/plugins/csatar/csatar/models/permissionsmatrix/_3option_select.htm
     delete:
+        searchable: false
+        sortable: false
         label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.delete'
         type: partial
         path: ~/plugins/csatar/csatar/models/permissionsmatrix/_3option_select.htm

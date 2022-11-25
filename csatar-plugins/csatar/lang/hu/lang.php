@@ -152,6 +152,7 @@
                     'mandateEndDateBeforeStartDate' => 'A végső időpont nem lehet a kezdeti időpont előtt a %name megbízatás esetén.',
                     'dateInTheFutureError' => 'A Dátum a %name %category esetén nem lehet a jövőben.',
                     'invalidPersonalIdentificationNumber' => 'Érvénytelen személyi szám.',
+                    'legalRepresentativePhoneUnderAge' => 'Kiskorú cserkés esetén kötelező megadni az egyik szülő vagy törvényes képviselő telefonszámát.',
                 ],
                 'staticMessages' => [
                     'personalDataNotAccepted' => 'Kérlek ellenőrizd, hogy helyesek-e a személyes adataid itt!',
@@ -232,6 +233,7 @@
                     'deleteSuccess' => 'Jogosultságok törölve.',
                     'MODEL_GENERAL' => 'ÁLTALÁNOS HOZZÁFÉRÉS',
                     'noPermissionChanged' => 'A jogosultságok nem változtak. Ha volt sárgával kijelölt legördülő mező és mégis ezt az üzentet kaptad, próbáld újra vagy szólj a rendszergazdának.',
+                    'notAllPermissionChanged' => 'Csak :updated jogosultságot sikerült elmenteni a :from-ból a következő műveletre és értékre: :action->:value. A következők jogosultságok kellett volna változzanak: :ids.',
                     'importPermissions' => 'Jogosultságok importálása',
                     'exportPermissions' => 'Jogosultságok exportálása',
                     'errorCanNotFindAssociation' => 'Nem található ":associationName" nevű szövetség!',

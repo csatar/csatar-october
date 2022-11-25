@@ -35,7 +35,6 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.scouting_year_report_team_camp'
         size: ''
         span: auto
-        required: 1
         type: textarea
         formBuilder:
             type: field
@@ -46,7 +45,6 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.scouting_year_report_homesteading'
         size: ''
         span: auto
-        required: 1
         type: textarea
         formBuilder:
             type: field
@@ -57,7 +55,6 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.scouting_year_report_programs'
         size: ''
         span: auto
-        required: 1
         type: textarea
         formBuilder:
             type: field
@@ -68,7 +65,6 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.scouting_year_team_applications'
         size: ''
         span: auto
-        required: 1
         type: textarea
         formBuilder:
             type: field
@@ -78,7 +74,6 @@ fields:
     spiritual_leader_name:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.spiritual_leader_name'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
@@ -101,7 +96,6 @@ fields:
     spiritual_leader_occupation:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.spiritual_leader_occupation'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field

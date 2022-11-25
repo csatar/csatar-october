@@ -562,7 +562,7 @@ trait AjaxControllerSimple {
         $validation = Validator::make(
             $data,
             $rules,
-            [],
+            $record->customMessages ?? [],
             $attributeNames,
         );
 
@@ -583,7 +583,7 @@ trait AjaxControllerSimple {
 
         // Resolve belongsTo relations
         foreach($record->belongsTo as $name => $definition) {
-            if (! isset($data[$name])) {
+            if (empty($data[$name])) {
                 continue;
             }
 

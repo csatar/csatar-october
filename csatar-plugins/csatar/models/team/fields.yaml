@@ -32,7 +32,6 @@ fields:
     address:
         label: 'csatar.csatar::lang.plugin.admin.general.address'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
@@ -44,7 +43,6 @@ fields:
         mode: date
         maxDate: now
         span: auto
-        required: 1
         type: datepicker
         formBuilder:
             type: field
@@ -54,7 +52,6 @@ fields:
     phone:
         label: 'csatar.csatar::lang.plugin.admin.general.phone'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
@@ -64,7 +61,6 @@ fields:
     email:
         label: 'csatar.csatar::lang.plugin.admin.general.email'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
@@ -92,7 +88,6 @@ fields:
     contact_name:
         label: 'csatar.csatar::lang.plugin.admin.team.contactName'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
@@ -102,7 +97,6 @@ fields:
     contact_email:
         label: 'csatar.csatar::lang.plugin.admin.general.contactEmail'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
@@ -134,7 +128,6 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.team.description'
         size: ''
         span: auto
-        required: 1
         type: textarea
         formBuilder:
             type: field
@@ -175,7 +168,6 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.team.leadershipPresentation'
         size: ''
         span: auto
-        required: 1
         type: textarea
         formBuilder:
             type: field
@@ -184,7 +176,6 @@ fields:
     juridical_person_name:
         label: 'csatar.csatar::lang.plugin.admin.team.juridicalPersonName'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
@@ -194,7 +185,6 @@ fields:
     juridical_person_address:
         label: 'csatar.csatar::lang.plugin.admin.team.juridicalPersonAddress'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
@@ -204,7 +194,6 @@ fields:
     juridical_person_tax_number:
         label: 'csatar.csatar::lang.plugin.admin.team.juridicalPersonTaxNumber'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
@@ -214,7 +203,6 @@ fields:
     juridical_person_bank_account:
         label: 'csatar.csatar::lang.plugin.admin.team.juridicalPersonBankAccount'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
@@ -251,7 +239,6 @@ fields:
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
-        required: 1
         type: relation
         formBuilder:
             type: field
