@@ -27,7 +27,6 @@ fields:
             card: districtData
             position: details
             order: 1
-            default: '-'
     phone:
         label: 'csatar.csatar::lang.plugin.admin.general.phone'
         span: auto
@@ -37,7 +36,6 @@ fields:
             card: districtData
             position: details
             order: 2
-            default: '-'
     email:
         label: 'csatar.csatar::lang.plugin.admin.general.email'
         span: auto
@@ -47,7 +45,6 @@ fields:
             card: districtData
             position: details
             order: 3
-            default: '-'
     website:
         label: 'csatar.csatar::lang.plugin.admin.district.website'
         span: auto
@@ -57,7 +54,6 @@ fields:
             card: districtData
             position: details
             order: 4
-            default: '-'
     facebook_page:
         label: 'csatar.csatar::lang.plugin.admin.district.facebookPage'
         span: auto
@@ -67,7 +63,6 @@ fields:
             card: districtData
             position: details
             order: 5
-            default: '-'
     coordinates:
         label: 'csatar.csatar::lang.plugin.admin.general.coordinates'
         size: ''
@@ -78,7 +73,6 @@ fields:
             card: districtData
             position: details
             order: 6
-            default: '-'
     contact_name:
         label: 'csatar.csatar::lang.plugin.admin.district.contactName'
         span: auto
@@ -88,7 +82,6 @@ fields:
             card: districtData
             position: details
             order: 7
-            default: '-'
     contact_email:
         label: 'csatar.csatar::lang.plugin.admin.general.contactEmail'
         span: auto
@@ -98,7 +91,6 @@ fields:
             card: districtData
             position: details
             order: 8
-            default: '-'
     descriptionData:
         label: 'csatar.csatar::lang.plugin.admin.team.description'
         span: full
@@ -119,7 +111,6 @@ fields:
             type: field
             card: descriptionData
             position: details
-            default: '-'
     leadershipPresentationData:
         label: 'csatar.csatar::lang.plugin.admin.team.leadershipPresentation'
         span: full
@@ -140,7 +131,6 @@ fields:
             type: field
             card: leadershipPresentationData
             position: details
-            default: '-'
     bank_account:
         label: 'csatar.csatar::lang.plugin.admin.district.bankAccount'
         span: auto
@@ -150,7 +140,6 @@ fields:
             card: districtData
             position: details
             order: 9
-            default: '-'
     logo:
         label: 'csatar.csatar::lang.plugin.admin.general.logo'
         mode: image
@@ -178,5 +167,4 @@ fields:
             type: field
             card: districtData
             position: subtitle
-            default: '-'
             readOnlyIfPreselected: true

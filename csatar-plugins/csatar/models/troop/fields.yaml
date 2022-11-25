@@ -27,7 +27,6 @@ fields:
             card: troopData
             position: details
             order: 1
-            default: '-'
     website:
         label: 'csatar.csatar::lang.plugin.admin.troop.website'
         span: auto
@@ -37,7 +36,6 @@ fields:
             card: troopData
             position: details
             order: 2
-            default: '-'
     facebook_page:
         label: 'csatar.csatar::lang.plugin.admin.troop.facebookPage'
         span: auto
@@ -47,7 +45,6 @@ fields:
             card: troopData
             position: details
             order: 3
-            default: '-'
     logo:
         label: 'csatar.csatar::lang.plugin.admin.general.logo'
         mode: image

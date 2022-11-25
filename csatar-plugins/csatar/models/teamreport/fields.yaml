@@ -40,7 +40,6 @@ fields:
             type: field
             card: scoutingYearReportData
             position: details
-            default: '-'
             order: 1
     scouting_year_report_homesteading:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.scouting_year_report_homesteading'
@@ -51,7 +50,6 @@ fields:
             type: field
             card: scoutingYearReportData
             position: details
-            default: '-'
             order: 2
     scouting_year_report_programs:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.scouting_year_report_programs'
@@ -62,7 +60,6 @@ fields:
             type: field
             card: scoutingYearReportData
             position: details
-            default: '-'
             order: 3
     scouting_year_team_applications:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.scouting_year_team_applications'
@@ -73,7 +70,6 @@ fields:
             type: field
             card: scoutingYearReportData
             position: details
-            default: '-'
             order: 4
     spiritual_leader_name:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.spiritual_leader_name'
@@ -84,7 +80,6 @@ fields:
             card: teamReportData
             position: details
             order: 1
-            default: '-'
     spiritual_leader_religion:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.spiritual_leader_religion_id'
         nameFrom: name
@@ -98,7 +93,6 @@ fields:
             card: teamReportData
             position: details
             order: 2
-            default: '-'
     spiritual_leader_occupation:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.spiritual_leader_occupation'
         span: auto
@@ -108,4 +102,3 @@ fields:
             card: teamReportData
             position: details
             order: 3
-            default: '-'
