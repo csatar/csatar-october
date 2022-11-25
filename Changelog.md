@@ -6,6 +6,7 @@
 - CS-302 - Reorganized navigation to fit more items, modified hamburger menu so it is activated on tablet view
 - CS-320 - Simplified scout's page. Removed section names from labels.
 - CS-378 - Created csv import-export for permissions matrix.
+- CS-393 - Don't show the QR code for those who already activated 2FA
 
 ## 1.6.0
 ### 2022-11-03

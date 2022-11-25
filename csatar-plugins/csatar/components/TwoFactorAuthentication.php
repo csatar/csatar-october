@@ -14,6 +14,7 @@ class TwoFactorAuthentication extends ComponentBase
     private $google2FA;
     public $qrCodeData;
     public $is2FAuthenticated;
+    public $activated2FA;
 
     public function componentDetails()
     {
@@ -63,6 +64,7 @@ class TwoFactorAuthentication extends ComponentBase
         $this->userSecretKey = $scout->google_two_fa_secret_key;
         $this->qrCodeData = $this->google2FA->getQRCodeData('RMCSSZ', $scout->getFullName(), $this->userSecretKey, 300);
         $this->is2FAuthenticated = $this->is2FAuthenticated();
+        $this->activated2FA = isset($scout->google_two_fa_secret_key);
     }
 
     private function is2FAuthenticated()
