@@ -137,7 +137,7 @@ name = "Team Report layout"
                 <td>{{ scout.legal_relationship.name }}</td>
                 <td>{{ scout.leadership_qualification.name }}</td>
                 <td>{{ scout.ecset_code }}</td>
-                <td>{{ scout.membership_fee ~ ' ' ~ teamReport.currency.code }}</td>
+                <td>{{ scout.pivot.membership_fee ~ ' ' ~ teamReport.currency.code }}</td>
             </tr>
             {% endfor %}
         </tbody>
@@ -153,7 +153,7 @@ name = "Team Report layout"
             <td>{{ 'Csapatfenntartói díj'|_}}: {{ teamReport.team_fee }} {{ teamReport.currency.code }}</td>
         </tr>
         <tr>
-            <td>{{ 'Befizetendő összeg'|_}}: {{ teamReport.totalAmount }} {{ teamReport.currency.code }}</td>
+            <td>{{ 'Befizetendő összeg'|_}}: {{ teamReport.total_amount }} {{ teamReport.currency.code }}</td>
         </tr>
     </table>
 </body>
