@@ -363,4 +363,13 @@ class BasicForm extends ComponentBase  {
     {
         return !empty($this->currentUserRights) && $this->currentUserRights->has($attribute);
     }
+
+    private function shouldIgnoreUserRights($attribute, $fieldsConfig): bool
+    {
+        if (isset($fieldsConfig[$attribute]['formBuilder']['ignoreUserRights']) && $fieldsConfig[$attribute]['formBuilder']['ignoreUserRights'] == 1) {
+            return true;
+        }
+
+        return false;
+    }
 }

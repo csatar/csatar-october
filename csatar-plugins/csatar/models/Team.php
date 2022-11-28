@@ -2,6 +2,7 @@
 
 use Lang;
 use Csatar\Csatar\Models\OrganizationBase;
+use Csatar\Csatar\Models\Scout;
 
 /**
  * Model
@@ -20,10 +21,10 @@ class Team extends OrganizationBase
      */
     protected static $searchable = ['name'];
 
+    public const INACTIVE = 0;
     public const ACTIVE = 1;
-    public const INACTIVE = 2;
-    public const SUSPENDED = 3;
-    public const FORMING = 4;
+    public const SUSPENDED = 2;
+    public const FORMING = 3;
 
     /**
      * @var array Validation rules
@@ -127,6 +128,10 @@ class Team extends OrganizationBase
         'district_id',
     ];
 
+    protected $casts = [
+        'status' => 'integer',
+    ];
+
     /**
      * Relations
      */
@@ -176,6 +181,12 @@ class Team extends OrganizationBase
     {
         $filterWords = explode(',', Lang::get('csatar.csatar::lang.plugin.admin.team.filterOrganizationUnitNameForWords'));
         $this->name = $this->filterNameForWords($this->name, $filterWords);
+    }
+
+    public function afterSave() {
+        if ($this->status != $this->original['status'] && $this->original['status'] == self::ACTIVE) {
+            Scout::where(['team_id' => $this->id, 'is_active' => 1])->update(['is_active' => 0]);
+        }
     }
 
     public static function getStatusOptions(){
