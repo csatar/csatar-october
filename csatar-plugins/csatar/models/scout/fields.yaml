@@ -34,7 +34,6 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.scout.troop'
         nameFrom: extendedName
         descriptionFrom: description
-        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         dependsOn: team
         span: auto
         type: dropdown
@@ -47,7 +46,6 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.scout.patrol'
         nameFrom: extendedName
         descriptionFrom: description
-        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         dependsOn:
             - team
             - troop

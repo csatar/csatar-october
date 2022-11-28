@@ -147,11 +147,14 @@ class Scout extends OrganizationBase
      */
     public $rules = [
         'team' => 'required',
+        'troop' => 'nullable',
+        'patrol' => 'nullable',
         'phone' => 'nullable|regex:(^[0-9+-.()]{10,}$)',
         'birthdate' => 'required',
         'legal_representative_phone' => 'regex:(^[0-9+-.()]{10,}$)',
         'mothers_phone' => 'regex:(^[0-9+-.()]{10,}$)',
         'fathers_phone' => 'regex:(^[0-9+-.()]{10,}$)',
+        'email' => 'email|nullable',
         'mothers_email' => 'email|nullable',
         'fathers_email' => 'email|nullable',
         'legal_representative_email' => 'email|nullable',
@@ -223,7 +226,7 @@ class Scout extends OrganizationBase
                     ($this->troop_id &&                                     // a Troop is set as well
                         (!$this->patrol->troop ||                           // the Patrol does not belong to any Troop
                             $this->patrol->troop->id != $this->troop_id)))) {   // the Patrol belongs to a different Troop than the one selected
-                throw new \ValidationException(['troop' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.troopNotInTheTeamOrTroop')]);
+                throw new \ValidationException(['patrol' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.troopNotInTheTeamOrTroop')]);
             }
 
             // check that the birthdate is not in the future
@@ -289,6 +292,7 @@ class Scout extends OrganizationBase
             $fields->troop->options = [];
             $team_id = $this->team_id;
             if ($team_id) {
+                $fields->troop->options += ['null' => e(trans('csatar.csatar::lang.plugin.admin.general.select'))];
                 foreach (\Csatar\Csatar\Models\Troop::teamId($team_id)->get() as $troop) {
                     $fields->troop->options += [$troop['id'] => $troop['extendedName']];
                 }
@@ -299,7 +303,8 @@ class Scout extends OrganizationBase
         if (isset($fields->patrol)) {
             $fields->patrol->options = [];
             $troop_id = $this->troop_id;
-            if ($troop_id) {
+            $fields->patrol->options += ['null' => e(trans('csatar.csatar::lang.plugin.admin.general.select'))];
+            if ($troop_id && $troop_id != 'null') { // important, 'null' is string at this point
                 foreach (\Csatar\Csatar\Models\Patrol::troopId($troop_id)->get() as $patrol) {
                     $fields->patrol->options += [$patrol['id'] => $patrol['extendedName']];
                 }

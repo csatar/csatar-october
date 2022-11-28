@@ -735,6 +735,9 @@ trait AjaxControllerSimple {
     }
 
     private function getRecord() {
+        if (!empty($this->record)) {
+            return $this->record;
+        }
         $form       = Form::find($this->formId ?? Input::get('formId'));
         $modelName  = $form->getModelName();
         $key        = $this->recordKeyParam ?? Input::get('recordKeyParam');
@@ -1015,15 +1018,14 @@ trait AjaxControllerSimple {
      */
     public function autoLoadBelongsToRelations(&$record) {
 
-        if (($this->recordKeyValue ?? Input::get('recordKeyValue')) != $this->createRecordKeyword) {
-            return; // do not autoload values if not a new record
-        }
-
         // Autoload belongsTo relations
         foreach ($record->belongsTo as $name => $definition) {
 
             if (empty($_POST[$name]) && empty($_POST['data'][$name])) {
-                if (!empty($definition['formBuilder']['requiredBeforeRender']) && $definition['formBuilder']['requiredBeforeRender']) {
+                if (!empty($definition['formBuilder']['requiredBeforeRender'])
+                    && $definition['formBuilder']['requiredBeforeRender']
+                    && empty($record->{$name . '_id'})
+                ) {
                     \App::abort(403, 'Access denied');
                 };
                 continue;
