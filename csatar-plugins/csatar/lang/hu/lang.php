@@ -519,6 +519,14 @@
                 'admin' => 'Baleseti log adminisztrátor',
             ],
         ],
+        'locations' => [
+            'country' => 'Ország',
+            'county' => 'Megye',
+            'city' => 'Város',
+            'street_type' => 'Utca típus',
+            'street' => 'Utca',
+            'code' => 'Irányitószám',
+        ],
         'component' => [
             'general' => [
                 'validationExceptions' => [

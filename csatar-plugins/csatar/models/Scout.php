@@ -336,7 +336,7 @@ class Scout extends OrganizationBase
             ],
         ],
         'troop' => '\Csatar\Csatar\Models\Troop',
-        'patrol' => '\Csatar\Csatar\Models\Patrol',
+        'patrol' => '\Csatar\Csatar\Models\Patrol'
     ];
 
     public $belongsToMany = [
@@ -821,5 +821,37 @@ class Scout extends OrganizationBase
     {
         $this->accepted_at = new \DateTime();
         return $this->save();
+    }
+
+    public function getAddressCountyOptions()
+    {
+        echo ($this->address_zipcode);
+        return Locations::where('country', '=', $this->address_country)->where('code', '=', $this->address_zipcode)->lists('county');
+    }
+
+    public function getAddressCountyDefaultAttribute()
+    {
+        return 2;
+    }
+
+    public function getAddressLocationOptions()
+    {
+        echo ($this->address_county);
+        return Locations::where('country', '=', $this->address_country)->where('code', '=', $this->address_zipcode)->where('county', '=', $this->address_county)->lists('city');
+    }
+
+    public function getAddressLocationDefaultAttribute()
+    {
+        return 2;
+    }
+
+    public function getAddressStreetOptions()
+    {
+        return Locations::where('country', '=', $this->address_country)->where('code', '=', $this->address_zipcode)->where('county', '=', $this->address_county)->where('city', '=', $this->address_location)->lists('street') ?? [];
+    }
+
+    public function getAddressStreetDefaultAttribute()
+    {
+        return 2;
     }
 }
