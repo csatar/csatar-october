@@ -186,4 +186,6 @@
 1.0.65:
     - 'Change columns to nullable in associations, districts, scouts, team_reports'
     - made_columns_nullable.php
-
+1.0.66:
+    - 'Updated table csatar_csatar_teams'
+    - builder_table_update_csatar_csatar_teams.php

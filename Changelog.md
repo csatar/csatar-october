@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-399 - Added and implemented status field to team
 - CS-326 - Finalized team report pdf download
 - CS-395 - Made database fields and attributes nullable
 - CS-38 - Import Scouts from ECSET.
