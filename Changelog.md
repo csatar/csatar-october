@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-351 - Extended backend mandates list with "mandate_model_name", "mandate_team", "scout_team" columns and added filters for every column
 - CS-326 - Finalized team report pdf download
 - CS-395 - Made database fields and attributes nullable
 - CS-38 - Import Scouts from ECSET.

@@ -6,12 +6,26 @@ columns:
         relation: mandate_type
         scope: association
         valueFrom: name
+    mandate_model_name:
+        label: 'csatar.csatar::lang.plugin.admin.mandateType.organizationTypeModelName'
+        span: auto
+        type: text
+    mandate_team:
+        label: 'csatar.csatar::lang.plugin.admin.team.team'
+        type: text
+        searchable: false
+        sortable: false
     scout:
         label: 'csatar.csatar::lang.plugin.admin.mandateType.scout'
         relation: scout
         valueFrom: name
         descriptionFrom: description
-        searchable: true
+        searchable: false
+        sortable: false
+    scout_team:
+        label: 'csatar.csatar::lang.plugin.admin.scout.scoutTeam'
+        type: text
+        searchable: false
         sortable: false
     start_date:
         label: 'csatar.csatar::lang.plugin.admin.mandateType.startDate'

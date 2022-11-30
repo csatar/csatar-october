@@ -483,6 +483,7 @@
                 'endDate' => 'End date',
                 'breadcrumb' => 'Mandate types',
                 'activeMandateDeleteError' => 'There exist active Mandates of %name type, thus this Mandate type cannot be deleted.',
+                'scoutTeam' => 'Scout\'s team',
             ],
             'mandate' => [
                 'mandate' => 'Mandate',
