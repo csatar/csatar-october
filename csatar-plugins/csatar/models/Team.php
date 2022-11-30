@@ -2,6 +2,7 @@
 
 use Lang;
 use Csatar\Csatar\Models\OrganizationBase;
+use Csatar\Csatar\Models\Scout;
 
 /**
  * Model
@@ -19,6 +20,11 @@ class Team extends OrganizationBase
      * @var array The columns that should be searchable by ContentPageSearchProvider
      */
     protected static $searchable = ['name'];
+
+    public const INACTIVE = 0;
+    public const ACTIVE = 1;
+    public const SUSPENDED = 2;
+    public const FORMING = 3;
 
     /**
      * @var array Validation rules
@@ -77,6 +83,7 @@ class Team extends OrganizationBase
      */
     public $fillable = [
         'name',
+        'status',
         'team_number',
         'address',
         'foundation_date',
@@ -100,6 +107,7 @@ class Team extends OrganizationBase
     ];
 
     protected $nullable = [
+        'status',
         'address',
         'foundation_date',
         'phone',
@@ -118,6 +126,10 @@ class Team extends OrganizationBase
         'juridical_person_bank_account',
         'home_supplier_name',
         'district_id',
+    ];
+
+    protected $casts = [
+        'status' => 'integer',
     ];
 
     /**
@@ -169,6 +181,21 @@ class Team extends OrganizationBase
     {
         $filterWords = explode(',', Lang::get('csatar.csatar::lang.plugin.admin.team.filterOrganizationUnitNameForWords'));
         $this->name = $this->filterNameForWords($this->name, $filterWords);
+    }
+
+    public function afterSave() {
+        if ($this->status != $this->original['status'] && $this->original['status'] == self::ACTIVE) {
+            Scout::where(['team_id' => $this->id, 'is_active' => 1])->update(['is_active' => 0]);
+        }
+    }
+
+    public static function getStatusOptions(){
+        return [
+            self::ACTIVE => e(trans('csatar.csatar::lang.plugin.admin.team.active')),
+            self::INACTIVE => e(trans('csatar.csatar::lang.plugin.admin.team.inActive')),
+            self::SUSPENDED => e(trans('csatar.csatar::lang.plugin.admin.team.suspended')),
+            self::FORMING => e(trans('csatar.csatar::lang.plugin.admin.team.forming')),
+        ];
     }
 
     /**
