@@ -41,6 +41,7 @@
                 'no' => 'Nem',
                 'url' => 'URL',
                 'warning' => 'FIGYELEM',
+                'status' => 'Státusz',
             ],
             'ageGroups' => [
                 'ageGroups' => 'Korosztályok',
@@ -158,6 +159,7 @@
                     'personalDataNotAccepted' => 'Kérlek ellenőrizd, hogy helyesek-e a személyes adataid itt!',
                 ],
                 'activeMandateDeleteError' => 'A(z) %name nevű Tagnak létezik aktív Megbízatása, így ez a Tag nem törölhető.',
+                'scoutTeam' => 'Tag csapata',
             ],
             'admin' => [
                 'menu' => [
@@ -395,6 +397,10 @@
                 'dateInTheFutureError' => 'A dátum nem lehet a jövőben.',
                 'organizationUnitNameWarning' => 'A csapat neve nem tartalmazhatja a "csapat" szót.',
                 'filterOrganizationUnitNameForWords' => 'cserkészcsapat, csapat',
+                'active' => 'Aktív',
+                'inActive' => 'Megszünt',
+                'suspended' => 'Szünetelő',
+                'forming' => 'Alakuló/újraalakuló',
             ],
             'troop' => [
                 'troop' => 'Raj',

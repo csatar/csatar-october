@@ -30,4 +30,12 @@ See the [Docker](setup/dev/Readme.md) based environment setup.
 5. If the Beacon status is Unreachable press the Check Beacon button, if everything is right the status will be change to Active
 6. Press the Deploy to Server button, in the popup window check the plugins/theme that are modified with your changes. Anything else remains unchecked.
 7. Press the Deploy button
+
+### PDF template updates
+
+PDF templates for the "Renatio Dynamic PDF Plugin" are loaded to database on the first use of the plugin. 
+Once they are accessible from backend on `/admin/renatio/dynamicpdf/templates/update/` and `admin/renatio/dynamicpdf/layouts/update` pages,
+any changes to documents `csatar-plugins/csatar/views/pdf/teamreporttemplate.htm` and `csatar-plugins/csatar/views/pdf/layouts/teamreportlayout.htm`
+are not loaded automatically and will have no effect to the downloaded PDF-s. To apply the changes, click the red "Default" button,
+located in the bottom right corner of the above-mentioned backend pages.
     

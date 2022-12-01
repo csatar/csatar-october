@@ -1,13 +1,15 @@
 <?php namespace Csatar\Csatar\Components;
 
-use Input;
-use Lang;
-use Redirect;
 use Cms\Classes\ComponentBase;
 use Csatar\Csatar\Models\District;
 use Csatar\Csatar\Models\Scout;
 use Csatar\Csatar\Models\Team;
 use Csatar\Forms\Components\BasicForm;
+use Input;
+use Lang;
+use Redirect;
+use Response;
+use Renatio\DynamicPDF\Classes\PDF;
 
 class TeamReport extends ComponentBase
 {
@@ -142,5 +144,34 @@ class TeamReport extends ComponentBase
             return Redirect::to('/csapatjelentesek/elfogadasravaro');
         }
         return Redirect::to('/csapatjelentes/' . $this->id);
+    }
+
+    public function onDownloadPdf(){
+
+        if (!$id = Input::get('id')) {
+            return;
+        }
+
+        $fileName = $this->generatePdf($id);
+
+        return Redirect::to("/csapatjelentes-letoltes/$fileName");
+    }
+
+    public function generatePdf(int $teamReportId) {
+        $templateCode = 'csatar.csatar::pdf.teamreporttemplate'; // unique code of the template
+
+        $teamReport = \Csatar\Csatar\Models\TeamReport::find($teamReportId);
+
+        $data = [
+            'css' => \File::get(plugins_path('csatar/csatar/assets/teamReportPdf.css')),
+            'teamReport' => $teamReport
+        ];
+
+        $fileName = $teamReport->team->id . '-teamreport.pdf';
+        PDF::loadTemplate($templateCode, $data)
+            ->setOption(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])
+            ->save(temp_path($fileName));
+
+        return $fileName;
     }
 }

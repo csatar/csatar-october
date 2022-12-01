@@ -557,7 +557,7 @@ trait AjaxControllerSimple {
             }
         }
 
-        $rules = $this->addRequiredRuleBasedOnUserRights($record->rules, $this->currentUserRights, $isNew);
+        $rules = $this->addRequiredRuleBasedOnUserRights($record->rules, $this->currentUserRights);
 
         $validation = Validator::make(
             $data,
@@ -579,7 +579,7 @@ trait AjaxControllerSimple {
             throw new \ValidationException($validation);
         }
 
-        $data = $this->filterDataBasedOnUserRightsBeforeSave($data, $isNew);
+        $data = $this->filterDataBasedOnUserRightsBeforeSave($data, $config->fields, $isNew);
 
         // Resolve belongsTo relations
         foreach($record->belongsTo as $name => $definition) {
@@ -735,6 +735,9 @@ trait AjaxControllerSimple {
     }
 
     private function getRecord() {
+        if (!empty($this->record)) {
+            return $this->record;
+        }
         $form       = Form::find($this->formId ?? Input::get('formId'));
         $modelName  = $form->getModelName();
         $key        = $this->recordKeyParam ?? Input::get('recordKeyParam');
@@ -1015,15 +1018,14 @@ trait AjaxControllerSimple {
      */
     public function autoLoadBelongsToRelations(&$record) {
 
-        if (($this->recordKeyValue ?? Input::get('recordKeyValue')) != $this->createRecordKeyword) {
-            return; // do not autoload values if not a new record
-        }
-
         // Autoload belongsTo relations
         foreach ($record->belongsTo as $name => $definition) {
 
             if (empty($_POST[$name]) && empty($_POST['data'][$name])) {
-                if (!empty($definition['formBuilder']['requiredBeforeRender']) && $definition['formBuilder']['requiredBeforeRender']) {
+                if (!empty($definition['formBuilder']['requiredBeforeRender'])
+                    && $definition['formBuilder']['requiredBeforeRender']
+                    && empty($record->{$name . '_id'})
+                ) {
                     \App::abort(403, 'Access denied');
                 };
                 continue;
@@ -1139,7 +1141,7 @@ trait AjaxControllerSimple {
     /**
      * Filters posted data array, run before $record->save();
      */
-    private function filterDataBasedOnUserRightsBeforeSave(array $data, bool $isNewRecord = false): array
+    private function filterDataBasedOnUserRightsBeforeSave(array $data, $fieldsConfig, bool $isNewRecord = false ): array
     {
         // This function is needed because at the time of rendering the form user rights are loaded from session,
         // but before save we confirm the rights from database, and if there were changes, not-allowed data should not be saved.
@@ -1152,6 +1154,10 @@ trait AjaxControllerSimple {
 
         if ($isNewRecord) { //if it's a new record, we care only about create right
             foreach ($data as $attribute => $value) {
+                if ($this->shouldIgnoreUserRights($attribute, $fieldsConfig)) {
+                    continue;
+                }
+
                 if (!$this->canCreate($attribute)) {
                     unset($data[$attribute]);
                 }
@@ -1160,6 +1166,9 @@ trait AjaxControllerSimple {
 
         if (!$isNewRecord) { //if updating an existing record we don't care about create right
             foreach ($data as $attribute => $value) {
+                if ($this->shouldIgnoreUserRights($attribute, $fieldsConfig)) {
+                    continue;
+                }
                 //if user can delete attribute, but he is not allowed to update it, accept only empty value for the attribute
                 if ($this->canDelete($attribute) && !$this->canUpdate($attribute)) {
                     if (!empty($value) && $value != $this->record->{$attribute}){

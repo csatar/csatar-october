@@ -1,0 +1,160 @@
+name = "Team Report layout"
+==
+
+
+==
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Document</title>
+    <style type="text/css" media="screen">
+        {{ css|raw }}
+    </style>
+</head>
+<body>
+    <header>
+        <img class="logo" src="{{ 'assets/images/android-chrome-192x192.png' | theme }}" >
+        <div>{{ teamReport.team.association.name }}</div>
+        <div>{{ teamReport.team.association.address }}</div>
+    </header>
+    <footer>
+        <p class="page_number"></p>
+    </footer>
+    <div class="title">
+        <h3>{{ 'Csapatjelentés a'|_ }} {{ teamReport.year }} {{ 'cserkész évre' }}</h3>
+    </div>
+
+    <table class="no-border">
+        <tr>
+            <th colspan="2">{{ 'Csapat adatai'|_ }}</th>
+        </tr>
+        <tr>
+            <td>{{ 'Szövetség'|_ }}:</td>
+            <td>{{ teamReport.team.association.name }}</td>
+        </tr>
+        <tr>
+            <td>{{ 'Közet'|_ }}:</td>
+            <td>{{ teamReport.team.district.extendedName }}</td>
+        </tr>
+        <tr>
+            <td>{{ 'Csapatszám'|_ }}:</td>
+            <td>{{ teamReport.team.team_number }}</td>
+        </tr>
+        <tr>
+            <td>{{ 'Csapatnév'|_ }}:</td>
+            <td>{{ teamReport.team.name }}</td>
+        </tr>
+        <tr>
+            <td>{{ 'Csapat lelki vezetője'|_}}:</td>
+            <td>{{ teamReport.spiritual_leader_name }}</td>
+        </tr>
+        <tr>
+            <td>{{ 'Csapat lelki vezetőjének felekezete'|_}}:</td>
+            <td>{{ teamReport.spiritual_leader_religion.name }}</td>
+        </tr>
+        <tr>
+            <td>{{ 'Csapat lelki vezetőjének foglalkozás'|_}}:</td>
+            <td>{{ teamReport.spiritual_leader_occupation }}</td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <table>
+        <tr>
+            <th>{{ 'Előző cserkérkészév beszámoló (csapat tábor)'|_ }}</th>
+        </tr>
+        <tr>
+            <td>{{ teamReport.scouting_year_report_team_camp }}</td>
+        </tr>
+    </table>
+
+    <table>
+        <tr>
+            <th>{{ 'Előző cserkérkészév beszámoló (tanyázás)'|_ }}</th>
+        </tr>
+        <tr>
+            <td>{{ teamReport.scouting_year_report_homesteading }}</td>
+        </tr>
+    </table>
+
+    <table>
+        <tr>
+            <th>{{ 'Előző cserkészév beszámoló (programok)'|_ }}</th>
+        </tr>
+        <tr>
+            <td>{{ teamReport.scouting_year_report_programs }}</td>
+        </tr>
+    </table>
+
+    <table>
+        <tr>
+            <th>{{ 'Előző cserkészév csapat pályázatai'|_ }}</th>
+        </tr>
+        <tr>
+            <td>{{ teamReport.scouting_year_team_applications }}</td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <h4>{{ 'Korosztályok'|_}}:</h4>
+
+    <table>
+        <thead>
+            <tr>
+                <th>{{ 'Név'|_ }}</th>
+                <th>{{ 'Őrsök száma a korosztályban'|_ }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ageGroup in teamReport.ageGroups %}
+            <tr>
+                <td>{{ ageGroup.name }}</td>
+                <td>{{ ageGroup.pivot.number_of_patrols_in_age_group }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h4>{{ 'Tagok'|_}}:</h4>
+
+    <table>
+        <thead>
+            <tr>
+                <th>{{ 'Név'|_ }}</th>
+                <th>{{ 'Jogviszony'|_ }}</th>
+                <th>{{ 'Képesítés'|_ }}</th>
+                <th>{{ 'Igazolványszám'|_ }}</th>
+                <th>{{ 'Tagdíj értéke'|_ }}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for scout in teamReport.scouts %}
+            <tr>
+                <td>{{ scout.name }}</td>
+                <td>{{ scout.legal_relationship.name }}</td>
+                <td>{{ scout.leadership_qualification.name }}</td>
+                <td>{{ scout.ecset_code }}</td>
+                <td>{{ scout.pivot.membership_fee ~ ' ' ~ teamReport.currency.code }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <hr>
+
+    <table>
+        <tr>
+            <td>{{ 'Tagok száma'|_}}: {{ teamReport.scouts|length }}</td>
+        </tr>
+        <tr>
+            <td>{{ 'Csapatfenntartói díj'|_}}: {{ teamReport.team_fee }} {{ teamReport.currency.code }}</td>
+        </tr>
+        <tr>
+            <td>{{ 'Befizetendő összeg'|_}}: {{ teamReport.total_amount }} {{ teamReport.currency.code }}</td>
+        </tr>
+    </table>
+</body>
+</html>
