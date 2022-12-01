@@ -1,5 +1,6 @@
 <?php namespace Csatar\Csatar\Models;
 
+use Csatar\Csatar\Classes\Enums\Status;
 use Lang;
 use Csatar\Csatar\Models\OrganizationBase;
 
@@ -53,6 +54,7 @@ class District extends OrganizationBase
         'bank_account',
         'association_id',
         'logo',
+        'slug',
     ];
 
     /**
@@ -115,6 +117,14 @@ class District extends OrganizationBase
     {
         $filterWords = explode(',', Lang::get('csatar.csatar::lang.plugin.admin.district.filterOrganizationUnitNameForWords'));
         $this->name = $this->filterNameForWords($this->name, $filterWords);
+
+        $this->generateSlugIfEmpty();
+    }
+
+    public function generateSlugIfEmpty() {
+        if (empty($this->slug)) {
+            $this->slug = str_slug($this->association->name_abbreviation) . '/' . str_slug($this->name) . '-korzet';
+        }
     }
 
     /**
@@ -128,6 +138,13 @@ class District extends OrganizationBase
             ->where('csatar_csatar_teams.id', $teamId)
             ->first();
         return [$item->district_id => $item->extendedName];
+    }
+
+    public static function getStatusOptions(){
+        return [
+            Status::ACTIVE => e(trans('csatar.csatar::lang.plugin.admin.general.active')),
+            Status::INACTIVE => e(trans('csatar.csatar::lang.plugin.admin.general.inActive')),
+        ];
     }
 
     /**

@@ -51,6 +51,10 @@ class OrganizationBase extends PermissionBasedAccess
 
     public function validateRequiredMandates($data)
     {
+        if ($this->ignoreValidation) {
+            return;
+        }
+
         if (!array_key_exists('id', $data) || Input::get('recordKeyValue') == 'new' || $this->ignoreValidation) {
             return;
         }
