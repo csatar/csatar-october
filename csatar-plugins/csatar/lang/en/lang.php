@@ -636,6 +636,7 @@
                 'description' => 'Enables two factor authentication.',
                 'twoFactorAuthFailed' => 'Authentication failed, please try again!',
                 'twoFactorAuthSuccess' => 'Authentication successful, thank you!',
+                'reset' => 'Reset Two Factor Authentication',
             ],
             'accidentLog' => [
                 'accidentLog' => 'Accident Log',

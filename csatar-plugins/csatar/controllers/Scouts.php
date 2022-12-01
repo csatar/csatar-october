@@ -16,4 +16,9 @@ class Scouts extends Controller
         parent::__construct();
         BackendMenu::setContext('Csatar.Csatar', 'main-menu-item-scout');
     }
+
+    public function onResetFA()
+    {
+        dd($this, \Input::all());
+    }
 }
