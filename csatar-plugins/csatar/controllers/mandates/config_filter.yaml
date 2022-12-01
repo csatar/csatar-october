@@ -56,4 +56,4 @@ scopes:
     end_date:
         label: 'csatar.csatar::lang.plugin.admin.mandateType.endDate'
         type: date
-        conditions: end_date <= ':filtered'
+        conditions: end_date <= ':filtered' OR end_date IS NULL
