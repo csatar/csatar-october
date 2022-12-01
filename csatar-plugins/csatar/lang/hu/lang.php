@@ -159,6 +159,7 @@
                     'personalDataNotAccepted' => 'Kérlek ellenőrizd, hogy helyesek-e a személyes adataid itt!',
                 ],
                 'activeMandateDeleteError' => 'A(z) %name nevű Tagnak létezik aktív Megbízatása, így ez a Tag nem törölhető.',
+                'scoutTeam' => 'Tag csapata',
             ],
             'admin' => [
                 'menu' => [

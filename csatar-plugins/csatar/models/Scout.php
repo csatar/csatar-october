@@ -147,11 +147,14 @@ class Scout extends OrganizationBase
      */
     public $rules = [
         'team' => 'required',
+        'troop' => 'nullable',
+        'patrol' => 'nullable',
         'phone' => 'nullable|regex:(^[0-9+-.()]{10,}$)',
         'birthdate' => 'required',
         'legal_representative_phone' => 'regex:(^[0-9+-.()]{10,}$)',
         'mothers_phone' => 'regex:(^[0-9+-.()]{10,}$)',
         'fathers_phone' => 'regex:(^[0-9+-.()]{10,}$)',
+        'email' => 'email|nullable',
         'mothers_email' => 'email|nullable',
         'fathers_email' => 'email|nullable',
         'legal_representative_email' => 'email|nullable',
@@ -213,14 +216,14 @@ class Scout extends OrganizationBase
             }
 
             // if the selected troop does not belong to the selected team, then throw and exception
-            if ($this->troop_id && $this->troop->team->id != $this->team_id) {
+            if ($this->troop && $this->troop->team->id != $this->team_id) {
                 throw new \ValidationException(['troop' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.troopNotInTheTeam')]);
             }
 
             // if the selected patrol does not belong to the selected team or to the selected troop, then throw and exception
-            if ($this->patrol_id &&                                             // a Patrol is set
+            if ($this->patrol &&                                             // a Patrol is set
                 ($this->patrol->team->id != $this->team_id ||               // the Patrol does not belong to the selected Team
-                    ($this->troop_id &&                                     // a Troop is set as well
+                    ($this->troop &&                                     // a Troop is set as well
                         (!$this->patrol->troop ||                           // the Patrol does not belong to any Troop
                             $this->patrol->troop->id != $this->troop_id)))) {   // the Patrol belongs to a different Troop than the one selected
                 throw new \ValidationException(['patrol' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.troopNotInTheTeamOrTroop')]);
@@ -788,14 +791,40 @@ class Scout extends OrganizationBase
     public function getScoutOptions($scopes = null){
         if (!empty($scopes['association']->value)) {
             return self::associations(array_keys($scopes['association']->value))
-                ->select(Db::raw("concat(family_name, ' - ', given_name) as name, id"))
-                 ->lists('name', 'id')
-                ;
+                ->select(DB::raw("CONCAT(ifnull(family_name, ''), ' ', ifnull(given_name, '')) AS fullname, id"))
+                ->lists('fullname', 'id');
+        }
+        else {
+            return self::select(DB::raw("CONCAT(ifnull(family_name, ''), ' ', ifnull(given_name, '')) AS fullname, id"))
+                ->lists('fullname', 'id');
+        }
+    }
+
+    public function getScoutTeamOptions($scopes = null){
+        if (!empty($scopes['association']->value)) {
+            return self::associations(array_keys($scopes['association']->value))
+                ->get()
+                ->filter(function ($item) {
+                    if (!empty($item->team)) {
+                        return $item;
+                    }
+                })
+                ->map(function ($item) {
+                    return [ 'name' => $item->team->extended_Name, 'id' => $item->team->id ];
+                })
+                ->pluck('name', 'id')->toArray();
         }
         else {
             return self::all()
-                ->select(Db::raw("concat(family_name, ' - ', given_name) as name, id"))
-                ->lists('name', 'id');
+                ->filter(function ($item) {
+                    if (!empty($item->team)) {
+                        return $item;
+                    }
+                })
+                ->map(function ($item) {
+                    return [ 'name' => $item->team->extended_Name, 'id' => $item->id ];
+                })
+                ->pluck('name', 'id')->toArray();
         }
     }
 
