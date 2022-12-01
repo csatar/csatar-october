@@ -1,17 +1,21 @@
 <div id="editForm">
 {{ form_ajax('onSaveGallery', {update: {'csatargallery::galleryImages': '#galleries'}, files: true, flash: true, validate: true }) }}
-    <label for="name" class="form-label">{{ 'Cím' | _ }} <span class="text-danger">*</span></label>
-    <input type="text" name="name" id="name" class="form-control rounded" value="{{ gallery.name }}" maxlength="64">
-    <span data-validate-for="name" class="errormsg"></span><br>
+    <div class="row">
+        <div class="col-12 col-md-6">
+            <label for="name" class="form-label">{{ 'Cím' | _ }} <span class="text-danger">*</span></label>
+            <input type="text" name="name" id="name" class="form-control rounded" value="{{ gallery.name }}" maxlength="64">
+            <span data-validate-for="name" class="errormsg"></span><br>
 
-    <label for="description" class="form-label">{{ 'Leírás' | _ }}</label>
-    <input type="text" name="description" id="description" class="form-control rounded" value="{{ gallery.description }}" maxlength="255">
-    <span data-validate-for="description" class="errormsg"></span><br>
+            <label for="description" class="form-label">{{ 'Leírás' | _ }}</label>
+            <input type="text" name="description" id="description" class="form-control rounded" value="{{ gallery.description }}" maxlength="255">
+            <span data-validate-for="description" class="errormsg"></span><br>
 
-    <input type="checkbox" name="is_public" id="is_public" class="form-check-input me-2" {% if gallery.is_public %}checked {% endif %}>
-    <label for="is_public" class="form-check-label">{{ 'Publikus' | _ }}</label><br><br>
+            <input type="checkbox" name="is_public" id="is_public" class="form-check-input me-2" {% if gallery.is_public %}checked {% endif %}>
+            <label for="is_public" class="form-check-label">{{ 'Publikus' | _ }}</label><br><br>
 
-    <input type="hidden" name="gallery_id" value="{{ gallery.id }}">
+            <input type="hidden" name="gallery_id" value="{{ gallery.id }}">
+        </div>
+    </div>
 
     <div
         class="responsiv-uploader-fileupload style-multi is-multi"
@@ -20,10 +24,12 @@
         data-unique-id="images">
 
         <label class="form-label">{{ 'Képek' | _ }} <span class="text-danger">*</span></label><br>
-
-        <input type="file" name="images[]" id="images" accept="image/*" class="form-control rounded" multiple="multiple" size="30">
-        <span data-validate-for="images" class="errormsg"></span><br><br>
-
+        <div class="row">
+            <div class="col-12 col-md-6">
+                <input type="file" name="images[]" id="images" accept="image/*" class="form-control rounded" multiple="multiple" size="30">
+                <span data-validate-for="images" class="errormsg"></span><br><br>
+            </div>
+        </div>
     <!-- Existing files -->
     <div class="d-flex flex-wrap">
         {% for image in gallery.images %}

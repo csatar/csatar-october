@@ -17,9 +17,43 @@ scopes:
         options: getMandateListMandateTypeOptions
         dependsOn: association
 
+    organization:
+        type: group
+        label: 'csatar.csatar::lang.plugin.admin.mandateType.organizationTypeModelName'
+        modelClass: Csatar\Csatar\Models\Mandate
+        conditions: CONCAT(mandate_model_id, mandate_model_type) in (:filtered)
+        options: getOrganizationOptions
+        dependsOn: association
+
+    team:
+        type: group
+        label: 'csatar.csatar::lang.plugin.admin.team.team'
+        modelClass: Csatar\Csatar\Models\Mandate
+        conditions: INSTR(REPLACE(":filtered", "'", "|"), CONCAT("|",id, "|")) > 0
+        options: getTeamOptionsForPatrolAndTroopMandates
+        dependsOn: association
+
     scout:
         label: 'csatar.csatar::lang.plugin.admin.mandateType.scout'
         modelClass: Csatar\Csatar\Models\Scout
         conditions: scout_id in (:filtered)
         dependsOn: association
         options: getScoutOptions
+
+    scout_team:
+        type: group
+        label: 'csatar.csatar::lang.plugin.admin.scout.scoutTeam'
+        modelClass: Csatar\Csatar\Models\Scout
+        conditions: scout_id in (SELECT id from `csatar_csatar_scouts` where `csatar_csatar_scouts`.`team_id` in (:filtered))
+        options: getScoutTeamOptions
+        dependsOn: association
+
+    start_date:
+        label: 'csatar.csatar::lang.plugin.admin.mandateType.startDate'
+        type: date
+        conditions: start_date >= ':filtered'
+
+    end_date:
+        label: 'csatar.csatar::lang.plugin.admin.mandateType.endDate'
+        type: date
+        conditions: end_date <= ':filtered'
