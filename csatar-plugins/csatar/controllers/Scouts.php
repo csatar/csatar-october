@@ -2,6 +2,9 @@
 
 use Backend\Classes\Controller;
 use BackendMenu;
+use Csatar\Csatar\Models\Scout;
+use Flash;
+use Lang;
 
 class Scouts extends Controller
 {
@@ -19,6 +22,14 @@ class Scouts extends Controller
 
     public function onResetFA()
     {
-        dd($this, \Input::all());
+        if (isset($this->params[0])) {
+            $scout = Scout::find($this->params[0]);
+            if (isset($scout)) {
+                $scout->google_two_fa_secret_key = null;
+                $scout->ignoreValidation = true;
+                $scout->forceSave();
+                Flash::success(Lang::get('csatar.csatar::lang.plugin.component.twoFactorAuthentication.resetSuccess'));
+            }
+        }
     }
 }

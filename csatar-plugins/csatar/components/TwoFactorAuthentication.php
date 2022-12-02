@@ -3,6 +3,7 @@
 use Auth;
 use Cms\Classes\ComponentBase;
 use Csatar\Csatar\Classes\GoogleTwoFactorAuthentication;
+use Csatar\Csatar\Models\Scout;
 use Input;
 use Lang;
 use Redirect;
@@ -52,10 +53,11 @@ class TwoFactorAuthentication extends ComponentBase
     }
 
     private function prepareVariables() {
-        $scout = Auth::user()->scout;
+        $scout = Scout::find(Auth::user()->scout->id);
         $this->google2FA = new GoogleTwoFactorAuthentication();
 
-        if (empty($scout->google_two_fa_secret_key)) {
+        $this->activated2FA = !empty($scout->google_two_fa_secret_key);
+        if (!$this->activated2FA) {
             $scout->google_two_fa_secret_key = $this->google2FA->generateSecretKey();
             $scout->ignoreValidation = true;
             $scout->forceSave();
@@ -64,7 +66,6 @@ class TwoFactorAuthentication extends ComponentBase
         $this->userSecretKey = $scout->google_two_fa_secret_key;
         $this->qrCodeData = $this->google2FA->getQRCodeData('RMCSSZ', $scout->getFullName(), $this->userSecretKey, 300);
         $this->is2FAuthenticated = $this->is2FAuthenticated();
-        $this->activated2FA = isset($scout->google_two_fa_secret_key);
     }
 
     private function is2FAuthenticated()
