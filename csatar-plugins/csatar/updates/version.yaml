@@ -189,3 +189,9 @@
 1.0.66:
     - 'Updated table csatar_csatar_teams'
     - builder_table_update_csatar_csatar_teams.php
+1.0.67:
+    - 'Extend organizations with status, slug and in case of patrol gender as well'
+    - update_districts_teams_troops_patrol_table.php
+1.0.68:
+    - 'Generate slug if empty to Districts, Teams, Troops, Patrols'
+    - generate_slug_for_districts_teams_troops_patrols.php
