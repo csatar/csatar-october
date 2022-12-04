@@ -42,6 +42,8 @@
                 'url' => 'URL',
                 'warning' => 'FIGYELEM',
                 'status' => 'Státusz',
+                'active' => 'Aktív',
+                'inActive' => 'Megszünt',
             ],
             'ageGroups' => [
                 'ageGroups' => 'Korosztályok',
@@ -428,6 +430,9 @@
                 'troopNotInTheTeamError' => 'A kiválasztott Raj nem tartózik a kiválasztott Csapathoz.',
                 'organizationUnitNameWarning' => 'Az őrs neve nem tartalmazhatja az "őrs" szót.',
                 'filterOrganizationUnitNameForWords' => 'őrs, örs, ors',
+                'gender' => [
+                    'mixed' => 'Vegyes',
+                ],
             ],
             'currency' => [
                 'currency' => 'Pénznem',

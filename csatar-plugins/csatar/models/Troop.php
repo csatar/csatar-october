@@ -1,5 +1,6 @@
 <?php namespace Csatar\Csatar\Models;
 
+use Csatar\Csatar\Classes\Enums\Status;
 use Lang;
 use Csatar\Csatar\Models\OrganizationBase;
 
@@ -39,6 +40,7 @@ class Troop extends OrganizationBase
         'website',
         'facebook_page',
         'team_id',
+        'slug',
     ];
 
     /**
@@ -82,6 +84,16 @@ class Troop extends OrganizationBase
     {
         $filterWords = explode(',', Lang::get('csatar.csatar::lang.plugin.admin.troop.filterOrganizationUnitNameForWords'));
         $this->name = $this->filterNameForWords($this->name, $filterWords);
+
+        $this->generateSlugIfEmpty();
+    }
+
+    public function generateSlugIfEmpty() {
+        if (empty($this->slug)) {
+            $this->slug = str_slug($this->team->district->association->name_abbreviation) ;
+            $this->slug .= '/' . str_slug($this->team->team_number) . '/' . str_slug($this->name);
+            $this->slug .= '-raj';
+        }
     }
 
     /**
@@ -119,6 +131,13 @@ class Troop extends OrganizationBase
         }
         asort($options);
         return $options;
+    }
+
+    public static function getStatusOptions(){
+        return [
+            Status::ACTIVE => e(trans('csatar.csatar::lang.plugin.admin.general.active')),
+            Status::INACTIVE => e(trans('csatar.csatar::lang.plugin.admin.general.inActive')),
+        ];
     }
 
     /**

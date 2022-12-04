@@ -42,6 +42,8 @@
                 'url' => 'Hivatkozás',
                 'warning' => 'Warning',
                 'status' => 'Status',
+                'active' => 'Active',
+                'inActive' => 'Inactive',
             ],
             'ageGroups' => [
                 'ageGroups' => 'Age Groups',
@@ -427,6 +429,9 @@
                 'troopNotInTheTeamError' => 'The selected Troop does not belong to the selected Team.',
                 'organizationUnitNameWarning' => 'The name of the patrol can not contain the word "patrol."',
                 'filterOrganizationUnitNameForWords' => 'partol',
+                'gender' => [
+                    'mixed' => 'Mixed',
+                ],
             ],
             'currency' => [
                 'currency' => 'Currency',

@@ -23,6 +23,7 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.general.status'
         span: auto
         type: dropdown
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         formBuilder:
             type: field
             card: teamData

@@ -18,6 +18,11 @@ fields:
             type: field
             card: districtData
             position: title
+    status:
+        label: 'csatar.csatar::lang.plugin.admin.general.status'
+        span: auto
+        type: dropdown
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
     address:
         label: 'csatar.csatar::lang.plugin.admin.general.address'
         span: auto
