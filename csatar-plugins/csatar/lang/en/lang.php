@@ -647,6 +647,8 @@
                 'description' => 'Enables two factor authentication.',
                 'twoFactorAuthFailed' => 'Authentication failed, please try again!',
                 'twoFactorAuthSuccess' => 'Authentication successful, thank you!',
+                'reset' => 'Reset Two Factor Authentication',
+                'resetSuccess' => 'The Two Factor Authentication has been successfully reset. The user will have to delete this account from the Authenticator app as well.',
             ],
             'accidentLog' => [
                 'accidentLog' => 'Accident Log',
