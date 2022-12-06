@@ -144,6 +144,10 @@ navigation:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.importData'
                 url: csatar/csatar/scoutimport/import
                 icon: icon-database
+            side-menu-item-json-import:
+                label: 'Import organizations (json)'
+                url: csatar/csatar/jsonimport/organizations
+                icon: icon-sitemap
     main-menu-item-accident-log:
         label: 'csatar.csatar::lang.plugin.component.accidentLog.accidentLog'
         url: csatar/csatar/accidentlogrecords

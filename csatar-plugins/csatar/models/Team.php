@@ -190,6 +190,10 @@ class Team extends OrganizationBase
     }
 
     public function afterSave() {
+        if ($this->ignoreValidation) {
+            return;
+        }
+
         if ($this->status != $this->original['status'] && $this->original['status'] == Status::ACTIVE) {
             Scout::where(['team_id' => $this->id, 'is_active' => 1])->update(['is_active' => 0]);
         }
