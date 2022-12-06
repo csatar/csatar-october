@@ -44,6 +44,7 @@
                 'status' => 'Status',
                 'active' => 'Active',
                 'inActive' => 'Inactive',
+                'inactivationWarning' => 'Warning! If status is changed from active to any kind of inactive status, all child organizations will be inactivated and all mandates connected to the organization, it\'s child organizations and scouts belonging to the organization will expire!'
             ],
             'ageGroups' => [
                 'ageGroups' => 'Age Groups',
@@ -161,6 +162,7 @@
                     'personalDataNotAccepted' => 'Please verify your personal data here!',
                 ],
                 'activeMandateDeleteError' => 'The Scout having the %name name has active Mandates, thus this Scout cannot be deleted.',
+                'inactivationWarning' => 'Please note that if you change status from active to inactive, scout\'s all mandates will expire!',
             ],
             'admin' => [
                 'menu' => [

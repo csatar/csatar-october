@@ -150,6 +150,7 @@ fields:
             order: 6
     is_active:
         label: 'csatar.csatar::lang.plugin.admin.scout.isActive'
+        comment: 'csatar.csatar::lang.plugin.admin.scout.inactivationWarning'
         span: auto
         default: 1
         type: checkbox

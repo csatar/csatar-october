@@ -88,6 +88,23 @@ class Troop extends OrganizationBase
         $this->generateSlugIfEmpty();
     }
 
+    public function afterSave() {
+        if (isset($this->original['status']) && $this->status != $this->original['status'] && $this->original['status'] == Status::ACTIVE) {
+            // it would be more efficient to use mass update here, but in that case model events are not fired
+            foreach (Patrol::where(['troop_id' => $this->id, 'status' => Status::ACTIVE])->get() as $patrol) {
+                $patrol->status = Status::INACTIVE;
+                $patrol->ignoreValidation = true;
+                $patrol->forceSave();
+            }
+            foreach (Scout::where(['troop_id' => $this->id, 'is_active' => Status::ACTIVE])->get() as $scout) {
+                $scout->is_active = Status::INACTIVE;
+                $scout->ignoreValidation = true;
+                $scout->forceSave();
+            }
+            Mandate::setAllMandatesExpiredInOrganization($this);
+        }
+    }
+
     public function generateSlugIfEmpty() {
         if (empty($this->slug)) {
             $this->slug = str_slug($this->team->district->association->name_abbreviation) ;

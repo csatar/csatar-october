@@ -366,4 +366,10 @@ class Mandate extends Model
             $query->whereIn('association_id', $associationIds);
         });
     }
+
+    public static function setAllMandatesExpiredInOrganization($organization) {
+        self::where('mandate_model_type', $organization->getModelName())
+            ->where('mandate_model_id', $organization->id)
+            ->update(['end_date' => date('Y-m-d')]);
+    }
 }
