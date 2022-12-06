@@ -51,9 +51,9 @@ scopes:
     start_date:
         label: 'csatar.csatar::lang.plugin.admin.mandateType.startDate'
         type: date
-        conditions: start_date <= ':filtered' AND (end_date >= ':filtered' OR end_date IS NULL)
+        conditions: start_date >= ':filtered' AND (end_date >= ':filtered' OR end_date IS NULL)
 
     end_date:
         label: 'csatar.csatar::lang.plugin.admin.mandateType.endDate'
         type: date
-        conditions: (end_date >= ':filtered' OR end_date IS NULL) AND start_date <= ':filtered'
+        conditions: (end_date <= ':filtered' OR end_date IS NULL) AND start_date <= ':filtered'
