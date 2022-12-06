@@ -394,7 +394,7 @@
                 'district' => 'District',
                 'troopsPatrolsScoutsInfo' => 'Troops, Patrols, Scouts and Mandates can be added after the Team has been created. Click the Create button after other information is filled.',
                 'breadcrumb' => 'Teams',
-                'teamNumberTakenError' => 'This Team number is already taken.',
+                'teamNumberTakenError' => 'Team number ":teamNumber" is already taken.',
                 'dateInTheFutureError' => 'The selected date is in the future.',
                 'organizationUnitNameWarning' => 'The name of the team can not contain the word "team."',
                 'filterOrganizationUnitNameForWords' => 'team',

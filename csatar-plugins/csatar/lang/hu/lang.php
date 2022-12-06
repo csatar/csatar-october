@@ -395,7 +395,7 @@
                 'district' => 'Körzet',
                 'troopsPatrolsScoutsInfo' => 'Rajok, Őrsök, Cserkészek és Megbízatások hozzáadása a Csapat létrehozása után lehetséges. Miután a többi adatot kitöltötted, kattints a Létrehozás gombra.',
                 'breadcrumb' => 'Csapatok',
-                'teamNumberTakenError' => 'Ez a csapatszám már foglalt.',
+                'teamNumberTakenError' => 'A ":teamNumber" csapatszám már foglalt.',
                 'dateInTheFutureError' => 'A dátum nem lehet a jövőben.',
                 'organizationUnitNameWarning' => 'A csapat neve nem tartalmazhatja a "csapat" szót.',
                 'filterOrganizationUnitNameForWords' => 'cserkészcsapat, csapat',
