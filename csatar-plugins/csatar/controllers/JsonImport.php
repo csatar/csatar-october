@@ -157,12 +157,17 @@ class JsonImport extends Controller
 
             $team = Team::firstOrNew (
                 [
-                    'district_id'       => $district_id,
-                    'slug'              => $fields->composed_slug,
                     'team_number'       => $fields->szam,
                 ]
             );
 
+            if (!empty($team->district_id) && $team->district->association_id != $this->associationId) {
+                $team = new Team();
+                $team->team_number = $fields->szam;
+            }
+
+            $team->district_id                    = $district_id;
+            $team->slug                           = $fields->composed_slug;
             $team->name                           = $fields->nev;
             $team->status                         = $this->statusMap[$fields->statusz] ?? null;
             $team->address                        = $address;
