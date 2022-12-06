@@ -647,6 +647,8 @@
                 'description' => 'Két faktoros hitelesítése plugin.',
                 'twoFactorAuthFailed' => 'A hitelesítés sikertelen, kérlek próbáld újra!',
                 'twoFactorAuthSuccess' => 'A hitelesítés sikeres, köszönjük!',
+                'reset' => 'Két faktoros hitelesítés visszaállítása',
+                'resetSuccess' => 'A két faktoros hitelesítés skeresen vissza lett állítva. A felhasználónak a hitelesítő alkalmazásból is törölnie kell a fióokot.',
             ],
             'accidentLog' => [
                 'accidentLog' => 'Baleseti napló',
