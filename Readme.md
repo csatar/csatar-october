@@ -38,4 +38,8 @@ Once they are accessible from backend on `/admin/renatio/dynamicpdf/templates/up
 any changes to documents `csatar-plugins/csatar/views/pdf/teamreporttemplate.htm` and `csatar-plugins/csatar/views/pdf/layouts/teamreportlayout.htm`
 are not loaded automatically and will have no effect to the downloaded PDF-s. To apply the changes, click the red "Default" button,
 located in the bottom right corner of the above-mentioned backend pages.
+
+### Adding new attributes to PermissionBasedAccess model's child classes
+
+When a new attribute or relation is added to a "PermissionBasedAccess" model child class and the new item should be visible on the frontend, a new "MandatePermission" should be added to the permissions' matrix. In order to automatically add the newly created item to every mandate type, log in to backend, go to `admin/csatar/csatar/seederdata/synchronizepermissionsmatrix` page and click the "Synchronize" button. This synchronization will scan all child classes of "PermissionBasedAccess" model and add a "Mandate permission" entry to the permissions matrix for every existing mandate type, based on child models "fillable", "belongsTo", "belongsToMany", "hasMany", "attachOne", "hasOne", "morphTo", "morphOne", "morphMany", "morphToMany", "morphedByMany", "attachMany", "hasManyThrough", "hasOneThrough" arrays. The new "Mandate permission" entry will have all permissions set to "null". Existing entries will not be affected.
     
