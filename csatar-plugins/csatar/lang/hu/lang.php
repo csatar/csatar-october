@@ -43,7 +43,8 @@
                 'warning' => 'FIGYELEM',
                 'status' => 'Státusz',
                 'active' => 'Aktív',
-                'inActive' => 'Megszünt',
+                'inActive' => 'Inaktív',
+                'inactivationWarning' => 'Figyelem! Ha a státusz aktívról bármilyen típusú inaktív státuszra változik, a szervezeti egység alá tartozó összes szervezeti egység és cserkész státusza is inaktívá válik, valamint lejár az ezekhez tartozó összes mebízatás!'
             ],
             'ageGroups' => [
                 'ageGroups' => 'Korosztályok',
@@ -162,6 +163,7 @@
                 ],
                 'activeMandateDeleteError' => 'A(z) %name nevű Tagnak létezik aktív Megbízatása, így ez a Tag nem törölhető.',
                 'scoutTeam' => 'Tag csapata',
+                'inactivationWarning' => 'Figyelem! Ha a státusz aktívról inaktívra változik, a cserkész összes megbízatása lejár!'
             ],
             'admin' => [
                 'menu' => [
@@ -400,7 +402,7 @@
                 'organizationUnitNameWarning' => 'A csapat neve nem tartalmazhatja a "csapat" szót.',
                 'filterOrganizationUnitNameForWords' => 'cserkészcsapat, csapat',
                 'active' => 'Aktív',
-                'inActive' => 'Megszünt',
+                'inActive' => 'Inaktív',
                 'suspended' => 'Szünetelő',
                 'forming' => 'Alakuló/újraalakuló',
             ],
