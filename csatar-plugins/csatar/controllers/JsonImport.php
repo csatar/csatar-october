@@ -118,13 +118,14 @@ class JsonImport extends Controller
             $district->bank_account  = $fields->bankszamla_szam;
 
             if (!empty($fields->kep)) {
-                $path = url('/') . '/storage/app/media/importedimages/' . $fields->kep;
-                if ((new Filesystem())->existsInsensitive($path)) {
+                $path = '/storage/app/media/importedimages/' . $fields->kep;
+                $url = url('/') . $path;
+                if ((new Filesystem())->existsInsensitive(base_path() . $path)) {
                     $file = new File;
-                    $file->fromUrl();
+                    $file->fromUrl($url);
                     $district->logo()->add($file);
                 } else {
-                    Log::warning("Can't attach file $fields->kep.");
+                    Log::warning("Can't attach file $url.");
                 }
             }
 
@@ -178,13 +179,14 @@ class JsonImport extends Controller
             $team->juridical_person_bank_account  = $fields->bankszamla_szam;
 
             if (!empty($fields->kep)) {
-                $path = url('/') . '/storage/app/media/importedimages/' . $fields->kep;
-                if ((new Filesystem())->existsInsensitive($path)) {
+                $path = '/storage/app/media/importedimages/' . $fields->kep;
+                $url = url('/') . $path;
+                if ((new Filesystem())->existsInsensitive(base_path() . $path)) {
                     $file = new File;
-                    $file->fromUrl();
+                    $file->fromUrl($url);
                     $team->logo()->add($file);
                 } else {
-                    Log::warning("Can't attach file $fields->kep.");
+                    Log::warning("Can't attach file $url.");
                 }
             }
 
@@ -220,13 +222,14 @@ class JsonImport extends Controller
             $troop->facebook_page                  = $fields->facebook;
 
             if (!empty($fields->kep)) {
-                $file = new File;
-                if ((new Filesystem())->existsInsensitive($path)) {
+                $path = '/storage/app/media/importedimages/' . $fields->kep;
+                $url = url('/') . $path;
+                if ((new Filesystem())->existsInsensitive(base_path() . $path)) {
                     $file = new File;
-                    $file->fromUrl();
+                    $file->fromUrl($url);
                     $troop->logo()->add($file);
                 } else {
-                    Log::warning("Can't attach file $fields->kep.");
+                    Log::warning("Can't attach file $url.");
                 }
             }
 
@@ -266,13 +269,14 @@ class JsonImport extends Controller
             $patrol->age_group_id                   = isset($fields->korosztaly[0]) && isset($this->ageGroupMap[$fields->korosztaly[0]]) ? $this->ageGroupMap[$fields->korosztaly[0]] : $this->ageGroupMap['v'];
 
             if (!empty($fields->kep)) {
-                $file = new File;
-                if ((new Filesystem())->existsInsensitive($path)) {
+                $path = '/storage/app/media/importedimages/' . $fields->kep;
+                $url = url('/') . $path;
+                if ((new Filesystem())->existsInsensitive(base_path() . $path)) {
                     $file = new File;
-                    $file->fromUrl();
+                    $file->fromUrl($url);
                     $patrol->logo()->add($file);
                 } else {
-                    Log::warning("Can't attach file $fields->kep.");
+                    Log::warning("Can't attach file $url.");
                 }
 
             }
