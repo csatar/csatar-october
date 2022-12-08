@@ -41,6 +41,7 @@ class Troop extends OrganizationBase
         'facebook_page',
         'team_id',
         'slug',
+        'status',
     ];
 
     /**
