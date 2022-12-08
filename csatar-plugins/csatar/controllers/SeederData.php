@@ -55,52 +55,59 @@ class SeederData extends Controller
         $permissionBasedModels = PermissionBasedAccess::getAllChildClasses();
         $mandateTypes = MandateType::all();
 
-        if(empty($permissionBasedModels) || empty($mandateTypes)) return; // TODO: flash error here
+        if(empty($permissionBasedModels) || empty($mandateTypes)) return;
 
-        foreach ($mandateTypes as $mandateType) {
-            foreach ($permissionBasedModels as $permissionBasedModel) {
-                if ($permissionBasedModel == MandateType::MODEL_NAME_GUEST) return;
+        try {
+            foreach ($mandateTypes as $mandateType) {
+                foreach ($permissionBasedModels as $permissionBasedModel) {
+                    if ($permissionBasedModel == MandateType::MODEL_NAME_GUEST) return;
 
-                $model = new $permissionBasedModel();
-                $fields = $model->fillable ?? [];
-                $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'hasOne', 'morphTo', 'morphOne',
-                    'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'];
+                    $model = new $permissionBasedModel();
+                    $fields = $model->fillable ?? [];
+                    $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'hasOne', 'morphTo', 'morphOne',
+                        'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'];
 
-                foreach ($relationArrays as $relationArray) {
-                    $fields = array_merge($fields, array_keys($model->$relationArray));
-                }
+                    foreach ($relationArrays as $relationArray) {
+                        $fields = array_merge($fields, array_keys($model->$relationArray));
+                    }
 
-                $this->filterFieldsForRealtionKeys($fields);
+                    $this->filterFieldsForRealtionKeys($fields);
 
-                //add permission for the model in general
-                MandatePermission::firstOrCreate(
+                    //add permission for the model in general
+                    MandatePermission::firstOrCreate(
                         [ 'mandate_type_id' => $mandateType->id, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 0],
                     );
 
-                if ($mandateType->organization_type_model_name != MandateType::MODEL_NAME_GUEST) {
-                    //add permission for the model in general for own
-                    MandatePermission::firstOrCreate(
-                        [ 'mandate_type_id' => $mandateType->id, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 1],
-                    );
-                }
+                    if ($mandateType->organization_type_model_name != MandateType::MODEL_NAME_GUEST) {
+                        //add permission for the model in general for own
+                        MandatePermission::firstOrCreate(
+                            [ 'mandate_type_id' => $mandateType->id, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 1],
+                        );
+                    }
 
 
-                //add permission for each attribute for general, own
+                    //add permission for each attribute for general, own
 
-                foreach ($fields as $field) {
-                    //add permission for the model->field
-                    MandatePermission::firstOrCreate(
+                    foreach ($fields as $field) {
+                        //add permission for the model->field
+                        MandatePermission::firstOrCreate(
                             [ 'mandate_type_id' => $mandateType->id, 'model' => $permissionBasedModel, 'field' => $field, 'own' => 0],
                         );
 
-                    if ($mandateType->organization_type_model_name != MandateType::MODEL_NAME_GUEST) {
-                        //add permission for the model->field for own
-                        MandatePermission::firstOrCreate(
-                            ['mandate_type_id' => $mandateType->id, 'model' => $permissionBasedModel, 'field' => $field, 'own' => 1],
-                        );
+                        if ($mandateType->organization_type_model_name != MandateType::MODEL_NAME_GUEST) {
+                            //add permission for the model->field for own
+                            MandatePermission::firstOrCreate(
+                                ['mandate_type_id' => $mandateType->id, 'model' => $permissionBasedModel, 'field' => $field, 'own' => 1],
+                            );
+                        }
                     }
                 }
             }
+
+            Flash::success(e(trans('csatar.csatar::lang.plugin.admin.admin.seederData.synchronizeComplete')));
+
+        } catch (Exception $exception) {
+            Flash::success($exception->getMessage());
         }
     }
 

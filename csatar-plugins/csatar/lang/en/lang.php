@@ -212,6 +212,7 @@ return [
                     'updateDataSuccess' => 'The data has been successfully updated.',
                     'synchronize' => 'Synchronize',
                     'synchronizePermissionsMatrixDesc' => 'This synchronization will scan all child classes of "PermissionBasedAccess" model and add a "Mandate permission" entry to the permissions matrix for every existing mandate type, based on child models "fillable", "belongsTo", "belongsToMany", "hasMany", "attachOne", "hasOne", "morphTo", "morphOne", "morphMany", "morphToMany", "morphedByMany", "attachMany", "hasManyThrough", "hasOneThrough" arrays. The new "Mandate permission" entry will have all permissions set to "null". Existing entries will not be affected.',
+                    'synchronizeComplete' => 'Synchronization complete!',
                 ],
                 'permissionsMatrix' => [
                     'all' => 'All',
