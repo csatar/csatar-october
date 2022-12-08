@@ -6,5 +6,18 @@
             <p><?= e(trans('csatar.csatar::lang.plugin.admin.admin.seederData.synchronizePermissionsMatrixDesc')) ?></p>
         </div>
     </div>
-    <p><button type="button" data-request="onSynchronizePermissionsMatrix" class="btn btn-default"><?= e(trans('csatar.csatar::lang.plugin.admin.admin.seederData.synchronize')) ?></button></p>
+    <p>
+        <button type="button"
+        data-request="onSynchronizePermissionsMatrix"
+        data-request-loading="#fs-saving-loader"
+        class="btn btn-default">
+        <?= e(trans('csatar.csatar::lang.plugin.admin.admin.seederData.synchronize')) ?>
+        </button>
+    </p>
+    <div id="fs-saving-loader" style="float:left; display:none; width: 150px;" class="loading-indicator-container">
+        <div class="loading-indicator size-small" style="background:none;">
+            <span></span>
+            <div><?= e(trans('csatar.csatar::lang.plugin.admin.admin.seederData.synchronize')) ?></div>
+        </div>
+    </div>
 </div>
