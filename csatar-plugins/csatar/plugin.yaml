@@ -148,6 +148,10 @@ navigation:
                 label: 'Import organizations (json)'
                 url: csatar/csatar/jsonimport/organizations
                 icon: icon-sitemap
+            side-menu-item-synchronize-permissions-matrix:
+                label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.synchronizePermissionsMatrix'
+                url: csatar/csatar/seederdata/synchronizepermissionsmatrix
+                icon: icon-sitemap
     main-menu-item-accident-log:
         label: 'csatar.csatar::lang.plugin.component.accidentLog.accidentLog'
         url: csatar/csatar/accidentlogrecords

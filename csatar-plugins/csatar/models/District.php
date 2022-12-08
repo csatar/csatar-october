@@ -55,6 +55,7 @@ class District extends OrganizationBase
         'association_id',
         'logo',
         'slug',
+        'status',
     ];
 
     /**

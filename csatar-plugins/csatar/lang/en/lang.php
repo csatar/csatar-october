@@ -1,4 +1,6 @@
-<?php return [
+<?php
+
+return [
     'frontEnd' => [
         'authException' => 'The email address, the ID number or the password is incorrect.',
     ],
@@ -195,6 +197,7 @@
                         'seederData' => 'Seeder data',
                         'testData' => 'Test data',
                         'importData' => 'Import scouts from ECSET',
+                        'synchronizePermissionsMatrix' => 'Synchronize permissions matrix',
                     ],
                 ],
                 'seederData' => [
@@ -207,6 +210,8 @@
                     'importDataDescription' => 'Select a .csv file, or a .zip file containing .csv files.',
                     'updateData' => 'Update data',
                     'updateDataSuccess' => 'The data has been successfully updated.',
+                    'synchronize' => 'Synchronize',
+                    'synchronizePermissionsMatrixDesc' => 'This synchronization will scan all child classes of "PermissionBasedAccess" model and add a "Mandate permission" entry to the permissions matrix for every existing mandate type, based on child models "fillable", "belongsTo", "belongsToMany", "hasMany", "attachOne", "hasOne", "morphTo", "morphOne", "morphMany", "morphToMany", "morphedByMany", "attachMany", "hasManyThrough", "hasOneThrough" arrays. The new "Mandate permission" entry will have all permissions set to "null". Existing entries will not be affected.',
                 ],
                 'permissionsMatrix' => [
                     'all' => 'All',

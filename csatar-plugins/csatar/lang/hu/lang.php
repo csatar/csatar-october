@@ -196,6 +196,7 @@
                         'seederData' => 'Alapértelmezett adatok',
                         'testData' => 'Teszt adatok',
                         'importData' => 'ECSET taglista importálása',
+                        'synchronizePermissionsMatrix' => 'Jogosultsági mátrix szinkronizálása',
                     ],
                 ],
                 'seederData' => [
@@ -208,6 +209,8 @@
                     'importDataDescription' => 'Adj meg egy .csv fájlt, vagy egy .csv fájlokat tartalmazó .zip fájlt.',
                     'updateData' => 'Adatok frissítése',
                     'updateDataSuccess' => 'Az adatok frissítve lettek.',
+                    'synchronize' => 'Szinkronizálás',
+                    'synchronizePermissionsMatrixDesc' => 'Ez a szinkronizálás megkeresi az összes "PermissionBasedAccess" modell-ből származatatott osztályt és létrehoz egy jogosultságot a jogsultság mátrixban, minden létező jogosultság típushoz, a származtatott modell "fillable", "belongsTo", "belongsToMany", "hasMany", "attachOne", "hasOne", "morphTo", "morphOne", "morphMany", "morphToMany", "morphedByMany", "attachMany", "hasManyThrough", "hasOneThrough" tömbjei alapján. Az újonnan létrehozott jogolutság minden értéke "null" lesz. A már létező jogosultságok nem változnak.',
                 ],
                 'permissionsMatrix' => [
                     'all' => 'Összes',

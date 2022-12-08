@@ -86,6 +86,7 @@ class Patrol extends OrganizationBase
         'logo',
         'slug',
         'gender',
+        'status'
     ];
 
     protected $nullable = [
