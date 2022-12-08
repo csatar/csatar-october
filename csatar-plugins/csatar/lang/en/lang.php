@@ -1,4 +1,4 @@
-<?php use Csatar\Csatar\Models\PermissionBasedAccess;
+<?php
 
 return [
     'frontEnd' => [
