@@ -1,100 +1,96 @@
 columns:
     ecset_code:
-        label: ECSET kód
+        label: 'csatar.csatar::lang.plugin.admin.general.ecsetCode'
     name_prefix:
-        label: Név el?tag
+        label: 'csatar.csatar::lang.plugin.admin.scout.namePrefix'
     family_name:
-        label: Vezetéknév
+        label: 'csatar.csatar::lang.plugin.admin.scout.familyName'
         required: 1
     given_name:
-        label: Keresztnév
+        label: 'csatar.csatar::lang.plugin.admin.scout.givenName'
         required: 1
     nickname:
-        label: Becenév
+        label: 'csatar.csatar::lang.plugin.admin.scout.nickname'
     email:
-        label: Email
+        label: 'csatar.csatar::lang.plugin.admin.general.email'
     phone:
-        label: Telefonszám
+        label: 'csatar.csatar::lang.plugin.admin.general.phone'
         required: 1
     personal_identification_number:
-        label: Személyi szám (CNP)
+        label: 'csatar.csatar::lang.plugin.admin.scout.personalIdentificationNumber'
         required: 1
     gender:
-        label: Nem
+        label: 'csatar.csatar::lang.plugin.admin.scout.gender.gender'
         required: 1
     is_active:
-        label: Státusz
+        label: 'csatar.csatar::lang.plugin.admin.scout.isActive'
     legal_relationship_id:
-        label: Jogviszony
+        label: 'csatar.csatar::lang.plugin.admin.scout.legalRelationship'
         required: 1
     religion_id:
-        label: Felekezet
+        label: 'csatar.csatar::lang.plugin.admin.scout.religion'
         required: 1
     nationality:
-        label: Nemzetiség
+        label: 'csatar.csatar::lang.plugin.admin.scout.nationality'
     birthdate:
-        label: Születési dátum
+        label: 'csatar.csatar::lang.plugin.admin.scout.birthdateFull'
     maiden_name:
-        label: Születési/leánykori név
+        label: 'csatar.csatar::lang.plugin.admin.scout.maidenName'
     birthplace:
-        label: Születési hely
+        label: 'csatar.csatar::lang.plugin.admin.scout.birthplaceFull'
         required: 1
     address_country:
-        label: Cím - ország
+        label: 'csatar.csatar::lang.plugin.admin.scout.addressCountry'
         required: 1
     address_zipcode:
-        label: Cím - irányítószám
+        label: 'csatar.csatar::lang.plugin.admin.scout.addressZipcode'
         required: 1
     address_county:
-        label: Cím - megye
+        label: 'csatar.csatar::lang.plugin.admin.scout.addressCounty'
         required: 1
     address_location:
-        label: Cím - település
+        label: 'csatar.csatar::lang.plugin.admin.scout.addressLocation'
         required: 1
     address_street:
-        label: Cím - utca, házszám
+        label: 'csatar.csatar::lang.plugin.admin.scout.addressStreet'
         required: 1
     mothers_name:
-        label: Anyja neve
-    mothers_maiden_name:
-        label: Anyja leánykori neve
+        label: 'csatar.csatar::lang.plugin.admin.scout.mothersNameFull'
     mothers_phone:
-        label: Anyja telefonszáma
+        label: 'csatar.csatar::lang.plugin.admin.scout.mothersPhoneFull'
     mothers_email:
-        label: Anyja e-mail címe
+        label: 'csatar.csatar::lang.plugin.admin.scout.mothersEmailFull'
     fathers_name:
-        label: Apja neve
+        label: 'csatar.csatar::lang.plugin.admin.scout.fathersNameFull'
     fathers_phone:
-        label: Apja telefonszáma
+        label: 'csatar.csatar::lang.plugin.admin.scout.fathersPhoneFull'
     fathers_email:
-        label: Apja e-mail címe
+        label: 'csatar.csatar::lang.plugin.admin.scout.fathersEmailFull'
     elementary_school:
-        label: Elemi iskola
+        label: 'csatar.csatar::lang.plugin.admin.scout.elementarySchool'
     primary_school:
-        label: Általános iskola
+        label: 'csatar.csatar::lang.plugin.admin.scout.primarySchool'
     secondary_school:
-        label: Középiskola
+        label: 'csatar.csatar::lang.plugin.admin.scout.secondarySchool'
     post_secondary_school:
-        label: Posztliceális iskola
+        label: 'csatar.csatar::lang.plugin.admin.scout.postSecondarySchool'
     college:
-        label: F?iskola
+        label: 'csatar.csatar::lang.plugin.admin.scout.college'
     university:
-        label: Egyetem
+        label: 'csatar.csatar::lang.plugin.admin.scout.university'
     foreign_language_knowledge:
-        label: Idegen nyelvismeret
+        label: 'csatar.csatar::lang.plugin.admin.scout.foreignLanguageKnowledge'
     occupation:
-        label: Foglalkozás
+        label: 'csatar.csatar::lang.plugin.admin.scout.occupation'
     workplace:
-        label: Munkahely
+        label: 'csatar.csatar::lang.plugin.admin.scout.workplace'
     comment:
-        label: Megjegyzés
+        label: 'csatar.csatar::lang.plugin.admin.scout.comment'
     chronic_illnesses:
-        label: Krónikus betegségek
+        label: 'csatar.csatar::lang.plugin.admin.scout.chronicIllnesses'
     allergies:
-        label: Allergia
+        label: 'csatar.csatar::lang.plugin.admin.scout.allergy'
     food_sensitivities:
-        label: Ételérzékenység
+        label: 'csatar.csatar::lang.plugin.admin.scout.foodSensitivity'
     sign_up_form:
-        label: Bejelentkezési és Nyilvántartási lap
-    update_reason:
-        label: Módosítás indoka
+        label: 'csatar.csatar::lang.plugin.admin.scout.registrationForm'
