@@ -51,6 +51,16 @@ class ScoutImport extends \Backend\Models\ImportModel
                     $data['gender'] = '';
                 }
 
+                // manipulate fields - birthdate
+                if (preg_match('(^(\d+)/(\d+)/(\d+)$)i', $data['birthdate'])) {
+                    $pos1 = strpos($data['birthdate'], '/');
+                    $pos2 = strpos($data['birthdate'], '/', $pos1 + 1);
+                    $month = substr($data['birthdate'], 0, $pos1);
+                    $day = substr($data['birthdate'], $pos1 + 1, $pos2 - $pos1 - 1);
+                    $year = substr($data['birthdate'], $pos2 + 1);
+                    $data['birthdate'] = $year . '-' . $month . '-' . $day;
+                }
+
                 // manipulate fields - is active
                 if ($data['is_active'] == $this::ISACTIVE_ACTIVE) {
                     $data['is_active'] = 1;
@@ -115,9 +125,6 @@ class ScoutImport extends \Backend\Models\ImportModel
                     $data['address_number'] = $this::DEFAULT;
                     $data['legal_relationship_id'] = $legalRelationshipInvalidDataId;
                 }
-
-                // manipulate fields - update reason
-                unset($data['update_reason']);
 
                 // manipulate fields - registration form
                 unset($data['registration_form']);

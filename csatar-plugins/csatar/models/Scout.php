@@ -153,6 +153,7 @@ class Scout extends OrganizationBase
         'phone' => 'nullable|regex:(^[0-9+-.()]{10,}$)',
         'birthdate' => 'required',
         'legal_representative_phone' => 'regex:(^[0-9+-.()]{10,}$)',
+        'personal_identification_number' => 'nullable',
         'mothers_phone' => 'regex:(^[0-9+-.()]{10,}$)',
         'fathers_phone' => 'regex:(^[0-9+-.()]{10,}$)',
         'email' => 'email|nullable',
