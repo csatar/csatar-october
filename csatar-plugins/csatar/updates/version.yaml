@@ -195,3 +195,6 @@
 1.0.68:
     - 'Generate slug if empty to Districts, Teams, Troops, Patrols'
     - generate_slug_for_districts_teams_troops_patrols.php
+1.0.69:
+    - 'Add a raw_import column to scouts table for importing raw json data from the old system'
+    - update_csatar_csatar_scouts_add_raw_import_column.php
