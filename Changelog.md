@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-271 - Make the pivot relations editable on the form
 - CS-416 - Created method to automatically add newly added field s to permission matrix
 - CS-399 - Added and implemented status field to team
 - CS-351 - Extended backend mandates list with "mandate_model_name", "mandate_team", "scout_team" columns and added filters for every column
