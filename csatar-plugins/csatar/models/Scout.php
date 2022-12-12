@@ -42,6 +42,7 @@ class Scout extends OrganizationBase
     public $table = 'csatar_csatar_scouts';
 
     public $fillable = [
+        'ecset_code',
         'user_id',
         'team_id',
         'troop_id',
@@ -142,6 +143,8 @@ class Scout extends OrganizationBase
         'comment',
         'ecset_code',
     ];
+
+    protected $jsonable = ['raw_import'];
 
     /**
      * @var array Validation rules

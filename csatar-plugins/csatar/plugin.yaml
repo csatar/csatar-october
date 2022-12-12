@@ -144,9 +144,13 @@ navigation:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.importData'
                 url: csatar/csatar/scoutimport/import
                 icon: icon-database
-            side-menu-item-json-import:
+            side-menu-item-json-import-organizations:
                 label: 'Import organizations (json)'
                 url: csatar/csatar/jsonimport/organizations
+                icon: icon-sitemap
+            side-menu-item-json-import-scouts:
+                label: 'Import scouts (json)'
+                url: csatar/csatar/jsonimport/scouts
                 icon: icon-sitemap
             side-menu-item-synchronize-permissions-matrix:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.synchronizePermissionsMatrix'
