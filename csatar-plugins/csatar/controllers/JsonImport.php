@@ -516,9 +516,9 @@ class JsonImport extends Controller
                 Log::warning("Can not import: $org->model - name: $fields->nev - composed-slug: $fields->composed_slug; 'csapat' and 'raj' is empty");
                 continue;
             }
-            $troop = Troop::where('slug', $fields->raj)->first()->id ?? null;
+            $troop = Troop::where('slug', $fields->raj)->first() ?? null;
             $team_id  = Team::where('slug', $fields->csapat)->first()->id ?? $troop->team_id;
-            if (empty($team_id) && empty($troop_id)) {
+            if (empty($team_id) && empty($troop->id)) {
                 Log::warning("Can not import: $org->model - name: $fields->nev - composed-slug: $fields->composed_slug; Can't find team: $fields->csapat and troop: $fields->raj");
                 continue;
             }
@@ -537,7 +537,7 @@ class JsonImport extends Controller
             $patrol->email                          = $fields->email;
             $patrol->website                        = $fields->web;
             $patrol->facebook_page                  = $fields->facebook;
-//            print_r($fields->korosztaly[0]);
+
             $patrol->age_group_id                   = isset($fields->korosztaly[0]) && isset($this->ageGroupMap[$fields->korosztaly[0]]) ? $this->ageGroupMap[$fields->korosztaly[0]] : $this->ageGroupMap['v'];
 
             if (!empty($fields->kep)) {
