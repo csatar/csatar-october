@@ -90,11 +90,11 @@ class JsonImport extends Controller
 
     private function prepareScoutRelatedMappings() {
         $this->legalRelationshipMap = [
-            'a' => LegalRelationship::where('name', 'Alakuló csapat tag')->first()->id,
-            'ujonc' => LegalRelationship::where('name', 'Újonc')->first()->id,
-            'tag' => LegalRelationship::where('name', 'Tag')->first()->id,
-            'ttag' => LegalRelationship::where('name', 'Tiszteletbeli tag')->first()->id,
-            'ervenytelen' => LegalRelationship::where('name', 'Érvénytelen adat')->first()->id,
+            'a' => LegalRelationship::firstOrCreate(['name' => 'Alakuló csapat tag'])->first()->id,
+            'ujonc' => LegalRelationship::firstOrCreate(['name' => 'Újonc'])->first()->id,
+            'tag' => LegalRelationship::firstOrCreate(['name' => 'Tag'])->first()->id,
+            'ttag' => LegalRelationship::firstOrCreate(['name' => 'Tiszteletbeli tag'])->first()->id,
+            'ervenytelen' => LegalRelationship::firstOrCreate(['name' => 'Érvénytelen adat'])->id,
         ];
 
         $this->religionMap = [
