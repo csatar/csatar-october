@@ -205,7 +205,7 @@ class ScoutImport extends \Backend\Models\ImportModel
         }
         if (!empty($comment)) {
             $data = ($modelName)::where('name', $this::STR_OTHER)->first();
-            if ($scout->{$attributeName}->where('id', $data->id)->first() == null) {
+            if ($scout->{$attributeName}->isEmpty() || $scout->{$attributeName}->where('id', $data->id)->first() == null) {
                 $scout->{$attributeName}()->attach($data, ['comment' => $comment]);
             }
         }
