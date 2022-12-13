@@ -258,7 +258,9 @@ class Scout extends OrganizationBase
     }
 
     public function afterSave() {
-        if (isset($this->original['is_active']) && $this->status != $this->original['is_active'] && $this->original['is_active'] == Status::ACTIVE) {
+        if (isset($this->original['is_active'])
+            && $this->is_active != $this->original['is_active']
+            && $this->original['is_active'] == Status::ACTIVE) {
             Mandate::where('scout_id', $this->id)->update(['end_date' => date('Y-m-d')]);
         }
     }

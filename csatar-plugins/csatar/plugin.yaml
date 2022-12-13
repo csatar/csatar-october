@@ -152,6 +152,10 @@ navigation:
                 label: 'Import scouts (json)'
                 url: csatar/csatar/jsonimport/scouts
                 icon: icon-sitemap
+            side-menu-item-json-import-mandates:
+                label: 'Import mandates (json)'
+                url: csatar/csatar/jsonimport/mandates
+                icon: icon-sitemap
             side-menu-item-synchronize-permissions-matrix:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.synchronizePermissionsMatrix'
                 url: csatar/csatar/seederdata/synchronizepermissionsmatrix

@@ -198,3 +198,6 @@
 1.0.69:
     - 'Add a raw_import column to scouts table for importing raw json data from the old system'
     - update_csatar_csatar_scouts_add_raw_import_column.php
+1.0.70:
+    - 'Update mandate_types add is_vk column'
+    - update_mandate_types_add_is_vk_column.php

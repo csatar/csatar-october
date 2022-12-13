@@ -1,0 +1,35 @@
+<div class="callout fade in callout-info no-subheader">
+    <div class="header">
+        <i class="icon-info"></i>
+        <h3>Imports Mandates and Mandate types</h3>
+        <p>This page can only handle "MegbizatasTipusok.csv" and "megbizatas.TagMegbizatas.json". Will import mandate type and assign mandates to scouts.</p>
+    </div>
+</div>
+
+<div class="callout fade in callout-danger no-icon">
+    <div class="header">
+        <h3>Please note: Will not overwrite existing data!</h3>
+    </div>
+</div>
+
+<?= Form::open(['request' => 'onUploadAndProcessMandates', 'files' => true]) ?>
+    <div class="form-group span-left">
+        <label>MegbizatasTipusok.json</label>
+        <input type="file" name="mandate_types_json_file" class="form-control" />
+    </div>
+
+    <div class="form-group span-left">
+        <label>megbizatas.TagMegbizatas.json</label>
+        <input type="file" name="pivot_json_file" class="form-control" />
+    </div>
+
+    <div class="form-group span-left">
+        <button
+            type="submit"
+            type="submit"
+            class="btn btn-primary btn-sm">
+            Upload and process
+        </button>
+    </div>
+
+<?= Form::close() ?>
