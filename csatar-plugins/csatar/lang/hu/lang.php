@@ -44,7 +44,7 @@
                 'status' => 'Státusz',
                 'active' => 'Aktív',
                 'inActive' => 'Inaktív',
-                'inactivationWarning' => 'Figyelem! Ha a státusz aktívról bármilyen típusú inaktív státuszra változik, a szervezeti egység alá tartozó összes szervezeti egység és cserkész státusza is inaktívá válik, valamint lejár az ezekhez tartozó összes mebízatás!'
+                'inactivationWarning' => 'Figyelem! Ha a státusz aktívról bármilyen típusú inaktív státuszra változik, a szervezeti egység alá tartozó összes szervezeti egység és cserkész státusza is inaktívvá válik, valamint lejár az ezekhez tartozó összes mebízatás!'
             ],
             'ageGroups' => [
                 'ageGroups' => 'Korosztályok',
