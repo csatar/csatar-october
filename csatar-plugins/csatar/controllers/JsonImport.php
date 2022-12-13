@@ -10,6 +10,8 @@ use Csatar\Csatar\Models\Association;
 use Csatar\Csatar\Models\AgeGroup;
 use Csatar\Csatar\Classes\Enums\Status;
 use Csatar\Csatar\Models\FoodSensitivity;
+use Csatar\Csatar\Models\Mandate;
+use Csatar\Csatar\Models\MandateType;
 use Csatar\Csatar\Models\Patrol;
 use Csatar\Csatar\Models\Scout;
 use Csatar\Csatar\Models\Team;
@@ -23,6 +25,7 @@ use Log;
 
 class JsonImport extends Controller
 {
+    private $association;
     private $associationId;
     private $statusMap;
     private $countyMap;
@@ -38,7 +41,8 @@ class JsonImport extends Controller
             'i' => Status::INACTIVE,
         ];
 
-        $this->associationId = (Association::where('name', 'Romániai Magyar Cserkészszövetség')->first())->id;
+        $this->association = Association::where('name', 'Romániai Magyar Cserkészszövetség')->first();
+        $this->associationId = $this->association->id;
 
         $this->countyMap = [
             "Arad"             => "Arad",
@@ -349,6 +353,10 @@ class JsonImport extends Controller
     }
 
     public function scouts() {
+    }
+
+    public function mandates() {
+
     }
 
     public function onUploadAndProcessOrganizations() {
@@ -715,6 +723,129 @@ class JsonImport extends Controller
                     Log::warning("Can't attach file $url.");
                 }
             }
+        }
+    }
+
+    public function onUploadAndProcessMandates() {
+        $mandateTypesFile = Input::file('mandate_types_json_file');
+        $pivotFile = Input::file('pivot_json_file');
+
+        if ($mandateTypesFile->isValid()) {
+            $mandateTypesFile = $mandateTypesFile->move(temp_path(), $mandateTypesFile->getClientOriginalName());
+            $mandateTypesData = collect(json_decode(file_get_contents($mandateTypesFile->getRealPath())));
+        }
+
+        if ($pivotFile->isValid()) {
+            $pivotFile = $pivotFile->move(temp_path(), $pivotFile->getClientOriginalName());
+            $pivotData = collect(json_decode(file_get_contents($pivotFile->getRealPath())));
+        }
+
+        if (empty($mandateTypesData) || empty($pivotData)) {
+            return;
+        }
+
+        $orgTypeModelNameMap = [
+            'szov' => '\Csatar\Csatar\Models\Association',
+            'vk' => '\Csatar\Csatar\Models\Association',
+            'korz' => '\Csatar\Csatar\Models\District',
+            'csap' => '\Csatar\Csatar\Models\Team',
+            'raj' => '\Csatar\Csatar\Models\Troop',
+            'ors' => '\Csatar\Csatar\Models\Patrol',
+        ];
+
+        $districtsMap = District::all();
+        $districtsMap = $districtsMap->mapWithKeys(function ($item) {
+            return [
+                $item->slug => $item
+            ];
+        });
+
+        $teamsMap = Team::all();
+        $teamsMap = $teamsMap->mapWithKeys(function ($item) {
+            return [
+                $item->slug => $item
+            ];
+        });
+
+        $troopsMap = Troop::all();
+        $troopsMap = $troopsMap->mapWithKeys(function ($item) {
+            return [
+                $item->slug => $item
+            ];
+        });
+
+        $patrolsMap = Patrol::all();
+        $patrolsMap = $patrolsMap->mapWithKeys(function ($item) {
+            return [
+                $item->slug => $item
+            ];
+        });
+
+        $organizationsArraysMap = [
+            '\Csatar\Csatar\Models\Association' => [ 'rmcssz' => $this->association],
+            '\Csatar\Csatar\Models\District' => $districtsMap,
+            '\Csatar\Csatar\Models\Team' => $teamsMap,
+            '\Csatar\Csatar\Models\Troop' => $troopsMap,
+            '\Csatar\Csatar\Models\Patrol' => $patrolsMap,
+        ];
+
+        $scoutsMap = Scout::all();
+        $scoutsMap = $scoutsMap->mapWithKeys(function ($item) {
+            return [
+                $item->ecset_code => $item->id
+            ];
+        });
+
+        $mandateTypesPreMapped = $mandateTypesData->mapWithKeys(function ($item) use ($orgTypeModelNameMap) {
+            $first = mb_substr($item->nev, 0, 1, "utf8");
+            $rest = mb_substr($item->nev, 1, null, "utf8");
+            $name = mb_strtoupper($first, "utf8") . $rest;
+            return [
+                $item->rovidites => [
+                    'name' => $name,
+                    'association_id' => $this->associationId,
+                    'organization_type_model_name' => $orgTypeModelNameMap[$item->szint],
+                    'overlap_allowed' => $item->overlap,
+                    'is_vk' => $item->szint == 'vk' ? 1 : 0,
+                    'rovidities' => $item->rovidites,
+                ]
+            ];
+        });
+
+        $mandateTypesMap = $mandateTypesPreMapped->mapWithKeys(function ($item) {
+            $mandateType = MandateType::firstOrNew([
+                'name' => $item['name'],
+                'association_id' => $this->associationId,
+                'organization_type_model_name' => $item['organization_type_model_name'],
+            ]);
+
+            $mandateType->overlap_allowed = $mandate->overlap_allowed ?? $item['overlap_allowed'];
+            $mandateType->is_vk = $item['is_vk'];
+            $mandateType->save();
+
+            return [
+                $item['rovidities'] => $mandateType
+            ];
+        });
+
+        foreach ($pivotData as $item) {
+            $data = $item->fields;
+            $mandateType = $mandateTypesMap->get($data->megbizatas[1]);
+
+            $organizationMap = $organizationsArraysMap[$mandateType->organization_type_model_name];
+            $model = $organizationMap[$mandateType->is_vk ? 'rmcssz': $data->egyseg[0]];
+            $mandate = Mandate::firstOrNew([
+                'scout_id' => $scoutsMap[$data->tag[0]],
+                'mandate_type_id' => $mandateType->id,
+                'mandate_model_id' => $model->id,
+                'mandate_model_type' => $mandateType->organization_type_model_name,
+                'start_date' => $data->kezdete ?? $data->vege ?? date('Y-m-d'),
+                'end_date' => $data->vege ?? null,
+            ]);
+
+            $mandate->comment = $data->tovabbi_nev;
+            $mandate->ignoreValidation = true;
+            $mandate->save();
         }
     }
 }
