@@ -10,11 +10,17 @@ use Csatar\Csatar\Models\Association;
 use Csatar\Csatar\Models\AgeGroup;
 use Csatar\Csatar\Classes\Enums\Status;
 use Csatar\Csatar\Models\FoodSensitivity;
+use Csatar\Csatar\Models\LeadershipQualification;
 use Csatar\Csatar\Models\Mandate;
 use Csatar\Csatar\Models\MandateType;
 use Csatar\Csatar\Models\Patrol;
+use Csatar\Csatar\Models\Promise;
 use Csatar\Csatar\Models\Scout;
+use Csatar\Csatar\Models\SpecialTest;
 use Csatar\Csatar\Models\Team;
+use Csatar\Csatar\Models\Test;
+use Csatar\Csatar\Models\Training;
+use Csatar\Csatar\Models\TrainingQualification;
 use Csatar\Csatar\Models\Troop;
 use Csatar\Csatar\Models\LegalRelationship;
 use Csatar\Csatar\Models\Religion;
@@ -356,6 +362,10 @@ class JsonImport extends Controller
     }
 
     public function mandates() {
+
+    }
+
+    public function promises() {
 
     }
 
@@ -847,5 +857,185 @@ class JsonImport extends Controller
             $mandate->ignoreValidation = true;
             $mandate->save();
         }
+    }
+
+    public function onUploadAndProcessPromisesAndQualifications() {
+        $pivotFile = Input::file('pivot_json_file');
+
+        if ($pivotFile->isValid()) {
+            $pivotFile = $pivotFile->move(temp_path(), $pivotFile->getClientOriginalName());
+            $pivotData = collect(json_decode(file_get_contents($pivotFile->getRealPath())));
+        }
+
+        if (empty($pivotData)) {
+            return;
+        }
+
+        $totalItemsToAdd = $pivotData->count();
+        $pivotData = $pivotData->groupBy('fields.tag');
+
+        $promisesMap = [
+            "cserkeszfogadalom" => 'Cserkész fogadalom',
+            "kiscserkesz-igeret" => 'Kiscserkész igéret',
+            "felnottcserkesz-fogadalom" => 'Felnőttcserkész fogadalom',
+            "segedorsvezetoi-fogadalom" => "Segédőrsvezetői fogadalom",
+            "orsvezetoi-fogadalom" => "Őrsvezetői fogadalom",
+            "cserkesztiszti-fogadalom" => "Cserkesztiszti fogadalom",
+        ];
+        $promisesMap = array_map(function($value) {
+            return Promise::firstOrCreate([ 'name' => $value ]);
+        }, $promisesMap);
+
+        $testsMap = [
+            "ujoncproba" => "Újonc próba",
+            "elso-proba" => "Első próba",
+            "masodik-proba" => "Második próba",
+            "harmadik-proba" => "Harmadik próba",
+            "piros-pajzs-proba" => "Piros pajzs próba",
+            "feher-pajzs-proba" => "Fehér pajzs próba",
+            "zold-pajzs-proba" => "Zöld pajzs próba"
+        ];
+        $testsMap = array_map(function($value) {
+            return Test::firstOrCreate([ 'name' => $value ]);
+        }, $testsMap);
+
+        $specialTestsMap = [
+            "szakacs" => "Szakács",
+            "tuzrako" => "Tűzrakó",
+            "harom-sastoll" => "Három sastoll",
+            "elsosegely" => "Elsősegély",
+            "tuzolto" => "Tűzoltó",
+            "egereszolyv" => "Egerészölyv",
+            "egyhazszolgalat" => "Egyházszolgálat",
+            "olvaso" => "Olvasó",
+            "penzugyi" => "Pénzügyi",
+        ];
+        $specialTestsMap = array_map(function($value) {
+            return SpecialTest::firstOrCreate([ 'name' => $value ]);
+        }, $specialTestsMap);
+
+        $leadershipQualificationsMap = [
+            "segedorsvezeto" => "Segédőrsvezető képzés",
+            "orsvezeto" => "Őrsvezető képzés", //kivéve ahol a tovabbi_adatok.kepzes tartalmazza az "FŐVK"-t. ott a "Felnőtt őrsvezető képzés"-t kell hozzárendelni
+            "fovk-orsvezeto" => "Felnőtt őrsvezető képzés",
+            "segedtiszt" => "Segédvezető képzés",
+            "cserkesztiszt" => "Cserkész vezető",
+        ];
+        $leadershipQualificationsMap = array_map(function($value) {
+            return LeadershipQualification::firstOrCreate([ 'name' => $value ]);
+        }, $leadershipQualificationsMap);
+
+        $trainingQualificationsMap = [
+            "mameluk" => "Mameluk",
+            "orsvezeto-kikepzo" => "ŐVK kiképző",
+            "segedorsvezeto-kikepzo" => "SÖV kiképző",
+            "segedtiszt-kikepzo" => "ST kiképző",
+        ];
+        $trainingQualificationsMap = array_map(function($value) {
+            return TrainingQualification::firstOrCreate([ 'name' => $value ]);
+        }, $trainingQualificationsMap);
+
+        $typeMap = [
+            "cserkeszfogadalom" => [ 'promises', $promisesMap],
+            "kiscserkesz-igeret" => [ 'promises', $promisesMap],
+            "felnottcserkesz-fogadalom" => [ 'promises', $promisesMap],
+            "ujoncproba" => [ 'tests', $testsMap],
+            "elso-proba" => [ 'tests', $testsMap],
+            "masodik-proba" => [ 'tests', $testsMap],
+            "harmadik-proba" => [ 'tests', $testsMap],
+            "piros-pajzs-proba" => [ 'tests', $testsMap],
+            "feher-pajzs-proba" => [ 'tests', $testsMap],
+            "zold-pajzs-proba" => [ 'tests', $testsMap],
+            "szakacs" => [ 'special_tests', $specialTestsMap],
+            "tuzrako" => [ 'special_tests', $specialTestsMap],
+            "harom-sastoll" => [ 'special_tests', $specialTestsMap],
+            "elsosegely" => [ 'special_tests', $specialTestsMap],
+            "tuzolto" => [ 'special_tests', $specialTestsMap],
+            "egereszolyv" => [ 'special_tests', $specialTestsMap],
+            "egyhazszolgalat" => [ 'special_tests', $specialTestsMap],
+            "olvaso" => [ 'special_tests', $specialTestsMap],
+            "penzugyi" => [ 'special_tests', $specialTestsMap],
+            "segedorsvezeto" => [ 'leadership_qualifications', $leadershipQualificationsMap],
+            "segedorsvezetoi-fogadalom" => [ 'promises', $promisesMap],
+            "orsvezeto" => [ 'leadership_qualifications', $leadershipQualificationsMap],
+            "orsvezetoi-fogadalom" => [ 'promises', $promisesMap],
+            "fovk-orsvezeto" => [ 'leadership_qualifications', $leadershipQualificationsMap],
+            "segedtiszt" => [ 'leadership_qualifications', $leadershipQualificationsMap],
+            "cserkesztiszt" => [ 'leadership_qualifications', $leadershipQualificationsMap],
+            "cserkesztiszti-fogadalom" => [ 'promises', $promisesMap],
+            "mameluk" => [ 'training_qualifications', $trainingQualificationsMap],
+            "orsvezeto-kikepzo" => [ 'training_qualifications', $trainingQualificationsMap],
+            "segedorsvezeto-kikepzo" => [ 'training_qualifications', $trainingQualificationsMap],
+            "segedtiszt-kikepzo" => [ 'training_qualifications', $trainingQualificationsMap],
+        ];
+        $scoutsMap = Scout::all();
+        $scoutsMap = $scoutsMap->mapWithKeys(function ($item) {
+            return [
+                $item->ecset_code => $item
+            ];
+        });
+
+        $totalItemsAdded = 0;
+
+        foreach ($pivotData as $scoutCode => $groupedData) {
+            $itemsToAdd = count($groupedData);
+            $itemsAdded = 0;
+
+            $scout = $scoutsMap[$scoutCode];
+
+            if (empty($scout)) {
+                continue;
+            }
+
+            foreach ($groupedData as $data) {
+                $data = $data->fields;
+
+                if (!isset($data->tag[0])) {
+                    continue;
+                }
+
+                $kepesites = $data->kepesites[0];
+                if (!empty($data->tovabbi_adatok->kepzes) && strpos($data->tovabbi_adatok->kepzes, 'FŐVK') !== false) {
+                    $kepesites = 'fovk-' . $kepesites;
+                }
+                $relationName = $typeMap[$kepesites][0];
+                $relationModel = $typeMap[$kepesites][1][$kepesites];
+                $pivotArray = [
+                    'date' => $data->datum ?? null,
+                    'location' => $data->tovabbi_adatok->helyszin ?? null,
+                ];
+                if (array_key_exists($kepesites, $trainingQualificationsMap) || array_key_exists($kepesites, $leadershipQualificationsMap)) {
+
+                    if (!empty($data->tovabbi_adatok->kepzes)) {
+                        $training = Training::firstOrCreate([
+                            'name' => $data->tovabbi_adatok->kepzes
+                        ]);
+                    }
+
+                    $pivotArray = array_merge($pivotArray, [
+                        'qualification_certificate_number' => $data->tovabbi_adatok->betetlap ?? null,
+                        'training_id' => $training->id ?? null,
+                        'training_name' => $training->name ?? null,
+                        'qualification_leader' => $data->tovabbi_adatok->kv ?? null,
+                    ]);
+                }
+
+                if (!$scout->{$relationName}->contains($relationModel)) {
+                    $scout->{$relationName}()->add($relationModel,$pivotArray);
+                    $itemsAdded++;
+                }
+
+                $training = null;
+                $pivotArray = null;
+            }
+
+            if($itemsToAdd > $itemsAdded) {
+                Log::warning("Could add only $itemsAdded of $itemsToAdd promises and qualifications to scout: $scoutCode;");
+            }
+
+            $totalItemsAdded += $itemsAdded;
+        }
+
+        Log::warning("Could add $totalItemsAdded of $totalItemsToAdd promises and qualifications");
     }
 }

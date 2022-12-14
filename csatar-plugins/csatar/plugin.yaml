@@ -156,6 +156,10 @@ navigation:
                 label: 'Import mandates (json)'
                 url: csatar/csatar/jsonimport/mandates
                 icon: icon-sitemap
+            side-menu-item-json-import-promises:
+                label: 'Import promises etc. (json)'
+                url: csatar/csatar/jsonimport/promises
+                icon: icon-sitemap
             side-menu-item-synchronize-permissions-matrix:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.synchronizePermissionsMatrix'
                 url: csatar/csatar/seederdata/synchronizepermissionsmatrix
