@@ -29,7 +29,7 @@
 
                         {# Show the number of scouts in the Teams, Troops and Patrols #}
                         {% if level > 2 %}
-                        <p>{{ 'Tagok száma: ' ~ (item.scouts | length) | _ }}</p>
+                        <p>{{ 'Tagok száma: '|_ }} {{ item.scouts().count() }}</p>
                         {% endif %}
 
                         {# Render child accordions for Associations, Districts, Teams and Troops #}
@@ -57,7 +57,7 @@
 
                             {# Show the number of scouts in the Teams, Troops and Patrols #}
                             {% if level > 2 %}
-                            <p>{{ 'Tagok száma: ' ~ (item.scouts | length) | _ }}</p>
+                            <p>{{ 'Tagok száma: '|_ }} {{ item.scouts().count() }}</p>
                             {% endif %}
 
                             {# Render child accordions for Associations, Districts, Teams and Troops #}
