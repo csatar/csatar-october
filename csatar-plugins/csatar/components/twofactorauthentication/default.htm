@@ -1,5 +1,6 @@
 {% set qrCodeData = __SELF__.qrCodeData %}
 {% set is2FAuthenticated = __SELF__.is2FAuthenticated %}
+{% set activated2FA = __SELF__.activated2FA %}
 
 <div id="twoFactorAuth">
     <div class="modal fade" id="twoFactorAuthModal" tabindex="-1" aria-labelledby="twoFactorAuthModalLabel" aria-hidden="true">
@@ -12,7 +13,9 @@
                 <div class="modal-body text-center">
                     <div id="qrInputContainer">
                         {% if not is2FAuthenticated %}
-                            <img src="{{ qrCodeData }}" class="rounded mx-auto d-block">
+                            {% if not activated2FA %}
+                                <img src="{{ qrCodeData }}" class="rounded mx-auto d-block">
+                            {% endif %}
                             <form
                                 data-request="{{ __SELF__ }}::onVerifyCode"
                                 data-request-validate

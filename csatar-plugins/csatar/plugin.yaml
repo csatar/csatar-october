@@ -138,8 +138,28 @@ navigation:
                 icon: icon-database
             side-menu-test-data:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.testData'
-                url: /csatar/csatar/seederdata/test
+                url: csatar/csatar/seederdata/test
                 icon: icon-database
+            side-menu-import-data:
+                label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.importData'
+                url: csatar/csatar/scoutimport/import
+                icon: icon-database
+            side-menu-item-json-import-organizations:
+                label: 'Import organizations (json)'
+                url: csatar/csatar/jsonimport/organizations
+                icon: icon-sitemap
+            side-menu-item-json-import-scouts:
+                label: 'Import scouts (json)'
+                url: csatar/csatar/jsonimport/scouts
+                icon: icon-sitemap
+            side-menu-item-json-import-mandates:
+                label: 'Import mandates (json)'
+                url: csatar/csatar/jsonimport/mandates
+                icon: icon-sitemap
+            side-menu-item-synchronize-permissions-matrix:
+                label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.synchronizePermissionsMatrix'
+                url: csatar/csatar/seederdata/synchronizepermissionsmatrix
+                icon: icon-sitemap
     main-menu-item-accident-log:
         label: 'csatar.csatar::lang.plugin.component.accidentLog.accidentLog'
         url: csatar/csatar/accidentlogrecords

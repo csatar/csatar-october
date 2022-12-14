@@ -2,8 +2,19 @@
 
 ## Unreleased
 
+- CS-271 - Make the pivot relations editable on the form
+- CS-416 - Created method to automatically add newly added field s to permission matrix
+- CS-399 - Added and implemented status field to team
+- CS-351 - Extended backend mandates list with "mandate_model_name", "mandate_team", "scout_team" columns and added filters for every column
+- CS-326 - Finalized team report pdf download
+- CS-395 - Made database fields and attributes nullable
+- CS-38 - Import Scouts from ECSET.
+- CS-333 - Add additional chronic illnesses
+- CS-349 - Remove empty boxes on forms
+- CS-302 - Reorganized navigation to fit more items, modified hamburger menu so it is activated on tablet view
 - CS-320 - Simplified scout's page. Removed section names from labels.
 - CS-378 - Created csv import-export for permissions matrix.
+- CS-393 - Don't show the QR code for those who already activated 2FA
 
 ## 1.6.0
 ### 2022-11-03

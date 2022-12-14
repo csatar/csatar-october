@@ -264,4 +264,20 @@ class Plugin extends PluginBase
         }
 
     }
+
+    public function registerPDFLayouts()
+    {
+        return [
+            'csatar.csatar::pdf.layouts.teamreportlayout',
+        ];
+    }
+
+    public function registerPDFTemplates()
+    {
+        return [
+            'csatar.csatar::pdf.teamreporttemplate',
+        ];
+    }
+
+
 }

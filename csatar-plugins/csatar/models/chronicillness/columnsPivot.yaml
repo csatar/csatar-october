@@ -1,0 +1,9 @@
+columns:
+    name:
+        label: 'csatar.csatar::lang.plugin.admin.general.name'
+        type: text
+        searchable: true
+        sortable: true
+    'pivot[comment]':
+        label: 'csatar.csatar::lang.plugin.admin.general.comment'
+        type: text

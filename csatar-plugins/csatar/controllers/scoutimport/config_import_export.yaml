@@ -1,0 +1,5 @@
+import:
+    modelClass: Csatar\Csatar\Models\ScoutImport
+    list: $/csatar/csatar/models/scoutimport/columns.yaml
+    form: $/csatar/csatar/models/scoutimport/fields.yaml
+    redirect: csatar/csatar/scoutimport/import

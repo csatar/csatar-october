@@ -1,6 +1,6 @@
 <div>
     {% component 'basicForm' %}
-    
+
     {% if __SELF__.action == 'modositas' and __SELF__.teamReport.created_at is not null and __SELF__.teamReport.submitted_at is null %}
         <button class="btn rounded btn-primary"
             data-request="{{ __SELF__ }}::onSubmit"
@@ -10,7 +10,7 @@
             {{ 'Csapatjelentés beküldése'|_ }}
         </button>
     {% endif %}
-    
+
     {% if __SELF__.action == null and __SELF__.teamReport.submitted_at is not null and __SELF__.teamReport.approved_at is null %}
         <button class="btn rounded btn-primary"
             data-request="{{ __SELF__ }}::onApprove"
@@ -19,5 +19,14 @@
             <i class="csat-check-fill-wh-sm"></i>
             {{ 'Csapatjelentés jóváhagyása'|_ }}
         </button>
+
+
     {% endif %}
+    <button class="btn rounded btn-primary"
+       data-request="{{ __SELF__ }}::onDownloadPdf"
+       data-request-data="id: {{ __SELF__.id }}"
+       data-request-loading="#fs-saving-loader">
+        <i class="csat-arrowdown-fill-wh-sm"></i>
+        {{ 'Csapatjelentés letöltése'|_ }}
+    </button>
 </div>

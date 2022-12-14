@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN composer create-project october/october . --no-interaction --prefer-dist
+RUN composer create-project october/october . "^2.0" --no-interaction --prefer-dist
 
 RUN echo 'APP_ENV=csatar-dev' > .env
 

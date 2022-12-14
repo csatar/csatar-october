@@ -180,3 +180,24 @@
 1.0.63:
     - 'Updated table pollozen_simplegallery_galleries'
     - builder_table_update_pollozen_simplegallery_galleries.php
+1.0.64:
+    - 'Updated table csatar_csatar_scouts_chronic_illnesses'
+    - builder_table_update_csatar_csatar_scouts_chronic_illnesses.php
+1.0.65:
+    - 'Change columns to nullable in associations, districts, scouts, team_reports'
+    - made_columns_nullable.php
+1.0.66:
+    - 'Updated table csatar_csatar_teams'
+    - builder_table_update_csatar_csatar_teams.php
+1.0.67:
+    - 'Extend organizations with status, slug and in case of patrol gender as well'
+    - update_districts_teams_troops_patrol_table.php
+1.0.68:
+    - 'Generate slug if empty to Districts, Teams, Troops, Patrols'
+    - generate_slug_for_districts_teams_troops_patrols.php
+1.0.69:
+    - 'Add a raw_import column to scouts table for importing raw json data from the old system'
+    - update_csatar_csatar_scouts_add_raw_import_column.php
+1.0.70:
+    - 'Update mandate_types add is_vk column'
+    - update_mandate_types_add_is_vk_column.php

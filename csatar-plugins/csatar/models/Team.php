@@ -2,12 +2,16 @@
 
 use Lang;
 use Csatar\Csatar\Models\OrganizationBase;
+use Csatar\Csatar\Models\Scout;
+use Csatar\Csatar\Classes\Enums\Status;
 
 /**
  * Model
  */
 class Team extends OrganizationBase
 {
+    use \October\Rain\Database\Traits\Nullable;
+
     /**
      * @var string The database table used by the model.
      */
@@ -24,20 +28,15 @@ class Team extends OrganizationBase
     public $rules = [
         'name' => 'required',
         'team_number' => 'required|numeric|min:1|max:9999',
-        'address' => 'required|min:5',
-        'foundation_date' => 'required',
-        'phone' => 'regex:(^[0-9+-.()]{10,}$)',
-        'email' => 'required|email',
+        'address' => 'min:5|nullable',
+        'phone' => 'nullable|regex:(^[0-9+-.()]{10,}$)',
+        'email' => 'email|nullable',
         'website' => 'url|nullable',
         'facebook_page' => 'url|regex:(facebook)|nullable',
-        'contact_name' => 'required|min:5',
-        'contact_email' => 'required|email',
-        'leadership_presentation' => 'required',
-        'description' => 'required',
-        'juridical_person_name' => 'required',
-        'juridical_person_address' => 'required|min:5',
-        'juridical_person_tax_number' => 'required',
-        'juridical_person_bank_account' => 'required|min:5',
+        'contact_name' => 'min:5|nullable',
+        'contact_email' => 'email|nullable',
+        'juridical_person_address' => 'min:5|nullable',
+        'juridical_person_bank_account' => 'min:5|nullable',
         'district' => 'required',
         'logo' => 'image|nullable',
     ];
@@ -62,7 +61,7 @@ class Team extends OrganizationBase
         // iterate through the teams and if there is another team with the same team number, then throw an exception
         foreach($teams as $team) {
             if ($team->id != $this->id && $team->team_number == $this->team_number) {
-                throw new \ValidationException(['team_number' => Lang::get('csatar.csatar::lang.plugin.admin.team.teamNumberTakenError')]);
+                throw new \ValidationException(['team_number' => Lang::get('csatar.csatar::lang.plugin.admin.team.teamNumberTakenError', ['teamNumber' => $this->team_number])]);
             }
         }
 
@@ -80,6 +79,7 @@ class Team extends OrganizationBase
      */
     public $fillable = [
         'name',
+        'status',
         'team_number',
         'address',
         'foundation_date',
@@ -100,6 +100,34 @@ class Team extends OrganizationBase
         'home_supplier_name',
         'district_id',
         'logo',
+        'slug',
+    ];
+
+    protected $nullable = [
+        'status',
+        'address',
+        'foundation_date',
+        'phone',
+        'email',
+        'website',
+        'facebook_page',
+        'contact_name',
+        'contact_email',
+        'history',
+        'coordinates',
+        'leadership_presentation',
+        'description',
+        'juridical_person_name',
+        'juridical_person_address',
+        'juridical_person_tax_number',
+        'juridical_person_bank_account',
+        'home_supplier_name',
+        'district_id',
+        'slug',
+    ];
+
+    protected $casts = [
+        'status' => 'integer',
     ];
 
     /**
@@ -151,6 +179,45 @@ class Team extends OrganizationBase
     {
         $filterWords = explode(',', Lang::get('csatar.csatar::lang.plugin.admin.team.filterOrganizationUnitNameForWords'));
         $this->name = $this->filterNameForWords($this->name, $filterWords);
+
+        $this->generateSlugIfEmpty();
+    }
+
+    public function generateSlugIfEmpty() {
+        if (empty($this->slug)) {
+            $this->slug = str_slug($this->district->association->name_abbreviation) . '/' . str_slug($this->team_number);
+        }
+    }
+
+    public function afterSave() {
+        if (isset($this->original['status']) && $this->status != $this->original['status'] && $this->original['status'] == Status::ACTIVE) {
+            // it would be more efficient to use mass update here, but in that case model events are not fired
+            foreach (Troop::where(['team_id' => $this->id, 'status' => Status::ACTIVE])->get() as $troop) {
+                $troop->status = Status::INACTIVE;
+                $troop->ignoreValidation = true;
+                $troop->forceSave();
+            }
+            foreach (Patrol::where(['team_id' => $this->id, 'status' => Status::ACTIVE])->get() as $patrol) {
+                $patrol->status = Status::INACTIVE;
+                $patrol->ignoreValidation = true;
+                $patrol->forceSave();
+            }
+            foreach (Scout::where(['team_id' => $this->id, 'is_active' => Status::ACTIVE])->get() as $scout) {
+                $scout->is_active = Status::INACTIVE;
+                $scout->ignoreValidation = true;
+                $scout->forceSave();
+            }
+            Mandate::setAllMandatesExpiredInOrganization($this);
+        }
+    }
+
+    public static function getStatusOptions(){
+        return [
+            Status::ACTIVE => e(trans('csatar.csatar::lang.plugin.admin.team.active')),
+            Status::INACTIVE => e(trans('csatar.csatar::lang.plugin.admin.team.inActive')),
+            Status::SUSPENDED => e(trans('csatar.csatar::lang.plugin.admin.team.suspended')),
+            Status::FORMING => e(trans('csatar.csatar::lang.plugin.admin.team.forming')),
+        ];
     }
 
     /**
@@ -159,6 +226,13 @@ class Team extends OrganizationBase
     public function getExtendedNameAttribute()
     {
         return isset($this->attributes['team_number']) && isset($this->attributes['name']) ? str_pad($this->attributes['team_number'], 3, '0', STR_PAD_LEFT) . ' - ' . $this->attributes['name'] . ' ' . Lang::get('csatar.csatar::lang.plugin.admin.team.nameSuffix') : null;
+    }
+
+    public function getExtendedNameWithAssociationAttribute()
+    {
+        $associationAbbreviation = isset($this->district->association->name_abbreviation) ? $this->district->association->name_abbreviation . ' - ' : '';
+
+        return $associationAbbreviation . $this->getExtendedNameAttribute();
     }
 
     /**
@@ -192,6 +266,20 @@ class Team extends OrganizationBase
     {
         $item = self::find($teamId);
         return [$item->id => $item->extendedName];
+    }
+
+    /**
+     * Return the team, which the given id
+     */
+    public static function getTeamIdByAssociationAndTeamNumber($associationId, $teamNumber)
+    {
+        $items = self::where('team_number', $teamNumber)->get();
+        foreach ($items as $item) {
+            if ($item->district->association->id == $associationId) {
+                return $item->id;
+            }
+        }
+        return null;
     }
 
     /**

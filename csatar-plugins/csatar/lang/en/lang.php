@@ -1,6 +1,8 @@
-<?php return [
+<?php
+
+return [
     'frontEnd' => [
-        'authException' => 'The email address, the ECSET code or the password is incorrect.',
+        'authException' => 'The email address, the ID number or the password is incorrect.',
     ],
     'plugin' => [
         'name' => 'CSATÁR',
@@ -22,7 +24,7 @@
                 'select' => 'Select...',
                 'logo' => 'Logo',
                 'coordinates' => 'Coordinates',
-                'ecsetCode' => 'ECSET code',
+                'ecsetCode' => 'ID number',
                 'date' => 'Date',
                 'location' => 'Location',
                 'qualificationCertificateNumber' => 'Képesítési Igazolás Száma',
@@ -41,6 +43,10 @@
                 'no' => 'No',
                 'url' => 'Hivatkozás',
                 'warning' => 'Warning',
+                'status' => 'Status',
+                'active' => 'Active',
+                'inActive' => 'Inactive',
+                'inactivationWarning' => 'Warning! If status is changed from active to any kind of inactive status, all child organizations will be inactivated and all mandates connected to the organization, it\'s child organizations and scouts belonging to the organization will expire!'
             ],
             'ageGroups' => [
                 'ageGroups' => 'Age Groups',
@@ -73,9 +79,11 @@
                 'nationality' => 'Nationality',
                 'tShirtSize' => 'T-shirt size',
                 'birthdate' => 'Date',
+                'birthdateFull' => 'Birthdate',
                 'nameday' => 'Nameday',
                 'maidenName' => 'Maiden name',
                 'birthplace' => 'Location',
+                'birthplaceFull' => 'Birthplace',
                 'addressCountry' => 'Country',
                 'addressZipcode' => 'Zipcode',
                 'addressCounty' => 'County',
@@ -88,6 +96,12 @@
                 'fathersName' => 'Name',
                 'fathersPhone' => 'Phone',
                 'fathersEmail' => 'Email',
+                'mothersNameFull' => 'Mother\'s name',
+                'mothersPhoneFull' => 'Mother\'s phone',
+                'mothersEmailFull' => 'Mother\'s email',
+                'fathersNameFull' => 'Father\'s name',
+                'fathersPhoneFull' => 'Father\'s phone',
+                'fathersEmailFull' => 'Father\'s email',
                 'legalRepresentativeName' => 'Name',
                 'legalRepresentativePhone' => 'Phone',
                 'legalRepresentativeEmail' => 'Email',
@@ -119,7 +133,7 @@
                 'leadershipQualifications' => 'Leadership qualifications',
                 'trainingQualifications' => 'Training qualifications',
                 'foodSensitivities' => 'Food sensitivities',
-                'additionalDetailsInfo' => 'Allergies, Food Sensitivities, Promises, Tests, Special Tests, Professional Qualifications, Special Qualifications, Leadership Qualifications and Training Qualifications can be added after the Scout has been created. Click the Create button after other information is filled.',
+                'additionalDetailsInfo' => 'Allergies, Chronic Illnesses, Food Sensitivities, Promises, Tests, Special Tests, Professional Qualifications, Special Qualifications, Leadership Qualifications and Training Qualifications can be added after the Scout has been created. Click the Create button after other information is filled.',
                 'breadcrumb' => 'Scouts',
                 'team' => 'Team',
                 'troop' => 'Troop',
@@ -142,6 +156,7 @@
                     'troopNotInTheTeamOrTroop' => 'The selected Patrol does not belong to the selected Team or to the selected Troop.',
                     'dateInTheFuture' => 'The selected Date is in the future.',
                     'endDateBeforeStartDate' => 'The End date cannot be before the Start date.',
+                    'associationRequired' => 'The Association is required.',
                     'registrationFormRequired' => 'The Registration form is required.',
                     'dateRequiredError' => 'The Date for the %name %category is required.',
                     'locationRequiredError' => 'The Location for the %name %category is required.',
@@ -151,11 +166,13 @@
                     'mandateEndDateBeforeStartDate' => 'The End date cannot be before the Start date for the %name mandate.',
                     'dateInTheFutureError' => 'The selected Date for the %name %category is in the future.',
                     'invalidPersonalIdentificationNumber' => 'Invalid Personal Identification Number.',
+                    'legalRepresentativePhoneUnderAge' => 'For scouts under legal age, phone number of one parent or legal representative must be filled.',
                 ],
                 'staticMessages' => [
                     'personalDataNotAccepted' => 'Please verify your personal data here!',
                 ],
                 'activeMandateDeleteError' => 'The Scout having the %name name has active Mandates, thus this Scout cannot be deleted.',
+                'inactivationWarning' => 'Please note that if you change status from active to inactive, scout\'s all mandates will expire!',
             ],
             'admin' => [
                 'menu' => [
@@ -187,16 +204,23 @@
                         'data' => 'Data',
                         'seederData' => 'Seeder data',
                         'testData' => 'Test data',
+                        'importData' => 'Import scouts from ECSET',
+                        'synchronizePermissionsMatrix' => 'Synchronize permissions matrix',
                     ],
                 ],
                 'seederData' => [
                     'seederData' => 'Seeder data',
                     'testData' => 'Test data',
+                    'importData' => 'Import scouts from ECSET',
                     'seederDataConfirmMessage' => 'Would you like to update the seeder data?',
                     'testDataConfirmMessage' => 'Would you like to update the test data?',
                     'dataToBeAdded' => 'The following data will be added (if doesn\'t already exist):',
+                    'importDataDescription' => 'Select a .csv file, or a .zip file containing .csv files.',
                     'updateData' => 'Update data',
                     'updateDataSuccess' => 'The data has been successfully updated.',
+                    'synchronize' => 'Synchronize',
+                    'synchronizePermissionsMatrixDesc' => 'This synchronization will scan all child classes of "PermissionBasedAccess" model and add a "Mandate permission" entry to the permissions matrix for every existing mandate type, based on child models "fillable", "belongsTo", "belongsToMany", "hasMany", "attachOne", "hasOne", "morphTo", "morphOne", "morphMany", "morphToMany", "morphedByMany", "attachMany", "hasManyThrough", "hasOneThrough" arrays. The new "Mandate permission" entry will have all permissions set to "null". Existing entries will not be affected.',
+                    'synchronizeComplete' => 'Synchronization complete!',
                 ],
                 'permissionsMatrix' => [
                     'all' => 'All',
@@ -343,7 +367,7 @@
                 'additionalDetailsInfo' => 'Districts, Currencies and Mandates can be added after the Association has been created. Click the Create button after other information is filled.',
                 'breadcrumb' => 'Associations',
                 'ecsetCode' => [
-                    'suffix' => 'ECSET code suffix',
+                    'suffix' => 'ID number suffix',
                 ],
                 'teamFee' => 'Team fee',
                 'membershipFee' => 'Membership fee',
@@ -386,10 +410,14 @@
                 'district' => 'District',
                 'troopsPatrolsScoutsInfo' => 'Troops, Patrols, Scouts and Mandates can be added after the Team has been created. Click the Create button after other information is filled.',
                 'breadcrumb' => 'Teams',
-                'teamNumberTakenError' => 'This Team number is already taken.',
+                'teamNumberTakenError' => 'Team number ":teamNumber" is already taken.',
                 'dateInTheFutureError' => 'The selected date is in the future.',
                 'organizationUnitNameWarning' => 'The name of the team can not contain the word "team."',
                 'filterOrganizationUnitNameForWords' => 'team',
+                'active' => 'Active',
+                'inActive' => 'Inactive',
+                'suspended' => 'Suspended',
+                'forming' => 'Forming',
             ],
             'troop' => [
                 'troop' => 'Troop',
@@ -417,6 +445,9 @@
                 'troopNotInTheTeamError' => 'The selected Troop does not belong to the selected Team.',
                 'organizationUnitNameWarning' => 'The name of the patrol can not contain the word "patrol."',
                 'filterOrganizationUnitNameForWords' => 'partol',
+                'gender' => [
+                    'mixed' => 'Mixed',
+                ],
             ],
             'currency' => [
                 'currency' => 'Currency',
@@ -478,6 +509,7 @@
                 'endDate' => 'End date',
                 'breadcrumb' => 'Mandate types',
                 'activeMandateDeleteError' => 'There exist active Mandates of %name type, thus this Mandate type cannot be deleted.',
+                'scoutTeam' => 'Scout\'s team',
             ],
             'mandate' => [
                 'mandate' => 'Mandate',
@@ -612,7 +644,7 @@
                 'description' => 'Creates a Frontend user account for an existing Scout.',
                 'currentPage' => '- current page -',
                 'validationExceptions' => [
-                    'invalidEcsetCode' => 'Invalid ECSET code',
+                    'invalidEcsetCode' => 'Invalid ID number',
                     'emailEcsetCodeMissMatch' => 'If you don\'t have an email address or your email address is different from the registered one please contact your patrol leader!',
                     'noScoutIsSelected' => 'No Scout is selected!',
                 ],
@@ -631,6 +663,8 @@
                 'description' => 'Enables two factor authentication.',
                 'twoFactorAuthFailed' => 'Authentication failed, please try again!',
                 'twoFactorAuthSuccess' => 'Authentication successful, thank you!',
+                'reset' => 'Reset Two Factor Authentication',
+                'resetSuccess' => 'The Two Factor Authentication has been successfully reset. The user will have to delete this account from the Authenticator app as well.',
             ],
             'accidentLog' => [
                 'accidentLog' => 'Accident Log',

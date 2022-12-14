@@ -1,5 +1,7 @@
 <?php namespace Csatar\Csatar\Models;
 
+use Csatar\Csatar\Classes\Enums\Gender;
+use Csatar\Csatar\Classes\Enums\Status;
 use Lang;
 use DB;
 use Csatar\Csatar\Models\AgeGroup;
@@ -10,6 +12,7 @@ use Csatar\Csatar\Models\OrganizationBase;
  */
 class Patrol extends OrganizationBase
 {
+    use \October\Rain\Database\Traits\Nullable;
     /**
      * @var string The database table used by the model.
      */
@@ -81,6 +84,18 @@ class Patrol extends OrganizationBase
         'team_id',
         'troop_id',
         'logo',
+        'slug',
+        'gender',
+        'status'
+    ];
+
+    protected $nullable = [
+        'email',
+        'website',
+        'facebook_page',
+        'troop_id',
+        'slug',
+        'gender',
     ];
 
     /**
@@ -122,6 +137,28 @@ class Patrol extends OrganizationBase
         $filterWords = explode(',', Lang::get('csatar.csatar::lang.plugin.admin.patrol.filterOrganizationUnitNameForWords'));
         $this->name = $this->filterNameForWords($this->name, $filterWords);
         $this->troop_id = $this->troop_id != 0 ? $this->troop_id : null;
+
+        $this->generateSlugIfEmpty();
+    }
+
+    public function afterSave() {
+        if (isset($this->original['status']) && $this->status != $this->original['status'] && $this->original['status'] == Status::ACTIVE) {
+            // it would be more efficient to use mass update here, but in that case model events are not fired
+            foreach (Scout::where(['patrol_id' => $this->id, 'is_active' => Status::ACTIVE])->get() as $scout) {
+                $scout->is_active = Status::INACTIVE;
+                $scout->ignoreValidation = true;
+                $scout->forceSave();
+            }
+            Mandate::setAllMandatesExpiredInOrganization($this);
+        }
+    }
+
+    public function generateSlugIfEmpty() {
+        if (empty($this->slug)) {
+            $this->slug = str_slug($this->team->district->association->name_abbreviation) ;
+            $this->slug .= '/' . str_slug($this->team->team_number) . '/' . str_slug($this->name);
+            $this->slug .= '-ors';
+        }
     }
 
     /**
@@ -167,6 +204,21 @@ class Patrol extends OrganizationBase
                 ;
         }
         return [];
+    }
+
+    public static function getStatusOptions(){
+        return [
+            Status::ACTIVE => e(trans('csatar.csatar::lang.plugin.admin.general.active')),
+            Status::INACTIVE => e(trans('csatar.csatar::lang.plugin.admin.general.inActive')),
+        ];
+    }
+
+    public static function getGenderOptions(){
+        return [
+            Gender::MALE => e(trans('csatar.csatar::lang.plugin.admin.scout.gender.male')),
+            Gender::FEMALE => e(trans('csatar.csatar::lang.plugin.admin.scout.gender.male')),
+            Gender::MIXED => e(trans('csatar.csatar::lang.plugin.admin.patrol.gender.mixed')),
+        ];
     }
 
     /**

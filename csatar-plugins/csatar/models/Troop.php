@@ -1,5 +1,6 @@
 <?php namespace Csatar\Csatar\Models;
 
+use Csatar\Csatar\Classes\Enums\Status;
 use Lang;
 use Csatar\Csatar\Models\OrganizationBase;
 
@@ -39,6 +40,8 @@ class Troop extends OrganizationBase
         'website',
         'facebook_page',
         'team_id',
+        'slug',
+        'status',
     ];
 
     /**
@@ -82,6 +85,33 @@ class Troop extends OrganizationBase
     {
         $filterWords = explode(',', Lang::get('csatar.csatar::lang.plugin.admin.troop.filterOrganizationUnitNameForWords'));
         $this->name = $this->filterNameForWords($this->name, $filterWords);
+
+        $this->generateSlugIfEmpty();
+    }
+
+    public function afterSave() {
+        if (isset($this->original['status']) && $this->status != $this->original['status'] && $this->original['status'] == Status::ACTIVE) {
+            // it would be more efficient to use mass update here, but in that case model events are not fired
+            foreach (Patrol::where(['troop_id' => $this->id, 'status' => Status::ACTIVE])->get() as $patrol) {
+                $patrol->status = Status::INACTIVE;
+                $patrol->ignoreValidation = true;
+                $patrol->forceSave();
+            }
+            foreach (Scout::where(['troop_id' => $this->id, 'is_active' => Status::ACTIVE])->get() as $scout) {
+                $scout->is_active = Status::INACTIVE;
+                $scout->ignoreValidation = true;
+                $scout->forceSave();
+            }
+            Mandate::setAllMandatesExpiredInOrganization($this);
+        }
+    }
+
+    public function generateSlugIfEmpty() {
+        if (empty($this->slug)) {
+            $this->slug = str_slug($this->team->district->association->name_abbreviation) ;
+            $this->slug .= '/' . str_slug($this->team->team_number) . '/' . str_slug($this->name);
+            $this->slug .= '-raj';
+        }
     }
 
     /**
@@ -119,6 +149,13 @@ class Troop extends OrganizationBase
         }
         asort($options);
         return $options;
+    }
+
+    public static function getStatusOptions(){
+        return [
+            Status::ACTIVE => e(trans('csatar.csatar::lang.plugin.admin.general.active')),
+            Status::INACTIVE => e(trans('csatar.csatar::lang.plugin.admin.general.inActive')),
+        ];
     }
 
     /**

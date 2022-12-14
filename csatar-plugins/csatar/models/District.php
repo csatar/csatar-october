@@ -1,5 +1,6 @@
 <?php namespace Csatar\Csatar\Models;
 
+use Csatar\Csatar\Classes\Enums\Status;
 use Lang;
 use Csatar\Csatar\Models\OrganizationBase;
 
@@ -23,16 +24,14 @@ class District extends OrganizationBase
      */
     public $rules = [
         'name' => 'required',
-        'phone' => 'regex:(^[0-9+-.()]{10,}$)',
-        'email' => 'required|email',
+        'phone' => 'nullable|regex:(^[0-9+-.()]{10,}$)',
+        'email' => 'email|nullable',
         'website' => 'url|nullable',
         'facebook_page' => 'url|regex:(facebook)|nullable',
-        'contact_name' => 'required|min:5',
-        'contact_email' => 'required|email',
-        'address' => 'required|min:5',
+        'contact_name' => 'min:5|nullable',
+        'contact_email' => 'email|nullable',
+        'address' => 'min:5|nullable',
         'bank_account' => 'min:5|nullable',
-        'leadership_presentation' => 'required',
-        'description' => 'required',
         'association' => 'required',
         'logo' => 'image|nullable',
     ];
@@ -55,6 +54,8 @@ class District extends OrganizationBase
         'bank_account',
         'association_id',
         'logo',
+        'slug',
+        'status',
     ];
 
     /**
@@ -117,6 +118,14 @@ class District extends OrganizationBase
     {
         $filterWords = explode(',', Lang::get('csatar.csatar::lang.plugin.admin.district.filterOrganizationUnitNameForWords'));
         $this->name = $this->filterNameForWords($this->name, $filterWords);
+
+        $this->generateSlugIfEmpty();
+    }
+
+    public function generateSlugIfEmpty() {
+        if (empty($this->slug)) {
+            $this->slug = str_slug($this->association->name_abbreviation) . '/' . str_slug($this->name) . '-korzet';
+        }
     }
 
     /**
@@ -130,6 +139,13 @@ class District extends OrganizationBase
             ->where('csatar_csatar_teams.id', $teamId)
             ->first();
         return [$item->district_id => $item->extendedName];
+    }
+
+    public static function getStatusOptions(){
+        return [
+            Status::ACTIVE => e(trans('csatar.csatar::lang.plugin.admin.general.active')),
+            Status::INACTIVE => e(trans('csatar.csatar::lang.plugin.admin.general.inActive')),
+        ];
     }
 
     /**

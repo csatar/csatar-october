@@ -333,6 +333,7 @@ class BasicForm extends ComponentBase  {
         return UserRigthsProvider::getUserRigths($record, $ignoreCache);
     }
 
+
     private function canCreate(string $attribute): bool
     {
         return $this->rightsCollectionHasKey($attribute) && $this->currentUserRights[$attribute]['create'] > 0;
@@ -361,5 +362,14 @@ class BasicForm extends ComponentBase  {
     private function rightsCollectionHasKey($attribute): bool
     {
         return !empty($this->currentUserRights) && $this->currentUserRights->has($attribute);
+    }
+
+    private function shouldIgnoreUserRights($attribute, $fieldsConfig): bool
+    {
+        if (isset($fieldsConfig[$attribute]['formBuilder']['ignoreUserRights']) && $fieldsConfig[$attribute]['formBuilder']['ignoreUserRights'] == 1) {
+            return true;
+        }
+
+        return false;
     }
 }

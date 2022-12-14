@@ -11,18 +11,17 @@ fields:
             card: scoutData
             position: details
             order: 1
-            default: '-'
+            ignoreUserRights: 1
     relations:
         label: 'csatar.csatar::lang.plugin.admin.general.relations'
         span: full
         type: section
     team:
         label: 'csatar.csatar::lang.plugin.admin.scout.team'
-        nameFrom: extendedName
+        nameFrom: extendedNameWithAssociation
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
-        readOnly: 1
         required: 1
         type: relation
         formBuilder:
@@ -84,7 +83,6 @@ fields:
     family_name:
         label: 'csatar.csatar::lang.plugin.admin.scout.familyName'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
@@ -94,7 +92,6 @@ fields:
     given_name:
         label: 'csatar.csatar::lang.plugin.admin.scout.givenName'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
@@ -110,7 +107,6 @@ fields:
             card: scoutData
             position: details
             order: 2
-            default: '-'
     email:
         label: 'csatar.csatar::lang.plugin.admin.general.email'
         span: auto
@@ -120,7 +116,6 @@ fields:
             card: scoutData
             position: details
             order: 3
-            default: '-'
     phone:
         label: 'csatar.csatar::lang.plugin.admin.general.phone'
         span: auto
@@ -130,18 +125,15 @@ fields:
             card: scoutData
             position: details
             order: 4
-            default: '-'
     personal_identification_number:
         label: 'csatar.csatar::lang.plugin.admin.scout.personalIdentificationNumber'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
             card: scoutData
             position: details
             order: 5
-            default: '-'
     gender:
         label: 'csatar.csatar::lang.plugin.admin.scout.gender.gender'
         options:
@@ -150,16 +142,15 @@ fields:
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         showSearch: true
         span: auto
-        required: 1
         type: dropdown
         formBuilder:
             type: field
             card: scoutData
             position: details
             order: 6
-            default: '-'
     is_active:
         label: 'csatar.csatar::lang.plugin.admin.scout.isActive'
+        comment: 'csatar.csatar::lang.plugin.admin.scout.inactivationWarning'
         span: auto
         default: 1
         type: checkbox
@@ -168,7 +159,6 @@ fields:
             card: scoutData
             position: details
             order: 7
-            default: '-'
     legal_relationship:
         label: 'csatar.csatar::lang.plugin.admin.scout.legalRelationship'
         nameFrom: name
@@ -176,28 +166,24 @@ fields:
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         dependsOn: team
         span: auto
-        required: 1
         type: dropdown
         formBuilder:
             type: field
             card: scoutData
             position: details
             order: 8
-            default: '-'
     religion:
         label: 'csatar.csatar::lang.plugin.admin.scout.religion'
         nameFrom: name
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
-        required: 1
         type: relation
         formBuilder:
             type: field
             card: scoutData
             position: details
             order: 9
-            default: '-'
     nationality:
         label: 'csatar.csatar::lang.plugin.admin.scout.nationality'
         span: auto
@@ -207,7 +193,6 @@ fields:
             card: scoutData
             position: details
             order: 10
-            default: '-'
     tshirt_size:
         label: 'csatar.csatar::lang.plugin.admin.scout.tShirtSize'
         nameFrom: name
@@ -220,7 +205,6 @@ fields:
             card: scoutData
             position: details
             order: 11
-            default: '-'
     birthData:
         label: 'csatar.csatar::lang.plugin.admin.scout.sections.birthData'
         span: full
@@ -237,13 +221,11 @@ fields:
         maxDate: now
         yearRange: '100'
         span: auto
-        required: 1
         type: datepicker
         formBuilder:
             type: field
             card: birthData
             order: 1
-            default: '-'
     nameday:
         label: 'csatar.csatar::lang.plugin.admin.scout.nameday'
         mode: date
@@ -253,7 +235,6 @@ fields:
             type: field
             card: birthData
             order: 2
-            default: '-'
     maiden_name:
         label: 'csatar.csatar::lang.plugin.admin.scout.maidenName'
         span: auto
@@ -262,17 +243,14 @@ fields:
             type: field
             card: birthData
             order: 3
-            default: '-'
     birthplace:
         label: 'csatar.csatar::lang.plugin.admin.scout.birthplace'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
             card: birthData
             order: 4
-            default: '-'
     addressData:
         label: 'csatar.csatar::lang.plugin.admin.scout.sections.addressData'
         span: full
@@ -286,63 +264,51 @@ fields:
     address_country:
         label: 'csatar.csatar::lang.plugin.admin.scout.addressCountry'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
             card: addressData
             order: 1
-            default: '-'
     address_zipcode:
         label: 'csatar.csatar::lang.plugin.admin.scout.addressZipcode'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
             card: addressData
             order: 2
-            default: '-'
     address_county:
         label: 'csatar.csatar::lang.plugin.admin.scout.addressCounty'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
             card: addressData
             order: 3
-            default: '-'
     address_location:
         label: 'csatar.csatar::lang.plugin.admin.scout.addressLocation'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
             card: addressData
             order: 4
-            default: '-'
     address_street:
         label: 'csatar.csatar::lang.plugin.admin.scout.addressStreet'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
             card: addressData
             order: 5
-            default: '-'
     address_number:
         label: 'csatar.csatar::lang.plugin.admin.scout.addressNumber'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
             card: addressData
             order: 6
-            default: '-'
     occupationData:
         label: 'csatar.csatar::lang.plugin.admin.scout.sections.occupation'
         span: full
@@ -361,7 +327,6 @@ fields:
             type: field
             card: occupationData
             order: 1
-            default: '-'
     workplace:
         label: 'csatar.csatar::lang.plugin.admin.scout.workplace'
         span: auto
@@ -370,7 +335,6 @@ fields:
             type: field
             card: occupationData
             order: 2
-            default: '-'
     mothersData:
         label: 'csatar.csatar::lang.plugin.admin.scout.sections.mothersData'
         span: full
@@ -389,7 +353,6 @@ fields:
             type: field
             card: mothersData
             order: 1
-            default: '-'
     mothers_phone:
         label: 'csatar.csatar::lang.plugin.admin.scout.mothersPhone'
         span: auto
@@ -398,7 +361,6 @@ fields:
             type: field
             card: mothersData
             order: 2
-            default: '-'
     mothers_email:
         label: 'csatar.csatar::lang.plugin.admin.scout.mothersEmail'
         span: auto
@@ -407,7 +369,6 @@ fields:
             type: field
             card: mothersData
             order: 3
-            default: '-'
     fathersData:
         label: 'csatar.csatar::lang.plugin.admin.scout.sections.fathersData'
         span: full
@@ -426,7 +387,6 @@ fields:
             type: field
             card: fathersData
             order: 1
-            default: '-'
     fathers_phone:
         label: 'csatar.csatar::lang.plugin.admin.scout.fathersPhone'
         span: auto
@@ -435,7 +395,6 @@ fields:
             type: field
             card: fathersData
             order: 2
-            default: '-'
     fathers_email:
         label: 'csatar.csatar::lang.plugin.admin.scout.fathersEmail'
         span: auto
@@ -444,7 +403,6 @@ fields:
             type: field
             card: fathersData
             order: 3
-            default: '-'
     legalRepresentativeData:
         label: 'csatar.csatar::lang.plugin.admin.scout.sections.legalRepresentativeData'
         span: full
@@ -463,7 +421,6 @@ fields:
             type: field
             card: legalRepresentativeData
             order: 1
-            default: '-'
     legal_representative_phone:
         label: 'csatar.csatar::lang.plugin.admin.scout.legalRepresentativePhone'
         span: auto
@@ -472,7 +429,6 @@ fields:
             type: field
             card: legalRepresentativeData
             order: 2
-            default: '-'
     legal_representative_email:
         label: 'csatar.csatar::lang.plugin.admin.scout.legalRepresentativeEmail'
         span: auto
@@ -481,7 +437,6 @@ fields:
             type: field
             card: legalRepresentativeData
             order: 3
-            default: '-'
     schoolData:
         label: 'csatar.csatar::lang.plugin.admin.scout.sections.schoolData'
         span: full
@@ -500,7 +455,6 @@ fields:
             type: field
             card: schoolData
             order: 1
-            default: '-'
     primary_school:
         label: 'csatar.csatar::lang.plugin.admin.scout.primarySchool'
         span: auto
@@ -509,7 +463,6 @@ fields:
             type: field
             card: schoolData
             order: 2
-            default: '-'
     secondary_school:
         label: 'csatar.csatar::lang.plugin.admin.scout.secondarySchool'
         span: auto
@@ -518,7 +471,6 @@ fields:
             type: field
             card: schoolData
             order: 3
-            default: '-'
     post_secondary_school:
         label: 'csatar.csatar::lang.plugin.admin.scout.postSecondarySchool'
         span: auto
@@ -527,7 +479,6 @@ fields:
             type: field
             card: schoolData
             order: 4
-            default: '-'
     college:
         label: 'csatar.csatar::lang.plugin.admin.scout.college'
         span: auto
@@ -536,7 +487,6 @@ fields:
             type: field
             card: schoolData
             order: 5
-            default: '-'
     university:
         label: 'csatar.csatar::lang.plugin.admin.scout.university'
         span: auto
@@ -545,7 +495,6 @@ fields:
             type: field
             card: schoolData
             order: 6
-            default: '-'
     other_trainings:
         label: 'csatar.csatar::lang.plugin.admin.scout.otherTrainings'
         span: auto
@@ -554,7 +503,6 @@ fields:
             type: field
             card: schoolData
             order: 7
-            default: '-'
     foreign_language_knowledge:
         label: 'csatar.csatar::lang.plugin.admin.scout.foreignLanguageKnowledge'
         span: auto
@@ -563,7 +511,6 @@ fields:
             type: field
             card: schoolData
             order: 8
-            default: '-'
     otherData:
         label: 'csatar.csatar::lang.plugin.admin.scout.sections.otherData'
         span: full
@@ -607,30 +554,15 @@ fields:
             extension: auto
         maxFilesize: '5'
         span: auto
-        required: 1
         type: fileupload
-    chronic_illnesses:
-        label: 'csatar.csatar::lang.plugin.admin.scout.chronicIllnesses'
-        nameFrom: name
-        descriptionFrom: description
-        span: auto
-        required: 1
-        type: relation
-        formBuilder:
-            type: field
-            card: otherData
-            order: 1
-            default: '-'
     special_diet:
         label: 'csatar.csatar::lang.plugin.admin.scout.specialDiet'
         nameFrom: name
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
-        required: 1
         type: relation
         formBuilder:
             type: field
             card: otherData
-            order: 2
-            default: '-'
+            order: 1

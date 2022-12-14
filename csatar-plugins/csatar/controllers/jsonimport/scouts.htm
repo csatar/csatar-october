@@ -1,0 +1,36 @@
+<div class="callout fade in callout-info no-subheader">
+    <div class="header">
+        <i class="icon-info"></i>
+        <h3>Imports Scouts</h3>
+        <p>Before clicking 'Upload and process' make sure that images attached to organization are manually uploaded at `admin/media`, to folder: ImportedImages. For example: 'ImportedImages/tag/kep/1a5J672TQvSFJEDD_HEhsg.jpg'</p>
+        <p>This page can only handle "tagsag.Tag.json" and "tagsag.OrsTag.json". Will import scouts, connect them to teams, troops, patrols.</p>
+    </div>
+</div>
+
+<div class="callout fade in callout-danger no-icon">
+    <div class="header">
+        <h3>Please note: existing data will be overwritten!</h3>
+    </div>
+</div>
+
+<?= Form::open(['request' => 'onUploadAndProcessScouts', 'files' => true]) ?>
+    <div class="form-group span-left">
+        <label>Scouts json</label>
+        <input type="file" name="scouts_json_file" class="form-control" />
+    </div>
+
+    <div class="form-group span-left">
+        <label>Pivot json</label>
+        <input type="file" name="pivot_json_file" class="form-control" />
+    </div>
+
+    <div class="form-group span-left">
+        <button
+            type="submit"
+            type="submit"
+            class="btn btn-primary btn-sm">
+            Upload and process
+        </button>
+    </div>
+
+<?= Form::close() ?>

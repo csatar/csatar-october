@@ -1,0 +1,18 @@
+url = "/csapatjelentes-letoltes/:file"
+layout = "default"
+title = "Csapatjelentés letöltése"
+==
+<?php
+function onStart()
+{
+    $pdfPath = temp_path() . '/' . $this->param('file');
+    $fileName = $this->param('file');
+    $headers = [
+        'Content-Type'        => 'application/pdf',
+        'Content-Transfer-Encoding' => 'binary',
+    ];
+
+    return Response::download($pdfPath, $fileName, $headers)->deleteFileAfterSend(true);
+}
+?>
+==

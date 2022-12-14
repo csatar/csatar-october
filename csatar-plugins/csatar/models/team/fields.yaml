@@ -19,6 +19,17 @@ fields:
             card: teamData
             position: title
             order: 2
+    status:
+        label: 'csatar.csatar::lang.plugin.admin.general.status'
+        comment: 'csatar.csatar::lang.plugin.admin.general.inactivationWarning'
+        span: auto
+        type: dropdown
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        formBuilder:
+            type: field
+            card: teamData
+            position: title
+            order: 1
     team_number:
         label: 'csatar.csatar::lang.plugin.admin.team.teamNumber'
         span: auto
@@ -32,49 +43,41 @@ fields:
     address:
         label: 'csatar.csatar::lang.plugin.admin.general.address'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
             card: teamData
             position: details
             order: 1
-            default: '-'
     foundation_date:
         label: 'csatar.csatar::lang.plugin.admin.team.foundationDate'
         mode: date
         maxDate: now
         span: auto
-        required: 1
         type: datepicker
         formBuilder:
             type: field
             card: teamData
             position: details
             order: 2
-            default: '-'
     phone:
         label: 'csatar.csatar::lang.plugin.admin.general.phone'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
             card: teamData
             position: details
             order: 3
-            default: '-'
     email:
         label: 'csatar.csatar::lang.plugin.admin.general.email'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
             card: teamData
             position: details
             order: 4
-            default: '-'
     website:
         label: 'csatar.csatar::lang.plugin.admin.team.website'
         span: auto
@@ -84,7 +87,6 @@ fields:
             card: teamData
             position: details
             order: 5
-            default: '-'
     facebook_page:
         label: 'csatar.csatar::lang.plugin.admin.team.facebookPage'
         span: auto
@@ -94,29 +96,24 @@ fields:
             card: teamData
             position: details
             order: 6
-            default: '-'
     contact_name:
         label: 'csatar.csatar::lang.plugin.admin.team.contactName'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
             card: teamData
             position: details
             order: 7
-            default: '-'
     contact_email:
         label: 'csatar.csatar::lang.plugin.admin.general.contactEmail'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
             card: teamData
             position: details
             order: 8
-            default: '-'
     coordinates:
         label: 'csatar.csatar::lang.plugin.admin.general.coordinates'
         size: ''
@@ -127,7 +124,6 @@ fields:
             card: teamData
             position: details
             order: 9
-            default: '-'
     descriptionData:
         label: 'csatar.csatar::lang.plugin.admin.team.description'
         span: full
@@ -143,13 +139,11 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.team.description'
         size: ''
         span: auto
-        required: 1
         type: textarea
         formBuilder:
             type: field
             card: descriptionData
             position: details
-            default: '-'
     historyData:
         label: 'csatar.csatar::lang.plugin.admin.team.history'
         span: full
@@ -170,7 +164,6 @@ fields:
             type: field
             card: historyData
             position: details
-            default: '-'
     leadershipPresentationData:
         label: 'csatar.csatar::lang.plugin.admin.team.leadershipPresentation'
         span: full
@@ -186,57 +179,47 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.team.leadershipPresentation'
         size: ''
         span: auto
-        required: 1
         type: textarea
         formBuilder:
             type: field
             card: leadershipPresentationData
             position: details
-            default: '-'
     juridical_person_name:
         label: 'csatar.csatar::lang.plugin.admin.team.juridicalPersonName'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
             card: teamData
             position: details
             order: 10
-            default: '-'
     juridical_person_address:
         label: 'csatar.csatar::lang.plugin.admin.team.juridicalPersonAddress'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
             card: teamData
             position: details
             order: 11
-            default: '-'
     juridical_person_tax_number:
         label: 'csatar.csatar::lang.plugin.admin.team.juridicalPersonTaxNumber'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
             card: teamData
             position: details
             order: 12
-            default: '-'
     juridical_person_bank_account:
         label: 'csatar.csatar::lang.plugin.admin.team.juridicalPersonBankAccount'
         span: auto
-        required: 1
         type: text
         formBuilder:
             type: field
             card: teamData
             position: details
             order: 13
-            default: '-'
     home_supplier_name:
         label: 'csatar.csatar::lang.plugin.admin.team.homeSupplierName'
         span: auto
@@ -246,7 +229,6 @@ fields:
             card: teamData
             position: details
             order: 14
-            default: '-'
     logo:
         label: 'csatar.csatar::lang.plugin.admin.general.logo'
         mode: image
@@ -268,11 +250,9 @@ fields:
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
-        required: 1
         type: relation
         formBuilder:
             type: field
             card: teamData
             position: subtitle
-            default: '-'
             readOnlyIfPreselected: true

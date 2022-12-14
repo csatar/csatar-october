@@ -1,0 +1,30 @@
+<div class="callout fade in callout-info no-subheader">
+    <div class="header">
+        <i class="icon-info"></i>
+        <h3>Imports Districts, Teams, Troops, Patrols to RMCSSZ.</h3>
+        <p>Before clicking 'Upload and process' make sure that images attached to organization are manually uploaded at `admin/media`, to folder: ImportedImages. For example: 'ImportedImages/szervezet/kep/uIrCfMQSSHiDcQHJY3DIAg.png'</p>
+        <p>This page can only handle "szervezet.Egyseg.json" and will only import: Districts, Teams, Troops, Patrols.</p>
+    </div>
+</div>
+
+<div class="callout fade in callout-danger no-icon">
+    <div class="header">
+        <h3>Please note: existing data will be overwritten!</h3>
+    </div>
+</div>
+
+<?= Form::open(['request' => 'onUploadAndProcessOrganizations', 'files' => true]) ?>
+    <div class="form-group span-left">
+        <input type="file" name="json_file" class="form-control" />
+    </div>
+
+    <div class="form-group span-right">
+        <button
+            type="submit"
+            type="submit"
+            class="btn btn-primary btn-sm">
+            Upload and process
+        </button>
+    </div>
+
+<?= Form::close() ?>

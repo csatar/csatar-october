@@ -18,6 +18,12 @@ fields:
             type: field
             card: troopData
             position: title
+    status:
+        label: 'csatar.csatar::lang.plugin.admin.general.status'
+        comment: 'csatar.csatar::lang.plugin.admin.general.inactivationWarning'
+        span: auto
+        type: dropdown
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
     email:
         label: 'csatar.csatar::lang.plugin.admin.general.email'
         span: auto
@@ -27,7 +33,6 @@ fields:
             card: troopData
             position: details
             order: 1
-            default: '-'
     website:
         label: 'csatar.csatar::lang.plugin.admin.troop.website'
         span: auto
@@ -37,7 +42,6 @@ fields:
             card: troopData
             position: details
             order: 2
-            default: '-'
     facebook_page:
         label: 'csatar.csatar::lang.plugin.admin.troop.facebookPage'
         span: auto
@@ -47,7 +51,6 @@ fields:
             card: troopData
             position: details
             order: 3
-            default: '-'
     logo:
         label: 'csatar.csatar::lang.plugin.admin.general.logo'
         mode: image

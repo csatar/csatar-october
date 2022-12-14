@@ -13,6 +13,9 @@
             <?= $this->formRender() ?>
         </div>
         <div class="layout-row">
+            <?= $this->relationRender('chronic_illnesses') ?>
+        </div>
+        <div class="layout-row">
             <?= $this->relationRender('allergies') ?>
         </div>
         <div class="layout-row">
@@ -60,6 +63,16 @@
                     class="btn btn-default">
                     <?= e(trans('backend::lang.form.save_and_close')) ?>
                 </button>
+                <?php if(isset($this->vars['formModel']->google_two_fa_secret_key)): ?>
+                    <button
+                        type="button"
+                        data-request="onResetFA"
+                        data-request-data="redirect:0"
+                        data-load-indicator="<?= e(trans('csatar.csatar::lang.plugin.component.twoFactorAuthentication.reset')) ?>"
+                        class="btn btn-default">
+                        <?= e(trans('csatar.csatar::lang.plugin.component.twoFactorAuthentication.reset')) ?>
+                    </button>
+                <?php endif ?>
                 <button
                     type="button"
                     class="oc-icon-trash-o btn-icon danger pull-right"

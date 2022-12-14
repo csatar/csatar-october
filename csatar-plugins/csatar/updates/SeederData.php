@@ -42,7 +42,8 @@ class SeederData extends Seeder
             'Alakuló csapat tag',
             'Újonc',
             'Tag',
-            'Tiszteletbeli tag'
+            'Tiszteletbeli tag',
+            'Érvénytelen adat',
         ],
         'specialTest' => [
             'Szakács',
@@ -104,10 +105,8 @@ class SeederData extends Seeder
             '5XL'
         ],
         'chronicIllness' => [
-            'Nincs krónikus betegsége',
             'Magas vérnyomás',
             'Szívelégtelenség',
-            'Allergia',
             'Cukorbetegség',
             'Mozgásszervi betegségek',
             'Pajzsmirigy működési zavar',
@@ -116,6 +115,9 @@ class SeederData extends Seeder
             'Krónikus légzési elégtelenség',
             'Veseelégtelenség',
             'HIV/SIDA',
+            'Epilepszia',
+            'Autizmus',
+            'Mentális beteg',
             'Egyéb',
         ],
         'hierarchy' => [
@@ -152,6 +154,7 @@ class SeederData extends Seeder
             'dió',
             'kagyló',
             'eper',
+            'Egyéb',
         ],
         'promise' => [
             'Kiscserkész igéret',
