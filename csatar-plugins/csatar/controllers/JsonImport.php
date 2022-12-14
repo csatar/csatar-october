@@ -639,10 +639,10 @@ class JsonImport extends Controller
             $scout = Scout::firstOrNew (
                 [
                     'ecset_code'        => $fields->ecsk, //TODO check
+                    'team_id'           => $team_id,
                 ]
-            ); //check here to fix
+            );
 
-            $scout->team_id                        = $team_id;
             $scout->troop_id                       = $troop->id ?? null;
             $scout->patrol_id                      = $patrol->id ?? null;
             $scout->name_prefix                    = $fields->nev_elotag ?? null;
