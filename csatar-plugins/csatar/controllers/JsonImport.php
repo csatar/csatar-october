@@ -362,11 +362,9 @@ class JsonImport extends Controller
     }
 
     public function mandates() {
-
     }
 
     public function promises() {
-
     }
 
     public function onUploadAndProcessOrganizations() {
@@ -422,6 +420,8 @@ class JsonImport extends Controller
             $district->ignoreValidation = true;
             $district->forceSave();
 
+            $address = null;
+            $district = null;
         }
 
         //import teams
@@ -482,6 +482,10 @@ class JsonImport extends Controller
 
             $team->ignoreValidation = true;
             $team->forceSave();
+
+            $address = null;
+            $district_id = null;
+            $team = null;
         }
 
         //import troops
@@ -525,6 +529,9 @@ class JsonImport extends Controller
 
             $troop->ignoreValidation = true;
             $troop->forceSave();
+
+            $troop = null;
+            $team_id = null;
         }
 
         //import patrols
@@ -573,6 +580,10 @@ class JsonImport extends Controller
 
             $patrol->ignoreValidation = true;
             $patrol->forceSave();
+
+            $troop = null;
+            $patrol = null;
+            $team_id  = null;
         }
 
     }
@@ -601,15 +612,7 @@ class JsonImport extends Controller
 
         $this->prepareScoutRelatedMappings();
 
-//        $foodSensitiv = $scoutsData->unique('fields.jellemzok.id_20')->pluck('fields.jellemzok.id_20')->toArray();
-//
-//        unset($foodSensitiv[0]);
-//        dd(array_flip($foodSensitiv));
-
-//        $i = 0;
         foreach ($scoutsData as $scout) {
-//            $i++;
-//            if ($i > 5) return;
 
             $fields = $scout->fields; //dd($fields);
 
@@ -635,13 +638,13 @@ class JsonImport extends Controller
 
             $scout = Scout::firstOrNew (
                 [
-                    'team_id'           => $team_id,
-                    'troop_id'          => $troop->id ?? null,
-                    'patrol_id'         => $patrol->id ?? null,
                     'ecset_code'        => $fields->ecsk, //TODO check
                 ]
-            );
+            ); //check here to fix
 
+            $scout->team_id                        = $team_id;
+            $scout->troop_id                       = $troop->id ?? null;
+            $scout->patrol_id                      = $patrol->id ?? null;
             $scout->name_prefix                    = $fields->nev_elotag ?? null;
             $scout->family_name                    = $fields->nev ?? null;
             $scout->given_name                     = $fields->keresztnev ?? null;
@@ -718,7 +721,6 @@ class JsonImport extends Controller
                 }
             }
 
-//            $scout->registration_form              = $fields->______________REPLACE__________ ?? null;
             if (!empty($fields->kep)) {
                 $path = '/storage/app/media/importedimages/' . $fields->kep;
                 $lastDotPosition = strrchr($path, ".");
@@ -733,6 +735,12 @@ class JsonImport extends Controller
                     Log::warning("Can't attach file $url.");
                 }
             }
+
+            $team_id = null;
+            $troop = null;
+            $patrol = null;
+            $patrol_slug = null;
+            $scout = null;
         }
     }
 
@@ -856,6 +864,11 @@ class JsonImport extends Controller
             $mandate->comment = $data->tovabbi_nev;
             $mandate->ignoreValidation = true;
             $mandate->save();
+
+            $mandateType = null;
+            $organizationMap = null;
+            $model = null;
+            $mandate = null;
         }
     }
 
@@ -1027,6 +1040,9 @@ class JsonImport extends Controller
 
                 $training = null;
                 $pivotArray = null;
+                $kepesites = null;
+                $relationName = null;
+                $relationModel = null;
             }
 
             if($itemsToAdd > $itemsAdded) {
@@ -1034,6 +1050,8 @@ class JsonImport extends Controller
             }
 
             $totalItemsAdded += $itemsAdded;
+
+            $scout = null;
         }
 
         Log::warning("Could add $totalItemsAdded of $totalItemsToAdd promises and qualifications");
