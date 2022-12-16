@@ -6,6 +6,7 @@ use Csatar\Csatar\Models\MandateType;
 use Csatar\Csatar\Models\PermissionBasedAccess;
 use Flash;
 use Lang;
+use Db;
 use Backend\Classes\Controller;
 
 class SeederData extends Controller
@@ -52,11 +53,13 @@ class SeederData extends Controller
     }
 
     public function onSynchronizePermissionsMatrix(){
+
         $permissionBasedModels = PermissionBasedAccess::getAllChildClasses();
         $mandateTypes = MandateType::all();
 
         if(empty($permissionBasedModels) || empty($mandateTypes)) return;
 
+        $tempMandatePermissionsMap = [];
         try {
             foreach ($mandateTypes as $mandateType) {
                 foreach ($permissionBasedModels as $permissionBasedModel) {
@@ -72,42 +75,54 @@ class SeederData extends Controller
                     }
 
                     $this->filterFieldsForRealtionKeys($fields);
+                    $fields = array_unique($fields);
 
                     //add permission for the model in general
-                    MandatePermission::firstOrCreate(
-                        [ 'mandate_type_id' => $mandateType->id, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 0],
-                    );
+                    $tempMandatePermissionsMap[] = [ 'mandate_type_id' => $mandateType->id, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 0];
 
                     if ($mandateType->organization_type_model_name != MandateType::MODEL_NAME_GUEST) {
                         //add permission for the model in general for own
-                        MandatePermission::firstOrCreate(
-                            [ 'mandate_type_id' => $mandateType->id, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 1],
-                        );
+                        $tempMandatePermissionsMap[] = [ 'mandate_type_id' => $mandateType->id, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 1];
                     }
 
-
                     //add permission for each attribute for general, own
-
                     foreach ($fields as $field) {
-                        //add permission for the model->field
-                        MandatePermission::firstOrCreate(
-                            [ 'mandate_type_id' => $mandateType->id, 'model' => $permissionBasedModel, 'field' => $field, 'own' => 0],
-                        );
+                        $tempMandatePermissionsMap[] = [ 'mandate_type_id' => $mandateType->id, 'model' => $permissionBasedModel, 'field' => $field, 'own' => 0];
 
                         if ($mandateType->organization_type_model_name != MandateType::MODEL_NAME_GUEST) {
-                            //add permission for the model->field for own
-                            MandatePermission::firstOrCreate(
-                                ['mandate_type_id' => $mandateType->id, 'model' => $permissionBasedModel, 'field' => $field, 'own' => 1],
-                            );
+                            $tempMandatePermissionsMap[] = ['mandate_type_id' => $mandateType->id, 'model' => $permissionBasedModel, 'field' => $field, 'own' => 1];
                         }
                     }
                 }
             }
 
+            $existingMandatePermissionsMap = MandatePermission::all()->map(function ($item) {
+                return serialize([
+                    'mandate_type_id' => $item->mandate_type_id,
+                    'model' => $item->model,
+                    'field' => $item->field,
+                    'own' => $item->own,
+                ]);
+            });
+
+            $tempMandatePermissionsMap = collect($tempMandatePermissionsMap);
+            $tempMandatePermissionsMap = $tempMandatePermissionsMap->map(function ($item) {
+                return serialize($item);
+            });
+
+            $newPermissionsToSave = $tempMandatePermissionsMap->diff($existingMandatePermissionsMap);
+            $newPermissionsToSave = $newPermissionsToSave->map(function ($item) {
+                return unserialize($item);
+            });
+
+            $newPermissionsToSave->chunk(1000)->each(function ($item){
+                Db::table('csatar_csatar_mandates_permissions')->insert($item->toArray());
+            });
+
             Flash::success(e(trans('csatar.csatar::lang.plugin.admin.admin.seederData.synchronizeComplete')));
 
         } catch (Exception $exception) {
-            Flash::success($exception->getMessage());
+            Flash::error($exception->getMessage());
         }
     }
 
