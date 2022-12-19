@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- CS-434 - Fixed SeederData, removed permissions seeding from main seeder, removed association data overwrite
+- fixed Plugin.php to run boot method only after specific plugin version
 - CS-423 - Changed the scrollbar design
 - CS-423 - Fixed the navigation position, added scroll to the third sub-leve
 - CS-271 - Make the pivot relations editable on the form
