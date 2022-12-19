@@ -388,15 +388,6 @@ class SeederData extends Seeder
                 ],
             ],
         ],
-        'permissions' => [
-            'Horvátországi magyar cserkészek' => 'readPermissionForGuests',
-            'Kárpátaljai Magyar Cserkészszövetség' => 'readPermissionForGuests',
-            'Külföldi Magyar Cserkészszövetség' => 'readPermissionForGuests',
-            'Magyar Cserkészszövetség' => 'readPermissionForGuests',
-            'Romániai Magyar Cserkészszövetség' => ['allPermissionsForScout', 'readPermissionForGuests'],
-            'Szlovákiai Magyar Cserkészszövetség' => 'readPermissionForGuests',
-            'Vajdasági Magyar Cserkészszövetség' => 'readPermissionForGuests',
-        ],
         'contactSettings' => [
             'offices' => [
                 [
@@ -498,52 +489,52 @@ class SeederData extends Seeder
             $association = Association::firstOrNew([
                 'name' => $name,
             ]);
-            $association->contact_name = 'Abcde';
-            $association->contact_email = 'ab@ab.ab';
-            $association->address = 'Abcde';
-            $association->leadership_presentation = 'A';
+            $association->contact_name = $association->contact_name ?? null;
+            $association->contact_email = $association->contact_email ?? null;
+            $association->address = $association->address ?? null;
+            $association->leadership_presentation = $association->leadership_presentation ?? null;
             switch ($name) {
                 case 'Horvátországi magyar cserkészek':
-                    $association->ecset_code_suffix = 'H';
+                    $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'H';
                     $association->currency_id = Currency::where('code', 'HRK')->first()->id;
-                    $association->team_fee = 0;
-                    $association->name_abbreviation = 'HZMCS';
+                    $association->team_fee = $association->team_fee ?? 0;
+                    $association->name_abbreviation = $association->name_abbreviation ?? 'HZMCS';
                     break;
                 case 'Kárpátaljai Magyar Cserkészszövetség':
                     $association->currency_id = Currency::where('code', 'UAH')->first()->id;
-                    $association->team_fee = 0;
-                    $association->ecset_code_suffix = 'KÁ';
-                    $association->name_abbreviation = 'KáMCSSZ';
+                    $association->team_fee = $association->team_fee ?? 0;
+                    $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'KÁ';
+                    $association->name_abbreviation = $association->name_abbreviation ?? 'KáMCSSZ';
                     break;
                 case 'Külföldi Magyar Cserkészszövetség':
-                    $association->ecset_code_suffix = 'KÜ';
+                    $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'KÜ';
                     $association->currency_id = Currency::where('code', 'EUR')->first()->id;
-                    $association->team_fee = 0;
-                    $association->name_abbreviation = 'KMCSSZ';
+                    $association->team_fee = $association->team_fee ?? 0;
+                    $association->name_abbreviation = $association->name_abbreviation ?? 'KMCSSZ';
                     break;
                 case 'Magyar Cserkészszövetség':
-                    $association->ecset_code_suffix = 'M';
+                    $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'M';
                     $association->currency_id = Currency::where('code', 'HUF')->first()->id;
-                    $association->team_fee = 0;
-                    $association->name_abbreviation = 'MCSSZ';
+                    $association->team_fee = $association->team_fee ?? 0;
+                    $association->name_abbreviation = $association->name_abbreviation ?? 'MCSSZ';
                     break;
                 case 'Romániai Magyar Cserkészszövetség':
-                    $association->ecset_code_suffix = 'E';
+                    $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'E';
                     $association->currency_id = Currency::where('code', 'RON')->first()->id;
-                    $association->team_fee = 300;
-                    $association->name_abbreviation = 'RMCSSZ';
+                    $association->team_fee = $association->team_fee ?? 300;
+                    $association->name_abbreviation = $association->name_abbreviation ?? 'RMCSSZ';
                     break;
                 case 'Szlovákiai Magyar Cserkészszövetség':
-                    $association->ecset_code_suffix = 'F';
+                    $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'F';
                     $association->currency_id = Currency::where('code', 'EUR')->first()->id;
-                    $association->team_fee = 0;
-                    $association->name_abbreviation = 'SZMCS';
+                    $association->team_fee = $association->team_fee ?? 0;
+                    $association->name_abbreviation = $association->name_abbreviation ?? 'SZMCS';
                     break;
                 case 'Vajdasági Magyar Cserkészszövetség':
-                    $association->ecset_code_suffix = 'D';
+                    $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'D';
                     $association->currency_id = Currency::where('code', 'RSD')->first()->id;
-                    $association->team_fee = 0;
-                    $association->name_abbreviation = 'VMCSZ';
+                    $association->team_fee = $association->team_fee ?? 0;
+                    $association->name_abbreviation = $association->name_abbreviation ?? 'VMCSZ';
                     break;
                 default:
                     break;
@@ -582,7 +573,7 @@ class SeederData extends Seeder
                 // membership fee
                 $legal_relationship = $association->legal_relationships->where('id', $legalRelationship2->id)->first();
                 if (isset($legal_relationship)) {
-                    $legal_relationship->pivot->membership_fee = 50;
+                    $legal_relationship->pivot->membership_fee = $legal_relationship->pivot->membership_fee ?? 50;
                     $legal_relationship->pivot->save();
                 }
             }
@@ -667,14 +658,6 @@ class SeederData extends Seeder
         }
         $contactSettings->save();
 
-        // add all permissions to scout mandate
-
-        $this->addAllPermissionsToScouts();
-
-        // add read permissions to guest mandate
-
-        $this->addReadPermissionsToGuests();
-
         // seed site search plugin settings
 
         $sitesearchSettings = '{"mark_results":"1","log_queries":"0","excerpt_length":"250","log_keep_days":365,"rainlab_blog_enabled":"0","rainlab_blog_label":"Blog","rainlab_blog_page":"403","rainlab_pages_enabled":"0","rainlab_pages_label":"Page","indikator_news_enabled":"0","indikator_news_label":"News","indikator_news_posturl":"\/news","octoshop_products_enabled":"0","octoshop_products_label":"","octoshop_products_itemurl":"\/product","snipcartshop_products_enabled":"0","snipcartshop_products_label":"","jiri_jkshop_enabled":"0","jiri_jkshop_label":"","jiri_jkshop_itemurl":"\/product","radiantweb_problog_enabled":"0","radiantweb_problog_label":"Blog","arrizalamin_portfolio_enabled":"0","arrizalamin_portfolio_label":"Portfolio","arrizalamin_portfolio_url":"\/portfolio\/project","vojtasvoboda_brands_enabled":"0","vojtasvoboda_brands_label":"Brands","vojtasvoboda_brands_url":"\/brand","responsiv_showcase_enabled":"0","responsiv_showcase_label":"Showcase","responsiv_showcase_url":"\/showcase\/project","graker_photoalbums_enabled":"0","graker_photoalbums_label":"PhotoAlbums","graker_photoalbums_album_page":"403","graker_photoalbums_photo_page":"403","cms_pages_enabled":"0","cms_pages_label":"Page"}';
@@ -684,153 +667,5 @@ class SeederData extends Seeder
               ['item' => 'offline_sitesearch_settings'],
               ['value' => $sitesearchSettings],
           );
-    }
-
-    public function addAllPermissionsToScouts() {
-        $associationId = Association::where('name_abbreviation', 'RMCSSZ')->first()->id ?? null;
-
-        if(empty($associationId)) return;
-
-        $permissionBasedModels = PermissionBasedAccess::getAllChildClasses(); //get every model that needs permissions
-        $scoutMandateTypeId = Db::table('csatar_csatar_mandate_types')->select('id')
-            ->where('association_id', $associationId)
-            ->where('organization_type_model_name', '\Csatar\Csatar\Models\Scout')
-            ->whereNull('deleted_at')
-            ->first()->id; //get scout mandate type id
-
-        if(empty($permissionBasedModels) || empty($scoutMandateTypeId)) return;
-
-        foreach ($permissionBasedModels as $permissionBasedModel) {
-            if($permissionBasedModel == MandateType::MODEL_NAME_GUEST) return;
-
-            $model = new $permissionBasedModel();
-            $fields = $model->fillable ?? [];
-            $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'hasOne', 'morphTo', 'morphOne',
-                'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'];
-
-            foreach ($relationArrays as $relationArray){
-                $fields = array_merge($fields, array_keys($model->$relationArray));
-            }
-
-            $this->filterFieldsForRealtionKeys($fields);
-            //add permission for the model in general
-            Db::table('csatar_csatar_mandates_permissions')
-                ->updateOrInsert(
-                    [ 'mandate_type_id' => $scoutMandateTypeId, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 0],
-                    [
-                        'create'        => 2,
-                        'read'          => 2,
-                        'update'        => 2,
-                        'delete'        => 2,
-                    ]
-                );
-
-            //add permission for the model in general for own
-            Db::table('csatar_csatar_mandates_permissions')
-                ->updateOrInsert(
-                    [ 'mandate_type_id' => $scoutMandateTypeId, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 1],
-                    [
-                        'create'        => 2,
-                        'read'          => 2,
-                        'update'        => 2,
-                        'delete'        => 2,
-                    ]
-                );
-
-
-            //add permission for each attribute for general, own
-
-            foreach ($fields as $field) {
-                //add permission for the model->field
-                Db::table('csatar_csatar_mandates_permissions')
-                    ->updateOrInsert(
-                        [ 'mandate_type_id' => $scoutMandateTypeId, 'model' => $permissionBasedModel, 'field' => $field, 'own' => 0],
-                        [
-                            'create'        => 2,
-                            'read'          => 2,
-                            'update'        => 2,
-                            'delete'        => 2,
-                        ]
-                    );
-
-                //add permission for the model->field for own
-                Db::table('csatar_csatar_mandates_permissions')
-                    ->updateOrInsert(
-                        [ 'mandate_type_id' => $scoutMandateTypeId, 'model' => $permissionBasedModel, 'field' => $field, 'own' => 1],
-                        [
-                            'create'        => 2,
-                            'read'          => 2,
-                            'update'        => 2,
-                            'delete'        => 2,
-                        ]
-                    );
-            }
-        }
-
-    }
-
-    public function addReadPermissionsToGuests() {
-        $associationIds = Association::all()->pluck('id')->toArray();
-        $permissionBasedModels = PermissionBasedAccess::getAllChildClasses(); //get every model that needs permissions
-
-        foreach ($associationIds as $associationId) {
-            $guestMandateTypeId = Db::table('csatar_csatar_mandate_types')->select('id')
-                ->where('association_id', $associationId)
-                ->where('organization_type_model_name', 'GUEST')
-                ->whereNull('deleted_at')
-                ->first()->id; //get guest mandate type id
-
-            if(empty($permissionBasedModels) || empty($guestMandateTypeId)) return;
-
-            foreach ($permissionBasedModels as $permissionBasedModel) {
-
-                $model = new $permissionBasedModel();
-                $fields = $model->fillable ?? [];
-                $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'hasOne', 'morphTo', 'morphOne',
-                    'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'];
-
-                foreach ($relationArrays as $relationArray){
-                    $fields = array_merge($fields, array_keys($model->$relationArray));
-                }
-
-                $this->filterFieldsForRealtionKeys($fields);
-
-                //add permission for the model in general
-                Db::table('csatar_csatar_mandates_permissions')
-                    ->updateOrInsert(
-                        [ 'mandate_type_id' => $guestMandateTypeId, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 0],
-                        [
-                            'read'          => 2,
-                        ]
-                    );
-
-                //add permission for each attribute
-
-                foreach ($fields as $field) {
-                    //add permission for the model->field
-                    Db::table('csatar_csatar_mandates_permissions')
-                        ->updateOrInsert(
-                            [ 'mandate_type_id' => $guestMandateTypeId, 'model' => $permissionBasedModel, 'field' => $field, 'own' => 0],
-                            [
-                                'read'          => 2,
-                            ]
-                        );
-                }
-            }
-
-        }
-    }
-
-    public function filterFieldsForRealtionKeys(&$fields) {
-        // filters the $fields array to remove relation key field, if relation field exists
-        // for example removes: "currency_id" field if there is "currency" field in the array
-        foreach ($fields as $key => $field) {
-            if (substr($field, -3) === '_id') {
-                $relationField = str_replace('_id', '', $field);
-                if (in_array($relationField, $fields)) {
-                    unset($fields[$key]);
-                }
-            }
-        }
     }
 }
