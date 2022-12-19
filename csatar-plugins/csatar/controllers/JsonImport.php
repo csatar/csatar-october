@@ -1003,7 +1003,8 @@ class JsonImport extends Controller
             foreach ($groupedData as $data) {
                 $data = $data->fields;
 
-                if (!isset($data->tag[0])) {
+                if (!isset($data->tag[0]) || empty($data->datum) || empty($data->tovabbi_adatok)) {
+                    Log::warning("Could not add record, data incomplete: " . serialize($data));
                     continue;
                 }
 
@@ -1018,6 +1019,14 @@ class JsonImport extends Controller
                     'location' => $data->tovabbi_adatok->helyszin ?? null,
                 ];
                 if (array_key_exists($kepesites, $trainingQualificationsMap) || array_key_exists($kepesites, $leadershipQualificationsMap)) {
+
+                    if (empty($data->tovabbi_adatok->betetlap)
+                        || empty($data->tovabbi_adatok->kv)
+                        || empty($data->tovabbi_adatok->kepzes)
+                    ) {
+                        Log::warning("Could not add record, data incomplete: " . serialize($data));
+                        continue;
+                    }
 
                     if (!empty($data->tovabbi_adatok->kepzes)) {
                         $training = Training::firstOrCreate([
