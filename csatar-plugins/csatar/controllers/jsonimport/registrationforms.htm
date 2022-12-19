@@ -1,0 +1,24 @@
+<div class="callout fade in callout-info no-subheader">
+    <div class="header">
+        <i class="icon-info"></i>
+        <h3>Imports registration forms for scouts</h3>
+        <p>Upload a zipped file of 'jpg, png, pdf' files, named as 'AA0334E.pdf'</p>
+    </div>
+</div>
+
+<?= Form::open(['request' => 'onProcessRegistrationForms', 'files' => true]) ?>
+
+    <div class="form-group span-left">
+        <input type="file" name="registration_files_zip" class="form-control" multiple/>
+    </div>
+
+    <div class="form-group span-left">
+        <button
+            type="submit"
+            type="submit"
+            class="btn btn-primary btn-sm">
+            Process
+        </button>
+    </div>
+
+<?= Form::close() ?>

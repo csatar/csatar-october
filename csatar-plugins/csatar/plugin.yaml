@@ -160,6 +160,10 @@ navigation:
                 label: 'Import promises etc. (json)'
                 url: csatar/csatar/jsonimport/promises
                 icon: icon-sitemap
+            side-menu-item-json-import-registration-forms:
+                label: 'Import registration forms'
+                url: csatar/csatar/jsonimport/registrationforms
+                icon: icon-sitemap
             side-menu-item-synchronize-permissions-matrix:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.synchronizePermissionsMatrix'
                 url: csatar/csatar/seederdata/synchronizepermissionsmatrix

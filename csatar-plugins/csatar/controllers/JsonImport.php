@@ -28,6 +28,7 @@ use Input;
 use System\Models\File;
 use October\Rain\Filesystem\Filesystem;
 use Log;
+use October\Rain\Filesystem\Zip;
 
 class JsonImport extends Controller
 {
@@ -365,6 +366,9 @@ class JsonImport extends Controller
     }
 
     public function promises() {
+    }
+
+    public function registrationforms() {
     }
 
     public function onUploadAndProcessOrganizations() {
@@ -1003,7 +1007,8 @@ class JsonImport extends Controller
             foreach ($groupedData as $data) {
                 $data = $data->fields;
 
-                if (!isset($data->tag[0])) {
+                if (!isset($data->tag[0]) || empty($data->datum) || empty($data->tovabbi_adatok)) {
+                    Log::warning("Could not add record, data incomplete: " . serialize($data));
                     continue;
                 }
 
@@ -1018,6 +1023,14 @@ class JsonImport extends Controller
                     'location' => $data->tovabbi_adatok->helyszin ?? null,
                 ];
                 if (array_key_exists($kepesites, $trainingQualificationsMap) || array_key_exists($kepesites, $leadershipQualificationsMap)) {
+
+                    if (empty($data->tovabbi_adatok->betetlap)
+                        || empty($data->tovabbi_adatok->kv)
+                        || empty($data->tovabbi_adatok->kepzes)
+                    ) {
+                        Log::warning("Could not add record, data incomplete: " . serialize($data));
+                        continue;
+                    }
 
                     if (!empty($data->tovabbi_adatok->kepzes)) {
                         $training = Training::firstOrCreate([
@@ -1055,5 +1068,58 @@ class JsonImport extends Controller
         }
 
         Log::warning("Could add $totalItemsAdded of $totalItemsToAdd promises and qualifications");
+    }
+
+    public function onProcessRegistrationForms() {
+        $zip = Input::file('registration_files_zip');
+
+        if (empty($zip) || $zip->getClientOriginalExtension() != 'zip') {
+            return;
+        }
+
+        $files = $this->unzip($zip);
+
+        foreach ($files as $key => $path) {
+            $file = new File;
+            $file->data = $path;
+            $file->save();
+            $originalName = $file->getFileName();
+            $postfixWithExtension = 'E.' . $file->getExtension();
+            if (strpos($originalName, $postfixWithExtension)) {
+                $ecset_code = str_replace($postfixWithExtension, '-E', $originalName);
+                $scout = Scout::where('ecset_code', $ecset_code)->first();
+
+                if (empty($scout)) {
+                    Log::warning("Could not find scout with identifier: $ecset_code. Registration from not imported.");
+                    unlink($path);
+                    continue;
+                }
+
+                $scout->registration_form()->add($file);
+                $scout->ignoreValidation = true;
+                $scout->forceSave();
+
+                unlink($path);
+            }
+        }
+    }
+
+    private function stripFileExtension($file)
+    {
+        return substr($file, 0, strlen($file) - 4);
+    }
+
+    private function unzip($file)
+    {
+        $dir = temp_path() . '/reg_files_zip';
+
+        Zip::extract($file->getRealPath(), $dir);
+
+        $files = array_diff(scandir($dir), array('.', '..'));
+        $fileArray = [];
+        foreach ($files as $file) {
+            $fileArray[$this->stripFileExtension($file)] = $dir . '/' . $file;
+        }
+        return $fileArray;
     }
 }
