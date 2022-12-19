@@ -130,4 +130,8 @@ class Association extends OrganizationBase
     public function getAssociation() {
         return $this;
     }
+
+    public function getActiveDistricts() {
+        return District::inAssociation($this->id)->get();
+    }
 }

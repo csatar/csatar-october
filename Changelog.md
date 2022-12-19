@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- CS-431 - separated inactive and active scouts on team page
+- CS-415 - inactive districts and teams are hidden in structure accordions and menu
+- CS-415 - inactive teams are hidden in district page
 - CS-423 - Changed the scrollbar design
 - CS-423 - Fixed the navigation position, added scroll to the third sub-leve
 - CS-271 - Make the pivot relations editable on the form

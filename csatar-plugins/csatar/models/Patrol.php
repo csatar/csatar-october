@@ -209,7 +209,7 @@ class Patrol extends OrganizationBase
     public static function getStatusOptions(){
         return [
             Status::ACTIVE => e(trans('csatar.csatar::lang.plugin.admin.general.active')),
-            Status::INACTIVE => e(trans('csatar.csatar::lang.plugin.admin.general.inActive')),
+            Status::INACTIVE => e(trans('csatar.csatar::lang.plugin.admin.general.inactive')),
         ];
     }
 
@@ -265,5 +265,17 @@ class Patrol extends OrganizationBase
 
     public function getPatrol() {
         return $this;
+    }
+
+    public function getActiveScoutsCount() {
+        return Scout::activeScoutsInPatrol($this->id)->count();
+    }
+
+    public function scopeInTeam($query, $teamId) {
+        return $query->where('team_id', $teamId);
+    }
+
+    public function scopeInTroop($query, $troopId) {
+        return $query->where('troop_id', $troopId);
     }
 }

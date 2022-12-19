@@ -214,7 +214,7 @@ class Team extends OrganizationBase
     public static function getStatusOptions(){
         return [
             Status::ACTIVE => e(trans('csatar.csatar::lang.plugin.admin.team.active')),
-            Status::INACTIVE => e(trans('csatar.csatar::lang.plugin.admin.team.inActive')),
+            Status::INACTIVE => e(trans('csatar.csatar::lang.plugin.admin.team.inactive')),
             Status::SUSPENDED => e(trans('csatar.csatar::lang.plugin.admin.team.suspended')),
             Status::FORMING => e(trans('csatar.csatar::lang.plugin.admin.team.forming')),
         ];
@@ -305,5 +305,25 @@ class Team extends OrganizationBase
 
     public function getTeam() {
         return $this;
+    }
+
+    public function getActiveScoutsCount() {
+        return Scout::activeScoutsInTeam($this->id)->count();
+    }
+
+    public function scopeInDistrict($query, $districtId) {
+        $query->where('district_id', $districtId);
+    }
+
+    public function scopeActiveInDistrict($query, $districtId) {
+        $query->where('district_id', $districtId)->active();
+    }
+
+    public function getTroops() {
+        return Troop::inTeam($this->id)->get();
+    }
+
+    public function getPatrols() {
+        return Patrol::inTeam($this->id)->get();
     }
 }

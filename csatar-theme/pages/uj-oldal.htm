@@ -1,0 +1,14 @@
+title = "Új oldal"
+layout = "default"
+url = "/uj-oldal"
+==
+<?php
+use Csatar\Csatar\Models\Team;
+
+public function onStart() {
+    $team = Team::find(6);
+
+    dd($team->getActiveScoutsCount());
+}
+?>
+==

@@ -624,6 +624,58 @@ class Scout extends OrganizationBase
         return $query->where('team_id', $id);
     }
 
+    public function scopeInTroop($query, $id) {
+        return $query->where('troop_id', $id);
+    }
+
+    public function scopeInPatrol($query, $id) {
+        return $query->where('patrol_id', $id);
+    }
+
+    public function scopeActive($query) {
+        return $query->where(function($query) {
+            $query->where('is_active', Status::ACTIVE)
+                ->orWhere('is_active', Status::FORMING);
+        });
+    }
+
+    public function scopeInactive($query) {
+        return $query->where(function($query) {
+            $query->where('is_active', Status::INACTIVE)
+                ->orWhere('is_active', Status::SUSPENDED);
+        });
+    }
+
+    public function scopeActiveScoutsInTeam($query, $id)
+    {
+        return $query->teamId($id)->active()->orderBy('family_name');
+    }
+
+    public function scopeActiveScoutsInTroop($query, $id)
+    {
+        return $query->inTroop($id)->active()->orderBy('family_name');
+    }
+
+    public function scopeActiveScoutsInPatrol($query, $id)
+    {
+        return $query->inPatrol($id)->active()->orderBy('family_name');
+    }
+
+    public function scopeInactiveScoutsInTeam($query, $id)
+    {
+        return $query->teamId($id)->inactive()->orderBy('family_name');
+    }
+
+    public function scopeInactiveScoutsInTroop($query, $id)
+    {
+        return $query->inTroop($id)->inactive()->orderBy('family_name');
+    }
+
+    public function scopeInactiveScoutsInPatrol($query, $id)
+    {
+        return $query->inPatrol($id)->inactive()->orderBy('family_name');
+    }
+
     public function scopeAssociations($query, array $associationIds)
     {
         return $query->whereHas('team', function ($query) use ($associationIds) {

@@ -1,5 +1,6 @@
 <?php namespace Csatar\Csatar\Models;
 
+use Csatar\Csatar\Classes\Enums\Status;
 use Csatar\Csatar\Classes\RightsMatrix;
 use Csatar\Csatar\Models\MandateType;
 use Csatar\Csatar\Models\PermissionBasedAccess;
@@ -134,5 +135,13 @@ class OrganizationBase extends PermissionBasedAccess
 
     public static function getSearchableColumns () {
         return (self::getModelName())::$searchable;
+    }
+
+    public function scopeActive($query) {
+        return $query->where('status', Status::ACTIVE);
+    }
+
+    public function scopeInactive($query) {
+        return $query->where('status', Status::INACTIVE);
     }
 }
