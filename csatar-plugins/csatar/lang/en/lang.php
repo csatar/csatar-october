@@ -45,7 +45,7 @@ return [
                 'warning' => 'Warning',
                 'status' => 'Status',
                 'active' => 'Active',
-                'inActive' => 'Inactive',
+                'inactive' => 'Inactive',
                 'inactivationWarning' => 'Warning! If status is changed from active to any kind of inactive status, all child organizations will be inactivated and all mandates connected to the organization, it\'s child organizations and scouts belonging to the organization will expire!'
             ],
             'ageGroups' => [
@@ -415,7 +415,7 @@ return [
                 'organizationUnitNameWarning' => 'The name of the team can not contain the word "team."',
                 'filterOrganizationUnitNameForWords' => 'team',
                 'active' => 'Active',
-                'inActive' => 'Inactive',
+                'inactive' => 'Inactive',
                 'suspended' => 'Suspended',
                 'forming' => 'Forming',
             ],

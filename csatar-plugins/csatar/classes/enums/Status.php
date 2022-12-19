@@ -14,7 +14,7 @@ class Status
     public static function getOptionsWithLables(){
         return self::$optionsWithLables = [
             self::ACTIVE => e(trans('csatar.csatar::lang.plugin.admin.general.active')),
-            self::INACTIVE => e(trans('csatar.csatar::lang.plugin.admin.general.inActive')),
+            self::INACTIVE => e(trans('csatar.csatar::lang.plugin.admin.general.inactive')),
         ];
     }
 }

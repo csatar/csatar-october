@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- CS-431 - separated inactive and active scouts on team page
+- CS-415 - inactive districts and teams are hidden in structure accordions and menu
+- CS-415 - inactive teams are hidden in district page
 - CS-434 - Fixed SeederData, removed permissions seeding from main seeder, removed association data overwrite
 - fixed Plugin.php to run boot method only after specific plugin version
 - CS-423 - Changed the scrollbar design

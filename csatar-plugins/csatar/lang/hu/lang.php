@@ -43,7 +43,7 @@
                 'warning' => 'FIGYELEM',
                 'status' => 'Státusz',
                 'active' => 'Aktív',
-                'inActive' => 'Inaktív',
+                'inactive' => 'Inaktív',
                 'inactivationWarning' => 'Figyelem! Ha a státusz aktívról bármilyen típusú inaktív státuszra változik, a szervezeti egység alá tartozó összes szervezeti egység és cserkész státusza is inaktívvá válik, valamint lejár az ezekhez tartozó összes mebízatás!'
             ],
             'ageGroups' => [
@@ -414,7 +414,7 @@
                 'organizationUnitNameWarning' => 'A csapat neve nem tartalmazhatja a "csapat" szót.',
                 'filterOrganizationUnitNameForWords' => 'cserkészcsapat, csapat',
                 'active' => 'Aktív',
-                'inActive' => 'Inaktív',
+                'inactive' => 'Inaktív',
                 'suspended' => 'Szünetelő',
                 'forming' => 'Alakuló/újraalakuló',
             ],

@@ -144,7 +144,7 @@ class District extends OrganizationBase
     public static function getStatusOptions(){
         return [
             Status::ACTIVE => e(trans('csatar.csatar::lang.plugin.admin.general.active')),
-            Status::INACTIVE => e(trans('csatar.csatar::lang.plugin.admin.general.inActive')),
+            Status::INACTIVE => e(trans('csatar.csatar::lang.plugin.admin.general.inactive')),
         ];
     }
 
@@ -167,5 +167,13 @@ class District extends OrganizationBase
 
     public function getDistrict() {
         return $this;
+    }
+
+    public function getActiveTeams(){
+        return Team::inDistrict($this->id)->active()->get();
+    }
+
+    public function scopeInAssociation($query, $associationId) {
+        return $query->where('association_id', $associationId);
     }
 }
