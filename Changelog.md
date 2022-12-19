@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- CS-423 - Changed the scrollbar design
+- CS-423 - Fixed the navigation position, added scroll to the third sub-leve
 - CS-271 - Make the pivot relations editable on the form
 - CS-416 - Created method to automatically add newly added field s to permission matrix
 - CS-399 - Added and implemented status field to team

@@ -26,7 +26,7 @@
     {% for item in array %}
         {% if childArrayName and attribute(item, childArrayName)|length > 0 and level < maxLevel %}
             <li><a class="dropdown-item csat-nav-txt-wrap dropdown-toggle90">{{ item.extendedName }}</a>
-            <ul class="submenu dropdown-menu bg-primary">
+                <ul class="submenu dropdown-menu bg-primary {% if level == 2%}csat-menu-scroll{% endif %}">
                 <li><a class="dropdown-item dropdown-underline csat-nav-txt-wrap" href="{{ url('/') ~ '/' ~ organizationTypeForUrl ~ '/' ~ item.id }}">{{ item.extendedName }}</a>
                 {% partial __SELF__ ~ '::menuItems' array=attribute(item, childArrayName) level=level+1 %}
             </ul>
