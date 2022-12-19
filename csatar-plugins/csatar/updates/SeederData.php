@@ -484,6 +484,8 @@ class SeederData extends Seeder
         // associations
         $legalRelationship1 = LegalRelationship::where('name', 'Alakuló csapat tag')->first();
         $legalRelationship2 = LegalRelationship::where('name', 'Tag')->first();
+        $legalRelationship3 = LegalRelationship::where('name', 'Tiszteletbeli tag')->first();
+        $legalRelationship4 = LegalRelationship::where('name', 'Újonc')->first();
 
         foreach($this::DATA['association'] as $name) {
             $association = Association::firstOrNew([
@@ -547,6 +549,12 @@ class SeederData extends Seeder
             }
             if ($association->legal_relationships->where('id', $legalRelationship2->id)->first() == null) {
                 $association->legal_relationships()->attach($legalRelationship2, ['membership_fee' => 0]);
+            }
+            if ($association->legal_relationships->where('id', $legalRelationship3->id)->first() == null) {
+                $association->legal_relationships()->attach($legalRelationship3, ['membership_fee' => 0]);
+            }
+            if ($association->legal_relationships->where('id', $legalRelationship4->id)->first() == null) {
+                $association->legal_relationships()->attach($legalRelationship4, ['membership_fee' => 0]);
             }
             $association->save();
 

@@ -46,6 +46,7 @@ class JsonImport extends Controller
         $this->statusMap = [
             'a' => Status::ACTIVE,
             'i' => Status::INACTIVE,
+            't' => Status::INACTIVE,
         ];
 
         $this->association = Association::where('name', 'Romániai Magyar Cserkészszövetség')->first();
@@ -688,6 +689,10 @@ class JsonImport extends Controller
             $scout->workplace                      = $fields->jellemzok->id_32 ?? null;
             $scout->comment                        = $fields->jellemzok->id_18 ?? null;
             $scout->raw_import                     = $fields;
+
+            if ($fields->statusz === 't') {
+                $scout->deleted_at = date('Y-m-d');
+            }
 
             $scout->ignoreValidation = true;
             $scout->forceSave();

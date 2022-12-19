@@ -14,7 +14,7 @@
         </div>
         {% for team_report_data in __SELF__.teamReportData  %}
             <div class="row">
-                <div class="col col-sm col-lg td m-1">{{ team_report_data.year }}</div>
+                <div class="col col-sm col-lg td m-1">{{ team_report_data.year }} - {{ team_report_data.year + 1 }}</div>
                 <div class="col col-sm col-lg td m-1">{{ team_report_data.members_count }}</div>
                 {% for legal_relationship in __SELF__.legalRelationships  %}
                     <div class="col col-lg d-none d-md-block td m-1">{{ team_report_data[legal_relationship.id] }}</div>
