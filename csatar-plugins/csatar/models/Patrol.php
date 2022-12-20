@@ -216,7 +216,7 @@ class Patrol extends OrganizationBase
     public static function getGenderOptions(){
         return [
             Gender::MALE => e(trans('csatar.csatar::lang.plugin.admin.scout.gender.male')),
-            Gender::FEMALE => e(trans('csatar.csatar::lang.plugin.admin.scout.gender.male')),
+            Gender::FEMALE => e(trans('csatar.csatar::lang.plugin.admin.scout.gender.female')),
             Gender::MIXED => e(trans('csatar.csatar::lang.plugin.admin.patrol.gender.mixed')),
         ];
     }
