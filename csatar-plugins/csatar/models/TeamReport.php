@@ -144,7 +144,11 @@ class TeamReport extends PermissionBasedAccess
             $leadershipQualification = $scout->leadership_qualifications->sortByDesc(function ($item, $key) {
                 return $item['pivot']['date'];
             })->values()->first();
-            $membership_fee = $this->team->district->association->legal_relationships->where('id', $scout->legal_relationship_id)->first()->pivot->membership_fee;
+            if(!empty($legalRelationShip)) {
+                $membership_fee = $this->team->district->association->legal_relationships->where('id', $scout->legal_relationship_id)->first()->pivot->membership_fee;
+            } else {
+                $membership_fee = 0;
+            }
 
             $this->scouts()->attach($scout, [
                 'name' => $scout->family_name . ' ' . $scout->given_name,
