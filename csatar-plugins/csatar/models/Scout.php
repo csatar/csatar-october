@@ -787,6 +787,10 @@ class Scout extends OrganizationBase
                                         ->pluck('mandate_type_id')->toArray();
         }
 
+        if (empty($modelAssociation)) {
+            return [];
+        }
+
         return array_merge(
             $mandateIdsForAssociation ?? [],
             $mandateIdsForDistrict ?? [],
