@@ -1085,6 +1085,10 @@ class JsonImport extends Controller
         $files = $this->unzip($zip);
 
         foreach ($files as $key => $path) {
+            if (is_dir($path)) {
+                continue;
+            }
+
             $file = new File;
             $file->data = $path;
             $file->save();
