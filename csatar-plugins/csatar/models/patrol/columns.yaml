@@ -8,7 +8,7 @@ columns:
     deleted_at:
         label: 'csatar.csatar::lang.plugin.admin.general.deletedAt'
         type: datetime
-    extendedName:
+    name:
         label: 'csatar.csatar::lang.plugin.admin.general.name'
         type: text
         searchable: true
@@ -32,18 +32,20 @@ columns:
         label: 'csatar.csatar::lang.plugin.admin.patrol.ageGroup'
         type: text
         searchable: true
-        sortable: true
+        sortable: false
         relation: age_group
         valueFrom: name
-    team_id:
+    team:
         label: 'csatar.csatar::lang.plugin.admin.patrol.team'
-        type: number
+        type: text
         searchable: true
-        valueFrom: extendedName
+        sortable: false
+        valueFrom: name
         relation: team
-    troop_id:
+    troop:
         label: 'csatar.csatar::lang.plugin.admin.patrol.troop'
-        type: number
+        type: text
         searchable: true
+        sortable: false
         relation: troop
-        valueFrom: extendedName
+        valueFrom: name

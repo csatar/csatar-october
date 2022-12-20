@@ -8,8 +8,8 @@ columns:
     deleted_at:
         label: 'csatar.csatar::lang.plugin.admin.general.deletedAt'
         type: datetime
-    code:
-        label: 'csatar.csatar::lang.plugin.admin.currency.code'
+    name:
+        label: 'csatar.csatar::lang.plugin.admin.general.name'
         type: text
         searchable: true
         sortable: true

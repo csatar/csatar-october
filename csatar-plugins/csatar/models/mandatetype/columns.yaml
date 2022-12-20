@@ -16,14 +16,15 @@ columns:
     association_id:
         label: 'csatar.csatar::lang.plugin.admin.mandateType.association'
         type: number
-        searchable: false
+        searchable: true
         sortable: false
         relation: association
-        valueFrom: extendedName
-    organization_type_model_name_user_friendly:
+        valueFrom: name
+    organization_type_model_name:
         label: 'csatar.csatar::lang.plugin.admin.mandateType.organizationTypeModelName'
         searchable: true
         sortable: false
+        displayFrom: organization_type_model_name_user_friendly
         type: text
     required:
         label: 'csatar.csatar::lang.plugin.admin.mandateType.required'

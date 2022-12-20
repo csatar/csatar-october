@@ -5,16 +5,13 @@ columns:
     updated_at:
         label: 'csatar.csatar::lang.plugin.admin.general.updatedAt'
         type: datetime
-    deleted_at:
-        label: 'csatar.csatar::lang.plugin.admin.general.deletedAt'
-        type: datetime
-    extendedName:
-        label: 'csatar.csatar::lang.plugin.admin.general.name'
+    team_number:
+        label: 'csatar.csatar::lang.plugin.admin.team.teamNumber'
         type: text
         searchable: true
         sortable: true
-    team_number:
-        label: 'csatar.csatar::lang.plugin.admin.team.teamNumber'
+    name:
+        label: 'csatar.csatar::lang.plugin.admin.general.name'
         type: text
         searchable: true
         sortable: true
@@ -62,6 +59,7 @@ columns:
         label: 'csatar.csatar::lang.plugin.admin.team.history'
         type: text
         searchable: true
+        invisible: true
     coordinates:
         label: 'csatar.csatar::lang.plugin.admin.general.coordinates'
         type: text
@@ -70,10 +68,12 @@ columns:
         label: 'csatar.csatar::lang.plugin.admin.team.leadershipPresentation'
         type: text
         searchable: true
+        invisible: true
     description:
         label: 'csatar.csatar::lang.plugin.admin.team.description'
         type: text
         searchable: true
+        invisible: true
     juridical_person_name:
         label: 'csatar.csatar::lang.plugin.admin.team.juridicalPersonName'
         type: text
@@ -102,5 +102,6 @@ columns:
         label: 'csatar.csatar::lang.plugin.admin.team.district'
         type: number
         searchable: true
+        sortable: false
         relation: district
-        valueFrom: extendedName
+        valueFrom: name
