@@ -816,7 +816,7 @@ class JsonImport extends Controller
             '\Csatar\Csatar\Models\Patrol' => $patrolsMap,
         ];
 
-        $scoutsMap = Scout::all();
+        $scoutsMap = Scout::withTrashed()->get();
         $scoutsMap = $scoutsMap->mapWithKeys(function ($item) {
             return [
                 $item->ecset_code => $item->id
