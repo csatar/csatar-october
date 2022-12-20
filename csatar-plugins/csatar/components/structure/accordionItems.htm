@@ -23,6 +23,7 @@
 {% if array | length > 0 %}
     <div class="accordion accordion-flush">
         {% for item in array %}
+            {% if level < 3 or item.getActiveScoutsCount() != 0 %}
             <div class="accordion-item my-3">
                 {% if organizationTypeForUrl in this.page.id %}
                     {% partial __SELF__ ~ '::accordionbody'
@@ -58,6 +59,7 @@
                     </div>
                 {% endif %}
             </div>
+            {% endif %}
         {% endfor %}
     </div>
 {% else %}

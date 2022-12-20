@@ -310,7 +310,7 @@ class Mandate extends Model
 
     public function getScoutTeamAttribute(): string
     {
-        if ($this->scout->team->extendedName) {
+        if (isset($this->scout) && $this->scout->team->extendedName) {
             return $this->scout->team->extendedName;
         }
 

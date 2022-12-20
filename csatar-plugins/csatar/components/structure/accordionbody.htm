@@ -9,7 +9,7 @@
 
     {# Show the number of scouts in the Teams, Troops and Patrols #}
     {% if level > 2 %}
-    <p>{{ 'Tagok száma: '|_ }} {{ item.getActiveScoutsCount }}</p>
+    <p>{{ 'Tagok száma: '|_ }} {{ item.getActiveScoutsCount() }}</p>
     {% endif %}
 
     {% if level == 3 %}
