@@ -990,7 +990,7 @@ class JsonImport extends Controller
             "segedorsvezeto-kikepzo" => [ 'training_qualifications', $trainingQualificationsMap],
             "segedtiszt-kikepzo" => [ 'training_qualifications', $trainingQualificationsMap],
         ];
-        $scoutsMap = Scout::all();
+        $scoutsMap = Scout::withTrashed()->get();
         $scoutsMap = $scoutsMap->mapWithKeys(function ($item) {
             return [
                 $item->ecset_code => $item
@@ -1096,7 +1096,7 @@ class JsonImport extends Controller
             $postfixWithExtension = 'E.' . $file->getExtension();
             if (strpos($originalName, $postfixWithExtension)) {
                 $ecset_code = str_replace($postfixWithExtension, '-E', $originalName);
-                $scout = Scout::where('ecset_code', $ecset_code)->first();
+                $scout = Scout::withTrashed()->where('ecset_code', $ecset_code)->first();
 
                 if (empty($scout)) {
                     Log::warning("Could not find scout with identifier: $ecset_code. Registration from not imported.");
