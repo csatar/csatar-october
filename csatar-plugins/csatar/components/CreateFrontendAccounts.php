@@ -175,7 +175,7 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
             Event::fire('rainlab.user.register', [$user, $data]);
 
             $scout->user_id = $user->id;
-            $scout->save();
+            $scout->forceSave();
 
             if ($automaticActivation) {
                 $fullName = $scout->getFullName();
@@ -280,7 +280,7 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
             Event::fire('rainlab.user.register', [$user, $data]);
 
             $scout->user_id = $user->id;
-            $scout->save();
+            $scout->forceSave();
 
             $fullName = $scout->getFullName();
 
