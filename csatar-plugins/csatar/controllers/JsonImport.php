@@ -641,7 +641,7 @@ class JsonImport extends Controller
                 $troop = Troop::find($patrol->troop_id);
             }
 
-            $scout = Scout::firstOrNew (
+            $scout = Scout::withTrashed()->firstOrNew (
                 [
                     'ecset_code'        => $fields->ecsk, //TODO check
                     'team_id'           => $team_id,
