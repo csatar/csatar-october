@@ -410,6 +410,9 @@ class JsonImport extends Controller
             $district->facebook_page = $fields->facebook;
             $district->bank_account  = $fields->bankszamla_szam;
 
+            $district->ignoreValidation = true;
+            $district->forceSave();
+
             if (!empty($fields->kep)) {
                 $path = '/storage/app/media/importedimages/' . $fields->kep;
                 $url = url('/') . $path;
@@ -473,6 +476,9 @@ class JsonImport extends Controller
             $team->facebook_page                  = $fields->facebook;
             $team->juridical_person_bank_account  = $fields->bankszamla_szam;
 
+            $team->ignoreValidation = true;
+            $team->forceSave();
+
             if (!empty($fields->kep)) {
                 $path = '/storage/app/media/importedimages/' . $fields->kep;
                 $url = url('/') . $path;
@@ -519,6 +525,9 @@ class JsonImport extends Controller
             $troop->email                          = $fields->email;
             $troop->website                        = $fields->web;
             $troop->facebook_page                  = $fields->facebook;
+
+            $troop->ignoreValidation = true;
+            $troop->forceSave();
 
             if (!empty($fields->kep)) {
                 $path = '/storage/app/media/importedimages/' . $fields->kep;
@@ -569,6 +578,9 @@ class JsonImport extends Controller
             $patrol->facebook_page                  = $fields->facebook;
 
             $patrol->age_group_id                   = isset($fields->korosztaly[0]) && isset($this->ageGroupMap[$fields->korosztaly[0]]) ? $this->ageGroupMap[$fields->korosztaly[0]] : $this->ageGroupMap['v'];
+
+            $patrol->ignoreValidation = true;
+            $patrol->forceSave();
 
             if (!empty($fields->kep)) {
                 $path = '/storage/app/media/importedimages/' . $fields->kep;
