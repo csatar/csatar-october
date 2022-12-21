@@ -144,3 +144,17 @@ fields:
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
         type: dropdown
+    team_report_submit_start_date:
+        label: 'csatar.csatar::lang.plugin.admin.teamReport.submit_start_date'
+        mode: date
+        yearRange: '1'
+        span: left
+        type: datepicker
+    team_report_submit_end_date:
+        label: 'csatar.csatar::lang.plugin.admin.teamReport.team_report_submit_end_date'
+        mode: date
+        yearRange: '1'
+        span: auto
+        dependsOn:
+            - team_report_submit_start_date
+        type: datepicker

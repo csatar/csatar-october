@@ -201,3 +201,6 @@
 1.0.70:
     - 'Update mandate_types add is_vk column'
     - update_mandate_types_add_is_vk_column.php
+1.0.71:
+    - 'Updated table csatar_csatar_associations add team report submit period'
+    - builder_table_update_csatar_csatar_associations_4.php

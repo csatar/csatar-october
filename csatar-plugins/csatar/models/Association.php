@@ -1,7 +1,9 @@
 <?php namespace Csatar\Csatar\Models;
 
 use Csatar\Csatar\Models\OrganizationBase;
+use DateTime;
 use Lang;
+use ValidationException;
 
 /**
  * Model
@@ -50,7 +52,9 @@ class Association extends OrganizationBase
         'ecset_code_suffix',
         'team_fee',
         'currency_id',
-        'personal_identification_number_validator'
+        'personal_identification_number_validator',
+        'team_report_submit_start_date',
+        'team_report_submit_end_date',
     ];
 
     /**
@@ -100,6 +104,15 @@ class Association extends OrganizationBase
             'label' => 'csatar.csatar::lang.plugin.admin.general.contentPage',
         ]
     ];
+
+    public function beforeValidate()
+    {
+        if (!empty($this->team_report_submit_start_date)
+            && (is_null($this->team_report_submit_end_date) || new DateTime($this->team_report_submit_start_date) > new DateTime($this->team_report_submit_end_date))
+        ) {
+            throw new ValidationException(['team_report_submit_end_date' => Lang::get('csatar.csatar::lang.plugin.admin.association.validationExceptions.invalidTeamReportSubmissionPeriod')]);
+        }
+    }
 
     /**
      * Return the association with the given id

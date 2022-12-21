@@ -373,6 +373,9 @@ return [
                 'membershipFee' => 'Membership fee',
                 'currency' => 'Currency',
                 'personalIdentificationNumberValidator' => 'Personal Identification Number Validator',
+                'validationExceptions' => [
+                    'invalidTeamReportSubmissionPeriod' => 'Team report submit period end date must be after start date.',
+                ],
             ],
             'district' => [
                 'district' => 'District',
@@ -494,6 +497,8 @@ return [
                     'dateInTheFuture' => 'The selected Date is in the future.',
                     'submissionDateAfterApprovalDate' => 'The Submission date cannot be after the approval date.',
                 ],
+                'submit_start_date' => 'Team report submit period start date',
+                'submit_end_date' => 'Team report submit period end date',
             ],
             'mandateType' => [
                 'mandateType' => 'Mandate type',
