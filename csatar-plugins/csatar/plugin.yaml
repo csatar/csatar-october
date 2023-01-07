@@ -54,6 +54,10 @@ navigation:
                 label: 'csatar.csatar::lang.plugin.admin.mandate.mandates'
                 url: /csatar/csatar/mandates
                 icon: icon-sitemap
+            side-menu-item-dynamic-fields:
+                label: 'csatar.csatar::lang.plugin.admin.dynamicFields.dynamicFields'
+                url: /csatar/csatar/dynamicfields
+                icon: icon-sitemap
             side-menu-item-permissions-matrix:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.organizationSystemData.permissionsMatrix'
                 url: csatar/csatar/permissionsmatrix

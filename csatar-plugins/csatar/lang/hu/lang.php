@@ -354,6 +354,17 @@
                 'sortOrder' => 'Sorrend',
                 'breadcrumb' => 'Hierarchia',
             ],
+            'dynamicFields' => [
+                'dynamicFields' => 'Dinamikus mezők',
+                'association' => 'Szövetség',
+                'startDate' => 'Kezdete',
+                'endDate' => 'Vége',
+                'model' => 'Modell',
+                'extraFieldsDefinition' => 'További mezők adatai',
+                'promptNew' => 'Új hozzáadása',
+                'fieldType' => 'Mező típusa',
+                'breadcrumb' => 'Dinamikus mezők',
+            ],
             'organizationBase' => [
                 'organizationBase' => 'Általános szervezeti egység',
             ],

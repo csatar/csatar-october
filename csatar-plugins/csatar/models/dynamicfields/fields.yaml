@@ -1,0 +1,38 @@
+fields:
+    association:
+        label: 'csatar.csatar::lang.plugin.admin.dynamicFields.association'
+        nameFrom: extendedName
+        descriptionFrom: description
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        span: auto
+        required: 1
+        type: relation
+    start_date:
+        label: 'csatar.csatar::lang.plugin.admin.dynamicFields.startDate'
+        span: auto
+        required: 1
+        default: now
+        type: datepicker
+        mode: date
+    end_date:
+        label: 'csatar.csatar::lang.plugin.admin.dynamicFields.endDate'
+        span: auto
+        type: datepicker
+        mode: date
+    model:
+        label: 'csatar.csatar::lang.plugin.admin.dynamicFields.model'
+        span: auto
+        type: dropdown
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+    extra_fields_definition:
+        label: 'csatar.csatar::lang.plugin.admin.dynamicFields.extraFieldsDefinition'
+        prompt: 'csatar.csatar::lang.plugin.admin.dynamicFields.promptNew'
+        style: default
+        span: auto
+        type: repeater
+        form:
+            fields:
+                address:
+                    label: 'csatar.csatar::lang.plugin.admin.dynamicFields.fieldType'
+                    span: auto
+                    type: text

@@ -1,6 +1,4 @@
-<?php
-
-return [
+<?php return [
     'frontEnd' => [
         'authException' => 'The email address, the ID number or the password is incorrect.',
     ],
@@ -172,6 +170,7 @@ return [
                     'personalDataNotAccepted' => 'Please verify your personal data here!',
                 ],
                 'activeMandateDeleteError' => 'The Scout having the %name name has active Mandates, thus this Scout cannot be deleted.',
+                'scoutTeam' => 'Scout\'s team',
                 'inactivationWarning' => 'Please note that if you change status from active to inactive, scout\'s all mandates will expire!',
             ],
             'admin' => [
@@ -355,6 +354,17 @@ return [
                 'sortOrder' => 'Sort order',
                 'breadcrumb' => 'Hierarchy',
             ],
+            'dynamicFields' => [
+                'dynamicFields' => 'Dynamic Fields',
+                'association' => 'Association',
+                'startDate' => 'Start date',
+                'endDate' => 'End date',
+                'model' => 'Model',
+                'extraFieldsDefinition' => 'Extra Fields Definition',
+                'promptNew' => 'Add new',
+                'fieldType' => 'Field type',
+                'breadcrumb' => 'Dynamic Fields',
+            ],
             'organizationBase' => [
                 'organizationBase' => 'Organization base',
             ],
@@ -514,7 +524,6 @@ return [
                 'endDate' => 'End date',
                 'breadcrumb' => 'Mandate types',
                 'activeMandateDeleteError' => 'There exist active Mandates of %name type, thus this Mandate type cannot be deleted.',
-                'scoutTeam' => 'Scout\'s team',
             ],
             'mandate' => [
                 'mandate' => 'Mandate',
