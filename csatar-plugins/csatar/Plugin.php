@@ -20,6 +20,7 @@ use Session;
 use System\Classes\PluginBase;
 use ValidationException;
 use Validator;
+use Schema;
 use Csatar\Csatar\Classes\Validators\CnpValidator;
 
 /**
@@ -73,7 +74,7 @@ class Plugin extends PluginBase
      */
     public function boot()
     {
-        if(intval(str_replace('.', '', \System\Models\PluginVersion::getVersion('Csatar.Csatar'))) < 1070) {
+        if(!Schema::hasTable('system_plugin_versions') || intval(str_replace('.', '', \System\Models\PluginVersion::getVersion('Csatar.Csatar'))) < 1070) {
             // if Csatar.Csatar version is lower than a specific version the below code should not run
             return;
         }
