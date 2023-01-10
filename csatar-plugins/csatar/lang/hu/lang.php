@@ -44,7 +44,7 @@
                 'status' => 'Státusz',
                 'active' => 'Aktív',
                 'inactive' => 'Inaktív',
-                'inactivationWarning' => 'Figyelem! Ha a státusz aktívról bármilyen típusú inaktív státuszra változik, a szervezeti egység alá tartozó összes szervezeti egység és cserkész státusza is inaktívvá válik, valamint lejár az ezekhez tartozó összes mebízatás!'
+                'inactivationWarning' => 'Figyelem! Ha a státusz aktívról bármilyen típusú inaktív státuszra változik, a szervezeti egység alá tartozó összes szervezeti egység és cserkész státusza is inaktívvá válik, valamint lejár az ezekhez tartozó összes mebízatás!',
             ],
             'ageGroups' => [
                 'ageGroups' => 'Korosztályok',
@@ -171,7 +171,7 @@
                 ],
                 'activeMandateDeleteError' => 'A(z) %name nevű Tagnak létezik aktív Megbízatása, így ez a Tag nem törölhető.',
                 'scoutTeam' => 'Tag csapata',
-                'inactivationWarning' => 'Figyelem! Ha a státusz aktívról inaktívra változik, a cserkész összes megbízatása lejár!'
+                'inactivationWarning' => 'Figyelem! Ha a státusz aktívról inaktívra változik, a cserkész összes megbízatása lejár!',
             ],
             'admin' => [
                 'menu' => [
@@ -547,6 +547,12 @@
                 'userGroups' => 'Felhasználó csoportok',
                 'dataEntry' => 'Baleseti log adatbevívó',
                 'admin' => 'Baleseti log adminisztrátor',
+            ],
+            'membershipCard' => [
+                'membershipCard' => 'Tagkártya',
+                'membershipCards' => 'Tagkártyák',
+                'issued_date_time' => 'Kiállítva',
+                'active' => 'Érvényes',
             ],
         ],
         'component' => [

@@ -6,6 +6,7 @@ use Csatar\Csatar\Classes\RightsMatrix;
 use Csatar\Csatar\Models\Association;
 use Csatar\Csatar\Models\Mandate;
 use Csatar\Csatar\Models\MandateType;
+use Csatar\Csatar\Models\MembershipCard;
 use DateTime;
 use Db;
 use Flash;
@@ -262,6 +263,10 @@ class Scout extends OrganizationBase
             && $this->is_active != $this->original['is_active']
             && $this->original['is_active'] == Status::ACTIVE) {
             Mandate::where('scout_id', $this->id)->update(['end_date' => date('Y-m-d')]);
+
+            if (!empty($this->membership_cards)) {
+                MembershipCard::where('scout_id', $this->id)->where('active', Status::ACTIVE)->update(['active' => Status::INACTIVE]);
+            }
         }
     }
 
@@ -443,6 +448,7 @@ class Scout extends OrganizationBase
             'table' => 'csatar_csatar_mandates',
             'label' => 'csatar.csatar::lang.plugin.admin.mandate.mandates',
         ],
+        'membership_cards' => \Csatar\Csatar\Models\MembershipCard::class
     ];
 
     public $attachOne = [

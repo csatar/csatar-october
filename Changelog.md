@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-418 - Create member card model
 - CS-431 - separated inactive and active scouts on team page
 - CS-415 - inactive districts and teams are hidden in structure accordions and menu
 - CS-415 - inactive teams are hidden in district page

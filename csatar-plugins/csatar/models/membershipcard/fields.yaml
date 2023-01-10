@@ -1,0 +1,24 @@
+fields:
+    scout:
+        label: 'csatar.csatar::lang.plugin.admin.scout.scout'
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+    rfid_tag:
+        label: 'RFID tag'
+        span: auto
+        type: text
+    active:
+        label: 'csatar.csatar::lang.plugin.admin.membershipCard.active'
+        span: auto
+        type: checkbox
+    note:
+        label: 'csatar.csatar::lang.plugin.admin.general.note'
+        span: auto
+        type: text
+    issued_date_time:
+        label: 'csatar.csatar::lang.plugin.admin.membershipCard.issued_date_time'
+        mode: datetime
+        span: auto
+        type: datepicker
