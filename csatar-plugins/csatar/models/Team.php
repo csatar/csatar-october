@@ -3,6 +3,7 @@
 use Lang;
 use Csatar\Csatar\Models\OrganizationBase;
 use Csatar\Csatar\Models\Scout;
+use Csatar\Csatar\Models\District;
 use Csatar\Csatar\Classes\Enums\Status;
 
 /**
@@ -317,6 +318,11 @@ class Team extends OrganizationBase
 
     public function scopeActiveInDistrict($query, $districtId) {
         $query->where('district_id', $districtId)->active();
+    }
+
+    public function scopeActiveInAssociation($query, $associationId) {
+        $districtIds = District::where('association_id', $associationId)->get()->pluck('id')->toArray();
+        $query->whereIn('district_id', $districtIds)->active();
     }
 
     public function getTroops() {
