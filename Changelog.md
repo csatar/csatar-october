@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-429 - Hide associations without teams from menu
 - CS-417 - Order team on district page by team number
 - CS-430 - added option and menu to list all team reports in association regardless of team id
 - CS-418 - Create member card model
