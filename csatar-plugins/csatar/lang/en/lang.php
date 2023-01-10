@@ -46,7 +46,7 @@ return [
                 'status' => 'Status',
                 'active' => 'Active',
                 'inactive' => 'Inactive',
-                'inactivationWarning' => 'Warning! If status is changed from active to any kind of inactive status, all child organizations will be inactivated and all mandates connected to the organization, it\'s child organizations and scouts belonging to the organization will expire!'
+                'inactivationWarning' => 'Warning! If status is changed from active to any kind of inactive status, all child organizations will be inactivated and all mandates connected to the organization, it\'s child organizations and scouts belonging to the organization will expire!',
             ],
             'ageGroups' => [
                 'ageGroups' => 'Age Groups',
@@ -172,6 +172,7 @@ return [
                     'personalDataNotAccepted' => 'Please verify your personal data here!',
                 ],
                 'activeMandateDeleteError' => 'The Scout having the %name name has active Mandates, thus this Scout cannot be deleted.',
+                'scoutTeam' => 'Scout\'s team' ,
                 'inactivationWarning' => 'Please note that if you change status from active to inactive, scout\'s all mandates will expire!',
             ],
             'admin' => [
@@ -529,9 +530,9 @@ return [
                 'gallery' => 'Gallery',
                 'rules' => [
                     'nameRequired' => 'The title is required.',
-                    'nameBetween'  => 'The title must be between 3-64 character.',
+                    'nameBetween' => 'The title must be between 3-64 character.',
                     'descriptionMax' => 'The description must be maximum 255 character.',
-                ]
+                ],
             ],
             'permissions' => [
                 'permissions' => 'Permissions',
@@ -549,6 +550,12 @@ return [
                 'userGroups' => 'User Groups',
                 'dataEntry' => 'Accident log data entry group',
                 'admin' => 'Accident log admin group',
+            ],
+            'membershipCard' => [
+                'membershipCard' => 'Membership Card',
+                'membershipCards' => 'Membership Cards',
+                'issued_date_time' => 'Issued',
+                'active' => 'Active',
             ],
         ],
         'component' => [
@@ -701,6 +708,8 @@ return [
                 'attachments' => 'Attachments',
                 'attachmentsComment' => 'Max. five files can be uploaded',
                 'attachmentsValidationException' => 'Max. five files can be uploaded',
+                'created_by' => 'Created by',
+                'accidentLogRecordList' => 'Accident Log Record List',
             ],
         ],
         'oauth' => [

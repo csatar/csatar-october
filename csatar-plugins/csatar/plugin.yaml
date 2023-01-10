@@ -58,6 +58,10 @@ navigation:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.organizationSystemData.permissionsMatrix'
                 url: csatar/csatar/permissionsmatrix
                 icon: icon-sitemap
+            side-menu-item:
+                label: 'csatar.csatar::lang.plugin.admin.membershipCard.membershipCard'
+                url: csatar/csatar/membershipcards
+                icon: icon-sitemap
     main-menu-item-scout-system-data:
         label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.scoutSystemData'
         url: /

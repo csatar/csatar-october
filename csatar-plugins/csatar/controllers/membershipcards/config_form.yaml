@@ -1,0 +1,10 @@
+name: 'csatar.csatar::lang.plugin.admin.membershipCard.membershipCard'
+form: $/csatar/csatar/models/membershipcard/fields.yaml
+modelClass: Csatar\Csatar\Models\MembershipCard
+defaultRedirect: csatar/csatar/membershipcards
+create:
+    redirect: 'csatar/csatar/membershipcards/update/:id'
+    redirectClose: csatar/csatar/membershipcards
+update:
+    redirect: csatar/csatar/membershipcards
+    redirectClose: csatar/csatar/membershipcards
