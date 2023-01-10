@@ -147,4 +147,8 @@ class Association extends OrganizationBase
     public function getActiveDistricts() {
         return District::inAssociation($this->id)->get();
     }
+
+    public function getActiveTeamsCount() {
+        return Team::activeInAssociation($this->id)->count();
+    }
 }
