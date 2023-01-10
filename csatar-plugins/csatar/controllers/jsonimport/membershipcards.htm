@@ -1,0 +1,29 @@
+<div class="callout fade in callout-info no-subheader">
+    <div class="header">
+        <i class="icon-info"></i>
+        <h3>Imports member cards data to RMCSSZ.</h3>
+        <p>This page can only handle "tagsag.Tagkartya.json".</p>
+    </div>
+</div>
+
+<div class="callout fade in callout-danger no-icon">
+    <div class="header">
+        <h3>Please note: will overwrite existing data!</h3>
+    </div>
+</div>
+
+<?= Form::open(['request' => 'onProcessMemberCardsData', 'files' => true]) ?>
+    <div class="form-group span-left">
+        <input type="file" name="member_cards_data_file" class="form-control" />
+    </div>
+
+    <div class="form-group span-left">
+        <button
+            type="submit"
+            type="submit"
+            class="btn btn-primary btn-sm">
+            Upload and process
+        </button>
+    </div>
+
+<?= Form::close() ?>
