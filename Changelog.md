@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-430 - added option and menu to list all team reports in association regardless of team id
 - CS-431 - separated inactive and active scouts on team page
 - CS-415 - inactive districts and teams are hidden in structure accordions and menu
 - CS-415 - inactive teams are hidden in district page

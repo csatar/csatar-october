@@ -49,9 +49,17 @@
                     {% endif %}
                     
                     {% if user %}
-                    <li class="nav-item">
-                        <a class="nav" href="/csapatjelentesek/elfogadasravaro">{{ 'Csapatjelentések' | _ }}</a>
-                    </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">{{ 'Csapatjelentések' | _ }}</a>
+                            <ul class="dropdown-menu bg-primary">
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="/csapatjelentesek/elfogadasravaro">{{ 'Elfogadásra váró' | _ }}</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="dropdown-item" href="/csapatjelentesek">{{ 'Összes' | _ }}</a>
+                                </li>
+                            </ul>
+                        </li>
                     {% endif %}
                     <li class="nav-item">
                         <a class="nav" href="/tamogatok">{{ 'Támogatók' | _ }}</a>
