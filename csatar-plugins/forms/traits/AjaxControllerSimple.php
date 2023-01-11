@@ -1011,7 +1011,7 @@ trait AjaxControllerSimple {
                 if (array_key_exists('isPivot', $data)) {
                     $value = $relatedRecord->pivot->{$key} ?? '';
                 } else {
-                    $attribute = array_key_exists('valueFromFromBuilder', $data) ? $data['valueFromFromBuilder'] : 'name';
+                    $attribute = array_key_exists('valueFromFormBuilder', $data) ? $data['valueFromFormBuilder'] : 'name';
                     $value = (is_object($relatedRecord->{$key}) ?
                         $relatedRecord->{$key}->{$attribute} :
                         $relatedRecord->{$key});
