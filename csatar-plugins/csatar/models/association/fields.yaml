@@ -143,7 +143,7 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.association.personalIdentificationNumberValidator'
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
-        type: dropdown
+        type: checkboxlist
     team_report_submit_start_date:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.submit_start_date'
         mode: date

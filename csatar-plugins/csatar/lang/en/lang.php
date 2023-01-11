@@ -168,6 +168,8 @@ return [
                     'dateInTheFutureError' => 'The selected Date for the %name %category is in the future.',
                     'invalidPersonalIdentificationNumber' => 'Invalid Personal Identification Number.',
                     'legalRepresentativePhoneUnderAge' => 'For scouts under legal age, phone number of one parent or legal representative must be filled.',
+                    'uniquePersonalIdentificationNumber' => 'This Personal Identification Number is already used for a scout.',
+                    'personalIdentificationNumberBirthdateMismatch' => 'Birthdate doesn\'t match with Personal Identification Number.',
                 ],
                 'staticMessages' => [
                     'personalDataNotAccepted' => 'Please verify your personal data here!',
@@ -374,7 +376,10 @@ return [
                 'teamFee' => 'Team fee',
                 'membershipFee' => 'Membership fee',
                 'currency' => 'Currency',
-                'personalIdentificationNumberValidator' => 'Personal Identification Number Validator',
+                'personalIdentificationNumberValidator' => 'Personal Identification Number Validation',
+                'unique'    => 'Unigue',
+                'required'  => 'Required',
+                'cnp'       => 'CNP - Romanian Personal Identification Number Validator',
                 'validationExceptions' => [
                     'invalidTeamReportSubmissionPeriod' => 'Team report submit period end date must be after start date.',
                 ],
@@ -710,7 +715,6 @@ return [
                 'attachmentsComment' => 'Max. five files can be uploaded',
                 'attachmentsValidationException' => 'Max. five files can be uploaded',
                 'created_by' => 'Created by',
-                'accidentLogRecordList' => 'Accident Log Record List',
             ],
         ],
         'oauth' => [
