@@ -317,7 +317,7 @@ class Team extends OrganizationBase
     }
 
     public function scopeActiveInDistrict($query, $districtId) {
-        $query->where('district_id', $districtId)->active();
+        $query->where('district_id', $districtId)->active()->orderByRaw('CONVERT(team_number, UNSIGNED) asc');
     }
 
     public function scopeActiveInAssociation($query, $associationId) {
