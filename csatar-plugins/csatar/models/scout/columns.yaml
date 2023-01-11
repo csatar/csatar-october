@@ -84,6 +84,11 @@ columns:
         type: switch
         searchable: true
         sortable: true
+    is_approved:
+        label: 'csatar.csatar::lang.plugin.admin.scout.isApproved'
+        type: switch
+        searchable: true
+        sortable: true
     legal_relationship_id:
         label: 'csatar.csatar::lang.plugin.admin.scout.legalRelationship'
         type: text

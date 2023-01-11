@@ -207,3 +207,6 @@
 1.0.72:
     - 'Created table csatar_csatar_membership_cards'
     - builder_table_create_csatar_csatar_membership_cards.php
+1.0.73:
+    - 'Updated table csatar_csatar_scouts'
+    - builder_table_update_csatar_csatar_scouts_3.php
