@@ -607,6 +607,11 @@ class Scout extends OrganizationBase
         return $this->getFullName();
     }
 
+    public function getScoutLinkAttribute()
+    {
+        return '<a href="' . url("/tag/$this->ecset_code") . '">' . $this->getFullName() . '</a>';
+    }
+
     public function scopeOrganization($query, $mandate_model_type, $mandate_model_id)
     {
         switch ($mandate_model_type) {
