@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-424 - Hide inactive and expired mandates on Association, District, Team, Troop, Patrol pages
 - CS-421 - Member card data import
 - CS-417 - Order team on district page by team number
 - CS-429 - Hide associations without teams from menu
