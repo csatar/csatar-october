@@ -68,6 +68,7 @@
                     'other' => 'Egyéb',
                 ],
                 'isActive' => 'Aktív',
+                'isApproved' => 'Jóváhagyva',
                 'allergy' => 'Allergia',
                 'foodSensitivity' => 'Ételérzékenység',
                 'legalRelationship' => 'Jogviszony',
