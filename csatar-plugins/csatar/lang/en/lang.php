@@ -70,6 +70,7 @@ return [
                     'other' => 'Other',
                 ],
                 'isActive' => 'Is active',
+                'isApproved' => 'Is approved',
                 'allergy' => 'Allergies',
                 'foodSensitivity' => 'Food sensitivity',
                 'legalRelationship' => 'Legal relationship',

@@ -97,6 +97,7 @@ class Scout extends OrganizationBase
         'profile_image',
         'registration_form',
         'chronic_illnesses',
+        'is_approved',
     ];
 
     protected $nullable = [
@@ -145,6 +146,7 @@ class Scout extends OrganizationBase
         'workplace',
         'comment',
         'ecset_code',
+        'is_approved',
     ];
 
     protected $jsonable = ['raw_import'];
