@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-429 - Hide associations without teams from menu
 - CS-432 - Added "is_approved" field for Scout
 - CS-430 - Added option and menu to list all team reports in association regardless of team id
 - CS-418 - Create member card model
