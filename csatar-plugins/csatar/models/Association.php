@@ -20,6 +20,8 @@ class Association extends OrganizationBase
      */
     protected static $searchable = ['name'];
 
+    protected $jsonable = ['personal_identification_number_validator'];
+
     /**
      * @var array Validation rules
      */
@@ -137,7 +139,11 @@ class Association extends OrganizationBase
     }
 
     public function getPersonalIdentificationNumberValidatorOptions() {
-        return ['cnp' => 'CNP'];
+        return [
+            'unique:csatar_csatar_scouts'   => Lang::get('csatar.csatar::lang.plugin.admin.association.unique'),
+            'required'                      => Lang::get('csatar.csatar::lang.plugin.admin.association.required'),
+            'cnp'                           => Lang::get('csatar.csatar::lang.plugin.admin.association.cnp'),
+        ];
     }
 
     public function getAssociation() {
