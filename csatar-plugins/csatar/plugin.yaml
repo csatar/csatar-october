@@ -168,6 +168,10 @@ navigation:
                 label: 'Import registration forms'
                 url: csatar/csatar/jsonimport/registrationforms
                 icon: icon-sitemap
+            side-menu-item-json-import-member-cards-data:
+                label: 'Import member cards-data'
+                url: csatar/csatar/jsonimport/membershipcards
+                icon: icon-sitemap
             side-menu-item-synchronize-permissions-matrix:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.synchronizePermissionsMatrix'
                 url: csatar/csatar/seederdata/synchronizepermissionsmatrix

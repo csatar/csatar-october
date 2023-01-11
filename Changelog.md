@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-421 - Member card data import
 - CS-417 - Order team on district page by team number
 - CS-429 - Hide associations without teams from menu
 - CS-432 - Added "is_approved" field for Scout
