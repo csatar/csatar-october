@@ -1,0 +1,29 @@
+<div class="callout fade in callout-info no-subheader">
+    <div class="header">
+        <i class="icon-info"></i>
+        <h3>Imports promises, qualifications etc. to RMCSSZ.</h3>
+        <p>This page can only handle "kepesites.TagKepesites.json".</p>
+    </div>
+</div>
+
+<div class="callout fade in callout-danger no-icon">
+    <div class="header">
+        <h3>Please note: will not overwrite existing data!</h3>
+    </div>
+</div>
+
+<?= Form::open(['request' => 'onUploadAndProcessPromisesAndQualifications', 'files' => true]) ?>
+    <div class="form-group span-left">
+        <input type="file" name="pivot_json_file" class="form-control" />
+    </div>
+
+    <div class="form-group span-left">
+        <button
+            type="submit"
+            type="submit"
+            class="btn btn-primary btn-sm">
+            Upload and process
+        </button>
+    </div>
+
+<?= Form::close() ?>

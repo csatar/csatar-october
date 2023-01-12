@@ -1,4 +1,6 @@
-<?php return [
+<?php
+
+return [
     'frontEnd' => [
         'authException' => 'The email address, the ID number or the password is incorrect.',
     ],
@@ -41,6 +43,10 @@
                 'no' => 'No',
                 'url' => 'Hivatkozás',
                 'warning' => 'Warning',
+                'status' => 'Status',
+                'active' => 'Active',
+                'inactive' => 'Inactive',
+                'inactivationWarning' => 'Warning! If status is changed from active to any kind of inactive status, all child organizations will be inactivated and all mandates connected to the organization, it\'s child organizations and scouts belonging to the organization will expire!',
             ],
             'ageGroups' => [
                 'ageGroups' => 'Age Groups',
@@ -64,6 +70,7 @@
                     'other' => 'Other',
                 ],
                 'isActive' => 'Is active',
+                'isApproved' => 'Is approved',
                 'allergy' => 'Allergies',
                 'foodSensitivity' => 'Food sensitivity',
                 'legalRelationship' => 'Legal relationship',
@@ -73,9 +80,11 @@
                 'nationality' => 'Nationality',
                 'tShirtSize' => 'T-shirt size',
                 'birthdate' => 'Date',
+                'birthdateFull' => 'Birthdate',
                 'nameday' => 'Nameday',
                 'maidenName' => 'Maiden name',
                 'birthplace' => 'Location',
+                'birthplaceFull' => 'Birthplace',
                 'addressCountry' => 'Country',
                 'addressZipcode' => 'Zipcode',
                 'addressCounty' => 'County',
@@ -88,6 +97,12 @@
                 'fathersName' => 'Name',
                 'fathersPhone' => 'Phone',
                 'fathersEmail' => 'Email',
+                'mothersNameFull' => 'Mother\'s name',
+                'mothersPhoneFull' => 'Mother\'s phone',
+                'mothersEmailFull' => 'Mother\'s email',
+                'fathersNameFull' => 'Father\'s name',
+                'fathersPhoneFull' => 'Father\'s phone',
+                'fathersEmailFull' => 'Father\'s email',
                 'legalRepresentativeName' => 'Name',
                 'legalRepresentativePhone' => 'Phone',
                 'legalRepresentativeEmail' => 'Email',
@@ -153,11 +168,15 @@
                     'dateInTheFutureError' => 'The selected Date for the %name %category is in the future.',
                     'invalidPersonalIdentificationNumber' => 'Invalid Personal Identification Number.',
                     'legalRepresentativePhoneUnderAge' => 'For scouts under legal age, phone number of one parent or legal representative must be filled.',
+                    'uniquePersonalIdentificationNumber' => 'This Personal Identification Number is already used for a scout.',
+                    'personalIdentificationNumberBirthdateMismatch' => 'Birthdate doesn\'t match with Personal Identification Number.',
                 ],
                 'staticMessages' => [
                     'personalDataNotAccepted' => 'Please verify your personal data here!',
                 ],
                 'activeMandateDeleteError' => 'The Scout having the %name name has active Mandates, thus this Scout cannot be deleted.',
+                'scoutTeam' => 'Scout\'s team' ,
+                'inactivationWarning' => 'Please note that if you change status from active to inactive, scout\'s all mandates will expire!',
             ],
             'admin' => [
                 'menu' => [
@@ -190,6 +209,7 @@
                         'seederData' => 'Seeder data',
                         'testData' => 'Test data',
                         'importData' => 'Import scouts from ECSET',
+                        'synchronizePermissionsMatrix' => 'Synchronize permissions matrix',
                     ],
                 ],
                 'seederData' => [
@@ -202,6 +222,9 @@
                     'importDataDescription' => 'Select a .csv file, or a .zip file containing .csv files.',
                     'updateData' => 'Update data',
                     'updateDataSuccess' => 'The data has been successfully updated.',
+                    'synchronize' => 'Synchronize',
+                    'synchronizePermissionsMatrixDesc' => 'This synchronization will scan all child classes of "PermissionBasedAccess" model and add a "Mandate permission" entry to the permissions matrix for every existing mandate type, based on child models "fillable", "belongsTo", "belongsToMany", "hasMany", "attachOne", "hasOne", "morphTo", "morphOne", "morphMany", "morphToMany", "morphedByMany", "attachMany", "hasManyThrough", "hasOneThrough" arrays. The new "Mandate permission" entry will have all permissions set to "null". Existing entries will not be affected.',
+                    'synchronizeComplete' => 'Synchronization complete!',
                 ],
                 'permissionsMatrix' => [
                     'all' => 'All',
@@ -353,7 +376,13 @@
                 'teamFee' => 'Team fee',
                 'membershipFee' => 'Membership fee',
                 'currency' => 'Currency',
-                'personalIdentificationNumberValidator' => 'Personal Identification Number Validator',
+                'personalIdentificationNumberValidator' => 'Personal Identification Number Validation',
+                'unique'    => 'Unigue',
+                'required'  => 'Required',
+                'cnp'       => 'CNP - Romanian Personal Identification Number Validator',
+                'validationExceptions' => [
+                    'invalidTeamReportSubmissionPeriod' => 'Team report submit period end date must be after start date.',
+                ],
             ],
             'district' => [
                 'district' => 'District',
@@ -391,10 +420,14 @@
                 'district' => 'District',
                 'troopsPatrolsScoutsInfo' => 'Troops, Patrols, Scouts and Mandates can be added after the Team has been created. Click the Create button after other information is filled.',
                 'breadcrumb' => 'Teams',
-                'teamNumberTakenError' => 'This Team number is already taken.',
+                'teamNumberTakenError' => 'Team number ":teamNumber" is already taken.',
                 'dateInTheFutureError' => 'The selected date is in the future.',
                 'organizationUnitNameWarning' => 'The name of the team can not contain the word "team."',
                 'filterOrganizationUnitNameForWords' => 'team',
+                'active' => 'Active',
+                'inactive' => 'Inactive',
+                'suspended' => 'Suspended',
+                'forming' => 'Forming',
             ],
             'troop' => [
                 'troop' => 'Troop',
@@ -422,6 +455,9 @@
                 'troopNotInTheTeamError' => 'The selected Troop does not belong to the selected Team.',
                 'organizationUnitNameWarning' => 'The name of the patrol can not contain the word "patrol."',
                 'filterOrganizationUnitNameForWords' => 'partol',
+                'gender' => [
+                    'mixed' => 'Mixed',
+                ],
             ],
             'currency' => [
                 'currency' => 'Currency',
@@ -468,6 +504,8 @@
                     'dateInTheFuture' => 'The selected Date is in the future.',
                     'submissionDateAfterApprovalDate' => 'The Submission date cannot be after the approval date.',
                 ],
+                'submit_start_date' => 'Team report submit period start date',
+                'submit_end_date' => 'Team report submit period end date',
             ],
             'mandateType' => [
                 'mandateType' => 'Mandate type',
@@ -483,6 +521,7 @@
                 'endDate' => 'End date',
                 'breadcrumb' => 'Mandate types',
                 'activeMandateDeleteError' => 'There exist active Mandates of %name type, thus this Mandate type cannot be deleted.',
+                'scoutTeam' => 'Scout\'s team',
             ],
             'mandate' => [
                 'mandate' => 'Mandate',
@@ -497,9 +536,9 @@
                 'gallery' => 'Gallery',
                 'rules' => [
                     'nameRequired' => 'The title is required.',
-                    'nameBetween'  => 'The title must be between 3-64 character.',
+                    'nameBetween' => 'The title must be between 3-64 character.',
                     'descriptionMax' => 'The description must be maximum 255 character.',
-                ]
+                ],
             ],
             'permissions' => [
                 'permissions' => 'Permissions',
@@ -517,6 +556,12 @@
                 'userGroups' => 'User Groups',
                 'dataEntry' => 'Accident log data entry group',
                 'admin' => 'Accident log admin group',
+            ],
+            'membershipCard' => [
+                'membershipCard' => 'Membership Card',
+                'membershipCards' => 'Membership Cards',
+                'issued_date_time' => 'Issued',
+                'active' => 'Active',
             ],
         ],
         'locations' => [
@@ -644,6 +689,8 @@
                 'description' => 'Enables two factor authentication.',
                 'twoFactorAuthFailed' => 'Authentication failed, please try again!',
                 'twoFactorAuthSuccess' => 'Authentication successful, thank you!',
+                'reset' => 'Reset Two Factor Authentication',
+                'resetSuccess' => 'The Two Factor Authentication has been successfully reset. The user will have to delete this account from the Authenticator app as well.',
             ],
             'accidentLog' => [
                 'accidentLog' => 'Accident Log',
@@ -675,6 +722,7 @@
                 'attachments' => 'Attachments',
                 'attachmentsComment' => 'Max. five files can be uploaded',
                 'attachmentsValidationException' => 'Max. five files can be uploaded',
+                'created_by' => 'Created by',
             ],
         ],
         'oauth' => [

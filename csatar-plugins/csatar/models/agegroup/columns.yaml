@@ -13,3 +13,5 @@ columns:
         type: number
         relation: association
         valueFrom: name
+        searchable: true
+        sortable: false

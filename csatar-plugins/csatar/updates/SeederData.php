@@ -27,7 +27,7 @@ use RainLab\User\Models\UserGroup;
 class SeederData extends Seeder
 {
     public const DATA = [
-        'allergy' => [
+        'allergy'                   => [
             'Nincs',
             'Ételintollerancia',
             'Ételallergiák',
@@ -38,14 +38,14 @@ class SeederData extends Seeder
             'Gyógyszerallergia',
             'Egyéb'
         ],
-        'legalRelationship' => [
+        'legalRelationship'         => [
             'Alakuló csapat tag',
             'Újonc',
             'Tag',
             'Tiszteletbeli tag',
             'Érvénytelen adat',
         ],
-        'specialTest' => [
+        'specialTest'               => [
             'Szakács',
             'Rovás',
             'Arany toll díj',
@@ -64,7 +64,7 @@ class SeederData extends Seeder
             'Fényképész',
             'Íródeák',
         ],
-        'specialDiet' => [
+        'specialDiet'               => [
             'Nem igényel különleges étrendet',
             'Sporttáplálkozás',
             'Gluténmentes',
@@ -75,7 +75,7 @@ class SeederData extends Seeder
             'Vegetáriánus',
             'Egyéb',
         ],
-        'religion' => [
+        'religion'                  => [
             'Adventista',
             'Baptista',
             'Evangélikus',
@@ -88,7 +88,7 @@ class SeederData extends Seeder
             'Unitárius',
             'Más felekezethez tartozó'
         ],
-        'tShirtSize' => [
+        'tShirtSize'                => [
             '4',
             '6',
             '8',
@@ -104,7 +104,7 @@ class SeederData extends Seeder
             '4XL',
             '5XL'
         ],
-        'chronicIllness' => [
+        'chronicIllness'            => [
             'Magas vérnyomás',
             'Szívelégtelenség',
             'Cukorbetegség',
@@ -120,7 +120,7 @@ class SeederData extends Seeder
             'Mentális beteg',
             'Egyéb',
         ],
-        'hierarchy' => [
+        'hierarchy'                 => [
             'RMCSSZ',
             'Körzetvezető',
             'Csapatvezető',
@@ -128,7 +128,7 @@ class SeederData extends Seeder
             'Őrsvezető',
             'Cserkész',
         ],
-        'currency' => [
+        'currency'                  => [
             'EUR',
             'HRK',
             'HUF',
@@ -136,7 +136,7 @@ class SeederData extends Seeder
             'RSD',
             'UAH',
         ],
-        'association' => [
+        'association'               => [
             'Horvátországi magyar cserkészek',
             'Kárpátaljai Magyar Cserkészszövetség',
             'Külföldi Magyar Cserkészszövetség',
@@ -145,7 +145,7 @@ class SeederData extends Seeder
             'Szlovákiai Magyar Cserkészszövetség',
             'Vajdasági Magyar Cserkészszövetség',
         ],
-        'foodSensitivity' => [
+        'foodSensitivity'           => [
             'liszt',
             'tejfehérje (kazein)',
             'tojás',
@@ -156,21 +156,21 @@ class SeederData extends Seeder
             'eper',
             'Egyéb',
         ],
-        'promise' => [
+        'promise'                   => [
             'Kiscserkész igéret',
             'Cserkész fogadalom',
         ],
         'professionalQualification' => [
             'Regős',
         ],
-        'leadershipQualification' => [
+        'leadershipQualification'   => [
             'Segédőrsvezető képzés',
             'Őrsvezető képzés',
             'Felnőtt őrsvezető képzés',
             'Segédvezető képzés',
             'Cserkész vezető',
         ],
-        'form' => [
+        'form'                      => [
             [
                 'title' => 'Tag',
                 'model' => 'Csatar\Csatar\Models\Scout',
@@ -208,197 +208,188 @@ class SeederData extends Seeder
                 'model' => 'Csatar\Csatar\Models\AccidentLogRecord',
             ]
         ],
-        'ageGroups' => [
+        'ageGroups'                 => [
             'Romániai Magyar Cserkészszövetség' => [
-                [ 'name' => 'Farkaskölyök', 'note' => '5-7 év' ],
-                [ 'name' => 'Kiscserkész', 'note' => '8-10 év' ],
-                [ 'name' => 'Cserkész', 'note' => '11-14 év' ],
-                [ 'name' => 'Felfedező', 'note' => '15-18 év' ],
-                [ 'name' => 'Vándor', 'note' => '19-22 év' ],
-                [ 'name' => 'Felnőtt', 'note' => '23+' ],
-                [ 'name' => 'Öregcserkész', 'note' => '50+' ],
-                [ 'name' => 'Vegyes', 'note' => ''],
+                ['name' => 'Farkaskölyök', 'note' => '5-7 év'],
+                ['name' => 'Kiscserkész', 'note' => '8-10 év'],
+                ['name' => 'Cserkész', 'note' => '11-14 év'],
+                ['name' => 'Felfedező', 'note' => '15-18 év'],
+                ['name' => 'Vándor', 'note' => '19-22 év'],
+                ['name' => 'Felnőtt', 'note' => '23+'],
+                ['name' => 'Öregcserkész', 'note' => '50+'],
+                ['name' => 'Vegyes', 'note' => ''],
             ],
-            'Magyar Cserkészszövetség' => [
-                [ 'name' => 'Kiscserkész', 'note' => ''],
-                [ 'name' => 'Cserkész', 'note' => ''],
-                [ 'name' => 'Kósza', 'note' => ''],
-                [ 'name' => 'Vándor', 'note' => ''],
-                [ 'name' => 'Felnőtt', 'note' => ''],
-                [ 'name' => 'Öregcserkész', 'note' => ''],
-                [ 'name' => 'Vegyes', 'note' => ''],
+            'Magyar Cserkészszövetség'          => [
+                ['name' => 'Kiscserkész', 'note' => ''],
+                ['name' => 'Cserkész', 'note' => ''],
+                ['name' => 'Kósza', 'note' => ''],
+                ['name' => 'Vándor', 'note' => ''],
+                ['name' => 'Felnőtt', 'note' => ''],
+                ['name' => 'Öregcserkész', 'note' => ''],
+                ['name' => 'Vegyes', 'note' => ''],
             ],
             'Külföldi Magyar Cserkészszövetség' => [
-                [ 'name' => 'Kiscserkész', 'note' => ''],
-                [ 'name' => 'Cserkész', 'note' => ''],
-                [ 'name' => 'Rover', 'note' => ''],
-                [ 'name' => 'Felnőtt', 'note' => ''],
-                [ 'name' => 'Öregcserkész', 'note' => ''],
-                [ 'name' => 'Vegyes', 'note' => ''],
+                ['name' => 'Kiscserkész', 'note' => ''],
+                ['name' => 'Cserkész', 'note' => ''],
+                ['name' => 'Rover', 'note' => ''],
+                ['name' => 'Felnőtt', 'note' => ''],
+                ['name' => 'Öregcserkész', 'note' => ''],
+                ['name' => 'Vegyes', 'note' => ''],
             ]
         ],
-        'trainings' => [
+        'trainings'                 => [
             'Erdélyi VK-2021',
             'MCSZFSTVK II',
             'STVK 19/A',
         ],
-        'mandateType' => [
-            'Horvátországi magyar cserkészek' => [
+        'mandateType'               => [
+            'Horvátországi magyar cserkészek'      => [
                 [
-                    'name' => 'Cserkész',
+                    'name'                         => 'Cserkész',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Scout',
                 ],
                 [
-                    'name' => 'Látogató',
+                    'name'                         => 'Látogató',
                     'organization_type_model_name' => 'GUEST',
                 ],
             ],
             'Kárpátaljai Magyar Cserkészszövetség' => [
                 [
-                    'name' => 'Cserkész',
+                    'name'                         => 'Cserkész',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Scout',
                 ],
                 [
-                    'name' => 'Látogató',
+                    'name'                         => 'Látogató',
                     'organization_type_model_name' => 'GUEST',
                 ],
             ],
-            'Külföldi Magyar Cserkészszövetség' => [
+            'Külföldi Magyar Cserkészszövetség'    => [
                 [
-                    'name' => 'Cserkész',
+                    'name'                         => 'Cserkész',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Scout',
                 ],
                 [
-                    'name' => 'Látogató',
+                    'name'                         => 'Látogató',
                     'organization_type_model_name' => 'GUEST',
                 ],
             ],
-            'Magyar Cserkészszövetség' => [
+            'Magyar Cserkészszövetség'             => [
                 [
-                    'name' => 'Cserkész',
+                    'name'                         => 'Cserkész',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Scout',
                 ],
                 [
-                    'name' => 'Látogató',
+                    'name'                         => 'Látogató',
                     'organization_type_model_name' => 'GUEST',
                 ],
             ],
-            'Romániai Magyar Cserkészszövetség' => [
+            'Romániai Magyar Cserkészszövetség'    => [
                 [
-                    'name' => 'Elnök',
+                    'name'                         => 'Elnök',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Association',
-                    'required' => false,
+                    'required'                     => false,
                 ],
                 [
-                    'name' => 'Ügyvezető elnök',
+                    'name'                         => 'Ügyvezető elnök',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Association',
-                    'required' => false,
+                    'required'                     => false,
                 ],
                 [
-                    'name' => 'Mozgalmi vezető',
+                    'name'                         => 'Mozgalmi vezető',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Association',
-                    'required' => false,
+                    'required'                     => false,
                 ],
                 [
-                    'name' => 'Szövetségi admin',
+                    'name'                         => 'Szövetségi admin',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Association',
-                    'required' => false,
+                    'required'                     => false,
                 ],
                 [
-                    'name' => 'Körzetvezető',
+                    'name'                         => 'Körzetvezető',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\District',
-                    'required' => false,
+                    'required'                     => false,
                 ],
                 [
-                    'name' => 'Körzetvezető helyettes',
+                    'name'                         => 'Körzetvezető helyettes',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\District',
-                    'required' => false,
-                    'overlap_allowed' => true,
-                    'parent' => 'Körzetvezető',
+                    'required'                     => false,
+                    'overlap_allowed'              => true,
+                    'parent'                       => 'Körzetvezető',
                 ],
                 [
-                    'name' => 'Csapatvezető',
+                    'name'                         => 'Csapatvezető',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Team',
-                    'required' => false,
+                    'required'                     => false,
                 ],
                 [
-                    'name' => 'Csapatvezető helyettes',
+                    'name'                         => 'Csapatvezető helyettes',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Team',
-                    'required' => false,
-                    'overlap_allowed' => true,
-                    'parent' => 'Csapatvezető',
+                    'required'                     => false,
+                    'overlap_allowed'              => true,
+                    'parent'                       => 'Csapatvezető',
                 ],
                 [
-                    'name' => 'Csapat nyilvántartó',
+                    'name'                         => 'Csapat nyilvántartó',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Team',
-                    'required' => false,
-                    'parent' => 'Csapatvezető helyettes',
+                    'required'                     => false,
+                    'parent'                       => 'Csapatvezető helyettes',
                 ],
                 [
-                    'name' => 'Rajvezető',
+                    'name'                         => 'Rajvezető',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Troop',
-                    'required' => true,
+                    'required'                     => true,
                 ],
                 [
-                    'name' => 'Rajvezető helyettes',
+                    'name'                         => 'Rajvezető helyettes',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Troop',
-                    'required' => false,
-                    'overlap_allowed' => true,
-                    'parent' => 'Rajvezető',
+                    'required'                     => false,
+                    'overlap_allowed'              => true,
+                    'parent'                       => 'Rajvezető',
                 ],
                 [
-                    'name' => 'Őrsvezető',
+                    'name'                         => 'Őrsvezető',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Patrol',
-                    'required' => true,
+                    'required'                     => true,
                 ],
                 [
-                    'name' => 'Segédőrsvezető',
+                    'name'                         => 'Segédőrsvezető',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Patrol',
-                    'required' => false,
-                    'overlap_allowed' => true,
-                    'parent' => 'Őrsvezető',
+                    'required'                     => false,
+                    'overlap_allowed'              => true,
+                    'parent'                       => 'Őrsvezető',
                 ],
                 [
-                    'name' => 'Cserkész',
+                    'name'                         => 'Cserkész',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Scout',
                 ],
                 [
-                    'name' => 'Látogató',
+                    'name'                         => 'Látogató',
                     'organization_type_model_name' => 'GUEST',
                 ],
             ],
-            'Szlovákiai Magyar Cserkészszövetség' => [
+            'Szlovákiai Magyar Cserkészszövetség'  => [
                 [
-                    'name' => 'Cserkész',
+                    'name'                         => 'Cserkész',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Scout',
                 ],
                 [
-                    'name' => 'Látogató',
+                    'name'                         => 'Látogató',
                     'organization_type_model_name' => 'GUEST',
                 ],
             ],
-            'Vajdasági Magyar Cserkészszövetség' => [
+            'Vajdasági Magyar Cserkészszövetség'   => [
                 [
-                    'name' => 'Cserkész',
+                    'name'                         => 'Cserkész',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Scout',
                 ],
                 [
-                    'name' => 'Látogató',
+                    'name'                         => 'Látogató',
                     'organization_type_model_name' => 'GUEST',
                 ],
             ],
         ],
-        'permissions' => [
-            'Horvátországi magyar cserkészek' => 'readPermissionForGuests',
-            'Kárpátaljai Magyar Cserkészszövetség' => 'readPermissionForGuests',
-            'Külföldi Magyar Cserkészszövetség' => 'readPermissionForGuests',
-            'Magyar Cserkészszövetség' => 'readPermissionForGuests',
-            'Romániai Magyar Cserkészszövetség' => ['allPermissionsForScout', 'readPermissionForGuests'],
-            'Szlovákiai Magyar Cserkészszövetség' => 'readPermissionForGuests',
-            'Vajdasági Magyar Cserkészszövetség' => 'readPermissionForGuests',
-        ],
-        'contactSettings' => [
-            'offices' => [
+        'contactSettings'           => [
+            'offices'       => [
                 [
                     'address' => 'Csíkszereda, Petőfi Sándor 53 sz., Hargita megye',
                 ],
@@ -406,15 +397,15 @@ class SeederData extends Seeder
                     'address' => 'Studium-HUB, 21-es iroda, Marosvásárhely, Bolyai utca 15 sz., Maros megye',
                 ],
             ],
-            'bank' => 'OTP Bank Miercurea Ciuc',
-            'bank_account' => 'RON: RO35 OTPV 2600 0116 2186 RO01',
-            'email' => 'office[at]rmcssz.ro',
+            'bank'          => 'OTP Bank Miercurea Ciuc',
+            'bank_account'  => 'RON: RO35 OTPV 2600 0116 2186 RO01',
+            'email'         => 'office[at]rmcssz.ro',
             'phone_numbers' => '+40 (723) 273 257',
         ],
-        'sitesearchSettings' => [
+        'sitesearchSettings'        => [
             'enabledOnOrgCMSpages'
         ],
-        'userGroups' => [
+        'userGroups'                => [
             ['Accident log data entry', 'dataEntry'],
             ['Accident log admin', 'admin']
         ],
@@ -423,49 +414,49 @@ class SeederData extends Seeder
     public function run()
     {
         // allergies
-        foreach($this::DATA['allergy'] as $name) {
+        foreach ($this::DATA['allergy'] as $name) {
             $allergy = Allergy::firstOrCreate([
                 'name' => $name
             ]);
         }
 
         // legal relationships
-        foreach($this::DATA['legalRelationship'] as $name) {
+        foreach ($this::DATA['legalRelationship'] as $name) {
             $legalRelationship = LegalRelationship::firstOrCreate([
                 'name' => $name
             ]);
         }
 
         // special tests
-        foreach($this::DATA['specialTest'] as $name) {
+        foreach ($this::DATA['specialTest'] as $name) {
             $specialTest = SpecialTest::firstOrCreate([
                 'name' => $name
             ]);
         }
 
         // special diets
-        foreach($this::DATA['specialDiet'] as $name) {
+        foreach ($this::DATA['specialDiet'] as $name) {
             $specialDiet = SpecialDiet::firstOrCreate([
                 'name' => $name
             ]);
         }
 
         // religions
-        foreach($this::DATA['religion'] as $name) {
+        foreach ($this::DATA['religion'] as $name) {
             $religion = Religion::firstOrCreate([
                 'name' => $name
             ]);
         }
 
         // t-shirt sizes
-        foreach($this::DATA['tShirtSize'] as $name) {
+        foreach ($this::DATA['tShirtSize'] as $name) {
             $tshirtSize = TShirtSize::firstOrCreate([
                 'name' => $name
             ]);
         }
 
         // chronic illnesses
-        foreach($this::DATA['chronicIllness'] as $name) {
+        foreach ($this::DATA['chronicIllness'] as $name) {
             $chronicIllness = ChronicIllness::firstOrCreate([
                 'name' => $name
             ]);
@@ -473,7 +464,7 @@ class SeederData extends Seeder
 
         // hierarchy
         $idOfLastElement = null;
-        foreach($this::DATA['hierarchy'] as $name) {
+        foreach ($this::DATA['hierarchy'] as $name) {
             $hierachyItem = Hierarchy::firstOrNew([
                 'name' => $name,
             ]);
@@ -484,7 +475,7 @@ class SeederData extends Seeder
         }
 
         // currencies
-        foreach($this::DATA['currency'] as $code) {
+        foreach ($this::DATA['currency'] as $code) {
             $currency = Currency::firstOrCreate([
                 'code' => $code
             ]);
@@ -493,58 +484,60 @@ class SeederData extends Seeder
         // associations
         $legalRelationship1 = LegalRelationship::where('name', 'Alakuló csapat tag')->first();
         $legalRelationship2 = LegalRelationship::where('name', 'Tag')->first();
+        $legalRelationship3 = LegalRelationship::where('name', 'Tiszteletbeli tag')->first();
+        $legalRelationship4 = LegalRelationship::where('name', 'Újonc')->first();
 
-        foreach($this::DATA['association'] as $name) {
+        foreach ($this::DATA['association'] as $name) {
             $association = Association::firstOrNew([
                 'name' => $name,
             ]);
-            $association->contact_name = 'Abcde';
-            $association->contact_email = 'ab@ab.ab';
-            $association->address = 'Abcde';
-            $association->leadership_presentation = 'A';
+            $association->contact_name = $association->contact_name ?? null;
+            $association->contact_email = $association->contact_email ?? null;
+            $association->address = $association->address ?? null;
+            $association->leadership_presentation = $association->leadership_presentation ?? null;
             switch ($name) {
                 case 'Horvátországi magyar cserkészek':
-                    $association->ecset_code_suffix = 'H';
+                    $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'H';
                     $association->currency_id = Currency::where('code', 'HRK')->first()->id;
-                    $association->team_fee = 0;
-                    $association->name_abbreviation = 'HZMCS';
+                    $association->team_fee = $association->team_fee ?? 0;
+                    $association->name_abbreviation = $association->name_abbreviation ?? 'HZMCS';
                     break;
                 case 'Kárpátaljai Magyar Cserkészszövetség':
                     $association->currency_id = Currency::where('code', 'UAH')->first()->id;
-                    $association->team_fee = 0;
-                    $association->ecset_code_suffix = 'KÁ';
-                    $association->name_abbreviation = 'KáMCSSZ';
+                    $association->team_fee = $association->team_fee ?? 0;
+                    $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'KÁ';
+                    $association->name_abbreviation = $association->name_abbreviation ?? 'KáMCSSZ';
                     break;
                 case 'Külföldi Magyar Cserkészszövetség':
-                    $association->ecset_code_suffix = 'KÜ';
+                    $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'KÜ';
                     $association->currency_id = Currency::where('code', 'EUR')->first()->id;
-                    $association->team_fee = 0;
-                    $association->name_abbreviation = 'KMCSSZ';
+                    $association->team_fee = $association->team_fee ?? 0;
+                    $association->name_abbreviation = $association->name_abbreviation ?? 'KMCSSZ';
                     break;
                 case 'Magyar Cserkészszövetség':
-                    $association->ecset_code_suffix = 'M';
+                    $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'M';
                     $association->currency_id = Currency::where('code', 'HUF')->first()->id;
-                    $association->team_fee = 0;
-                    $association->name_abbreviation = 'MCSSZ';
+                    $association->team_fee = $association->team_fee ?? 0;
+                    $association->name_abbreviation = $association->name_abbreviation ?? 'MCSSZ';
                     break;
                 case 'Romániai Magyar Cserkészszövetség':
-                    $association->ecset_code_suffix = 'E';
+                    $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'E';
                     $association->currency_id = Currency::where('code', 'RON')->first()->id;
-                    $association->team_fee = 300;
-                    $association->name_abbreviation = 'RMCSSZ';
+                    $association->team_fee = $association->team_fee ?? 300;
+                    $association->name_abbreviation = $association->name_abbreviation ?? 'RMCSSZ';
                     $association->country = 'Románia';
                     break;
                 case 'Szlovákiai Magyar Cserkészszövetség':
-                    $association->ecset_code_suffix = 'F';
+                    $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'F';
                     $association->currency_id = Currency::where('code', 'EUR')->first()->id;
-                    $association->team_fee = 0;
-                    $association->name_abbreviation = 'SZMCS';
+                    $association->team_fee = $association->team_fee ?? 0;
+                    $association->name_abbreviation = $association->name_abbreviation ?? 'SZMCS';
                     break;
                 case 'Vajdasági Magyar Cserkészszövetség':
-                    $association->ecset_code_suffix = 'D';
+                    $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'D';
                     $association->currency_id = Currency::where('code', 'RSD')->first()->id;
-                    $association->team_fee = 0;
-                    $association->name_abbreviation = 'VMCSZ';
+                    $association->team_fee = $association->team_fee ?? 0;
+                    $association->name_abbreviation = $association->name_abbreviation ?? 'VMCSZ';
                     break;
                 default:
                     break;
@@ -557,6 +550,12 @@ class SeederData extends Seeder
             }
             if ($association->legal_relationships->where('id', $legalRelationship2->id)->first() == null) {
                 $association->legal_relationships()->attach($legalRelationship2, ['membership_fee' => 0]);
+            }
+            if ($association->legal_relationships->where('id', $legalRelationship3->id)->first() == null) {
+                $association->legal_relationships()->attach($legalRelationship3, ['membership_fee' => 0]);
+            }
+            if ($association->legal_relationships->where('id', $legalRelationship4->id)->first() == null) {
+                $association->legal_relationships()->attach($legalRelationship4, ['membership_fee' => 0]);
             }
             $association->save();
 
@@ -583,14 +582,14 @@ class SeederData extends Seeder
                 // membership fee
                 $legal_relationship = $association->legal_relationships->where('id', $legalRelationship2->id)->first();
                 if (isset($legal_relationship)) {
-                    $legal_relationship->pivot->membership_fee = 50;
+                    $legal_relationship->pivot->membership_fee = $legal_relationship->pivot->membership_fee ?? 50;
                     $legal_relationship->pivot->save();
                 }
             }
         }
 
         // food sensitivities
-        foreach($this::DATA['foodSensitivity'] as $name) {
+        foreach ($this::DATA['foodSensitivity'] as $name) {
             $foodSensitivity = FoodSensitivity::firstOrCreate([
                 'name' => $name
             ]);
@@ -602,48 +601,48 @@ class SeederData extends Seeder
             'Cserkész fogadalom',
         ];
 
-        foreach($this::DATA['promise'] as $name) {
+        foreach ($this::DATA['promise'] as $name) {
             $promise = Promise::firstOrCreate([
                 'name' => $name
             ]);
         }
 
         // professional qualifications
-        foreach($this::DATA['professionalQualification'] as $name) {
+        foreach ($this::DATA['professionalQualification'] as $name) {
             $professionalQualification = ProfessionalQualification::firstOrCreate([
                 'name' => $name
             ]);
         }
 
         // leadership qualifications
-        foreach($this::DATA['leadershipQualification'] as $name) {
+        foreach ($this::DATA['leadershipQualification'] as $name) {
             $leadershipQualification = LeadershipQualification::firstOrCreate([
                 'name' => $name
             ]);
         }
 
         // seeders for the Forms plugin
-        foreach(Form::all() as $form) {
+        foreach (Form::all() as $form) {
             $form->slugAttributes();
             $form->save();
         }
-        foreach($this::DATA['form'] as $form) {
+        foreach ($this::DATA['form'] as $form) {
             $item = Form::firstOrCreate($form);
         }
 
         // trainings
-        foreach($this::DATA['trainings'] as $training) {
+        foreach ($this::DATA['trainings'] as $training) {
             Training::firstOrCreate([
                 'name' => $training,
             ]);
         }
 
         // ageGroups for associations
-        foreach($this::DATA['ageGroups'] as $associationName => $ageGroups) {
+        foreach ($this::DATA['ageGroups'] as $associationName => $ageGroups) {
             $associationId = Association::where('name', $associationName)->first()->id ?? 0;
-            foreach($ageGroups as $ageGroup) {
+            foreach ($ageGroups as $ageGroup) {
                 $newAgeGroup = AgeGroup::firstOrCreate([
-                    'name' => $ageGroup['name'],
+                    'name'           => $ageGroup['name'],
                     'association_id' => $associationId
                 ]);
                 $newAgeGroup->note = $ageGroup['note'];
@@ -652,7 +651,7 @@ class SeederData extends Seeder
         }
 
         // userGroups
-        foreach($this::DATA['userGroups'] as $name) {
+        foreach ($this::DATA['userGroups'] as $name) {
             $allergy = UserGroup::firstOrCreate([
                 'name' => $name[0],
                 'code' => str_slug($name[0]),
@@ -668,23 +667,16 @@ class SeederData extends Seeder
         }
         $contactSettings->save();
 
-        // add all permissions to scout mandate
-
-        $this->addAllPermissionsToScouts();
-
-        // add read permissions to guest mandate
-
-        $this->addReadPermissionsToGuests();
-
         // seed site search plugin settings
 
         $sitesearchSettings = '{"mark_results":"1","log_queries":"0","excerpt_length":"250","log_keep_days":365,"rainlab_blog_enabled":"0","rainlab_blog_label":"Blog","rainlab_blog_page":"403","rainlab_pages_enabled":"0","rainlab_pages_label":"Page","indikator_news_enabled":"0","indikator_news_label":"News","indikator_news_posturl":"\/news","octoshop_products_enabled":"0","octoshop_products_label":"","octoshop_products_itemurl":"\/product","snipcartshop_products_enabled":"0","snipcartshop_products_label":"","jiri_jkshop_enabled":"0","jiri_jkshop_label":"","jiri_jkshop_itemurl":"\/product","radiantweb_problog_enabled":"0","radiantweb_problog_label":"Blog","arrizalamin_portfolio_enabled":"0","arrizalamin_portfolio_label":"Portfolio","arrizalamin_portfolio_url":"\/portfolio\/project","vojtasvoboda_brands_enabled":"0","vojtasvoboda_brands_label":"Brands","vojtasvoboda_brands_url":"\/brand","responsiv_showcase_enabled":"0","responsiv_showcase_label":"Showcase","responsiv_showcase_url":"\/showcase\/project","graker_photoalbums_enabled":"0","graker_photoalbums_label":"PhotoAlbums","graker_photoalbums_album_page":"403","graker_photoalbums_photo_page":"403","cms_pages_enabled":"0","cms_pages_label":"Page"}';
 
         Db::table('system_settings')
-          ->updateOrInsert(
-              ['item' => 'offline_sitesearch_settings'],
-              ['value' => $sitesearchSettings],
+            ->updateOrInsert(
+                ['item' => 'offline_sitesearch_settings'],
+                ['value' => $sitesearchSettings],
           );
+
 
         // seed romanian locations
 
@@ -694,162 +686,13 @@ class SeederData extends Seeder
             while (($data = fgetcsv($handle)) !== FALSE) {
                 Db::table('csatar_csatar_locations')
                     ->updateOrInsert(
-                        [ 'country' => 'Romania', 'code' => $data[0], 'street' => $data[4]],
+                        ['country' => 'Romania', 'code' => $data[0], 'street' => $data[4]],
                         [
-                            'county'        => $data[1],
-                            'city'          => $data[2],
-                            'street_type'        => $data[3],
+                            'county'      => $data[1],
+                            'city'        => $data[2],
+                            'street_type' => $data[3],
                         ]
                     );
-            }
-            fclose($handle);
-        }
-    }
-
-    public function addAllPermissionsToScouts() {
-        $associationId = Association::where('name_abbreviation', 'RMCSSZ')->first()->id ?? null;
-
-        if(empty($associationId)) return;
-
-        $permissionBasedModels = PermissionBasedAccess::getAllChildClasses(); //get every model that needs permissions
-        $scoutMandateTypeId = Db::table('csatar_csatar_mandate_types')->select('id')
-            ->where('association_id', $associationId)
-            ->where('organization_type_model_name', '\Csatar\Csatar\Models\Scout')
-            ->whereNull('deleted_at')
-            ->first()->id; //get scout mandate type id
-
-        if(empty($permissionBasedModels) || empty($scoutMandateTypeId)) return;
-
-        foreach ($permissionBasedModels as $permissionBasedModel) {
-            if($permissionBasedModel == MandateType::MODEL_NAME_GUEST) return;
-
-            $model = new $permissionBasedModel();
-            $fields = $model->fillable ?? [];
-            $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'hasOne', 'morphTo', 'morphOne',
-                'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'];
-
-            foreach ($relationArrays as $relationArray){
-                $fields = array_merge($fields, array_keys($model->$relationArray));
-            }
-
-            $this->filterFieldsForRealtionKeys($fields);
-            //add permission for the model in general
-            Db::table('csatar_csatar_mandates_permissions')
-                ->updateOrInsert(
-                    [ 'mandate_type_id' => $scoutMandateTypeId, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 0],
-                    [
-                        'create'        => 2,
-                        'read'          => 2,
-                        'update'        => 2,
-                        'delete'        => 2,
-                    ]
-                );
-
-            //add permission for the model in general for own
-            Db::table('csatar_csatar_mandates_permissions')
-                ->updateOrInsert(
-                    [ 'mandate_type_id' => $scoutMandateTypeId, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 1],
-                    [
-                        'create'        => 2,
-                        'read'          => 2,
-                        'update'        => 2,
-                        'delete'        => 2,
-                    ]
-                );
-
-
-            //add permission for each attribute for general, own
-
-            foreach ($fields as $field) {
-                //add permission for the model->field
-                Db::table('csatar_csatar_mandates_permissions')
-                    ->updateOrInsert(
-                        [ 'mandate_type_id' => $scoutMandateTypeId, 'model' => $permissionBasedModel, 'field' => $field, 'own' => 0],
-                        [
-                            'create'        => 2,
-                            'read'          => 2,
-                            'update'        => 2,
-                            'delete'        => 2,
-                        ]
-                    );
-
-                //add permission for the model->field for own
-                Db::table('csatar_csatar_mandates_permissions')
-                    ->updateOrInsert(
-                        [ 'mandate_type_id' => $scoutMandateTypeId, 'model' => $permissionBasedModel, 'field' => $field, 'own' => 1],
-                        [
-                            'create'        => 2,
-                            'read'          => 2,
-                            'update'        => 2,
-                            'delete'        => 2,
-                        ]
-                    );
-            }
-        }
-
-    }
-
-    public function addReadPermissionsToGuests() {
-        $associationIds = Association::all()->pluck('id')->toArray();
-        $permissionBasedModels = PermissionBasedAccess::getAllChildClasses(); //get every model that needs permissions
-
-        foreach ($associationIds as $associationId) {
-            $guestMandateTypeId = Db::table('csatar_csatar_mandate_types')->select('id')
-                ->where('association_id', $associationId)
-                ->where('organization_type_model_name', 'GUEST')
-                ->whereNull('deleted_at')
-                ->first()->id; //get guest mandate type id
-
-            if(empty($permissionBasedModels) || empty($guestMandateTypeId)) return;
-
-            foreach ($permissionBasedModels as $permissionBasedModel) {
-
-                $model = new $permissionBasedModel();
-                $fields = $model->fillable ?? [];
-                $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'hasOne', 'morphTo', 'morphOne',
-                    'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'];
-
-                foreach ($relationArrays as $relationArray){
-                    $fields = array_merge($fields, array_keys($model->$relationArray));
-                }
-
-                $this->filterFieldsForRealtionKeys($fields);
-
-                //add permission for the model in general
-                Db::table('csatar_csatar_mandates_permissions')
-                    ->updateOrInsert(
-                        [ 'mandate_type_id' => $guestMandateTypeId, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 0],
-                        [
-                            'read'          => 2,
-                        ]
-                    );
-
-                //add permission for each attribute
-
-                foreach ($fields as $field) {
-                    //add permission for the model->field
-                    Db::table('csatar_csatar_mandates_permissions')
-                        ->updateOrInsert(
-                            [ 'mandate_type_id' => $guestMandateTypeId, 'model' => $permissionBasedModel, 'field' => $field, 'own' => 0],
-                            [
-                                'read'          => 2,
-                            ]
-                        );
-                }
-            }
-
-        }
-    }
-
-    public function filterFieldsForRealtionKeys(&$fields) {
-        // filters the $fields array to remove relation key field, if relation field exists
-        // for example removes: "currency_id" field if there is "currency" field in the array
-        foreach ($fields as $key => $field) {
-            if (substr($field, -3) === '_id') {
-                $relationField = str_replace('_id', '', $field);
-                if (in_array($relationField, $fields)) {
-                    unset($fields[$key]);
-                }
             }
         }
     }

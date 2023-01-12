@@ -41,6 +41,10 @@
                 'no' => 'Nem',
                 'url' => 'URL',
                 'warning' => 'FIGYELEM',
+                'status' => 'Státusz',
+                'active' => 'Aktív',
+                'inactive' => 'Inaktív',
+                'inactivationWarning' => 'Figyelem! Ha a státusz aktívról bármilyen típusú inaktív státuszra változik, a szervezeti egység alá tartozó összes szervezeti egység és cserkész státusza is inaktívvá válik, valamint lejár az ezekhez tartozó összes mebízatás!',
             ],
             'ageGroups' => [
                 'ageGroups' => 'Korosztályok',
@@ -64,6 +68,7 @@
                     'other' => 'Egyéb',
                 ],
                 'isActive' => 'Aktív',
+                'isApproved' => 'Jóváhagyva',
                 'allergy' => 'Allergia',
                 'foodSensitivity' => 'Ételérzékenység',
                 'legalRelationship' => 'Jogviszony',
@@ -73,9 +78,11 @@
                 'nationality' => 'Nemzetiség',
                 'tShirtSize' => 'Póló mérete',
                 'birthdate' => 'Dátum',
+                'birthdateFull' => 'Születési dátum',
                 'nameday' => 'Névnap',
                 'maidenName' => 'Születési/leánykori név',
                 'birthplace' => 'Hely',
+                'birthplaceFull' => 'Születési hely',
                 'addressCountry' => 'Ország',
                 'addressZipcode' => 'Irányítószám',
                 'addressCounty' => 'Megye',
@@ -88,6 +95,12 @@
                 'fathersName' => 'Név',
                 'fathersPhone' => 'Telefonszám',
                 'fathersEmail' => 'E-mail cím',
+                'mothersNameFull' => 'Anyja neve',
+                'mothersPhoneFull' => 'Anyja telefonszáma',
+                'mothersEmailFull' => 'Anyja e-mail címe',
+                'fathersNameFull' => 'Apja neve',
+                'fathersPhoneFull' => 'Apja telefonszáma',
+                'fathersEmailFull' => 'Apja e-mail címe',
                 'legalRepresentativeName' => 'Név',
                 'legalRepresentativePhone' => 'Telefonszám',
                 'legalRepresentativeEmail' => 'E-mail cím',
@@ -153,11 +166,15 @@
                     'dateInTheFutureError' => 'A Dátum a %name %category esetén nem lehet a jövőben.',
                     'invalidPersonalIdentificationNumber' => 'Érvénytelen személyi szám.',
                     'legalRepresentativePhoneUnderAge' => 'Kiskorú cserkés esetén kötelező megadni az egyik szülő vagy törvényes képviselő telefonszámát.',
+                    'uniquePersonalIdentificationNumber' => 'Ezzel a személyi számmal már be van vezetve egy cserkész.',
+                    'personalIdentificationNumberBirthdateMismatch' => 'A születési dátum nem fel meg a személyi számban megadott születési dátumnak.',
                 ],
                 'staticMessages' => [
                     'personalDataNotAccepted' => 'Kérlek ellenőrizd, hogy helyesek-e a személyes adataid itt!',
                 ],
                 'activeMandateDeleteError' => 'A(z) %name nevű Tagnak létezik aktív Megbízatása, így ez a Tag nem törölhető.',
+                'scoutTeam' => 'Tag csapata',
+                'inactivationWarning' => 'Figyelem! Ha a státusz aktívról inaktívra változik, a cserkész összes megbízatása lejár!',
             ],
             'admin' => [
                 'menu' => [
@@ -190,6 +207,7 @@
                         'seederData' => 'Alapértelmezett adatok',
                         'testData' => 'Teszt adatok',
                         'importData' => 'ECSET taglista importálása',
+                        'synchronizePermissionsMatrix' => 'Jogosultsági mátrix szinkronizálása',
                     ],
                 ],
                 'seederData' => [
@@ -202,6 +220,9 @@
                     'importDataDescription' => 'Adj meg egy .csv fájlt, vagy egy .csv fájlokat tartalmazó .zip fájlt.',
                     'updateData' => 'Adatok frissítése',
                     'updateDataSuccess' => 'Az adatok frissítve lettek.',
+                    'synchronize' => 'Szinkronizálás',
+                    'synchronizePermissionsMatrixDesc' => 'Ez a szinkronizálás megkeresi az összes "PermissionBasedAccess" modell-ből származatatott osztályt és létrehoz egy jogosultságot a jogsultság mátrixban, minden létező jogosultság típushoz, a származtatott modell "fillable", "belongsTo", "belongsToMany", "hasMany", "attachOne", "hasOne", "morphTo", "morphOne", "morphMany", "morphToMany", "morphedByMany", "attachMany", "hasManyThrough", "hasOneThrough" tömbjei alapján. Az újonnan létrehozott jogosultság minden értéke "null" lesz. A már létező jogosultságok nem változnak.',
+                    'synchronizeComplete' => 'Szinkronizálás befejezve!',
                 ],
                 'permissionsMatrix' => [
                     'all' => 'Összes',
@@ -353,7 +374,13 @@
                 'teamFee' => 'Csapat fenntartói díj',
                 'membershipFee' => 'Tagdíj értéke',
                 'currency' => 'Pénznem',
-                'personalIdentificationNumberValidator' => 'Személyi szám hitelesítő',
+                'personalIdentificationNumberValidator' => 'Személyi szám hitelesítés',
+                'unique'    => 'Egyedi',
+                'required'  => 'Kötelező',
+                'cnp'       => 'CNP - Romániai személy szám formátum hitelesítő',
+                'validationExceptions' => [
+                    'invalidTeamReportSubmissionPeriod' => 'A csapatjelentés leadási periódus végének dátuma nagyobb kell legyen a periódus kezdetének dátumánál!',
+                ],
             ],
             'district' => [
                 'district' => 'Körzet',
@@ -391,10 +418,14 @@
                 'district' => 'Körzet',
                 'troopsPatrolsScoutsInfo' => 'Rajok, Őrsök, Cserkészek és Megbízatások hozzáadása a Csapat létrehozása után lehetséges. Miután a többi adatot kitöltötted, kattints a Létrehozás gombra.',
                 'breadcrumb' => 'Csapatok',
-                'teamNumberTakenError' => 'Ez a csapatszám már foglalt.',
+                'teamNumberTakenError' => 'A ":teamNumber" csapatszám már foglalt.',
                 'dateInTheFutureError' => 'A dátum nem lehet a jövőben.',
                 'organizationUnitNameWarning' => 'A csapat neve nem tartalmazhatja a "csapat" szót.',
                 'filterOrganizationUnitNameForWords' => 'cserkészcsapat, csapat',
+                'active' => 'Aktív',
+                'inactive' => 'Inaktív',
+                'suspended' => 'Szünetelő',
+                'forming' => 'Alakuló/újraalakuló',
             ],
             'troop' => [
                 'troop' => 'Raj',
@@ -422,6 +453,9 @@
                 'troopNotInTheTeamError' => 'A kiválasztott Raj nem tartózik a kiválasztott Csapathoz.',
                 'organizationUnitNameWarning' => 'Az őrs neve nem tartalmazhatja az "őrs" szót.',
                 'filterOrganizationUnitNameForWords' => 'őrs, örs, ors',
+                'gender' => [
+                    'mixed' => 'Vegyes',
+                ],
             ],
             'currency' => [
                 'currency' => 'Pénznem',
@@ -468,6 +502,8 @@
                     'dateInTheFuture' => 'A Dátum nem lehet a jövőben.',
                     'submissionDateAfterApprovalDate' => 'A Beküldés ideje nem lehet az Elfogadás ideje után.',
                 ],
+                'submit_start_date' => 'Csapatjelentések leadási periódusának kezdete',
+                'submit_end_date' => 'Csapatjelentések leadási periódusának vége',
             ],
             'mandateType' => [
                 'mandateType' => 'Megbízatás típus',
@@ -497,9 +533,9 @@
                 'gallery' => 'Galéria',
                 'rules' => [
                     'nameRequired' => 'A cím megadása kötelező.',
-                    'nameBetween'  => 'A cím 3 - 64 karakter között kell legyen.',
+                    'nameBetween' => 'A cím 3 - 64 karakter között kell legyen.',
                     'descriptionMax' => 'A leírás maximum 255 karakter lehet',
-                ]
+                ],
             ],
             'permissions' => [
                 'permissions' => 'Jogosultságok',
@@ -517,6 +553,12 @@
                 'userGroups' => 'Felhasználó csoportok',
                 'dataEntry' => 'Baleseti log adatbevívó',
                 'admin' => 'Baleseti log adminisztrátor',
+            ],
+            'membershipCard' => [
+                'membershipCard' => 'Tagkártya',
+                'membershipCards' => 'Tagkártyák',
+                'issued_date_time' => 'Kiállítva',
+                'active' => 'Érvényes',
             ],
         ],
         'locations' => [
@@ -644,6 +686,8 @@
                 'description' => 'Két faktoros hitelesítése plugin.',
                 'twoFactorAuthFailed' => 'A hitelesítés sikertelen, kérlek próbáld újra!',
                 'twoFactorAuthSuccess' => 'A hitelesítés sikeres, köszönjük!',
+                'reset' => 'Két faktoros hitelesítés visszaállítása',
+                'resetSuccess' => 'A két faktoros hitelesítés skeresen vissza lett állítva. A felhasználónak a hitelesítő alkalmazásból is törölnie kell a fióokot.',
             ],
             'accidentLog' => [
                 'accidentLog' => 'Baleseti napló',

@@ -1,6 +1,8 @@
 <?php namespace Csatar\Csatar\Models;
 
 use Csatar\Csatar\Models\MandateType;
+use Csatar\Csatar\Models\Troop;
+use Csatar\Csatar\Models\Patrol;
 use DateTime;
 use Input;
 use Lang;
@@ -19,6 +21,8 @@ class Mandate extends Model
     protected $dates = ['deleted_at'];
 
     protected $touches = ['scout'];
+
+    protected $appends = ['mandate_team'];
 
     public $ignoreValidation = false;
 
@@ -175,7 +179,7 @@ class Mandate extends Model
             }
 
             // check that the date isn't (partially) overlapping with a different assignment for the same period: if the overlapping is not enabled or if it's the same user: overlap if max(start1, start2) < min(end1, end2)
-            if (!$mandateType->overlap_enabled || $mandate->scout_id == $scoutId) {
+            if (!$mandateType->overlap_enabled && $mandate->scout_id . '' != $scoutId) {
                 $mandateStartDate = new DateTime($mandate['start_date']);
                 $mandateEndDate = isset($mandate['end_date']) ? new DateTime($mandate['end_date']) : null;
 
@@ -274,5 +278,98 @@ class Mandate extends Model
     public function scopeMandateModelType($query, $model = null)
     {
         return $model ? $query->where('mandate_model_type', $model::getModelName()) : $query->whereNull('id');
+    }
+
+    public function getMandateTeamAttribute(): string
+    {
+        if ($this->mandate_model_type == '\Csatar\Csatar\Models\Patrol') {
+            return Patrol::find($this->mandate_model_id)->team->extendedName ?? '';
+        }
+
+        if ($this->mandate_model_type == '\Csatar\Csatar\Models\Troop') {
+            return Troop::find($this->mandate_model_id)->team->extendedName ?? '';
+        }
+
+        return '';
+    }
+
+    public function getTeamForPatrolAndTroopMandates()
+    {
+        if ($this->mandate_model_type == '\Csatar\Csatar\Models\Patrol') {
+            $team = Patrol::find($this->mandate_model_id)->team;
+            return $team ? [ 'mandate_id' => $this->id, 'team_name' => $team->extendedName ] : [];
+        }
+
+        if ($this->mandate_model_type == '\Csatar\Csatar\Models\Troop') {
+            $team = Troop::find($this->mandate_model_id)->team;
+            return $team ? [ 'mandate_id' => $this->id, 'team_name' => $team->extendedName ] : [];
+        }
+
+        return [];
+    }
+
+    public function getScoutTeamAttribute(): string
+    {
+        if (isset($this->scout) && $this->scout->team->extendedName) {
+            return $this->scout->team->extendedName;
+        }
+
+        return '';
+    }
+
+    public function getOrganizationOptions($scopes = null): array
+    {
+        if (!empty($scopes['association']->value)) {
+            $options = self::associations(array_keys($scopes['association']->value))->get();
+        }
+        else {
+            $options = self::all();
+        }
+
+        return $options->map(function ($item) {
+                return [ 'name' => $item->mandate_model->extendedName, 'id' => $item->mandate_model->id . $item->mandate_model->getModelName()];
+            })
+            ->pluck('name', 'id')
+            ->toArray();;
+    }
+
+    public function getTeamOptionsForPatrolAndTroopMandates($scopes = null): array
+    {
+
+        if (!empty($scopes['association']->value)) {
+            $options = self::associations(array_keys($scopes['association']->value))->get();
+        } else {
+            $options = self::all();
+        }
+
+        return $options->filter(function ($item) {
+            if (!empty($item->mandate_team)) {
+                    return $item;
+                }
+            })
+            ->map(function ($item) {
+                return $item->getTeamForPatrolAndTroopMandates();
+            })
+            ->mapToGroups(function ($item, $key) {
+                return [$item['team_name'] => $item['mandate_id']];
+            })
+            ->map(function ($item) {
+                return $item->implode('|');
+            })
+            ->flip()
+            ->toArray();
+    }
+
+    public function scopeAssociations($query, array $associationIds)
+    {
+        return $query->whereHas('mandate_type', function ($query) use ($associationIds) {
+            $query->whereIn('association_id', $associationIds);
+        });
+    }
+
+    public static function setAllMandatesExpiredInOrganization($organization) {
+        self::where('mandate_model_type', $organization->getModelName())
+            ->where('mandate_model_id', $organization->id)
+            ->update(['end_date' => date('Y-m-d')]);
     }
 }

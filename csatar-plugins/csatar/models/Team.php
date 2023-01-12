@@ -2,6 +2,9 @@
 
 use Lang;
 use Csatar\Csatar\Models\OrganizationBase;
+use Csatar\Csatar\Models\Scout;
+use Csatar\Csatar\Models\District;
+use Csatar\Csatar\Classes\Enums\Status;
 
 /**
  * Model
@@ -59,7 +62,7 @@ class Team extends OrganizationBase
         // iterate through the teams and if there is another team with the same team number, then throw an exception
         foreach($teams as $team) {
             if ($team->id != $this->id && $team->team_number == $this->team_number) {
-                throw new \ValidationException(['team_number' => Lang::get('csatar.csatar::lang.plugin.admin.team.teamNumberTakenError')]);
+                throw new \ValidationException(['team_number' => Lang::get('csatar.csatar::lang.plugin.admin.team.teamNumberTakenError', ['teamNumber' => $this->team_number])]);
             }
         }
 
@@ -77,6 +80,7 @@ class Team extends OrganizationBase
      */
     public $fillable = [
         'name',
+        'status',
         'team_number',
         'address',
         'foundation_date',
@@ -97,9 +101,11 @@ class Team extends OrganizationBase
         'home_supplier_name',
         'district_id',
         'logo',
+        'slug',
     ];
 
     protected $nullable = [
+        'status',
         'address',
         'foundation_date',
         'phone',
@@ -118,6 +124,11 @@ class Team extends OrganizationBase
         'juridical_person_bank_account',
         'home_supplier_name',
         'district_id',
+        'slug',
+    ];
+
+    protected $casts = [
+        'status' => 'integer',
     ];
 
     /**
@@ -169,6 +180,45 @@ class Team extends OrganizationBase
     {
         $filterWords = explode(',', Lang::get('csatar.csatar::lang.plugin.admin.team.filterOrganizationUnitNameForWords'));
         $this->name = $this->filterNameForWords($this->name, $filterWords);
+
+        $this->generateSlugIfEmpty();
+    }
+
+    public function generateSlugIfEmpty() {
+        if (empty($this->slug)) {
+            $this->slug = str_slug($this->district->association->name_abbreviation) . '/' . str_slug($this->team_number);
+        }
+    }
+
+    public function afterSave() {
+        if (isset($this->original['status']) && $this->status != $this->original['status'] && $this->original['status'] == Status::ACTIVE) {
+            // it would be more efficient to use mass update here, but in that case model events are not fired
+            foreach (Troop::where(['team_id' => $this->id, 'status' => Status::ACTIVE])->get() as $troop) {
+                $troop->status = Status::INACTIVE;
+                $troop->ignoreValidation = true;
+                $troop->forceSave();
+            }
+            foreach (Patrol::where(['team_id' => $this->id, 'status' => Status::ACTIVE])->get() as $patrol) {
+                $patrol->status = Status::INACTIVE;
+                $patrol->ignoreValidation = true;
+                $patrol->forceSave();
+            }
+            foreach (Scout::where(['team_id' => $this->id, 'is_active' => Status::ACTIVE])->get() as $scout) {
+                $scout->is_active = Status::INACTIVE;
+                $scout->ignoreValidation = true;
+                $scout->forceSave();
+            }
+            Mandate::setAllMandatesExpiredInOrganization($this);
+        }
+    }
+
+    public static function getStatusOptions(){
+        return [
+            Status::ACTIVE => e(trans('csatar.csatar::lang.plugin.admin.team.active')),
+            Status::INACTIVE => e(trans('csatar.csatar::lang.plugin.admin.team.inactive')),
+            Status::SUSPENDED => e(trans('csatar.csatar::lang.plugin.admin.team.suspended')),
+            Status::FORMING => e(trans('csatar.csatar::lang.plugin.admin.team.forming')),
+        ];
     }
 
     /**
@@ -256,5 +306,30 @@ class Team extends OrganizationBase
 
     public function getTeam() {
         return $this;
+    }
+
+    public function getActiveScoutsCount() {
+        return Scout::activeScoutsInTeam($this->id)->count();
+    }
+
+    public function scopeInDistrict($query, $districtId) {
+        $query->where('district_id', $districtId);
+    }
+
+    public function scopeActiveInDistrict($query, $districtId) {
+        $query->where('district_id', $districtId)->active()->orderByRaw('CONVERT(team_number, UNSIGNED) asc');
+    }
+
+    public function scopeActiveInAssociation($query, $associationId) {
+        $districtIds = District::where('association_id', $associationId)->get()->pluck('id')->toArray();
+        $query->whereIn('district_id', $districtIds)->active();
+    }
+
+    public function getTroops() {
+        return Troop::inTeam($this->id)->get();
+    }
+
+    public function getPatrols() {
+        return Patrol::inTeam($this->id)->get();
     }
 }

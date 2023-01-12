@@ -1,20 +1,46 @@
 <h1 class="mb-3">{{ 'Csapatjelentések ' | _ }}</h1>
 
 {% if __SELF__.teamReportData | length > 0 %}
+    {% set actual_year = 0 %}
     <div class="mb-3">
-        <div class="row">
-            <div class="col col-sm col-lg th th2 m-1">{{ 'Év' | _ }}</div>
-            <div class="col col-sm col-lg th th2 m-1">{{ 'Tagok száma' | _ }}</div>
-            {% for legal_relationship in __SELF__.legalRelationships  %}
-                <div class="col col-lg d-none d-md-block th th2 m-1">{{ legal_relationship.name }}</div>
-            {% endfor %}
-            <div class="col col-lg d-none d-sm-block th th2 m-1">{{ 'Tagdíj' | _ }}</div>
-            <div class="col-4 col-sm-3 col-lg-2 th th2 m-1">{{ 'Jelentés státusza' | _ }}</div>
-            <div class="col-4 col-sm-3 col-lg-2 m-1"></div>
-        </div>
-        {% for team_report_data in __SELF__.teamReportData  %}
+        {% if not __SELF__.listingAll %}
             <div class="row">
-                <div class="col col-sm col-lg td m-1">{{ team_report_data.year }}</div>
+                <div class="col col-sm col-lg th th2 m-1">{{ 'Év' | _ }}</div>
+                <div class="col col-sm col-lg th th2 m-1">{{ 'Tagok száma' | _ }}</div>
+                {% for legal_relationship in __SELF__.legalRelationships  %}
+                    <div class="col col-lg d-none d-md-block th th2 m-1">{{ legal_relationship.name }}</div>
+                {% endfor %}
+                <div class="col col-lg d-none d-sm-block th th2 m-1">{{ 'Tagdíj' | _ }}</div>
+                <div class="col-4 col-sm-3 col-lg-2 th th2 m-1">{{ 'Jelentés státusza' | _ }}</div>
+                <div class="col-4 col-sm-3 col-lg-2 m-1"></div>
+            </div>
+        {% endif %}
+        {% for team_report_data in __SELF__.teamReportData  %}
+            {% if actual_year != team_report_data.year and __SELF__.listingAll %}
+                {% set actual_year = team_report_data.year %}
+                <div class="row">
+                    <div class="col col-sm col-lg th th2 m-1">{{ actual_year }} - {{ actual_year +1 }}</div>
+                    <div class="col col-sm col-lg-2 m-1"></div>
+                </div>
+                <div class="row">
+                    {% if __SELF__.listingAll %}
+                    <div class="col col-sm col-lg th th2 m-1">{{ 'Csapatszám' | _ }}</div>
+                    {% endif %}
+                    <div class="col col-sm col-lg th th2 m-1">{{ 'Év' | _ }}</div>
+                    <div class="col col-sm col-lg th th2 m-1">{{ 'Tagok száma' | _ }}</div>
+                    {% for legal_relationship in __SELF__.legalRelationships  %}
+                    <div class="col col-lg d-none d-md-block th th2 m-1">{{ legal_relationship.name }}</div>
+                    {% endfor %}
+                    <div class="col col-lg d-none d-sm-block th th2 m-1">{{ 'Tagdíj' | _ }}</div>
+                    <div class="col-4 col-sm-3 col-lg-2 th th2 m-1">{{ 'Jelentés státusza' | _ }}</div>
+                    <div class="col-4 col-sm-3 col-lg-2 m-1"></div>
+                </div>
+            {% endif %}
+            <div class="row">
+                {% if __SELF__.listingAll %}
+                    <div class="col col-sm col-lg td m-1">{{ team_report_data.team_number }}</div>
+                {% endif %}
+                <div class="col col-sm col-lg td m-1">{{ team_report_data.year }} - {{ team_report_data.year + 1 }}</div>
                 <div class="col col-sm col-lg td m-1">{{ team_report_data.members_count }}</div>
                 {% for legal_relationship in __SELF__.legalRelationships  %}
                     <div class="col col-lg d-none d-md-block td m-1">{{ team_report_data[legal_relationship.id] }}</div>

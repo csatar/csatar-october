@@ -19,6 +19,17 @@ fields:
             card: teamData
             position: title
             order: 2
+    status:
+        label: 'csatar.csatar::lang.plugin.admin.general.status'
+        comment: 'csatar.csatar::lang.plugin.admin.general.inactivationWarning'
+        span: auto
+        type: dropdown
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        formBuilder:
+            type: field
+            card: teamData
+            position: title
+            order: 1
     team_number:
         label: 'csatar.csatar::lang.plugin.admin.team.teamNumber'
         span: auto

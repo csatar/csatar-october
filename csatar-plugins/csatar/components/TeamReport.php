@@ -77,8 +77,14 @@ class TeamReport extends ComponentBase
             $this->currency = $association->currency->code;
             $this->scouts = [];
             $scouts = Scout::where('team_id', $this->teamId)->where('is_active', true)->get();
+
             foreach ($scouts as $scout) {
-                $membership_fee = $this->team->district->association->legal_relationships->where('id', $scout->legal_relationship_id)->first()->pivot->membership_fee;
+                $legalRelationShip = $this->team->district->association->legal_relationships->where('id', $scout->legal_relationship_id)->first();
+                if(!empty($legalRelationShip)) {
+                    $membership_fee = $this->team->district->association->legal_relationships->where('id', $scout->legal_relationship_id)->first()->pivot->membership_fee;
+                } else {
+                    $membership_fee = 0;
+                }
 
                 array_push($this->scouts, [
                     'name' => $scout->family_name . ' ' . $scout->given_name,

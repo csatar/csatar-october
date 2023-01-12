@@ -185,10 +185,34 @@
     - builder_table_update_csatar_csatar_scouts_chronic_illnesses.php
 1.0.65:
     - 'Change columns to nullable in associations, districts, scouts, team_reports'
-    - migration_1064.php
+    - made_columns_nullable.php
 1.0.66:
+    - 'Updated table csatar_csatar_teams'
+    - builder_table_update_csatar_csatar_teams.php
+1.0.67:
+    - 'Extend organizations with status, slug and in case of patrol gender as well'
+    - update_districts_teams_troops_patrol_table.php
+1.0.68:
+    - 'Generate slug if empty to Districts, Teams, Troops, Patrols'
+    - generate_slug_for_districts_teams_troops_patrols.php
+1.0.69:
+    - 'Add a raw_import column to scouts table for importing raw json data from the old system'
+    - update_csatar_csatar_scouts_add_raw_import_column.php
+1.0.70:
+    - 'Update mandate_types add is_vk column'
+    - update_mandate_types_add_is_vk_column.php
+1.0.71:
+    - 'Updated table csatar_csatar_associations add team report submit period'
+    - builder_table_update_csatar_csatar_associations_4.php
+1.0.72:
+    - 'Created table csatar_csatar_membership_cards'
+    - builder_table_create_csatar_csatar_membership_cards.php
+1.0.73:
+    - 'Updated table csatar_csatar_scouts'
+    - builder_table_update_csatar_csatar_scouts_3.php
+1.0.74:
     - 'Created table csatar_csatar_locations'
     - builder_table_create_csatar_csatar_locations.php
-1.0.67:
+1.0.75:
     - 'Updated table csatar_csatar_associations'
-    - builder_table_update_csatar_csatar_associations_4.php
+    - builder_table_update_csatar_csatar_associations_5.php

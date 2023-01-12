@@ -9,7 +9,8 @@ class BuilderTableUpdateCsatarCsatarAssociations4 extends Migration
     {
         Schema::table('csatar_csatar_associations', function($table)
         {
-            $table->string('country', 100)->nullable();
+            $table->date('team_report_submit_start_date')->nullable();
+            $table->date('team_report_submit_end_date')->nullable();
         });
     }
 
@@ -17,7 +18,8 @@ class BuilderTableUpdateCsatarCsatarAssociations4 extends Migration
     {
         Schema::table('csatar_csatar_associations', function($table)
         {
-            $table->dropColumn('country');
+            $table->dropColumn('team_report_submit_start_date');
+            $table->dropColumn('team_report_submit_end_date');
         });
     }
 }

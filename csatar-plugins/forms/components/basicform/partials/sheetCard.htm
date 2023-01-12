@@ -10,7 +10,11 @@
                     <hr>
                     <div class="row collapse collapse-on-sm" id="{{ 'csat-data-collapse-' ~ name | replace({' ' : '-'}) }}">
                         {% for field in fields %}
+                            {% if name == 'Leírás' or name == 'Csapat története' or name == 'Vezetőség bemutatása' %}
+                            <div class="col-12">
+                            {% else %}
                             <div class="col-lg-6 col-md-6 col-sm-12">
+                            {% endif %}
                                 <p class="p-small mb-2 text-subtitle">{{ field.label }}</p>
                                 <p class="card-text">{{ field.value }}</p>
                             </div>

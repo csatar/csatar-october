@@ -36,7 +36,7 @@ class TeamReport extends PermissionBasedAccess
     public function beforeValidate()
     {
         // check that the team report for this team and this team doesn't already exist
-        $this->year = date('n') == 1 ? date('Y') - 1 : date('Y');
+        $this->year = date('n') <= 5 ? date('Y') - 1 : date('Y');
         if (TeamReport::where('team_id', $this->team_id)->where('year', $this->year)->where('deleted_at', null)->where('id', '<>', $this->id)->exists()) {
             throw new \ValidationException(['team_id' => Lang::get('csatar.csatar::lang.plugin.component.teamReport.validationExceptions.teamReportAlreadyExists')]);
         }
@@ -113,7 +113,7 @@ class TeamReport extends PermissionBasedAccess
         }
 
         // set the spiritual leader data
-        $this->year = date('n') == 1 ? date('Y') - 1 : date('Y');
+        $this->year = date('n') <= 5 ? date('Y') - 1 : date('Y');
         $lastYearTeamReport = $this::where('team_id', $this->team_id)->where('year', $this->year - 1)->first();
         if (isset($lastYearTeamReport)) {
             $fields->spiritual_leader_name->value = $lastYearTeamReport->spiritual_leader_name;
@@ -144,7 +144,11 @@ class TeamReport extends PermissionBasedAccess
             $leadershipQualification = $scout->leadership_qualifications->sortByDesc(function ($item, $key) {
                 return $item['pivot']['date'];
             })->values()->first();
-            $membership_fee = $this->team->district->association->legal_relationships->where('id', $scout->legal_relationship_id)->first()->pivot->membership_fee;
+            if(!empty($legalRelationShip)) {
+                $membership_fee = $this->team->district->association->legal_relationships->where('id', $scout->legal_relationship_id)->first()->pivot->membership_fee;
+            } else {
+                $membership_fee = 0;
+            }
 
             $this->scouts()->attach($scout, [
                 'name' => $scout->family_name . ' ' . $scout->given_name,

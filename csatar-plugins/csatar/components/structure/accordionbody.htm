@@ -1,0 +1,25 @@
+<div class="accordion-body py-0">
+    {% if level == 1 %}
+        {% partial __SELF__ ~ '::accordionItems' array=item.getActiveDistricts() level=level+1 headingId=headingId~item.id~'-' collapseId=collapseId~item.id~'-' %}
+    {% endif %}
+
+    {% if level == 2 %}
+        {% partial __SELF__ ~ '::accordionItems' array=item.getActiveTeams() level=level+1 headingId=headingId~item.id~'-' collapseId=collapseId~item.id~'-' %}
+    {% endif %}
+
+    {# Show the number of scouts in the Teams, Troops and Patrols #}
+    {% if level > 2 %}
+    <p>{{ 'Tagok száma: '|_ }} {{ item.getActiveScoutsCount() }}</p>
+    {% endif %}
+
+    {% if level == 3 %}
+        {% partial __SELF__ ~ '::accordionItems' array=item.getTroops() level=level+1 headingId=headingId~item.id~'-' collapseId=collapseId~item.id~'-' %}
+        {# Render the Patrols too for the Teams #}
+        {% partial __SELF__ ~ '::accordionItems' array=item.getPatrols() level=5 headingId=headingId~item.id~'-0-' collapseId=collapseId~item.id~'-0-' %}
+    {% endif %}
+
+    {% if level == 4 %}
+        {% partial __SELF__ ~ '::accordionItems' array=item.getPatrols() level=level+1 headingId=headingId~item.id~'-' collapseId=collapseId~item.id~'-' %}
+    {% endif %}
+
+</div>

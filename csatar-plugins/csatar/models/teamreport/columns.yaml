@@ -8,11 +8,12 @@ columns:
     deleted_at:
         label: 'csatar.csatar::lang.plugin.admin.general.deletedAt'
         type: datetime
-    team_id:
+    team:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.team'
         type: number
         searchable: true
-        valueFrom: extendedName
+        sortable: false
+        valueFrom: name
         relation: team
     year:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.year'

@@ -33,7 +33,6 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.scout.troop'
         nameFrom: extendedName
         descriptionFrom: description
-        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         dependsOn: team
         span: auto
         type: dropdown
@@ -46,7 +45,6 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.scout.patrol'
         nameFrom: extendedName
         descriptionFrom: description
-        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         dependsOn:
             - team
             - troop
@@ -151,6 +149,7 @@ fields:
             order: 6
     is_active:
         label: 'csatar.csatar::lang.plugin.admin.scout.isActive'
+        comment: 'csatar.csatar::lang.plugin.admin.scout.inactivationWarning'
         span: auto
         default: 1
         type: checkbox
@@ -159,6 +158,16 @@ fields:
             card: scoutData
             position: details
             order: 7
+    is_approved:
+        label: 'csatar.csatar::lang.plugin.admin.scout.isApproved'
+        span: auto
+        default: 0
+        type: checkbox
+        formBuilder:
+            type: field
+            card: scoutData
+            position: details
+            order: 8
     legal_relationship:
         label: 'csatar.csatar::lang.plugin.admin.scout.legalRelationship'
         nameFrom: name
@@ -171,7 +180,7 @@ fields:
             type: field
             card: scoutData
             position: details
-            order: 8
+            order: 9
     religion:
         label: 'csatar.csatar::lang.plugin.admin.scout.religion'
         nameFrom: name
@@ -183,7 +192,7 @@ fields:
             type: field
             card: scoutData
             position: details
-            order: 9
+            order: 10
     nationality:
         label: 'csatar.csatar::lang.plugin.admin.scout.nationality'
         span: auto
@@ -192,7 +201,7 @@ fields:
             type: field
             card: scoutData
             position: details
-            order: 10
+            order: 11
     tshirt_size:
         label: 'csatar.csatar::lang.plugin.admin.scout.tShirtSize'
         nameFrom: name
@@ -204,7 +213,7 @@ fields:
             type: field
             card: scoutData
             position: details
-            order: 11
+            order: 12
     birthData:
         label: 'csatar.csatar::lang.plugin.admin.scout.sections.birthData'
         span: full
@@ -222,6 +231,7 @@ fields:
         yearRange: '100'
         span: auto
         type: datepicker
+        dependsOn: personal_identification_number
         formBuilder:
             type: field
             card: birthData

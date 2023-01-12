@@ -1,18 +1,22 @@
 <?php namespace Csatar\Csatar\Models;
 
 use Auth;
+use Csatar\Csatar\Classes\Enums\Status;
+use Csatar\Csatar\Classes\RightsMatrix;
+use Csatar\Csatar\Models\Association;
+use Csatar\Csatar\Models\Mandate;
 use Csatar\Csatar\Models\MandateType;
+use Csatar\Csatar\Models\MembershipCard;
+use Csatar\Csatar\Classes\Validators\CnpValidator;
 use DateTime;
 use Db;
 use Flash;
 use Lang;
 use Log;
-use Session;
 use Model;
-use Csatar\Csatar\Classes\RightsMatrix;
-use Csatar\Csatar\Models\Association;
-use Csatar\Csatar\Models\Mandate;
 use October\Rain\Database\Collection;
+use Session;
+use ValidationException;
 
 /**
  * Model
@@ -41,6 +45,7 @@ class Scout extends OrganizationBase
     public $table = 'csatar_csatar_scouts';
 
     public $fillable = [
+        'ecset_code',
         'user_id',
         'team_id',
         'troop_id',
@@ -92,6 +97,7 @@ class Scout extends OrganizationBase
         'profile_image',
         'registration_form',
         'chronic_illnesses',
+        'is_approved',
     ];
 
     protected $nullable = [
@@ -140,18 +146,25 @@ class Scout extends OrganizationBase
         'workplace',
         'comment',
         'ecset_code',
+        'is_approved',
     ];
+
+    protected $jsonable = ['raw_import'];
 
     /**
      * @var array Validation rules
      */
     public $rules = [
         'team' => 'required',
+        'troop' => 'nullable',
+        'patrol' => 'nullable',
         'phone' => 'nullable|regex:(^[0-9+-.()]{10,}$)',
         'birthdate' => 'required',
         'legal_representative_phone' => 'regex:(^[0-9+-.()]{10,}$)',
+        'personal_identification_number' => 'nullable',
         'mothers_phone' => 'regex:(^[0-9+-.()]{10,}$)',
         'fathers_phone' => 'regex:(^[0-9+-.()]{10,}$)',
+        'email' => 'email|nullable',
         'mothers_email' => 'email|nullable',
         'fathers_email' => 'email|nullable',
         'legal_representative_email' => 'email|nullable',
@@ -196,6 +209,7 @@ class Scout extends OrganizationBase
         $this->customMessages['mothers_phone.required_without_all'] = e(trans('csatar.csatar::lang.plugin.admin.scout.validationExceptions.legalRepresentativePhoneUnderAge'));
         $this->customMessages['fathers_phone.required_without_all'] = e(trans('csatar.csatar::lang.plugin.admin.scout.validationExceptions.legalRepresentativePhoneUnderAge'));
         $this->customMessages['legal_representative_phone.required_without_all'] = e(trans('csatar.csatar::lang.plugin.admin.scout.validationExceptions.legalRepresentativePhoneUnderAge'));
+        $this->customMessages['personal_identification_number.unique'] = e(trans('csatar.csatar::lang.plugin.admin.scout.validationExceptions.uniquePersonalIdentificationNumber'));
     }
 
     /**
@@ -208,22 +222,31 @@ class Scout extends OrganizationBase
                 return;
             }
 
-            if (!empty($this->team->district->association->personal_identification_number_validator)) {
-                $this->rules['personal_identification_number'] .= '|' . $this->team->district->association->personal_identification_number_validator;
+            $personalIdentificationNumberValidators = $this->getPersonalIdentificationNumberValidators();
+
+            if (!empty($personalIdentificationNumberValidators)) {
+                $this->rules['personal_identification_number'] .= '|' . implode('|', $personalIdentificationNumberValidators);
+            }
+
+            if (in_array('cnp', $personalIdentificationNumberValidators)
+                && !empty($this->personal_identification_number)
+                && (new DateTime($this->birthdate))->format('Y-m-d') != $this->getBirthDateFromCNP($this->personal_identification_number)
+            ) {
+                throw new \ValidationException(['birthdate' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.personalIdentificationNumberBirthdateMismatch')]);
             }
 
             // if the selected troop does not belong to the selected team, then throw and exception
-            if ($this->troop_id && $this->troop->team->id != $this->team_id) {
+            if ($this->troop && $this->troop->team->id != $this->team_id) {
                 throw new \ValidationException(['troop' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.troopNotInTheTeam')]);
             }
 
             // if the selected patrol does not belong to the selected team or to the selected troop, then throw and exception
-            if ($this->patrol_id &&                                             // a Patrol is set
+            if ($this->patrol &&                                             // a Patrol is set
                 ($this->patrol->team->id != $this->team_id ||               // the Patrol does not belong to the selected Team
-                    ($this->troop_id &&                                     // a Troop is set as well
+                    ($this->troop &&                                     // a Troop is set as well
                         (!$this->patrol->troop ||                           // the Patrol does not belong to any Troop
                             $this->patrol->troop->id != $this->troop_id)))) {   // the Patrol belongs to a different Troop than the one selected
-                throw new \ValidationException(['troop' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.troopNotInTheTeamOrTroop')]);
+                throw new \ValidationException(['patrol' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.troopNotInTheTeamOrTroop')]);
             }
 
             // check that the birthdate is not in the future
@@ -245,6 +268,18 @@ class Scout extends OrganizationBase
                 if (isset($field->pivot->start_date) && isset($field->pivot->end_date) && (new \DateTime($field->pivot->end_date) < new \DateTime($field->pivot->start_date))) {
                     throw new \ValidationException(['' => str_replace('%name', $field->name, Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.mandateEndDateBeforeStartDate'))]);
                 }
+            }
+        }
+    }
+
+    public function afterSave() {
+        if (isset($this->original['is_active'])
+            && $this->is_active != $this->original['is_active']
+            && $this->original['is_active'] == Status::ACTIVE) {
+            Mandate::where('scout_id', $this->id)->update(['end_date' => date('Y-m-d')]);
+
+            if (!empty($this->membership_cards)) {
+                MembershipCard::where('scout_id', $this->id)->where('active', Status::ACTIVE)->update(['active' => Status::INACTIVE]);
             }
         }
     }
@@ -289,6 +324,7 @@ class Scout extends OrganizationBase
             $fields->troop->options = [];
             $team_id = $this->team_id;
             if ($team_id) {
+                $fields->troop->options += ['null' => e(trans('csatar.csatar::lang.plugin.admin.general.select'))];
                 foreach (\Csatar\Csatar\Models\Troop::teamId($team_id)->get() as $troop) {
                     $fields->troop->options += [$troop['id'] => $troop['extendedName']];
                 }
@@ -299,7 +335,8 @@ class Scout extends OrganizationBase
         if (isset($fields->patrol)) {
             $fields->patrol->options = [];
             $troop_id = $this->troop_id;
-            if ($troop_id) {
+            $fields->patrol->options += ['null' => e(trans('csatar.csatar::lang.plugin.admin.general.select'))];
+            if ($troop_id && $troop_id != 'null') { // important, 'null' is string at this point
                 foreach (\Csatar\Csatar\Models\Patrol::troopId($troop_id)->get() as $patrol) {
                     $fields->patrol->options += [$patrol['id'] => $patrol['extendedName']];
                 }
@@ -315,6 +352,10 @@ class Scout extends OrganizationBase
         if (isset($fields->legal_relationship)) {
             $fields->legal_relationship->options = $this->team ? \Csatar\Csatar\Models\LegalRelationship::associationId($this->team->district->association->id)->lists('name', 'id') : [];
         }
+
+        if (isset($fields->personal_identification_number) && in_array('cnp', $this->getPersonalIdentificationNumberValidators())) {
+            $fields->birthdate->value = $this->getBirthDateFromCNP($fields->personal_identification_number->value);
+    }
     }
 
     /**
@@ -425,6 +466,7 @@ class Scout extends OrganizationBase
             'table' => 'csatar_csatar_mandates',
             'label' => 'csatar.csatar::lang.plugin.admin.mandate.mandates',
         ],
+        'membership_cards' => \Csatar\Csatar\Models\MembershipCard::class
     ];
 
     public $attachOne = [
@@ -606,6 +648,58 @@ class Scout extends OrganizationBase
         return $query->where('team_id', $id);
     }
 
+    public function scopeInTroop($query, $id) {
+        return $query->where('troop_id', $id);
+    }
+
+    public function scopeInPatrol($query, $id) {
+        return $query->where('patrol_id', $id);
+    }
+
+    public function scopeActive($query) {
+        return $query->where(function($query) {
+            $query->where('is_active', Status::ACTIVE)
+                ->orWhere('is_active', Status::FORMING);
+        });
+    }
+
+    public function scopeInactive($query) {
+        return $query->where(function($query) {
+            $query->where('is_active', Status::INACTIVE)
+                ->orWhere('is_active', Status::SUSPENDED);
+        });
+    }
+
+    public function scopeActiveScoutsInTeam($query, $id)
+    {
+        return $query->teamId($id)->active()->orderBy('family_name');
+    }
+
+    public function scopeActiveScoutsInTroop($query, $id)
+    {
+        return $query->inTroop($id)->active()->orderBy('family_name');
+    }
+
+    public function scopeActiveScoutsInPatrol($query, $id)
+    {
+        return $query->inPatrol($id)->active()->orderBy('family_name');
+    }
+
+    public function scopeInactiveScoutsInTeam($query, $id)
+    {
+        return $query->teamId($id)->inactive()->orderBy('family_name');
+    }
+
+    public function scopeInactiveScoutsInTroop($query, $id)
+    {
+        return $query->inTroop($id)->inactive()->orderBy('family_name');
+    }
+
+    public function scopeInactiveScoutsInPatrol($query, $id)
+    {
+        return $query->inPatrol($id)->inactive()->orderBy('family_name');
+    }
+
     public function scopeAssociations($query, array $associationIds)
     {
         return $query->whereHas('team', function ($query) use ($associationIds) {
@@ -717,6 +811,10 @@ class Scout extends OrganizationBase
                                         ->pluck('mandate_type_id')->toArray();
         }
 
+        if (empty($modelAssociation)) {
+            return [];
+        }
+
         return array_merge(
             $mandateIdsForAssociation ?? [],
             $mandateIdsForDistrict ?? [],
@@ -786,15 +884,41 @@ class Scout extends OrganizationBase
     public function getScoutOptions($scopes = null){
         if (!empty($scopes['association']->value)) {
             return self::associations(array_keys($scopes['association']->value))
-                ->select(Db::raw("concat(family_name, ' - ', given_name) as name, id"))
-                 ->lists('name', 'id')
-                ;
+                ->select(DB::raw("CONCAT(ifnull(family_name, ''), ' ', ifnull(given_name, '')) AS fullname, id"))
+                ->lists('fullname', 'id');
+        }
+        else {
+            return self::select(DB::raw("CONCAT(ifnull(family_name, ''), ' ', ifnull(given_name, '')) AS fullname, id"))
+                ->lists('fullname', 'id');
+        }
+    }
+
+    public function getScoutTeamOptions($scopes = null){
+        if (!empty($scopes['association']->value)) {
+            return self::associations(array_keys($scopes['association']->value))
+                ->get()
+                ->filter(function ($item) {
+                    if (!empty($item->team)) {
+                        return $item;
+                    }
+                })
+                ->map(function ($item) {
+                    return [ 'name' => $item->team->extended_Name, 'id' => $item->team->id ];
+                })
+                ->pluck('name', 'id')->toArray();
         }
         else {
             return self::all()
-                ->select(Db::raw("concat(family_name, ' - ', given_name) as name, id"))
-                ->lists('name', 'id');
+                ->filter(function ($item) {
+                    if (!empty($item->team)) {
+                        return $item;
         }
+                })
+                ->map(function ($item) {
+                    return [ 'name' => $item->team->extended_Name, 'id' => $item->id ];
+                })
+                ->pluck('name', 'id')->toArray();
+    }
     }
 
     public function getStaticMessages(): array
@@ -821,6 +945,60 @@ class Scout extends OrganizationBase
     {
         $this->accepted_at = new \DateTime();
         return $this->save();
+    }
+
+    /**
+     * @return string
+     */
+    public function getBirthDateFromCNP($cnp): string
+    {
+        if (empty($cnp)) {
+            return e(trans('csatar.csatar::lang.plugin.admin.scout.validationExceptions.invalidPersonalIdentificationNumber'));
+        }
+
+        if (!(new CnpValidator())->validate(null, $cnp, null)) {
+            throw new ValidationException([
+                'personal_identification_number' => e(trans('csatar.csatar::lang.plugin.admin.scout.validationExceptions.invalidPersonalIdentificationNumber'))]
+            );
+        }
+
+        $sex   = substr($cnp, 0, 1);
+        $year  = substr($cnp, 1, 2);
+        $month = substr($cnp, 3, 2);
+        $day   = substr($cnp, 5, 2);
+
+        switch ($sex) {
+            case 1:
+            case 2:
+            case 7:
+            case 8:
+                $year += 1900;
+                break;
+            case 3:
+            case 4:
+                $year += 2000;
+                break;
+            case 5:
+            case 6:
+                $year += 1800;
+                break;
+            default:
+                return e(trans('csatar.csatar::lang.plugin.admin.scout.validationExceptions.invalidPersonalIdentificationNumber'));
+        }
+
+        return $year . '-' . $month . '-' . $day;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPersonalIdentificationNumberValidators(): array
+    {
+        if (!empty($this->team)) {
+            return $this->team->district->association->personal_identification_number_validator ?? [];
+        }
+
+        return [];
     }
 
     public function getAddressCountyOptions()

@@ -18,6 +18,16 @@ fields:
             type: field
             card: patrolData
             position: title
+    status:
+        label: 'csatar.csatar::lang.plugin.admin.general.status'
+        comment: 'csatar.csatar::lang.plugin.admin.general.inactivationWarning'
+        span: auto
+        type: dropdown
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+    gender:
+        label: 'csatar.csatar::lang.plugin.admin.scout.gender.gender'
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        type: dropdown
     email:
         label: 'csatar.csatar::lang.plugin.admin.general.email'
         span: auto

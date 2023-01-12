@@ -2,6 +2,24 @@
 
 ## Unreleased
 
+- CS-336 - Extended Personal Identification Number validation
+- CS-421 - Member card data import
+- CS-417 - Order team on district page by team number
+- CS-429 - Hide associations without teams from menu
+- CS-432 - Added "is_approved" field for Scout
+- CS-430 - Added option and menu to list all team reports in association regardless of team id
+- CS-418 - Create member card model
+- CS-431 - separated inactive and active scouts on team page
+- CS-415 - inactive districts and teams are hidden in structure accordions and menu
+- CS-415 - inactive teams are hidden in district page
+- CS-434 - Fixed SeederData, removed permissions seeding from main seeder, removed association data overwrite
+- fixed Plugin.php to run boot method only after specific plugin version
+- CS-423 - Changed the scrollbar design
+- CS-423 - Fixed the navigation position, added scroll to the third sub-leve
+- CS-271 - Make the pivot relations editable on the form
+- CS-416 - Created method to automatically add newly added field s to permission matrix
+- CS-399 - Added and implemented status field to team
+- CS-351 - Extended backend mandates list with "mandate_model_name", "mandate_team", "scout_team" columns and added filters for every column
 - CS-326 - Finalized team report pdf download
 - CS-395 - Made database fields and attributes nullable
 - CS-38 - Import Scouts from ECSET.
@@ -10,6 +28,7 @@
 - CS-302 - Reorganized navigation to fit more items, modified hamburger menu so it is activated on tablet view
 - CS-320 - Simplified scout's page. Removed section names from labels.
 - CS-378 - Created csv import-export for permissions matrix.
+- CS-393 - Don't show the QR code for those who already activated 2FA
 
 ## 1.6.0
 ### 2022-11-03

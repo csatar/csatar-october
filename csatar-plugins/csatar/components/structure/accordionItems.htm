@@ -22,27 +22,21 @@
 
 {% if array | length > 0 %}
     <div class="accordion accordion-flush">
+        {% if level == 3 %}
+            {% set array = array|sort((a, b) => a.team_number <=> b.team_number) %}
+        {% endif %}
         {% for item in array %}
+            {% if level < 3 or item.getActiveScoutsCount() != 0 %}
             <div class="accordion-item my-3">
                 {% if organizationTypeForUrl in this.page.id %}
-                    <div class="accordion-body py-0">
-
-                        {# Show the number of scouts in the Teams, Troops and Patrols #}
-                        {% if level > 2 %}
-                        <p>{{ 'Tagok száma: ' ~ (item.scouts | length) | _ }}</p>
-                        {% endif %}
-
-                        {# Render child accordions for Associations, Districts, Teams and Troops #}
-                        {% if level < 5 %}
-                        {% partial __SELF__ ~ '::accordionItems' array=attribute(item, childArrayName) level=level+1 headingId=headingId~item.id~'-' collapseId=collapseId~item.id~'-' %}
-                        {% endif %}
-
-                        {# Render the Patrols too for the Teams #}
-                        {% if level == 3 %}
-                        {% partial __SELF__ ~ '::accordionItems' array=attribute(item, child2ArrayName) level=5 headingId=headingId~item.id~'-0-' collapseId=collapseId~item.id~'-0-' %}
-                        {% endif %}
-
-                    </div>
+                    {% partial __SELF__ ~ '::accordionbody'
+                        item=item
+                        level=level
+                        childArrayName=childArrayName
+                        child2ArrayName=child2ArrayName
+                        headingId=headingId
+                        collapseId=collapseId
+                    %}
                 {% else %}
                     <h2 class="accordion-header" id="{{ headingId ~ item.id }}">
                         <button class="accordion-button py-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="{{ '#' ~ collapseId ~ item.id }}" aria-expanded="false" aria-controls="{{ collapseId ~ item.id }}">
@@ -55,25 +49,20 @@
                     <div id="{{ collapseId ~ item.id }}" class="accordion-collapse collapse" aria-labelledby="{{ headingId ~ item.id }}" data-bs-parent="#accordionFlushExample">
                         <div class="accordion-body py-0">
 
-                            {# Show the number of scouts in the Teams, Troops and Patrols #}
-                            {% if level > 2 %}
-                            <p>{{ 'Tagok száma: ' ~ (item.scouts | length) | _ }}</p>
-                            {% endif %}
-
-                            {# Render child accordions for Associations, Districts, Teams and Troops #}
-                            {% if level < 5 %}
-                                {% partial __SELF__ ~ '::accordionItems' array=attribute(item, childArrayName) level=level+1 headingId=headingId~item.id~'-' collapseId=collapseId~item.id~'-' %}
-                            {% endif %}
-
-                            {# Render the Patrols too for the Teams #}
-                            {% if level == 3 %}
-                                {% partial __SELF__ ~ '::accordionItems' array=attribute(item, child2ArrayName) level=5 headingId=headingId~item.id~'-0-' collapseId=collapseId~item.id~'-0-' %}
-                            {% endif %}
+                            {% partial __SELF__ ~ '::accordionbody'
+                                item=item
+                                level=level
+                                childArrayName=childArrayName
+                                child2ArrayName=child2ArrayName
+                                headingId=headingId
+                                collapseId=collapseId
+                            %}
 
                         </div>
                     </div>
                 {% endif %}
             </div>
+            {% endif %}
         {% endfor %}
     </div>
 {% else %}

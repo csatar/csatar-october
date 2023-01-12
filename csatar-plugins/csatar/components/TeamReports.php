@@ -1,6 +1,7 @@
 <?php namespace Csatar\Csatar\Components;
 
 use Auth;
+use Carbon\Carbon;
 use DateTime;
 use Lang;
 use Redirect;
@@ -11,7 +12,7 @@ use Csatar\Csatar\Models\TeamReport;
 
 class TeamReports extends ComponentBase
 {
-    public $id, $waitingForApprovalMode, $team, $teamReports, $legalRelationships, $teamReportData, $showTeamReportCreateButton, $permissions;
+    public $id, $waitingForApprovalMode, $team, $teamReports, $legalRelationships, $teamReportData, $showTeamReportCreateButton, $permissions, $listingAll;
 
     public function componentDetails()
     {
@@ -50,16 +51,45 @@ class TeamReports extends ComponentBase
             $this->teamReportData = [];
             foreach ($this->teamReports as $teamReport) {
                 if (Auth::user()->scout->getRightsForModel($teamReport)['MODEL_GENERAL']['read']) {
-                    array_push($this->teamReportData, [
-                        'id' => $teamReport->id,
-                        'team_name' => $teamReport->team->extendedName,
-                        'year' => $teamReport->year,
+                    $this->teamReportData[] = [
+                        'id'            => $teamReport->id,
+                        'team_name'     => $teamReport->team->extendedName,
+                        'year'          => $teamReport->year,
                         'members_count' => count($teamReport->scouts),
-                        'total_amount' => $teamReport->total_amount . ' ' . $teamReport->currency->code,
-                        'submitted_at' => (new DateTime($teamReport->submitted_at))->format('Y-m-d'),
-                    ]);
+                        'total_amount'  => $teamReport->total_amount . ' ' . $teamReport->currency->code,
+                        'submitted_at'  => (new DateTime($teamReport->submitted_at))->format('Y-m-d'),
+                    ];
                 }
             }
+        }
+        elseif ($this->id == null) {
+            $this->listingAll = true;
+            $associationId = Auth::user()->scout->getAssociation()->id;
+            $teamIds = Team::activeInAssociation($associationId)->get()->pluck('id')->toArray();
+            $this->teamReports = TeamReport::whereIn('team_id', $teamIds)->orderBy('year', 'desc')->get();
+
+            // create the array with the data to display in the table
+            $this->teamReportData = [];
+            foreach ($this->teamReports as $teamReport) {
+                if (Auth::user()->scout->getRightsForModel($teamReport)['MODEL_GENERAL']['read']) {
+                    $this->teamReportData[] = [
+                        'id'            => $teamReport->id,
+                        'team_number'   => $teamReport->team->team_number,
+                        'team_name'     => $teamReport->team->extendedName,
+                        'year'          => $teamReport->year,
+                        'members_count' => count($teamReport->scouts),
+                        'total_amount'  => $teamReport->total_amount . ' ' . $teamReport->currency->code,
+                        'submitted_at'  => (new DateTime($teamReport->submitted_at))->format('Y-m-d'),
+                        'status' => $teamReport->getStatus(),
+                        'link' => isset($teamReport->submitted_at) ? '/csapatjelentes/' . $teamReport->id : '/csapatjelentes/' . $teamReport->id . '/modositas',
+                        'link_text' => isset($teamReport->submitted_at) ? Lang::get('csatar.csatar::lang.plugin.component.teamReports.view') : Lang::get('csatar.csatar::lang.plugin.component.teamReports.edit'),
+                    ];
+                }
+            }
+            $this->teamReportData = collect($this->teamReportData);
+            $this->teamReportData = $this->teamReportData->sortBy(function ($teamReport) {
+                return -$teamReport['year'] * 1000000 + $teamReport['team_number'];
+            });
         }
         else {
             $this->waitingForApprovalMode = false;
@@ -77,9 +107,15 @@ class TeamReports extends ComponentBase
 
             // determine whether the Team Report Create button should be shown
             $month = date('n');
-            $year = $month == 1 ? date('Y') - 1 : date('Y');
+            $year = $month <= 5 ? date('Y') - 1 : date('Y');
             $hasPermission = isset($this->permissions['teamReports']['create']) && $this->permissions['teamReports']['create'] > 0;
-            $this->showTeamReportCreateButton = count($this->teamReports->where('year', $year)) == 0 && $hasPermission /*&& ($month == 1 || $month == 12 || $month == 6)*/;
+            $isInTeamReportSubmitPeriod = false;
+            if ($association = $this->team->getAssociation()) {
+                $isInTeamReportSubmitPeriod = Carbon::now()->gte(new Carbon($association->team_report_submit_start_date))
+                    && Carbon::now()->lte((new Carbon($association->team_report_submit_end_date))->endOfDay());
+            }
+
+            $this->showTeamReportCreateButton = count($this->teamReports->where('year', $year)) == 0 && $hasPermission && $isInTeamReportSubmitPeriod;
 
             // create the list of the defined legal relationships for the association
             $this->legalRelationships = $this->team->district->association->legal_relationships;

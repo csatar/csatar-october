@@ -78,21 +78,18 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
             return $redirect;
         }
 
-        if(!isset(Auth::user()->scout)) {
-            \App::abort(403, 'Access denied!');
+        if (isset(Auth::user()->scout)) {
+            $tempScout = new Scout();
+            $tempScout->team_id = Auth::user()->scout->team_id;
+
+            if (Auth::user()->scout->getRightsForModel($tempScout)['MODEL_GENERAL']['read'] < 1) {
+                \App::abort(403, 'Access denied!');
+            }
+
+            $this->permissions = Auth::user()->scout->getRightsForModel($tempScout);
         }
-
-        $tempScout = new Scout();
-        $tempScout->team_id = Auth::user()->scout->team_id;
-
-        if (Auth::user()->scout->getRightsForModel($tempScout)['MODEL_GENERAL']['read'] < 1) {
-            \App::abort(403, 'Access denied!');
-        }
-
-        $this->permissions = Auth::user()->scout->getRightsForModel($tempScout);
 
         $this->prepareVars();
-
     }
 
     public function getResetPageOptions()
@@ -178,7 +175,7 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
             Event::fire('rainlab.user.register', [$user, $data]);
 
             $scout->user_id = $user->id;
-            $scout->save();
+            $scout->forceSave();
 
             if ($automaticActivation) {
                 $fullName = $scout->getFullName();
@@ -283,7 +280,7 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
             Event::fire('rainlab.user.register', [$user, $data]);
 
             $scout->user_id = $user->id;
-            $scout->save();
+            $scout->forceSave();
 
             $fullName = $scout->getFullName();
 
