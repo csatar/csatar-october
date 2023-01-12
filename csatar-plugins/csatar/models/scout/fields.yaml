@@ -294,6 +294,10 @@ fields:
         attributes:
             data-tags: true
         type: dropdown
+        formBuilder:
+            type: field
+            card: addressData
+            order: 3
     address_location:
         label: 'csatar.csatar::lang.plugin.admin.scout.addressLocation'
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
@@ -565,7 +569,7 @@ fields:
             type: field
             card: scoutData
             position: image
-            default: assets/images/userimg_placeholder.webp
+            default: 'assets/images/userimg_placeholder.webp'
     registration_form:
         label: 'csatar.csatar::lang.plugin.admin.scout.registrationForm'
         mode: file
