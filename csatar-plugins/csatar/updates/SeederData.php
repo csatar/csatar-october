@@ -532,6 +532,7 @@ class SeederData extends Seeder
                     $association->currency_id = Currency::where('code', 'RON')->first()->id;
                     $association->team_fee = 300;
                     $association->name_abbreviation = 'RMCSSZ';
+                    $association->country = 'Románia';
                     break;
                 case 'Szlovákiai Magyar Cserkészszövetség':
                     $association->ecset_code_suffix = 'F';

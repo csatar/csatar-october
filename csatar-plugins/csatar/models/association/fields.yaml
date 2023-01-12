@@ -1,4 +1,3 @@
-formBuilder_card_design: true
 fields:
     associationData:
         span: full
@@ -144,3 +143,7 @@ fields:
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
         type: dropdown
+    country:
+        label: 'csatar.csatar::lang.plugin.locations.country'
+        span: auto
+        type: text

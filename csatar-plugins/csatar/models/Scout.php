@@ -825,33 +825,75 @@ class Scout extends OrganizationBase
 
     public function getAddressCountyOptions()
     {
-        echo ($this->address_zipcode);
-        return Locations::where('country', '=', $this->address_country)->where('code', '=', $this->address_zipcode)->lists('county');
-    }
+        $savedCountyArray = Scout::where('id', $this->id)->select('address_county')->first();
+        $savedCounty = $savedCountyArray['address_county'] ?? null;
+        $array = [];
 
-    public function getAddressCountyDefaultAttribute()
-    {
-        return 2;
+        if ($this->address_zipcode != null) {
+            $array = Locations::where('country', '=', $this->address_country)->where('code', '=', $this->address_zipcode)->lists('county', 'county');
+        }
+        if (empty($array)) {
+            if ($savedCounty != null) {
+                $array[$savedCounty] = $savedCounty;
+            }
+            if ($this->address_county != $savedCounty) {
+                $array[$this->address_county]= $this->address_county;
+            }
+        }
+
+        return $array;
     }
 
     public function getAddressLocationOptions()
     {
-        echo ($this->address_county);
-        return Locations::where('country', '=', $this->address_country)->where('code', '=', $this->address_zipcode)->where('county', '=', $this->address_county)->lists('city');
-    }
+        $savedLocationArray = Scout::where('id', $this->id)->select('address_location')->first();
+        $savedLocation = $savedLocationArray['address_location'] ?? null;
+        $array = [];
 
-    public function getAddressLocationDefaultAttribute()
-    {
-        return 2;
+        if ($this->address_zipcode != null) {
+            $array = Locations::where('country', '=', $this->address_country)->where('code', '=', $this->address_zipcode)->lists('city', 'city');
+        }
+        if (empty($array)) {
+            if ($savedLocation != null) {
+                $array[$savedLocation] = $savedLocation;
+            }
+            if ($this->address_location != $savedLocation) {
+                $array[$this->address_location]= $this->address_location;
+            }
+        }
+
+        return $array;
     }
 
     public function getAddressStreetOptions()
     {
-        return Locations::where('country', '=', $this->address_country)->where('code', '=', $this->address_zipcode)->where('county', '=', $this->address_county)->where('city', '=', $this->address_location)->lists('street') ?? [];
+        $savedStreetArray = Scout::where('id', $this->id)->select('address_street')->first();
+        $savedStreet = $savedStreetArray['address_street'] ?? null;
+        $array = [];
+
+        if ($this->address_zipcode != null) {
+            $array = Locations::where('country', '=', $this->address_country)->where('code', '=', $this->address_zipcode)->where('city', '=', $this->address_location)->where('street', '!=', '')->lists('street', 'street');
+        }
+        if (empty($array)) {
+            if ($savedStreet != null) {
+                $array[$savedStreet] = $savedStreet;
+            }
+            if ($this->address_street != $savedStreet) {
+                $array[$this->address_street]= $this->address_street;
+            }
+        }
+
+        return $array;
     }
 
-    public function getAddressStreetDefaultAttribute()
+    public function getAddressCountryAttribute()
     {
-        return 2;
+        $savedCountry = array_get($this->attributes, 'address_country');
+        $teamId = array_get($this->attributes, 'team_id');
+        $team = Team::find($teamId);
+
+
+
+        return $savedCountry ?? $team->district->association->country;
     }
 }

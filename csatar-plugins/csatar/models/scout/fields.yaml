@@ -278,22 +278,21 @@ fields:
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         showSearch: true
         span: auto
-        defaultFrom: addressCountyDefault
+        defaultFrom: addressCountryDefault
         dependsOn:
             - address_zipcode
+        attributes:
+            data-tags: true
         type: dropdown
-        formBuilder:
-            type: field
-            card: addressData
-            order: 3
     address_location:
         label: 'csatar.csatar::lang.plugin.admin.scout.addressLocation'
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         showSearch: true
         span: auto
-        defaultFrom: addressLocationDefault
         dependsOn:
             - address_county
+        attributes:
+            data-tags: true
         type: dropdown
         formBuilder:
             type: field
@@ -304,9 +303,10 @@ fields:
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         showSearch: true
         span: auto
-        defaultFrom: addressStreetDefault
         dependsOn:
             - address_location
+        attributes:
+            data-tags: true
         type: dropdown
         formBuilder:
             type: field

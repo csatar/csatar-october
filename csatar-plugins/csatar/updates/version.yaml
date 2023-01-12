@@ -189,3 +189,6 @@
 1.0.66:
     - 'Created table csatar_csatar_locations'
     - builder_table_create_csatar_csatar_locations.php
+1.0.67:
+    - 'Updated table csatar_csatar_associations'
+    - builder_table_update_csatar_csatar_associations_4.php
