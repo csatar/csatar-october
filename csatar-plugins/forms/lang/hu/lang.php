@@ -47,6 +47,8 @@
                 ]
             ],
             'select' => 'Kiválasztás',
+            '2FAtoRead' => 'A következő információk megjelenítéséhez két faktoros hitelesítés szükséges: ',
+            '2FAtoModify' => 'A következő információk szerkesztéséhez két faktoros hitelesítés szükséges: ',
         ],
     ],
     'widgets' => [

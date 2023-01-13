@@ -851,6 +851,15 @@ class Scout extends OrganizationBase
         }
     }
 
+    public function is2FA(): bool
+    {
+        if(Auth::user() && Session::get('scout.twoFA', false)){
+            return true;
+        }
+
+        return false;
+    }
+
     public function getRightsForModel($model, $ignoreCache = false){
 
         if (empty($model)) {
@@ -862,10 +871,7 @@ class Scout extends OrganizationBase
             $isOwn = $model->isOwnModel(Auth::user()->scout);
         }
 
-        $is2fa = false;
-        if(Auth::user() && Session::get('scout.twoFA', false)){
-            $is2fa = true;
-        }
+        $is2fa = $this->is2FA();
 
         $mandateTypeIds = $this->getMandateTypeIdsInOrganizationTree($model);
 

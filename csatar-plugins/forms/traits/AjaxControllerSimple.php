@@ -1,5 +1,6 @@
 <?php namespace Csatar\Forms\Traits;
 
+use Auth;
 use http\Env\Request;
 use Input;
 use Flash;
@@ -76,6 +77,8 @@ trait AjaxControllerSimple {
 
         $config = $this->makeConfig($form->getFieldsConfig());
         //update field list and config based on currentUserRights
+        $config->fields = $this->markFieldsThatRequire2FA($config->fields, $preview, empty($record->id));
+        $messageAbout2faFields = $this->generate2FAFieldsMessage($config->fields, $preview);
         $config->fields = $this->applyUserRightsToForm($config->fields, $preview, empty($record->id));
         $config->arrayName = 'data';
         $config->alias = $this->alias;
@@ -110,7 +113,8 @@ trait AjaxControllerSimple {
             'from_id' => $form->id,
             'preview' => $preview,
             'redirectOnClose' => Input::old('redirectOnClose') ?? \Url::previous(),
-            'actionUpdateKeyword' => $this->actionUpdateKeyword
+            'actionUpdateKeyword' => $this->actionUpdateKeyword,
+            'messageAbout2faFields' => $messageAbout2faFields,
         ];
 
         return $this->renderPartial('@partials/form', $variablesToPass);
@@ -1176,6 +1180,63 @@ trait AjaxControllerSimple {
         }
 
         return $attributesArray;
+    }
+
+    /**
+     * Marks fields that require 2FA
+     */
+    private function markFieldsThatRequire2FA(array $attributesArray, bool $isReadOnly, bool $isNewRecord = false): array
+    {
+        foreach ($this->fieldsThatRequire2FA as $attribute => $settings) {
+            if ($this->fieldsThatRequire2FA && isset($this->fieldsThatRequire2FA[$attribute])) {
+                $attributesArray[$attribute]['formBuilder']['2fa'] = $this->fieldsThatRequire2FA[$attribute];
+                $attributesArray[$attribute]['cssClass'] = 'csat-2fa-field';
+            }
+        } //dd($attributesArray, $this->fieldsThatRequire2FA);
+        return $attributesArray;
+    }
+
+    /**
+     * Generates info message about 2fa fields
+     */
+    private function generate2FAFieldsMessage($attributesArray, $preview) {
+        if (empty(Auth::user())) {
+            return;
+        }
+
+        $fieldsThatRequire2FA = [];
+
+        if ($preview) {
+            foreach ($attributesArray as $key => $value) {
+                $actionsThatNeed2FA = $value['formBuilder']['2fa'] ?? null;
+                if( $actionsThatNeed2FA && in_array('read', $actionsThatNeed2FA) && isset($value['label'])){
+                    $fieldsThatRequire2FA[] = Lang::get($value['label']);
+                }
+            }
+
+            if (!empty($fieldsThatRequire2FA)) {
+                return Lang::get('csatar.forms::lang.components.basicForm.2FAtoRead') . implode(', ', $fieldsThatRequire2FA);
+            }
+        }
+        else {
+            foreach ($attributesArray as $key => $value) {
+                $actionsThatNeed2FA = $value['formBuilder']['2fa'] ?? null;
+                if( $actionsThatNeed2FA
+                    && (in_array('create', $actionsThatNeed2FA)
+                        || in_array('update', $actionsThatNeed2FA)
+                        || in_array('delete', $actionsThatNeed2FA))
+                    && isset($value['label'])
+                ){
+                    $fieldsThatRequire2FA[] = Lang::get($value['label']);
+                }
+            }
+
+            if (!empty($fieldsThatRequire2FA)) {
+                return Lang::get('csatar.forms::lang.components.basicForm.2FAtoModify') . implode(', ', $fieldsThatRequire2FA);
+            }
+        }
+
+        return null;
     }
 
     /**
