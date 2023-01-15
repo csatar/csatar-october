@@ -368,6 +368,7 @@
                 'fieldName' => 'Field name',
                 'fieldRequired' => 'Required',
                 'breadcrumb' => 'Dynamic Fields',
+                'overlappingDynamicFieldsError' => 'There already exists an overlapping Dynamic Fields for the given period for this association.',
             ],
             'organizationBase' => [
                 'organizationBase' => 'Organization base',

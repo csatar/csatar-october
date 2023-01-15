@@ -368,6 +368,7 @@
                 'fieldName' => 'Mező neve',
                 'fieldRequired' => 'Kötelező',
                 'breadcrumb' => 'Dinamikus mezők',
+                'overlappingDynamicFieldsError' => 'Már vannak megadva Dinamikus mezők az adott periódusra e szövetség esetén.',
             ],
             'organizationBase' => [
                 'organizationBase' => 'Általános szervezeti egység',
