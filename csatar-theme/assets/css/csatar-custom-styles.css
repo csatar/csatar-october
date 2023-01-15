@@ -1842,14 +1842,3 @@ input:-webkit-autofill:active {
      width: 0;
      min-width: 100%;
  }
-
-.csat-2fa-field .form-control {
-    background-color: rebeccapurple !important;
-}
-
- .csat-2fa-field::after {
-     content: url(../images/icons/csat-key-out.svg);
-     /*display: inline-block;*/
-     margin-left: 0.255em;
-     vertical-align: 0.255em;
- }
