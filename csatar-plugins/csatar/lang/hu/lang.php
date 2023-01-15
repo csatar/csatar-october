@@ -365,7 +365,8 @@
                 'model' => 'Modell',
                 'extraFieldsDefinition' => 'További mezők adatai',
                 'promptNew' => 'Új hozzáadása',
-                'fieldType' => 'Mező típusa',
+                'fieldName' => 'Mező neve',
+                'fieldRequired' => 'Kötelező',
                 'breadcrumb' => 'Dinamikus mezők',
             ],
             'organizationBase' => [

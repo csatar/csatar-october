@@ -365,7 +365,8 @@
                 'model' => 'Model',
                 'extraFieldsDefinition' => 'Extra Fields Definition',
                 'promptNew' => 'Add new',
-                'fieldType' => 'Field type',
+                'fieldName' => 'Field name',
+                'fieldRequired' => 'Required',
                 'breadcrumb' => 'Dynamic Fields',
             ],
             'organizationBase' => [
