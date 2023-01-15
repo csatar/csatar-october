@@ -62,6 +62,10 @@ navigation:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.organizationSystemData.permissionsMatrix'
                 url: csatar/csatar/permissionsmatrix
                 icon: icon-sitemap
+            side-menu-item:
+                label: 'csatar.csatar::lang.plugin.admin.membershipCard.membershipCard'
+                url: csatar/csatar/membershipcards
+                icon: icon-sitemap
     main-menu-item-scout-system-data:
         label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.scoutSystemData'
         url: /
@@ -167,6 +171,10 @@ navigation:
             side-menu-item-json-import-registration-forms:
                 label: 'Import registration forms'
                 url: csatar/csatar/jsonimport/registrationforms
+                icon: icon-sitemap
+            side-menu-item-json-import-member-cards-data:
+                label: 'Import member cards-data'
+                url: csatar/csatar/jsonimport/membershipcards
                 icon: icon-sitemap
             side-menu-item-synchronize-permissions-matrix:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.synchronizePermissionsMatrix'

@@ -44,7 +44,7 @@
                 'status' => 'Státusz',
                 'active' => 'Aktív',
                 'inactive' => 'Inaktív',
-                'inactivationWarning' => 'Figyelem! Ha a státusz aktívról bármilyen típusú inaktív státuszra változik, a szervezeti egység alá tartozó összes szervezeti egység és cserkész státusza is inaktívvá válik, valamint lejár az ezekhez tartozó összes mebízatás!'
+                'inactivationWarning' => 'Figyelem! Ha a státusz aktívról bármilyen típusú inaktív státuszra változik, a szervezeti egység alá tartozó összes szervezeti egység és cserkész státusza is inaktívvá válik, valamint lejár az ezekhez tartozó összes mebízatás!',
             ],
             'ageGroups' => [
                 'ageGroups' => 'Korosztályok',
@@ -68,6 +68,7 @@
                     'other' => 'Egyéb',
                 ],
                 'isActive' => 'Aktív',
+                'isApproved' => 'Jóváhagyva',
                 'allergy' => 'Allergia',
                 'foodSensitivity' => 'Ételérzékenység',
                 'legalRelationship' => 'Jogviszony',
@@ -165,13 +166,15 @@
                     'dateInTheFutureError' => 'A Dátum a %name %category esetén nem lehet a jövőben.',
                     'invalidPersonalIdentificationNumber' => 'Érvénytelen személyi szám.',
                     'legalRepresentativePhoneUnderAge' => 'Kiskorú cserkés esetén kötelező megadni az egyik szülő vagy törvényes képviselő telefonszámát.',
+                    'uniquePersonalIdentificationNumber' => 'Ezzel a személyi számmal már be van vezetve egy cserkész.',
+                    'personalIdentificationNumberBirthdateMismatch' => 'A születési dátum nem fel meg a személyi számban megadott születési dátumnak.',
                 ],
                 'staticMessages' => [
                     'personalDataNotAccepted' => 'Kérlek ellenőrizd, hogy helyesek-e a személyes adataid itt!',
                 ],
                 'activeMandateDeleteError' => 'A(z) %name nevű Tagnak létezik aktív Megbízatása, így ez a Tag nem törölhető.',
                 'scoutTeam' => 'Tag csapata',
-                'inactivationWarning' => 'Figyelem! Ha a státusz aktívról inaktívra változik, a cserkész összes megbízatása lejár!'
+                'inactivationWarning' => 'Figyelem! Ha a státusz aktívról inaktívra változik, a cserkész összes megbízatása lejár!',
             ],
             'admin' => [
                 'menu' => [
@@ -382,7 +385,10 @@
                 'teamFee' => 'Csapat fenntartói díj',
                 'membershipFee' => 'Tagdíj értéke',
                 'currency' => 'Pénznem',
-                'personalIdentificationNumberValidator' => 'Személyi szám hitelesítő',
+                'personalIdentificationNumberValidator' => 'Személyi szám hitelesítés',
+                'unique'    => 'Egyedi',
+                'required'  => 'Kötelező',
+                'cnp'       => 'CNP - Romániai személy szám formátum hitelesítő',
                 'validationExceptions' => [
                     'invalidTeamReportSubmissionPeriod' => 'A csapatjelentés leadási periódus végének dátuma nagyobb kell legyen a periódus kezdetének dátumánál!',
                 ],
@@ -558,6 +564,12 @@
                 'userGroups' => 'Felhasználó csoportok',
                 'dataEntry' => 'Baleseti log adatbevívó',
                 'admin' => 'Baleseti log adminisztrátor',
+            ],
+            'membershipCard' => [
+                'membershipCard' => 'Tagkártya',
+                'membershipCards' => 'Tagkártyák',
+                'issued_date_time' => 'Kiállítva',
+                'active' => 'Érvényes',
             ],
         ],
         'component' => [

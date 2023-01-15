@@ -13,6 +13,7 @@ use Csatar\Csatar\Models\FoodSensitivity;
 use Csatar\Csatar\Models\LeadershipQualification;
 use Csatar\Csatar\Models\Mandate;
 use Csatar\Csatar\Models\MandateType;
+use Csatar\Csatar\Models\MembershipCard;
 use Csatar\Csatar\Models\Patrol;
 use Csatar\Csatar\Models\Promise;
 use Csatar\Csatar\Models\Scout;
@@ -370,6 +371,9 @@ class JsonImport extends Controller
     }
 
     public function registrationforms() {
+    }
+
+    public function membershipcards() {
     }
 
     public function onUploadAndProcessOrganizations() {
@@ -1123,6 +1127,38 @@ class JsonImport extends Controller
                 unlink($path);
             }
         }
+    }
+
+    public function onProcessMemberCardsData() {
+        $dataFile = Input::file('member_cards_data_file');
+
+        if ($dataFile->isValid()) {
+            $dataFile = $dataFile->move(temp_path(), $dataFile->getClientOriginalName());
+            $memberCardsData = collect(json_decode(file_get_contents($dataFile->getRealPath())));
+        }
+
+        foreach ($memberCardsData as $memberCardData) {
+            $data = $memberCardData->fields;
+            $ecset_code = $data->tag[0];
+            $scout = Scout::withTrashed()->where('ecset_code', $ecset_code)->first();
+
+            if (empty($scout)) {
+                Log::warning("Could not find scout with identifier: $ecset_code. Member card data from not imported.");
+                continue;
+            }
+
+            $membershipCard = MembershipCard::firstOrNew(['rfid_tag' => $data->rfid_tag ]);
+
+            $membershipCard->scout_id           = $scout->id;
+            $membershipCard->issued_date_time   = $data->legyartva;
+            $membershipCard->active             = $data->ervenyes;
+            $membershipCard->note               = $data->megjegyzes;
+
+            $membershipCard->forceSave();
+        }
+
+
+
     }
 
     private function stripFileExtension($file)

@@ -44,7 +44,7 @@
                 'status' => 'Status',
                 'active' => 'Active',
                 'inactive' => 'Inactive',
-                'inactivationWarning' => 'Warning! If status is changed from active to any kind of inactive status, all child organizations will be inactivated and all mandates connected to the organization, it\'s child organizations and scouts belonging to the organization will expire!'
+                'inactivationWarning' => 'Warning! If status is changed from active to any kind of inactive status, all child organizations will be inactivated and all mandates connected to the organization, it\'s child organizations and scouts belonging to the organization will expire!',
             ],
             'ageGroups' => [
                 'ageGroups' => 'Age Groups',
@@ -68,6 +68,7 @@
                     'other' => 'Other',
                 ],
                 'isActive' => 'Is active',
+                'isApproved' => 'Is approved',
                 'allergy' => 'Allergies',
                 'foodSensitivity' => 'Food sensitivity',
                 'legalRelationship' => 'Legal relationship',
@@ -165,6 +166,8 @@
                     'dateInTheFutureError' => 'The selected Date for the %name %category is in the future.',
                     'invalidPersonalIdentificationNumber' => 'Invalid Personal Identification Number.',
                     'legalRepresentativePhoneUnderAge' => 'For scouts under legal age, phone number of one parent or legal representative must be filled.',
+                    'uniquePersonalIdentificationNumber' => 'This Personal Identification Number is already used for a scout.',
+                    'personalIdentificationNumberBirthdateMismatch' => 'Birthdate doesn\'t match with Personal Identification Number.',
                 ],
                 'staticMessages' => [
                     'personalDataNotAccepted' => 'Please verify your personal data here!',
@@ -382,7 +385,10 @@
                 'teamFee' => 'Team fee',
                 'membershipFee' => 'Membership fee',
                 'currency' => 'Currency',
-                'personalIdentificationNumberValidator' => 'Personal Identification Number Validator',
+                'personalIdentificationNumberValidator' => 'Personal Identification Number Validation',
+                'unique'    => 'Unigue',
+                'required'  => 'Required',
+                'cnp'       => 'CNP - Romanian Personal Identification Number Validator',
                 'validationExceptions' => [
                     'invalidTeamReportSubmissionPeriod' => 'Team report submit period end date must be after start date.',
                 ],
@@ -538,9 +544,9 @@
                 'gallery' => 'Gallery',
                 'rules' => [
                     'nameRequired' => 'The title is required.',
-                    'nameBetween'  => 'The title must be between 3-64 character.',
+                    'nameBetween' => 'The title must be between 3-64 character.',
                     'descriptionMax' => 'The description must be maximum 255 character.',
-                ]
+                ],
             ],
             'permissions' => [
                 'permissions' => 'Permissions',
@@ -558,6 +564,12 @@
                 'userGroups' => 'User Groups',
                 'dataEntry' => 'Accident log data entry group',
                 'admin' => 'Accident log admin group',
+            ],
+            'membershipCard' => [
+                'membershipCard' => 'Membership Card',
+                'membershipCards' => 'Membership Cards',
+                'issued_date_time' => 'Issued',
+                'active' => 'Active',
             ],
         ],
         'component' => [
@@ -710,6 +722,7 @@
                 'attachments' => 'Attachments',
                 'attachmentsComment' => 'Max. five files can be uploaded',
                 'attachmentsValidationException' => 'Max. five files can be uploaded',
+                'created_by' => 'Created by',
             ],
         ],
         'oauth' => [

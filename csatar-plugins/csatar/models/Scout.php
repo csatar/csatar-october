@@ -6,6 +6,8 @@ use Csatar\Csatar\Classes\RightsMatrix;
 use Csatar\Csatar\Models\Association;
 use Csatar\Csatar\Models\Mandate;
 use Csatar\Csatar\Models\MandateType;
+use Csatar\Csatar\Models\MembershipCard;
+use Csatar\Csatar\Classes\Validators\CnpValidator;
 use DateTime;
 use Db;
 use Flash;
@@ -14,6 +16,7 @@ use Log;
 use Model;
 use October\Rain\Database\Collection;
 use Session;
+use ValidationException;
 
 /**
  * Model
@@ -94,6 +97,7 @@ class Scout extends OrganizationBase
         'profile_image',
         'registration_form',
         'chronic_illnesses',
+        'is_approved',
     ];
 
     protected $nullable = [
@@ -142,6 +146,7 @@ class Scout extends OrganizationBase
         'workplace',
         'comment',
         'ecset_code',
+        'is_approved',
     ];
 
     protected $jsonable = ['raw_import'];
@@ -204,6 +209,7 @@ class Scout extends OrganizationBase
         $this->customMessages['mothers_phone.required_without_all'] = e(trans('csatar.csatar::lang.plugin.admin.scout.validationExceptions.legalRepresentativePhoneUnderAge'));
         $this->customMessages['fathers_phone.required_without_all'] = e(trans('csatar.csatar::lang.plugin.admin.scout.validationExceptions.legalRepresentativePhoneUnderAge'));
         $this->customMessages['legal_representative_phone.required_without_all'] = e(trans('csatar.csatar::lang.plugin.admin.scout.validationExceptions.legalRepresentativePhoneUnderAge'));
+        $this->customMessages['personal_identification_number.unique'] = e(trans('csatar.csatar::lang.plugin.admin.scout.validationExceptions.uniquePersonalIdentificationNumber'));
     }
 
     /**
@@ -216,8 +222,17 @@ class Scout extends OrganizationBase
                 return;
             }
 
-            if (!empty($this->team->district->association->personal_identification_number_validator)) {
-                $this->rules['personal_identification_number'] .= '|' . $this->team->district->association->personal_identification_number_validator;
+            $personalIdentificationNumberValidators = $this->getPersonalIdentificationNumberValidators();
+
+            if (!empty($personalIdentificationNumberValidators)) {
+                $this->rules['personal_identification_number'] .= '|' . implode('|', $personalIdentificationNumberValidators);
+            }
+
+            if (in_array('cnp', $personalIdentificationNumberValidators)
+                && !empty($this->personal_identification_number)
+                && (new DateTime($this->birthdate))->format('Y-m-d') != $this->getBirthDateFromCNP($this->personal_identification_number)
+            ) {
+                throw new \ValidationException(['birthdate' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.personalIdentificationNumberBirthdateMismatch')]);
             }
 
             // if the selected troop does not belong to the selected team, then throw and exception
@@ -262,6 +277,10 @@ class Scout extends OrganizationBase
             && $this->is_active != $this->original['is_active']
             && $this->original['is_active'] == Status::ACTIVE) {
             Mandate::where('scout_id', $this->id)->update(['end_date' => date('Y-m-d')]);
+
+            if (!empty($this->membership_cards)) {
+                MembershipCard::where('scout_id', $this->id)->where('active', Status::ACTIVE)->update(['active' => Status::INACTIVE]);
+            }
         }
     }
 
@@ -332,6 +351,10 @@ class Scout extends OrganizationBase
         // populate the Legal Relationships dropdown with legal relationships that belong to the selected team's association
         if (isset($fields->legal_relationship)) {
             $fields->legal_relationship->options = $this->team ? \Csatar\Csatar\Models\LegalRelationship::associationId($this->team->district->association->id)->lists('name', 'id') : [];
+        }
+
+        if (isset($fields->personal_identification_number) && in_array('cnp', $this->getPersonalIdentificationNumberValidators())) {
+            $fields->birthdate->value = $this->getBirthDateFromCNP($fields->personal_identification_number->value);
         }
     }
 
@@ -443,6 +466,7 @@ class Scout extends OrganizationBase
             'table' => 'csatar_csatar_mandates',
             'label' => 'csatar.csatar::lang.plugin.admin.mandate.mandates',
         ],
+        'membership_cards' => \Csatar\Csatar\Models\MembershipCard::class
     ];
 
     public $attachOne = [
@@ -921,5 +945,59 @@ class Scout extends OrganizationBase
     {
         $this->accepted_at = new \DateTime();
         return $this->save();
+    }
+
+    /**
+     * @return string
+     */
+    public function getBirthDateFromCNP($cnp): string
+    {
+        if (empty($cnp)) {
+            return e(trans('csatar.csatar::lang.plugin.admin.scout.validationExceptions.invalidPersonalIdentificationNumber'));
+        }
+
+        if (!(new CnpValidator())->validate(null, $cnp, null)) {
+            throw new ValidationException([
+                'personal_identification_number' => e(trans('csatar.csatar::lang.plugin.admin.scout.validationExceptions.invalidPersonalIdentificationNumber'))]
+            );
+        }
+
+        $sex   = substr($cnp, 0, 1);
+        $year  = substr($cnp, 1, 2);
+        $month = substr($cnp, 3, 2);
+        $day   = substr($cnp, 5, 2);
+
+        switch ($sex) {
+            case 1:
+            case 2:
+            case 7:
+            case 8:
+                $year += 1900;
+                break;
+            case 3:
+            case 4:
+                $year += 2000;
+                break;
+            case 5:
+            case 6:
+                $year += 1800;
+                break;
+            default:
+                return e(trans('csatar.csatar::lang.plugin.admin.scout.validationExceptions.invalidPersonalIdentificationNumber'));
+        }
+
+        return $year . '-' . $month . '-' . $day;
+    }
+
+    /**
+     * @return array
+     */
+    public function getPersonalIdentificationNumberValidators(): array
+    {
+        if (!empty($this->team)) {
+            return $this->team->district->association->personal_identification_number_validator;
+        }
+
+        return [];
     }
 }
