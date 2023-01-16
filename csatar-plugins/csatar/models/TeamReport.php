@@ -72,7 +72,10 @@ class TeamReport extends PermissionBasedAccess
         'currency_id',
         'submitted_at',
         'approved_at',
+        'extra_fields',
     ];
+
+    protected $jsonable = ['extra_fields'];
 
     /**
      * Relations

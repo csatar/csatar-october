@@ -213,3 +213,6 @@
 1.0.74:
     - 'Created table csatar_csatar_dynamic_fields'
     - builder_table_create_csatar_csatar_dynamic_fields.php
+1.0.75:
+    - 'Updated table csatar_csatar_team_reports'
+    - builder_table_update_csatar_csatar_team_reports.php
