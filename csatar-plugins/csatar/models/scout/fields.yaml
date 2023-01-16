@@ -232,6 +232,7 @@ fields:
         yearRange: '100'
         span: auto
         type: datepicker
+        dependsOn: personal_identification_number
         formBuilder:
             type: field
             card: birthData

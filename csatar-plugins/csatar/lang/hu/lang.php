@@ -166,6 +166,8 @@
                     'dateInTheFutureError' => 'A Dátum a %name %category esetén nem lehet a jövőben.',
                     'invalidPersonalIdentificationNumber' => 'Érvénytelen személyi szám.',
                     'legalRepresentativePhoneUnderAge' => 'Kiskorú cserkés esetén kötelező megadni az egyik szülő vagy törvényes képviselő telefonszámát.',
+                    'uniquePersonalIdentificationNumber' => 'Ezzel a személyi számmal már be van vezetve egy cserkész.',
+                    'personalIdentificationNumberBirthdateMismatch' => 'A születési dátum nem fel meg a személyi számban megadott születési dátumnak.',
                 ],
                 'staticMessages' => [
                     'personalDataNotAccepted' => 'Kérlek ellenőrizd, hogy helyesek-e a személyes adataid itt!',
@@ -372,7 +374,10 @@
                 'teamFee' => 'Csapat fenntartói díj',
                 'membershipFee' => 'Tagdíj értéke',
                 'currency' => 'Pénznem',
-                'personalIdentificationNumberValidator' => 'Személyi szám hitelesítő',
+                'personalIdentificationNumberValidator' => 'Személyi szám hitelesítés',
+                'unique'    => 'Egyedi',
+                'required'  => 'Kötelező',
+                'cnp'       => 'CNP - Romániai személy szám formátum hitelesítő',
                 'validationExceptions' => [
                     'invalidTeamReportSubmissionPeriod' => 'A csapatjelentés leadási periódus végének dátuma nagyobb kell legyen a periódus kezdetének dátumánál!',
                 ],
