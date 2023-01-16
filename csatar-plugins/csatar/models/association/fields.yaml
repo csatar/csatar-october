@@ -1,4 +1,3 @@
-formBuilder_card_design: true
 fields:
     associationData:
         span: full
@@ -158,3 +157,7 @@ fields:
         dependsOn:
             - team_report_submit_start_date
         type: datepicker
+    country:
+        label: 'csatar.csatar::lang.plugin.locations.country'
+        span: auto
+        type: text
