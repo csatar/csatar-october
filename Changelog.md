@@ -11,6 +11,10 @@
 - CS-432 - Added "is_approved" field for Scout
 - CS-430 - Added option and menu to list all team reports in association regardless of team id
 - CS-418 - Create member card model
+## 1.7.0
+### 2023-01-16
+
+- CS-440 - Fixed missing QR code for 2FA
 - CS-431 - separated inactive and active scouts on team page
 - CS-415 - inactive districts and teams are hidden in structure accordions and menu
 - CS-415 - inactive teams are hidden in district page

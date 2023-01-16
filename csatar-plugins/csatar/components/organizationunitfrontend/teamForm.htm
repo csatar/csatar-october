@@ -14,6 +14,7 @@
 <p>{{ 'Őrsök' | _ }}</p>
 {% component 'builderList2' %}
 
+{% if user %}
 <div class="row">
     <div class="col-12 col-lg-6">
         <p>{{ 'Aktív tagok' | _ }}</p>
@@ -58,6 +59,8 @@
         </ul>
     </div>
 </div>
+
+{% endif %}
 
 {% if (permissions['scouts']['create'] > 0) %}
     <a href="/tagok" class="btn rounded btn-primary"><i class="csat-add-fill-wh-sm"></i> {{ 'Felhasználói fiók létrehozása'|_ }}</a>
