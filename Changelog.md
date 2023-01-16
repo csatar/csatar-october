@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- CS-424 - Hide inactive and expired mandates on Association, District, Team, Troop, Patrol pages
+- CS-424 - When listing mandates on frontend at organization data, the mandate owner name is clickable
 - CS-336 - Extended Personal Identification Number validation
 - CS-421 - Member card data import
 - CS-417 - Order team on district page by team number

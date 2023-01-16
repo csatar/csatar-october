@@ -277,7 +277,14 @@ class Mandate extends Model
      */
     public function scopeMandateModelType($query, $model = null)
     {
-        return $model ? $query->where('mandate_model_type', $model::getModelName()) : $query->whereNull('id');
+        $currentDate = (new DateTime())->format('Y-m-d');
+        return $model
+            ? $query->where('mandate_model_type', $model::getModelName())
+                ->where('start_date', '<=', $currentDate)
+                ->where(function ($query) use ($currentDate) {
+                    return $query->whereNull('end_date')->orWhere('end_date', '>=', $currentDate);
+                })
+            : $query->whereNull('id');
     }
 
     public function getMandateTeamAttribute(): string
