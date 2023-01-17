@@ -27,7 +27,7 @@ use RainLab\User\Models\UserGroup;
 class SeederData extends Seeder
 {
     public const DATA = [
-        'allergy' => [
+        'allergy'                   => [
             'Nincs',
             'Ételintollerancia',
             'Ételallergiák',
@@ -38,14 +38,14 @@ class SeederData extends Seeder
             'Gyógyszerallergia',
             'Egyéb'
         ],
-        'legalRelationship' => [
+        'legalRelationship'         => [
             'Alakuló csapat tag',
             'Újonc',
             'Tag',
             'Tiszteletbeli tag',
             'Érvénytelen adat',
         ],
-        'specialTest' => [
+        'specialTest'               => [
             'Szakács',
             'Rovás',
             'Arany toll díj',
@@ -64,7 +64,7 @@ class SeederData extends Seeder
             'Fényképész',
             'Íródeák',
         ],
-        'specialDiet' => [
+        'specialDiet'               => [
             'Nem igényel különleges étrendet',
             'Sporttáplálkozás',
             'Gluténmentes',
@@ -75,7 +75,7 @@ class SeederData extends Seeder
             'Vegetáriánus',
             'Egyéb',
         ],
-        'religion' => [
+        'religion'                  => [
             'Adventista',
             'Baptista',
             'Evangélikus',
@@ -88,7 +88,7 @@ class SeederData extends Seeder
             'Unitárius',
             'Más felekezethez tartozó'
         ],
-        'tShirtSize' => [
+        'tShirtSize'                => [
             '4',
             '6',
             '8',
@@ -104,7 +104,7 @@ class SeederData extends Seeder
             '4XL',
             '5XL'
         ],
-        'chronicIllness' => [
+        'chronicIllness'            => [
             'Magas vérnyomás',
             'Szívelégtelenség',
             'Cukorbetegség',
@@ -120,7 +120,7 @@ class SeederData extends Seeder
             'Mentális beteg',
             'Egyéb',
         ],
-        'hierarchy' => [
+        'hierarchy'                 => [
             'RMCSSZ',
             'Körzetvezető',
             'Csapatvezető',
@@ -128,7 +128,7 @@ class SeederData extends Seeder
             'Őrsvezető',
             'Cserkész',
         ],
-        'currency' => [
+        'currency'                  => [
             'EUR',
             'HRK',
             'HUF',
@@ -136,7 +136,7 @@ class SeederData extends Seeder
             'RSD',
             'UAH',
         ],
-        'association' => [
+        'association'               => [
             'Horvátországi magyar cserkészek',
             'Kárpátaljai Magyar Cserkészszövetség',
             'Külföldi Magyar Cserkészszövetség',
@@ -145,7 +145,7 @@ class SeederData extends Seeder
             'Szlovákiai Magyar Cserkészszövetség',
             'Vajdasági Magyar Cserkészszövetség',
         ],
-        'foodSensitivity' => [
+        'foodSensitivity'           => [
             'liszt',
             'tejfehérje (kazein)',
             'tojás',
@@ -156,21 +156,21 @@ class SeederData extends Seeder
             'eper',
             'Egyéb',
         ],
-        'promise' => [
+        'promise'                   => [
             'Kiscserkész igéret',
             'Cserkész fogadalom',
         ],
         'professionalQualification' => [
             'Regős',
         ],
-        'leadershipQualification' => [
+        'leadershipQualification'   => [
             'Segédőrsvezető képzés',
             'Őrsvezető képzés',
             'Felnőtt őrsvezető képzés',
             'Segédvezető képzés',
             'Cserkész vezető',
         ],
-        'form' => [
+        'form'                      => [
             [
                 'title' => 'Tag',
                 'model' => 'Csatar\Csatar\Models\Scout',
@@ -208,188 +208,188 @@ class SeederData extends Seeder
                 'model' => 'Csatar\Csatar\Models\AccidentLogRecord',
             ]
         ],
-        'ageGroups' => [
+        'ageGroups'                 => [
             'Romániai Magyar Cserkészszövetség' => [
-                [ 'name' => 'Farkaskölyök', 'note' => '5-7 év' ],
-                [ 'name' => 'Kiscserkész', 'note' => '8-10 év' ],
-                [ 'name' => 'Cserkész', 'note' => '11-14 év' ],
-                [ 'name' => 'Felfedező', 'note' => '15-18 év' ],
-                [ 'name' => 'Vándor', 'note' => '19-22 év' ],
-                [ 'name' => 'Felnőtt', 'note' => '23+' ],
-                [ 'name' => 'Öregcserkész', 'note' => '50+' ],
-                [ 'name' => 'Vegyes', 'note' => ''],
+                ['name' => 'Farkaskölyök', 'note' => '5-7 év'],
+                ['name' => 'Kiscserkész', 'note' => '8-10 év'],
+                ['name' => 'Cserkész', 'note' => '11-14 év'],
+                ['name' => 'Felfedező', 'note' => '15-18 év'],
+                ['name' => 'Vándor', 'note' => '19-22 év'],
+                ['name' => 'Felnőtt', 'note' => '23+'],
+                ['name' => 'Öregcserkész', 'note' => '50+'],
+                ['name' => 'Vegyes', 'note' => ''],
             ],
-            'Magyar Cserkészszövetség' => [
-                [ 'name' => 'Kiscserkész', 'note' => ''],
-                [ 'name' => 'Cserkész', 'note' => ''],
-                [ 'name' => 'Kósza', 'note' => ''],
-                [ 'name' => 'Vándor', 'note' => ''],
-                [ 'name' => 'Felnőtt', 'note' => ''],
-                [ 'name' => 'Öregcserkész', 'note' => ''],
-                [ 'name' => 'Vegyes', 'note' => ''],
+            'Magyar Cserkészszövetség'          => [
+                ['name' => 'Kiscserkész', 'note' => ''],
+                ['name' => 'Cserkész', 'note' => ''],
+                ['name' => 'Kósza', 'note' => ''],
+                ['name' => 'Vándor', 'note' => ''],
+                ['name' => 'Felnőtt', 'note' => ''],
+                ['name' => 'Öregcserkész', 'note' => ''],
+                ['name' => 'Vegyes', 'note' => ''],
             ],
             'Külföldi Magyar Cserkészszövetség' => [
-                [ 'name' => 'Kiscserkész', 'note' => ''],
-                [ 'name' => 'Cserkész', 'note' => ''],
-                [ 'name' => 'Rover', 'note' => ''],
-                [ 'name' => 'Felnőtt', 'note' => ''],
-                [ 'name' => 'Öregcserkész', 'note' => ''],
-                [ 'name' => 'Vegyes', 'note' => ''],
+                ['name' => 'Kiscserkész', 'note' => ''],
+                ['name' => 'Cserkész', 'note' => ''],
+                ['name' => 'Rover', 'note' => ''],
+                ['name' => 'Felnőtt', 'note' => ''],
+                ['name' => 'Öregcserkész', 'note' => ''],
+                ['name' => 'Vegyes', 'note' => ''],
             ]
         ],
-        'trainings' => [
+        'trainings'                 => [
             'Erdélyi VK-2021',
             'MCSZFSTVK II',
             'STVK 19/A',
         ],
-        'mandateType' => [
-            'Horvátországi magyar cserkészek' => [
+        'mandateType'               => [
+            'Horvátországi magyar cserkészek'      => [
                 [
-                    'name' => 'Cserkész',
+                    'name'                         => 'Cserkész',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Scout',
                 ],
                 [
-                    'name' => 'Látogató',
+                    'name'                         => 'Látogató',
                     'organization_type_model_name' => 'GUEST',
                 ],
             ],
             'Kárpátaljai Magyar Cserkészszövetség' => [
                 [
-                    'name' => 'Cserkész',
+                    'name'                         => 'Cserkész',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Scout',
                 ],
                 [
-                    'name' => 'Látogató',
+                    'name'                         => 'Látogató',
                     'organization_type_model_name' => 'GUEST',
                 ],
             ],
-            'Külföldi Magyar Cserkészszövetség' => [
+            'Külföldi Magyar Cserkészszövetség'    => [
                 [
-                    'name' => 'Cserkész',
+                    'name'                         => 'Cserkész',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Scout',
                 ],
                 [
-                    'name' => 'Látogató',
+                    'name'                         => 'Látogató',
                     'organization_type_model_name' => 'GUEST',
                 ],
             ],
-            'Magyar Cserkészszövetség' => [
+            'Magyar Cserkészszövetség'             => [
                 [
-                    'name' => 'Cserkész',
+                    'name'                         => 'Cserkész',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Scout',
                 ],
                 [
-                    'name' => 'Látogató',
+                    'name'                         => 'Látogató',
                     'organization_type_model_name' => 'GUEST',
                 ],
             ],
-            'Romániai Magyar Cserkészszövetség' => [
+            'Romániai Magyar Cserkészszövetség'    => [
                 [
-                    'name' => 'Elnök',
+                    'name'                         => 'Elnök',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Association',
-                    'required' => false,
+                    'required'                     => false,
                 ],
                 [
-                    'name' => 'Ügyvezető elnök',
+                    'name'                         => 'Ügyvezető elnök',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Association',
-                    'required' => false,
+                    'required'                     => false,
                 ],
                 [
-                    'name' => 'Mozgalmi vezető',
+                    'name'                         => 'Mozgalmi vezető',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Association',
-                    'required' => false,
+                    'required'                     => false,
                 ],
                 [
-                    'name' => 'Szövetségi admin',
+                    'name'                         => 'Szövetségi admin',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Association',
-                    'required' => false,
+                    'required'                     => false,
                 ],
                 [
-                    'name' => 'Körzetvezető',
+                    'name'                         => 'Körzetvezető',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\District',
-                    'required' => false,
+                    'required'                     => false,
                 ],
                 [
-                    'name' => 'Körzetvezető helyettes',
+                    'name'                         => 'Körzetvezető helyettes',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\District',
-                    'required' => false,
-                    'overlap_allowed' => true,
-                    'parent' => 'Körzetvezető',
+                    'required'                     => false,
+                    'overlap_allowed'              => true,
+                    'parent'                       => 'Körzetvezető',
                 ],
                 [
-                    'name' => 'Csapatvezető',
+                    'name'                         => 'Csapatvezető',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Team',
-                    'required' => false,
+                    'required'                     => false,
                 ],
                 [
-                    'name' => 'Csapatvezető helyettes',
+                    'name'                         => 'Csapatvezető helyettes',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Team',
-                    'required' => false,
-                    'overlap_allowed' => true,
-                    'parent' => 'Csapatvezető',
+                    'required'                     => false,
+                    'overlap_allowed'              => true,
+                    'parent'                       => 'Csapatvezető',
                 ],
                 [
-                    'name' => 'Csapat nyilvántartó',
+                    'name'                         => 'Csapat nyilvántartó',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Team',
-                    'required' => false,
-                    'parent' => 'Csapatvezető helyettes',
+                    'required'                     => false,
+                    'parent'                       => 'Csapatvezető helyettes',
                 ],
                 [
-                    'name' => 'Rajvezető',
+                    'name'                         => 'Rajvezető',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Troop',
-                    'required' => true,
+                    'required'                     => true,
                 ],
                 [
-                    'name' => 'Rajvezető helyettes',
+                    'name'                         => 'Rajvezető helyettes',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Troop',
-                    'required' => false,
-                    'overlap_allowed' => true,
-                    'parent' => 'Rajvezető',
+                    'required'                     => false,
+                    'overlap_allowed'              => true,
+                    'parent'                       => 'Rajvezető',
                 ],
                 [
-                    'name' => 'Őrsvezető',
+                    'name'                         => 'Őrsvezető',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Patrol',
-                    'required' => true,
+                    'required'                     => true,
                 ],
                 [
-                    'name' => 'Segédőrsvezető',
+                    'name'                         => 'Segédőrsvezető',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Patrol',
-                    'required' => false,
-                    'overlap_allowed' => true,
-                    'parent' => 'Őrsvezető',
+                    'required'                     => false,
+                    'overlap_allowed'              => true,
+                    'parent'                       => 'Őrsvezető',
                 ],
                 [
-                    'name' => 'Cserkész',
+                    'name'                         => 'Cserkész',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Scout',
                 ],
                 [
-                    'name' => 'Látogató',
+                    'name'                         => 'Látogató',
                     'organization_type_model_name' => 'GUEST',
                 ],
             ],
-            'Szlovákiai Magyar Cserkészszövetség' => [
+            'Szlovákiai Magyar Cserkészszövetség'  => [
                 [
-                    'name' => 'Cserkész',
+                    'name'                         => 'Cserkész',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Scout',
                 ],
                 [
-                    'name' => 'Látogató',
+                    'name'                         => 'Látogató',
                     'organization_type_model_name' => 'GUEST',
                 ],
             ],
-            'Vajdasági Magyar Cserkészszövetség' => [
+            'Vajdasági Magyar Cserkészszövetség'   => [
                 [
-                    'name' => 'Cserkész',
+                    'name'                         => 'Cserkész',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Scout',
                 ],
                 [
-                    'name' => 'Látogató',
+                    'name'                         => 'Látogató',
                     'organization_type_model_name' => 'GUEST',
                 ],
             ],
         ],
-        'contactSettings' => [
-            'offices' => [
+        'contactSettings'           => [
+            'offices'       => [
                 [
                     'address' => 'Csíkszereda, Petőfi Sándor 53 sz., Hargita megye',
                 ],
@@ -397,15 +397,15 @@ class SeederData extends Seeder
                     'address' => 'Studium-HUB, 21-es iroda, Marosvásárhely, Bolyai utca 15 sz., Maros megye',
                 ],
             ],
-            'bank' => 'OTP Bank Miercurea Ciuc',
-            'bank_account' => 'RON: RO35 OTPV 2600 0116 2186 RO01',
-            'email' => 'office[at]rmcssz.ro',
+            'bank'          => 'OTP Bank Miercurea Ciuc',
+            'bank_account'  => 'RON: RO35 OTPV 2600 0116 2186 RO01',
+            'email'         => 'office[at]rmcssz.ro',
             'phone_numbers' => '+40 (723) 273 257',
         ],
-        'sitesearchSettings' => [
+        'sitesearchSettings'        => [
             'enabledOnOrgCMSpages'
         ],
-        'userGroups' => [
+        'userGroups'                => [
             ['Accident log data entry', 'dataEntry'],
             ['Accident log admin', 'admin']
         ],
@@ -414,49 +414,49 @@ class SeederData extends Seeder
     public function run()
     {
         // allergies
-        foreach($this::DATA['allergy'] as $name) {
+        foreach ($this::DATA['allergy'] as $name) {
             $allergy = Allergy::firstOrCreate([
                 'name' => $name
             ]);
         }
 
         // legal relationships
-        foreach($this::DATA['legalRelationship'] as $name) {
+        foreach ($this::DATA['legalRelationship'] as $name) {
             $legalRelationship = LegalRelationship::firstOrCreate([
                 'name' => $name
             ]);
         }
 
         // special tests
-        foreach($this::DATA['specialTest'] as $name) {
+        foreach ($this::DATA['specialTest'] as $name) {
             $specialTest = SpecialTest::firstOrCreate([
                 'name' => $name
             ]);
         }
 
         // special diets
-        foreach($this::DATA['specialDiet'] as $name) {
+        foreach ($this::DATA['specialDiet'] as $name) {
             $specialDiet = SpecialDiet::firstOrCreate([
                 'name' => $name
             ]);
         }
 
         // religions
-        foreach($this::DATA['religion'] as $name) {
+        foreach ($this::DATA['religion'] as $name) {
             $religion = Religion::firstOrCreate([
                 'name' => $name
             ]);
         }
 
         // t-shirt sizes
-        foreach($this::DATA['tShirtSize'] as $name) {
+        foreach ($this::DATA['tShirtSize'] as $name) {
             $tshirtSize = TShirtSize::firstOrCreate([
                 'name' => $name
             ]);
         }
 
         // chronic illnesses
-        foreach($this::DATA['chronicIllness'] as $name) {
+        foreach ($this::DATA['chronicIllness'] as $name) {
             $chronicIllness = ChronicIllness::firstOrCreate([
                 'name' => $name
             ]);
@@ -464,7 +464,7 @@ class SeederData extends Seeder
 
         // hierarchy
         $idOfLastElement = null;
-        foreach($this::DATA['hierarchy'] as $name) {
+        foreach ($this::DATA['hierarchy'] as $name) {
             $hierachyItem = Hierarchy::firstOrNew([
                 'name' => $name,
             ]);
@@ -475,7 +475,7 @@ class SeederData extends Seeder
         }
 
         // currencies
-        foreach($this::DATA['currency'] as $code) {
+        foreach ($this::DATA['currency'] as $code) {
             $currency = Currency::firstOrCreate([
                 'code' => $code
             ]);
@@ -487,7 +487,7 @@ class SeederData extends Seeder
         $legalRelationship3 = LegalRelationship::where('name', 'Tiszteletbeli tag')->first();
         $legalRelationship4 = LegalRelationship::where('name', 'Újonc')->first();
 
-        foreach($this::DATA['association'] as $name) {
+        foreach ($this::DATA['association'] as $name) {
             $association = Association::firstOrNew([
                 'name' => $name,
             ]);
@@ -525,6 +525,7 @@ class SeederData extends Seeder
                     $association->currency_id = Currency::where('code', 'RON')->first()->id;
                     $association->team_fee = $association->team_fee ?? 300;
                     $association->name_abbreviation = $association->name_abbreviation ?? 'RMCSSZ';
+                    $association->country = 'Románia';
                     break;
                 case 'Szlovákiai Magyar Cserkészszövetség':
                     $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'F';
@@ -588,7 +589,7 @@ class SeederData extends Seeder
         }
 
         // food sensitivities
-        foreach($this::DATA['foodSensitivity'] as $name) {
+        foreach ($this::DATA['foodSensitivity'] as $name) {
             $foodSensitivity = FoodSensitivity::firstOrCreate([
                 'name' => $name
             ]);
@@ -600,48 +601,48 @@ class SeederData extends Seeder
             'Cserkész fogadalom',
         ];
 
-        foreach($this::DATA['promise'] as $name) {
+        foreach ($this::DATA['promise'] as $name) {
             $promise = Promise::firstOrCreate([
                 'name' => $name
             ]);
         }
 
         // professional qualifications
-        foreach($this::DATA['professionalQualification'] as $name) {
+        foreach ($this::DATA['professionalQualification'] as $name) {
             $professionalQualification = ProfessionalQualification::firstOrCreate([
                 'name' => $name
             ]);
         }
 
         // leadership qualifications
-        foreach($this::DATA['leadershipQualification'] as $name) {
+        foreach ($this::DATA['leadershipQualification'] as $name) {
             $leadershipQualification = LeadershipQualification::firstOrCreate([
                 'name' => $name
             ]);
         }
 
         // seeders for the Forms plugin
-        foreach(Form::all() as $form) {
+        foreach (Form::all() as $form) {
             $form->slugAttributes();
             $form->save();
         }
-        foreach($this::DATA['form'] as $form) {
+        foreach ($this::DATA['form'] as $form) {
             $item = Form::firstOrCreate($form);
         }
 
         // trainings
-        foreach($this::DATA['trainings'] as $training) {
+        foreach ($this::DATA['trainings'] as $training) {
             Training::firstOrCreate([
                 'name' => $training,
             ]);
         }
 
         // ageGroups for associations
-        foreach($this::DATA['ageGroups'] as $associationName => $ageGroups) {
+        foreach ($this::DATA['ageGroups'] as $associationName => $ageGroups) {
             $associationId = Association::where('name', $associationName)->first()->id ?? 0;
-            foreach($ageGroups as $ageGroup) {
+            foreach ($ageGroups as $ageGroup) {
                 $newAgeGroup = AgeGroup::firstOrCreate([
-                    'name' => $ageGroup['name'],
+                    'name'           => $ageGroup['name'],
                     'association_id' => $associationId
                 ]);
                 $newAgeGroup->note = $ageGroup['note'];
@@ -650,7 +651,7 @@ class SeederData extends Seeder
         }
 
         // userGroups
-        foreach($this::DATA['userGroups'] as $name) {
+        foreach ($this::DATA['userGroups'] as $name) {
             $allergy = UserGroup::firstOrCreate([
                 'name' => $name[0],
                 'code' => str_slug($name[0]),
@@ -671,9 +672,28 @@ class SeederData extends Seeder
         $sitesearchSettings = '{"mark_results":"1","log_queries":"0","excerpt_length":"250","log_keep_days":365,"rainlab_blog_enabled":"0","rainlab_blog_label":"Blog","rainlab_blog_page":"403","rainlab_pages_enabled":"0","rainlab_pages_label":"Page","indikator_news_enabled":"0","indikator_news_label":"News","indikator_news_posturl":"\/news","octoshop_products_enabled":"0","octoshop_products_label":"","octoshop_products_itemurl":"\/product","snipcartshop_products_enabled":"0","snipcartshop_products_label":"","jiri_jkshop_enabled":"0","jiri_jkshop_label":"","jiri_jkshop_itemurl":"\/product","radiantweb_problog_enabled":"0","radiantweb_problog_label":"Blog","arrizalamin_portfolio_enabled":"0","arrizalamin_portfolio_label":"Portfolio","arrizalamin_portfolio_url":"\/portfolio\/project","vojtasvoboda_brands_enabled":"0","vojtasvoboda_brands_label":"Brands","vojtasvoboda_brands_url":"\/brand","responsiv_showcase_enabled":"0","responsiv_showcase_label":"Showcase","responsiv_showcase_url":"\/showcase\/project","graker_photoalbums_enabled":"0","graker_photoalbums_label":"PhotoAlbums","graker_photoalbums_album_page":"403","graker_photoalbums_photo_page":"403","cms_pages_enabled":"0","cms_pages_label":"Page"}';
 
         Db::table('system_settings')
-          ->updateOrInsert(
-              ['item' => 'offline_sitesearch_settings'],
-              ['value' => $sitesearchSettings],
+            ->updateOrInsert(
+                ['item' => 'offline_sitesearch_settings'],
+                ['value' => $sitesearchSettings],
           );
+
+
+        // seed romanian locations
+
+        set_time_limit(1000);
+
+        if (($handle = fopen(base_path() . "/plugins/csatar/csatar/updates/locations_ro.csv", "r")) !== FALSE) {
+            while (($data = fgetcsv($handle)) !== FALSE) {
+                Db::table('csatar_csatar_locations')
+                    ->updateOrInsert(
+                        ['country' => 'Romania', 'code' => $data[0], 'street' => $data[4]],
+                        [
+                            'county'      => $data[1],
+                            'city'        => $data[2],
+                            'street_type' => $data[3],
+                        ]
+                    );
+            }
+        }
     }
 }

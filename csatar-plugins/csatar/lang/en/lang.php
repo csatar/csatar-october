@@ -574,6 +574,14 @@
                 'active' => 'Active',
             ],
         ],
+        'locations' => [
+            'country' => 'Country',
+            'county' => 'County',
+            'city' => 'City',
+            'street_type' => 'Street Type',
+            'street' => 'Street',
+            'code' => 'Zip code',
+        ],
         'component' => [
             'general' => [
                 'validationExceptions' => [

@@ -1,0 +1,25 @@
+fields:
+    country:
+        label: 'csatar.csatar::lang.plugin.admin.locations.country'
+        span: auto
+        type: text
+    county:
+        label: 'csatar.csatar::lang.plugin.admin.locations.county'
+        span: auto
+        type: text
+    city:
+        label: 'csatar.csatar::lang.plugin.admin.locations.city'
+        span: auto
+        type: text
+    street_type:
+        label: 'csatar.csatar::lang.plugin.admin.locations.street_type'
+        span: auto
+        type: text
+    street:
+        label: 'csatar.csatar::lang.plugin.admin.locations.street'
+        span: auto
+        type: text
+    code:
+        label: 'csatar.csatar::lang.plugin.admin.locations.code'
+        span: auto
+        type: text

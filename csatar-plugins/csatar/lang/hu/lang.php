@@ -574,6 +574,14 @@
                 'active' => 'Érvényes',
             ],
         ],
+        'locations' => [
+            'country' => 'Ország',
+            'county' => 'Megye',
+            'city' => 'Város',
+            'street_type' => 'Utca típus',
+            'street' => 'Utca',
+            'code' => 'Irányitószám',
+        ],
         'component' => [
             'general' => [
                 'validationExceptions' => [
@@ -692,7 +700,7 @@
                 'twoFactorAuthFailed' => 'A hitelesítés sikertelen, kérlek próbáld újra!',
                 'twoFactorAuthSuccess' => 'A hitelesítés sikeres, köszönjük!',
                 'reset' => 'Két faktoros hitelesítés visszaállítása',
-                'resetSuccess' => 'A két faktoros hitelesítés skeresen vissza lett állítva. A felhasználónak a hitelesítő alkalmazásból is törölnie kell a fióokot.',
+                'resetSuccess' => 'A két faktoros hitelesítés sikeresen vissza lett állítva. A felhasználónak a hitelesítő alkalmazásból is törölnie kell a fiókot.',
             ],
             'accidentLog' => [
                 'accidentLog' => 'Baleseti napló',

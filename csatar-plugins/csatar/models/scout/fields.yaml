@@ -1,4 +1,3 @@
-formBuilder_card_design: true
 fields:
     ecset_code:
         label: 'csatar.csatar::lang.plugin.admin.general.ecsetCode'
@@ -276,10 +275,6 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.scout.addressCountry'
         span: auto
         type: text
-        formBuilder:
-            type: field
-            card: addressData
-            order: 1
     address_zipcode:
         label: 'csatar.csatar::lang.plugin.admin.scout.addressZipcode'
         span: auto
@@ -290,24 +285,43 @@ fields:
             order: 2
     address_county:
         label: 'csatar.csatar::lang.plugin.admin.scout.addressCounty'
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        showSearch: true
         span: auto
-        type: text
+        defaultFrom: addressCountryDefault
+        dependsOn:
+            - address_zipcode
+        attributes:
+            data-tags: true
+        type: dropdown
         formBuilder:
             type: field
             card: addressData
             order: 3
     address_location:
         label: 'csatar.csatar::lang.plugin.admin.scout.addressLocation'
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        showSearch: true
         span: auto
-        type: text
+        dependsOn:
+            - address_county
+        attributes:
+            data-tags: true
+        type: dropdown
         formBuilder:
             type: field
             card: addressData
             order: 4
     address_street:
         label: 'csatar.csatar::lang.plugin.admin.scout.addressStreet'
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        showSearch: true
         span: auto
-        type: text
+        dependsOn:
+            - address_location
+        attributes:
+            data-tags: true
+        type: dropdown
         formBuilder:
             type: field
             card: addressData

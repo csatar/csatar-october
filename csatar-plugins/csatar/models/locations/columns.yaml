@@ -1,0 +1,31 @@
+columns:
+    country:
+        label: 'csatar.csatar::lang.plugin.admin.locations.country'
+        type: text
+        searchable: true
+        sortable: true
+    county:
+        label: 'csatar.csatar::lang.plugin.admin.general.location.county'
+        type: text
+        searchable: true
+        sortable: true
+    city:
+        label: 'csatar.csatar::lang.plugin.admin.locations.city'
+        type: text
+        searchable: true
+        sortable: true
+    street_type:
+        label: 'csatar.csatar::lang.plugin.admin.locations.street_type'
+        type: text
+        searchable: true
+        sortable: true
+    street:
+        label: 'csatar.csatar::lang.plugin.admin.locations.street'
+        type: text
+        searchable: true
+        sortable: true
+    code:
+        label: 'csatar.csatar::lang.plugin.admin.locations.code'
+        type: text
+        searchable: true
+        sortable: true
