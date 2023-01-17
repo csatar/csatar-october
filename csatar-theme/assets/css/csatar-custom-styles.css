@@ -1842,3 +1842,24 @@ input:-webkit-autofill:active {
      width: 0;
      min-width: 100%;
  }
+
+.terms-and-conditions ol {
+    counter-reset: item
+}
+
+.terms-and-conditions li {
+    display: block
+}
+
+.terms-and-conditions li:before {
+    content: counters(item, ".") ". "; counter-increment: item
+}
+
+.roman-with-letters ol {
+    counter-reset: subitem;
+    list-style-type: upper-roman;
+}
+
+.roman-with-letters li:before {
+    content: counters(subitem, ".") ". "; counter-increment: subitem
+}
