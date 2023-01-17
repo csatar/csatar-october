@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- CS-448 - Fixed bug in team reports membership fee
+
 ## 1.7.0
 ### 2023-01-16
 
