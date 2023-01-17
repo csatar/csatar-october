@@ -81,6 +81,25 @@ class DynamicFields extends Model
         }
     }
 
+    public function beforeSave()
+    {
+        // add unique IDs
+        $fields = $this->extra_fields_definition;
+        $maxId = -1;
+        foreach ($fields as $field) {
+            if (isset($field['field_id']) && $field['field_id'] > $maxId) {
+                $maxId = $field['field_id'];
+            }
+        }
+        foreach ($fields as &$field) {
+            if (!isset($field['field_id'])) {
+                $maxId++;
+                $field['field_id'] = $maxId;
+            }
+        }
+        $this->extra_fields_definition = $fields;
+    }
+
     function getModelOptions()
     {
         return [
