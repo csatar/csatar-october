@@ -86,4 +86,9 @@ class OrganizationUnitFrontend extends ComponentBase
 
         return Redirect::refresh();
     }
+
+    public function onCancelEdit()
+    {
+        return Redirect::refresh();
+    }
 }

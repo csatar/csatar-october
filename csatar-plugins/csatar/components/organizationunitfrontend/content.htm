@@ -1,0 +1,16 @@
+{% set content_page = __SELF__.content_page %}
+{% set permissions = __SELF__.permissions %}
+<h2>{{ content_page.title | raw }}</h2>
+<div>
+    {{ content_page.content | raw}}
+</div>
+{% if permissions['content_page']['update'] > 0 %}
+<form data-request="onEditContent">
+    <button
+        type="submit"
+        class="btn btn-sm rounded btn-primary">
+        <i class="csat-edit-fill-wh-sm"></i>
+        {{ 'Módosít' | _ }}
+    </button>
+</form>
+{% endif %}

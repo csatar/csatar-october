@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- CS-313 - Added Cancel button to the edit content form on the ogragization unit forms
+
 ## 1.7.1
 ### 2023-01-18
 
