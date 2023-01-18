@@ -3,6 +3,7 @@
 ## Unreleased
 
 - CS-441 - Added "Inactive mandates" accordion to Association, District, Team, Troop, Patrol pages
+- CS-443 - Changed accordion to tabs on organizations page
 - CS-424 - Hide inactive and expired mandates on Association, District, Team, Troop, Patrol pages
 - CS-424 - When listing mandates on frontend at organization data, the mandate owner name is clickable
 - CS-336 - Extended Personal Identification Number validation
@@ -12,6 +13,12 @@
 - CS-432 - Added "is_approved" field for Scout
 - CS-430 - Added option and menu to list all team reports in association regardless of team id
 - CS-418 - Create member card model
+
+## 1.7.1
+### 2023-01-18
+
+- CS-448 - Fixed bug in team reports membership fee
+
 ## 1.7.0
 ### 2023-01-16
 
