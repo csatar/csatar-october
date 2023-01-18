@@ -359,6 +359,7 @@
             ],
             'dynamicFields' => [
                 'dynamicFields' => 'Dynamic Fields',
+                'extraFields' => 'Extra fields',
                 'association' => 'Association',
                 'startDate' => 'Start date',
                 'endDate' => 'End date',

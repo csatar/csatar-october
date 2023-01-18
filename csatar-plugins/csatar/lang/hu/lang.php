@@ -359,6 +359,7 @@
             ],
             'dynamicFields' => [
                 'dynamicFields' => 'Dinamikus mezők',
+                'extraFields' => 'További mezők',
                 'association' => 'Szövetség',
                 'startDate' => 'Kezdete',
                 'endDate' => 'Vége',
