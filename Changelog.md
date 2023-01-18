@@ -13,6 +13,7 @@
 - CS-432 - Added "is_approved" field for Scout
 - CS-430 - Added option and menu to list all team reports in association regardless of team id
 - CS-418 - Create member card model
+- CS-356 - Added tags list to the patrol and troop forms
 
 ## 1.7.1
 ### 2023-01-18
@@ -43,7 +44,6 @@
 - CS-320 - Simplified scout's page. Removed section names from labels.
 - CS-378 - Created csv import-export for permissions matrix.
 - CS-393 - Don't show the QR code for those who already activated 2FA
-- CS-356 - Added tags list to the patrol and troop forms
 
 ## 1.6.0
 ### 2022-11-03
