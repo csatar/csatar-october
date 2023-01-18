@@ -374,6 +374,17 @@ class Mandate extends Model
         });
     }
 
+    public function scopeInactiveMandatesInOrganizations($query, $record) {
+        $currentDate = (new DateTime())->format('Y-m-d');
+        $query->where('mandate_model_type', $record::getModelName())
+            ->where('mandate_model_id', $record->id)
+            ->where(function ($query) use ($currentDate) {
+                return $query->where('start_date', '>', $currentDate)
+                    ->orWhere('end_date', '<', $currentDate);
+            })
+            ->orderBy('end_date', 'desc');
+    }
+
     public static function setAllMandatesExpiredInOrganization($organization) {
         self::where('mandate_model_type', $organization->getModelName())
             ->where('mandate_model_id', $organization->id)
