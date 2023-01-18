@@ -47,7 +47,7 @@
             </form>
             {% endif %}
 
-            {% partial __SELF__ ~ '::' ~ model_name ~ 'Form' %}
+            {% partial __SELF__ ~ '::' ~ model_name ~ 'Form' model=model %}
         </div>
         <div class="tab-pane fade" id="structure-levels" role="tabpanel" aria-labelledby="structure-levels-tab" tabindex="0">
             {% component "structure" %}

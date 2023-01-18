@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-441 - Added "Inactive mandates" accordion to Association, District, Team, Troop, Patrol pages
 - CS-443 - Changed accordion to tabs on organizations page
 - CS-424 - Hide inactive and expired mandates on Association, District, Team, Troop, Patrol pages
 - CS-424 - When listing mandates on frontend at organization data, the mandate owner name is clickable

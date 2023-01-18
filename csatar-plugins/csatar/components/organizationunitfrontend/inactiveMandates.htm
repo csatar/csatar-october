@@ -1,0 +1,51 @@
+{% if model.getInactionMandatesInOrganization()|length > 0 %}
+<div class="accordion-item">
+    <h2 class="accordion-header" id="inactive-mandates">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#inactive-mandates-accordion" aria-expanded="false" aria-controls="inactive-mandates-accordion">
+            {{ 'Inaktív megbízatások' | _ }}
+        </button>
+    </h2>
+    <div id="inactive-mandates-accordion" class="accordion-collapse collapse" aria-labelledby="inactive-mandates">
+        <div class="accordion-body">
+            <div class="table csat-grid">
+                <div class="tr d-none d-lg-block">
+                    <div class="card csat-resp-gdtable csat-border-lg-none">
+                        <div class="row">
+                            {% for inactiveMandatesColumn in __SELF__.inactiveMandatesColumns %}
+                            <div class="col-6 col-lg">
+                                <div class="th-grid">
+                                    {{ inactiveMandatesColumn.label }}
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                {% for inactiveMandate in model.getInactionMandatesInOrganization() %}
+                    <div class="tr">
+                    <div class="card csat-resp-gdtable csat-border-lg-none">
+                        <div class="row">
+                            {% for key, inactiveMandatesColumn in __SELF__.inactiveMandatesColumns %}
+                            <div class="col-6 col-lg">
+                                <p class="td label d-block d-lg-none">{{ label }}</p>
+                                <p class="td">
+                                    {% set value = inactiveMandatesColumn['nameFrom'] ? inactiveMandate[key][inactiveMandatesColumn['nameFrom']] : inactiveMandate[key] %}
+                                    {% if inactiveMandatesColumn['link'] %}
+                                        {% set linkParam = inactiveMandate[key][inactiveMandatesColumn['linkParam']] %}
+                                        {% set link = '<a href="' ~ inactiveMandatesColumn['link'] ~ linkParam ~ '" >' ~ value ~ '</a>' %}
+                                    {% endif %}
+
+                                    {{ inactiveMandatesColumn['link'] ? link|raw : value }}
+                                </p>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}

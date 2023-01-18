@@ -1,4 +1,5 @@
 {% component 'basicForm' %}
+{% partial __SELF__ ~ '::inactiveMandates' model=model %}
 {% set permissions = __SELF__.permissions %}
 
 <p>{{ 'Őrsök' | _ }}</p>
