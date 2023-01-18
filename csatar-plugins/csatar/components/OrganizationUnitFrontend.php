@@ -73,7 +73,7 @@ class OrganizationUnitFrontend extends ComponentBase
 
         $content = $model->content_page;
         return [
-            '#content' => $this->renderPartial('@editor', ['content_page' => $content])
+            '#tabContent' => $this->renderPartial('@editor', ['content_page' => $content])
         ];
     }
 
@@ -121,5 +121,10 @@ class OrganizationUnitFrontend extends ComponentBase
                 'label' => Lang::get('csatar.csatar::lang.plugin.admin.general.comment'),
                 ],
         ];
+    }
+
+    public function onCancelEdit()
+    {
+        return Redirect::refresh();
     }
 }

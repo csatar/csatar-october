@@ -21,20 +21,7 @@
 
     <div class="tab-content" id="tabContent">
         <div class="tab-pane fade" id="about-us" role="tabpanel" aria-labelledby="about-us-tab" tabindex="0">
-            <h2>{{ content_page.title | raw }}</h2>
-            <div>
-                {{ content_page.content | raw}}
-            </div>
-            {% if permissions['content_page']['update'] > 0 %}
-            <form data-request="onEditContent">
-                <button
-                    type="submit"
-                    class="btn btn-sm rounded btn-primary">
-                    <i class="csat-edit-fill-wh-sm"></i>
-                    {{ 'Módosít' | _ }}
-                </button>
-            </form>
-            {% endif %}
+            {% partial __SELF__ ~ '::content.htm' %}
         </div>
         <div class="tab-pane fade show active" id="details" role="tabpanel" aria-labelledby="details-tab" tabindex="0">
             {% set model = this.controller.vars.basicForm.record %}
