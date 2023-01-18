@@ -13,45 +13,9 @@
 
 <div class="row">
     <div class="col-12 col-lg-6">
-        <p>{{ 'Aktív tagok' | _ }}</p>
-        {% set records = activeScouts.records %}
-        {% set displayColumn = activeScouts.displayColumn %}
-        {% set noRecordsMessage = activeScouts.noRecordsMessage %}
-        {% set detailsPage = activeScouts.detailsPage %}
-        {% set detailsKeyColumn = activeScouts.detailsKeyColumn %}
-        {% set detailsUrlParameter = activeScouts.detailsUrlParameter %}
-
-        <ul class="record-list">
-            {% for record in records %}
-            <li>
-                {% if detailsPage %}<a href="{{ detailsPage|page({ (detailsUrlParameter): attribute(record, detailsKeyColumn) }) }}">{% endif %}
-                {{ record.getFullName() }}
-                {% if detailsPage %}</a>{% endif %}
-            </li>
-            {% else %}
-            <li class="no-data">{{ noRecordsMessage }}</li>
-            {% endfor %}
-        </ul>
+        {% partial __SELF__ ~ '::activeTagsList' %}
     </div>
     <div class="col-12 col-lg-6">
-        <p>{{ 'Inaktív tagok' | _ }}</p>
-        {% set records = inactiveScouts.records %}
-        {% set displayColumn = inactiveScouts.displayColumn %}
-        {% set noRecordsMessage = inactiveScouts.noRecordsMessage %}
-        {% set detailsPage = inactiveScouts.detailsPage %}
-        {% set detailsKeyColumn = inactiveScouts.detailsKeyColumn %}
-        {% set detailsUrlParameter = inactiveScouts.detailsUrlParameter %}
-
-        <ul class="record-list">
-            {% for record in records %}
-            <li>
-                {% if detailsPage %}<a href="{{ detailsPage|page({ (detailsUrlParameter): attribute(record, detailsKeyColumn) }) }}">{% endif %}
-                {{ record.getFullName() }}
-                {% if detailsPage %}</a>{% endif %}
-            </li>
-            {% else %}
-            <li class="no-data">{{ noRecordsMessage }}</li>
-            {% endfor %}
-        </ul>
+        {% partial __SELF__ ~ '::inactiveTagsList' %}
     </div>
 </div>
