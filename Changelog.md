@@ -11,6 +11,12 @@
 - CS-432 - Added "is_approved" field for Scout
 - CS-430 - Added option and menu to list all team reports in association regardless of team id
 - CS-418 - Create member card model
+
+## 1.7.1
+### 2023-01-18
+
+- CS-448 - Fixed bug in team reports membership fee
+
 ## 1.7.0
 ### 2023-01-16
 
