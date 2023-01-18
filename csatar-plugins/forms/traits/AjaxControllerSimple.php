@@ -110,6 +110,7 @@ trait AjaxControllerSimple {
             'form' => $html,
             'formUniqueId' => $this->formUniqueId,
             'additionalData' => $this->additionalData,
+            'specialValidationExceptions' => serialize($this->specialValidationExceptions),
             'recordKeyParam' => $this->recordKeyParam ?? Input::get('recordKeyParam'),
             'recordKeyValue' => $record->{$this->recordKeyParam ?? Input::get('recordKeyParam')} ?? 'new',
             'from_id' => $form->id,
@@ -634,6 +635,10 @@ trait AjaxControllerSimple {
             $attributeNames,
         );
 
+        if ($specialValidationExceptions = Input::get('specialValidationExceptions')) {
+            $specialValidationExceptions = unserialize($specialValidationExceptions);
+        }
+
         //validate for conditional rules
         if (isset($record->conditionalRules)) {
             foreach ($record->conditionalRules as $conditionalRule) {
@@ -643,7 +648,11 @@ trait AjaxControllerSimple {
             }
         }
 
-        if ($validation->fails()) {
+        if ($validation->fails() || !empty($specialValidationExceptions)) {
+            foreach ((array) $specialValidationExceptions as $key => $value) {
+                $validation->messages()->add('special_validation_exception_' . $key, $value);
+            }
+
             throw new \ValidationException($validation);
         }
 

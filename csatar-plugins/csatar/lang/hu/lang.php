@@ -656,6 +656,7 @@
                     'teamReportAlreadyExists' => 'Már létezik csapatjelentés e csapat számára, erre az évre.',
                     'teamReportCannotBeFound' => 'A csapatjelentés nem található.',
                     'teamCannotBeFound' => 'A csapat nem található.',
+                    'missingLegalRelationship' => ':name tagnak nincs beállítva a jogviszonya.'
                 ],
             ],
             'teamReports' => [
