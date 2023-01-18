@@ -10,3 +10,12 @@
         <button type="submit" class="btn rounded btn-primary" value="{{ 'Tag hozzáadása' | _ }}"><i class="csat-useradd-fill-wh-md"></i></button>
     </form>
 {% endif %}
+
+<div class="row">
+    <div class="col-12 col-lg-6">
+        {% partial __SELF__ ~ '::activeTagsList' %}
+    </div>
+    <div class="col-12 col-lg-6">
+        {% partial __SELF__ ~ '::inactiveTagsList' %}
+    </div>
+</div>
