@@ -645,6 +645,7 @@ return [
                     'teamReportAlreadyExists' => 'The team report for this team and year already exists.',
                     'teamReportCannotBeFound' => 'The team report cannot be found.',
                     'teamCannotBeFound' => 'The team cannot be found.',
+                    'missingLegalRelationship' => 'Legal relationship is not set for :name'
                 ],
             ],
             'teamReports' => [
