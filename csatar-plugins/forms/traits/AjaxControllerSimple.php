@@ -1145,11 +1145,11 @@ trait AjaxControllerSimple {
 
         foreach ($attributesArray as $attribute => $settings) {
 
-            if ($settings['type'] == 'custom' || $settings['type'] == 'section') {
+            if (isset($settings['type']) && ($settings['type'] == 'custom' || $settings['type'] == 'section')) {
                 continue;
             }
 
-            if ($settings['type'] == 'relation' && $this->hasPivotColumns($attribute)) {
+            if (isset($settings['type']) && $settings['type'] == 'relation' && $this->hasPivotColumns($attribute)) {
                 continue;
             }
 
@@ -1199,10 +1199,12 @@ trait AjaxControllerSimple {
     {
         foreach ($this->fieldsThatRequire2FA as $attribute => $settings) {
             if ($this->fieldsThatRequire2FA && isset($this->fieldsThatRequire2FA[$attribute])) {
-                $attributesArray[$attribute]['formBuilder']['2fa'] = $this->fieldsThatRequire2FA[$attribute];
-                $attributesArray[$attribute]['cssClass'] = 'csat-2fa-field';
+                $key = isset($attributesArray[$attribute]) ? $attribute : $attribute . '_';
+                $attributesArray[$key]['type'] = 'text';
+                $attributesArray[$key]['formBuilder']['2fa'] = $this->fieldsThatRequire2FA[$attribute];
+                $attributesArray[$key]['cssClass'] = 'csat-2fa-field';
             }
-        } //dd($attributesArray, $this->fieldsThatRequire2FA);
+        }
         return $attributesArray;
     }
 
