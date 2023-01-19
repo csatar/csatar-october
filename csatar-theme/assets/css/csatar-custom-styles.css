@@ -727,9 +727,9 @@ body>p.flash-message.success, body>p.flash-message.info, body>p.flash-message.wa
 
 .csat-2fa-field .form-control {
     background: url(../images/icons/csat-key-out.svg) no-repeat right center;
-    background-size: 10%;
-    background-position-x: 95%;
-    padding-right:45px;
+    background-size: 30px;
+    background-position-x: calc(100% - 10px);
+    padding-right: 45px;
 }
 
 /* Accordion color setting*/
