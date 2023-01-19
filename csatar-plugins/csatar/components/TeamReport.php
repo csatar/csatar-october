@@ -13,7 +13,7 @@ use Renatio\DynamicPDF\Classes\PDF;
 
 class TeamReport extends ComponentBase
 {
-    public $id, $teamId, $action, $year, $teamReport, $team, $scouts, $teamFee, $totalAmount, $currency, $status, $basicForm, $redirectFromWaitingForApproval;
+    public $id, $teamId, $action, $year, $teamReport, $team, $scouts, $teamFee, $totalAmount, $currency, $status, $basicForm, $redirectFromWaitingForApproval, $errors;
 
     public function init()
     {
@@ -96,7 +96,12 @@ class TeamReport extends ComponentBase
                     'membership_fee' => $membership_fee,
                 ]);
                 $this->totalAmount += $membership_fee;
+                if (empty($scout->legal_relationship)) {
+                    $this->errors[] = Lang::get('csatar.csatar::lang.plugin.component.teamReport.validationExceptions.missingLegalRelationship', [ 'name' => $scout->name ]);
+                }
             }
+
+            $this->basicForm->specialValidationExceptions = $this->errors ?? [];
         }
         else {
             // edit and view modes - retrieve the team report

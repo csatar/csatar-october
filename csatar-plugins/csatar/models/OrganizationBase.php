@@ -3,6 +3,7 @@
 use Csatar\Csatar\Classes\Enums\Status;
 use Csatar\Csatar\Classes\RightsMatrix;
 use Csatar\Csatar\Models\MandateType;
+use Csatar\Csatar\Models\Mandate;
 use Csatar\Csatar\Models\PermissionBasedAccess;
 use DateTime;
 use Db;
@@ -143,5 +144,9 @@ class OrganizationBase extends PermissionBasedAccess
 
     public function scopeInactive($query) {
         return $query->where('status', Status::INACTIVE);
+    }
+
+    public function getInactionMandatesInOrganization() {
+        return Mandate::inactiveMandatesInOrganizations($this)->get();
     }
 }

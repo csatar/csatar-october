@@ -1838,10 +1838,19 @@ input:-webkit-autofill:active {
     max-width: 250px;
     overflow: hidden;
 }
- .csat-gallery-content {
+
+.csat-gallery-content {
      width: 0;
      min-width: 100%;
  }
+
+.nav-link {
+    color: #99A56B;
+}
+
+.nav-tabs .nav-link:hover {
+    color: #99A56B;
+}
 
 .terms-and-conditions li {
     display: block;
