@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- CS-449 - Modified permission matrix syncronization to create own permission type only for scout model and mandate
+- CS-449 - fixed missing status bug on Patrol save
+
 ## 1.7.2
 ### 2023-01-18
 
