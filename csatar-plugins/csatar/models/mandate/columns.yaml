@@ -19,6 +19,7 @@ columns:
         label: 'csatar.csatar::lang.plugin.admin.mandateType.scout'
         relation: scout
         valueFrom: name
+        valueFromFormBuilder: scoutLink
         descriptionFrom: description
         searchable: false
         sortable: false

@@ -13,6 +13,7 @@ class OrganizationUnitFrontend extends ComponentBase
     public $content_page;
     public $permissions;
     public $gallery_id;
+    public $inactiveMandatesColumns;
 
     public function componentDetails()
     {
@@ -61,6 +62,8 @@ class OrganizationUnitFrontend extends ComponentBase
             $this->gallery_id = GalleryModelPivot::where('model_type', $modelName)->where('model_id', $this->property('model_id'))->value('gallery_id');
 
         }
+
+        $this->inactiveMandatesColumns = $this->getInactiveMandatesColumns();
     }
 
     public function onEditContent()
@@ -70,7 +73,7 @@ class OrganizationUnitFrontend extends ComponentBase
 
         $content = $model->content_page;
         return [
-            '#content' => $this->renderPartial('@editor', ['content_page' => $content])
+            '#tabContent' => $this->renderPartial('@editor', ['content_page' => $content])
         ];
     }
 
@@ -84,6 +87,44 @@ class OrganizationUnitFrontend extends ComponentBase
         $content->content = post('content');
         $content->save();
 
+        return Redirect::refresh();
+    }
+
+    public function getInactiveMandatesColumns() {
+        return [
+            'mandate_type' => [
+                'label' => Lang::get('csatar.csatar::lang.plugin.admin.mandateType.mandateType'),
+                'nameFrom' => 'name',
+                ],
+            'mandate_model_name' => [
+                'label' => Lang::get('csatar.csatar::lang.plugin.admin.mandateType.organizationTypeModelName'),
+                ],
+            'mandate_team' => [
+                'label' => Lang::get('csatar.csatar::lang.plugin.admin.team.team'),
+                ],
+            'scout' => [
+                'label' => Lang::get('csatar.csatar::lang.plugin.admin.mandateType.scout'),
+                'nameFrom' => 'name',
+                'link' => '/tag/',
+                'linkParam' => 'ecset_code',
+                ],
+            'scout_team' => [
+                'label' => Lang::get('csatar.csatar::lang.plugin.admin.scout.scoutTeam'),
+                ],
+            'start_date' => [
+                'label' => Lang::get('csatar.csatar::lang.plugin.admin.mandateType.startDate'),
+                ],
+            'end_date' => [
+                'label' => Lang::get('csatar.csatar::lang.plugin.admin.mandateType.endDate'),
+                ],
+            'comment' => [
+                'label' => Lang::get('csatar.csatar::lang.plugin.admin.general.comment'),
+                ],
+        ];
+    }
+
+    public function onCancelEdit()
+    {
         return Redirect::refresh();
     }
 }

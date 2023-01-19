@@ -1,5 +1,5 @@
 {% component 'basicForm' %}
-
+{% partial __SELF__ ~ '::inactiveMandates' model=model %}
 {% set patrol = this.controller.vars.basicForm.record %}
 
 {% if user.scout.getRightsForModel(patrol)['scouts']['create'] > 0 %}
@@ -10,3 +10,12 @@
         <button type="submit" class="btn rounded btn-primary" value="{{ 'Tag hozzáadása' | _ }}"><i class="csat-useradd-fill-wh-md"></i></button>
     </form>
 {% endif %}
+
+<div class="row">
+    <div class="col-12 col-lg-6">
+        {% partial __SELF__ ~ '::activeTagsList' %}
+    </div>
+    <div class="col-12 col-lg-6">
+        {% partial __SELF__ ~ '::inactiveTagsList' %}
+    </div>
+</div>

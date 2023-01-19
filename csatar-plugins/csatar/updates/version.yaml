@@ -210,3 +210,12 @@
 1.0.73:
     - 'Updated table csatar_csatar_scouts'
     - builder_table_update_csatar_csatar_scouts_3.php
+1.0.74:
+    - 'Created table csatar_csatar_locations'
+    - builder_table_create_csatar_csatar_locations.php
+1.0.75:
+    - 'Updated table csatar_csatar_associations'
+    - builder_table_update_csatar_csatar_associations_5.php
+1.0.76:
+    - 'Updated table csatar_csatar_scouts'
+    - builder_table_update_csatar_csatar_scouts_4.php

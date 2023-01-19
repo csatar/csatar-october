@@ -15,7 +15,6 @@ class TwoFactorAuthentication extends ComponentBase
     private $google2FA;
     public $qrCodeData;
     public $is2FAuthenticated;
-    public $activated2FA;
 
     public function componentDetails()
     {
@@ -53,19 +52,30 @@ class TwoFactorAuthentication extends ComponentBase
     }
 
     private function prepareVariables() {
-        $scout = Scout::find(Auth::user()->scout->id);
+        $scout = Auth::user()->scout;
         $this->google2FA = new GoogleTwoFactorAuthentication();
 
-        $this->activated2FA = !empty($scout->google_two_fa_secret_key);
-        if (!$this->activated2FA) {
+        if (empty($scout->google_two_fa_secret_key) && !$scout->google_two_fa_is_activated) {
             $scout->google_two_fa_secret_key = $this->google2FA->generateSecretKey();
             $scout->ignoreValidation = true;
             $scout->forceSave();
+            $scout->refresh();
         }
 
         $this->userSecretKey = $scout->google_two_fa_secret_key;
-        $this->qrCodeData = $this->google2FA->getQRCodeData('RMCSSZ', $scout->getFullName(), $this->userSecretKey, 300);
+
+        if (!$scout->google_two_fa_is_activated) {
+            $this->qrCodeData = $this->google2FA->getQRCodeData('RMCSSZ', $scout->getFullName(), $this->userSecretKey, 300);
+        }
+
         $this->is2FAuthenticated = $this->is2FAuthenticated();
+
+        if (!$scout->google_two_fa_is_activated && $this->is2FAuthenticated) {
+            $scout->google_two_fa_is_activated = true;
+            $scout->forceSave();
+            $scout->refresh();
+        }
+
     }
 
     private function is2FAuthenticated()

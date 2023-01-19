@@ -1,4 +1,5 @@
 {% component 'basicForm' %}
+{% partial __SELF__ ~ '::inactiveMandates' model=model %}
 {% set permissions = __SELF__.permissions %}
 
 <p>{{ 'Őrsök' | _ }}</p>
@@ -11,3 +12,12 @@
         <button type="submit" class="btn rounded btn-primary" value="{{ 'Őrs hozzáadása' | _ }}"><i class="csat-add-fill-wh-sm"></i> {{ 'Őrs hozzáadása' | _ }}</button>
     </form>
 {% endif %}
+
+<div class="row">
+    <div class="col-12 col-lg-6">
+        {% partial __SELF__ ~ '::activeTagsList' %}
+    </div>
+    <div class="col-12 col-lg-6">
+        {% partial __SELF__ ~ '::inactiveTagsList' %}
+    </div>
+</div>

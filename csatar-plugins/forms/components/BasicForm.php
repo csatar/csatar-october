@@ -52,11 +52,17 @@ class BasicForm extends ComponentBase  {
     public $recordKeyParam = null;
 
     /**
-     * The URL parameter and DB column
-     * to identify a record(id, slug etc.)
-     * @var int
+     * To pass additional html data for rendering to the form
+     * @var string
      */
     public $additionalData = null;
+
+    /**
+     * Special validation exceptions, generated outside
+     * the standard validation flow
+     * @var array
+     */
+    public array $specialValidationExceptions = [];
 
     /**
      * The value of the key parameter

@@ -4,77 +4,43 @@
 {% set gallery_id = __SELF__.gallery_id %}
 
 <div class=" pb-5">
-    <div class="accordion accordion-flush">
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="heading-1">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-1" aria-expanded="true" aria-controls="collapse-1">
-                    {{ 'Rólunk' | _ }}
-                </button>
-            </h2>
-            <div id="collapse-1" class="accordion-collapse collapse show" aria-labelledby="heading-1" data-bs-parent="#accordionFlushContent">
-                <div class="accordion-body" id="content">
-                    <h2>{{ content_page.title | raw }}</h2>
-                    <div>
-                        {{ content_page.content | raw}}
-                    </div>
-                    {% if permissions['content_page']['update'] > 0 %}
-                        <form data-request="onEditContent">
-                            <button
-                                type="submit"
-                                class="btn btn-sm rounded btn-primary">
-                                <i class="csat-edit-fill-wh-sm"></i>
-                                {{ 'Módosít' | _ }}
-                            </button>
-                        </form>
-                    {% endif %}
-                </div>
-            </div>
-        </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="heading-2">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-2" aria-expanded="true" aria-controls="ollapse-2">
-                    {{ 'Részletek' | _ }}
-                </button>
-            </h2>
-            <div id="collapse-2" class="accordion-collapse collapse show" aria-labelledby="heading-1" data-bs-parent="#accordionFlushForm">
-                <div class="accordion-body">
-                    {% set model = this.controller.vars.basicForm.record %}
+    <ul class="nav nav-tabs mb-3" id="tab" role="tablist">
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="about-us-tab" data-bs-toggle="pill" data-bs-target="#about-us" type="button" role="tab" aria-controls="about-us" aria-selected="false">{{ 'Rólunk' | _ }}</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="details-tab" data-bs-toggle="pill" data-bs-target="#details" type="button" role="tab" aria-controls="details" aria-selected="true">{{ 'Részletek' | _ }}</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="structure-levels-tab" data-bs-toggle="pill" data-bs-target="#structure-levels" type="button" role="tab" aria-controls="structure-levels" aria-selected="false">{{ 'Kapcsolati szintek' | _ }}</button>
+        </li>
+        <li class="nav-item" role="presentation">
+            <button class="nav-link" id="gallery-tab" data-bs-toggle="pill" data-bs-target="#gallery" type="button" role="tab" aria-controls="gallery" aria-selected="false">{{ 'Galéria' | _ }}</button>
+        </li>
+    </ul>
 
-                    {% if permissions['MODEL_GENERAL']['update'] > 0
-                        and this.param.action == false
-                        and this.param[this.controller.vars.basicForm.recordKeyParam] != this.controller.vars.basicForm.createRecordKeyword %}
-                    <form action="/{{this.page.basicForm.formSlug}}/{{ model[basicForm.recordKeyParam] }}/{{ basicForm.actionUpdateKeyword }}" method="post">
-                        <button type="submit" class="btn rounded btn-primary" value="{{ 'Módosítás' | _ }}"><i class="csat-edit-fill-wh-md"></i></button>
-                    </form>
-                    {% endif %}
+    <div class="tab-content" id="tabContent">
+        <div class="tab-pane fade" id="about-us" role="tabpanel" aria-labelledby="about-us-tab" tabindex="0">
+            {% partial __SELF__ ~ '::content.htm' %}
+        </div>
+        <div class="tab-pane fade show active" id="details" role="tabpanel" aria-labelledby="details-tab" tabindex="0">
+            {% set model = this.controller.vars.basicForm.record %}
 
-                    {% partial __SELF__ ~ '::' ~ model_name ~ 'Form' %}
-                </div>
-            </div>
+            {% if permissions['MODEL_GENERAL']['update'] > 0
+            and this.param.action == false
+            and this.param[this.controller.vars.basicForm.recordKeyParam] != this.controller.vars.basicForm.createRecordKeyword %}
+            <form action="/{{this.page.basicForm.formSlug}}/{{ model[basicForm.recordKeyParam] }}/{{ basicForm.actionUpdateKeyword }}" method="post">
+                <button type="submit" class="btn rounded btn-primary" value="{{ 'Módosítás' | _ }}"><i class="csat-edit-fill-wh-md"></i></button>
+            </form>
+            {% endif %}
+
+            {% partial __SELF__ ~ '::' ~ model_name ~ 'Form' model=model %}
         </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="heading-3">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-3" aria-expanded="true" aria-controls="collapse-3">
-                    {{ 'Kapcsolati szintek' | _ }}
-                </button>
-            </h2>
-            <div id="collapse-3" class="accordion-collapse collapse show" aria-labelledby="heading-3" data-bs-parent="#accordionFlushStructure">
-                <div class="accordion-body">
-                    {% component "structure" %}
-                </div>
-            </div>
+        <div class="tab-pane fade" id="structure-levels" role="tabpanel" aria-labelledby="structure-levels-tab" tabindex="0">
+            {% component "structure" %}
         </div>
-        <div class="accordion-item">
-            <h2 class="accordion-header" id="heading-4">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse-4" aria-expanded="true" aria-controls="collapse-3">
-                    {{ 'Galéria' | _ }}
-                </button>
-            </h2>
-            <div id="collapse-4" class="accordion-collapse collapse show" aria-labelledby="heading-4" data-bs-parent="#accordionFlushGallery">
-                <div class="accordion-body">
-                    {% component "csatargallery" %}
-                </div>
-            </div>
+        <div class="tab-pane fade" id="gallery" role="tabpanel" aria-labelledby="gallery-tab" tabindex="0">
+            {% component "csatargallery" %}
         </div>
     </div>
 </div>

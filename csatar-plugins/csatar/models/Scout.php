@@ -355,7 +355,7 @@ class Scout extends OrganizationBase
 
         if (isset($fields->personal_identification_number) && in_array('cnp', $this->getPersonalIdentificationNumberValidators())) {
             $fields->birthdate->value = $this->getBirthDateFromCNP($fields->personal_identification_number->value);
-        }
+    }
     }
 
     /**
@@ -377,7 +377,7 @@ class Scout extends OrganizationBase
             ],
         ],
         'troop' => '\Csatar\Csatar\Models\Troop',
-        'patrol' => '\Csatar\Csatar\Models\Patrol',
+        'patrol' => '\Csatar\Csatar\Models\Patrol'
     ];
 
     public $belongsToMany = [
@@ -621,6 +621,11 @@ class Scout extends OrganizationBase
     public function getNameAttribute()
     {
         return $this->getFullName();
+    }
+
+    public function getScoutLinkAttribute()
+    {
+        return '<a href="' . url("/tag/$this->ecset_code") . '">' . $this->getFullName() . '</a>';
     }
 
     public function scopeOrganization($query, $mandate_model_type, $mandate_model_id)
@@ -918,13 +923,13 @@ class Scout extends OrganizationBase
                 ->filter(function ($item) {
                     if (!empty($item->team)) {
                         return $item;
-                    }
+        }
                 })
                 ->map(function ($item) {
                     return [ 'name' => $item->team->extended_Name, 'id' => $item->id ];
                 })
                 ->pluck('name', 'id')->toArray();
-        }
+    }
     }
 
     public function getStaticMessages(): array
@@ -1001,9 +1006,83 @@ class Scout extends OrganizationBase
     public function getPersonalIdentificationNumberValidators(): array
     {
         if (!empty($this->team)) {
-            return $this->team->district->association->personal_identification_number_validator;
+            return $this->team->district->association->personal_identification_number_validator ?? [];
         }
 
         return [];
+    }
+
+    public function getAddressCountyOptions()
+    {
+        $savedCountyArray = Scout::where('id', $this->id)->select('address_county')->first();
+        $savedCounty = $savedCountyArray['address_county'] ?? null;
+        $array = [];
+
+        if ($this->address_zipcode != null) {
+            $array = Locations::where('country', '=', $this->address_country)->where('code', '=', $this->address_zipcode)->lists('county', 'county');
+        }
+        if (empty($array)) {
+            if ($savedCounty != null) {
+                $array[$savedCounty] = $savedCounty;
+            }
+            if ($this->address_county != $savedCounty) {
+                $array[$this->address_county]= $this->address_county;
+            }
+        }
+
+        return $array;
+    }
+
+    public function getAddressLocationOptions()
+    {
+        $savedLocationArray = Scout::where('id', $this->id)->select('address_location')->first();
+        $savedLocation = $savedLocationArray['address_location'] ?? null;
+        $array = [];
+
+        if ($this->address_zipcode != null) {
+            $array = Locations::where('country', '=', $this->address_country)->where('code', '=', $this->address_zipcode)->lists('city', 'city');
+        }
+        if (empty($array)) {
+            if ($savedLocation != null) {
+                $array[$savedLocation] = $savedLocation;
+            }
+            if ($this->address_location != $savedLocation) {
+                $array[$this->address_location]= $this->address_location;
+            }
+        }
+
+        return $array;
+    }
+
+    public function getAddressStreetOptions()
+    {
+        $savedStreetArray = Scout::where('id', $this->id)->select('address_street')->first();
+        $savedStreet = $savedStreetArray['address_street'] ?? null;
+        $array = [];
+
+        if ($this->address_zipcode != null) {
+            $array = Locations::where('country', '=', $this->address_country)->where('code', '=', $this->address_zipcode)->where('city', '=', $this->address_location)->where('street', '!=', '')->lists('street', 'street');
+        }
+        if (empty($array)) {
+            if ($savedStreet != null) {
+                $array[$savedStreet] = $savedStreet;
+            }
+            if ($this->address_street != $savedStreet) {
+                $array[$this->address_street]= $this->address_street;
+            }
+        }
+
+        return $array;
+    }
+
+    public function getAddressCountryAttribute()
+    {
+        $savedCountry = array_get($this->attributes, 'address_country');
+        $teamId = array_get($this->attributes, 'team_id');
+        $team = Team::find($teamId);
+
+
+
+        return $savedCountry ?? $team->district->association->country;
     }
 }

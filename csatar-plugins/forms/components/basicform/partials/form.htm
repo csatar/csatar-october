@@ -20,6 +20,10 @@
     {{ form | raw }}
     {{ additionalData | raw }}
 
+    <div class="alert alert-danger" data-validate-error>
+        <p data-message></p>
+    </div>
+
     {% if not preview %}
         <div class="fs-nav">
             <div class="control-toolbar">
@@ -75,6 +79,7 @@
         <input type="hidden" name="recordKeyValue" value="{{ recordKeyValue }}" />
         <input type="hidden" name="redirectOnClose" value="{{ redirectOnClose }}" />
         <input type="hidden" name="actionUpdateKeyword" value="{{ actionUpdateKeyword }}" />
+        <input type="hidden" name="specialValidationExceptions" value="{{ specialValidationExceptions }}" />
         {% if __SELF__.relation is defined %}
             <input type="hidden" name="relation" value="{{ __SELF__.relation.id }}" />
             <input type="hidden" name="data_id" value="{{ data_id }}" />
