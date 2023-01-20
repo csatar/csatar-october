@@ -1005,8 +1005,8 @@ class Scout extends OrganizationBase
      */
     public function getPersonalIdentificationNumberValidators(): array
     {
-        if (!empty($this->team)) {
-            return $this->team->district->association->personal_identification_number_validator ?? [];
+        if (!empty($this->team) && !empty($this->team->district->association->personal_identification_number_validator)) {
+            return $this->team->district->association->personal_identification_number_validator;
         }
 
         return [];
