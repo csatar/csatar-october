@@ -1896,3 +1896,62 @@ input:-webkit-autofill:active {
 .nav-tabs .nav-link:hover {
     color: #99A56B;
 }
+
+.terms-and-conditions li {
+    display: block;
+    font-family: geomanist !important;
+    font-weight: 300;
+    font-size: calc(0.9rem + 0.2vw);
+    line-height: 1.7;
+    margin-bottom: 0.5rem;
+}
+
+.terms-and-conditions ol {
+    margin-top: 0.5rem;
+}
+
+.terms-and-conditions p {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.terms-and-conditions-main {
+    counter-reset: item
+}
+
+.terms-and-conditions-main li:before {
+    content: counters(item, ".") ". ";
+    counter-increment: item;
+    font-weight: 400;
+}
+
+.numbers {
+    counter-reset: numbers;
+}
+
+.numbers li:before {
+    content: counters(item, ".") "." counters(numbers, ".") ". ";
+    counter-increment: numbers;
+}
+
+.roman {
+    counter-reset: rom;
+}
+
+.small-letters {
+    counter-reset: letters;
+}
+
+.roman li::before {
+    counter-increment: rom;
+    content: counter(rom,upper-roman) ". ";
+}
+
+.small-letters li::before {
+    counter-increment: letters;
+    content: counter(letters,lower-alpha) ". ";
+}
+
+.unordered li::before {
+    content: "- ";
+}
