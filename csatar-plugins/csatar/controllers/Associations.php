@@ -6,7 +6,7 @@ use BackendMenu;
 class Associations extends Controller
 {
     public $implement = ['Backend\Behaviors\ListController', 'Backend\Behaviors\FormController', 'Backend\Behaviors\RelationController'];
-    
+
     public $listConfig = 'config_list.yaml';
     public $formConfig = 'config_form.yaml';
     public $relationConfig = 'config_relation.yaml';
@@ -16,4 +16,8 @@ class Associations extends Controller
         parent::__construct();
         BackendMenu::setContext('Csatar.Csatar', 'main-menu-item-organization-system-data', 'side-menu-item-associations');
     }
+
+    public $requiredPermissions = [
+        'csatar.manage.data'
+    ];
 }

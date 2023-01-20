@@ -9,8 +9,16 @@ navigation:
         label: Forms
         url: csatar/forms/forms
         icon: icon-paperclip
+        permissions:
+            - csatar.manage.forms
         sideMenu:
             forms-menu-item:
                 label: Forms
                 url: csatar/forms/forms
                 icon: icon-file-text-o
+                permissions:
+                    - csatar.manage.forms
+permissions:
+    csatar.manage.forms:
+        tab: 'csatar.forms::lang.plugin.name'
+        label: 'csatar.forms::lang.plugin.permissions.manageForms'

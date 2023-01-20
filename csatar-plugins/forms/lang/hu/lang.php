@@ -3,6 +3,9 @@
         'name' => 'Űrlapkészítő',
         'description' => 'Űrlapkészítő a felhasználói felülethez',
         'author' => 'Csatár csapat',
+        'permissions' => [
+            'manageData' => 'Űrlapok kezelése',
+        ],
         'admin' => [
             'form' => [
                 'title' => 'Cím',

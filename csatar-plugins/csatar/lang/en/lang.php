@@ -8,6 +8,10 @@ return [
         'name' => 'CSATÁR',
         'description' => 'Plugin for the RMCSSZ\'s CSATÁR project',
         'author' => 'CSATÁR team',
+        'permissions' => [
+            'manageData' => 'Manage Data',
+            'admin' => 'Csatár admin'
+        ],
         'admin' => [
             'general' => [
                 'name' => 'Name',
@@ -564,6 +568,7 @@ return [
                 'active' => 'Active',
             ],
         ],
+
         'locations' => [
             'country' => 'Country',
             'county' => 'County',

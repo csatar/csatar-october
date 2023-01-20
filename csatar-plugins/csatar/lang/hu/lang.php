@@ -6,6 +6,10 @@
         'name' => 'CSATÁR',
         'description' => 'Plugin az RMCSSZ CSATÁR alkalmazás számára',
         'author' => 'CSATÁR csapat',
+        'permissions' => [
+            'manageData' => 'RMCSSZ adminisztráció',
+            'admin' => 'Csatár rendszergazda',
+        ],
         'admin' => [
             'general' => [
                 'name' => 'Név',
