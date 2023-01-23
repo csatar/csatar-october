@@ -33,6 +33,11 @@ class SeederData extends Controller
         BackendMenu::setContext('Csatar.Csatar', 'main-menu-item-seeder-data', 'side-menu-test-data');
     }
 
+    public function location()
+    {
+        BackendMenu::setContext('Csatar.Csatar', 'main-menu-item-seeder-data', 'side-menu-location-data');
+    }
+
     public function synchronizePermissionsMatrix()
     {
         BackendMenu::setContext('Csatar.Csatar', 'main-menu-item-seeder-data', 'side-menu-test-data');
@@ -49,6 +54,13 @@ class SeederData extends Controller
     {
         $testData = new \Csatar\Csatar\Updates\TestData();
         $testData->run();
+        Flash::success(Lang::get('csatar.csatar::lang.plugin.admin.admin.seederData.updateDataSuccess'));
+    }
+
+    public function onLocationDataUpdateButtonClick()
+    {
+        $locationData = new \Csatar\Csatar\Updates\LocationData();
+        $locationData->run();
         Flash::success(Lang::get('csatar.csatar::lang.plugin.admin.admin.seederData.updateDataSuccess'));
     }
 

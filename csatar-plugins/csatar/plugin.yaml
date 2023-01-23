@@ -176,6 +176,10 @@ navigation:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.synchronizePermissionsMatrix'
                 url: csatar/csatar/seederdata/synchronizepermissionsmatrix
                 icon: icon-sitemap
+            side-menu-location-data:
+                label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.location'
+                url: csatar/csatar/seederdata/location
+                icon: icon-database
     main-menu-item-accident-log:
         label: 'csatar.csatar::lang.plugin.component.accidentLog.accidentLog'
         url: csatar/csatar/accidentlogrecords

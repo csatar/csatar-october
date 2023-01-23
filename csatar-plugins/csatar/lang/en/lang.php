@@ -210,6 +210,7 @@ return [
                         'testData' => 'Test data',
                         'importData' => 'Import scouts from ECSET',
                         'synchronizePermissionsMatrix' => 'Synchronize permissions matrix',
+                        'location' => 'Location Data'
                     ],
                 ],
                 'seederData' => [

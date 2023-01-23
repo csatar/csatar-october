@@ -208,6 +208,7 @@
                         'testData' => 'Teszt adatok',
                         'importData' => 'ECSET taglista importálása',
                         'synchronizePermissionsMatrix' => 'Jogosultsági mátrix szinkronizálása',
+                        'location' => 'Hely adatok'
                     ],
                 ],
                 'seederData' => [
