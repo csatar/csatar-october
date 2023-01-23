@@ -409,6 +409,9 @@ class SeederData extends Seeder
             ['Accident log data entry', 'dataEntry'],
             ['Accident log admin', 'admin']
         ],
+        'backendUserRoles'          => [
+            ['RMCSSZ office', 'rmcsszOffice'],
+        ],
     ];
 
     public function run()
@@ -645,7 +648,7 @@ class SeederData extends Seeder
                     'name'           => $ageGroup['name'],
                     'association_id' => $associationId
                 ]);
-                $newAgeGroup->note = $ageGroup['note'];
+                $newAgeGroup->note = $newAgeGroup->note ?? $ageGroup['note'];
                 $newAgeGroup->save();
             }
         }
@@ -694,6 +697,17 @@ class SeederData extends Seeder
                         ]
                     );
             }
+        }
+
+        // seed RMCSSZ Iroda backend role
+
+        if (Db::table('backend_user_roles')->where('code', 'rmcssz-irodaa')->get()->isEmpty()) {
+            Db::table('backend_user_roles')->insert(
+                [
+                    'name' => 'RMCSSZ Iroda',
+                    'code' => 'rmcssz-iroda',
+                    'permissions' => '{"rainlab.users.access_users":"1","rainlab.users.access_groups":"1","rainlab.users.impersonate_user":"1","pollozen.simplegallery.manage_galleries":"1","csatar.manage.data":"1","janvince.smallcontactform.access_messages":"1","janvince.smallcontactform.delete_messages":"1","janvince.smallcontactform.export_messages":"1"}'
+                ]);
         }
     }
 }

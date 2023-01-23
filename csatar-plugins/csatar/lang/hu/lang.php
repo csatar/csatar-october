@@ -558,6 +558,10 @@
                 'dataEntry' => 'Baleseti log adatbevívó',
                 'admin' => 'Baleseti log adminisztrátor',
             ],
+            'backendUserRoles' => [
+                'backendUserRoles' => 'Admin felület szerepkörök',
+                'rmcsszOffice' => 'RMCSSZ iroda',
+            ],
             'membershipCard' => [
                 'membershipCard' => 'Tagkártya',
                 'membershipCards' => 'Tagkártyák',

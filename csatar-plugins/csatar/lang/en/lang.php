@@ -561,6 +561,10 @@ return [
                 'dataEntry' => 'Accident log data entry group',
                 'admin' => 'Accident log admin group',
             ],
+            'backendUserRoles' => [
+                'backendUserRoles' => 'Backend User Roles',
+                'rmcsszOffice' => 'RMCSSZ office',
+            ],
             'membershipCard' => [
                 'membershipCard' => 'Membership Card',
                 'membershipCards' => 'Membership Cards',
