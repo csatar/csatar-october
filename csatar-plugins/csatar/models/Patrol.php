@@ -96,6 +96,7 @@ class Patrol extends OrganizationBase
         'troop_id',
         'slug',
         'gender',
+        'status'
     ];
 
     /**

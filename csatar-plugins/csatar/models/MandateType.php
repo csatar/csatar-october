@@ -29,6 +29,7 @@ class MandateType extends Model
     protected $dates = ['deleted_at'];
 
     const MODEL_NAME_GUEST = 'GUEST';
+    const MODEL_NAME_SCOUT = '\Csatar\Csatar\Models\Scout';
 
     /**
      * @var string The database table used by the model.
