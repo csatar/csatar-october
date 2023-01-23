@@ -24,7 +24,7 @@ class PermissionImport extends \Backend\Models\ImportModel
         });
 
         $intialMaxExecutionTime = ini_get("max_execution_time");
-        set_time_limit(1000);
+        set_time_limit(2000);
 
         foreach ($mandateTypesWithAssociation as $associationName => $mandateNames) {
             $association = Association::where('name', $associationName)->first();
