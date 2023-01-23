@@ -23,6 +23,9 @@ class PermissionImport extends \Backend\Models\ImportModel
             return [$item['association'] => $item['mandate_type']];
         });
 
+        $intialMaxExecutionTime = ini_get("max_execution_time");
+        set_time_limit(1000);
+
         foreach ($mandateTypesWithAssociation as $associationName => $mandateNames) {
             $association = Association::where('name', $associationName)->first();
             if (!empty($association)) {
@@ -88,5 +91,7 @@ class PermissionImport extends \Backend\Models\ImportModel
             }
 
         }
+
+        set_time_limit($intialMaxExecutionTime);
     }
 }
