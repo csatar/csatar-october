@@ -1082,7 +1082,9 @@ class Scout extends OrganizationBase
         $teamId = array_get($this->attributes, 'team_id');
         $team = Team::find($teamId);
 
-
+        if (empty($team)) {
+            return null;
+        }
 
         return $savedCountry ?? $team->district->association->country;
     }
