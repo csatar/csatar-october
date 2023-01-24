@@ -1,5 +1,6 @@
 <?php namespace Csatar\Csatar\Components;
 
+use Auth;
 use Cms\Classes\ComponentBase;
 use Csatar\Csatar\Models\District;
 use Csatar\Csatar\Models\Scout;
@@ -10,10 +11,12 @@ use Lang;
 use Redirect;
 use Response;
 use Renatio\DynamicPDF\Classes\PDF;
+use Session;
 
 class TeamReport extends ComponentBase
 {
-    public $id, $teamId, $action, $year, $teamReport, $team, $scouts, $teamFee, $totalAmount, $currency, $status, $basicForm, $redirectFromWaitingForApproval, $errors;
+    public $id, $teamId, $action, $year, $teamReport, $team, $scouts, $teamFee, $totalAmount, $currency, $status, $basicForm, $redirectFromWaitingForApproval, $errors, $permissions;
+
 
     public function init()
     {
@@ -106,6 +109,9 @@ class TeamReport extends ComponentBase
         else {
             // edit and view modes - retrieve the team report
             $this->teamReport = \Csatar\Csatar\Models\TeamReport::find($this->id);
+            if(isset(Auth::user()->scout)) {
+                $this->permissions = Auth::user()->scout->getRightsForModel($this->teamReport);
+            }
             if (!isset($this->teamReport)) {
                 return Redirect::to('404')->with('message', \Lang::get('csatar.csatar::lang.plugin.component.teamReport.validationExceptions.teamReportCannotBeFound'));
             }
@@ -149,6 +155,13 @@ class TeamReport extends ComponentBase
     {
         $this->id = Input::get('id');
         $this->teamReport = \Csatar\Csatar\Models\TeamReport::find($this->id);
+        if(isset(Auth::user()->scout)) {
+            $this->permissions = Auth::user()->scout->getRightsForModel($this->teamReport, true);
+        }
+        if ($this->permissions['approved_at']['update'] < 1) {
+            \Flash::error(e(trans('csatar.csatar::lang.plugin.admin.teamReport.validationExceptions.noPermissionToApprove')));
+            return;
+        }
         $this->teamReport->approved_at = (new \DateTime())->format('Y-m-d');
         $this->teamReport->save();
         if (Input::get('redirectFromWaitingForApproval') == 'true') {

@@ -506,6 +506,7 @@
                 'validationExceptions' => [
                     'dateInTheFuture' => 'A Dátum nem lehet a jövőben.',
                     'submissionDateAfterApprovalDate' => 'A Beküldés ideje nem lehet az Elfogadás ideje után.',
+                    'noPermissionToApprove' => 'Nincs jogosultsága a csapatjelentés elfogadására!',
                 ],
                 'submit_start_date' => 'Csapatjelentések leadási periódusának kezdete',
                 'submit_end_date' => 'Csapatjelentések leadási periódusának vége',

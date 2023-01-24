@@ -508,6 +508,7 @@ return [
                 'validationExceptions' => [
                     'dateInTheFuture' => 'The selected Date is in the future.',
                     'submissionDateAfterApprovalDate' => 'The Submission date cannot be after the approval date.',
+                    'noPermissionToApprove' => 'You do not have permission to approve the team report.',
                 ],
                 'submit_start_date' => 'Team report submit period start date',
                 'submit_end_date' => 'Team report submit period end date',
