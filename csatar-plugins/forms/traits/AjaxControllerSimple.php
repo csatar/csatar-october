@@ -78,7 +78,7 @@ trait AjaxControllerSimple {
         $config = $this->makeConfig($form->getFieldsConfig());
         //update field list and config based on currentUserRights
         $config->fields = $this->markFieldsThatRequire2FA($config->fields, $preview, empty($record->id));
-        $messageAbout2faFields = $this->generate2FAFieldsMessage($config->fields, $preview);
+        $messageAbout2faFields = $this->generate2FAFieldsMessage($config->fields, $preview, empty($record->id));
         $config->fields = $this->applyUserRightsToForm($config->fields, $preview, empty($record->id));
         $config->arrayName = 'data';
         $config->alias = $this->alias;
@@ -1214,20 +1214,44 @@ trait AjaxControllerSimple {
      */
     private function markFieldsThatRequire2FA(array $attributesArray, bool $isReadOnly, bool $isNewRecord = false): array
     {
-        foreach ($this->fieldsThatRequire2FA as $attribute => $settings) {
-            if ($this->fieldsThatRequire2FA && isset($this->fieldsThatRequire2FA[$attribute])) {
-                $key = isset($attributesArray[$attribute]) ? $attribute : '@' . $attribute;
-                $attributesArray[$key]['formBuilder']['2fa'] = $this->fieldsThatRequire2FA[$attribute];
-                $attributesArray[$key]['cssClass'] = 'csat-2fa-field';
+        if ($isReadOnly) {
+            foreach ($this->fieldsThatRequire2FA as $attribute => $settings) {
+                if (in_array('read', $settings)) {
+                    $key = isset($attributesArray[$attribute]) ? $attribute : '@' . $attribute;
+                    $attributesArray[$key]['formBuilder']['2fa'] = $this->fieldsThatRequire2FA[$attribute];
+                    $attributesArray[$key]['cssClass'] = 'csat-2fa-field';
+                }
             }
+            return $attributesArray;
         }
-        return $attributesArray;
+        else if ($isNewRecord) {
+            foreach ($this->fieldsThatRequire2FA as $attribute => $settings) {
+                if (in_array('create', $settings)) {
+                    $key = isset($attributesArray[$attribute]) ? $attribute : '@' . $attribute;
+                    $attributesArray[$key]['formBuilder']['2fa'] = $this->fieldsThatRequire2FA[$attribute];
+                    $attributesArray[$key]['cssClass'] = 'csat-2fa-field';
+                }
+            }
+            return $attributesArray;
+        }
+        else {
+            foreach ($this->fieldsThatRequire2FA as $attribute => $settings) {
+                if (in_array('update', $settings) || in_array('delete', $settings)) {
+                    $key = isset($attributesArray[$attribute]) ? $attribute : '@' . $attribute;
+                    $attributesArray[$key]['formBuilder']['2fa'] = $this->fieldsThatRequire2FA[$attribute];
+                    $attributesArray[$key]['cssClass'] = 'csat-2fa-field';
+                }
+            }
+            return $attributesArray;
+        }
+
+        return [];
     }
 
     /**
      * Generates info message about 2fa fields
      */
-    private function generate2FAFieldsMessage($attributesArray, $preview) {
+    private function generate2FAFieldsMessage($attributesArray, $preview, $isNewRecord) {
         if (empty(Auth::user())) {
             return;
         }
@@ -1246,12 +1270,29 @@ trait AjaxControllerSimple {
                 return Lang::get('csatar.forms::lang.components.basicForm.2FAtoRead') . implode(', ', $fieldsThatRequire2FA);
             }
         }
+        else if ($isNewRecord) {
+            foreach ($attributesArray as $key => $value) {
+                $actionsThatNeed2FA = $value['formBuilder']['2fa'] ?? null;
+                if( $actionsThatNeed2FA
+                    && in_array('create', $actionsThatNeed2FA)
+                ){
+                    $fieldsThatRequire2FA[] = $this->get2FAFieldName($key, $value);
+                }
+            }
+
+            $fieldsThatRequire2FA = array_filter($fieldsThatRequire2FA, function($value) {
+                return strpos($value, '@') === false;
+            });
+
+            if (!empty($fieldsThatRequire2FA)) {
+                return Lang::get('csatar.forms::lang.components.basicForm.2FAtoCreate') . implode(', ', $fieldsThatRequire2FA);
+            }
+        }
         else {
             foreach ($attributesArray as $key => $value) {
                 $actionsThatNeed2FA = $value['formBuilder']['2fa'] ?? null;
                 if( $actionsThatNeed2FA
-                    && (in_array('create', $actionsThatNeed2FA)
-                        || in_array('update', $actionsThatNeed2FA)
+                    && (in_array('update', $actionsThatNeed2FA)
                         || in_array('delete', $actionsThatNeed2FA))
                 ){
                     $fieldsThatRequire2FA[] = $this->get2FAFieldName($key, $value);

@@ -258,6 +258,14 @@ navigation:
                 icon: icon-sitemap
                 permissions:
                     - csatar.manage.data
+
+            side-menu-location-data:
+                label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.location'
+                url: csatar/csatar/seederdata/location
+                icon: icon-database
+                permissions:
+                    - csatar.admin
+
     main-menu-item-accident-log:
         label: 'csatar.csatar::lang.plugin.component.accidentLog.accidentLog'
         url: csatar/csatar/accidentlogrecords
