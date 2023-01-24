@@ -4,6 +4,8 @@ use BackendMenu;
 use Backend\Classes\Controller;
 use Backend\Widgets\Lists;
 use Csatar\Csatar\Models\MandatePermission;
+use Csatar\Csatar\Models\MandateType;
+use Csatar\Csatar\Models\PermissionBasedAccess;
 use Db;
 use File;
 use Illuminate\Validation\Rules\In;
@@ -11,6 +13,7 @@ use Input;
 use Log;
 use Lang;
 use Session;
+use Flash;
 
 class PermissionsMatrix extends Controller
 {
@@ -26,11 +29,20 @@ class PermissionsMatrix extends Controller
 
     public $sessionValues;
 
+    public $requiredPermissions = [
+        'csatar.manage.data'
+    ];
+
     public function __construct()
     {
         parent::__construct();
         BackendMenu::setContext('Csatar.Csatar', 'main-menu-item-organization-system-data', 'side-menu-item-permissions-matrix');
         $this->sessionValues = $this->getSessionValues();
+    }
+
+    public function synchronizePermissionsMatrix()
+    {
+        BackendMenu::setContext('Csatar.Csatar', 'main-menu-item-seeder-data', 'side-menu-item-synchronize-permissions-matrix');
     }
 
     public function listExtendQuery($query) {
@@ -177,6 +189,93 @@ class PermissionsMatrix extends Controller
             \Flash::success(e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.deleteSuccess')));
             if (Input::get('close')) {
                 return \Backend::redirect('csatar/csatar/permissionsmatrix');
+            }
+        }
+    }
+
+    public function onSynchronizePermissionsMatrix(){
+
+        $permissionBasedModels = PermissionBasedAccess::getAllChildClasses();
+        $mandateTypes = MandateType::all();
+
+        if(empty($permissionBasedModels) || empty($mandateTypes)) return;
+
+        $tempMandatePermissionsMap = [];
+        try {
+            foreach ($mandateTypes as $mandateType) {
+                foreach ($permissionBasedModels as $permissionBasedModel) {
+                    if ($permissionBasedModel == MandateType::MODEL_NAME_GUEST) return;
+
+                    $model = new $permissionBasedModel();
+                    $fields = $model->fillable ?? [];
+                    $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'hasOne', 'morphTo', 'morphOne',
+                                       'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'];
+
+                    foreach ($relationArrays as $relationArray) {
+                        $fields = array_merge($fields, array_keys($model->$relationArray));
+                    }
+
+                    $this->filterFieldsForRealtionKeys($fields);
+                    $fields = array_unique($fields);
+
+                    //add permission for the model in general
+                    $tempMandatePermissionsMap[] = [ 'mandate_type_id' => $mandateType->id, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 0];
+
+                    if ($mandateType->organization_type_model_name != MandateType::MODEL_NAME_GUEST) {
+                        //add permission for the model in general for own
+                        $tempMandatePermissionsMap[] = [ 'mandate_type_id' => $mandateType->id, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 1];
+                    }
+
+                    //add permission for each attribute for general, own
+                    foreach ($fields as $field) {
+                        $tempMandatePermissionsMap[] = [ 'mandate_type_id' => $mandateType->id, 'model' => $permissionBasedModel, 'field' => $field, 'own' => 0];
+
+                        if ($mandateType->organization_type_model_name != MandateType::MODEL_NAME_GUEST) {
+                            $tempMandatePermissionsMap[] = ['mandate_type_id' => $mandateType->id, 'model' => $permissionBasedModel, 'field' => $field, 'own' => 1];
+                        }
+                    }
+                }
+            }
+
+            $existingMandatePermissionsMap = MandatePermission::all()->map(function ($item) {
+                return serialize([
+                    'mandate_type_id' => $item->mandate_type_id,
+                    'model' => $item->model,
+                    'field' => $item->field,
+                    'own' => $item->own,
+                ]);
+            });
+
+            $tempMandatePermissionsMap = collect($tempMandatePermissionsMap);
+            $tempMandatePermissionsMap = $tempMandatePermissionsMap->map(function ($item) {
+                return serialize($item);
+            });
+
+            $newPermissionsToSave = $tempMandatePermissionsMap->diff($existingMandatePermissionsMap);
+            $newPermissionsToSave = $newPermissionsToSave->map(function ($item) {
+                return unserialize($item);
+            });
+
+            $newPermissionsToSave->chunk(1000)->each(function ($item){
+                Db::table('csatar_csatar_mandates_permissions')->insert($item->toArray());
+            });
+
+            Flash::success(e(trans('csatar.csatar::lang.plugin.admin.admin.seederData.synchronizeComplete')));
+
+        } catch (Exception $exception) {
+            Flash::error($exception->getMessage());
+        }
+    }
+
+    private function filterFieldsForRealtionKeys(&$fields) {
+        // filters the $fields array to remove relation key field, if relation field exists
+        // for example removes: "currency_id" field if there is "currency" field in the array
+        foreach ($fields as $key => $field) {
+            if (substr($field, -3) === '_id') {
+                $relationField = str_replace('_id', '', $field);
+                if (in_array($relationField, $fields)) {
+                    unset($fields[$key]);
+                }
             }
         }
     }

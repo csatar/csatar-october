@@ -23,6 +23,10 @@ class SeederData extends Controller
         parent::__construct();
     }
 
+    public $requiredPermissions = [
+        'csatar.admin'
+    ];
+
     public function seeder()
     {
         BackendMenu::setContext('Csatar.Csatar', 'main-menu-item-seeder-data', 'side-menu-seeder-data');

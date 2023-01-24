@@ -8,6 +8,10 @@ return [
         'name' => 'CSATÁR',
         'description' => 'Plugin for the RMCSSZ\'s CSATÁR project',
         'author' => 'CSATÁR team',
+        'permissions' => [
+            'manageData' => 'Manage Data',
+            'admin' => 'Csatár admin'
+        ],
         'admin' => [
             'general' => [
                 'name' => 'Name',
@@ -558,6 +562,10 @@ return [
                 'dataEntry' => 'Accident log data entry group',
                 'admin' => 'Accident log admin group',
             ],
+            'backendUserRoles' => [
+                'backendUserRoles' => 'Backend User Roles',
+                'rmcsszOffice' => 'RMCSSZ office',
+            ],
             'membershipCard' => [
                 'membershipCard' => 'Membership Card',
                 'membershipCards' => 'Membership Cards',
@@ -565,6 +573,7 @@ return [
                 'active' => 'Active',
             ],
         ],
+
         'locations' => [
             'country' => 'Country',
             'county' => 'County',

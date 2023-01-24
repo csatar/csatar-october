@@ -20,4 +20,8 @@ class Forms extends Controller
         parent::__construct();
         BackendMenu::setContext('Csatar.Forms', 'main-menu-item', 'forms-menu-item');
     }
+
+    public $requiredPermissions = [
+        'csatar.manage.forms'
+    ];
 }

@@ -40,6 +40,10 @@ class JsonImport extends Controller
     private $genderMap;
     private $ageGroupMap;
 
+    public $requiredPermissions = [
+        'csatar.admin'
+    ];
+
     public function __construct()
     {
         parent::__construct();

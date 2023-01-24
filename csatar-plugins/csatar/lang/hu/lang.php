@@ -6,6 +6,10 @@
         'name' => 'CSATÁR',
         'description' => 'Plugin az RMCSSZ CSATÁR alkalmazás számára',
         'author' => 'CSATÁR csapat',
+        'permissions' => [
+            'manageData' => 'RMCSSZ adminisztráció',
+            'admin' => 'Csatár rendszergazda',
+        ],
         'admin' => [
             'general' => [
                 'name' => 'Név',
@@ -554,6 +558,10 @@
                 'userGroups' => 'Felhasználó csoportok',
                 'dataEntry' => 'Baleseti log adatbevívó',
                 'admin' => 'Baleseti log adminisztrátor',
+            ],
+            'backendUserRoles' => [
+                'backendUserRoles' => 'Admin felület szerepkörök',
+                'rmcsszOffice' => 'RMCSSZ iroda',
             ],
             'membershipCard' => [
                 'membershipCard' => 'Tagkártya',

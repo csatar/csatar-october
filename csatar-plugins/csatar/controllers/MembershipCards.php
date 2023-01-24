@@ -18,4 +18,8 @@ class MembershipCards extends Controller
         parent::__construct();
         BackendMenu::setContext('Csatar.Csatar', 'main-menu-item-organization-system-data', 'side-menu-item');
     }
+
+    public $requiredPermissions = [
+        'csatar.manage.data'
+    ];
 }

@@ -6,7 +6,7 @@ use BackendMenu;
 class TShirtSizes extends Controller
 {
     public $implement = [        'Backend\Behaviors\ListController',        'Backend\Behaviors\FormController'    ];
-    
+
     public $listConfig = 'config_list.yaml';
     public $formConfig = 'config_form.yaml';
 
@@ -15,4 +15,8 @@ class TShirtSizes extends Controller
         parent::__construct();
         BackendMenu::setContext('Csatar.Csatar', 'main-menu-item-scout-system-data', 'side-menu-tshirt-size-categies');
     }
+
+    public $requiredPermissions = [
+        'csatar.manage.data'
+    ];
 }
