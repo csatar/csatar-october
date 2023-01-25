@@ -10,7 +10,7 @@ class ScoutImport extends Controller
     ];
 
     public $importExportConfig = 'config_import_export.yaml';
-    
+
     public function __construct($parent = null)
     {
         BackendMenu::setContext('Csatar.Csatar', 'main-menu-item-seeder-data', 'side-menu-import-data');
@@ -18,4 +18,8 @@ class ScoutImport extends Controller
         // call parent constructor
         parent::__construct();
     }
+
+    public $requiredPermissions = [
+        'csatar.manage.data'
+    ];
 }

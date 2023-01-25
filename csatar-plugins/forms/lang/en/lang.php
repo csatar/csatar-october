@@ -3,6 +3,9 @@
         'name' => 'Form Builder',
         'description' => 'Front end form builder',
         'author' => 'Csatár team',
+        'permissions' => [
+            'manageData' => 'Manage Forms',
+        ],
         'admin' => [
             'form' => [
                 'title' => 'Title',
@@ -47,6 +50,9 @@
                 ],
             ],
             'select' => 'Select',
+            '2FAtoRead' => 'You need to authenticate with 2FA in order to see the following information: ',
+            '2FAtoModify' => 'You need to authenticate with 2FA in order to fill the following information: ',
+            '2FAtoModify' => 'You need to authenticate with 2FA in order to modify the following information: ',
         ],
     ],
     'widgets' => [

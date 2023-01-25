@@ -121,7 +121,13 @@ class BasicForm extends ComponentBase  {
     public $currentUserRights = null;
 
     /**
-     * To store custom messages for special cases when now error or validation error is thrown
+     * List of fields that require 2FA for any CRUD action
+     * @var array
+     */
+    public $fieldsThatRequire2FA = null;
+
+    /**
+     * To store custom messages for special cases when no error or validation error is thrown
      * @var array
      */
     public $messages = null;
@@ -137,6 +143,7 @@ class BasicForm extends ComponentBase  {
         $this->record = $this->getRecord();
         $this->setOrGetSessionKey();
         $this->currentUserRights = $this->getRights($this->record);
+        $this->fieldsThatRequire2FA = $this->getFieldsThatRequire2FA($this->currentUserRights);
     }
 
     /**
@@ -339,30 +346,58 @@ class BasicForm extends ComponentBase  {
         return UserRigthsProvider::getUserRigths($record, $ignoreCache);
     }
 
+    private function getFieldsThatRequire2FA($userRights)    {
+        if (!isset($userRights['is2fa'])) {
+            return [];
+        }
+
+        return $userRights->map(function ($item, $key) use($userRights) {
+            if ($key == 'is2fa') {
+                return;
+            }
+            if (isset($item['obligatory'])) {
+                unset($item['obligatory']);
+            }
+            $valueThatIndicates2FANeed = $userRights['is2fa'] ? 1 : 0;
+            return array_keys($item, $valueThatIndicates2FANeed);
+        })->filter(function ($item) {
+            return $item != [] || $item != null;
+        });
+    }
 
     private function canCreate(string $attribute): bool
     {
-        return $this->rightsCollectionHasKey($attribute) && $this->currentUserRights[$attribute]['create'] > 0;
+        return $this->rightsCollectionHasKey($attribute)
+            && is_array($this->currentUserRights[$attribute])
+            && $this->currentUserRights[$attribute]['create'] > 0;
     }
 
     private function canRead(string $attribute): bool
     {
-        return $this->rightsCollectionHasKey($attribute) && $this->currentUserRights[$attribute]['read'] > 0;
+        return $this->rightsCollectionHasKey($attribute)
+            && is_array($this->currentUserRights[$attribute])
+            && $this->currentUserRights[$attribute]['read'] > 0;
     }
 
     private function canUpdate(string $attribute): bool
     {
-        return $this->rightsCollectionHasKey($attribute) && $this->currentUserRights[$attribute]['update'] > 0;
+        return $this->rightsCollectionHasKey($attribute)
+            && is_array($this->currentUserRights[$attribute])
+            && $this->currentUserRights[$attribute]['update'] > 0;
     }
 
     private function canDelete(string $attribute): bool
     {
-        return $this->rightsCollectionHasKey($attribute) && $this->currentUserRights[$attribute]['delete'] > 0;
+        return $this->rightsCollectionHasKey($attribute)
+            && is_array($this->currentUserRights[$attribute])
+            && $this->currentUserRights[$attribute]['delete'] > 0;
     }
 
     private function isObligatory(string $attribute): bool
     {
-        return $this->rightsCollectionHasKey($attribute) && $this->currentUserRights[$attribute]['obligatory'] > 0;
+        return $this->rightsCollectionHasKey($attribute)
+            && is_array($this->currentUserRights[$attribute])
+            && $this->currentUserRights[$attribute]['obligatory'] > 0;
     }
 
     private function rightsCollectionHasKey($attribute): bool

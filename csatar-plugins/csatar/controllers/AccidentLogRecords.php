@@ -6,7 +6,7 @@ use BackendMenu;
 class AccidentLogRecords extends Controller
 {
     public $implement = [        'Backend\Behaviors\ListController',        'Backend\Behaviors\FormController'    ];
-    
+
     public $listConfig = 'config_list.yaml';
     public $formConfig = 'config_form.yaml';
 
@@ -15,4 +15,8 @@ class AccidentLogRecords extends Controller
         parent::__construct();
         BackendMenu::setContext('Csatar.Csatar', 'main-menu-item-accident-log');
     }
+
+    public $requiredPermissions = [
+        'csatar.manage.data'
+    ];
 }

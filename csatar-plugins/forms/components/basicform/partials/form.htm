@@ -7,6 +7,17 @@
 </p>
 {% endflash %}
 
+{% if messageAbout2faFields|length > 0 %}
+<div class="d-flex mb-3 w-100">
+    <div class="csat-2fa-circle align-self-start">
+        <i class="csat-key-out-lg p-1"></i>
+    </div>
+    <div class="csat-2fa-info align-self-center w-100">
+        {{ messageAbout2faFields }}
+    </div>
+</div>
+{% endif %}
+
 <form data-request="{{ __SELF__ }}::onSave"
       data-request-loading="#fs-saving-loader"
       data-request-validate

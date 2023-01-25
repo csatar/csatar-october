@@ -8,6 +8,10 @@ return [
         'name' => 'CSATÁR',
         'description' => 'Plugin for the RMCSSZ\'s CSATÁR project',
         'author' => 'CSATÁR team',
+        'permissions' => [
+            'manageData' => 'Manage Data',
+            'admin' => 'Csatár admin'
+        ],
         'admin' => [
             'general' => [
                 'name' => 'Name',
@@ -210,6 +214,7 @@ return [
                         'testData' => 'Test data',
                         'importData' => 'Import scouts from ECSET',
                         'synchronizePermissionsMatrix' => 'Synchronize permissions matrix',
+                        'location' => 'Location Data'
                     ],
                 ],
                 'seederData' => [
@@ -503,6 +508,7 @@ return [
                 'validationExceptions' => [
                     'dateInTheFuture' => 'The selected Date is in the future.',
                     'submissionDateAfterApprovalDate' => 'The Submission date cannot be after the approval date.',
+                    'noPermissionToApprove' => 'You do not have permission to approve the team report.',
                 ],
                 'submit_start_date' => 'Team report submit period start date',
                 'submit_end_date' => 'Team report submit period end date',
@@ -557,6 +563,10 @@ return [
                 'dataEntry' => 'Accident log data entry group',
                 'admin' => 'Accident log admin group',
             ],
+            'backendUserRoles' => [
+                'backendUserRoles' => 'Backend User Roles',
+                'rmcsszOffice' => 'RMCSSZ office',
+            ],
             'membershipCard' => [
                 'membershipCard' => 'Membership Card',
                 'membershipCards' => 'Membership Cards',
@@ -564,6 +574,7 @@ return [
                 'active' => 'Active',
             ],
         ],
+
         'locations' => [
             'country' => 'Country',
             'county' => 'County',

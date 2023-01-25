@@ -9,128 +9,190 @@ navigation:
         label: 'csatar.csatar::lang.plugin.admin.admin.menu.organizationSystemData.organizationSystemData'
         url: /
         icon: icon-sitemap
+        permissions:
+            - csatar.manage.data
         sideMenu:
             side-menu-item-hierarchy:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.organizationSystemData.hierarchy'
                 url: csatar/csatar/hierarchy
                 icon: icon-sitemap
+                permissions:
+                    - csatar.manage.data
             side-menu-item-associations:
                 label: 'csatar.csatar::lang.plugin.admin.association.associations'
                 url: /csatar/csatar/associations
                 icon: icon-sitemap
+                permissions:
+                    - csatar.manage.data
             side-menu-item-districts:
                 label: 'csatar.csatar::lang.plugin.admin.district.districts'
                 url: csatar/csatar/districts
                 icon: icon-sitemap
+                permissions:
+                    - csatar.manage.data
             side-menu-item-teams:
                 label: 'csatar.csatar::lang.plugin.admin.team.teams'
                 url: csatar/csatar/teams
                 icon: icon-sitemap
+                permissions:
+                    - csatar.manage.data
             side-menu-item-troops:
                 label: 'csatar.csatar::lang.plugin.admin.troop.troops'
                 url: /csatar/csatar/troops
                 icon: icon-sitemap
+                permissions:
+                    - csatar.manage.data
             side-menu-item-patrols:
                 label: 'csatar.csatar::lang.plugin.admin.patrol.patrols'
                 url: /csatar/csatar/patrols
                 icon: icon-sitemap
+                permissions:
+                    - csatar.manage.data
             side-menu-item-team-reports:
                 label: 'csatar.csatar::lang.plugin.admin.teamReport.teamReports'
                 url: csatar/csatar/teamreports
                 icon: icon-sitemap
+                permissions:
+                    - csatar.manage.data
             side-menu-item-currencies:
                 label: 'csatar.csatar::lang.plugin.admin.currency.currencies'
                 url: /csatar/csatar/currencies
                 icon: icon-sitemap
+                permissions:
+                    - csatar.manage.data
             side-menu-item-ageGroups:
                 label: 'csatar.csatar::lang.plugin.admin.ageGroups.ageGroups'
                 url: csatar/csatar/agegroups
                 icon: icon-sitemap
+                permissions:
+                    - csatar.manage.data
             side-menu-item-mandate-types:
                 label: 'csatar.csatar::lang.plugin.admin.mandateType.mandateTypes'
                 url: csatar/csatar/mandatetypes
                 icon: icon-sitemap
+                permissions:
+                    - csatar.manage.data
             side-menu-item-mandates:
                 label: 'csatar.csatar::lang.plugin.admin.mandate.mandates'
                 url: /csatar/csatar/mandates
                 icon: icon-sitemap
+                permissions:
+                    - csatar.manage.data
             side-menu-item-permissions-matrix:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.organizationSystemData.permissionsMatrix'
                 url: csatar/csatar/permissionsmatrix
                 icon: icon-sitemap
+                permissions:
+                    - csatar.manage.data
             side-menu-item:
                 label: 'csatar.csatar::lang.plugin.admin.membershipCard.membershipCard'
                 url: csatar/csatar/membershipcards
                 icon: icon-sitemap
+                permissions:
+                    - csatar.manage.data
     main-menu-item-scout-system-data:
         label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.scoutSystemData'
         url: /
         icon: icon-sitemap
+        permissions:
+            - csatar.manage.data
         sideMenu:
             side-menu-legal-relationship-categories:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.legalRelationshipCategories'
                 url: csatar/csatar/legalrelationships
                 icon: icon-sitemap
+                permissions:
+                    - csatar.manage.data
             side-menu-chronic-illness-categories:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.chronicIllnessCategories'
                 url: /csatar/csatar/chronicillnesses
                 icon: icon-sitemap
+                permissions:
+                    - csatar.manage.data
             side-menu-allergy-categories:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.allergyCategories'
                 url: csatar/csatar/allergies
                 icon: icon-sitemap
+                permissions:
+                    - csatar.manage.data
             side-menu-food-sensitivity-categories:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.foodSensitivityCategories'
                 url: csatar/csatar/foodsensitivities
                 icon: icon-sitemap
+                permissions:
+                    - csatar.manage.data
             side-menu-special-diet-categories:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.specialDietCategories'
                 url: csatar/csatar/specialdiets
                 icon: icon-sitemap
+                permissions:
+                    - csatar.manage.data
             side-menu-religion-categories:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.religionCategories'
                 url: csatar/csatar/religions
                 icon: icon-sitemap
+                permissions:
+                    - csatar.manage.data
             side-menu-tshirt-size-categies:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.tShirtSizeCategories'
                 url: csatar/csatar/tshirtsizes
                 icon: icon-sitemap
+                permissions:
+                    - csatar.manage.data
             side-menu-promise-categories:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.promiseCategories'
                 url: csatar/csatar/promises
                 icon: icon-sitemap
+                permissions:
+                    - csatar.manage.data
             side-menu-test-categories:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.testCategories'
                 url: csatar/csatar/tests
                 icon: icon-sitemap
+                permissions:
+                    - csatar.manage.data
             side-menu-special-test-categories:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.specialTestCategories'
                 url: csatar/csatar/specialtests
                 icon: icon-sitemap
+                permissions:
+                    - csatar.manage.data
             side-menu-professional-qualification-categories:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.professionalQualificationCategories'
                 url: csatar/csatar/professionalqualifications
                 icon: icon-sitemap
+                permissions:
+                    - csatar.manage.data
             side-menu-special-qualification-categories:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.specialQualificationCategories'
                 url: csatar/csatar/specialqualifications
                 icon: icon-sitemap
+                permissions:
+                    - csatar.manage.data
             side-menu-leadership-qualification-categories:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.leadershipQualificationCategories'
                 url: csatar/csatar/leadershipqualifications
                 icon: icon-sitemap
+                permissions:
+                    - csatar.manage.data
             side-menu-training-qualification-categories:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.trainingQualificationCategories'
                 url: csatar/csatar/trainingqualifications
                 icon: icon-sitemap
+                permissions:
+                    - csatar.manage.data
             side-menu-item-trainings:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.trainings'
                 url: csatar/csatar/trainings
                 icon: icon-sitemap
+                permissions:
+                    - csatar.manage.data
     main-menu-scout-data:
         label: 'csatar.csatar::lang.plugin.admin.admin.menu.scout'
         url: /csatar/csatar/scouts
         icon: icon-bell
+        permissions:
+            - csatar.manage.data
     main-menu-item-seeder-data:
         label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.data'
         url: /
@@ -140,43 +202,80 @@ navigation:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.seederData'
                 url: csatar/csatar/seederdata/seeder
                 icon: icon-database
+                permissions:
+                    - csatar.admin
             side-menu-test-data:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.testData'
                 url: csatar/csatar/seederdata/test
                 icon: icon-database
+                permissions:
+                    - csatar.admin
             side-menu-import-data:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.importData'
                 url: csatar/csatar/scoutimport/import
                 icon: icon-database
+                permissions:
+                    - csatar.manage.data
             side-menu-item-json-import-organizations:
                 label: 'Import organizations (json)'
                 url: csatar/csatar/jsonimport/organizations
                 icon: icon-sitemap
+                permissions:
+                    - csatar.admin
             side-menu-item-json-import-scouts:
                 label: 'Import scouts (json)'
                 url: csatar/csatar/jsonimport/scouts
                 icon: icon-sitemap
+                permissions:
+                    - csatar.admin
             side-menu-item-json-import-mandates:
                 label: 'Import mandates (json)'
                 url: csatar/csatar/jsonimport/mandates
                 icon: icon-sitemap
+                permissions:
+                    - csatar.admin
             side-menu-item-json-import-promises:
                 label: 'Import promises etc. (json)'
                 url: csatar/csatar/jsonimport/promises
                 icon: icon-sitemap
+                permissions:
+                    - csatar.admin
             side-menu-item-json-import-registration-forms:
                 label: 'Import registration forms'
                 url: csatar/csatar/jsonimport/registrationforms
                 icon: icon-sitemap
+                permissions:
+                    - csatar.admin
             side-menu-item-json-import-member-cards-data:
                 label: 'Import member cards-data'
                 url: csatar/csatar/jsonimport/membershipcards
                 icon: icon-sitemap
+                permissions:
+                    - csatar.admin
             side-menu-item-synchronize-permissions-matrix:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.synchronizePermissionsMatrix'
-                url: csatar/csatar/seederdata/synchronizepermissionsmatrix
+                url: csatar/csatar/permissionsmatrix/synchronizepermissionsmatrix
                 icon: icon-sitemap
+                permissions:
+                    - csatar.manage.data
+
+            side-menu-location-data:
+                label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.location'
+                url: csatar/csatar/seederdata/location
+                icon: icon-database
+                permissions:
+                    - csatar.admin
+
     main-menu-item-accident-log:
         label: 'csatar.csatar::lang.plugin.component.accidentLog.accidentLog'
         url: csatar/csatar/accidentlogrecords
         icon: icon-life-ring
+        permissions:
+            - csatar.manage.data
+permissions:
+    csatar.manage.data:
+        tab: 'csatar.csatar::lang.plugin.name'
+        label: 'csatar.csatar::lang.plugin.permissions.manageData'
+    csatar.admin:
+        tab: 'csatar.csatar::lang.plugin.name'
+        label: 'csatar.csatar::lang.plugin.permissions.admin'

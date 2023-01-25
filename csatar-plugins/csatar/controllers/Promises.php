@@ -6,7 +6,7 @@ use BackendMenu;
 class Promises extends Controller
 {
     public $implement = [        'Backend\Behaviors\ListController',        'Backend\Behaviors\FormController'    ];
-    
+
     public $listConfig = 'config_list.yaml';
     public $formConfig = 'config_form.yaml';
 
@@ -15,4 +15,8 @@ class Promises extends Controller
         parent::__construct();
         BackendMenu::setContext('Csatar.Csatar', 'main-menu-item-scout-system-data', 'side-menu-promise-categories');
     }
+
+    public $requiredPermissions = [
+        'csatar.manage.data'
+    ];
 }
