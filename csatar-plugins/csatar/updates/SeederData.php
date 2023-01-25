@@ -577,7 +577,18 @@ class SeederData extends Seeder
                         }
                         unset($mandateType['parent']);
                     }
-                    array_push($mandateTypes, MandateType::firstOrCreate($mandateType));
+                    $newMandateType = MandateType::firstOrCreate([
+                        'name' => $mandateType['name'],
+                        'association_id' => $mandateType['association_id'],
+                        'organization_type_model_name' => $mandateType['organization_type_model_name'],
+                    ]);
+                    $newMandateType->required = $mandateType['required'] ?? false;
+                    $newMandateType->overlap_allowed = $mandateType['overlap_allowed'] ?? false;
+                    $newMandateType->parent_id = $mandateType['parent_id'] ?? null;
+                    $newMandateType->is_vk = $mandateType['is_vk'] ?? 0;
+                    $newMandateType->save();
+
+                    $mandateTypes[] = $newMandateType;
                 }
             }
 
