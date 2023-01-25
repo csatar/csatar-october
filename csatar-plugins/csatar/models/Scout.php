@@ -206,6 +206,7 @@ class Scout extends OrganizationBase
         parent::__construct($attributes);
         $this->attributeNames['registration_form'] = e(trans('csatar.csatar::lang.plugin.admin.scout.registrationForm'));
         $this->attributeNames['profile_image'] = e(trans('csatar.csatar::lang.plugin.admin.scout.profile_image'));
+        $this->attributeNames['personal_identification_number'] = e(trans('csatar.csatar::lang.plugin.admin.scout.personalIdentificationNumber'));
         $this->customMessages['mothers_phone.required_without_all'] = e(trans('csatar.csatar::lang.plugin.admin.scout.validationExceptions.legalRepresentativePhoneUnderAge'));
         $this->customMessages['fathers_phone.required_without_all'] = e(trans('csatar.csatar::lang.plugin.admin.scout.validationExceptions.legalRepresentativePhoneUnderAge'));
         $this->customMessages['legal_representative_phone.required_without_all'] = e(trans('csatar.csatar::lang.plugin.admin.scout.validationExceptions.legalRepresentativePhoneUnderAge'));
@@ -353,7 +354,7 @@ class Scout extends OrganizationBase
             $fields->legal_relationship->options = $this->team ? \Csatar\Csatar\Models\LegalRelationship::associationId($this->team->district->association->id)->lists('name', 'id') : [];
         }
 
-        if (isset($fields->personal_identification_number) && in_array('cnp', $this->getPersonalIdentificationNumberValidators())) {
+        if (isset($fields->personal_identification_number) && !empty($fields->personal_identification_number->value) && in_array('cnp', $this->getPersonalIdentificationNumberValidators())) {
             $fields->birthdate->value = $this->getBirthDateFromCNP($fields->personal_identification_number->value);
     }
     }
@@ -856,6 +857,15 @@ class Scout extends OrganizationBase
         }
     }
 
+    public function is2FA(): bool
+    {
+        if(Auth::user() && Session::get('scout.twoFA', false)){
+            return true;
+        }
+
+        return false;
+    }
+
     public function getRightsForModel($model, $ignoreCache = false){
 
         if (empty($model)) {
@@ -867,10 +877,7 @@ class Scout extends OrganizationBase
             $isOwn = $model->isOwnModel(Auth::user()->scout);
         }
 
-        $is2fa = false;
-        if(Auth::user() && Session::get('scout.twoFA', false)){
-            $is2fa = true;
-        }
+        $is2fa = $this->is2FA();
 
         $mandateTypeIds = $this->getMandateTypeIdsInOrganizationTree($model);
 
@@ -955,7 +962,7 @@ class Scout extends OrganizationBase
     /**
      * @return string
      */
-    public function getBirthDateFromCNP($cnp): string
+    public function getBirthDateFromCNP($cnp)
     {
         if (empty($cnp)) {
             return e(trans('csatar.csatar::lang.plugin.admin.scout.validationExceptions.invalidPersonalIdentificationNumber'));
@@ -991,7 +998,7 @@ class Scout extends OrganizationBase
                 return e(trans('csatar.csatar::lang.plugin.admin.scout.validationExceptions.invalidPersonalIdentificationNumber'));
         }
 
-        return $year . '-' . $month . '-' . $day;
+        return checkdate($month, $day, $year) ? $year . '-' . $month . '-' . $day : date("Y-m-d");
     }
 
     /**
@@ -999,8 +1006,8 @@ class Scout extends OrganizationBase
      */
     public function getPersonalIdentificationNumberValidators(): array
     {
-        if (!empty($this->team)) {
-            return $this->team->district->association->personal_identification_number_validator ?? [];
+        if (!empty($this->team) && !empty($this->team->district->association->personal_identification_number_validator)) {
+            return $this->team->district->association->personal_identification_number_validator;
         }
 
         return [];
@@ -1075,6 +1082,10 @@ class Scout extends OrganizationBase
         $teamId = array_get($this->attributes, 'team_id');
         $team = Team::find($teamId);
 
-        return $savedCountry ?? ($team ? $team->district->association->country : null);
+        if (empty($team)) {
+            return null;
+        }
+
+        return $savedCountry ?? $team->district->association->country;
     }
 }

@@ -6,6 +6,10 @@
         'name' => 'CSATÁR',
         'description' => 'Plugin az RMCSSZ CSATÁR alkalmazás számára',
         'author' => 'CSATÁR csapat',
+        'permissions' => [
+            'manageData' => 'RMCSSZ adminisztráció',
+            'admin' => 'Csatár rendszergazda',
+        ],
         'admin' => [
             'general' => [
                 'name' => 'Név',
@@ -208,6 +212,7 @@
                         'testData' => 'Teszt adatok',
                         'importData' => 'ECSET taglista importálása',
                         'synchronizePermissionsMatrix' => 'Jogosultsági mátrix szinkronizálása',
+                        'location' => 'Hely adatok'
                     ],
                 ],
                 'seederData' => [
@@ -515,6 +520,7 @@
                 'validationExceptions' => [
                     'dateInTheFuture' => 'A Dátum nem lehet a jövőben.',
                     'submissionDateAfterApprovalDate' => 'A Beküldés ideje nem lehet az Elfogadás ideje után.',
+                    'noPermissionToApprove' => 'Nincs jogosultsága a csapatjelentés elfogadására!',
                 ],
                 'submit_start_date' => 'Csapatjelentések leadási periódusának kezdete',
                 'submit_end_date' => 'Csapatjelentések leadási periódusának vége',
@@ -567,6 +573,10 @@
                 'userGroups' => 'Felhasználó csoportok',
                 'dataEntry' => 'Baleseti log adatbevívó',
                 'admin' => 'Baleseti log adminisztrátor',
+            ],
+            'backendUserRoles' => [
+                'backendUserRoles' => 'Admin felület szerepkörök',
+                'rmcsszOffice' => 'RMCSSZ iroda',
             ],
             'membershipCard' => [
                 'membershipCard' => 'Tagkártya',

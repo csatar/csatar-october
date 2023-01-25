@@ -23,6 +23,10 @@ class SeederData extends Controller
         parent::__construct();
     }
 
+    public $requiredPermissions = [
+        'csatar.admin'
+    ];
+
     public function seeder()
     {
         BackendMenu::setContext('Csatar.Csatar', 'main-menu-item-seeder-data', 'side-menu-seeder-data');
@@ -31,6 +35,11 @@ class SeederData extends Controller
     public function test()
     {
         BackendMenu::setContext('Csatar.Csatar', 'main-menu-item-seeder-data', 'side-menu-test-data');
+    }
+
+    public function location()
+    {
+        BackendMenu::setContext('Csatar.Csatar', 'main-menu-item-seeder-data', 'side-menu-location-data');
     }
 
     public function synchronizePermissionsMatrix()
@@ -49,6 +58,13 @@ class SeederData extends Controller
     {
         $testData = new \Csatar\Csatar\Updates\TestData();
         $testData->run();
+        Flash::success(Lang::get('csatar.csatar::lang.plugin.admin.admin.seederData.updateDataSuccess'));
+    }
+
+    public function onLocationDataUpdateButtonClick()
+    {
+        $locationData = new \Csatar\Csatar\Updates\LocationData();
+        $locationData->run();
         Flash::success(Lang::get('csatar.csatar::lang.plugin.admin.admin.seederData.updateDataSuccess'));
     }
 
@@ -80,7 +96,7 @@ class SeederData extends Controller
                     //add permission for the model in general
                     $tempMandatePermissionsMap[] = [ 'mandate_type_id' => $mandateType->id, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 0];
 
-                    if ($mandateType->organization_type_model_name != MandateType::MODEL_NAME_GUEST) {
+                    if ($mandateType->organization_type_model_name == MandateType::MODEL_NAME_SCOUT && $permissionBasedModel == MandateType::MODEL_NAME_SCOUT) {
                         //add permission for the model in general for own
                         $tempMandatePermissionsMap[] = [ 'mandate_type_id' => $mandateType->id, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 1];
                     }
@@ -89,7 +105,7 @@ class SeederData extends Controller
                     foreach ($fields as $field) {
                         $tempMandatePermissionsMap[] = [ 'mandate_type_id' => $mandateType->id, 'model' => $permissionBasedModel, 'field' => $field, 'own' => 0];
 
-                        if ($mandateType->organization_type_model_name != MandateType::MODEL_NAME_GUEST) {
+                        if ($mandateType->organization_type_model_name == MandateType::MODEL_NAME_SCOUT && $permissionBasedModel == MandateType::MODEL_NAME_SCOUT) {
                             $tempMandatePermissionsMap[] = ['mandate_type_id' => $mandateType->id, 'model' => $permissionBasedModel, 'field' => $field, 'own' => 1];
                         }
                     }

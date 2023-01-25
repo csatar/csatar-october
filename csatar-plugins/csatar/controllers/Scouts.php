@@ -20,6 +20,10 @@ class Scouts extends Controller
         BackendMenu::setContext('Csatar.Csatar', 'main-menu-item-scout');
     }
 
+    public $requiredPermissions = [
+        'csatar.manage.data'
+    ];
+
     public function onResetFA()
     {
         if (isset($this->params[0])) {

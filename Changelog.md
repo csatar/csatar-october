@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- CS-449 - Modified permission matrix syncronization to create own permission type only for scout model and mandate
+- CS-449 - fixed missing status bug on Patrol save
+- CS-148 - Updated Terms and conditions page
+- CS-358 - Added design for the 2FA information display, added key icon to 2FA form-control fields
 - CS-441 - Added "Inactive mandates" accordion to Association, District, Team, Troop, Patrol pages
 - CS-443 - Changed accordion to tabs on organizations page
 - CS-424 - Hide inactive and expired mandates on Association, District, Team, Troop, Patrol pages

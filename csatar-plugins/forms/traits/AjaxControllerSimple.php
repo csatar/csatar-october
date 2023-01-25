@@ -1,5 +1,6 @@
 <?php namespace Csatar\Forms\Traits;
 
+use Auth;
 use http\Env\Request;
 use DateTime;
 use Input;
@@ -78,6 +79,8 @@ trait AjaxControllerSimple {
 
         $config = $this->makeConfig($form->getFieldsConfig());
         //update field list and config based on currentUserRights
+        $config->fields = $this->markFieldsThatRequire2FA($config->fields, $preview, empty($record->id));
+        $messageAbout2faFields = $this->generate2FAFieldsMessage($config->fields, $preview, empty($record->id));
         $config->fields = $this->applyUserRightsToForm($config->fields, $preview, empty($record->id));
         $config->arrayName = 'data';
         $config->alias = $this->alias;
@@ -116,7 +119,8 @@ trait AjaxControllerSimple {
             'from_id' => $form->id,
             'preview' => $preview,
             'redirectOnClose' => Input::old('redirectOnClose') ?? \Url::previous(),
-            'actionUpdateKeyword' => $this->actionUpdateKeyword
+            'actionUpdateKeyword' => $this->actionUpdateKeyword,
+            'messageAbout2faFields' => $messageAbout2faFields,
         ];
 
         return $this->renderPartial('@partials/form', $variablesToPass);
@@ -1013,7 +1017,13 @@ trait AjaxControllerSimple {
                 data-request="onListAttachOptions"
                 data-request-data="relationName: \'' . $relationName . '\'"><i class="bi bi-plus-square"></i></button></div></div>';
             $html .= '<div id="add-edit-' . $relationName . '"></div>';
-        } else {
+        }
+        else if (!$this->readOnly && !$this->canUpdate($relationName) && isset($this->fieldsThatRequire2FA[$relationName])) {
+            $html .= '<div class="add-remove-button-container"><button class="btn btn-xs rounded btn-primary me-2"
+                 disabled><i class="csat-key-out-wh-sm"></i></button></div></div>';
+            $html .= '<div id="add-edit-' . $relationName . '"></div>';
+        }
+        else {
             $html .= '</div>';
         }
 
@@ -1154,10 +1164,21 @@ trait AjaxControllerSimple {
 
             if (!$this->readOnly) {
                 $tableRows .= '<div class="col-6 col-lg-1">';
-                $tableRows .= '<button class="btn btn-xs rounded btn-primary m-1" data-request-flash
+                if ($this->canUpdate($relationName)) {
+                    $tableRows .= '<button class="btn btn-xs rounded btn-primary m-1" data-request-flash
                     data-request="onModifyPivotRelation" data-request-data="relationName: \'' . $relationName . '\', relationId: \'' . $relatedRecord->id . '\'"><i class="bi bi-pencil"></i></button>';
-                $tableRows .= '<button class="btn btn-xs rounded btn-danger m-1" data-request-flash
+                }
+                else if (!$this->canUpdate($relationName) && isset($this->fieldsThatRequire2FA[$relationName])) {
+                    $tableRows .= '<button class="btn btn-xs rounded btn-primary m-1" disabled><i class="csat-key-out-wh-sm"></i></button>';
+                }
+                if ($this->canDelete($relationName)) {
+                    $tableRows .= '<button class="btn btn-xs rounded btn-danger m-1" data-request-flash
                     data-request="onDeletePivotRelation" data-request-data="relationName: \'' . $relationName . '\', relationId: \'' . $relatedRecord->id . '\'"><i class="bi bi-trash"></i></button>';
+                }
+                else if (!$this->canDelete($relationName) && isset($this->fieldsThatRequire2FA[$relationName])) {
+                    $tableRows .= '<button class="btn btn-xs rounded btn-danger m-1" disabled><i class="csat-key-out-wh-sm"></i></button>';
+                }
+
                 $tableRows .= '</div>';
             }
             $tableRows .= '</div></div></div>';
@@ -1264,11 +1285,11 @@ trait AjaxControllerSimple {
 
         foreach ($attributesArray as $attribute => $settings) {
 
-            if ($settings['type'] == 'custom' || $settings['type'] == 'section') {
+            if (isset($settings['type']) && ($settings['type'] == 'custom' || $settings['type'] == 'section')) {
                 continue;
             }
 
-            if ($settings['type'] == 'relation' && $this->hasPivotColumns($attribute)) {
+            if (isset($settings['type']) && $settings['type'] == 'relation' && $this->hasPivotColumns($attribute)) {
                 continue;
             }
 
@@ -1309,6 +1330,128 @@ trait AjaxControllerSimple {
         }
 
         return $attributesArray;
+    }
+
+    /**
+     * Marks fields that require 2FA
+     */
+    private function markFieldsThatRequire2FA(array $attributesArray, bool $isReadOnly, bool $isNewRecord = false): array
+    {
+        if ($isReadOnly) {
+            foreach ($this->fieldsThatRequire2FA as $attribute => $settings) {
+                if (in_array('read', $settings)) {
+                    $key = isset($attributesArray[$attribute]) ? $attribute : '@' . $attribute;
+                    $attributesArray[$key]['formBuilder']['2fa'] = $this->fieldsThatRequire2FA[$attribute];
+                    $attributesArray[$key]['cssClass'] = 'csat-2fa-field';
+                }
+            }
+            return $attributesArray;
+        }
+        else if ($isNewRecord) {
+            foreach ($this->fieldsThatRequire2FA as $attribute => $settings) {
+                if (in_array('create', $settings)) {
+                    $key = isset($attributesArray[$attribute]) ? $attribute : '@' . $attribute;
+                    $attributesArray[$key]['formBuilder']['2fa'] = $this->fieldsThatRequire2FA[$attribute];
+                    $attributesArray[$key]['cssClass'] = 'csat-2fa-field';
+                }
+            }
+            return $attributesArray;
+        }
+        else {
+            foreach ($this->fieldsThatRequire2FA as $attribute => $settings) {
+                if (in_array('update', $settings) || in_array('delete', $settings)) {
+                    $key = isset($attributesArray[$attribute]) ? $attribute : '@' . $attribute;
+                    $attributesArray[$key]['formBuilder']['2fa'] = $this->fieldsThatRequire2FA[$attribute];
+                    $attributesArray[$key]['cssClass'] = 'csat-2fa-field';
+                }
+            }
+            return $attributesArray;
+        }
+
+        return [];
+    }
+
+    /**
+     * Generates info message about 2fa fields
+     */
+    private function generate2FAFieldsMessage($attributesArray, $preview, $isNewRecord) {
+        if (empty(Auth::user())) {
+            return;
+        }
+
+        $fieldsThatRequire2FA = [];
+
+        if ($preview) {
+            foreach ($attributesArray as $key => $value) {
+                $actionsThatNeed2FA = $value['formBuilder']['2fa'] ?? null;
+                if( $actionsThatNeed2FA && in_array('read', $actionsThatNeed2FA)){
+                    $fieldsThatRequire2FA[] = $this->get2FAFieldName($key, $value);
+                }
+            }
+
+            if (!empty($fieldsThatRequire2FA)) {
+                return Lang::get('csatar.forms::lang.components.basicForm.2FAtoRead') . implode(', ', $fieldsThatRequire2FA);
+            }
+        }
+        else if ($isNewRecord) {
+            foreach ($attributesArray as $key => $value) {
+                $actionsThatNeed2FA = $value['formBuilder']['2fa'] ?? null;
+                if( $actionsThatNeed2FA
+                    && in_array('create', $actionsThatNeed2FA)
+                ){
+                    $fieldsThatRequire2FA[] = $this->get2FAFieldName($key, $value);
+                }
+            }
+
+            $fieldsThatRequire2FA = array_filter($fieldsThatRequire2FA, function($value) {
+                return strpos($value, '@') === false;
+            });
+
+            if (!empty($fieldsThatRequire2FA)) {
+                return Lang::get('csatar.forms::lang.components.basicForm.2FAtoCreate') . implode(', ', $fieldsThatRequire2FA);
+            }
+        }
+        else {
+            foreach ($attributesArray as $key => $value) {
+                $actionsThatNeed2FA = $value['formBuilder']['2fa'] ?? null;
+                if( $actionsThatNeed2FA
+                    && (in_array('update', $actionsThatNeed2FA)
+                        || in_array('delete', $actionsThatNeed2FA))
+                ){
+                    $fieldsThatRequire2FA[] = $this->get2FAFieldName($key, $value);
+                }
+            }
+
+            $fieldsThatRequire2FA = array_filter($fieldsThatRequire2FA, function($value) {
+                return strpos($value, '@') === false;
+            });
+
+            if (!empty($fieldsThatRequire2FA)) {
+                return Lang::get('csatar.forms::lang.components.basicForm.2FAtoModify') . implode(', ', $fieldsThatRequire2FA);
+            }
+        }
+
+        return null;
+    }
+
+    public function get2FAFieldName(string $attribute, array $attributeSettings)
+    {
+        if (isset($attributeSettings['label']) && !empty(Lang::get($attributeSettings['label']))) {
+            return Lang::get($attributeSettings['label']);
+        }
+
+        if ($relationsArray = array_merge($this->record->belongsToMany, $this->record->hasMany)) {
+            if (
+                isset($relationsArray[str_replace('@', "", $attribute)]['label'])
+            ) {
+                return Lang::get($relationsArray[str_replace('@', "", $attribute)]['label']);
+            }
+
+        }
+
+//        dd($this->record, $attribute, $attributeSettings);
+
+        return $attribute;
     }
 
     /**

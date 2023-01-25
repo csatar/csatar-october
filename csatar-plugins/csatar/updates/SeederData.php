@@ -10,6 +10,7 @@ use Csatar\Csatar\Models\FoodSensitivity;
 use Csatar\Csatar\Models\Hierarchy;
 use Csatar\Csatar\Models\LeadershipQualification;
 use Csatar\Csatar\Models\LegalRelationship;
+use Csatar\Csatar\Models\Locations;
 use Csatar\Csatar\Models\MandateType;
 use Csatar\Csatar\Models\PermissionBasedAccess;
 use Csatar\Csatar\Models\ProfessionalQualification;
@@ -409,6 +410,9 @@ class SeederData extends Seeder
             ['Accident log data entry', 'dataEntry'],
             ['Accident log admin', 'admin']
         ],
+        'backendUserRoles'          => [
+            ['RMCSSZ office', 'rmcsszOffice'],
+        ],
     ];
 
     public function run()
@@ -573,7 +577,18 @@ class SeederData extends Seeder
                         }
                         unset($mandateType['parent']);
                     }
-                    array_push($mandateTypes, MandateType::firstOrCreate($mandateType));
+                    $newMandateType = MandateType::firstOrCreate([
+                        'name' => $mandateType['name'],
+                        'association_id' => $mandateType['association_id'],
+                        'organization_type_model_name' => $mandateType['organization_type_model_name'],
+                    ]);
+                    $newMandateType->required = $mandateType['required'] ?? false;
+                    $newMandateType->overlap_allowed = $mandateType['overlap_allowed'] ?? false;
+                    $newMandateType->parent_id = $mandateType['parent_id'] ?? null;
+                    $newMandateType->is_vk = $mandateType['is_vk'] ?? 0;
+                    $newMandateType->save();
+
+                    $mandateTypes[] = $newMandateType;
                 }
             }
 
@@ -645,7 +660,7 @@ class SeederData extends Seeder
                     'name'           => $ageGroup['name'],
                     'association_id' => $associationId
                 ]);
-                $newAgeGroup->note = $ageGroup['note'];
+                $newAgeGroup->note = $newAgeGroup->note ?? $ageGroup['note'];
                 $newAgeGroup->save();
             }
         }
@@ -677,23 +692,15 @@ class SeederData extends Seeder
                 ['value' => $sitesearchSettings],
           );
 
+        // seed RMCSSZ Iroda backend role
 
-        // seed romanian locations
-
-        set_time_limit(1000);
-
-        if (($handle = fopen(base_path() . "/plugins/csatar/csatar/updates/locations_ro.csv", "r")) !== FALSE) {
-            while (($data = fgetcsv($handle)) !== FALSE) {
-                Db::table('csatar_csatar_locations')
-                    ->updateOrInsert(
-                        ['country' => 'Romania', 'code' => $data[0], 'street' => $data[4]],
-                        [
-                            'county'      => $data[1],
-                            'city'        => $data[2],
-                            'street_type' => $data[3],
-                        ]
-                    );
-            }
-        }
+        Db::table('backend_user_roles')
+            ->updateOrInsert(
+                ['code' => 'rmcssz-iroda'],
+                [
+                    'name' => 'RMCSSZ Iroda',
+                    'permissions' => '{"rainlab.users.access_users":"1","rainlab.users.access_groups":"1","rainlab.users.impersonate_user":"1","pollozen.simplegallery.manage_galleries":"1","csatar.manage.data":"1","janvince.smallcontactform.access_messages":"1","janvince.smallcontactform.delete_messages":"1","janvince.smallcontactform.export_messages":"1"}'
+                ],
+            );
     }
 }

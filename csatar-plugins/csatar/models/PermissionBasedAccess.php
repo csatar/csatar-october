@@ -77,7 +77,7 @@ class PermissionBasedAccess extends Model
         });
         $rights = $rights->groupBy('field');
 
-        return $rights->map(function ($item, $key) use ($is2fa) {
+        $rights = $rights->map(function ($item, $key) use ($is2fa) {
             return [
                 'obligatory' => $is2fa ? $item->min('obligatory') : $item->min('obligatory') - 1,
                 'create' => $is2fa ? $item->max('create') : $item->max('create') - 1,
@@ -88,6 +88,10 @@ class PermissionBasedAccess extends Model
                 // if logged in user has NO 2fa, we substract 1 from every value, so where 2fa permission is needed, value will be 0, and no permission is granted
             ];
         });
+
+        $rights->put( 'is2fa', $is2fa );
+
+        return $rights;
     }
 
     public function getRightsForMandateTypesFromSession(array $mandateTypeIds, string $model){
