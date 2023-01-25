@@ -14,7 +14,9 @@
       data-request-complete="window.positionValidationTags();">
 
     {{ form | raw }}
-    {{ additionalData | raw }}
+    <div id="additionalData">
+        {{ additionalData | raw }}
+    </div>
 
     <div class="alert alert-danger" data-validate-error>
         <p data-message></p>

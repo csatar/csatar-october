@@ -37,7 +37,7 @@ class TeamReport extends ComponentBase
         ];
     }
 
-    public function onRender()
+    public function onRender($isRefresh = false)
     {
         $this->year = date('n') == 1 ? date('Y') - 1 : date('Y');
 
@@ -78,32 +78,7 @@ class TeamReport extends ComponentBase
             $this->teamFee = $association->team_fee;
             $this->totalAmount = $this->teamFee;
             $this->currency = $association->currency->code;
-            $this->scouts = [];
-            $scouts = Scout::where('team_id', $this->teamId)->where('is_active', true)->get();
-
-            foreach ($scouts as $scout) {
-                $legalRelationShip = $this->team->district->association->legal_relationships->where('id', $scout->legal_relationship_id)->first();
-                if(!empty($legalRelationShip)) {
-                    $membership_fee = $this->team->district->association->legal_relationships->where('id', $scout->legal_relationship_id)->first()->pivot->membership_fee;
-                } else {
-                    $membership_fee = 0;
-                }
-
-                array_push($this->scouts, [
-                    'name' => $scout->family_name . ' ' . $scout->given_name,
-                    'legal_relationship' => $scout->legal_relationship,
-                    'leadership_qualification' => $scout->leadership_qualifications->sortByDesc(function ($item, $key) {
-                        return $item['pivot']['date'];
-                    })->values()->first(),
-                    'ecset_code' => $scout->ecset_code,
-                    'membership_fee' => $membership_fee,
-                ]);
-                $this->totalAmount += $membership_fee;
-                if (empty($scout->legal_relationship)) {
-                    $this->errors[] = Lang::get('csatar.csatar::lang.plugin.component.teamReport.validationExceptions.missingLegalRelationship', [ 'name' => $scout->name ]);
-                }
-            }
-
+            $this->getScouts($this->teamId);
             $this->basicForm->specialValidationExceptions = $this->errors ?? [];
         }
         else {
@@ -130,7 +105,13 @@ class TeamReport extends ComponentBase
             $this->currency = $this->team->district->association->currency->code;
 
             // retrieve the scouts and calculate fees
-            $this->scouts = $this->teamReport->scouts->lists('pivot');
+            if (!$this->teamReport->submitted_at && !$this->teamReport->approved_at && $isRefresh) {
+                $this->getScouts($this->teamId);
+                $this->teamReport->updateScoutsList = true;
+                $this->teamReport->save();
+            } else {
+                $this->scouts = $this->teamReport->scouts->lists('pivot');
+            }
         }
 
         // set the team report status
@@ -170,6 +151,10 @@ class TeamReport extends ComponentBase
         return Redirect::to('/csapatjelentes/' . $this->id);
     }
 
+    public function onRefresh(){
+        $this->onRender(true);
+    }
+
     public function onDownloadPdf(){
 
         if (!$id = Input::get('id')) {
@@ -197,5 +182,33 @@ class TeamReport extends ComponentBase
             ->save(temp_path($fileName));
 
         return $fileName;
+    }
+
+    public function getScouts($teamId): void
+    {
+        $scouts = Scout::where('team_id', $teamId)->where('is_active', true)->get();
+
+        foreach ($scouts as $scout) {
+            $legalRelationShip = $this->team->district->association->legal_relationships->where('id', $scout->legal_relationship_id)->first();
+            if(!empty($legalRelationShip)) {
+                $membership_fee = $this->team->district->association->legal_relationships->where('id', $scout->legal_relationship_id)->first()->pivot->membership_fee;
+            } else {
+                $membership_fee = 0;
+            }
+
+            $this->scouts[]    = [
+                'name'                     => $scout->family_name . ' ' . $scout->given_name,
+                'legal_relationship'       => $scout->legal_relationship,
+                'leadership_qualification' => $scout->leadership_qualifications->sortByDesc(function ($item, $key) {
+                    return $item['pivot']['date'];
+                })->values()->first(),
+                'ecset_code'               => $scout->ecset_code,
+                'membership_fee'           => $membership_fee,
+            ];
+            $this->totalAmount += $membership_fee;
+            if (empty($scout->legal_relationship)) {
+                $this->errors[] = Lang::get('csatar.csatar::lang.plugin.component.teamReport.validationExceptions.missingLegalRelationship', [ 'name' => $scout->name ]);
+            }
+        }
     }
 }
