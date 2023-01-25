@@ -15,7 +15,7 @@ use Session;
 
 class TeamReport extends ComponentBase
 {
-    public $id, $teamId, $action, $year, $teamReport, $team, $scouts, $teamFee, $totalAmount, $currency, $status, $basicForm, $redirectFromWaitingForApproval, $errors, $permissions;
+    public $id, $teamId, $action, $year, $teamReport, $team, $scouts, $teamFee, $totalAmount, $currency, $status, $basicForm, $redirectFromWaitingForApproval, $errors, $permissions, $confirmDeleteMessage;
 
 
     public function init()
@@ -39,6 +39,7 @@ class TeamReport extends ComponentBase
 
     public function onRender($isRefresh = false)
     {
+        $this->confirmDeleteMessage = Lang::get('backend::lang.form.confirm_delete');
         $this->year = date('n') == 1 ? date('Y') - 1 : date('Y');
 
         // retrieve the parameters
@@ -109,6 +110,7 @@ class TeamReport extends ComponentBase
                 $this->getScouts($this->teamId);
                 $this->teamReport->updateScoutsList = true;
                 $this->teamReport->save();
+                \Flash::success(Lang::get('csatar.csatar::lang.plugin.component.teamReport.successMessages.teamReportRefreshed'));
             } else {
                 $this->scouts = $this->teamReport->scouts->lists('pivot');
             }
@@ -130,6 +132,14 @@ class TeamReport extends ComponentBase
         $this->teamReport->submitted_at = (new \DateTime())->format('Y-m-d');
         $this->teamReport->save();
         return Redirect::to('/csapatjelentes/' . $this->id);
+    }
+
+    public function onDelete()
+    {
+        $teamReport = \Csatar\Csatar\Models\TeamReport::find(Input::get('id'));
+        $teamReport->delete();
+        \Flash::success(Lang::get('csatar.csatar::lang.plugin.component.teamReport.successMessages.teamReportDeleted'));
+        return Redirect::to('/csapatjelentesek/' . $teamReport->team_id ?? '');
     }
 
     public function onApprove()

@@ -625,6 +625,10 @@
                     'teamCannotBeFound' => 'A csapat nem található.',
                     'missingLegalRelationship' => ':name tagnak nincs beállítva a jogviszonya.'
                 ],
+                'successMessages' => [
+                    'teamReportRefreshed' => 'A csapatjelentés frissült.',
+                    'teamReportDeleted' => 'A csapatjelentés törölve.',
+                ],
             ],
             'teamReports' => [
                 'name' => 'Csapatjelentések',

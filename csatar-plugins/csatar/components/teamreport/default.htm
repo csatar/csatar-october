@@ -14,11 +14,25 @@
     {% if __SELF__.action == 'modositas' and __SELF__.teamReport.created_at is not null and __SELF__.teamReport.submitted_at is null %}
     <button class="btn btn-sm rounded btn-primary"
             data-request="{{ __SELF__ }}::onRefresh"
+            data-request-flash
             data-request-data="id: {{ __SELF__.id }}"
             data-request-loading="#fs-saving-loader"
             data-request-update="'{{ __SELF__ }}::additionalData': '#additionalData'">
         <i class="csat-refresh-fill-wh-sm"></i>
         {{ 'Csapatjelentés frissítése'|_ }}
+    </button>
+    {% endif %}
+
+    {% if __SELF__.action == 'modositas' and __SELF__.teamReport.created_at is not null and __SELF__.teamReport.submitted_at is null %}
+    <button class="btn btn-sm rounded btn-danger"
+            data-request="{{ __SELF__ }}::onDelete"
+            data-request-flash
+            data-request-data="id: {{ __SELF__.id }}"
+            data-request-loading="#fs-saving-loader"
+            data-request-update="'{{ __SELF__ }}::additionalData': '#additionalData'"
+            data-request-confirm="{{ __SELF__.confirmDeleteMessage }}">
+        <i class="bi bi-trash"></i>
+        {{ 'Csapatjelentés törlése'|_ }}
     </button>
     {% endif %}
 
