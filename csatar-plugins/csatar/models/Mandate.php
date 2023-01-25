@@ -179,7 +179,7 @@ class Mandate extends Model
             }
 
             // check that the date isn't (partially) overlapping with a different assignment for the same period: if the overlapping is not enabled or if it's the same user: overlap if max(start1, start2) < min(end1, end2)
-            if (!$mandateType->overlap_enabled && $mandate->scout_id . '' != $scoutId) {
+            if (!$mandateType->overlap_allowed && $mandate->scout_id . '' != $scoutId) {
                 $mandateStartDate = new DateTime($mandate['start_date']);
                 $mandateEndDate = isset($mandate['end_date']) ? new DateTime($mandate['end_date']) : null;
 
