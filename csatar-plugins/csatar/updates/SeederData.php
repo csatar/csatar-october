@@ -683,13 +683,13 @@ class SeederData extends Seeder
 
         // seed RMCSSZ Iroda backend role
 
-        if (Db::table('backend_user_roles')->where('code', 'rmcssz-irodaa')->get()->isEmpty()) {
-            Db::table('backend_user_roles')->insert(
+        Db::table('backend_user_roles')
+            ->updateOrInsert(
+                ['code' => 'rmcssz-iroda'],
                 [
                     'name' => 'RMCSSZ Iroda',
-                    'code' => 'rmcssz-iroda',
                     'permissions' => '{"rainlab.users.access_users":"1","rainlab.users.access_groups":"1","rainlab.users.impersonate_user":"1","pollozen.simplegallery.manage_galleries":"1","csatar.manage.data":"1","janvince.smallcontactform.access_messages":"1","janvince.smallcontactform.delete_messages":"1","janvince.smallcontactform.export_messages":"1"}'
-                ]);
-        }
+                ],
+            );
     }
 }
