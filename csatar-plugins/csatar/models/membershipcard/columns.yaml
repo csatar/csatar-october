@@ -7,7 +7,7 @@ columns:
     scout:
         label: 'csatar.csatar::lang.plugin.admin.scout.scout'
         type: text
-        select: (SELECT CONCAT(ifnull(family_name, ''), ' ', ifnull(given_name, '')) FROM `csatar_csatar_scouts` WHERE `csatar_csatar_scouts`.`id` = `scout_id`)
+        select: (SELECT CONCAT(ifnull(family_name, ''), ' ', ifnull(given_name, ''), ' - ', ecset_code) FROM `csatar_csatar_scouts` WHERE `csatar_csatar_scouts`.`id` = `scout_id`)
         searchable: true
         sortable: false
     rfid_tag:

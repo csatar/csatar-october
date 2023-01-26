@@ -624,6 +624,11 @@ class Scout extends OrganizationBase
         return $this->getFullName();
     }
 
+    public function getNameWithIdNumberAttribute()
+    {
+        return $this->getFullName() . ' - ' . $this->ecset_code;
+    }
+
     public function getScoutLinkAttribute()
     {
         return '<a href="' . url("/tag/$this->ecset_code") . '">' . $this->getFullName() . '</a>';

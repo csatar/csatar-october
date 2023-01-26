@@ -1,7 +1,7 @@
 fields:
     scout:
         label: 'csatar.csatar::lang.plugin.admin.scout.scout'
-        nameFrom: name
+        nameFrom: name_with_id_number
         descriptionFrom: description
         span: auto
         type: relation
