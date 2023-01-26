@@ -727,9 +727,13 @@ body>p.flash-message.success, body>p.flash-message.info, body>p.flash-message.wa
 
 .csat-2fa-field .form-control {
     background: url(../images/icons/csat-key-out.svg) no-repeat right center;
-    background-size: 30px;
+    background-size: 25px;
     background-position-x: calc(100% - 10px);
     padding-right: 45px;
+}
+
+.csat-2fa-field .icon + .form-control {
+    background-position-x: calc(100% - 35px);
 }
 
 /* Accordion color setting*/
@@ -971,8 +975,6 @@ a.btn-warning:link, a.btn-warning:visited, a.btn-warning:active {
     font-family: geomanist !important;
     font-weight: 400 !important;
     font-size: calc(0.9rem + 0.2vw) !important;
-    padding: 2;
-    margin: 2;
 }
 
 .btn-xs {
