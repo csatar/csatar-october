@@ -29,7 +29,7 @@
             {% for record in records %}
             <li>
                 {% if detailsPage %}<a href="{{ detailsPage|page({ (detailsUrlParameter): attribute(record, detailsKeyColumn) }) }}">{% endif %}
-                {{ record.getFullName() }}
+                {{ record.getFullName() }} - {{ record.getLegalRelationshipName() }}
                 {% if detailsPage %}</a>{% endif %}
             </li>
             {% else %}
@@ -50,7 +50,7 @@
             {% for record in records %}
             <li>
                 {% if detailsPage %}<a href="{{ detailsPage|page({ (detailsUrlParameter): attribute(record, detailsKeyColumn) }) }}">{% endif %}
-                {{ record.getFullName() }}
+                {{ record.getFullName() }}  - {{ record.getLegalRelationshipName() }}
                 {% if detailsPage %}</a>{% endif %}
             </li>
             {% else %}

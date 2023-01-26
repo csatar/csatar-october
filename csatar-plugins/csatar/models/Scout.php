@@ -599,6 +599,14 @@ class Scout extends OrganizationBase
         return $this->getFullName();
     }
 
+    public function getLegalRelationshipName()
+    {
+        if (empty($this->legal_relationship_id)) {
+            return '';
+        }
+        return $this->legal_relationship->name;
+    }
+
     public function scopeOrganization($query, $mandate_model_type, $mandate_model_id)
     {
         switch ($mandate_model_type) {
