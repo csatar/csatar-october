@@ -17,7 +17,7 @@ class TeamReport extends PermissionBasedAccess
 
     protected $dates = ['deleted_at'];
 
-
+    public $updateScoutsList = false;
     /**
      * @var string The database table used by the model.
      */
@@ -136,10 +136,15 @@ class TeamReport extends PermissionBasedAccess
         $this->currency_id = $association->currency_id;
     }
 
-    public function afterCreate()
+    public function afterSave()
     {
+        if ($this->submitted_at || $this->approved_at || (!$this->updateScoutsList && !$this->wasRecentlyCreated)) {
+            return;
+        }
         // save the scouts (the pivot data can be saved only after the team report has been created)
         $scouts = Scout::where('team_id', $this->team_id)->where('is_active', true)->get();
+        $scoutsToSync = [];
+
         foreach ($scouts as $scout) {
             $leadershipQualification = $scout->leadership_qualifications->sortByDesc(function ($item, $key) {
                 return $item['pivot']['date'];
@@ -151,30 +156,31 @@ class TeamReport extends PermissionBasedAccess
                 $membership_fee = 0;
             }
 
-            $this->scouts()->attach($scout, [
+            $scoutsToSync[$scout->id] = [
                 'name' => $scout->family_name . ' ' . $scout->given_name,
                 'legal_relationship_id' => $scout->legal_relationship_id,
                 'leadership_qualification_id' => isset($leadershipQualification) ? $leadershipQualification->id : null,
                 'ecset_code' => $scout->ecset_code,
                 'membership_fee' => $membership_fee,
-            ]);
+            ];
 
             $this->total_amount += $membership_fee;
         }
 
+        $this->scouts()->sync($scoutsToSync);
+
         // save the number of patrols in different age groups
         $ageGroups = AgeGroup::where('association_id', $this->team->district->association_id )->get();
+        $ageGroupsToSync = [];
+
         foreach ($ageGroups as $ageGroup) {
             $count = Patrol::where('team_id', $this->team_id)->where('age_group_id', $ageGroup->id)->count();
             if($count>0) {
-                $this->ageGroups()->attach(
-                    $ageGroup,
-                    ['number_of_patrols_in_age_group' => $count]
-                );
+                $ageGroupsToSync[$ageGroup->id] = ['number_of_patrols_in_age_group' => $count];
             }
         }
 
-        $this->save();
+        $this->ageGroups()->sync($ageGroupsToSync);
     }
 
     /**

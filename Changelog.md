@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 1.7.3
+### 2023-01-26
+
+- CS-456 - Added "Refresh" and "Delete" buttons to team reports, to allow refresh/delete when team report is not submitted
 - CS-449 - Modified permission matrix syncronization to create own permission type only for scout model and mandate
 - CS-449 - fixed missing status bug on Patrol save
 - CS-148 - Updated Terms and conditions page
