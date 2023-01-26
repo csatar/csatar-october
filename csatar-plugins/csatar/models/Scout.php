@@ -388,7 +388,7 @@ class Scout extends OrganizationBase
             ],
         ],
         'troop' => '\Csatar\Csatar\Models\Troop',
-        'patrol' => '\Csatar\Csatar\Models\Patrol'
+        'patrol' => '\Csatar\Csatar\Models\Patrol',
     ];
 
     public $belongsToMany = [
@@ -642,6 +642,14 @@ class Scout extends OrganizationBase
     public function getScoutLinkAttribute()
     {
         return '<a href="' . url("/tag/$this->ecset_code") . '">' . $this->getFullName() . '</a>';
+    }
+
+    public function getLegalRelationshipName()
+    {
+        if (empty($this->legal_relationship_id)) {
+            return '';
+        }
+        return $this->legal_relationship->name;
     }
 
     public function scopeOrganization($query, $mandate_model_type, $mandate_model_id)
@@ -945,7 +953,7 @@ class Scout extends OrganizationBase
                     return [ 'name' => $item->team->extended_Name, 'id' => $item->id ];
                 })
                 ->pluck('name', 'id')->toArray();
-    }
+        }
     }
 
     public function getStaticMessages(): array
