@@ -314,6 +314,12 @@ class Scout extends OrganizationBase
                 ]);
             }
         }
+
+        $personalIdentificationNumberValidators = $this->getPersonalIdentificationNumberValidators();
+
+        if (!empty($personalIdentificationNumberValidators)) {
+            $this->rules['personal_identification_number'] .= '|' . implode('|', $personalIdentificationNumberValidators);
+        }
     }
 
     /**
@@ -354,9 +360,13 @@ class Scout extends OrganizationBase
             $fields->legal_relationship->options = $this->team ? \Csatar\Csatar\Models\LegalRelationship::associationId($this->team->district->association->id)->lists('name', 'id') : [];
         }
 
-        if (isset($fields->personal_identification_number) && !empty($fields->personal_identification_number->value) && in_array('cnp', $this->getPersonalIdentificationNumberValidators())) {
+        if (isset($fields->personal_identification_number)
+            && !empty($fields->personal_identification_number->value)
+            && in_array('cnp', $this->getPersonalIdentificationNumberValidators())
+            && (isset($this->original['personal_identification_number']) && $this->original['personal_identification_number'] != $fields->personal_identification_number->value)
+        ) {
             $fields->birthdate->value = $this->getBirthDateFromCNP($fields->personal_identification_number->value);
-    }
+        }
     }
 
     /**
