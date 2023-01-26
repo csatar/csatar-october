@@ -197,6 +197,7 @@ class TeamReport extends ComponentBase
     public function getScouts($teamId): void
     {
         $scouts = Scout::where('team_id', $teamId)->where('is_active', true)->get();
+        $this->totalAmount = $this->teamFee;
 
         foreach ($scouts as $scout) {
             $legalRelationShip = $this->team->district->association->legal_relationships->where('id', $scout->legal_relationship_id)->first();

@@ -31,6 +31,11 @@ class TeamReport extends PermissionBasedAccess
     ];
 
     /**
+     * @var bool skipAfterSave
+     */
+    public $skipAfterSave = false;
+
+    /**
      * Add custom validation
      */
     public function beforeValidate()
@@ -138,12 +143,13 @@ class TeamReport extends PermissionBasedAccess
 
     public function afterSave()
     {
-        if ($this->submitted_at || $this->approved_at || (!$this->updateScoutsList && !$this->wasRecentlyCreated)) {
+        if ($this->skipAfterSave || $this->submitted_at || $this->approved_at || (!$this->updateScoutsList && !$this->wasRecentlyCreated)) {
             return;
         }
         // save the scouts (the pivot data can be saved only after the team report has been created)
         $scouts = Scout::where('team_id', $this->team_id)->where('is_active', true)->get();
         $scoutsToSync = [];
+        $this->total_amount = $this->team_fee;
 
         foreach ($scouts as $scout) {
             $leadershipQualification = $scout->leadership_qualifications->sortByDesc(function ($item, $key) {
@@ -181,6 +187,8 @@ class TeamReport extends PermissionBasedAccess
         }
 
         $this->ageGroups()->sync($ageGroupsToSync);
+        $this->skipAfterSave = true;
+        $this->save();
     }
 
     /**
