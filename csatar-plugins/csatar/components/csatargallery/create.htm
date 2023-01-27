@@ -20,19 +20,20 @@
                 <input type="hidden" name="parent_id" value="{{ parent_id }}">
             {% endif %}
 
-            <button
-                type="submit"
-                id="save"
-                class="btn btn-sm rounded btn-primary">
-                <i class="csat-save-fill-wh-sm"></i>
-                {{ 'Mentés' | _ }}
-            </button>
-            <button
-                type="submit"
-                class="btn btn-sm rounded btn-light"
-                data-request="onRefreshPage">
-                {{ 'Mégse' | _ }}
-            </button>
+            {% partial "@formButton"
+                permissionValue = 1
+                buttonId = "save"
+                btnExtraClasses = 'btn-sm btn-primary'
+                btnIconClass = 'csat-save-fill-wh-sm'
+                btnLabel = 'Mentés' |_
+            %}
+            {% partial "@dataRequestButton"
+                permissionValue = 1
+                dataRequest = "onRefreshPage"
+                btnExtraClasses = 'btn-sm btn-light'
+                btnIconClass = 'csat-denied-fill-sm'
+                btnLabel = 'Mégse' |_
+            %}
 
         {{ form_close() }}
     </div>

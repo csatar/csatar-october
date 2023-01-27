@@ -1,0 +1,44 @@
+{#
+parameters:
+
+permissionValue,
+actionUrl,
+hiddenInputs { 'key1': 'value1', 'key2': 'value2' }
+btnExtraClasses,
+btnValue,
+btnIconClass,
+btnLabel
+tooltip
+
+#}
+
+{% if permissionValue > 0 %}
+<form action="{{ actionUrl }}" method="post">
+    {% for key, value in hiddenInputs if hiddenInputs %}
+        <input type="hidden" name="{{ key }}" value="{{ value }}">
+    {% endfor %}
+    <button
+        type="submit"
+        class="btn rounded {{ btnExtraClasses }}"
+        value="{{ btnValue }}"
+        {% if tooltip %}
+            data-toggle=tooltip
+            data-placement=top
+            title="{{ tooltip }}"
+        {% endif %}
+    >
+        <i class="{{ btnIconClass }}"></i>
+        {{ btnLabel }}
+    </button>
+</form>
+{% elseif permissionValue == 0 %}
+    <span
+        class="d-inline-block"
+        tabindex="0"
+        data-bs-toggle="tooltip"
+        data-placement=top
+        title="{{ 'Ez a funkció csak két faktoros hitelesítéssel érhető el!'|_ }}"
+    >
+        <button type="submit" class="btn rounded {{ btnExtraClasses }}" disabled><i class="csat-key-out-wh-sm"></i>{{ btnLabel }}</button>
+    </span>
+{% endif %}

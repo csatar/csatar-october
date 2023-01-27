@@ -26,7 +26,12 @@
                     placeholder="{{ 'ECSK azonosító'|_ }}"/>
                 <span data-validate-for="ecsk_code" class="errormsg">{{ 'Az igazolványszámot kötelező megadni!'|_ }}</span>
             </div>
-            <button type="submit" class="btn rounded btn-primary my-3"><i class="csat-check-fill-wh-sm"></i> {{ 'Ellenőrzés'|_ }}</button>
+            {% partial "@formButton"
+                permissionValue = 1
+                btnExtraClasses = 'btn-primary my-3'
+                btnIconClass = 'csat-check-fill-wh-sm'
+                btnLabel = 'Ellenőrzés' |_
+            %}
         </form>
     </div>
     <div class="col-lg-2 col-md-2">
