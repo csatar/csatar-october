@@ -2,15 +2,15 @@
 {% set attributesWithLabels = __SELF__.columnsToDisplay %}
 {% set maxColumns = __SELF__.maxColumns %}
 
-<button
-    type="button"
-    class="btn btn-lg rounded btn-light mb-4"
-    data-request="onExportToCsv"
-    data-request-loading="false"
-    data-request-complete="$.oc.stripeLoadIndicator.hide();"
-    >
-    {{ 'Adatok letöltése csv-ben'|_ }}
-</button>
+{% partial "@dataRequestButton"
+    permissionValue = 1
+    dataRequest = 'onExportToCsv'
+    btnExtraClasses = 'btn-lg rounded btn-light mb-4'
+    btnValue = 'Adatok letöltése csv-ben' |_
+    btnIconClass = 'csat-download-fill-sm'
+    btnLabel = 'Adatok letöltése csv-ben' |_
+    tooltip = 'Adatok letöltése csv-ben' |_
+%}
 
 <div class="table csat-grid">
     <div class="tr d-none d-lg-block">

@@ -1,0 +1,53 @@
+{#
+parameters:
+
+permissionValue,
+dataRequest,
+dataRequestData,
+dataRequestLoading,
+dataRequestUpdate,
+dataRequestConfirm,
+dataRequestGlobal,
+dataId,
+btnExtraClasses,
+btnIconClass,
+btnLabel
+tooltip
+
+#}
+
+{% if dataRequestGlobal is null %}
+    {% set dataRequestGlobal = 'true' %}
+{% endif %}
+
+{% if permissionValue > 0 %}
+    <button
+        class="btn rounded {{ btnExtraClasses }}"
+        {{ dataId ? 'data-id="' ~ dataId ~ '"' : '' }}
+        data-request-flash
+        data-request="{{ dataRequest }}"
+        data-request-complete="$.oc.stripeLoadIndicator.hide();"
+        data-request-loading="{{ dataRequestLoading }}"
+        data-request-data="{{ dataRequestData }}"
+        data-request-update="{{ dataRequestUpdate }}"
+        data-request-confirm="{{ dataRequestConfirm }}"
+        {% if tooltip %}
+            data-toggle=tooltip
+            data-placement=top
+            title="{{ tooltip }}"
+        {% endif %}
+    >
+        <i class="{{ btnIconClass }}"></i> {{ btnLabel }}
+    </button>
+{% elseif permissionValue == 0 %}
+    <span
+        class="d-inline-block"
+        tabindex="0"
+        data-bs-toggle="tooltip"
+        data-placement=top
+        title="{{ 'Ez a funkció csak két faktoros hitelesítéssel érhető el!'|_ }}"
+    >
+        <button class="btn btn-lg rounded btn-light mb-4" disabled><i class="csat-key-out-wh-sm"></i> {{ btnLabel }}</button>
+    </span>
+
+{% endif %}

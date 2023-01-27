@@ -5,12 +5,12 @@
 <p>{{ 'Csapatok' | _ }}</p>
 {% component 'builderList' %}
 
-{% if permissions['teams']['create'] > 0 %}
-    <form action="/csapat/letrehozas" method="post">
-        <input type="hidden" name="district" value="{{ district_id }}">
-        <button type="submit" class="btn rounded btn-primary" value="{{ 'Csapat hozzáadása' | _ }}">
-            <i class="csat-add-fill-wh-sm"></i>
-            {{ 'Csapat hozzáadása' | _ }}
-        </button>
-    </form>
-{% endif %}
+{% partial "@formWithButton"
+    permissionValue = permissions['teams']['create']
+    actionUrl = '/csapat/letrehozas'
+    hiddenInputs = { 'district': district_id }
+    btnExtraClasses = 'btn-sm btn-primary'
+    btnValue = 'Csapat hozzáadása' |_
+    btnIconClass = 'csat-add-fill-wh-sm'
+    btnLabel = 'Csapat hozzáadása' |_
+%}

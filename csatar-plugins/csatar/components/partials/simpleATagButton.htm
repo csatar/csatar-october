@@ -1,0 +1,36 @@
+{#
+parameters:
+
+permissionValue,
+targetUrl,
+btnExtraClasses,
+btnIconClass,
+btnLabel
+tooltip
+
+#}
+
+{% if permissionValue > 0 %}
+    <a
+        href="{{ targetUrl }}"
+        class="btn rounded {{ btnExtraClasses }}"
+        {% if tooltip %}
+            data-toggle=tooltip
+            data-placement=top
+            title="{{ tooltip }}"
+        {% endif %}
+    >
+        <i class="{{ btnIconClass }}"></i> {{ btnLabel }}
+    </a>
+{% elseif permissionValue == 0 %}
+    <span
+        class="d-inline-block"
+        tabindex="0"
+        data-bs-toggle="tooltip"
+        data-placement=top
+        title="{{ 'Ez a funkció csak két faktoros hitelesítéssel érhető el!'|_ }}"
+    >
+        <a class="btn rounded {{ btnExtraClasses }}" disabled><i class="csat-key-out-wh-sm"></i> {{ btnLabel }}</a>
+    </span>
+
+{% endif %}

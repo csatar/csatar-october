@@ -19,10 +19,15 @@
                 <div class="col col-sm-1 col-lg-2 d-none d-sm-block td m-1">{{ team_report_data.total_amount }}</div>
                 <div class="col col-sm-2 col-lg-2 d-none d-sm-block td m-1">{{ team_report_data.submitted_at }}</div>
                 <div class="col-3 col-sm-3 col-lg-2 m-1 p-0">
-                    <form action="{{ '/csapatjelentes/' ~ team_report_data.id }}" method="post">
-                        <input type="hidden" name="redirectFromWaitingForApproval" value="true">
-                        <input type="submit" class="btn rounded btn-light" value="{{ 'Bővebben' | _ }}">
-                    </form>
+                    {% partial "@formWithButton"
+                        permissionValue = __SELF__.permissions[team_report_data.id]['read']
+                        actionUrl = '/csapatjelentes/' ~ team_report_data.id
+                        hiddenInputs = { 'redirectFromWaitingForApproval': true }
+                        btnExtraClasses = 'btn-sm btn-light'
+                        btnValue = 'Bővebben' |_
+                        btnIconClass = 'csat-report-fill-sm'
+                        btnLabel = 'Bővebben' |_
+                    %}
                 </div>
             </div>
         {% endfor %}

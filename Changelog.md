@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- CS-458 - Added buttons partial, buttons partial can handle passed permission value
+- CS-458 - Changed buttons on every component to one of the buttons partial, expect gallery
 - CS-148 - Updated Terms and conditions page
 - CS-358 - Added design for the 2FA information display, added key icon to 2FA form-control fields
 - CS-441 - Added "Inactive mandates" accordion to Association, District, Team, Troop, Patrol pages

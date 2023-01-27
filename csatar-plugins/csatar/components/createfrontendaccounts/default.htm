@@ -6,15 +6,15 @@
         data-request-loading
         data-request-flash>
 
+        {% partial "@formButton"
+            permissionValue = permissions['MODEL_GENERAL']['create']
+            btnExtraClasses = 'btn-sm rounded btn-primary'
+            btnIconClass = 'csat-useradd-out-wh-sm'
+            btnLabel = 'Felhasználói fiók(ok) létrehozása' |_
+        %}
+
         {% if permissions['MODEL_GENERAL']['create'] > 0 %}
-            <button
-                type="submit"
-                class="btn btn-sm rounded btn-primary">
-                {{ 'Felhasználói fiók(ok) létrehozása'|_ }}
-            </button>
-
-        <hr class="hr-single bg-gray">
-
+            <hr class="hr-single bg-gray">
         {% endif %}
 
         {% for record in scouts %}
