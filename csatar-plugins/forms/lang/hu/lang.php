@@ -53,6 +53,7 @@
             '2FAtoRead' => 'A következő információk megjelenítéséhez két faktoros hitelesítés szükséges: ',
             '2FAtoCreate' => 'A következő információk megadásához két faktoros hitelesítés szükséges: ',
             '2FAtoModify' => 'A következő információk szerkesztéséhez két faktoros hitelesítés szükséges: ',
+            '2FANeeded' => 'Ez a funkció csak két faktoros hitelesítéssel érhető el!',
         ],
     ],
     'widgets' => [

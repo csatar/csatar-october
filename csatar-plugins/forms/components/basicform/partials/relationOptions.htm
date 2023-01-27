@@ -1,6 +1,12 @@
 {{ html|raw }}
 <span data-validate-for="{{ relationName }}" class="errormsg"></span>
 <div>
-    <button class="btn btn-sm rounded btn-primary" data-request="onAddPivotRelation" data-request-data="relationName: '{{ relationName }}'">{{ 'Tovább'|_ }}</button>
-    <button class="btn btn-sm rounded btn-light" data-request="onCloseAddEditArea" data-request-data="relationName: '{{ relationName }}'">{{ 'Mégse'|_ }}</button>
+    <button class="btn btn-sm rounded btn-primary" data-request="onAddPivotRelation" data-request-data="relationName: '{{ relationName }}'">
+        <i class="csat-arrowright-out-wh-sm"></i>
+        {{ 'Tovább'|_ }}
+    </button>
+    <button class="btn btn-sm rounded btn-light" data-request="onCloseAddEditArea" data-request-data="relationName: '{{ relationName }}'">
+        <i class="csat-denied-fill-sm"></i>
+        {{ 'Mégse'|_ }}
+    </button>
 </div>
