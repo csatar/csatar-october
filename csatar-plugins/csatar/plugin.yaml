@@ -197,6 +197,8 @@ navigation:
         label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.data'
         url: /
         icon: icon-database
+        permissions:
+            - csatar.admin
         sideMenu:
             side-menu-seeder-data:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.seederData'
@@ -215,7 +217,7 @@ navigation:
                 url: csatar/csatar/scoutimport/import
                 icon: icon-database
                 permissions:
-                    - csatar.manage.data
+                    - csatar.admin
             side-menu-item-json-import-organizations:
                 label: 'Import organizations (json)'
                 url: csatar/csatar/jsonimport/organizations
@@ -257,7 +259,7 @@ navigation:
                 url: csatar/csatar/permissionsmatrix/synchronizepermissionsmatrix
                 icon: icon-sitemap
                 permissions:
-                    - csatar.manage.data
+                    - csatar.admin
 
             side-menu-location-data:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.location'
