@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- CS-412 - The form on mobile view is now displayed on a single column, instead of two
+- CS-412 - Fixed overflow problem for dropdown boxes on mobile view
 - CS-148 - Updated Terms and conditions page
 - CS-358 - Added design for the 2FA information display, added key icon to 2FA form-control fields
 - CS-441 - Added "Inactive mandates" accordion to Association, District, Team, Troop, Patrol pages
