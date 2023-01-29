@@ -33,11 +33,11 @@ fields:
         type: repeater
         form:
             fields:
-                field_name:
+                label:
                     label: 'csatar.csatar::lang.plugin.admin.dynamicFields.fieldName'
                     span: auto
                     type: text
-                field_required:
+                required:
                     label: 'csatar.csatar::lang.plugin.admin.dynamicFields.fieldRequired'
                     span: auto
                     type: checkbox

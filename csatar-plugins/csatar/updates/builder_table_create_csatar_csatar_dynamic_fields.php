@@ -18,6 +18,7 @@ class BuilderTableCreateCsatarCsatarDynamicFields extends Migration
             $table->date('start_date');
             $table->date('end_date')->nullable();
             $table->string('model', 255);
+            $table->integer('extra_fields_max_id')->unsigned()->default(0);
             $table->text('extra_fields_definition')->nullable();
             
             $table->foreign('association_id')->references('id')->on('csatar_csatar_associations');

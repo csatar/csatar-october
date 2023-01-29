@@ -621,14 +621,27 @@ trait AjaxControllerSimple {
         $rules = $this->addRequiredRuleBasedOnUserRights($record->rules, $this->currentUserRights);
 
         // add extra fields validation
-        $extraFields = $this->getExtraFields($this->record, (new DateTime())->format('Y-m-d'));
-        if (isset($extraFields)) {
-            foreach($extraFields as $extraField) {
-                $id = 'extra_fields_' . $extraField['field_id'];
-                $attributeNames[$id] = $extraField['field_name'];
-                if ($extraField['field_required'] == 1) {
-                    $rules[$id] = 'required';
+        $extraFields = $this->getExtraFields($this->record, (new DateTime())->format('Y-m-d')) ?? [];
+        $extraFieldValues = json_decode($this->record->extra_fields, true) ?? [];
+        foreach ($extraFieldValues as $extraFieldValue) {
+            $found = false;
+            foreach ($extraFields as $key => $extraField) {
+                if ($extraField['id'] == $extraFieldValue['id']) {
+                    $extraField[$key]['required'] = $extraFieldValue['required'];
+                    $found = true;
+                    break;
                 }
+            }
+            if (!$found) {
+                array_push($extraFields, $extraFieldValue);
+            }
+        }
+        foreach($extraFields as $extraField) {
+            $id = 'extra_fields_' . $extraField['id'];
+            $attributeNames[$id] = $extraField['label'];
+            $rules[$id] = 'max:500';
+            if ($extraField['required'] == 1) {
+                $rules[$id] .= '|required';
             }
         }
 
@@ -663,18 +676,18 @@ trait AjaxControllerSimple {
         // resolve extra fields data
         if (array_key_exists('extra_fields', $this->record->attributes) && isset($extraFields)) {
             foreach ($extraFields as &$extraField) {
-                $id = 'extra_fields_' . $extraField['field_id'];
-                $extraField['field_value'] = $data[$id];
+                $id = 'extra_fields_' . $extraField['id'];
+                $extraField['value'] = $data[$id];
                 unset($data[$id]);
-                unset($extraField['field_required']);
             }
-            $data['extra_fields'] = json_encode($extraFields);
         }
 
         $data = $this->filterDataBasedOnUserRightsBeforeSave($data, $config->fields, $isNew);
 
-        // resolve extra fields data
-        $data['extra_fields'] = json_encode($extraFields);
+        // resolve extra fields data. It needs to be done after the data has been filtered by rights, as that removes extra_field from data, as extra_fields is not part of the permission matrix
+        if (array_key_exists('extra_fields', $this->record->attributes) && isset($extraFields)) {
+            $data['extra_fields'] = json_encode($extraFields);
+        }
 
         // Resolve belongsTo relations
         foreach($record->belongsTo as $name => $definition) {
@@ -841,17 +854,34 @@ trait AjaxControllerSimple {
         }
 
         // decode extra field values
-        $extraFieldValues = json_decode($this->widget->model->extra_fields);
+        $extraFieldValues = json_decode($this->widget->model->extra_fields, true) ?? [];
+
+        // add any newly added fields to the list
+        foreach ($extraFields as $extraField) {
+            $found = false;
+            foreach ($extraFieldValues as $key => $extraFieldValue) {
+                if ($extraField['id'] == $extraFieldValue['id']) {
+                    $extraFieldValues[$key]['required'] = $extraField['required'];
+                    $found = true;
+                    break;
+                }
+            }
+            if (!$found) {
+                array_push($extraFieldValues, $extraField);
+            }
+        }
+
+        // add the extra field values to the model
         foreach ($extraFieldValues as $extraFieldValue) {
-            $id = 'extra_fields_' . $extraFieldValue->field_id;
-            $this->widget->model->attributes[$id] = $extraFieldValue->field_value;
+            $id = 'extra_fields_' . $extraFieldValue['id'];
+            $this->widget->model->attributes[$id] = isset($extraFieldValue['value']) ? $extraFieldValue['value'] : '';
         }
 
         // add section for the extra fields
         $this->widget->fields['extraFieldsData'] = $this->createExtraFieldsSection();
 
         // add the extra fields
-        $this->widget->fields = array_merge($this->widget->fields, $this->createExtraFieldFields($extraFields, $this->widget->model->rules));
+        $this->widget->fields = array_merge($this->widget->fields, $this->createExtraFieldFields($extraFieldValues, $this->widget->model->rules));
     }
 
     private function createExtraFieldsSection() {
@@ -874,18 +904,18 @@ trait AjaxControllerSimple {
         $fields = [];
         $order = 1;
         foreach($extraFields as $extraField) {
-            $id = 'extra_fields_' . $extraField['field_id'];
+            $id = 'extra_fields_' . $extraField['id'];
             $fields[$id] = [
-                'label' => $extraField['field_name'],
+                'label' => $extraField['label'],
                 'span' => 'auto',
-                'type' => 'text',
+                'type' => 'textarea',
                 'formBuilder' => [
                     'type' => 'field',
                     'card' => 'extraFieldsData',
                     'order' => $order,
                 ],
             ];
-            if ($extraField['field_required'] == 1) {
+            if ($extraField['required'] == 1) {
                 $fields[$id]['required'] = 1;
                 $rules[$id] = 'required';
             }

@@ -40,8 +40,11 @@ class DynamicFields extends Model
         'start_date',
         'end_date',
         'model',
+        'extra_fields_max_id',
         'extra_fields_definition',
     ];
+
+    protected $jsonable = ['extra_fields_definition'];
 
     /**
      * Relations
@@ -83,20 +86,56 @@ class DynamicFields extends Model
 
     public function beforeSave()
     {
-        // add unique IDs
-        $fields = $this->extra_fields_definition;
-        $maxId = -1;
-        foreach ($fields as $field) {
-            if (isset($field['field_id']) && $field['field_id'] > $maxId) {
-                $maxId = $field['field_id'];
+        // add unique IDs and other parameters
+        $fields = isset($this->original['extra_fields_definition']) ? json_decode($this->original['extra_fields_definition'], true) : [];
+        $maxId = $this->extra_fields_max_id ?? 0;
+        $fieldValues = $this->extra_fields_definition;
+
+        // delete fields
+        $fieldsToDelete = [];
+        foreach ($fields as $key => $field) {            
+            $found = false;
+            foreach ($fieldValues as $fieldValue) {
+                if ($fieldValue['label'] == $field['label']) {
+                    $found = true;
+                    break;
+                }
+            }
+    
+            if (!$found) {
+                array_push($fieldsToDelete, $key);
             }
         }
-        foreach ($fields as &$field) {
-            if (!isset($field['field_id'])) {
+        foreach ($fieldsToDelete as $key) {
+            unset($fields[$key]);
+        }
+
+        // add new fields
+        foreach ($fieldValues as $fieldValue) {
+            $found = false;
+            foreach ($fields as &$field) {
+                if ($fieldValue['label'] == $field['label']) {
+                    $field['required'] = $fieldValue['required'];
+                    $found = true;
+                    break;
+                }
+            }
+
+            if (!$found) {
+                array_push($fields, [
+                    'label' => $fieldValue['label'],
+                    'required' => $fieldValue['required'],
+                    'id' => $maxId,
+                    'type' => 'textarea',
+                    'size' => 'tiny',
+                    'span' => 'auto',
+                ]);
                 $maxId++;
-                $field['field_id'] = $maxId;
             }
         }
+
+        // update values
+        $this->extra_fields_max_id = $this->extra_fields_max_id < $maxId ? $maxId : $this->extra_fields_max_id;
         $this->extra_fields_definition = $fields;
     }
 
@@ -113,6 +152,4 @@ class DynamicFields extends Model
             ? ($this->attributes['model'])::getOrganizationTypeModelNameUserFriendly()
                 : '';
     }
-
-    protected $jsonable = ['extra_fields_definition'];
 }

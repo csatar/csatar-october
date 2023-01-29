@@ -17,7 +17,6 @@ class TeamReport extends PermissionBasedAccess
 
     protected $dates = ['deleted_at'];
 
-
     /**
      * @var string The database table used by the model.
      */
@@ -123,6 +122,8 @@ class TeamReport extends PermissionBasedAccess
             $fields->spiritual_leader_religion->value = $lastYearTeamReport->spiritual_leader_religion_id;
             $fields->spiritual_leader_occupation->value = $lastYearTeamReport->spiritual_leader_occupation;
         }
+
+        return $fields;
     }
 
     /**
