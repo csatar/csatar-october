@@ -74,5 +74,6 @@ fields:
     extra_fields:
         label: 'csatar.csatar::lang.plugin.admin.dynamicFields.extraFields'
         type: textarea
-        size: small
+        size: tiny
+        span: auto
         readOnly: 1
