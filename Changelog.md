@@ -18,6 +18,7 @@
 - CS-430 - Added option and menu to list all team reports in association regardless of team id
 - CS-418 - Create member card model
 - CS-356 - Added tags list to the patrol and troop forms
+- CS-327 - Create dynamic fields
 
 ## 1.7.3
 ### 2023-01-26
