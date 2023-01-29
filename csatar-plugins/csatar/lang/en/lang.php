@@ -669,6 +669,10 @@
                     'teamCannotBeFound' => 'The team cannot be found.',
                     'missingLegalRelationship' => 'Legal relationship is not set for :name'
                 ],
+                'successMessages' => [
+                    'teamReportRefreshed' => 'The team report was refreshed.',
+                    'teamReportDeleted' => 'The team report was deleted.',
+                ],
             ],
             'teamReports' => [
                 'name' => 'Team Reports',

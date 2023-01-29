@@ -314,6 +314,12 @@ class Scout extends OrganizationBase
                 ]);
             }
         }
+
+        $personalIdentificationNumberValidators = $this->getPersonalIdentificationNumberValidators();
+
+        if (!empty($personalIdentificationNumberValidators)) {
+            $this->rules['personal_identification_number'] .= '|' . implode('|', $personalIdentificationNumberValidators);
+        }
     }
 
     /**
@@ -354,9 +360,13 @@ class Scout extends OrganizationBase
             $fields->legal_relationship->options = $this->team ? \Csatar\Csatar\Models\LegalRelationship::associationId($this->team->district->association->id)->lists('name', 'id') : [];
         }
 
-        if (isset($fields->personal_identification_number) && !empty($fields->personal_identification_number->value) && in_array('cnp', $this->getPersonalIdentificationNumberValidators())) {
+        if (isset($fields->personal_identification_number)
+            && !empty($fields->personal_identification_number->value)
+            && in_array('cnp', $this->getPersonalIdentificationNumberValidators())
+            && (isset($this->original['personal_identification_number']) && $this->original['personal_identification_number'] != $fields->personal_identification_number->value)
+        ) {
             $fields->birthdate->value = $this->getBirthDateFromCNP($fields->personal_identification_number->value);
-    }
+        }
     }
 
     /**
@@ -378,7 +388,7 @@ class Scout extends OrganizationBase
             ],
         ],
         'troop' => '\Csatar\Csatar\Models\Troop',
-        'patrol' => '\Csatar\Csatar\Models\Patrol'
+        'patrol' => '\Csatar\Csatar\Models\Patrol',
     ];
 
     public $belongsToMany = [
@@ -624,9 +634,22 @@ class Scout extends OrganizationBase
         return $this->getFullName();
     }
 
+    public function getNameWithIdNumberAttribute()
+    {
+        return $this->getFullName() . ' - ' . $this->ecset_code;
+    }
+
     public function getScoutLinkAttribute()
     {
         return '<a href="' . url("/tag/$this->ecset_code") . '">' . $this->getFullName() . '</a>';
+    }
+
+    public function getLegalRelationshipName()
+    {
+        if (empty($this->legal_relationship_id)) {
+            return '';
+        }
+        return $this->legal_relationship->name;
     }
 
     public function scopeOrganization($query, $mandate_model_type, $mandate_model_id)
@@ -930,7 +953,7 @@ class Scout extends OrganizationBase
                     return [ 'name' => $item->team->extended_Name, 'id' => $item->id ];
                 })
                 ->pluck('name', 'id')->toArray();
-    }
+        }
     }
 
     public function getStaticMessages(): array

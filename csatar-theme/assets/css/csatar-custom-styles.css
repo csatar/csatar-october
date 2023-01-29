@@ -229,7 +229,7 @@ p.card-text, .card-text {
 .errormsg, .invalid-feedback {
     font-family: geomanist !important;
     font-weight: 300;
-    font-size: calc(0.6rem + 0.5vww) !important;
+    font-size: calc(0.6rem + 0.5vw) !important;
 }
 
 a {
@@ -727,9 +727,13 @@ body>p.flash-message.success, body>p.flash-message.info, body>p.flash-message.wa
 
 .csat-2fa-field .form-control {
     background: url(../images/icons/csat-key-out.svg) no-repeat right center;
-    background-size: 30px;
+    background-size: 25px;
     background-position-x: calc(100% - 10px);
     padding-right: 45px;
+}
+
+.csat-2fa-field .icon + .form-control {
+    background-position-x: calc(100% - 35px);
 }
 
 /* Accordion color setting*/
@@ -800,6 +804,12 @@ a.dropdown-item {
     border-bottom-right-radius: 12px !important;
 }
 
+.select2-container .select2-selection--single {
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
 .dropdown-underline {
     text-decoration: underline !important;
 }
@@ -843,7 +853,7 @@ a.dropdown-item {
 
 	.dropdown-menu .submenu{
 		display: none;
-		left: 75%;
+		left: 40%;
         top: 0px;
 	}
 
@@ -971,8 +981,6 @@ a.btn-warning:link, a.btn-warning:visited, a.btn-warning:active {
     font-family: geomanist !important;
     font-weight: 400 !important;
     font-size: calc(0.9rem + 0.2vw) !important;
-    padding: 2;
-    margin: 2;
 }
 
 .btn-xs {
@@ -1701,6 +1709,17 @@ textarea {
 
 a.login:link, a.login:visited, a.login:active {
     color:#78863F !important;
+}
+
+@media (max-width: 576px) {
+
+    .form-group.span-left {
+        width: 100%;
+    }
+
+    .form-group.span-right {
+        width: 100%;
+    }
 }
 
 /* Other elements */
