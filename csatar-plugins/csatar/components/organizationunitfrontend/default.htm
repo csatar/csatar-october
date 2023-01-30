@@ -3,19 +3,19 @@
 {% set permissions = __SELF__.permissions %}
 {% set gallery_id = __SELF__.gallery_id %}
 
-<div class=" pb-5">
+<div class="pb-5">
     <ul class="nav nav-tabs mb-3" id="tab" role="tablist">
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="about-us-tab" data-bs-toggle="pill" data-bs-target="#about-us" type="button" role="tab" aria-controls="about-us" aria-selected="false">{{ 'Rólunk' | _ }}</button>
+            <button class="nav-link" id="about-us-tab" data-bs-toggle="pill" data-bs-target="#about-us" type="button" role="tab" aria-controls="about-us" aria-selected="false"><i class="csat-info-fill-wh-sm me-md-2"></i><span class="d-none d-md-inline">{{ 'Rólunk' | _ }}</span></button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link active" id="details-tab" data-bs-toggle="pill" data-bs-target="#details" type="button" role="tab" aria-controls="details" aria-selected="true">{{ 'Részletek' | _ }}</button>
+            <button class="nav-link active" id="details-tab" data-bs-toggle="pill" data-bs-target="#details" type="button" role="tab" aria-controls="details" aria-selected="true"><i class="csat-details-fill-wh-sm me-md-2"></i><span class="d-none d-md-inline">{{ 'Részletek' | _ }}</span></button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="structure-levels-tab" data-bs-toggle="pill" data-bs-target="#structure-levels" type="button" role="tab" aria-controls="structure-levels" aria-selected="false">{{ 'Kapcsolati szintek' | _ }}</button>
+            <button class="nav-link" id="structure-levels-tab" data-bs-toggle="pill" data-bs-target="#structure-levels" type="button" role="tab" aria-controls="structure-levels" aria-selected="false"><i class="csat-structure-fill-wh-sm me-md-2"></i><span class="d-none d-md-inline">{{ 'Kapcsolati szintek' | _ }}</span></button>
         </li>
         <li class="nav-item" role="presentation">
-            <button class="nav-link" id="gallery-tab" data-bs-toggle="pill" data-bs-target="#gallery" type="button" role="tab" aria-controls="gallery" aria-selected="false">{{ 'Galéria' | _ }}</button>
+            <button class="nav-link" id="gallery-tab" data-bs-toggle="pill" data-bs-target="#gallery" type="button" role="tab" aria-controls="gallery" aria-selected="false"><i class="csat-image-out-wh-sm me-md-2"></i><span class="d-none d-md-inline">{{ 'Galéria' | _ }}</span></button>
         </li>
     </ul>
 
