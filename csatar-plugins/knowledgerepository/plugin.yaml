@@ -1,0 +1,6 @@
+plugin:
+    name: 'csatar.knowledgerepository::lang.plugin.name'
+    description: 'csatar.knowledgerepository::lang.plugin.description'
+    author: CSATÁR
+    icon: oc-icon-book
+    homepage: ''
