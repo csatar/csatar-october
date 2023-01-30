@@ -7,12 +7,12 @@
 
     {% if permission_to_edit %}
         <form data-request="onOpenCreateForm">
-            <button
-                type="submit"
-                class="btn btn-sm rounded btn-primary mt-2">
-                <i class="csat-gallery-add-out-wh-sm"></i>
-                {{ 'Új galéria' | _ }}
-            </button>
+            {% partial "@formButton"
+                permissionValue = permission_to_edit ? 1 : -1
+                btnExtraClasses = 'btn-sm rounded btn-primary mt-2'
+                btnIconClass = 'csat-gallery-add-out-wh-sm'
+                btnLabel = 'Új galéria' |_
+            %}
         </form>
     {% endif %}
 </div>
