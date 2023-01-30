@@ -229,7 +229,7 @@ p.card-text, .card-text {
 .errormsg, .invalid-feedback {
     font-family: geomanist !important;
     font-weight: 300;
-    font-size: calc(0.6rem + 0.5vww) !important;
+    font-size: calc(0.6rem + 0.5vw) !important;
 }
 
 a {
@@ -804,6 +804,12 @@ a.dropdown-item {
     border-bottom-right-radius: 12px !important;
 }
 
+.select2-container .select2-selection--single {
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+
 .dropdown-underline {
     text-decoration: underline !important;
 }
@@ -847,7 +853,7 @@ a.dropdown-item {
 
 	.dropdown-menu .submenu{
 		display: none;
-		left: 75%;
+		left: 40%;
         top: 0px;
 	}
 
@@ -1703,6 +1709,17 @@ textarea {
 
 a.login:link, a.login:visited, a.login:active {
     color:#78863F !important;
+}
+
+@media (max-width: 576px) {
+
+    .form-group.span-left {
+        width: 100%;
+    }
+
+    .form-group.span-right {
+        width: 100%;
+    }
 }
 
 /* Other elements */
