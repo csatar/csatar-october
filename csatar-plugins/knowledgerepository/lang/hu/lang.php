@@ -1,6 +1,6 @@
 <?php return [
     'plugin' => [
-        'name' => 'Knowledge Repository',
-        'description' => 'Plugin for Knowledge Repository in the RMCSSZ\'s CSATÁR project',
+        'name' => 'Tudástár',
+        'description' => 'Tudástár plugin az RMCSSZ CSATÁR alkalmazás számára',
     ]
 ];

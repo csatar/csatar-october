@@ -13,8 +13,8 @@ class BuilderTableCreateCsatarKnowledgerepositoryMethodologies extends Migration
             $table->increments('id')->unsigned();
             $table->string('name')->nullable();
             $table->text('description')->nullable();
-            $table->integer('timeframe_id')->nullable()->unsigned();
-            $table->integer('methodology_type_id')->nullable()->unsigned();
+            $table->integer('timeframe_id')->nullable()->unsigned()->index('timeframe_id');
+            $table->integer('methodology_type_id')->nullable()->unsigned()->index('methodology_type_id');
             $table->text('link')->nullable();
             $table->string('other_tools')->nullable();
             $table->string('uploader_csatar_code')->nullable();
