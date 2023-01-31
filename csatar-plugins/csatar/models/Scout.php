@@ -1041,7 +1041,6 @@ class Scout extends OrganizationBase
         $savedCountyArray = Scout::where('id', $this->id)->select('address_county')->first();
         $savedCounty = $savedCountyArray['address_county'] ?? null;
         $array = [];
-
         if ($this->address_zipcode != null) {
             $array = Locations::where('country', '=', $this->address_country)->where('code', '=', $this->address_zipcode)->lists('county', 'county');
         }
@@ -1085,7 +1084,13 @@ class Scout extends OrganizationBase
         $array = [];
 
         if ($this->address_zipcode != null) {
-            $array = Locations::where('country', '=', $this->address_country)->where('code', '=', $this->address_zipcode)->where('city', '=', $this->address_location)->where('street', '!=', '')->lists('street', 'street');
+            $locationsArray = Locations::where('country', '=', $this->address_country)->where('code', '=', $this->address_zipcode)->where('city', '=', $this->address_location)->where('street', '!=', '')->get();
+            if (!empty($locationsArray)) {
+                foreach ($locationsArray as $location) {
+                    $street = $location['street_type'] . ' ' . $location['street'];
+                    $array[$street] = $street;
+                }
+            }
         }
         if (empty($array)) {
             if ($savedStreet != null) {
