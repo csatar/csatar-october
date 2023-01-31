@@ -98,6 +98,18 @@ class DynamicFields extends Model
         $fieldValues = $this->extra_fields_definition;
 
         // delete fields
+        $this->beforeSaveDeleteFields($fields, $fieldValues);
+
+        // add new fields
+        $this->beforeSaveAddFields($fields, $fieldValues, $maxId);
+
+        // update values
+        $this->extra_fields_max_id = $this->extra_fields_max_id < $maxId ? $maxId : $this->extra_fields_max_id;
+        $this->extra_fields_definition = $fields;
+    }
+
+    private function beforeSaveDeleteFields(&$fields, &$fieldValues)
+    {
         $fieldsToDelete = [];
         foreach ($fields as $key => $field) {            
             $found = false;
@@ -115,8 +127,10 @@ class DynamicFields extends Model
         foreach ($fieldsToDelete as $key) {
             unset($fields[$key]);
         }
+    }
 
-        // add new fields
+    private function beforeSaveAddFields(&$fields, &$fieldValues, &$maxId)
+    {
         foreach ($fieldValues as $fieldValue) {
             $found = false;
             foreach ($fields as &$field) {
@@ -139,10 +153,6 @@ class DynamicFields extends Model
                 $maxId++;
             }
         }
-
-        // update values
-        $this->extra_fields_max_id = $this->extra_fields_max_id < $maxId ? $maxId : $this->extra_fields_max_id;
-        $this->extra_fields_definition = $fields;
     }
 
     function getModelOptions()
