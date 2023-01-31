@@ -13,6 +13,10 @@ localeTitle[hu] = "Főoldal"
 ==
 Hello this is the index page!
 
+{% if activeLocale = 'hu' %}
+    HU lang set!
+{% endif %}
+
 <div class="container">
     {% partial "home/description" %}
     {% component "structure" %}
