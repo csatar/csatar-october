@@ -4,12 +4,15 @@
 <p>{{ 'Rajok' | _ }}</p>
 {% component 'builderList' %}
 
-{% if permissions['troops']['create'] > 0 %}
-    <form action="/raj/letrehozas" method="post">
-        <input type="hidden" name="team" value="{{ team_id }}">
-        <button type="submit" class="btn rounded btn-primary" value="{{ 'Raj hozzáadása' | _ }}"><i class="csat-add-fill-wh-sm"></i> {{ 'Raj hozzáadása' | _ }}</button>
-    </form>
-{% endif %}
+{% partial "@formWithButton"
+    permissionValue = permissions['troops']['create']
+    actionUrl = '/raj/letrehozas'
+    hiddenInputs = { 'team': team_id }
+    btnExtraClasses = 'btn-sm btn-primary'
+    btnValue = 'Raj hozzáadása' |_
+    btnIconClass = 'csat-add-fill-wh-sm'
+    btnLabel = 'Raj hozzáadása' |_
+%}
 
 <p>{{ 'Őrsök' | _ }}</p>
 {% component 'builderList2' %}
@@ -26,27 +29,43 @@
 
 {% endif %}
 
-{% if (permissions['scouts']['create'] > 0) %}
-    <a href="/tagok" class="btn rounded btn-primary"><i class="csat-add-fill-wh-sm"></i> {{ 'Felhasználói fiók létrehozása'|_ }}</a>
-{% endif %}
+{% partial "@simpleATagButton"
+    permissionValue = permissions['scouts']['create']
+    targetUrl = '/tagok'
+    btnExtraClasses = 'btn-sm btn-primary'
+    btnIconClass = 'csat-add-fill-wh-sm'
+    btnLabel = 'Felhasználói fiók létrehozása' |_
+%}
 
-{% if permissions['patrols']['create'] > 0 %}
-    <form action="/ors/letrehozas" method="post">
-        <input type="hidden" name="team" value="{{ team_id }}">
-        <button type="submit" class="btn rounded btn-primary" value="{{ 'Őrs hozzáadása' | _ }}"><i class="csat-add-fill-wh-sm"></i> {{ 'Őrs hozzáadása' | _ }}</button>
-    </form>
-{% endif %}
+{% partial "@formWithButton"
+    permissionValue = permissions['patrols']['create']
+    actionUrl = '/ors/letrehozas'
+    hiddenInputs = { 'team': team_id }
+    btnExtraClasses = 'btn-sm btn-primary'
+    btnValue = 'Őrs hozzáadása' |_
+    btnIconClass = 'csat-add-fill-wh-sm'
+    btnLabel = 'Őrs hozzáadása' |_
+%}
 
-{% if permissions['scouts']['create'] > 0 %}
-    <form action="/tag/letrehozas" method="post">
-        <input type="hidden" name="team" value="{{ team_id }}">
-        <button type="submit" class="btn rounded btn-primary" value="{{ 'Tag hozzáadása' | _ }}"><i class="csat-useradd-fill-wh-md"></i> {{ 'Tag hozzáadása' |_ }}</button>
-    </form>
-{% endif %}
+{% partial "@formWithButton"
+    permissionValue = permissions['scouts']['create']
+    actionUrl = '/tag/letrehozas'
+    hiddenInputs = { 'team': team_id }
+    btnExtraClasses = 'btn-sm btn-primary'
+    btnValue = 'Tag hozzáadása' |_
+    btnIconClass = 'csat-useradd-fill-wh-sm'
+    btnLabel = 'Tag hozzáadása' |_
+%}
 
-{% if permissions['teamReports']['read'] > 0 %}
-    <form action="{{'/csapatjelentesek/' ~ team_id }}" method="post">
-        <button type="submit" class="btn rounded btn-primary" value="{{ 'Csapatjelentések' | _ }}"><i class="csat-report-fill-wh-sm"></i> {{ 'Csapatjelentések' | _ }}</button>
-    </form>
-{% endif %}
+{% partial "@formWithButton"
+    permissionValue = permissions['teamReports']['read']
+    actionUrl = '/csapatjelentesek/' ~ team_id
+    hiddenInputs = { 'team': team_id }
+    btnExtraClasses = 'btn-sm btn-primary'
+    btnValue = 'Csapatjelentések' |_
+    btnIconClass = 'csat-report-fill-wh-sm'
+    btnLabel = 'Csapatjelentések' |_
+%}
+
+
 

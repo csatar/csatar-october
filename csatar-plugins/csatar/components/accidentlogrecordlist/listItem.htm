@@ -8,9 +8,13 @@
                 </div>
             {% endfor %}
             <div class="col">
-                <a class="btn rounded btn-light m-lg-0 m-2" href="/baleset/{{ record.id }}">
-                    {{ 'Részletek' | _ }}
-                </a>
+                {% partial "@simpleATagButton"
+                    permissionValue = 1
+                    targetUrl = '/baleset/' ~ record.id
+                    btnExtraClasses = 'btn-light m-lg-0 m-2'
+                    btnIconClass = 'csat-file-out-sm'
+                    btnLabel = 'Részletek' |_
+                %}
             </div>
         </div>
     </div>

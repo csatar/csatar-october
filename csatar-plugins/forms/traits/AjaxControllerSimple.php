@@ -1049,7 +1049,10 @@ trait AjaxControllerSimple {
             $html .= '<div id="add-edit-' . $relationName . '"></div>';
         }
         else if (!$this->readOnly && !$this->canUpdate($relationName) && isset($this->fieldsThatRequire2FA[$relationName])) {
-            $html .= '<div class="add-remove-button-container"><button class="btn btn-xs rounded btn-primary me-2"
+            $html .= '<div class="add-remove-button-container">';
+            $html .= '<span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-placement=top ';
+            $html .= 'title="' . Lang::get('csatar.forms::lang.components.basicForm.2FANeeded') . '">';
+            $html .= '<button class="btn btn-xs rounded btn-primary me-2"
                  disabled><i class="csat-key-out-wh-sm"></i></button></div></div>';
             $html .= '<div id="add-edit-' . $relationName . '"></div>';
         }
@@ -1199,14 +1202,18 @@ trait AjaxControllerSimple {
                     data-request="onModifyPivotRelation" data-request-data="relationName: \'' . $relationName . '\', relationId: \'' . $relatedRecord->id . '\'"><i class="bi bi-pencil"></i></button>';
                 }
                 else if (!$this->canUpdate($relationName) && isset($this->fieldsThatRequire2FA[$relationName])) {
-                    $tableRows .= '<button class="btn btn-xs rounded btn-primary m-1" disabled><i class="csat-key-out-wh-sm"></i></button>';
+                    $tableRows .= '<span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-placement=top ';
+                    $tableRows .= 'title="' . Lang::get('csatar.forms::lang.components.basicForm.2FANeeded') . '">';
+                    $tableRows .= '<button class="btn btn-xs rounded btn-primary m-1" disabled><i class="csat-key-out-wh-sm"></i></button></span>';
                 }
                 if ($this->canDelete($relationName)) {
                     $tableRows .= '<button class="btn btn-xs rounded btn-danger m-1" data-request-flash
                     data-request="onDeletePivotRelation" data-request-data="relationName: \'' . $relationName . '\', relationId: \'' . $relatedRecord->id . '\'"><i class="bi bi-trash"></i></button>';
                 }
                 else if (!$this->canDelete($relationName) && isset($this->fieldsThatRequire2FA[$relationName])) {
-                    $tableRows .= '<button class="btn btn-xs rounded btn-danger m-1" disabled><i class="csat-key-out-wh-sm"></i></button>';
+                    $tableRows .= '<span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-placement=top ';
+                    $tableRows .= 'title="' . Lang::get('csatar.forms::lang.components.basicForm.2FANeeded') . '">';
+                    $tableRows .= '<button class="btn btn-xs rounded btn-danger m-1" disabled><i class="csat-key-out-wh-sm"></i></button><span>';
                 }
 
                 $tableRows .= '</div>';
