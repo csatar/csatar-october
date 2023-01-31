@@ -56,7 +56,8 @@ class DynamicFields extends Model
     /**
      * Add custom validation
      */
-    public function beforeValidate() {
+    public function beforeValidate()
+    {
         // check that no other dynamic field item is already existing, which overlaps with the given period
         if (isset($this->association_id) && isset($this->model) && isset($this->start_date)) {
             $startDate = new DateTime($this->start_date);
@@ -74,13 +75,18 @@ class DynamicFields extends Model
                 $existingDynamicFieldStartDate = new DateTime($existingDynamicField['start_date']);
                 $existingDynamicFieldEndDate = isset($existingDynamicField['end_date']) ? new DateTime($existingDynamicField['end_date']) : null;
 
-                if (($endDate !== null && $existingDynamicFieldEndDate !== null && max($startDate, $existingDynamicFieldStartDate) < min($endDate, $existingDynamicFieldEndDate)) ||
-                    ($endDate == null && max($startDate, $existingDynamicFieldStartDate) < $existingDynamicFieldEndDate) ||
-                    ($existingDynamicFieldEndDate == null && max($startDate, $existingDynamicFieldStartDate) < $endDate) ||
-                    ($endDate == null && $existingDynamicFieldEndDate == null)) {
-                        throw new ValidationException(['start_date' => Lang::get('csatar.csatar::lang.plugin.admin.dynamicFields.overlappingDynamicFieldsError')]);
-                }
+                $this->validateDates($existingDynamicFieldStartDate, $existingDynamicFieldEndDate, $startDate, $endDate);
             }
+        }
+    }
+
+    private function validateDates($existingDynamicFieldStartDate, $existingDynamicFieldEndDate, $startDate, $endDate)
+    {
+        if (($endDate !== null && $existingDynamicFieldEndDate !== null && max($startDate, $existingDynamicFieldStartDate) < min($endDate, $existingDynamicFieldEndDate)) ||
+            ($endDate == null && max($startDate, $existingDynamicFieldStartDate) < $existingDynamicFieldEndDate) ||
+            ($existingDynamicFieldEndDate == null && max($startDate, $existingDynamicFieldStartDate) < $endDate) ||
+            ($endDate == null && $existingDynamicFieldEndDate == null)) {
+                throw new ValidationException(['start_date' => Lang::get('csatar.csatar::lang.plugin.admin.dynamicFields.overlappingDynamicFieldsError')]);
         }
     }
 
