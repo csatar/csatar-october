@@ -933,11 +933,11 @@ trait AjaxControllerSimple {
         if (!isset($association)) {
             return null;
         }
-        $model_name = $model::getModelName();
+        $modelName = $model::getModelName();
 
         // get the extra fields defined for the given association, model and current date
         $dynamicFields = DynamicFields::where('association_id', $association->id)
-            ->where('model', $model_name)
+            ->where('model', $modelName)
             ->where(function ($query) use ($date) {
                 return $query->where('start_date', '<=', $date)
                     ->where('end_date', '>=', $date)
