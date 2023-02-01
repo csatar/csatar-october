@@ -569,6 +569,8 @@
                 'membershipCards' => 'Tagkártyák',
                 'issued_date_time' => 'Kiállítva',
                 'active' => 'Érvényes',
+                'requests' => 'Tagkártya igénylések',
+                'exportRequests' => 'Igénylések exportálása .csv-be',
             ],
         ],
         'locations' => [
