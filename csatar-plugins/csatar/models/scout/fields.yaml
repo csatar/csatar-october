@@ -286,7 +286,7 @@ fields:
             order: 2
     address_county:
         label: 'csatar.csatar::lang.plugin.admin.scout.addressCounty'
-        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select/fill'
         showSearch: true
         span: auto
         dependsOn:
@@ -300,7 +300,7 @@ fields:
             order: 3
     address_location:
         label: 'csatar.csatar::lang.plugin.admin.scout.addressLocation'
-        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select/fill'
         showSearch: true
         span: auto
         dependsOn:
@@ -314,7 +314,7 @@ fields:
             order: 4
     address_street:
         label: 'csatar.csatar::lang.plugin.admin.scout.addressStreet'
-        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select/fill'
         showSearch: true
         span: auto
         dependsOn:

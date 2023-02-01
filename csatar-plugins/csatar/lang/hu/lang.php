@@ -24,6 +24,7 @@
                 'updatedAt' => 'Módosítás ideje',
                 'deletedAt' => 'Törlés ideje',
                 'select' => 'Válassz...',
+                'select/fill' => 'Válassz/Töltsd ki...',
                 'logo' => 'Logó',
                 'coordinates' => 'Koordináták',
                 'ecsetCode' => 'Igazolványszám',
