@@ -367,6 +367,18 @@ class Scout extends OrganizationBase
         ) {
             $fields->birthdate->value = $this->getBirthDateFromCNP($fields->personal_identification_number->value);
         }
+
+        if (isset($fields->address_county)) {
+            $this->setAddressCountyOptions($fields->address_county);
+        }
+
+        if (isset($fields->address_location)) {
+            $this->setAddressLocationOptions($fields->address_location);
+        }
+
+        if (isset($fields->address_street)) {
+            $this->setAddressStreetOptions($fields->address_street);
+        }
     }
 
     /**
@@ -1036,7 +1048,7 @@ class Scout extends OrganizationBase
         return [];
     }
 
-    public function getAddressCountyOptions()
+    public function setAddressCountyOptions(&$field)
     {
         $savedCountyArray = Scout::where('id', $this->id)->select('address_county')->first();
         $savedCounty = $savedCountyArray['address_county'] ?? null;
@@ -1051,12 +1063,14 @@ class Scout extends OrganizationBase
             if ($this->address_county != $savedCounty) {
                 $array[$this->address_county]= $this->address_county;
             }
+        } else {
+            $field->value = array_values($array)[0];
         }
 
-        return $array;
+        $field->options = $array;
     }
 
-    public function getAddressLocationOptions()
+    public function setAddressLocationOptions(&$field)
     {
         $savedLocationArray = Scout::where('id', $this->id)->select('address_location')->first();
         $savedLocation = $savedLocationArray['address_location'] ?? null;
@@ -1072,12 +1086,14 @@ class Scout extends OrganizationBase
             if ($this->address_location != $savedLocation) {
                 $array[$this->address_location]= $this->address_location;
             }
+        } else {
+            $field->value = array_values($array)[0];
         }
 
-        return $array;
+        $field->options = $array;
     }
 
-    public function getAddressStreetOptions()
+    public function setAddressStreetOptions(&$field)
     {
         $savedStreetArray = Scout::where('id', $this->id)->select('address_street')->first();
         $savedStreet = $savedStreetArray['address_street'] ?? null;
@@ -1099,9 +1115,11 @@ class Scout extends OrganizationBase
             if ($this->address_street != $savedStreet) {
                 $array[$this->address_street]= $this->address_street;
             }
+        } else {
+            $field->value = array_values($array)[0];
         }
 
-        return $array;
+        $field->options = $array;
     }
 
     public function getAddressCountryAttribute()
