@@ -10,4 +10,7 @@ echo 'Setting permissions...'
 docker-compose exec -u root web chown -R www-data:www-data /var/www/html/storage
 docker-compose exec -u root web chmod -R 755 /var/www/html/storage
 
+echo 'Setting up debugbar'
+docker-compose exec -u root web composer require rainlab/debugbar-plugin
+
 echo "DONE"
