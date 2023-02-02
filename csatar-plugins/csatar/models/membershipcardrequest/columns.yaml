@@ -1,0 +1,16 @@
+columns:
+    team_number:
+        label: 'csatar.csatar::lang.plugin.admin.team.teamNumber'
+        type: text
+        searchable: false
+        sortable: false
+    name:
+        label: 'csatar.csatar::lang.plugin.admin.general.name'
+        type: text
+        searchable: true
+        sortable: true
+    ecset_code:
+        label: 'csatar.csatar::lang.plugin.admin.general.ecsetCode'
+        type: text
+        searchable: true
+        sortable: true

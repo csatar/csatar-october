@@ -573,6 +573,8 @@ return [
                 'membershipCards' => 'Membership Cards',
                 'issued_date_time' => 'Issued',
                 'active' => 'Active',
+                'requests' => 'Requests',
+                'exportRequests' => 'Export requests to .csv',
             ],
         ],
 
