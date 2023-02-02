@@ -625,6 +625,10 @@ class Scout extends OrganizationBase
         return $this->team->district->association ?? null;
     }
 
+    public function getAssociationId() {
+        return $this->team->district->association_id ?? null;
+    }
+
     public function getDistrict() {
         return $this->team->district ?? null;
     }
