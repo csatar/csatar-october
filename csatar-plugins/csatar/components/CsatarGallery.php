@@ -113,6 +113,11 @@ class CsatarGallery extends Gallery
 
         $this->galleries = $this->page['galleries'] = json_decode(post('gallerieArray'));
 
+        $modelName = "Csatar\Csatar\Models\\" . $this->property('model_name');
+        $this->model = $modelName::find($this->property('model_id'));
+
+        $this->permission_to_edit = $this->getPermissionToEdit();
+
         return [
             $renderPartial => $this->renderPartial('@sortOrder')
         ];
@@ -457,19 +462,24 @@ class CsatarGallery extends Gallery
 
     public function onSaveSortOrder()
     {
-        if (post('imageArray')) {
-            foreach (post('imageArray') as $key => $value) {
-                $file = File::find($key);
-                $file->sort_order = $value;
-                $file->save();
-            }
-        }
+        $modelName = "Csatar\Csatar\Models\\" . $this->property('model_name');
+        $this->model = $modelName::find($this->property('model_id'));
 
-        if (post('galleryArray')) {
-            foreach (post('galleryArray') as $key => $value) {
-                $gallery = GalleryModel::find($key);
-                $gallery->sort_order = $value;
-                $gallery->save();
+        if ($this->getPermissionToEdit()) {
+            if (post('imageArray')) {
+                foreach (post('imageArray') as $key => $value) {
+                    $file = File::find($key);
+                    $file->sort_order = $value;
+                    $file->save();
+                }
+            }
+
+            if (post('galleryArray')) {
+                foreach (post('galleryArray') as $key => $value) {
+                    $gallery = GalleryModel::find($key);
+                    $gallery->sort_order = $value;
+                    $gallery->save();
+                }
             }
         }
 
