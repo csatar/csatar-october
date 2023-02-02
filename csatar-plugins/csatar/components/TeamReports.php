@@ -144,13 +144,13 @@ class TeamReports extends ComponentBase
 
                 // construct the array containing the data, which will be displayed in the table
                 $data = [
-                    'id' => $teamReport->id,
-                    'year' => $teamReport->year,
+                    'id'            => $teamReport->id,
+                    'year'          => $teamReport->year,
                     'members_count' => $scoutsCount,
-                    'total_amount' => $teamReport->total_amount . ' ' . $teamReport->currency->code,
-                    'status' => $teamReport->getStatus(),
-                    'link' => isset($teamReport->submitted_at) ? '/csapatjelentes/' . $teamReport->id : '/csapatjelentes/' . $teamReport->id . '/modositas',
-                    'link_text' => isset($teamReport->submitted_at) ? Lang::get('csatar.csatar::lang.plugin.component.teamReports.view') : Lang::get('csatar.csatar::lang.plugin.component.teamReports.edit'),
+                    'total_amount'  => $teamReport->total_amount . ' ' . $teamReport->currency->code,
+                    'status'        => $teamReport->getStatus(),
+                    'link'          => isset($teamReport->submitted_at) ? '/csapatjelentes/' . $teamReport->id : '/csapatjelentes/' . $teamReport->id . '/modositas',
+                    'link_text'     => isset($teamReport->submitted_at) ? Lang::get('csatar.csatar::lang.plugin.component.teamReports.view') : Lang::get('csatar.csatar::lang.plugin.component.teamReports.edit'),
                 ];
                 foreach ($this->legalRelationships as $legalRelationship) {
                     $data[$legalRelationship->id] = $scoutsDataCountPerLegalRelationship[$legalRelationship->id] ?? 0;

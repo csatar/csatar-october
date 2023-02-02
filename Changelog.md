@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- CS-461 - Created membership card requests backend list
+
 ## 1.8.2
 ### 2023-02-15
 
