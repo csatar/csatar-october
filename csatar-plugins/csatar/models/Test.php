@@ -8,7 +8,7 @@ use Model;
 class Test extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-    
+
     use \October\Rain\Database\Traits\SoftDelete;
 
     protected $dates = ['deleted_at'];
@@ -47,4 +47,11 @@ class Test extends Model
             'pivotModel' => '\Csatar\Csatar\Models\ScoutTestPivot',
         ]
     ];
+
+    public function beforeValidate()
+    {
+        if ($this->sort_order === null) {
+            throw new ValidationException(['sort_order' => 'Sort order is required']);
+        }
+    }
 }
