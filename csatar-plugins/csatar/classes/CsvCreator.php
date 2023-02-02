@@ -10,7 +10,7 @@ class CsvCreator
             return 'Input data must be a 2 dimensional array';
         }
 
-        if (false === ($file = fopen($fileName, $append ? 'a' : 'w'))) {
+        if (($file = fopen($fileName, $append ? 'a' : 'w')) === false) {
             return print_r(error_get_last(), true);
         }
         fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));

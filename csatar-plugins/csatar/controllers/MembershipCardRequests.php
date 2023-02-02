@@ -28,8 +28,6 @@ class MembershipCardRequests extends Controller
 
     public function listExtendQuery($query, $definition = null)
     {
-        $memberLegalRelationshipId = \Csatar\Csatar\Models\LegalRelationship::where('name', 'Tag')->first()->id;
-
         $query = $this->extendQuery($query);
     }
 
