@@ -225,3 +225,6 @@
 1.0.78:
     - 'Updated table csatar_csatar_team_reports'
     - builder_table_update_csatar_csatar_team_reports.php
+1.0.79:
+    - 'Updated table csatar_csatar_mandate_types, added is_hidden_frontend column'
+    - builder_table_update_csatar_csatar_mandate_types.php

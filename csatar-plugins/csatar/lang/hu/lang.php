@@ -540,6 +540,7 @@
                 'endDate' => 'Vége',
                 'breadcrumb' => 'Megbízatás típusok',
                 'activeMandateDeleteError' => 'Létezik %name típusú aktív Megbízatás, így ez a Megbízatás típus nem törölhető.',
+                'isHiddenFrontend' => 'Rejtett a frontenden',
             ],
             'mandate' => [
                 'mandate' => 'Megbízatás',

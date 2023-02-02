@@ -75,6 +75,10 @@ trait AjaxControllerSimple {
             throw new NotFoundException();
         }
 
+        if ($record->is_hidden_fronend) {
+            throw new NotFoundException();
+        }
+
         $record->fill($data = Input::get('data') ?? []);
 
         $config = $this->makeConfig($form->getFieldsConfig());
@@ -374,13 +378,19 @@ trait AjaxControllerSimple {
                     return $options;
                 }
 
-                return $allowDuplicates ?
+                $options = $allowDuplicates ?
                     (isset($scope) ?
-                        $relatedModelName::where('id', '>', 0)->{$scope}()->get()->lists('name', 'id') :
-                        $relatedModelName::all()->lists('name', 'id')) :
+                        $relatedModelName::where('id', '>', 0)->{$scope}()->get() :
+                        $relatedModelName::all()) :
                     (isset($scope) ?
-                        $relatedModelName::whereNotIn('id', $attachedIds)->{$scope}()->get()->lists('name', 'id') :
-                        $relatedModelName::whereNotIn('id', $attachedIds)->get()->lists('name', 'id'));
+                        $relatedModelName::whereNotIn('id', $attachedIds)->{$scope}()->get() :
+                        $relatedModelName::whereNotIn('id', $attachedIds)->get());
+
+                $options = $options->filter(function($item) {
+                    return $item->is_hidden_frontend != 1;
+                });
+
+                return $options->lists('name', 'id');
             });
         });
 
@@ -1160,6 +1170,9 @@ trait AjaxControllerSimple {
         }
 
         foreach ($records as $key => $relatedRecord){
+            if ($relatedRecord->is_hidden_frontend) {
+                continue;
+            }
             if ($defRecords) {
                 if (!$isHasManyRelation) {
                     $relatedRecord->pivot = (object)$defRecords[$key]->pivot_data;
@@ -1485,8 +1498,6 @@ trait AjaxControllerSimple {
             }
 
         }
-
-//        dd($this->record, $attribute, $attributeSettings);
 
         return $attribute;
     }

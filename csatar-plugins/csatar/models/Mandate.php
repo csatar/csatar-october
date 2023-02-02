@@ -272,6 +272,11 @@ class Mandate extends Model
         return $this->mandate_model_type ? ($this->mandate_model_type)::find($this->mandate_model_id) : null;
     }
 
+    public function getIsHiddenFrontendAttribute()
+    {
+        return $this->mandate_type->is_hidden_frontend;
+    }
+
     /**
      * Scope a query to only include mandates of a given type.
      */
