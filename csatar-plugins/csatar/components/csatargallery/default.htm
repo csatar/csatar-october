@@ -6,13 +6,23 @@
     {% endfor %}
 
     {% if permission_to_edit %}
-        <form data-request="onOpenCreateForm">
-            {% partial "@formButton"
-                permissionValue = permission_to_edit ? 1 : -1
-                btnExtraClasses = 'btn-sm rounded btn-primary mt-2'
-                btnIconClass = 'csat-gallery-add-out-wh-sm'
-                btnLabel = 'Új galéria' |_
-            %}
-        </form>
+        <div class="row">
+                <form data-request="onOpenCreateForm">
+                    {% partial "@formButton"
+                    permissionValue = permission_to_edit ? 1 : -1
+                    btnExtraClasses = 'btn-sm rounded btn-primary mt-2'
+                    btnIconClass = 'csat-gallery-add-out-wh-sm'
+                    btnLabel = 'Új galéria' |_
+                    %}
+                    {% partial "@formButton"
+                    dataRequest = 'onOpenSortOrderForm'
+                    permissionValue = permission_to_edit ? 1 : -1
+                    btnExtraClasses = 'btn-sm rounded btn-primary mt-2'
+                    btnIconClass = 'csat-structure-fill-wh-sm'
+                    btnLabel = 'Sorba rendez' |_
+                    %}
+                    <input id="gallerieArray" name="gallerieArray" value="{{ galleries }}" type="hidden">
+                </form>
+        </div>
     {% endif %}
 </div>

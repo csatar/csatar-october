@@ -219,3 +219,6 @@
 1.0.76:
     - 'Updated table csatar_csatar_scouts'
     - builder_table_update_csatar_csatar_scouts_4.php
+1.0.77:
+    - 'Update table pollozen_simplegallery_galleries'
+    - migration_1077.php

@@ -1,0 +1,70 @@
+{{ form_ajax('onSaveSortOrder') }}
+    {% if images %}
+        <h2>{{ 'Rendezd sorba a képeket' | _ }}</h2>
+        <ul class="sortImages d-flex list-unstyled">
+            {% for image in images %}
+            <li id='image_{{ image.id }}'>
+                <img src="{{ image.path }}" alt="" class="csat-gallery-edit-img p-2">
+                <input type="hidden" id="image_{{ image.id }}_id" name="imageArray[{{ image.id }}]" min="1" max="100" size="2" value="{{ loop.index }}" >
+            </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if galleries %}
+        <h2>{{ 'Rendezd sorba a galériákat' | _ }}</h2>
+        <ul class="sortGalleries list-unstyled">
+            {% for gallery in galleries %}
+                <li id='gallery_{{ gallery.id }}' class="my-2">
+                    <i class="csat-structure-fill-sm"></i>
+                    <label> - {{gallery.name}}</label>
+                    <input type="hidden" id="gallery_{{ gallery.id }}_id" name="galleryArray[{{ gallery.id }}]" min="1" max="100" size="2" value="{{ loop.index }}" >
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+    {% if parent_id %}
+        <input type="hidden" id="parent_id" name="parent_id" value="{{ parent_id }}">
+    {% endif %}
+
+    <button
+        type="submit"
+        id="save"
+        class="btn btn-sm rounded btn-primary">
+        <i class="csat-save-out-wh-sm"></i>
+        {{ 'Mentés' | _ }}
+    </button>
+    <button
+        type="submit"
+        class="btn btn-sm rounded btn-light"
+        data-request="onRefreshPage">
+        <i class="csat-denied-fill-sm"></i>
+        {{ 'Mégse' | _ }}
+    </button>
+{{ form_close() }}
+
+
+<script type="text/javascript">
+    $(function() {
+        $('.sortGalleries').sortable()
+            .on('sortable:update', function (e, ui) {
+                $(ui.item.parent().children().not('.placeholder')).each(function (i, el) {
+                    // console.log('left')
+                    if ($('#' + el.id + '_id')) {
+                        $('#' + el.id + '_id').prop('value', 1 + i);
+                    }
+                })
+            })
+
+        $('.sortImages').sortable()
+            .on('sortable:update', function (e, ui) {
+                $(ui.item.parent().children().not('.placeholder')).each(function (i, el) {
+                    // console.log('left')
+                    if ($('#' + el.id + '_id')) {
+                        $('#' + el.id + '_id').prop('value', 1 + i);
+                    }
+                })
+            })
+    })
+</script>

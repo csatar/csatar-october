@@ -77,12 +77,20 @@
     <div class="row">
         <form data-request="onOpenCreateForm">
             <input type="hidden" name="parent_id" value="{{ gallery.id }}">
+            <input id="gallerieArray" name="gallerieArray" value="{{ childGalleries }}" type="hidden">
             <button
                 type="submit"
                 class="btn btn-sm rounded btn-primary mt-2">
                 <i class="csat-gallery-add-out-wh-sm"></i>
                 {{ 'Új galéria' | _ }}
             </button>
+            {% partial "@formButton"
+            dataRequest = 'onOpenSortOrderForm'
+            permissionValue = permission_to_edit ? 1 : -1
+            btnExtraClasses = 'btn-sm rounded btn-primary mt-2'
+            btnIconClass = 'csat-structure-fill-wh-sm'
+            btnLabel = 'Sorba rendez' |_
+            %}
         </form>
     </div>
 {% endif %}
