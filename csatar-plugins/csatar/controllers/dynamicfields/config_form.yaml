@@ -1,0 +1,10 @@
+name: 'csatar.csatar::lang.plugin.admin.dynamicFields.dynamicFields'
+form: $/csatar/csatar/models/dynamicfields/fields.yaml
+modelClass: Csatar\Csatar\Models\DynamicFields
+defaultRedirect: csatar/csatar/dynamicfields
+create:
+    redirect: 'csatar/csatar/dynamicfields/update/:id'
+    redirectClose: csatar/csatar/dynamicfields
+update:
+    redirect: csatar/csatar/dynamicfields
+    redirectClose: csatar/csatar/dynamicfields

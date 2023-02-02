@@ -1,0 +1,29 @@
+columns:
+    created_at:
+        label: 'csatar.csatar::lang.plugin.admin.general.createdAt'
+        type: datetime
+    updated_at:
+        label: 'csatar.csatar::lang.plugin.admin.general.updatedAt'
+        type: datetime
+    deleted_at:
+        label: 'csatar.csatar::lang.plugin.admin.general.deletedAt'
+        type: datetime
+    association:
+        label: 'csatar.csatar::lang.plugin.admin.dynamicFields.association'
+        type: text
+        searchable: true
+        sortable: false
+        relation: association
+        valueFrom: name
+    start_date:
+        label: 'csatar.csatar::lang.plugin.admin.dynamicFields.startDate'
+        type: text
+    end_date:
+        label: 'csatar.csatar::lang.plugin.admin.dynamicFields.endDate'
+        type: text
+    model:
+        label: 'csatar.csatar::lang.plugin.admin.dynamicFields.model'
+        searchable: true
+        sortable: false
+        displayFrom: organization_type_model_name_user_friendly
+        type: text
