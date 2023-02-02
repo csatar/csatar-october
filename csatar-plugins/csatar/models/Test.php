@@ -51,7 +51,7 @@ class Test extends Model
 
     public function beforeValidate()
     {
-        if ($this->sort_order == null) {
+        if ($this->sort_order === null) {
             throw new ValidationException(['sort_order' => 'Sort order is required']);
         }
     }
