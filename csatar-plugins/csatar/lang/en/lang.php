@@ -24,6 +24,7 @@
                 'updatedAt' => 'Updated at',
                 'deletedAt' => 'Deleted at',
                 'select' => 'Select...',
+                'select/fill' => 'Válassz/Töltsd ki...',
                 'logo' => 'Logo',
                 'coordinates' => 'Coordinates',
                 'ecsetCode' => 'ID number',

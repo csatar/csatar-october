@@ -31,7 +31,7 @@ tooltip
         {{ btnLabel }}
     </button>
 </form>
-{% elseif permissionValue == 0 %}
+{% elseif permissionValue == 0 and not user.scout.is2FA() %}
     <span
         class="d-inline-block"
         tabindex="0"
