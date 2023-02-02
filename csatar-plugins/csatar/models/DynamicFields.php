@@ -82,10 +82,10 @@ class DynamicFields extends Model
 
     private function validateDates($existingDynamicFieldStartDate, $existingDynamicFieldEndDate, $startDate, $endDate)
     {
-        if (($endDate !== null && $existingDynamicFieldEndDate !== null && max($startDate, $existingDynamicFieldStartDate) < min($endDate, $existingDynamicFieldEndDate)) ||
-            ($endDate == null && max($startDate, $existingDynamicFieldStartDate) < $existingDynamicFieldEndDate) ||
-            ($existingDynamicFieldEndDate == null && max($startDate, $existingDynamicFieldStartDate) < $endDate) ||
-            ($endDate == null && $existingDynamicFieldEndDate == null)) {
+        if (($endDate !== null && $existingDynamicFieldEndDate !== null && max($startDate, $existingDynamicFieldStartDate) < min($endDate, $existingDynamicFieldEndDate))
+            || ($endDate == null && max($startDate, $existingDynamicFieldStartDate) < $existingDynamicFieldEndDate)
+            || ($existingDynamicFieldEndDate == null && max($startDate, $existingDynamicFieldStartDate) < $endDate)
+            || ($endDate == null && $existingDynamicFieldEndDate == null)) {
                 throw new ValidationException(['start_date' => Lang::get('csatar.csatar::lang.plugin.admin.dynamicFields.overlappingDynamicFieldsError')]);
         }
     }
