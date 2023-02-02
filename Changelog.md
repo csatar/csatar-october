@@ -3,8 +3,10 @@
 ## Unreleased
 
 - CS-466 - Created migrations for "Knowledge repository" models
+- CS-461 - Created membership card requests backend list
 - CS-458 - Added buttons partial, buttons partial can handle passed permission value
 - CS-458 - Changed buttons on every component to one of the buttons partial, expect gallery
+- CS-444 - Personalized TAB design and added to the design system
 - CS-412 - The form on mobile view is now displayed on a single column, instead of two
 - CS-412 - Fixed overflow problem for dropdown boxes on mobile view
 - CS-148 - Updated Terms and conditions page

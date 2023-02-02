@@ -26,6 +26,7 @@ return [
                 'updatedAt' => 'Updated at',
                 'deletedAt' => 'Deleted at',
                 'select' => 'Select...',
+                'select/fill' => 'Válassz/Töltsd ki...',
                 'logo' => 'Logo',
                 'coordinates' => 'Coordinates',
                 'ecsetCode' => 'ID number',
@@ -572,6 +573,8 @@ return [
                 'membershipCards' => 'Membership Cards',
                 'issued_date_time' => 'Issued',
                 'active' => 'Active',
+                'requests' => 'Requests',
+                'exportRequests' => 'Export requests to .csv',
             ],
         ],
 
