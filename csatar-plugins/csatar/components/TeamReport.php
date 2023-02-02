@@ -5,6 +5,7 @@ use Cms\Classes\ComponentBase;
 use Csatar\Csatar\Models\District;
 use Csatar\Csatar\Models\Scout;
 use Csatar\Csatar\Models\Team;
+use Csatar\Csatar\Models\TeamReport as TeamReportModel;
 use Csatar\Forms\Components\BasicForm;
 use Input;
 use Lang;
@@ -15,7 +16,7 @@ use Session;
 
 class TeamReport extends ComponentBase
 {
-    public $id, $teamId, $action, $year, $teamReport, $team, $scouts, $teamFee, $totalAmount, $currency, $status, $basicForm, $redirectFromWaitingForApproval, $errors, $permissions, $confirmDeleteMessage;
+    public $id, $teamId, $action, $year, $teamReport, $team, $scouts, $teamFee, $totalAmount, $currency, $status, $basicForm, $redirectFromWaitingForApproval, $errors, $permissions, $confirmDeleteMessage, $scoutsWithoutRegistrationForm;
 
 
     public function init()
@@ -113,6 +114,7 @@ class TeamReport extends ComponentBase
                 \Flash::success(Lang::get('csatar.csatar::lang.plugin.component.teamReport.successMessages.teamReportRefreshed'));
             } else {
                 $this->scouts = $this->teamReport->scouts->lists('pivot');
+                $this->scoutsWithoutRegistrationForm = TeamReportModel::getScoutsWithoutRegistrationForm($this->teamReport->scouts);
             }
         }
 
@@ -198,6 +200,7 @@ class TeamReport extends ComponentBase
     {
         $scouts = Scout::where('team_id', $teamId)->where('is_active', true)->get();
         $this->totalAmount = $this->teamFee;
+        $this->scoutsWithoutRegistrationForm = TeamReportModel::getScoutsWithoutRegistrationForm($scouts);
 
         foreach ($scouts as $scout) {
             $legalRelationShip = $this->team->district->association->legal_relationships->where('id', $scout->legal_relationship_id)->first();
@@ -207,7 +210,7 @@ class TeamReport extends ComponentBase
                 $membership_fee = 0;
             }
 
-            $this->scouts[]    = [
+            $this->scouts[] = [
                 'name'                     => $scout->family_name . ' ' . $scout->given_name,
                 'legal_relationship'       => $scout->legal_relationship,
                 'leadership_qualification' => $scout->leadership_qualifications->sortByDesc(function ($item, $key) {

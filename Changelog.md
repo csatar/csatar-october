@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-462 - Added warning to team report if any scout doesn't have registration form uploaded
 - CS-458 - Added buttons partial, buttons partial can handle passed permission value
 - CS-458 - Changed buttons on every component to one of the buttons partial, expect gallery
 - CS-444 - Personalized TAB design and added to the design system
