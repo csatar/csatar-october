@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-436 - Added option to hide mandate types on frontend
 - CS-466 - Created migrations for "Knowledge repository" models
 - CS-461 - Created membership card requests backend list
 - CS-458 - Added buttons partial, buttons partial can handle passed permission value
