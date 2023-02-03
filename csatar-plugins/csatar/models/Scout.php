@@ -1021,12 +1021,12 @@ class Scout extends OrganizationBase
             case 8:
                 $year += 1900;
                 break;
-            case 3:
-            case 4:
-                $year += 2000;
-                break;
             case 5:
             case 6:
+                $year += 2000;
+                break;
+            case 3:
+            case 4:
                 $year += 1800;
                 break;
             default:
