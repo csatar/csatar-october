@@ -248,4 +248,18 @@ class TeamReport extends PermissionBasedAccess
     public function getTeam() {
         return $this->team_id ? $this->team : null;
     }
+
+    // method to get scouts without registration form
+    public static function getScoutsWithoutRegistrationForm($scouts): array
+    {
+        foreach ($scouts as $scout) {
+            if(!$scout->registration_form) {
+                $scoutsWithoutRegistrationForm[] = [
+                    'name' => $scout->name,
+                    'ecset_code' => $scout->ecset_code,
+                ];
+            }
+        }
+        return $scoutsWithoutRegistrationForm ?? [];
+    }
 }
