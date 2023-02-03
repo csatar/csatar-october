@@ -219,3 +219,12 @@
 1.0.76:
     - 'Updated table csatar_csatar_scouts'
     - builder_table_update_csatar_csatar_scouts_4.php
+1.0.77:
+    - 'Created table csatar_csatar_dynamic_fields'
+    - builder_table_create_csatar_csatar_dynamic_fields.php
+1.0.78:
+    - 'Updated table csatar_csatar_team_reports'
+    - builder_table_update_csatar_csatar_team_reports.php
+1.0.79:
+    - 'Updated table csatar_csatar_mandate_types, added is_hidden_frontend column'
+    - builder_table_update_csatar_csatar_mandate_types.php

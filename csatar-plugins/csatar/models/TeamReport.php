@@ -77,7 +77,10 @@ class TeamReport extends PermissionBasedAccess
         'currency_id',
         'submitted_at',
         'approved_at',
+        'extra_fields',
     ];
+
+    protected $jsonable = ['extra_fields'];
 
     /**
      * Relations
@@ -125,6 +128,8 @@ class TeamReport extends PermissionBasedAccess
             $fields->spiritual_leader_religion->value = $lastYearTeamReport->spiritual_leader_religion_id;
             $fields->spiritual_leader_occupation->value = $lastYearTeamReport->spiritual_leader_occupation;
         }
+
+        return $fields;
     }
 
     /**

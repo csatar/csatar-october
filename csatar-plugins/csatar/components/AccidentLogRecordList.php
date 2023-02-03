@@ -4,6 +4,7 @@ use Auth;
 use Carbon\Carbon;
 use Cms\Classes\ComponentBase;
 use Csatar\Csatar\Models\AccidentLogRecord;
+use Csatar\Csatar\Classes\CsvCreator;
 use Lang;
 use Storage;
 use Response;
@@ -55,28 +56,8 @@ class AccidentLogRecordList extends ComponentBase
             $data[] = $dataRow;
         }
 
-        $this->writeCsvFile($csvPath, $data);
+        CsvCreator::writeCsvFile($csvPath, $data);
 
         return Redirect::to('balesetek-csv-letoltes/' . $fileName);
-    }
-
-    public function writeCsvFile($fileName, $data, $append=false): ?string {
-        if (!is_array($data)) {
-            return 'Input data must be a 2 dimensional array';
-        }
-
-        if (false === ($file = fopen($fileName, $append ? 'a' : 'w'))) {
-            return print_r(error_get_last(), true);
-        }
-        fprintf($file, chr(0xEF).chr(0xBB).chr(0xBF));
-        foreach ($data as $fields) {
-            if (!is_array($fields)) {
-                continue;
-            }
-            fputcsv($file, $fields);
-        }
-
-        fclose($file);
-        return null;
     }
 }

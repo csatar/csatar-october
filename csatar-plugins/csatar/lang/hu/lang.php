@@ -363,6 +363,20 @@
                 'sortOrder' => 'Sorrend',
                 'breadcrumb' => 'Hierarchia',
             ],
+            'dynamicFields' => [
+                'dynamicFields' => 'Dinamikus mezők',
+                'extraFields' => 'További mezők',
+                'association' => 'Szövetség',
+                'startDate' => 'Kezdete',
+                'endDate' => 'Vége',
+                'model' => 'Modell',
+                'extraFieldsDefinition' => 'További mezők adatai',
+                'promptNew' => 'Új hozzáadása',
+                'fieldName' => 'Mező neve',
+                'fieldRequired' => 'Kötelező',
+                'breadcrumb' => 'Dinamikus mezők',
+                'overlappingDynamicFieldsError' => 'Már vannak megadva Dinamikus mezők az adott periódusra e szövetség esetén.',
+            ],
             'organizationBase' => [
                 'organizationBase' => 'Általános szervezeti egység',
             ],
@@ -526,6 +540,7 @@
                 'endDate' => 'Vége',
                 'breadcrumb' => 'Megbízatás típusok',
                 'activeMandateDeleteError' => 'Létezik %name típusú aktív Megbízatás, így ez a Megbízatás típus nem törölhető.',
+                'isHiddenFrontend' => 'Rejtett a frontenden',
             ],
             'mandate' => [
                 'mandate' => 'Megbízatás',
@@ -570,6 +585,8 @@
                 'membershipCards' => 'Tagkártyák',
                 'issued_date_time' => 'Kiállítva',
                 'active' => 'Érvényes',
+                'requests' => 'Tagkártya igénylések',
+                'exportRequests' => 'Igénylések exportálása .csv-be',
             ],
         ],
         'locations' => [
