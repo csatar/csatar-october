@@ -176,6 +176,11 @@ class Team extends OrganizationBase
         'logo' => 'System\Models\File'
     ];
 
+    public function getLogoAttribute($value)
+    {
+        return $value ? $value : '/plugins/csatar/csatar/assets/images/default-team-logo.png';
+    }
+
     public function beforeSave()
     {
         $filterWords = explode(',', Lang::get('csatar.csatar::lang.plugin.admin.team.filterOrganizationUnitNameForWords'));
