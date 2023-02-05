@@ -587,6 +587,7 @@
                 'active' => 'Érvényes',
                 'requests' => 'Tagkártya igénylések',
                 'exportRequests' => 'Igénylések exportálása .csv-be',
+                'inactiveScoutError' => 'A kártyához rendelt tag inaktív. A kártyát nem lehet érvényesre állítani, ha a tag státusza nem aktív.',
             ],
         ],
         'locations' => [

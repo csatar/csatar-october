@@ -1,7 +1,9 @@
 <?php namespace Csatar\Csatar\Models;
 
 use Csatar\Csatar\Classes\Enums\Status;
+use Lang;
 use Model;
+use ValidationException;
 
 /**
  * Model
@@ -42,6 +44,17 @@ class MembershipCard extends Model
     public $belongsTo = [
         'scout' => '\Csatar\Csatar\Models\Scout',
     ];
+    
+    /**
+    * Add custom validation
+    */
+    public function beforeValidate()
+    {
+        // if the scout assigned to this card is inactive, then this card cannot be set to active
+        if ($this->active == 1 && $this->scout->is_active != 1) {
+            throw new ValidationException(['active' => Lang::get('csatar.csatar::lang.plugin.admin.membershipCard.inactiveScoutError')]);
+        }
+    }
 
     public function afterSave() {
         if (!empty($this->scout_id)) {
