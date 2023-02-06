@@ -9,7 +9,7 @@ class LegalRelationshipMapper
     public array $idsToNames = [];
     public array $namesToIds = [];
 
-    function __construct(){
+    public function __construct(){
         $this->mapLegalRelationships();
     }
 

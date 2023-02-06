@@ -9,11 +9,11 @@ class ReligionMapper
     public array $idsToNames = [];
     public array $namesToIds = [];
 
-    function __construct(){
-        $this->mapLegalRelationships();
+    public function __construct(){
+        $this->mapReligions();
     }
 
-    private function mapLegalRelationships(){
+    private function mapReligions(){
         $legalRelationships = Religion::all();
         foreach ($legalRelationships as $legalRelationship) {
             $this->idsToNames[$legalRelationship->id]   = $legalRelationship->name;

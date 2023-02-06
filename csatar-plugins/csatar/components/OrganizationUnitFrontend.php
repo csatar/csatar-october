@@ -241,17 +241,21 @@ class OrganizationUnitFrontend extends ComponentBase
         ];
     }
 
-    public function onImportScoutsToCsv(){
+    public function onImportScoutsFromCsv(){
         $file = Input::file('csvFile');
         $teamId = Input::get('teamId');
 
-        if (empty($file) || empty($teamId)) {
-            return; //TODO: flash here
+        if (empty($file) || !$file->isValid() || $file->getMimeType() != 'text/csv') {
+            \Flash::error(Lang::get('csatar.csatar::lang.plugin.component.organizationUnitFrontend.csv.fileMissingOrInvalid'));
+            return;
         }
 
-        if ($file->isValid()) {
-            $file = $file->move(temp_path(), $file->getClientOriginalName());
+        if (empty($teamId)) {
+            \Flash::error(Lang::get('csatar.csatar::lang.plugin.component.organizationUnitFrontend.csv.teamIdMissing'));
+            return;
         }
+
+        $file = $file->move(temp_path(), $file->getClientOriginalName());
 
         $csvData = [];
         if (($handle = fopen($file, "r")) !== FALSE) {
@@ -275,15 +279,15 @@ class OrganizationUnitFrontend extends ComponentBase
             $data = [];
             foreach ($rowData as $key => $value) {
                 if ($attributes[$key] == 'gender') {
-                    $data[$attributes[$key]] = array_flip(Gender::getOptionsWithLabels())[$value];
+                    $data[$attributes[$key]] = array_flip(Gender::getOptionsWithLabels())[$value] ?? null;
                     continue;
                 }
                 if ($attributes[$key] == 'legal_relationship_id') {
-                    $data[$attributes[$key]] = $legalRelationshipsMap[$value];
+                    $data[$attributes[$key]] = $legalRelationshipsMap[$value] ?? null;
                     continue;
                 }
                 if ($attributes[$key] == 'religion_id') {
-                    $data[$attributes[$key]] = $religionsMap[$value];
+                    $data[$attributes[$key]] = $religionsMap[$value] ?? null;
                     continue;
                 }
                 $data[$attributes[$key]] = $value;
@@ -295,22 +299,21 @@ class OrganizationUnitFrontend extends ComponentBase
             unset($data['team_id']);
             unset($data['ecset_code']);
 
-            if (empty($personalIdentificationNumber) && !empty($ecsetCode)) {
+            if (!empty($ecsetCode)) {
                 $firstOrNewConditions['ecset_code'] = $ecsetCode;
             }
 
-            if (empty($ecsetCode) && !empty($personalIdentificationNumber)) {
+            if (!empty($personalIdentificationNumber)) {
                 $firstOrNewConditions['personal_identification_number'] = $personalIdentificationNumber;
                 unset($data['personal_identification_number']);
             }
 
-            if (!empty($ecsetCode) && !empty($personalIdentificationNumber)) {
-                $firstOrNewConditions['personal_identification_number'] = $personalIdentificationNumber;
-                $firstOrNewConditions['ecset_code'] = $ecsetCode;
-                unset($data['personal_identification_number']);
+            if (empty($ecsetCode) && empty($personalIdentificationNumber)) {
+                $scout = new Scout();
+            } else {
+                $scout = Scout::firstOrNew($firstOrNewConditions);
             }
 
-            $scout = Scout::firstOrNew($firstOrNewConditions);
             $scout->fill($data);
 
             try {

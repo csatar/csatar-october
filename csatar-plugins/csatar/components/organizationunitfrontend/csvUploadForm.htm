@@ -1,8 +1,10 @@
 {% if showUploadForm %}
     <form
-        data-request = "onImportScoutsToCsv"
+        data-request = "onImportScoutsFromCsv"
         data-request-loading
         data-request-files
+        data-request-ajax-global = "true"
+        data-request-flash
     >
         <div class="form-group">
             <input type="hidden" name="teamId" value="{{ teamId }}" />
