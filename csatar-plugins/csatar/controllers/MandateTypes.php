@@ -2,6 +2,11 @@
 
 use Backend\Classes\Controller;
 use BackendMenu;
+use Csatar\Csatar\Classes\BackendExtensions;
+
+use ApplicationException;
+use Lang;
+use Flash;
 
 class MandateTypes extends Controller
 {
@@ -19,4 +24,8 @@ class MandateTypes extends Controller
     public $requiredPermissions = [
         'csatar.manage.data'
     ];
+
+    public function onDelete(){
+        return BackendExtensions::onDelete($this);
+    }
 }

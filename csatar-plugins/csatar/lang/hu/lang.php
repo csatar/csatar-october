@@ -50,6 +50,8 @@
                 'active' => 'Aktív',
                 'inactive' => 'Inaktív',
                 'inactivationWarning' => 'Figyelem! Ha a státusz aktívról bármilyen típusú inaktív státuszra változik, a szervezeti egység alá tartozó összes szervezeti egység és cserkész státusza is inaktívvá válik, valamint lejár az ezekhez tartozó összes mebízatás!',
+                'bulkDeletePartialSuccess' => ':deletedCount elem törlése sikerült a :totalCount-ból/ből. ',
+                'bulkDeleteError' => 'A következő hibák merültek fel a törlés során: ',
             ],
             'ageGroups' => [
                 'ageGroups' => 'Korosztályok',
