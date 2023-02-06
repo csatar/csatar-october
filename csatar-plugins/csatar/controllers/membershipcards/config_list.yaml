@@ -10,3 +10,6 @@ toolbar:
     search:
         prompt: 'backend::lang.list.search_prompt'
 recordUrl: 'csatar/csatar/membershipcards/update/:id'
+defaultSort:
+    column: team_number
+    direction: asc

@@ -10,6 +10,11 @@
 - CS-436 - Added option to hide mandate types on frontend
 - CS-466 - Created migrations for "Knowledge repository" models
 - CS-461 - Created membership card requests backend list
+- CS-327 - Create dynamic fields
+
+## 1.8.0
+### 2023-02-06
+
 - CS-458 - Added buttons partial, buttons partial can handle passed permission value
 - CS-458 - Changed buttons on every component to one of the buttons partial, expect gallery
 - CS-444 - Personalized TAB design and added to the design system
@@ -29,7 +34,6 @@
 - CS-430 - Added option and menu to list all team reports in association regardless of team id
 - CS-418 - Create member card model
 - CS-356 - Added tags list to the patrol and troop forms
-- CS-327 - Create dynamic fields
 
 ## 1.7.3
 ### 2023-01-26
