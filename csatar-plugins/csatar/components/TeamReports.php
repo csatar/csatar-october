@@ -144,6 +144,7 @@ class TeamReports extends ComponentBase
 
                 // construct the array containing the data, which will be displayed in the table
                 $data = [
+                    'id' => $teamReport->id,
                     'year' => $teamReport->year,
                     'members_count' => $scoutsCount,
                     'total_amount' => $teamReport->total_amount . ' ' . $teamReport->currency->code,
@@ -155,6 +156,7 @@ class TeamReports extends ComponentBase
                     $data[$legalRelationship->id] = $scoutsDataCountPerLegalRelationship[$legalRelationship->id] ?? 0;
                 }
                 array_push($this->teamReportData, $data);
+                $this->permissions[$teamReport->id] = Auth::user()->scout->getRightsForModel($teamReport)['MODEL_GENERAL'] ?? null;
             }
         }
     }
