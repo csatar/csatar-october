@@ -363,7 +363,7 @@ class Scout extends OrganizationBase
         if (isset($fields->personal_identification_number)
             && !empty($fields->personal_identification_number->value)
             && in_array('cnp', $this->getPersonalIdentificationNumberValidators())
-            && (isset($this->original['personal_identification_number']) && $this->original['personal_identification_number'] != $fields->personal_identification_number->value)
+            && ((isset($this->original['personal_identification_number']) && $this->original['personal_identification_number'] != $fields->personal_identification_number->value) || empty($this->original))
         ) {
             $fields->birthdate->value = $this->getBirthDateFromCNP($fields->personal_identification_number->value);
         }
@@ -1021,12 +1021,12 @@ class Scout extends OrganizationBase
             case 8:
                 $year += 1900;
                 break;
-            case 3:
-            case 4:
-                $year += 2000;
-                break;
             case 5:
             case 6:
+                $year += 2000;
+                break;
+            case 3:
+            case 4:
                 $year += 1800;
                 break;
             default:
