@@ -149,6 +149,16 @@ class OrganizationUnitFrontend extends ComponentBase
         $model = Scout::getModelName();
         $attributesWithLabels = Scout::getTranslatedAttributeNames($model);
 
+        $attributesWithLabels['mothers_name']  = '(' . Lang::get('csatar.csatar::lang.plugin.admin.scout.mother') . ') ' . $attributesWithLabels['mothers_name'];
+        $attributesWithLabels['mothers_phone'] = '(' . Lang::get('csatar.csatar::lang.plugin.admin.scout.mother') . ') ' . $attributesWithLabels['mothers_phone'];
+        $attributesWithLabels['mothers_email'] = '(' . Lang::get('csatar.csatar::lang.plugin.admin.scout.mother') . ') ' . $attributesWithLabels['mothers_email'];
+        $attributesWithLabels['fathers_name']  = '(' . Lang::get('csatar.csatar::lang.plugin.admin.scout.father') . ') ' . $attributesWithLabels['fathers_name'];
+        $attributesWithLabels['fathers_phone'] = '(' . Lang::get('csatar.csatar::lang.plugin.admin.scout.father') . ') ' . $attributesWithLabels['fathers_phone'];
+        $attributesWithLabels['fathers_email'] = '(' . Lang::get('csatar.csatar::lang.plugin.admin.scout.father') . ') ' . $attributesWithLabels['fathers_email'];
+        $attributesWithLabels['legal_representative_name']  = '(' . Lang::get('csatar.csatar::lang.plugin.admin.scout.legalRepresentative') . ') ' . $attributesWithLabels['legal_representative_name'];
+        $attributesWithLabels['legal_representative_phone'] = '(' . Lang::get('csatar.csatar::lang.plugin.admin.scout.legalRepresentative') . ') ' . $attributesWithLabels['legal_representative_phone'];
+        $attributesWithLabels['legal_representative_email'] = '(' . Lang::get('csatar.csatar::lang.plugin.admin.scout.legalRepresentative') . ') ' . $attributesWithLabels['legal_representative_email'];
+
         $attributes = [
             'ecset_code',
             'name_prefix',
@@ -245,7 +255,7 @@ class OrganizationUnitFrontend extends ComponentBase
         $file = Input::file('csvFile');
         $teamId = Input::get('teamId');
 
-        if (empty($file) || !$file->isValid() || $file->getMimeType() != 'text/csv') {
+        if (empty($file) || !$file->isValid() || ($file->getMimeType() != 'text/csv' && $file->getMimeType() != 'application/vnd.ms-excel' && $file->getMimeType() != 'text/plain')) {
             \Flash::error(Lang::get('csatar.csatar::lang.plugin.component.organizationUnitFrontend.csv.fileMissingOrInvalid'));
             return;
         }
@@ -265,59 +275,16 @@ class OrganizationUnitFrontend extends ComponentBase
         }
 
         $attributes = $csvData[0];
-        $legalRelationshipsMap = (new LegalRelationshipMapper)->namesToIds;
-        $religionsMap = (new ReligionMapper)->namesToIds;
         $log = [];
 
         foreach ($csvData as $rowNumber => $rowData) {
             if ($rowNumber == 0 || $rowNumber == 1) {
                 continue;
             }
-            $personalIdentificationNumber = $rowData[array_search('personal_identification_number', $attributes)];
-            $ecsetCode = $rowData[array_search('ecset_code', $attributes)];
 
-            $data = [];
-            foreach ($rowData as $key => $value) {
-                if ($attributes[$key] == 'gender') {
-                    $data[$attributes[$key]] = array_flip(Gender::getOptionsWithLabels())[$value] ?? null;
-                    continue;
-                }
-                if ($attributes[$key] == 'legal_relationship_id') {
-                    $data[$attributes[$key]] = $legalRelationshipsMap[$value] ?? null;
-                    continue;
-                }
-                if ($attributes[$key] == 'religion_id') {
-                    $data[$attributes[$key]] = $religionsMap[$value] ?? null;
-                    continue;
-                }
-                $data[$attributes[$key]] = $value;
-            }
-
-            $firstOrNewConditions = [
-                'team_id' => $teamId,
-            ];
-            unset($data['team_id']);
-            unset($data['ecset_code']);
-
-            if (!empty($ecsetCode)) {
-                $firstOrNewConditions['ecset_code'] = $ecsetCode;
-            }
-
-            if (!empty($personalIdentificationNumber)) {
-                $firstOrNewConditions['personal_identification_number'] = $personalIdentificationNumber;
-                unset($data['personal_identification_number']);
-            }
-
-            if (empty($ecsetCode) && empty($personalIdentificationNumber)) {
-                $scout = new Scout();
-            } else {
-                $scout = Scout::firstOrNew($firstOrNewConditions);
-            }
-
-            $scout->fill($data);
+            $scout = $this->convertCsvRowToScout($teamId, $attributes, $rowData);
 
             try {
-
                 $scout->save();
                 if ($scout->wasRecentlyCreated) {
                     $log['created'][] = $rowNumber . ' - ' . $scout->ecset_code;
@@ -328,15 +295,63 @@ class OrganizationUnitFrontend extends ComponentBase
                 $log['errors'][] = $rowNumber . ' | ' . $scout->name . ' - ' . $scout->ecset_code . ' | ' . $e->getMessage();
             }
 
-            $personalIdentificationNumber = null;
-            $ecsetCode = null;
-            $data = [];
-            $firstOrNewConditions = [];
         }
 
         $this->page['csvImportLog'] = $log;
+
         return [
             '#csvImportLog' => $this->renderPartial('@csvImportLog', ['log' => $log])
         ];
+    }
+
+    private function convertCsvRowToScout($teamId, $attributes, $rowData): Scout
+    {
+        $legalRelationshipsMap = (new LegalRelationshipMapper)->namesToIds;
+        $religionsMap = (new ReligionMapper)->namesToIds;
+
+        $personalIdentificationNumber = $rowData[array_search('personal_identification_number', $attributes)];
+        $ecsetCode = $rowData[array_search('ecset_code', $attributes)];
+
+        $data = [];
+        foreach ($rowData as $key => $value) {
+            if ($attributes[$key] == 'gender') {
+                $data[$attributes[$key]] = array_flip(Gender::getOptionsWithLabels())[$value] ?? null;
+                continue;
+            }
+            if ($attributes[$key] == 'legal_relationship_id') {
+                $data[$attributes[$key]] = $legalRelationshipsMap[$value] ?? null;
+                continue;
+            }
+            if ($attributes[$key] == 'religion_id') {
+                $data[$attributes[$key]] = $religionsMap[$value] ?? null;
+                continue;
+            }
+            $data[$attributes[$key]] = $value;
+        }
+
+        $firstOrNewConditions = [
+            'team_id' => $teamId,
+        ];
+
+        if (!empty($ecsetCode)) {
+            $firstOrNewConditions['ecset_code'] = $ecsetCode;
+        }
+
+        if (!empty($personalIdentificationNumber)) {
+            $firstOrNewConditions['personal_identification_number'] = $personalIdentificationNumber;
+            unset($data['personal_identification_number']);
+        }
+
+        if (empty($ecsetCode) && empty($personalIdentificationNumber)) {
+            $scout = new Scout();
+        } else {
+            $scout = Scout::firstOrNew($firstOrNewConditions);
+            unset($data['team_id']);
+            unset($data['ecset_code']);
+        }
+
+        $scout->fill($data);
+
+        return $scout;
     }
 }
