@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-451 - Membership card cannot be activated if the assigned scout is inactive
 - CS-460 - Added frontend scout csv import-export
 - CS-460 - Fixed getBirthDateFromCNP method
 - CS-460 - Fixed typo in getOptionsWithLabels method name
