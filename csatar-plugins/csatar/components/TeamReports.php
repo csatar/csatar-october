@@ -144,8 +144,8 @@ class TeamReports extends ComponentBase
 
                 // construct the array containing the data, which will be displayed in the table
                 $data = [
-                    'id'            => $teamReport->id,
-                    'year'          => $teamReport->year,
+                    'id' => $teamReport->id,
+                    'year' => $teamReport->year,
                     'members_count' => $scoutsCount,
                     'total_amount'  => $teamReport->total_amount . ' ' . $teamReport->currency->code,
                     'status'        => $teamReport->getStatus(),
