@@ -587,6 +587,7 @@
                 'active' => 'Active',
                 'requests' => 'Requests',
                 'exportRequests' => 'Export requests to .csv',
+                'inactiveScoutError' => 'The Scout assigned to this Card is inactive. The Card cannot be set to Active if the assigned Scout\'s status is not active.',
             ],
         ],
 
