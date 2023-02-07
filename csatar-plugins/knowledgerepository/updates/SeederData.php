@@ -3,6 +3,7 @@
 use Csatar\KnowledgeRepository\Models\AccidentRiskLevel;
 use Csatar\KnowledgeRepository\Models\GameDevelopmentGoal;
 use Csatar\KnowledgeRepository\Models\Tool;
+use Csatar\KnowledgeRepository\Models\HeadCount;
 use Db;
 use Seeder;
 
@@ -119,7 +120,36 @@ class SeederData extends Seeder
                 'approved' => true,
             ],
         ],
-
+        'headCounts' => [
+            [
+                'description' => '2-8 fő',
+                'min' => 2,
+                'max' => 8,
+                'note' => '(őrsi találkozó)',
+                'sort_order' => 1,
+            ],
+            [
+                'description' => '9-15 fő',
+                'min' => 9,
+                'max' => 15,
+                'note' => '(őrsi és/vagy raji találkozó)',
+                'sort_order' => 2,
+            ],
+            [
+                'description' => '16-29 fő',
+                'min' => 16,
+                'max' => 29,
+                'note' => '(raji létszámhoz)',
+                'sort_order' => 3,
+            ],
+            [
+                'description' => '30+ fő',
+                'min' => 31,
+                'max' => 100,
+                'note' => '(csapatlétszámhoz)',
+                'sort_order' => 4,
+            ]
+        ],
     ];
 
     public function run()
@@ -149,6 +179,18 @@ class SeederData extends Seeder
             ]);
             $tool->is_approved = $toolData['approved'];
             $tool->save();
+        }
+
+        // Head Counts
+        foreach ($this::DATA['headCounts'] as $headCountData) {
+            $headCount = HeadCount::firstOrNew([
+                'description' => $headCountData['description'],
+            ]);
+            $headCount->min = $headCountData['min'];
+            $headCount->max = $headCountData['max'];
+            $headCount->note = $headCountData['note'];
+            $headCount->sort_order = $headCountData['sort_order'];
+            $headCount->save();
         }
     }
 }

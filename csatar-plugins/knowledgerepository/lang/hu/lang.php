@@ -17,6 +17,7 @@
                     'gameDevelopmentGoals' => 'Játék fejlesztési célok',
                     'accidentRiskLevels' => 'Baleseti kockázat szintek',
                     'tools' => 'Eszközök',
+                    'headCount' => 'Létszám',
                 ],
             ],
             'general' => [
@@ -26,6 +27,7 @@
                 'approverCsaterCode' => 'Jóváhagyó',
                 'proposerCsatarCode' => 'Felterjesztő',
                 'isApproved' => 'Jóváhagyva',
+                'description' => 'Leírás',
             ],
         ],
     ],

@@ -15,7 +15,7 @@ class GameDevelopmentGoals extends Controller
     public $reorderConfig = 'config_reorder.yaml';
 
     public $requiredPermissions = [
-        'csatar.admin'
+        'csatar.manage.data'
     ];
 
     public function __construct()
