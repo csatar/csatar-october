@@ -2,6 +2,7 @@
 
 use Csatar\KnowledgeRepository\Models\AccidentRiskLevel;
 use Csatar\KnowledgeRepository\Models\GameDevelopmentGoal;
+use Csatar\KnowledgeRepository\Models\Tool;
 use Db;
 use Seeder;
 
@@ -68,6 +69,56 @@ class SeederData extends Seeder
                 'sort_order' => 3,
             ],
         ],
+        'tools' => [
+            [
+                'name' => 'Nincs kellék',
+                'approved' => true,
+            ],
+            [
+                'name' => 'Papír',
+                'approved' => true,
+            ],
+            [
+                'name' => 'Golyóstoll',
+                'approved' => true,
+            ],
+            [
+                'name' => 'Olló',
+                'approved' => true,
+            ],
+            [
+                'name' => 'Ragasztó',
+                'approved' => true,
+            ],
+            [
+                'name' => 'Színes papír',
+                'approved' => true,
+            ],
+            [
+                'name' => 'Zsineg/szallag/spárga',
+                'approved' => true,
+            ],
+            [
+                'name' => '(Nyak)kendő',
+                'approved' => true,
+            ],
+            [
+                'name' => 'Dobókocka',
+                'approved' => true,
+            ],
+            [
+                'name' => 'Labda',
+                'approved' => true,
+            ],
+            [
+                'name' => 'Lavór',
+                'approved' => true,
+            ],
+            [
+                'name' => 'Egyéb',
+                'approved' => true,
+            ],
+        ],
 
     ];
 
@@ -89,6 +140,15 @@ class SeederData extends Seeder
             ]);
             $accidentRiskLevel->sort_order = $accidentRiskLevelData['sort_order'];
             $accidentRiskLevel->save();
+        }
+
+        // Tools
+        foreach ($this::DATA['tools'] as $toolData) {
+            $tool = Tool::firstOrNew([
+                'name' => $toolData['name'],
+            ]);
+            $tool->is_approved = $toolData['approved'];
+            $tool->save();
         }
     }
 }

@@ -1,0 +1,21 @@
+columns:
+    name:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.name'
+        type: text
+        searchable: true
+    note:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.note'
+        type: text
+        searchable: true
+    is_approved:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.isApproved'
+        type: switch
+        searchable: true
+    approver_csatar_code:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.approverCsaterCode'
+        type: text
+        searchable: true
+    proposer_csatar_code:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.proposerCsatarCode'
+        type: text
+        searchable: true

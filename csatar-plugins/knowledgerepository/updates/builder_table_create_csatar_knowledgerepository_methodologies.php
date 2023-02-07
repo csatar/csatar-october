@@ -19,7 +19,7 @@ class BuilderTableCreateCsatarKnowledgerepositoryMethodologies extends Migration
             $table->string('other_tools')->nullable();
             $table->string('uploader_csatar_code')->nullable();
             $table->string('approver_csatar_code')->nullable();
-            $table->dateTime('approved_at');
+            $table->dateTime('approved_at')->nullable();
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->string('note')->nullable();

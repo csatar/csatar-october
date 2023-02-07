@@ -23,23 +23,4 @@ class GameDevelopmentGoals extends Controller
         parent::__construct();
         BackendMenu::setContext('Csatar.KnowledgeRepository', 'main-menu-knowledge-repository-parameters', 'side-menu-item');
     }
-
-    public $fillable = [
-        'name',
-        'sort_order',
-        'note'
-    ];
-
-    public $nullable = [
-        'note',
-        'sort_order'
-    ];
-
-    public function beforeValidate()
-    {
-        if (empty($this->sort_order))
-        {
-            $this->sort_order = static::max('sort_order') + 1;
-        }
-    }
 }
