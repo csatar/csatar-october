@@ -1,0 +1,57 @@
+fields:
+    name:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.name'
+        span: auto
+        type: text
+    description:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.description'
+        span: auto
+        type: textarea
+    other_tools:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.otherTools'
+        span: auto
+        type: text
+    link:
+        label: Link
+        span: auto
+        type: text
+    attachements:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.attachements'
+        mode: file
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        span: auto
+        type: fileupload
+    uploader:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.uploader'
+        nameFrom: name_with_id_number
+        descriptionFrom: description
+        span: auto
+        type: relation
+    approver:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.approver'
+        nameFrom: name_with_id_number
+        descriptionFrom: description
+        span: auto
+        type: relation
+    created_at:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.uploadedAt'
+        mode: date
+        span: auto
+        type: datepicker
+    approved_at:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.approvedAt'
+        mode: date
+        span: auto
+        type: datepicker
+    note:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.note'
+        span: auto
+        type: text
+    updated_at:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.version'
+        mode: date
+        span: auto
+        type: datepicker

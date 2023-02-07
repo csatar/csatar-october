@@ -3,7 +3,7 @@
 use Csatar\KnowledgeRepository\Models\AccidentRiskLevel;
 use Csatar\KnowledgeRepository\Models\GameDevelopmentGoal;
 use Csatar\KnowledgeRepository\Models\Tool;
-use Csatar\KnowledgeRepository\Models\HeadCount;
+use Csatar\KnowledgeRepository\Models\Headcount;
 use Csatar\KnowledgeRepository\Models\Duration;
 use Csatar\KnowledgeRepository\Models\Location;
 use Csatar\KnowledgeRepository\Models\GameType;
@@ -293,7 +293,7 @@ class SeederData extends Seeder
 
         // Head Counts
         foreach ($this::DATA['headCounts'] as $headCountData) {
-            $headCount = HeadCount::firstOrNew([
+            $headCount = Headcount::firstOrNew([
                 'description' => $headCountData['description'],
             ]);
             $headCount->min = $headCountData['min'];
