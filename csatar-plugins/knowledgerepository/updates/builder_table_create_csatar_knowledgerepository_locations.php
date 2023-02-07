@@ -13,7 +13,7 @@ class BuilderTableCreateCsatarKnowledgerepositoryLocations extends Migration
             $table->increments('id')->unsigned();
             $table->string('name')->nullable();
             $table->string('note')->nullable();
-            $table->integer('order')->nullable()->unsigned();
+            $table->integer('sort_order')->nullable()->unsigned();
         });
     }
 

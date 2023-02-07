@@ -12,7 +12,16 @@
                     'workPlans' => 'Munkatervek',
                     'methodologies' => 'Módszertan',
                 ],
-                'knowledgeRepositoryParameters' => 'Tudástár Paraméterek',
+                'knowledgeRepositoryParameters' => [
+                    'knowledgeRepositoryParameters' => 'Tudástár Paraméterek',
+                    'gameDevelopmentGoals' => 'Játék fejlesztési célok',
+                    'accidentRiskLevels' => 'Baleseti kockázat szintek',
+                ],
+            ],
+            'general' => [
+                'name' => 'Megnevezés',
+                'note' => 'Megjegyzés',
+                'order' => 'Sorrend',
             ],
         ],
     ],

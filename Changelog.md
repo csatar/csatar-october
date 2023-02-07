@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- CS-385 - Created GameDevelopmentGoal model, controller, backend list and form
+- CS-385 - Changed migrations, renamed "order" columns to "sort_order"
 - CS-363 - Fixed success/error message issue on back list bulk delete
 - CS-455 - Sort the teams in the menu
 - CS-370 - Create Knowledge Repository and Knowledge Repository Parameters menus on backend

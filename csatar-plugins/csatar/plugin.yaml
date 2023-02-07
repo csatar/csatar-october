@@ -274,6 +274,13 @@ navigation:
                 permissions:
                     - csatar.admin
 
+            side-menu-knowledgerepository-data:
+                label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.knowledgeRepositoryParameters'
+                url: csatar/knowledgerepository/seederdata/seeder/
+                icon: icon-database
+                permissions:
+                    - csatar.admin
+
     main-menu-item-accident-log:
         label: 'csatar.csatar::lang.plugin.component.accidentLog.accidentLog'
         url: csatar/csatar/accidentlogrecords
