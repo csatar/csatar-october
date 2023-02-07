@@ -5,6 +5,7 @@
 - CS-384 - Created GameType model, controller, seeder, backend list and form
 - CS-371 - Created Location model, controller, seeder, backend list and form
 - CS-369 - Created Duration model, controller, seeder, backend list and form
+- CS-368 - Created Headcount model, controller, seeder, backend list and form
 - CS-375 - Created Tool model, controller, seeder backend list and form
 - CS-386 - Created AccidentRiskLevel model, seeder controller, backend list and form
 - CS-385 - Created GameDevelopmentGoal model, seeder controller, backend list and form
