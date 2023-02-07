@@ -1,6 +1,7 @@
 <?php namespace Csatar\KnowledgeRepository\Models;
 
 use Model;
+use Lang;
 
 /**
  * Model
@@ -25,6 +26,9 @@ class Duration extends Model
      * @var array Validation rules
      */
     public $rules = [
+        'name' => 'required',
+        'min' => 'required',
+        'max' => 'required',
     ];
 
     public $fillable = [
@@ -37,4 +41,22 @@ class Duration extends Model
         'min',
         'max',
     ];
+
+    public function beforeSave()
+    {
+        if ($this->min == null) {
+            $this->min = 0;
+        }
+        if ($this->max == null) {
+            $this->max = 0;
+        }
+    }
+
+    public function filterFields($fields, $context = null) {
+        // fill name based on min and max
+        if (isset($fields->min) && isset($fields->max)) {
+            $fields->name->value = $fields->min->value . '-' . $fields->max->value . ' ' . Lang::get('csatar.knowledgerepository::lang.plugin.admin.general.minute');
+        }
+
+    }
 }

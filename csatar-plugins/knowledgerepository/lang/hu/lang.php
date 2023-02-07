@@ -29,6 +29,7 @@
                 'approverCsatarCode' => 'Jóváhagyó',
                 'proposerCsatarCode' => 'Felterjesztő',
                 'isApproved' => 'Jóváhagyva',
+                'minute' => 'perc',
             ],
         ],
     ],
