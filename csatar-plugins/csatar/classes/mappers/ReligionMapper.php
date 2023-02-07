@@ -14,10 +14,10 @@ class ReligionMapper
     }
 
     private function mapReligions(){
-        $legalRelationships = Religion::all();
-        foreach ($legalRelationships as $legalRelationship) {
-            $this->idsToNames[$legalRelationship->id]   = $legalRelationship->name;
-            $this->namesToIds[$legalRelationship->name] = $legalRelationship->id;
+        $religions = Religion::all();
+        foreach ($religions as $religion) {
+            $this->idsToNames[$religion->id]   = $religion->name;
+            $this->namesToIds[$religion->name] = $religion->id;
         }
     }
 }
