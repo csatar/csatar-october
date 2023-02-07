@@ -2,23 +2,7 @@
 {% partial __SELF__ ~ '::inactiveMandates' model=model %}
 {% set permissions = __SELF__.permissions %}
 
-<p>{{ 'Őrsök' | _ }}</p>
-{% component 'builderList' %}
-
-{% partial "@formWithButton"
-    permissionValue = permissions['patrols']['create']
-    actionUrl = '/ors/letrehozas'
-    hiddenInputs = { 'team': team_id, 'troop': troop_id }
-    btnExtraClasses = 'btn-sm btn-primary'
-    btnValue = 'Őrs hozzáadása' |_
-    btnIconClass = 'csat-add-fill-wh-sm'
-    btnLabel = 'Őrs hozzáadása' |_
-%}
-
 <div class="row">
-    <div class="col-12 col-lg-6">
-        {% partial __SELF__ ~ '::activeTagsList' %}
-    </div>
     <div class="col-12 col-lg-6">
         {% partial __SELF__ ~ '::inactiveTagsList' %}
     </div>
