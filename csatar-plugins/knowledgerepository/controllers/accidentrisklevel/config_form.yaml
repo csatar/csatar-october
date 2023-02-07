@@ -1,0 +1,10 @@
+name: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.accidentRiskLevels'
+form: $/csatar/knowledgerepository/models/accidentrisklevel/fields.yaml
+modelClass: Csatar\KnowledgeRepository\Models\AccidentRiskLevel
+defaultRedirect: csatar/knowledgerepository/accidentrisklevel
+create:
+    redirect: 'csatar/knowledgerepository/accidentrisklevel/update/:id'
+    redirectClose: csatar/knowledgerepository/accidentrisklevel
+update:
+    redirect: csatar/knowledgerepository/accidentrisklevel
+    redirectClose: csatar/knowledgerepository/accidentrisklevel

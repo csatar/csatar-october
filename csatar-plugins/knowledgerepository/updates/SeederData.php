@@ -1,8 +1,9 @@
 <?php namespace Csatar\KnowledgeRepository\Updates;
 
+use Csatar\KnowledgeRepository\Models\AccidentRiskLevel;
 use Csatar\KnowledgeRepository\Models\GameDevelopmentGoal;
-use Seeder;
 use Db;
+use Seeder;
 
 class SeederData extends Seeder
 {
@@ -52,7 +53,21 @@ class SeederData extends Seeder
                 'name' => 'Konfliktus kezelő',
                 'sort_order' => 11,
             ],
-        ]
+        ],
+        'accidentRiskLevels' => [
+            [
+                'name' => 'Alacsony',
+                'sort_order' => 1,
+            ],
+            [
+                'name' => 'Közepes',
+                'sort_order' => 2,
+            ],
+            [
+                'name' => 'Magas',
+                'sort_order' => 3,
+            ],
+        ],
 
     ];
 
@@ -65,6 +80,15 @@ class SeederData extends Seeder
             ]);
             $gameDevelopmentGoal->sort_order = $gameDevelopmentGoalData['sort_order'];
             $gameDevelopmentGoal->save();
+        }
+
+        // Accident Risk Levels
+        foreach ($this::DATA['accidentRiskLevels'] as $accidentRiskLevelData) {
+            $accidentRiskLevel = AccidentRiskLevel::firstOrNew([
+                'name' => $accidentRiskLevelData['name'],
+            ]);
+            $accidentRiskLevel->sort_order = $accidentRiskLevelData['sort_order'];
+            $accidentRiskLevel->save();
         }
     }
 }

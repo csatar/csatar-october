@@ -14,7 +14,14 @@
                 ],
                 'knowledgeRepositoryParameters' => [
                     'knowledgeRepositoryParameters' => 'Knowledge Repository Parameters',
+                    'gameDevelopmentGoals' => 'Game Development Goals',
+                    'accidentRiskLevels' => 'Accident Risk Levels',
                 ],
+            ],
+            'general' => [
+                'name' => 'Name',
+                'note' => 'Note',
+                'order' => 'Order',
             ],
         ],
     ],

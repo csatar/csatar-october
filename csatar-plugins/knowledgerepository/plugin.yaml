@@ -55,3 +55,10 @@ navigation:
                 icon: icon-sliders
                 permissions:
                     - csatar.manage.data
+            side-menu-item2:
+                label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.accidentRiskLevels'
+                url: csatar/knowledgerepository/accidentrisklevel
+                icon: icon-bolt
+                iconSvg: ''
+                permissions:
+                    - csatar.manage.data

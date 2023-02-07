@@ -15,6 +15,7 @@
                 'knowledgeRepositoryParameters' => [
                     'knowledgeRepositoryParameters' => 'Tudástár Paraméterek',
                     'gameDevelopmentGoals' => 'Játék fejlesztési célok',
+                    'accidentRiskLevels' => 'Baleseti kockázat szintek',
                 ],
             ],
             'general' => [
