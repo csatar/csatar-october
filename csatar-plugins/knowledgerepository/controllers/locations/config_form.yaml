@@ -1,0 +1,10 @@
+name: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.location'
+form: $/csatar/knowledgerepository/models/location/fields.yaml
+modelClass: Csatar\KnowledgeRepository\Models\Location
+defaultRedirect: csatar/knowledgerepository/locations
+create:
+    redirect: 'csatar/knowledgerepository/locations/update/:id'
+    redirectClose: csatar/knowledgerepository/locations
+update:
+    redirect: csatar/knowledgerepository/locations
+    redirectClose: csatar/knowledgerepository/locations

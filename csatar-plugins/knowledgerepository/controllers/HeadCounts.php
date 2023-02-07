@@ -3,7 +3,7 @@
 use Backend\Classes\Controller;
 use BackendMenu;
 
-class AccidentRiskLevel extends Controller
+class HeadCounts extends Controller
 {
     public $implement = [
         'Backend\Behaviors\ListController',
@@ -15,13 +15,13 @@ class AccidentRiskLevel extends Controller
     public $formConfig = 'config_form.yaml';
     public $reorderConfig = 'config_reorder.yaml';
 
-    public $requiredPermissions = [
-        'csatar.manage.data'
-    ];
-
     public function __construct()
     {
         parent::__construct();
-        BackendMenu::setContext('Csatar.KnowledgeRepository', 'main-menu-knowledge-repository-parameters', 'side-menu-item2');
+        BackendMenu::setContext('Csatar.KnowledgeRepository', 'main-menu-knowledge-repository-parameters', 'side-menu-headcount');
     }
+
+    public $requiredPermissions = [
+        'csatar.manage.data'
+    ];
 }

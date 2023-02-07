@@ -4,11 +4,13 @@ columns:
         type: text
         searchable: true
         sortable: true
-    note:
-        label: 'csatar.knowledgerepository::lang.plugin.admin.general.note'
-        type: text
+    min:
+        label: min
+        type: number
         searchable: true
         sortable: true
-    sort_order:
-        label: 'csatar.knowledgerepository::lang.plugin.admin.general.order'
+    max:
+        label: max
         type: number
+        searchable: true
+        sortable: true

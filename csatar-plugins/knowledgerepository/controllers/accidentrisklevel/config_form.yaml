@@ -1,4 +1,4 @@
-name: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.accidentRiskLevels'
+name: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.accidentRiskLevel'
 form: $/csatar/knowledgerepository/models/accidentrisklevel/fields.yaml
 modelClass: Csatar\KnowledgeRepository\Models\AccidentRiskLevel
 defaultRedirect: csatar/knowledgerepository/accidentrisklevel

@@ -17,6 +17,6 @@ class Tools extends Controller
     }
 
     public $requiredPermissions = [
-        'csatar.admin'
+        'csatar.manage.data'
     ];
 }
