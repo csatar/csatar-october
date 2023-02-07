@@ -17,16 +17,16 @@ class BuilderTableCreateCsatarKnowledgerepositoryGames extends Migration
             $table->text('link')->nullable();
             $table->string('uploader_csatar_code')->nullable();
             $table->string('approver_csatar_code')->nullable();
-            $table->dateTime('approved_at');
+            $table->dateTime('approved_at')->nullable();
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->string('note')->nullable();
-            
+
             $table->foreign('uploader_csatar_code', 'games_uploader_code_foreign')->references('ecset_code')->on('csatar_csatar_scouts');
             $table->foreign('approver_csatar_code', 'games_approver_code_foreign')->references('ecset_code')->on('csatar_csatar_scouts');
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_knowledgerepository_games');

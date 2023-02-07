@@ -62,3 +62,9 @@ navigation:
                 iconSvg: ''
                 permissions:
                     - csatar.manage.data
+            side-menu-tools:
+                label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.tools'
+                url: csatar/knowledgerepository/tools
+                icon: icon-bullhorn
+                permissions:
+                    - csatar.manage.data

@@ -1,0 +1,10 @@
+name: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.tools'
+form: $/csatar/knowledgerepository/models/tool/fields.yaml
+modelClass: Csatar\KnowledgeRepository\Models\Tool
+defaultRedirect: csatar/knowledgerepository/tools
+create:
+    redirect: 'csatar/knowledgerepository/tools/update/:id'
+    redirectClose: csatar/knowledgerepository/tools
+update:
+    redirect: csatar/knowledgerepository/tools
+    redirectClose: csatar/knowledgerepository/tools
