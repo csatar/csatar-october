@@ -534,7 +534,8 @@ class Scout extends OrganizationBase
         $mandates = Mandate::where('scout_id', $this->id)->get();
         foreach ($mandates as $mandate) {
             if (new DateTime($mandate->start_date) < $now && (new DateTime($mandate->end_date) > $now || $mandate->end_date == null)) {
-                Flash::error(str_replace('%name', $this->getFullName(), Lang::get('csatar.csatar::lang.plugin.admin.scout.activeMandateDeleteError')));
+                $sessionKey = self::getModelName() . $this->id;
+                Session::put($sessionKey, str_replace('%name', $this->getFullName(), Lang::get('csatar.csatar::lang.plugin.admin.scout.activeMandateDeleteError')));
                 return false;
             }
         }
