@@ -187,6 +187,10 @@ class Troop extends OrganizationBase
         return $this;
     }
 
+    public function getActiveScouts() {
+        return Scout::activeScoutsInTroop($this->id)->get();
+    }
+
     public function getActiveScoutsCount() {
         return Scout::activeScoutsInTroop($this->id)->count();
     }

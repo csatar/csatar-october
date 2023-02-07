@@ -268,6 +268,10 @@ class Patrol extends OrganizationBase
         return $this;
     }
 
+    public function getActiveScouts() {
+        return Scout::activeScoutsInPatrol($this->id)->get();
+    }
+
     public function getActiveScoutsCount() {
         return Scout::activeScoutsInPatrol($this->id)->count();
     }
