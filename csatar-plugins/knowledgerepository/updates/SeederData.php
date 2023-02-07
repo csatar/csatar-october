@@ -2,9 +2,6 @@
 
 use Csatar\KnowledgeRepository\Models\AccidentRiskLevel;
 use Csatar\KnowledgeRepository\Models\GameDevelopmentGoal;
-use Csatar\KnowledgeRepository\Models\Tool;
-use Csatar\KnowledgeRepository\Models\HeadCount;
-use Csatar\KnowledgeRepository\Models\Duration;
 use Db;
 use Seeder;
 
