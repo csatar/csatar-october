@@ -23,7 +23,7 @@
                 'name' => 'Megnevezés',
                 'note' => 'Megjegyzés',
                 'order' => 'Sorrend',
-                'approverCsaterCode' => 'Jóváhagyó',
+                'approverCsatarCode' => 'Jóváhagyó',
                 'proposerCsatarCode' => 'Felterjesztő',
                 'isApproved' => 'Jóváhagyva',
             ],

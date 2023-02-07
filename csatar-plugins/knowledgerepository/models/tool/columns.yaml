@@ -12,7 +12,7 @@ columns:
         type: switch
         searchable: true
     approver_csatar_code:
-        label: 'csatar.knowledgerepository::lang.plugin.admin.general.approverCsaterCode'
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.approverCsatarCode'
         type: text
         searchable: true
     proposer_csatar_code:
