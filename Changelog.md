@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-455 - Sort the teams in the menu
 - CS-370 - Create Knowledge Repository and Knowledge Repository Parameters menus on backend
 - CS-451 - Membership card cannot be activated if the assigned scout is inactive
 - CS-462 - Added warning to team report if any scout doesn't have registration form uploaded

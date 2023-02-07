@@ -169,6 +169,12 @@ class District extends OrganizationBase
         return $this;
     }
 
+    public function getTeamsAttribute() {
+        return Team::where('district_id', $this->id)
+            ->orderByRaw('CONVERT(team_number, SIGNED) ASC')
+            ->get();
+    }
+
     public function getActiveTeams(){
         return Team::inDistrict($this->id)->active()->get();
     }
