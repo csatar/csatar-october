@@ -13,7 +13,7 @@ class BuilderTableCreateCsatarKnowledgerepositoryGameDevelopmentGoals extends Mi
             $table->increments('id')->unsigned();
             $table->string('name')->nullable();
             $table->string('note')->nullable();
-            $table->integer('order')->unsigned();
+            $table->integer('sort_order')->unsigned();
         });
     }
 

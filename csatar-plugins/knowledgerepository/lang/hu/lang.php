@@ -12,7 +12,15 @@
                     'workPlans' => 'Munkatervek',
                     'methodologies' => 'Módszertan',
                 ],
-                'knowledgeRepositoryParameters' => 'Tudástár Paraméterek',
+                'knowledgeRepositoryParameters' => [
+                    'knowledgeRepositoryParameters' => 'Tudástár Paraméterek',
+                    'gameDevelopmentGoals' => 'Játék fejlesztési célok',
+                ],
+            ],
+            'general' => [
+                'name' => 'Megnevezés',
+                'note' => 'Megjegyzés',
+                'order' => 'Sorrend',
             ],
         ],
     ],

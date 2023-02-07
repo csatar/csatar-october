@@ -12,7 +12,9 @@
                     'workPlans' => 'Work Plans',
                     'methodologies' => 'Methodologies',
                 ],
-                'knowledgeRepositoryParameters' => 'Knowledge Repository Parameters',
+                'knowledgeRepositoryParameters' => [
+                    'knowledgeRepositoryParameters' => 'Knowledge Repository Parameters',
+                ],
             ],
         ],
     ],

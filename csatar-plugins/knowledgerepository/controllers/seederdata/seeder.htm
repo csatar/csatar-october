@@ -1,0 +1,19 @@
+<div class="layout-row">
+    <h1><?= e(trans('csatar.csatar::lang.plugin.admin.admin.seederData.seederData')) ?></h1>
+    <p><?= e(trans('csatar.csatar::lang.plugin.admin.admin.seederData.dataToBeAdded')) ?></p>
+    <ul>
+        <li>
+            <h4><?= e(trans('csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.gameDevelopmentGoals')) ?>:</h4>
+            <ul>
+                <?php
+                foreach ($seederData['gameDevelopmentGoals'] as $data) {
+                    echo '<li>' . $data['name'] . '</li>';
+                }
+                ?>
+            </ul>
+        </li>
+
+    </ul>
+    <p><?= e(trans('csatar.csatar::lang.plugin.admin.admin.seederData.seederDataConfirmMessage')) ?></p>
+    <p><button type="button" data-request="onSeederDataUpdateButtonClick" class="btn btn-default"><?= e(trans('csatar.csatar::lang.plugin.admin.admin.seederData.updateData')) ?></button></p>
+</div>

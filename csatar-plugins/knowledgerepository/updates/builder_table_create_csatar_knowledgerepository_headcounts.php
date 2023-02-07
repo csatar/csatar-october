@@ -15,7 +15,7 @@ class BuilderTableCreateCsatarKnowledgerepositoryHeadcounts extends Migration
             $table->string('note')->nullable();
             $table->integer('min')->nullable()->unsigned();
             $table->integer('max')->nullable()->unsigned();
-            $table->integer('order')->nullable()->unsigned();
+            $table->integer('sort_order')->nullable()->unsigned();
         });
     }
 

@@ -43,8 +43,15 @@ navigation:
                 permissions:
                     - csatar.manage.data
     main-menu-knowledge-repository-parameters:
-        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters'
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.knowledgeRepositoryParameters'
         url: /csatar/knowledgerepository/knowledgeRepositoryparameters
         icon: icon-pencil
         permissions:
             - csatar.manage.data
+        sideMenu:
+            side-menu-item:
+                label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.gameDevelopmentGoals'
+                url: csatar/knowledgerepository/gamedevelopmentgoals
+                icon: icon-sliders
+                permissions:
+                    - csatar.manage.data

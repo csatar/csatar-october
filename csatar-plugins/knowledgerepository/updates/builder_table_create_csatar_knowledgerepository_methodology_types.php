@@ -12,7 +12,7 @@ class BuilderTableCreateCsatarKnowledgerepositoryMethodologyTypes extends Migrat
             $table->engine = 'InnoDB';
             $table->increments('id')->unsigned();
             $table->string('name')->nullable();
-            $table->integer('order')->nullable()->unsigned();
+            $table->integer('sort_order')->nullable()->unsigned();
         });
     }
 
