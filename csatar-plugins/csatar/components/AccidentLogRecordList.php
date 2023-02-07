@@ -58,6 +58,6 @@ class AccidentLogRecordList extends ComponentBase
 
         CsvCreator::writeCsvFile($csvPath, $data);
 
-        return Redirect::to('balesetek-csv-letoltes/' . $fileName);
+        return Redirect::to('csv-letoltes/' . $fileName);
     }
 }

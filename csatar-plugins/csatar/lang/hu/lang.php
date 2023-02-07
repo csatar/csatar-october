@@ -96,9 +96,11 @@
                 'addressLocation' => 'Település',
                 'addressStreet' => 'Utca',
                 'addressNumber' => 'Házszám',
+                'mother' => 'Anya',
                 'mothersName' => 'Név',
                 'mothersPhone' => 'Telefonszám',
                 'mothersEmail' => 'E-mail cím',
+                'father' => 'Apa',
                 'fathersName' => 'Név',
                 'fathersPhone' => 'Telefonszám',
                 'fathersEmail' => 'E-mail cím',
@@ -108,6 +110,7 @@
                 'fathersNameFull' => 'Apja neve',
                 'fathersPhoneFull' => 'Apja telefonszáma',
                 'fathersEmailFull' => 'Apja e-mail címe',
+                'legalRepresentative' => 'Törvényes képviselő',
                 'legalRepresentativeName' => 'Név',
                 'legalRepresentativePhone' => 'Telefonszám',
                 'legalRepresentativeEmail' => 'E-mail cím',
@@ -716,6 +719,10 @@
             'organizationUnitFrontend' => [
                 'name' => 'Szervezeti Egység Frontend',
                 'description' => 'Megyjeleníti egy szerevezeti egység frontend oldalát.',
+                'csv' => [
+                    'fileMissingOrInvalid' => 'A .csv fájl hiányzik vagy érvénytelen.',
+                    'teamIdMissing' => 'Hiányzik a csapat azonosítója.',
+                ],
             ],
             'twoFactorAuthentication' => [
                 'name' => 'Két faktoros hitelesítése',
