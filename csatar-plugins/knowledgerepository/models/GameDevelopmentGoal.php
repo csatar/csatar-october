@@ -39,7 +39,7 @@ class GameDevelopmentGoal extends Model
         'sort_order',
     ];
 
-    public function beforeValidate()
+    public function beforeSave()
     {
         if (empty($this->sort_order))
         {
