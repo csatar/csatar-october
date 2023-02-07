@@ -69,25 +69,25 @@ navigation:
                 permissions:
                     - csatar.manage.data
             side-menu-headcount:
-                label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.headCount'
+                label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.headCounts'
                 url: csatar/knowledgerepository/headcounts
                 icon: icon-group
                 permissions:
                     - csatar.manage.data
             side-menu-duration:
-                label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.duration'
+                label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.durations'
                 url: csatar/knowledgerepository/durations
                 icon: icon-clock-o
                 permissions:
                     - csatar.manage.data
             side-menu-location:
-                label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.location'
+                label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.locations'
                 url: csatar/knowledgerepository/locations
                 icon: icon-map-marker
                 permissions:
                     - csatar.manage.data
             side-menu-gametype:
-                label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.gameType'
+                label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.gameTypes'
                 url: csatar/knowledgerepository/gametypes
                 icon: icon-gamepad
                 permissions:

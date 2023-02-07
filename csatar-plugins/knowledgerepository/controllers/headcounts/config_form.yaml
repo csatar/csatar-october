@@ -3,7 +3,7 @@ form: $/csatar/knowledgerepository/models/headcount/fields.yaml
 modelClass: Csatar\KnowledgeRepository\Models\HeadCount
 defaultRedirect: csatar/knowledgerepository/headcount
 create:
-    redirect: 'csatar/knowledgerepository/headcount/update/:id'
+    redirect: 'csatar/knowledgerepository/headcounts/update/:id'
     redirectClose: csatar/knowledgerepository/headcount
 update:
     redirect: csatar/knowledgerepository/headcount

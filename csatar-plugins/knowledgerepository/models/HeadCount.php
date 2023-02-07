@@ -44,4 +44,10 @@ class HeadCount extends Model
         'min',
         'max',
     ];
+
+
+    public function getNameAttribute()
+    {
+        return $this->description;
+    }
 }

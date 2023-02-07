@@ -1,6 +1,6 @@
 list: $/csatar/knowledgerepository/models/location/columns.yaml
 modelClass: Csatar\KnowledgeRepository\Models\Location
-title: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.location'
+title: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.locations'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: true

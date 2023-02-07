@@ -1,6 +1,6 @@
 list: $/csatar/knowledgerepository/models/duration/columns.yaml
 modelClass: Csatar\KnowledgeRepository\Models\Duration
-title: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.duration'
+title: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.durations'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: true

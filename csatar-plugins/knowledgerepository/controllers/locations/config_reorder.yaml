@@ -1,4 +1,4 @@
-title: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.location'
+title: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.locations'
 modelClass: Csatar\KnowledgeRepository\Models\Location
 toolbar:
     buttons: reorder_toolbar

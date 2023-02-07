@@ -1,4 +1,4 @@
-name: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.gameDevelopmentGoals'
+name: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.gameDevelopmentGoal'
 form: $/csatar/knowledgerepository/models/gamedevelopmentgoal/fields.yaml
 modelClass: Csatar\KnowledgeRepository\Models\GameDevelopmentGoal
 defaultRedirect: csatar/knowledgerepository/gamedevelopmentgoals
