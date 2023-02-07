@@ -1,0 +1,12 @@
+list: $/csatar/knowledgerepository/models/gametype/columns.yaml
+modelClass: Csatar\KnowledgeRepository\Models\GameType
+title: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.gameType'
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'csatar/knowledgerepository/gametypes/update/:id'

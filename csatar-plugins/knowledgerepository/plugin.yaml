@@ -86,3 +86,9 @@ navigation:
                 icon: icon-map-marker
                 permissions:
                     - csatar.manage.data
+            side-menu-gametype:
+                label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.gameType'
+                url: csatar/knowledgerepository/gametypes
+                icon: icon-gamepad
+                permissions:
+                    - csatar.manage.data

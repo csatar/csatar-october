@@ -20,6 +20,7 @@
                     'headCount' => 'Létszám',
                     'duration' => 'Időtartam',
                     'location' => 'Helyszín',
+                    'gameType' => 'Játék típus',
                 ],
             ],
             'general' => [

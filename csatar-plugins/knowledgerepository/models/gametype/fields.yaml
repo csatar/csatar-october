@@ -1,14 +1,14 @@
-columns:
+fields:
     name:
         label: 'csatar.knowledgerepository::lang.plugin.admin.general.name'
+        span: auto
         type: text
-        searchable: true
-        sortable: true
     note:
         label: 'csatar.knowledgerepository::lang.plugin.admin.general.note'
+        span: auto
         type: text
-        searchable: true
-        sortable: true
     sort_order:
         label: 'csatar.knowledgerepository::lang.plugin.admin.general.order'
+        span: auto
+        readOnly: 1
         type: number

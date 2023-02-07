@@ -6,6 +6,7 @@ use Csatar\KnowledgeRepository\Models\Tool;
 use Csatar\KnowledgeRepository\Models\HeadCount;
 use Csatar\KnowledgeRepository\Models\Duration;
 use Csatar\KnowledgeRepository\Models\Location;
+use Csatar\KnowledgeRepository\Models\GameType;
 use Db;
 use Seeder;
 
@@ -233,6 +234,32 @@ class SeederData extends Seeder
                 'sort_order' => 8,
             ],
         ],
+        'gameTypes' => [
+            [
+                'name' => 'Elnemmozdulós',
+                'sort_order' => 1,
+            ],
+            [
+                'name' => 'Szorakoztató',
+                'sort_order' => 2,
+            ],
+            [
+                'name' => 'Kevés mozgást igénylő',
+                'sort_order' => 3,
+            ],
+            [
+                'name' => 'Koncentrációs, mozgós',
+                'sort_order' => 4,
+            ],
+            [
+                'name' => 'Erőkifejtő, sok mozgás igénylő',
+                'sort_order' => 5,
+            ],
+            [
+                'name' => 'Ez alapján nem besorolható',
+                'sort_order' => 6,
+            ],
+        ],
     ];
 
     public function run()
@@ -293,6 +320,15 @@ class SeederData extends Seeder
             ]);
             $location->sort_order = $locationData['sort_order'];
             $location->save();
+        }
+
+        // Game Types
+        foreach ($this::DATA['gameTypes'] as $gameTypeData) {
+            $gameType = GameType::firstOrNew([
+                'name' => $gameTypeData['name'],
+            ]);
+            $gameType->sort_order = $gameTypeData['sort_order'];
+            $gameType->save();
         }
     }
 }
