@@ -1,6 +1,6 @@
 columns:
     description:
-        label: 'csatar.knowledgerepository::lang.plugin.admin.general.name'
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.description'
         type: text
         searchable: true
         invisible: false

@@ -29,7 +29,6 @@ class HeadCount extends Model
     ];
 
     public $fillable = [
-        'name',
         'description',
         'sort_order',
         'note',
@@ -38,7 +37,6 @@ class HeadCount extends Model
     ];
 
     public $nullable = [
-        'description',
         'sort_order',
         'note',
         'min',
