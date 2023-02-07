@@ -9,10 +9,10 @@ class Gender
     public const OTHER = 3;
     public const MIXED = 4;
 
-    public static array $optionsWithLables = [];
+    public static array $optionsWithLabels = [];
 
-    public static function getOptionsWithLables(){
-        return self::$optionsWithLables = [
+    public static function getOptionsWithLabels(){
+        return self::$optionsWithLabels = [
             self::MALE => e(trans('csatar.csatar::lang.plugin.admin.scout.gender.male')),
             self::FEMALE => e(trans('csatar.csatar::lang.plugin.admin.scout.gender.female')),
             self::OTHER => e(trans('csatar.csatar::lang.plugin.admin.scout.gender.other')),
