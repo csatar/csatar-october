@@ -19,6 +19,7 @@
                     'tools' => 'Eszközök',
                     'headCount' => 'Létszám',
                     'duration' => 'Időtartam',
+                    'location' => 'Helyszín',
                 ],
             ],
             'general' => [

@@ -2,6 +2,10 @@
 
 use Csatar\KnowledgeRepository\Models\AccidentRiskLevel;
 use Csatar\KnowledgeRepository\Models\GameDevelopmentGoal;
+use Csatar\KnowledgeRepository\Models\Tool;
+use Csatar\KnowledgeRepository\Models\HeadCount;
+use Csatar\KnowledgeRepository\Models\Duration;
+use Csatar\KnowledgeRepository\Models\Location;
 use Db;
 use Seeder;
 
@@ -195,6 +199,40 @@ class SeederData extends Seeder
                 'max' => 90,
             ],
         ],
+        'locations' => [
+            [
+                'name' => 'Kültéri - mező',
+                'sort_order' => 1,
+            ],
+            [
+                'name' => 'Kültéri - erdő',
+                'sort_order' => 2,
+            ],
+            [
+                'name' => 'Kültéri - udvar',
+                'sort_order' => 3,
+            ],
+            [
+                'name' => 'Beltéri - terem',
+                'sort_order' => 4,
+            ],
+            [
+                'name' => 'Beltéri - berendezett (székek, asztalok)',
+                'sort_order' => 5,
+            ],
+            [
+                'name' => 'Beltéri - okos (projektor, áramellátás)',
+                'sort_order' => 6,
+            ],
+            [
+                'name' => 'Virtuális',
+                'sort_order' => 7,
+            ],
+            [
+                'name' => 'Bárhol alkalmazható',
+                'sort_order' => 8,
+            ],
+        ],
     ];
 
     public function run()
@@ -246,6 +284,15 @@ class SeederData extends Seeder
             $duration->min = $durationData['min'];
             $duration->max = $durationData['max'];
             $duration->save();
+        }
+
+        // Locations
+        foreach ($this::DATA['locations'] as $locationData) {
+            $location = Location::firstOrNew([
+                'name' => $locationData['name'],
+            ]);
+            $location->sort_order = $locationData['sort_order'];
+            $location->save();
         }
     }
 }

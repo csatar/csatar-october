@@ -80,3 +80,9 @@ navigation:
                 icon: icon-clock-o
                 permissions:
                     - csatar.manage.data
+            side-menu-location:
+                label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.location'
+                url: csatar/knowledgerepository/locations
+                icon: icon-map-marker
+                permissions:
+                    - csatar.manage.data
