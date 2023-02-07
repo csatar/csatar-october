@@ -1,0 +1,12 @@
+list: $/csatar/knowledgerepository/models/duration/columns.yaml
+modelClass: Csatar\KnowledgeRepository\Models\Duration
+title: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.duration'
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'csatar/knowledgerepository/durations/update/:id'

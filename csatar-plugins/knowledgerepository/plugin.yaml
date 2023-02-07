@@ -74,3 +74,9 @@ navigation:
                 icon: icon-group
                 permissions:
                     - csatar.manage.data
+            side-menu-duration:
+                label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.duration'
+                url: csatar/knowledgerepository/durations
+                icon: icon-clock-o
+                permissions:
+                    - csatar.manage.data

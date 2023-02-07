@@ -18,6 +18,7 @@
                     'accidentRiskLevels' => 'Baleseti kockázat szintek',
                     'tools' => 'Eszközök',
                     'headCount' => 'Létszám',
+                    'duration' => 'Időtartam',
                 ],
             ],
             'general' => [

@@ -2,9 +2,10 @@
 
 ## Unreleased
 
-- CS-375 - Created Tool model, controller, backend list and form
-- CS-386 - Created AccidentRiskLevel model, controller, backend list and form
-- CS-385 - Created GameDevelopmentGoal model, controller, backend list and form
+- CS-369 - Created Duration model, controller, seeder, backend list and form
+- CS-375 - Created Tool model, controller, seeder backend list and form
+- CS-386 - Created AccidentRiskLevel model, seeder controller, backend list and form
+- CS-385 - Created GameDevelopmentGoal model, seeder controller, backend list and form
 - CS-385 - Changed migrations, renamed "order" columns to "sort_order"
 - CS-363 - Fixed success/error message issue on back list bulk delete
 - CS-455 - Sort the teams in the menu

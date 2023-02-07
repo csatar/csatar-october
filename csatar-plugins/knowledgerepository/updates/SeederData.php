@@ -4,6 +4,7 @@ use Csatar\KnowledgeRepository\Models\AccidentRiskLevel;
 use Csatar\KnowledgeRepository\Models\GameDevelopmentGoal;
 use Csatar\KnowledgeRepository\Models\Tool;
 use Csatar\KnowledgeRepository\Models\HeadCount;
+use Csatar\KnowledgeRepository\Models\Duration;
 use Db;
 use Seeder;
 
@@ -150,6 +151,53 @@ class SeederData extends Seeder
                 'sort_order' => 4,
             ]
         ],
+        'durations' => [
+            [
+                'name' => '1-5 perc',
+                'min' => 1,
+                'max' => 5,
+            ],
+            [
+                'name' => '6-10 perc',
+                'min' => 6,
+                'max' => 10,
+            ],
+            [
+                'name' => '7-15 perc',
+                'min' => 7,
+                'max' => 15,
+            ],
+            [
+                'name' => '16-20 perc',
+                'min' => 16,
+                'max' => 20,
+            ],
+            [
+                'name' => '21-25 perc',
+                'min' => 21,
+                'max' => 25,
+            ],
+            [
+                'name' => '26-35 perc',
+                'min' => 26,
+                'max' => 35,
+            ],
+            [
+                'name' => '36-50 perc',
+                'min' => 36,
+                'max' => 50,
+            ],
+            [
+                'name' => '51 - 75 perc',
+                'min' => 51,
+                'max' => 75,
+            ],
+            [
+                'name' => '76 - 90 perc',
+                'min' => 76,
+                'max' => 90,
+            ],
+        ],
     ];
 
     public function run()
@@ -191,6 +239,16 @@ class SeederData extends Seeder
             $headCount->note = $headCountData['note'];
             $headCount->sort_order = $headCountData['sort_order'];
             $headCount->save();
+        }
+
+        // Durations
+        foreach ($this::DATA['durations'] as $durationData) {
+            $duration = Duration::firstOrNew([
+                'name' => $durationData['name'],
+            ]);
+            $duration->min = $durationData['min'];
+            $duration->max = $durationData['max'];
+            $duration->save();
         }
     }
 }
