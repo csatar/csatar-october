@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- CS-460 - Added frontend scout csv import-export
+
 ## 1.8.0
 ### 2023-02-06
 

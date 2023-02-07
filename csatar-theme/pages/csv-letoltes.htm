@@ -1,6 +1,6 @@
-title = "Balesetek csv letöltés"
+url = "/csv-letoltes/:file"
 layout = "default"
-url = "/balesetek-csv-letoltes/:file"
+title = "Csv letöltés"
 ==
 <?php
 function onStart()
@@ -12,7 +12,7 @@ function onStart()
         'charset' => 'UTF-8',
     ];
 
-    return Response::download($csvPath, $fileName, $headers)->deleteFileAfterSend(true);;
+    return Response::download($csvPath, $fileName, $headers)->deleteFileAfterSend(true);
 }
 ?>
 ==
