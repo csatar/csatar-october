@@ -84,7 +84,7 @@
                 <i class="csat-gallery-add-out-wh-sm"></i>
                 {{ 'Új galéria' | _ }}
             </button>
-            {% partial "@formButton"
+            {% partial "@dataRequestButton"
             dataRequest = 'onOpenSortOrderForm'
             permissionValue = permission_to_edit ? 1 : -1
             btnExtraClasses = 'btn-sm rounded btn-primary mt-2'

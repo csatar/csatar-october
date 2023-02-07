@@ -8,7 +8,6 @@ btnLabel
 tooltip
 buttonId
 tooltip
-dataRequest
 
 #}
 
@@ -21,9 +20,6 @@ dataRequest
             data-toggle=tooltip
             data-placement=top
             title="{{ tooltip }}"
-        {% endif %}
-        {% if dataRequest %}
-            data-request="{{ dataRequest }}"
         {% endif %}
     >
         <i class="{{ btnIconClass }}"></i> {{ btnLabel }}
