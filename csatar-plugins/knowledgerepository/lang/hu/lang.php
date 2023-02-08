@@ -39,8 +39,10 @@
                 'proposerCsatarCode' => 'Felterjesztő - igazolványszám',
                 'isApproved' => 'Jóváhagyva',
                 'minute' => 'perc',
+                'forms' => 'Űrlapok',
             ],
             'game' => [
+                'game' => 'Játék',
                 'name' => 'Játék neve',
                 'uploader' => 'Feltöltő',
                 'approver' => 'Jóváhagyó',
@@ -49,6 +51,7 @@
                 'uploadedAt' => 'Feltöltés dátuma',
                 'approvedAt' => 'Jóváhagyás dátuma',
                 'version' => 'Verzió',
+                'ageGroupsComment' => 'A korosztályok csak a szövetség kiválasztása után választhatók ki.',
             ],
         ],
     ],

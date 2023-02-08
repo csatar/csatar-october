@@ -1,0 +1,15 @@
+url = "/tudastar/jatek/:id/:action?"
+layout = "default"
+title = "Játék"
+
+[basicForm]
+formSlug = "jatek"
+recordKeyParam = "id"
+recordActionParam = "action"
+createRecordKeyword = "letrehozas"
+actionUpdateKeyword = "modositas"
+actionDeleteKeyword = "torles"
+==
+<div class="container">
+    {% component 'basicForm' %}
+</div>

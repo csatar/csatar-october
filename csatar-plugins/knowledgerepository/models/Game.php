@@ -1,13 +1,16 @@
 <?php namespace Csatar\KnowledgeRepository\Models;
 
 use Model;
+use Csatar\Csatar\Models\PermissionBasedAccess;
+use Lang;
 
 /**
  * Model
  */
-class Game extends Model
+class Game extends PermissionBasedAccess
 {
     use \October\Rain\Database\Traits\Validation;
+    use \October\Rain\Database\Traits\Nullable;
 
 
     /**
@@ -21,16 +24,49 @@ class Game extends Model
     public $rules = [
     ];
 
+    public $fillable = [
+        'name',
+        'note',
+        'other_tools',
+        'link',
+        'description',
+        'created_at',
+        'updated_at',
+        'approved_at',
+    ];
+
+    public $nullable = [
+        'description',
+        'uploader_csatar_code',
+        'approver_csatar_code',
+        'approved_at',
+        'note',
+        'other_tools',
+        'link',
+        'description',
+        'created_at',
+        'updated_at',
+        'approved_at',
+    ];
+
     public $belongsTo = [
         'uploader' => [
             '\Csatar\Csatar\Models\Scout',
             'key' => 'uploader_csatar_code',
             'otherKey' => 'ecset_code',
+            'label' => 'csatar.knowledgerepository::lang.plugin.admin.game.uploader',
         ],
         'approver' => [
             '\Csatar\Csatar\Models\Scout',
             'key' => 'uploader_csatar_code',
             'otherKey' => 'ecset_code',
+            'label' => 'csatar.knowledgerepository::lang.plugin.admin.game.approver',
+        ],
+        'association' => [
+            '\Csatar\Csatar\Models\Association',
+            'formBuilder' => [
+                'requiredBeforeRender' => true,
+            ],
         ]
     ];
 
@@ -38,41 +74,70 @@ class Game extends Model
         'game_development_goals' => [
             '\Csatar\KnowledgeRepository\Models\GameDevelopmentGoal',
             'table' => 'csatar_knowledgerepository_game_development_goal_game',
-            'label' => 'csatar.csatar::lang.plugin.admin.menu.knowledgeRepositoryParameters.gameDevelopmentGoals',
+            'label' => 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.gameDevelopmentGoals',
         ],
         'tools' => [
             '\Csatar\KnowledgeRepository\Models\Tool',
             'table' => 'csatar_knowledgerepository_game_tool',
-            'label' => 'csatar.csatar::lang.plugin.admin.menu.knowledgeRepositoryParameters.tools',
+            'label' => 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.tools',
         ],
         'headcounts' => [
             '\Csatar\KnowledgeRepository\Models\Headcount',
             'table' => 'csatar_knowledgerepository_game_headcount',
-            'label' => 'csatar.csatar::lang.plugin.admin.menu.knowledgeRepositoryParameters.headCounts',
+            'label' => 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.headCounts',
         ],
         'durations' => [
             '\Csatar\KnowledgeRepository\Models\Duration',
             'table' => 'csatar_knowledgerepository_game_duration',
-            'label' => 'csatar.csatar::lang.plugin.admin.menu.knowledgeRepositoryParameters.durations',
+            'label' => 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.durations',
         ],
         'age_groups' => [
             '\Csatar\Csatar\Models\AgeGroup',
             'table' => 'csatar_knowledgerepository_age_group_game',
             'label' => 'csatar.csatar::lang.plugin.admin.ageGroups.ageGroups',
+            'scope' => [self::class, 'filterAgeGroupByAssociation']
         ],
         'locations' => [
             '\Csatar\KnowledgeRepository\Models\Location',
             'table' => 'csatar_knowledgerepository_game_location',
-            'label' => 'csatar.csatar::lang.plugin.admin.menu.knowledgeRepositoryParameters.locations',
+            'label' => 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.locations',
         ],
         'game_types' => [
             '\Csatar\KnowledgeRepository\Models\GameType',
             'table' => 'csatar_knowledgerepository_game_game_type',
-            'label' => 'csatar.csatar::lang.plugin.admin.menu.knowledgeRepositoryParameters.gameTypes',
+            'label' => 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.gameTypes',
         ],
     ];
 
     public $attachMany = [
         'attachements' => ['System\Models\File'],
     ];
+
+    public static function filterAgeGroupByAssociation($query, $related, $parent)
+    {
+        if (!isset($related->association_id)) {
+            return $query->where('id', 0);
+        }
+        return $query->where('association_id', $related->association_id);
+    }
+
+    public function getAssociationId()
+    {
+        return $this->association_id;
+    }
+
+    public function getAssociation()
+    {
+        return $this->association ?? null;
+    }
+
+    public static function getOrganizationTypeModelNameUserFriendly()
+    {
+        return Lang::get('csatar.knowledgerepository::lang.plugin.admin.game.game');
+    }
+
+    public function scopeApproved($query)
+    {
+        return $query->whereNotNull('approved_at');
+    }
 }

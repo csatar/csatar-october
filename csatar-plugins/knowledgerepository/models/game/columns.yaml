@@ -21,7 +21,7 @@ columns:
         label: 'csatar.knowledgerepository::lang.plugin.admin.game.uploadedAt'
         type: datetime
     updated_at:
-        label: version
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.version'
         type: datetime
     note:
         label: 'csatar.knowledgerepository::lang.plugin.admin.general.note'

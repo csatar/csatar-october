@@ -7,6 +7,7 @@ use Csatar\KnowledgeRepository\Models\Headcount;
 use Csatar\KnowledgeRepository\Models\Duration;
 use Csatar\KnowledgeRepository\Models\Location;
 use Csatar\KnowledgeRepository\Models\GameType;
+use Csatar\Forms\Models\Form;
 use Db;
 use Seeder;
 
@@ -260,6 +261,12 @@ class SeederData extends Seeder
                 'sort_order' => 6,
             ],
         ],
+        'forms' => [
+            [
+                'title' => 'Játék',
+                'model' => 'Csatar\KnowledgeRepository\Models\Game',
+            ],
+        ],
     ];
 
     public function run()
@@ -329,6 +336,12 @@ class SeederData extends Seeder
             ]);
             $gameType->sort_order = $gameTypeData['sort_order'];
             $gameType->save();
+        }
+
+        // Forms
+        foreach ($this::DATA['forms'] as $formData) {
+            $form = Form::firstOrNew($formData);
+            $form->save();
         }
     }
 }

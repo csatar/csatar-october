@@ -1,4 +1,9 @@
 fields:
+    association:
+        label: 'csatar.csatar::lang.plugin.admin.association.association'
+        span: auto
+        type: relation
+        nameFrom: name
     name:
         label: 'csatar.knowledgerepository::lang.plugin.admin.game.name'
         span: auto
@@ -31,7 +36,7 @@ fields:
         span: auto
         type: relation
     approver:
-        label: 'csatar.knowledgerepository::lang.plugin.admin.general.approver'
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.approver'
         nameFrom: name_with_id_number
         descriptionFrom: description
         span: auto
@@ -55,3 +60,10 @@ fields:
         mode: date
         span: auto
         type: datepicker
+    age_groups:
+        label: 'csatar.csatar::lang.plugin.admin.ageGroups.ageGroups'
+        span: auto
+        type: relation
+        dependsOn: association
+        nameFrom: name
+        comment: 'csatar.knowledgerepository::lang.plugin.admin.game.ageGroupsComment'

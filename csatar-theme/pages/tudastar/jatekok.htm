@@ -1,0 +1,20 @@
+url = "/tudastar/jatekok"
+layout = "default"
+title = "Játékok"
+
+[builderList]
+modelClass = "Csatar\KnowledgeRepository\Models\Game"
+scope = "scopeApproved"
+scopeValue = "{{ :scope }}"
+displayColumn = "name"
+noRecordsMessage = "No records found"
+detailsPage = "tudastar/jatek"
+detailsKeyColumn = "id"
+detailsUrlParameter = "id"
+pageNumber = "{{ :page }}"
+sortColumn = "name"
+sortDirection = "asc"
+==
+<div class="container">
+    {% component 'builderList' %}
+</div>

@@ -190,20 +190,21 @@ class PermissionBasedAccess extends Model
     {
         $result = [];
         try {
-            $pluginCodeObj = new PluginCode('Csatar.Csatar');
+            $pluginCodes = ['Csatar.Csatar', 'Csatar.KnowledgeRepository'];
+            $result = [];
 
-            $models = ModelModel::listPluginModels($pluginCodeObj);
-
-            $pluginCodeStr = $pluginCodeObj->toCode();
-            $pluginModelsNamespace = $pluginCodeObj->toPluginNamespace() . '\\Models\\';
-            foreach ($models as $model) {
-                $fullClassName = $pluginModelsNamespace . $model->className;
-
-                if(!is_subclass_of($fullClassName, self::getModelName())){
-                    continue;
-                };
-
-                $result[$fullClassName] = '\\' . $fullClassName;
+            foreach ($pluginCodes as $pluginCode) {
+                $pluginCodeObj = new PluginCode($pluginCode);
+                $models = ModelModel::listPluginModels($pluginCodeObj);
+                $pluginCodeStr = $pluginCodeObj->toCode();
+                $pluginModelsNamespace = $pluginCodeObj->toPluginNamespace() . '\\Models\\';
+                foreach ($models as $model) {
+                    $fullClassName = $pluginModelsNamespace . $model->className;
+                    if(!is_subclass_of($fullClassName, self::getModelName())){
+                        continue;
+                    };
+                    $result[$fullClassName] = '\\' . $fullClassName;
+                }
             }
         } catch (Exception $ex) {
             // Ignore invalid plugins and models

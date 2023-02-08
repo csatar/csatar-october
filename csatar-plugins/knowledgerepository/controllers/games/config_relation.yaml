@@ -38,16 +38,6 @@ durations:
     list: $/csatar/knowledgerepository/models/duration/columns.yaml
     form: $/csatar/knowledgerepository/models/duration/fields.yaml
 
-age_groups:
-  deferredBinding: true
-  label: 'csatar.csatar::lang.plugin.admin.ageGroups.ageGroups'
-  view:
-    list: $/csatar/csatar/models/agegroup/columns.yaml
-    toolbarButtons: add|remove|create
-  manage:
-    list: $/csatar/csatar/models/agegroup/columns.yaml
-    form: $/csatar/csatar/models/agegroup/fields.yaml
-
 locations:
   deferredBinding: true
   label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.location'
