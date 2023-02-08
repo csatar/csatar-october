@@ -107,9 +107,6 @@ class OrganizationUnitFrontend extends ComponentBase
             'mandate_model_name' => [
                 'label' => Lang::get('csatar.csatar::lang.plugin.admin.mandateType.organizationTypeModelName'),
                 ],
-            'mandate_team' => [
-                'label' => Lang::get('csatar.csatar::lang.plugin.admin.team.team'),
-                ],
             'scout' => [
                 'label' => Lang::get('csatar.csatar::lang.plugin.admin.mandateType.scout'),
                 'nameFrom' => 'name',
