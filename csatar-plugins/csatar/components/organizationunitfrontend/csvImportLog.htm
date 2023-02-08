@@ -29,9 +29,12 @@
             {{ csvImportLog['errors']|length }}{{ ' sort nem sikerült importálni'|_ }}:
         </div>
     </div>
-    <ul class="alert alert-danger p-4">
-        {% for error in csvImportLog['errors'] %}
-        <li>{{ 'Sorszám'|_}}: {{ error }}</li>
-        {% endfor %}
-    </ul>
+    <div class="alert alert-danger py-4 p-2 rounded">
+        <ul>
+            {% for error in csvImportLog['errors'] %}
+            <li>{{ 'Sorszám'|_}}: {{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
 {% endif %}
