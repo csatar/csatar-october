@@ -1,0 +1,29 @@
+columns:
+    description:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.description'
+        type: text
+        searchable: true
+        invisible: false
+        sortable: true
+    note:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.note'
+        type: text
+        searchable: true
+        invisible: false
+        sortable: true
+    min:
+        label: Min
+        type: number
+        searchable: true
+        invisible: false
+        sortable: true
+    max:
+        label: Max
+        type: number
+        searchable: true
+        invisible: false
+        sortable: true
+    sort_order:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.order'
+        type: number
+        searchable: false

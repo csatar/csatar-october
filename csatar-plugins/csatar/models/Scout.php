@@ -204,6 +204,8 @@ class Scout extends OrganizationBase
 
     function __construct(array $attributes = []) {
         parent::__construct($attributes);
+        $this->attributeNames['phone'] = e(trans('csatar.csatar::lang.plugin.admin.general.phone'));
+        $this->attributeNames['team'] = e(trans('csatar.csatar::lang.plugin.admin.scout.team'));
         $this->attributeNames['registration_form'] = e(trans('csatar.csatar::lang.plugin.admin.scout.registrationForm'));
         $this->attributeNames['profile_image'] = e(trans('csatar.csatar::lang.plugin.admin.scout.profile_image'));
         $this->attributeNames['personal_identification_number'] = e(trans('csatar.csatar::lang.plugin.admin.scout.personalIdentificationNumber'));
@@ -363,7 +365,7 @@ class Scout extends OrganizationBase
         if (isset($fields->personal_identification_number)
             && !empty($fields->personal_identification_number->value)
             && in_array('cnp', $this->getPersonalIdentificationNumberValidators())
-            && (isset($this->original['personal_identification_number']) && $this->original['personal_identification_number'] != $fields->personal_identification_number->value)
+            && ((isset($this->original['personal_identification_number']) && $this->original['personal_identification_number'] != $fields->personal_identification_number->value) || empty($this->original))
         ) {
             $fields->birthdate->value = $this->getBirthDateFromCNP($fields->personal_identification_number->value);
         }
@@ -534,7 +536,8 @@ class Scout extends OrganizationBase
         $mandates = Mandate::where('scout_id', $this->id)->get();
         foreach ($mandates as $mandate) {
             if (new DateTime($mandate->start_date) < $now && (new DateTime($mandate->end_date) > $now || $mandate->end_date == null)) {
-                Flash::error(str_replace('%name', $this->getFullName(), Lang::get('csatar.csatar::lang.plugin.admin.scout.activeMandateDeleteError')));
+                $sessionKey = self::getModelName() . $this->id;
+                Session::put($sessionKey, str_replace('%name', $this->getFullName(), Lang::get('csatar.csatar::lang.plugin.admin.scout.activeMandateDeleteError')));
                 return false;
             }
         }
@@ -1021,12 +1024,12 @@ class Scout extends OrganizationBase
             case 8:
                 $year += 1900;
                 break;
-            case 3:
-            case 4:
-                $year += 2000;
-                break;
             case 5:
             case 6:
+                $year += 2000;
+                break;
+            case 3:
+            case 4:
                 $year += 1800;
                 break;
             default:

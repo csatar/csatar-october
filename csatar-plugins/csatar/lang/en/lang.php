@@ -1,6 +1,4 @@
-<?php
-
-return [
+<?php return [
     'frontEnd' => [
         'authException' => 'The email address, the ID number or the password is incorrect.',
     ],
@@ -96,9 +94,11 @@ return [
                 'addressLocation' => 'Location',
                 'addressStreet' => 'Street',
                 'addressNumber' => 'Number',
+                'mother' => 'Mother',
                 'mothersName' => 'Name',
                 'mothersPhone' => 'Phone',
                 'mothersEmail' => 'Email',
+                'father' => 'Father',
                 'fathersName' => 'Name',
                 'fathersPhone' => 'Phone',
                 'fathersEmail' => 'Email',
@@ -108,6 +108,7 @@ return [
                 'fathersNameFull' => 'Father\'s name',
                 'fathersPhoneFull' => 'Father\'s phone',
                 'fathersEmailFull' => 'Father\'s email',
+                'legalRepresentative' => 'Legal representative',
                 'legalRepresentativeName' => 'Name',
                 'legalRepresentativePhone' => 'Phone',
                 'legalRepresentativeEmail' => 'Email',
@@ -180,8 +181,10 @@ return [
                     'personalDataNotAccepted' => 'Please verify your personal data here!',
                 ],
                 'activeMandateDeleteError' => 'The Scout having the %name name has active Mandates, thus this Scout cannot be deleted.',
-                'scoutTeam' => 'Scout\'s team' ,
+                'scoutTeam' => 'Scout\'s team',
                 'inactivationWarning' => 'Please note that if you change status from active to inactive, scout\'s all mandates will expire!',
+                'bulkDeletePartialSuccess' => ':deletedCount deleted from :totalCount. ',
+                'bulkDeleteError' => 'The following errors occurred: ',
             ],
             'admin' => [
                 'menu' => [
@@ -365,6 +368,20 @@ return [
                 'sortOrder' => 'Sort order',
                 'breadcrumb' => 'Hierarchy',
             ],
+            'dynamicFields' => [
+                'dynamicFields' => 'Dynamic Fields',
+                'extraFields' => 'Extra fields',
+                'association' => 'Association',
+                'startDate' => 'Start date',
+                'endDate' => 'End date',
+                'model' => 'Model',
+                'extraFieldsDefinition' => 'Extra Fields Definition',
+                'promptNew' => 'Add new',
+                'fieldName' => 'Field name',
+                'fieldRequired' => 'Required',
+                'breadcrumb' => 'Dynamic Fields',
+                'overlappingDynamicFieldsError' => 'There already exists an overlapping Dynamic Fields for the given period for this association.',
+            ],
             'organizationBase' => [
                 'organizationBase' => 'Organization base',
             ],
@@ -528,7 +545,7 @@ return [
                 'endDate' => 'End date',
                 'breadcrumb' => 'Mandate types',
                 'activeMandateDeleteError' => 'There exist active Mandates of %name type, thus this Mandate type cannot be deleted.',
-                'scoutTeam' => 'Scout\'s team',
+                'isHiddenFrontend' => 'Hidden on frontend',
             ],
             'mandate' => [
                 'mandate' => 'Mandate',
@@ -573,6 +590,9 @@ return [
                 'membershipCards' => 'Membership Cards',
                 'issued_date_time' => 'Issued',
                 'active' => 'Active',
+                'requests' => 'Requests',
+                'exportRequests' => 'Export requests to .csv',
+                'inactiveScoutError' => 'The Scout assigned to this Card is inactive. The Card cannot be set to Active if the assigned Scout\'s status is not active.',
             ],
         ],
 
@@ -700,6 +720,10 @@ return [
             'organizationUnitFrontend' => [
                 'name' => 'Organization Unit Frontend',
                 'description' => 'Display the organization unit frontend page.',
+                'csv' => [
+                    'fileMissingOrInvalid' => 'The uploaded file is missing or invalid.',
+                    'teamIdMissing' => 'Team Id is missing, please try again.',
+                ],
             ],
             'twoFactorAuthentication' => [
                 'name' => 'Two Factor Authentication',

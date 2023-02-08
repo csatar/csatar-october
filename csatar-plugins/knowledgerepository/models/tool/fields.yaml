@@ -1,0 +1,21 @@
+fields:
+    name:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.name'
+        span: auto
+        type: text
+    note:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.note'
+        span: auto
+        type: text
+    is_approved:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.isApproved'
+        span: auto
+        type: checkbox
+    approver_csatar_code:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.approverCsatarCode'
+        span: auto
+        type: text
+    proposer_csatar_code:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.proposerCsatarCode'
+        span: auto
+        type: text

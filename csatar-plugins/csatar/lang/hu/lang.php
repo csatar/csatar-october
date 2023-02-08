@@ -50,6 +50,8 @@
                 'active' => 'Aktív',
                 'inactive' => 'Inaktív',
                 'inactivationWarning' => 'Figyelem! Ha a státusz aktívról bármilyen típusú inaktív státuszra változik, a szervezeti egység alá tartozó összes szervezeti egység és cserkész státusza is inaktívvá válik, valamint lejár az ezekhez tartozó összes mebízatás!',
+                'bulkDeletePartialSuccess' => ':deletedCount elem törlése sikerült a :totalCount-ból/ből. ',
+                'bulkDeleteError' => 'A következő hibák merültek fel a törlés során: ',
             ],
             'ageGroups' => [
                 'ageGroups' => 'Korosztályok',
@@ -94,9 +96,11 @@
                 'addressLocation' => 'Település',
                 'addressStreet' => 'Utca',
                 'addressNumber' => 'Házszám',
+                'mother' => 'Anya',
                 'mothersName' => 'Név',
                 'mothersPhone' => 'Telefonszám',
                 'mothersEmail' => 'E-mail cím',
+                'father' => 'Apa',
                 'fathersName' => 'Név',
                 'fathersPhone' => 'Telefonszám',
                 'fathersEmail' => 'E-mail cím',
@@ -106,6 +110,7 @@
                 'fathersNameFull' => 'Apja neve',
                 'fathersPhoneFull' => 'Apja telefonszáma',
                 'fathersEmailFull' => 'Apja e-mail címe',
+                'legalRepresentative' => 'Törvényes képviselő',
                 'legalRepresentativeName' => 'Név',
                 'legalRepresentativePhone' => 'Telefonszám',
                 'legalRepresentativeEmail' => 'E-mail cím',
@@ -363,6 +368,20 @@
                 'sortOrder' => 'Sorrend',
                 'breadcrumb' => 'Hierarchia',
             ],
+            'dynamicFields' => [
+                'dynamicFields' => 'Dinamikus mezők',
+                'extraFields' => 'További mezők',
+                'association' => 'Szövetség',
+                'startDate' => 'Kezdete',
+                'endDate' => 'Vége',
+                'model' => 'Modell',
+                'extraFieldsDefinition' => 'További mezők adatai',
+                'promptNew' => 'Új hozzáadása',
+                'fieldName' => 'Mező neve',
+                'fieldRequired' => 'Kötelező',
+                'breadcrumb' => 'Dinamikus mezők',
+                'overlappingDynamicFieldsError' => 'Már vannak megadva Dinamikus mezők az adott periódusra e szövetség esetén.',
+            ],
             'organizationBase' => [
                 'organizationBase' => 'Általános szervezeti egység',
             ],
@@ -526,6 +545,7 @@
                 'endDate' => 'Vége',
                 'breadcrumb' => 'Megbízatás típusok',
                 'activeMandateDeleteError' => 'Létezik %name típusú aktív Megbízatás, így ez a Megbízatás típus nem törölhető.',
+                'isHiddenFrontend' => 'Rejtett a frontenden',
             ],
             'mandate' => [
                 'mandate' => 'Megbízatás',
@@ -570,6 +590,9 @@
                 'membershipCards' => 'Tagkártyák',
                 'issued_date_time' => 'Kiállítva',
                 'active' => 'Érvényes',
+                'requests' => 'Tagkártya igénylések',
+                'exportRequests' => 'Igénylések exportálása .csv-be',
+                'inactiveScoutError' => 'A kártyához rendelt tag inaktív. A kártyát nem lehet érvényesre állítani, ha a tag státusza nem aktív.',
             ],
         ],
         'locations' => [
@@ -696,6 +719,10 @@
             'organizationUnitFrontend' => [
                 'name' => 'Szervezeti Egység Frontend',
                 'description' => 'Megyjeleníti egy szerevezeti egység frontend oldalát.',
+                'csv' => [
+                    'fileMissingOrInvalid' => 'A .csv fájl hiányzik vagy érvénytelen.',
+                    'teamIdMissing' => 'Hiányzik a csapat azonosítója.',
+                ],
             ],
             'twoFactorAuthentication' => [
                 'name' => 'Két faktoros hitelesítése',

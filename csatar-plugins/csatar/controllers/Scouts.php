@@ -2,6 +2,7 @@
 
 use Backend\Classes\Controller;
 use BackendMenu;
+use Csatar\Csatar\Classes\BackendExtensions;
 use Csatar\Csatar\Models\Scout;
 use Flash;
 use Lang;
@@ -36,5 +37,9 @@ class Scouts extends Controller
                 Flash::success(Lang::get('csatar.csatar::lang.plugin.component.twoFactorAuthentication.resetSuccess'));
             }
         }
+    }
+
+    public function onDelete(){
+        return BackendExtensions::onDelete($this);
     }
 }

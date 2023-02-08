@@ -10,10 +10,10 @@ class InjurySeverity
     public const FATAL = 4;
 
 
-    public static $optionsWithLables = [];
+    public static $optionsWithLabels = [];
 
-    public static function getOptionsWithLables(){
-        return self::$optionsWithLables = [
+    public static function getOptionsWithLabels(){
+        return self::$optionsWithLabels = [
             self::SLIGHT => e(trans('csatar.csatar::lang.plugin.component.accidentLog.injurySeverity.slight')),
             self::MEDIUM => e(trans('csatar.csatar::lang.plugin.component.accidentLog.injurySeverity.medium')),
             self::SERIOUS => e(trans('csatar.csatar::lang.plugin.component.accidentLog.injurySeverity.serious')),

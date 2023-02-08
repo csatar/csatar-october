@@ -1,17 +1,18 @@
 columns:
-    id:
-        label: id
-        type: number
-        searchable: true
-        sortable: true
     scout:
         label: 'csatar.csatar::lang.plugin.admin.scout.scout'
         type: text
         select: (SELECT CONCAT(ifnull(family_name, ''), ' ', ifnull(given_name, ''), ' - ', ecset_code) FROM `csatar_csatar_scouts` WHERE `csatar_csatar_scouts`.`id` = `scout_id`)
         searchable: true
         sortable: false
+    team_number:
+        label: 'csatar.csatar::lang.plugin.admin.team.teamNumber'
+        type: number
+        select: (SELECT CAST(team_number as UNSIGNED) from csatar_csatar_teams where `csatar_csatar_teams`.`id` = (SELECT team_id FROM `csatar_csatar_scouts` WHERE `csatar_csatar_scouts`.`id` = `scout_id`))
+        searchable: true
+        sortable: true
     rfid_tag:
-        label: 'RFIG tag'
+        label: 'RFID tag'
         type: text
         searchable: true
         sortable: true

@@ -1,0 +1,21 @@
+fields:
+    description:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.description'
+        span: auto
+        type: text
+    note:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.note'
+        span: auto
+        type: text
+    min:
+        label: Min
+        span: auto
+        type: number
+    max:
+        label: Max
+        span: auto
+        type: number
+    sort_order:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.order'
+        span: auto
+        type: number
