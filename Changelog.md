@@ -24,6 +24,12 @@
 - CS-327 - Create dynamic fields
 - CS-397 - Changed accordion to show the active tag lists on the model pages
 
+## 1.8.1
+### 2023-02-08
+
+- CS-460 - Added frontend scout csv import-export
+- CS-397 - Changed accordion to show the active tag lists on the model pages
+
 ## 1.8.0
 ### 2023-02-06
 
