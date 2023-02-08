@@ -8,6 +8,7 @@ use Csatar\Csatar\Classes\Enums\Gender;
 use Csatar\Csatar\Classes\Mappers\LegalRelationshipMapper;
 use Csatar\Csatar\Classes\Mappers\ReligionMapper;
 use Csatar\Csatar\Models\GalleryModelPivot;
+use Csatar\Csatar\Models\Team;
 use Csatar\Csatar\Models\Scout;
 use Db;
 use Input;
@@ -138,11 +139,12 @@ class OrganizationUnitFrontend extends ComponentBase
     public function onExportScoutsToCsv()
     {
         $teamId = Input::get('teamId');
-        if (empty($teamId)) {
+        $team = Team::find($teamId);
+        if (empty($teamId) || empty($team->team_number)) {
             return;
         }
 
-        $fileName = $teamId . '_csapat_' . Carbon::today()->toDateString() . '.csv';
+        $fileName = $team->team_number . '_csapat_' . Carbon::today()->toDateString() . '.csv';
         $csvPath = temp_path() . '/' . $fileName;
 
         $scouts = Scout::where('team_id', $teamId)->get();
@@ -309,7 +311,7 @@ class OrganizationUnitFrontend extends ComponentBase
         $legalRelationshipsMap = (new LegalRelationshipMapper)->namesToIds;
         $religionsMap = (new ReligionMapper)->namesToIds;
 
-        $personalIdentificationNumber = $rowData[array_search('personal_identification_number', $attributes)];
+        $personalIdentificationNumber = $rowData[array_search('personal_identification_number', $attributes)] ?? null;
         $ecsetCode = $rowData[array_search('ecset_code', $attributes)];
 
         $data = [];
