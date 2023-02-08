@@ -544,7 +544,7 @@
                 'startDate' => 'Start date',
                 'endDate' => 'End date',
                 'breadcrumb' => 'Mandate types',
-                'activeMandateDeleteError' => 'There exist active Mandates of %name type, thus this Mandate type cannot be deleted.',
+                'activeMandateDeleteError' => 'There exist active Mandates of %name or it\'s child types, thus this Mandate type cannot be deleted.',
                 'isHiddenFrontend' => 'Hidden on frontend',
             ],
             'mandate' => [

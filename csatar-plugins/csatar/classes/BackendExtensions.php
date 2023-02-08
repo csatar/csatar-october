@@ -35,6 +35,11 @@ class BackendExtensions
         $errors = [];
         if ($records->count()) {
             foreach ($records as $record) {
+                if (method_exists($record, 'canDelete') && !$record->canDelete()) {
+                    $sessionKey = $record::getModelName() . $record->id;
+                    $errors[] = Session::pull($sessionKey, 'N/A');
+                    continue;
+                }
                 if ($record->delete()) {
                     $deletedRecords++;
                 } else {
