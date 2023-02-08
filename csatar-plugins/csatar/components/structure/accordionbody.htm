@@ -10,7 +10,7 @@
     {# Show the number of scouts in the Teams, Troops and Patrols #}
     {% if level > 2 %}
         <p>{{ 'Tagok száma: '|_ }} {{ item.getActiveScoutsCount() }}</p>
-        {% if showActiveTags %}
+        {% if showActiveScouts %}
             <div class="row">
                 <div class="col-12 col-lg-6">
                     <ul class="record-list">
