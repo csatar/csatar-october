@@ -1,5 +1,6 @@
 <?php namespace Csatar\Csatar\Components;
 
+use Auth;
 use Lang;
 use Cms\Classes\ComponentBase;
 use Csatar\Csatar\Models\Association;
@@ -10,6 +11,8 @@ class Structure extends ComponentBase
     public $level;
     public $displayHeader = false;
     public $mode;
+    public $permissions;
+    public $showActiveScouts;
 
     public function componentDetails()
     {
@@ -58,10 +61,18 @@ class Structure extends ComponentBase
             $this->level = $this->property('level');
             $modelName = "Csatar\Csatar\Models\\" . $this->property('model_name');
             $this->structureArray = $modelName::where('id', $this->property('model_id'))->get();
+            $this->showActiveScouts = true;
         } else {
             $this->displayHeader = true;
             $this->level = 1;
             $this->structureArray = Association::all();
+            $modelName = "Csatar\Csatar\Models\Association";
+            $this->showActiveScouts = false;
+        }
+
+        $model = $modelName::find($this->property('model_id'));
+        if(isset(Auth::user()->scout)) {
+            $this->permissions = Auth::user()->scout->getRightsForModel($model);
         }
 
         $this->mode = $this->property('mode');

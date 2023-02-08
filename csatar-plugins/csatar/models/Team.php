@@ -1,8 +1,8 @@
 <?php namespace Csatar\Csatar\Models;
 
+use Csatar\Csatar\Models\Scout;
 use Lang;
 use Csatar\Csatar\Models\OrganizationBase;
-use Csatar\Csatar\Models\Scout;
 use Csatar\Csatar\Models\District;
 use Csatar\Csatar\Classes\Enums\Status;
 
@@ -312,6 +312,10 @@ class Team extends OrganizationBase
         return Scout::activeScoutsInTeam($this->id)->count();
     }
 
+    public function getActiveScouts() {
+        return Scout::activeScoutsInTeam($this->id)->get();
+    }
+
     public function scopeInDistrict($query, $districtId) {
         $query->where('district_id', $districtId);
     }
@@ -331,5 +335,9 @@ class Team extends OrganizationBase
 
     public function getPatrols() {
         return Patrol::inTeam($this->id)->get();
+    }
+
+    public function getPatrolsWithoutTroop() {
+        return Patrol::inTeam($this->id)->where('troop_id', null)->get();
     }
 }
