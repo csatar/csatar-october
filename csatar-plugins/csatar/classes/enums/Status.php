@@ -9,10 +9,10 @@ class Status
     public const SUSPENDED = 2;
     public const FORMING = 3;
 
-    public static array $optionsWithLables = [];
+    public static array $optionsWithLabels = [];
 
-    public static function getOptionsWithLables(){
-        return self::$optionsWithLables = [
+    public static function getOptionsWithLabels(){
+        return self::$optionsWithLabels = [
             self::ACTIVE => e(trans('csatar.csatar::lang.plugin.admin.general.active')),
             self::INACTIVE => e(trans('csatar.csatar::lang.plugin.admin.general.inactive')),
         ];

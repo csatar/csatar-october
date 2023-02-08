@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- CS-460 - Added frontend scout csv import-export
+
 - CS-397 - Changed accordion to show the active tag lists on the model pages
 
 ## 1.8.0

@@ -1,0 +1,50 @@
+{% if showUploadForm %}
+    <div class="info2 p-4 mb-3 rounded">
+        <p>
+            {{ 'A feltöltendő .csv fájl első 2 sora meg kell egyezzen a fentebb letölthető .csv fájl első két sorával.' | _ }} </br>
+            {{ 'A "Jogviszony" és "Vallás" oszlopok értékeinél számít az ékezet és a kicsi/nagy betű.' | _ }} </br>
+            {{ 'A "Dátum" oszlop értékinek helyes formátuma: év-hónap-nap, pl. 2023-01-01' | _ }} </br>
+        </p>
+    </div>
+    <form
+        data-request = "onImportScoutsFromCsv"
+        data-request-loading
+        data-request-files
+        data-request-ajax-global = "true"
+        data-request-flash
+    >
+        <div class="form-group">
+            <input type="hidden" name="teamId" value="{{ teamId }}" />
+            <input type="file" name="csvFile" id="csvFile" class="form-control" />
+        </div>
+        {% partial '@formButton'
+            permissionValue = permissionValue
+            btnExtraClasses = 'btn-sm btn-primary'
+            btnValue = 'Importálás'|_
+            btnIconClass = 'csat-upload-fill-wh-sm'
+            btnLabel = 'Importálás'|_
+        %}
+        {% partial '@dataRequestButton'
+            permissionValue = 1
+            dataRequest = 'onRenderUploadForm'
+            dataRequestData = 'cancel: true, teamId: ' ~ teamId ~ ', permissionValue: ' ~ permissionValue
+            btnExtraClasses = 'btn-sm btn-danger'
+            btnValue = 'Mégse'|_
+            btnIconClass = 'csat-denied-fill-wh-sm'
+            btnLabel = 'Mégse'|_
+            tooltip = 'Mégse'|_
+        %}
+    </form>
+    <div id="csvImportLog"></div>
+{% else %}
+    {% partial "@dataRequestButton"
+        permissionValue = permissionValue
+        dataRequest = 'onRenderUploadForm'
+        dataRequestData = 'teamId: ' ~ teamId ~ ', permissionValue: ' ~ permissionValue
+        btnExtraClasses = 'btn-sm btn-primary'
+        btnValue = 'Tag lista feltöltése csv-ben' |_
+        btnIconClass = 'csat-upload-fill-wh-sm'
+        btnLabel = 'Tag lista feltöltése csv-ben' |_
+        tooltip = 'Tag lista feltöltése csv-ben' |_
+    %}
+{% endif %}

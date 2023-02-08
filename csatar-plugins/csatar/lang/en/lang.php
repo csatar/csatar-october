@@ -96,9 +96,11 @@ return [
                 'addressLocation' => 'Location',
                 'addressStreet' => 'Street',
                 'addressNumber' => 'Number',
+                'mother' => 'Mother',
                 'mothersName' => 'Name',
                 'mothersPhone' => 'Phone',
                 'mothersEmail' => 'Email',
+                'father' => 'Father',
                 'fathersName' => 'Name',
                 'fathersPhone' => 'Phone',
                 'fathersEmail' => 'Email',
@@ -108,6 +110,7 @@ return [
                 'fathersNameFull' => 'Father\'s name',
                 'fathersPhoneFull' => 'Father\'s phone',
                 'fathersEmailFull' => 'Father\'s email',
+                'legalRepresentative' => 'Legal representative',
                 'legalRepresentativeName' => 'Name',
                 'legalRepresentativePhone' => 'Phone',
                 'legalRepresentativeEmail' => 'Email',
@@ -700,6 +703,10 @@ return [
             'organizationUnitFrontend' => [
                 'name' => 'Organization Unit Frontend',
                 'description' => 'Display the organization unit frontend page.',
+                'csv' => [
+                    'fileMissingOrInvalid' => 'The uploaded file is missing or invalid.',
+                    'teamIdMissing' => 'Team Id is missing, please try again.',
+                ],
             ],
             'twoFactorAuthentication' => [
                 'name' => 'Two Factor Authentication',

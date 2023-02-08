@@ -1,0 +1,40 @@
+{% if csvImportLog['created']|length > 0 %}
+    <div class="d-flex mb-3">
+        <div class="csat-2fa-circle align-self-start">
+            <i class="csat-info-fill-lg p-1"></i>
+        </div>
+        <div class="csat-2fa-info align-self-center warning">
+            {{ 'Az importálás során létrehozott tagok száma'|_ }}: {{ csvImportLog['created']|length }}
+        </div>
+    </div>
+{% endif %}
+
+{% if csvImportLog['updated']|length > 0 %}
+    <div class="d-flex mb-3">
+        <div class="csat-2fa-circle align-self-start">
+            <i class="csat-info-fill-lg p-1"></i>
+        </div>
+        <div class="csat-2fa-info align-self-center warning">
+            {{ 'Az importálás során frissített tagok száma'|_ }}: {{ csvImportLog['updated']|length }}
+        </div>
+    </div>
+{% endif %}
+
+{% if csvImportLog['errors']|length > 0 %}
+    <div class="d-flex mb-3">
+        <div class="csat-danger-circle align-self-start">
+            <i class="csat-denied-fill-lg p-1"></i>
+        </div>
+        <div class="csat-2fa-info align-self-center bg-danger">
+            {{ csvImportLog['errors']|length }}{{ ' sort nem sikerült importálni'|_ }}:
+        </div>
+    </div>
+    <div class="alert alert-danger py-4 p-2 rounded">
+        <ul>
+            {% for error in csvImportLog['errors'] %}
+            <li>{{ 'Sorszám'|_}}: {{ error }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+{% endif %}

@@ -695,7 +695,7 @@ body>p.flash-message.success, body>p.flash-message.info, body>p.flash-message.wa
     color: #FFFFFF;
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
-    border-top-right-radius: 12px;    
+    border-top-right-radius: 12px;
     font-family: geomanist !important;
     font-weight: 300 !important;
     font-size: calc(0.9rem + 0.2vw) !important;
@@ -722,6 +722,25 @@ body>p.flash-message.success, body>p.flash-message.info, body>p.flash-message.wa
 @media (min-width: 767px) {
     .csat-2fa-circle {
         border: thick solid #5BA3B3;
+    }
+}
+
+.csat-danger-circle {
+    position: relative;
+    background-color: #FFFFFF;
+    border-radius: 50%;
+    z-index: 2;
+}
+
+@media (max-width: 767px) {
+    .csat-danger-circle {
+        border: medium solid #B83222;
+    }
+}
+
+@media (min-width: 767px) {
+    .csat-danger-circle {
+        border: thick solid #B83222;
     }
 }
 
@@ -805,9 +824,9 @@ a.dropdown-item {
 }
 
 .select2-container .select2-selection--single {
-    white-space: nowrap; 
+    white-space: nowrap;
     overflow: hidden;
-    text-overflow: ellipsis; 
+    text-overflow: ellipsis;
 }
 
 .dropdown-underline {

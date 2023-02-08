@@ -25,5 +25,20 @@
     {% partial '@csvUploadForm' permissionValue=permissions["scouts"]["update"] teamId=team_id %}
 </div>
 
+{% partial "@dataRequestButton"
+    permissionValue = permissions['scouts']['read']
+    dataRequest = 'onExportScoutsToCsv'
+    dataRequestData = 'teamId: ' ~ team_id
+    btnExtraClasses = 'btn-sm btn-primary'
+    btnValue = 'Tag lista letöltése csv-ben' |_
+    btnIconClass = 'csat-download-fill-wh-sm'
+    btnLabel = 'Tag lista letöltése csv-ben' |_
+    tooltip = 'Tag lista letöltése csv-ben' |_
+%}
+
+<div id="uploadCsv">
+    {% partial '@csvUploadForm' permissionValue=permissions["scouts"]["update"] teamId=team_id %}
+</div>
+
 
 
