@@ -9,17 +9,39 @@
 
     {# Show the number of scouts in the Teams, Troops and Patrols #}
     {% if level > 2 %}
-    <p>{{ 'Tagok száma: '|_ }} {{ item.getActiveScoutsCount() }}</p>
+        <p>{{ 'Tagok száma: '|_ }} {{ item.getActiveScoutsCount() }}</p>
     {% endif %}
 
     {% if level == 3 %}
         {% partial __SELF__ ~ '::accordionItems' array=item.getTroops() level=level+1 headingId=headingId~item.id~'-' collapseId=collapseId~item.id~'-' %}
         {# Render the Patrols too for the Teams #}
-        {% partial __SELF__ ~ '::accordionItems' array=item.getPatrols() level=5 headingId=headingId~item.id~'-0-' collapseId=collapseId~item.id~'-0-' %}
+        {% if item.getPatrolsWithoutTroop().count() != 0 %}
+            {% partial __SELF__ ~ '::accordionItems' array=item.getPatrolsWithoutTroop() level=5 headingId=headingId~item.id~'-0-' collapseId=collapseId~item.id~'-0-' %}
+        {% endif %}
     {% endif %}
 
     {% if level == 4 %}
         {% partial __SELF__ ~ '::accordionItems' array=item.getPatrols() level=level+1 headingId=headingId~item.id~'-' collapseId=collapseId~item.id~'-' %}
+    {% endif %}
+
+    {% if showActiveScouts and level > 2 %}
+    <div class="row">
+        <div class="col-12 col-lg-6">
+            <ul class="record-list">
+                {% for scout in item.getActiveScouts() %}
+                {% if (level == 3 and scout.troop_id == null and scout.patrol_id == null) or (level == 4 and scout.patrol_id == null) or (level == 5) %}
+                <li>
+                    {% if detailsPage %}<a href="{{ detailsPage|page({ (detailsUrlParameter): attribute(scout, detailsKeyColumn) }) }}">{% endif %}
+                    {{ scout.getFullName() }} - {{ scout.getLegalRelationshipName() }}
+                    {% if detailsPage %}</a>{% endif %}
+                </li>
+                {% endif %}
+                {% else %}
+                <li class="no-data">{{ noRecordsMessage }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
     {% endif %}
 
 </div>

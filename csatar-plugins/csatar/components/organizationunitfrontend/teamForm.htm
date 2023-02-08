@@ -2,71 +2,28 @@
 {% partial __SELF__ ~ '::inactiveMandates' model=model %}
 {% set permissions = __SELF__.permissions %}
 
-<p>{{ 'Rajok' | _ }}</p>
-{% component 'builderList' %}
-
-{% partial "@formWithButton"
-    permissionValue = permissions['troops']['create']
-    actionUrl = '/raj/letrehozas'
-    hiddenInputs = { 'team': team_id }
-    btnExtraClasses = 'btn-sm btn-primary'
-    btnValue = 'Raj hozzáadása' |_
-    btnIconClass = 'csat-add-fill-wh-sm'
-    btnLabel = 'Raj hozzáadása' |_
-%}
-
-<p>{{ 'Őrsök' | _ }}</p>
-{% component 'builderList2' %}
-
 {% if user %}
-<div class="row">
-    <div class="col-12 col-lg-6">
-        {% partial __SELF__ ~ '::activeTagsList' %}
+    <div class="row">
+        <div class="col-12 col-lg-6">
+            {% partial __SELF__ ~ '::inactiveTagsList' %}
+        </div>
     </div>
-    <div class="col-12 col-lg-6">
-        {% partial __SELF__ ~ '::inactiveTagsList' %}
-    </div>
-</div>
-
 {% endif %}
 
-{% partial "@simpleATagButton"
-    permissionValue = permissions['scouts']['create']
-    targetUrl = '/tagok'
+{% partial "@dataRequestButton"
+    permissionValue = permissions['scouts']['read']
+    dataRequest = 'onExportScoutsToCsv'
+    dataRequestData = 'teamId: ' ~ team_id
     btnExtraClasses = 'btn-sm btn-primary'
-    btnIconClass = 'csat-add-fill-wh-sm'
-    btnLabel = 'Felhasználói fiók létrehozása' |_
+    btnValue = 'Tag lista letöltése csv-ben' |_
+    btnIconClass = 'csat-download-fill-wh-sm'
+    btnLabel = 'Tag lista letöltése csv-ben' |_
+    tooltip = 'Tag lista letöltése csv-ben' |_
 %}
 
-{% partial "@formWithButton"
-    permissionValue = permissions['patrols']['create']
-    actionUrl = '/ors/letrehozas'
-    hiddenInputs = { 'team': team_id }
-    btnExtraClasses = 'btn-sm btn-primary'
-    btnValue = 'Őrs hozzáadása' |_
-    btnIconClass = 'csat-add-fill-wh-sm'
-    btnLabel = 'Őrs hozzáadása' |_
-%}
-
-{% partial "@formWithButton"
-    permissionValue = permissions['scouts']['create']
-    actionUrl = '/tag/letrehozas'
-    hiddenInputs = { 'team': team_id }
-    btnExtraClasses = 'btn-sm btn-primary'
-    btnValue = 'Tag hozzáadása' |_
-    btnIconClass = 'csat-useradd-fill-wh-sm'
-    btnLabel = 'Tag hozzáadása' |_
-%}
-
-{% partial "@formWithButton"
-    permissionValue = permissions['teamReports']['read']
-    actionUrl = '/csapatjelentesek/' ~ team_id
-    hiddenInputs = { 'team': team_id }
-    btnExtraClasses = 'btn-sm btn-primary'
-    btnValue = 'Csapatjelentések' |_
-    btnIconClass = 'csat-report-fill-wh-sm'
-    btnLabel = 'Csapatjelentések' |_
-%}
+<div id="uploadCsv">
+    {% partial '@csvUploadForm' permissionValue=permissions["scouts"]["update"] teamId=team_id %}
+</div>
 
 {% partial "@dataRequestButton"
     permissionValue = permissions['scouts']['read']
