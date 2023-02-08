@@ -712,7 +712,7 @@ trait AjaxControllerSimple {
 
         // Resolve belongsToMany relations
         foreach($record->belongsToMany as $relationName => $definition) {
-            if (!isset($data[$relationName]) || $data[$relationName] =='' || !isset($data[$relationName]['pivot'])) {
+            if (!isset($data[$relationName]) || $data[$relationName] =='') {
                 continue;
             }
 
@@ -771,14 +771,6 @@ trait AjaxControllerSimple {
 
             // resolve other relations
             $record->commitDeferred($this->sessionKey);
-        }
-
-        // Resolve belongsToMany relations
-        foreach($record->belongsToMany as $name => $definition) {
-            if (!isset($data[$name]) || $data[$name] =='' || !isset($data[$name]['pivot'])) {
-                continue;
-            }
-            $record->$name()->sync($data[$name]);
         }
 
         if (!$record->update($data) && !$isNew) {
