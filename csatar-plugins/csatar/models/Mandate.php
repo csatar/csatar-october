@@ -274,7 +274,7 @@ class Mandate extends Model
 
     public function getIsHiddenFrontendAttribute()
     {
-        return $this->mandate_type->is_hidden_frontend;
+        return $this->mandate_type->is_hidden_frontend ?? false;
     }
 
     /**

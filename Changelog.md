@@ -22,6 +22,7 @@
 - CS-466 - Created migrations for "Knowledge repository" models
 - CS-461 - Created membership card requests backend list
 - CS-327 - Create dynamic fields
+- CS-397 - Changed accordion to show the active tag lists on the model pages
 
 ## 1.8.0
 ### 2023-02-06

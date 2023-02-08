@@ -30,7 +30,7 @@
 
 {% set scoutsWithoutRegistrationForm = __SELF__.scoutsWithoutRegistrationForm %}
 {% if scoutsWithoutRegistrationForm %}
-<div class="alert alert-danger">
+<div class="alert alert-danger rounded">
     <p>{{ 'Az alábbi tagoknak nincs feltöltött bejelentkezési és nyilvántartási lapjuk'|_ }}:</p>
     <ul>
         {% for scout in scoutsWithoutRegistrationForm %}

@@ -544,7 +544,7 @@
                 'startDate' => 'Kezdete',
                 'endDate' => 'Vége',
                 'breadcrumb' => 'Megbízatás típusok',
-                'activeMandateDeleteError' => 'Létezik %name típusú aktív Megbízatás, így ez a Megbízatás típus nem törölhető.',
+                'activeMandateDeleteError' => 'Létezik %name típusú vagy ezen típus alá tartozó aktív Megbízatás, így ez a Megbízatás típus nem törölhető.',
                 'isHiddenFrontend' => 'Rejtett a frontenden',
             ],
             'mandate' => [
