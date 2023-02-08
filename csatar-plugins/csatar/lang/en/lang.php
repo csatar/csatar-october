@@ -545,6 +545,7 @@
                 'endDate' => 'End date',
                 'breadcrumb' => 'Mandate types',
                 'activeMandateDeleteError' => 'There exist active Mandates of %name type, thus this Mandate type cannot be deleted.',
+                'existingMandateTypeWithSameNameError' => 'This Mandate Type already exists by the same association.',
                 'isHiddenFrontend' => 'Hidden on frontend',
             ],
             'mandate' => [

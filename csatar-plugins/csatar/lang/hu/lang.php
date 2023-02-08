@@ -545,6 +545,7 @@
                 'endDate' => 'Vége',
                 'breadcrumb' => 'Megbízatás típusok',
                 'activeMandateDeleteError' => 'Létezik %name típusú aktív Megbízatás, így ez a Megbízatás típus nem törölhető.',
+                'existingMandateTypeWithSameNameError' => 'Ez a megbízatás típus már létezik az adott szövetségnél.',
                 'isHiddenFrontend' => 'Rejtett a frontenden',
             ],
             'mandate' => [
