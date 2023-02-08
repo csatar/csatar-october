@@ -12,7 +12,7 @@ class Structure extends ComponentBase
     public $displayHeader = false;
     public $mode;
     public $permissions;
-    public $showActiveTags;
+    public $showActiveScouts;
 
     public function componentDetails()
     {
@@ -61,13 +61,13 @@ class Structure extends ComponentBase
             $this->level = $this->property('level');
             $modelName = "Csatar\Csatar\Models\\" . $this->property('model_name');
             $this->structureArray = $modelName::where('id', $this->property('model_id'))->get();
-            $this->showActiveTags = true;
+            $this->showActiveScouts = true;
         } else {
             $this->displayHeader = true;
             $this->level = 1;
             $this->structureArray = Association::all();
             $modelName = "Csatar\Csatar\Models\Association";
-            $this->showActiveTags = false;
+            $this->showActiveScouts = false;
         }
 
         $model = $modelName::find($this->property('model_id'));
