@@ -123,21 +123,21 @@ class AccidentLogRecord extends Model
     }
 
     public function getInjuredPersonGenderOptions() {
-        return Gender::getOptionsWithLables();
+        return Gender::getOptionsWithLabels();
     }
 
     public function getInjurySeverityOptions() {
-        return InjurySeverity::getOptionsWithLables();
+        return InjurySeverity::getOptionsWithLabels();
     }
 
     public function getInjuredPersonGenderListAttribute($value)
     {
-        return Gender::getOptionsWithLables()[$value] ?? null;;
+        return Gender::getOptionsWithLabels()[$value] ?? null;;
     }
 
     public function getInjurySeverityListAttribute($value)
     {
-        return InjurySeverity::getOptionsWithLables()[$value] ?? null;;
+        return InjurySeverity::getOptionsWithLabels()[$value] ?? null;;
     }
 
     public function getCreatedByAttribute($value)
