@@ -1,4 +1,4 @@
-{% if model.getInactionMandatesInOrganization()|length > 0 %}
+{% if model.getInactionMandatesInOrganization()|length > 0 and user %}
 <div class="accordion-item mb-4 b-0">
     <h2 class="accordion-header" id="inactive-mandates">
         <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#inactive-mandates-accordion" aria-expanded="false" aria-controls="inactive-mandates-accordion">

@@ -5,6 +5,7 @@ use Carbon\Carbon;
 use Cms\Classes\ComponentBase;
 use Csatar\Csatar\Classes\CsvCreator;
 use Csatar\Csatar\Classes\Enums\Gender;
+use Csatar\Csatar\Classes\Enums\Status;
 use Csatar\Csatar\Classes\Mappers\LegalRelationshipMapper;
 use Csatar\Csatar\Classes\Mappers\ReligionMapper;
 use Csatar\Csatar\Models\GalleryModelPivot;
@@ -202,7 +203,9 @@ class OrganizationUnitFrontend extends ComponentBase
             'occupation',
             'workplace',
             'comment',
+            'is_active',
         ];
+
         $attributesWithLabels = array_intersect_key($attributesWithLabels, array_flip($attributes));
         $legalRelationshipsMap = (new LegalRelationshipMapper)->idsToNames;
         $religionsMap = (new ReligionMapper)->idsToNames;
@@ -217,15 +220,15 @@ class OrganizationUnitFrontend extends ComponentBase
             $dataRow = [];
             foreach (array_keys($attributesWithLabels) as $attribute) {
                 if ($attribute == 'gender') {
-                    $dataRow[] = Gender::getOptionsWithLabels()[$record->{$attribute}];
+                    $dataRow[] = Gender::getOptionsWithLabels()[$record->{$attribute}] ?? '';
                     continue;
                 }
                 if ($attribute == 'legal_relationship_id') {
-                    $dataRow[] = $legalRelationshipsMap[$record->{$attribute}];
+                    $dataRow[] = $legalRelationshipsMap[$record->{$attribute}] ?? '';
                     continue;
                 }
                 if ($attribute == 'religion_id') {
-                    $dataRow[] = $religionsMap[$record->{$attribute}];
+                    $dataRow[] = $religionsMap[$record->{$attribute}] ?? '';
                     continue;
                 }
                 $dataRow[] = strval($record->{$attribute});
@@ -287,7 +290,12 @@ class OrganizationUnitFrontend extends ComponentBase
             $scout = $this->convertCsvRowToScout($teamId, $attributes, $rowData);
 
             try {
-                $scout->save();
+                if ($scout->is_active != Status::ACTIVE) {
+                    $scout->ignoreValidation = true;
+                    $scout->forceSave();
+                } else {
+                    $scout->save();
+                }
                 if ($scout->wasRecentlyCreated) {
                     $log['created'][] = $rowNumber . ' - ' . $scout->ecset_code;
                 } else {
@@ -314,7 +322,9 @@ class OrganizationUnitFrontend extends ComponentBase
         $personalIdentificationNumber = $rowData[array_search('personal_identification_number', $attributes)] ?? null;
         $ecsetCode = $rowData[array_search('ecset_code', $attributes)];
 
-        $data = [];
+        $data = [
+            'team_id' => $teamId,
+        ];
         foreach ($rowData as $key => $value) {
             if ($attributes[$key] == 'gender') {
                 $data[$attributes[$key]] = array_flip(Gender::getOptionsWithLabels())[$value] ?? null;
@@ -331,28 +341,19 @@ class OrganizationUnitFrontend extends ComponentBase
             $data[$attributes[$key]] = $value;
         }
 
-        $firstOrNewConditions = [
-            'team_id' => $teamId,
-        ];
-
         if (!empty($ecsetCode)) {
-            $firstOrNewConditions['ecset_code'] = $ecsetCode;
+            $scout = Scout::where('team_id', $teamId)->where('ecset_code', $ecsetCode)->first();
         }
-
-        if (!empty($personalIdentificationNumber)) {
-            $firstOrNewConditions['personal_identification_number'] = $personalIdentificationNumber;
-            unset($data['personal_identification_number']);
-        }
-
-        if (empty($ecsetCode) && empty($personalIdentificationNumber)) {
-            $scout = new Scout();
-        } else {
-            $scout = Scout::firstOrNew($firstOrNewConditions);
-            unset($data['team_id']);
+        if (empty($scout) && !empty($personalIdentificationNumber)) {
             unset($data['ecset_code']);
+            $scout = Scout::where('team_id', $teamId)->where('personal_identification_number', $personalIdentificationNumber)->first();
+        }
+        if (empty($scout)) {
+            $scout = new Scout();
         }
 
         $scout->fill($data);
+        $scout->accepted_at = null;
 
         return $scout;
     }
