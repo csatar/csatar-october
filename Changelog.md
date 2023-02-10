@@ -23,6 +23,7 @@
 - CS-461 - Created membership card requests backend list
 - CS-327 - Create dynamic fields
 - CS-397 - Changed accordion to show the active tag lists on the model pages
+- CS-459 - Added team number to the Team reports filter
 
 ## 1.8.1
 ### 2023-02-08
