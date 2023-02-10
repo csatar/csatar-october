@@ -42,6 +42,8 @@ class Team extends OrganizationBase
         'logo' => 'image|nullable',
     ];
 
+    protected $appends = ['extended_name'];
+
     /**
      * Add custom validation
      */
@@ -150,13 +152,33 @@ class Team extends OrganizationBase
             '\Csatar\Csatar\Models\Troop',
             'label' => 'csatar.csatar::lang.plugin.admin.troop.troops',
         ],
+        'troopsActive' => [
+            '\Csatar\Csatar\Models\Troop',
+            'label' => 'csatar.csatar::lang.plugin.admin.troop.troops',
+            'scope' => 'active',
+        ],
         'patrols' => [
             '\Csatar\Csatar\Models\Patrol',
             'label' => 'csatar.csatar::lang.plugin.admin.patrol.patrols',
         ],
+        'patrolsActive' => [
+            '\Csatar\Csatar\Models\Patrol',
+            'label' => 'csatar.csatar::lang.plugin.admin.patrol.patrols',
+            'scope' => 'active',
+        ],
         'scouts' => [
             '\Csatar\Csatar\Models\Scout',
             'label' => 'csatar.csatar::lang.plugin.admin.scout.scouts',
+        ],
+        'scoutsActive' => [
+            '\Csatar\Csatar\Models\Scout',
+            'label' => 'csatar.csatar::lang.plugin.admin.scout.scouts',
+            'scope' => 'active',
+        ],
+        'scoutsInactive' => [
+            '\Csatar\Csatar\Models\Scout',
+            'label' => 'csatar.csatar::lang.plugin.admin.scout.scouts',
+            'scope' => 'inactive',
         ],
         'teamReports' => [
             '\Csatar\Csatar\Models\TeamReport',
@@ -309,15 +331,20 @@ class Team extends OrganizationBase
     }
 
     public function getActiveScoutsCount() {
-        return Scout::activeScoutsInTeam($this->id)->count();
+        return $this->scoutsActive->count();
     }
 
     public function getActiveScouts() {
-        return Scout::activeScoutsInTeam($this->id)->get();
+        return $this->scoutsInactive->count();
     }
 
     public function scopeInDistrict($query, $districtId) {
         $query->where('district_id', $districtId);
+    }
+
+    public function scopeActive($query)
+    {
+        $query->where('status', Status::ACTIVE)->orderByRaw('CONVERT(team_number, UNSIGNED) asc');
     }
 
     public function scopeActiveInDistrict($query, $districtId) {
@@ -330,14 +357,17 @@ class Team extends OrganizationBase
     }
 
     public function getTroops() {
-        return Troop::inTeam($this->id)->get();
+        return $this->troops;
+//        return Troop::inTeam($this->id)->get();
     }
 
     public function getPatrols() {
-        return Patrol::inTeam($this->id)->get();
+        return $this->patrols;
+//        return Patrol::inTeam($this->id)->get();
     }
 
     public function getPatrolsWithoutTroop() {
-        return Patrol::inTeam($this->id)->where('troop_id', null)->get();
+        return $this->patrols->where('troop_id', null);
+//        return Patrol::inTeam($this->id)->where('troop_id', null)->get();
     }
 }

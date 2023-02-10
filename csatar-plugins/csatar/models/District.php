@@ -19,6 +19,8 @@ class District extends OrganizationBase
      */
     protected static $searchable = ['name'];
 
+    protected $appends = ['extended_name'];
+
     /**
      * @var array Validation rules
      */
@@ -75,6 +77,11 @@ class District extends OrganizationBase
         'teams' => [
             '\Csatar\Csatar\Models\Team',
             'label' => 'csatar.csatar::lang.plugin.admin.team.teams',
+        ],
+        'teamsActive' => [
+            '\Csatar\Csatar\Models\Team',
+            'label' => 'csatar.csatar::lang.plugin.admin.team.teams',
+            'scope' => 'active',
         ],
         'mandates' => [
             '\Csatar\Csatar\Models\Mandate',
@@ -170,10 +177,15 @@ class District extends OrganizationBase
     }
 
     public function getActiveTeams(){
-        return Team::inDistrict($this->id)->active()->get();
+        return $this->teamsActive;
     }
 
     public function scopeInAssociation($query, $associationId) {
         return $query->where('association_id', $associationId);
+    }
+
+    // scope to get only districts with active teams
+    public function scopeActive($query) {
+        return $query->where('status', Status::ACTIVE)->whereHas('teamsActive');
     }
 }

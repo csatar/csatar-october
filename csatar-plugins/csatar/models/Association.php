@@ -20,6 +20,8 @@ class Association extends OrganizationBase
      */
     protected static $searchable = ['name'];
 
+    protected $appends = ['extended_name'];
+
     protected $jsonable = ['personal_identification_number_validator'];
 
     /**
@@ -82,6 +84,10 @@ class Association extends OrganizationBase
             'label' => 'csatar.csatar::lang.plugin.admin.ageGroups.ageGroups',
         ],
         'districts' => [
+            '\Csatar\Csatar\Models\District',
+            'label' => 'csatar.csatar::lang.plugin.admin.district.districts',
+        ],
+        'districtsActive' => [
             '\Csatar\Csatar\Models\District',
             'label' => 'csatar.csatar::lang.plugin.admin.district.districts',
         ],
@@ -151,10 +157,12 @@ class Association extends OrganizationBase
     }
 
     public function getActiveDistricts() {
-        return District::inAssociation($this->id)->get();
+        return $this->districtsActive;
     }
 
     public function getActiveTeamsCount() {
-        return Team::activeInAssociation($this->id)->count();
+//        return Team::activeInAssociation($this->id)->count();
+        return $this->districtsActive->count();
+//        return $this->districts->teamsActive;
     }
 }

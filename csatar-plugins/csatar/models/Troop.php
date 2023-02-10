@@ -19,6 +19,8 @@ class Troop extends OrganizationBase
      */
     protected static $searchable = ['name'];
 
+    protected $appends = ['extended_name'];
+
     /**
      * @var array Validation rules
      */
@@ -63,9 +65,19 @@ class Troop extends OrganizationBase
             '\Csatar\Csatar\Models\Patrol',
             'label' => 'csatar.csatar::lang.plugin.admin.patrol.patrols',
         ],
+        'patrolsActive' => [
+            '\Csatar\Csatar\Models\Patrol',
+            'label' => 'csatar.csatar::lang.plugin.admin.patrol.patrols',
+            'scope' => 'active',
+        ],
         'scouts' => [
             '\Csatar\Csatar\Models\Scout',
             'label' => 'csatar.csatar::lang.plugin.admin.scout.scouts',
+        ],
+        'scoutsActive' => [
+            '\Csatar\Csatar\Models\Scout',
+            'label' => 'csatar.csatar::lang.plugin.admin.scout.scouts',
+            'scope' => 'active',
         ],
         'mandates' => [
             '\Csatar\Csatar\Models\Mandate',
@@ -188,11 +200,11 @@ class Troop extends OrganizationBase
     }
 
     public function getActiveScouts() {
-        return Scout::activeScoutsInTroop($this->id)->get();
+        return $this->scoutsActive;
     }
 
     public function getActiveScoutsCount() {
-        return Scout::activeScoutsInTroop($this->id)->count();
+        return $this->scoutsActive->count();
     }
 
     public function scopeInTeam($query, $teamId) {
@@ -200,6 +212,12 @@ class Troop extends OrganizationBase
     }
 
     public function getPatrols() {
-        return Patrol::inTroop($this->id)->get();
+        $this->patrols;
+//        return Patrol::inTroop($this->id)->get();
+    }
+
+    public function scopeActive($query)
+    {
+        $query->where('status', Status::ACTIVE);
     }
 }

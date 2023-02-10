@@ -39,6 +39,8 @@ class Scout extends OrganizationBase
      */
     protected static $searchable = ['family_name', 'given_name'];
 
+    protected $appends = ['full_name', 'legal_relationship_name'];
+
     /**
      * @var string The database table used by the model.
      */
@@ -623,6 +625,12 @@ class Scout extends OrganizationBase
         return $fullName != ' ' ? $fullName : '';
     }
 
+    public function getFullNameAttribute()
+    {
+        $fullName = $this->family_name . ' ' . $this->given_name;
+        return $fullName != ' ' ? $fullName : '';
+    }
+
     public function getAssociation() {
         return $this->team->district->association ?? null;
     }
@@ -659,6 +667,14 @@ class Scout extends OrganizationBase
     }
 
     public function getLegalRelationshipName()
+    {
+        if (empty($this->legal_relationship_id)) {
+            return '';
+        }
+        return $this->legal_relationship->name;
+    }
+
+    public function getLegalRelationshipNameAttribute()
     {
         if (empty($this->legal_relationship_id)) {
             return '';

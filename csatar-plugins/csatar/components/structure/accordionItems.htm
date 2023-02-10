@@ -1,18 +1,18 @@
 {% if level == 1 %}
-    {% set childArrayName = 'districts' %}
+    {% set childArrayName = 'districts_active' %}
     {% set noItemsMessage = 'Nincsenek Szövetségek.' %}
     {% set organizationTypeForUrl = 'szovetseg' %}
 {% elseif level == 2 %}
-    {% set childArrayName = 'teams' %}
+    {% set childArrayName = 'teams_active' %}
     {% set noItemsMessage = 'Nincsenek Körzetek.' %}
     {% set organizationTypeForUrl = 'korzet' %}
 {% elseif level == 3 %}
-    {% set childArrayName = 'troops' %}
+    {% set childArrayName = 'troops_active' %}
     {% set child2ArrayName = 'patrols' %}
     {% set noItemsMessage = 'Nincsenek Csapatok.' %}
     {% set organizationTypeForUrl = 'csapat' %}
 {% elseif level == 4 %}
-    {% set childArrayName = 'patrols' %}
+    {% set childArrayName = 'patrols_active' %}
     {% set noItemsMessage = 'Nincsenek Rajok.' %}
     {% set organizationTypeForUrl = 'raj' %}
 {% elseif level == 5 %}
@@ -23,10 +23,10 @@
 {% if array | length > 0 %}
     <div class="accordion accordion-flush">
         {% if level == 3 %}
-            {% set array = array|sort((a, b) => a.team_number <=> b.team_number) %}
+            {% set array = array|sort((a, b) => a['team_number'] <=> b['team_number']) %}
         {% endif %}
         {% for item in array %}
-            {% if level < 3 or item.getActiveScoutsCount() != 0 %}
+            {% if level < 3 or item['scouts_active'] | length != 0 %}
             <div class="accordion-item my-3">
                 {% if organizationTypeForUrl in this.page.id %}
                     {% partial __SELF__ ~ '::accordionbody'
@@ -38,15 +38,15 @@
                         collapseId=collapseId
                     %}
                 {% else %}
-                    <h2 class="accordion-header" id="{{ headingId ~ item.id }}">
-                        <button class="accordion-button py-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="{{ '#' ~ collapseId ~ item.id }}" aria-expanded="false" aria-controls="{{ collapseId ~ item.id }}">
-                            <a href="{{ url('/') ~ '/' ~ organizationTypeForUrl ~ '/' ~ item.id }}" title="{{ 'Látogasd meg a(z) ' ~ item.extendedName ~ ' oldalát' | _ }}">
-                                <span>{{ item.extendedName }}</span>
+                    <h2 class="accordion-header" id="{{ headingId ~ item['id'] }}">
+                        <button class="accordion-button py-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="{{ '#' ~ collapseId ~ item['id'] }}" aria-expanded="false" aria-controls="{{ collapseId ~ item['id'] }}">
+                            <a href="{{ url('/') ~ '/' ~ organizationTypeForUrl ~ '/' ~ item['id'] }}" title="{{ 'Látogasd meg a(z) ' ~ item['extended_name'] ~ ' oldalát' | _ }}">
+                                <span>{{ item['extended_name'] }}</span>
                                 <span class="bi bi-box-arrow-up-right"></span>
                             </a>
                         </button>
                     </h2>
-                    <div id="{{ collapseId ~ item.id }}" class="accordion-collapse collapse" aria-labelledby="{{ headingId ~ item.id }}" data-bs-parent="#accordionFlushExample">
+                    <div id="{{ collapseId ~ item['id'] }}" class="accordion-collapse collapse" aria-labelledby="{{ headingId ~ item['id'] }}" data-bs-parent="#accordionFlushExample">
                         <div class="accordion-body py-0">
 
                             {% partial __SELF__ ~ '::accordionbody'

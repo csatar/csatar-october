@@ -23,6 +23,8 @@ class Patrol extends OrganizationBase
      */
     protected static $searchable = ['name'];
 
+    protected $appends = ['extended_name'];
+
     /**
      * @var array Validation rules
      */
@@ -118,6 +120,11 @@ class Patrol extends OrganizationBase
         'scouts' => [
             '\Csatar\Csatar\Models\Scout',
             'label' => 'csatar.csatar::lang.plugin.admin.scout.scouts',
+        ],
+        'scoutsActive' => [
+            '\Csatar\Csatar\Models\Scout',
+            'label' => 'csatar.csatar::lang.plugin.admin.scout.scouts',
+            'scope' => 'active',
         ],
         'mandates' => [
             '\Csatar\Csatar\Models\Mandate',
@@ -269,11 +276,13 @@ class Patrol extends OrganizationBase
     }
 
     public function getActiveScouts() {
-        return Scout::activeScoutsInPatrol($this->id)->get();
+        return $this->scoutsActive;
+//        return Scout::activeScoutsInPatrol($this->id)->get();
     }
 
     public function getActiveScoutsCount() {
-        return Scout::activeScoutsInPatrol($this->id)->count();
+        return $this->scoutsActive->count();
+//        return Scout::activeScoutsInPatrol($this->id)->count();
     }
 
     public function scopeInTeam($query, $teamId) {
@@ -282,5 +291,10 @@ class Patrol extends OrganizationBase
 
     public function scopeInTroop($query, $troopId) {
         return $query->where('troop_id', $troopId);
+    }
+
+    public function scopeActive($query)
+    {
+        $query->where('status', Status::ACTIVE);
     }
 }
