@@ -19,7 +19,7 @@ columns:
         label: 'csatar.csatar::lang.plugin.admin.team.teamNumber'
         type: number
         searchable: true
-        sortable: true
+        sortable: false
         relation: team
         valueFrom: team_number
     year:
