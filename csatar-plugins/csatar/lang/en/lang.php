@@ -706,6 +706,7 @@ return [
                 'csv' => [
                     'fileMissingOrInvalid' => 'The uploaded file is missing or invalid.',
                     'teamIdMissing' => 'Team Id is missing, please try again.',
+                    'personalIdentificationNumberMissing' => 'Personal Identification Number is missing.',
                 ],
             ],
             'twoFactorAuthentication' => [

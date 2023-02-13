@@ -298,6 +298,10 @@ class OrganizationUnitFrontend extends ComponentBase
             $scout = $this->convertCsvRowToScout($teamId, $attributes, $rowData);
 
             try {
+                if (empty($scout->personal_identification_number)){
+                    $log['errors'][] = $rowNumber . ' | ' . Lang::get('csatar.csatar::lang.plugin.component.organizationUnitFrontend.csv.personalIdentificationNumberMissing');
+                    continue;
+                }
                 if ($scout->is_active != Status::ACTIVE) {
                     $scout->is_active = empty($scout->is_active) ? Status::INACTIVE : $scout->is_active;
                     $scout->ignoreValidation = true;
