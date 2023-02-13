@@ -299,6 +299,7 @@ class OrganizationUnitFrontend extends ComponentBase
 
             try {
                 if ($scout->is_active != Status::ACTIVE) {
+                    $scout->is_active = empty($scout->is_active) ? Status::INACTIVE : $scout->is_active;
                     $scout->ignoreValidation = true;
                     $scout->forceSave();
                 } else {
