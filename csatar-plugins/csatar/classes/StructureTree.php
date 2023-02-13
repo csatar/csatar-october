@@ -14,79 +14,106 @@ use Illuminate\Contracts\Support\Arrayable;
 
 class StructureTree
 {
-    public static function getAssociationsWithTree() {
-//        return collect(Cache::rememberForever('associations', function() {
-            return self::toArray(Association::with([
+    public static function getStructureTree() {
+        return collect(Cache::rememberForever('structureTree', function() {
+            return self::toKeyedByIdArray(Association::with([
                 'districtsActive' => function($query) {
-                    return $query->select('csatar_csatar_districts.id', 'csatar_csatar_districts.name', 'csatar_csatar_districts.status', 'csatar_csatar_districts.association_id');
+                    return self::selectFromDistricts($query);
                 },
                 'districtsActive.teamsActive' => function($query) {
-                    return self::queryTeams($query);
+                    return self::selectFromTeams($query);
                 },
                 'districtsActive.teamsActive.troopsActive' => function($query) {
-                    return self::queryTroops($query);
+                    return self::selectFromTroops($query);
                 },
                 'districtsActive.teamsActive.troopsActive.patrolsActive' => function($query) {
-                    return self::queryPatrols($query);
+                    return self::selectFromPatrols($query);
                 },
                 'districtsActive.teamsActive.troopsActive.patrolsActive.scoutsActive' => function($query) {
-                    return self::queryScouts($query);
+                    return self::selectFromScouts($query);
                 },
                 'districtsActive.teamsActive.troopsActive.patrolsActive.scoutsActive.legal_relationship' => function($query) {
-                    return self::queryLegalRelationship($query);
+                    return self::selectFromLegalRelationship($query);
                 },
                 'districtsActive.teamsActive.troopsActive.scoutsActive' => function($query) {
-                    return self::queryScouts($query);
+                    return self::selectFromScouts($query);
                 },
                 'districtsActive.teamsActive.troopsActive.scoutsActive.legal_relationship' => function($query) {
-                    return self::queryLegalRelationship($query);
+                    return self::selectFromLegalRelationship($query);
                 },
                 'districtsActive.teamsActive.patrolsActive' => function($query) {
-                    return self::queryPatrols($query);
+                    return self::selectFromPatrols($query);
                 },
                 'districtsActive.teamsActive.patrolsActive.scoutsActive' => function($query) {
-                    return self::queryScouts($query);
+                    return self::selectFromScouts($query);
                 },
                 'districtsActive.teamsActive.patrolsActive.scoutsActive.legal_relationship' => function($query) {
-                    return self::queryLegalRelationship($query);
+                    return self::selectFromLegalRelationship($query);
                 },
                 'districtsActive.teamsActive.scoutsActive' => function($query) {
-                    return self::queryScouts($query);
+                    return self::selectFromScouts($query);
                 },
                 'districtsActive.teamsActive.scoutsActive.legal_relationship' => function($query) {
-                    return self::queryLegalRelationship($query);
+                    return self::selectFromLegalRelationship($query);
                 },
             ])
-            ->get());//->keyBy('id')->toArray();
-//        }));
+            ->get());
+        }));
     }
 
-    public static function toArray($collection)
+    public static function toKeyedByIdArray($collection)
     {
         return $collection->map(function ($value) {
             $array = $value instanceof Arrayable ? $value->attributesToArray() : $value;
             if(!empty($value->getRelations())){
                 foreach ($value->getRelations() as $relationName => $relationItems) {
-                    $array[$relationName] = $relationItems instanceof Collection ? self::toArray($relationItems) : $relationItems;
+                    $array[$relationName] =
+                        $relationItems instanceof Collection ? self::toKeyedByIdArray($relationItems) : ($relationItems instanceof Arrayable ? $relationItems->toArray() : $relationItems);
                 }
             }
             return $array;
         })->keyBy('id')->toArray();
     }
 
-    public static function keyByPrimaryKey($collection)
-    {//return $collection;
-        return $collection->map(function ($value) {
-            if(!empty($value->getRelations()) && $value->id == 5){
-                foreach ($value->getRelations() as $relationName => $relationItems) {
-                   $value->relations[$relationName] = ['fasdfasdf'];
-                }
-            }
-            return $value;
-        })->keyBy('id');
+    public static function selectFromDistricts($query) {
+        return $query->select(
+            'csatar_csatar_districts.id',
+            'csatar_csatar_districts.name',
+            'csatar_csatar_districts.status',
+            'csatar_csatar_districts.association_id'
+        );
     }
 
-    public static function queryScouts($query) {
+    public static function selectFromTeams($query) {
+        return $query->select(
+            'csatar_csatar_teams.id',
+            'csatar_csatar_teams.team_number',
+            'csatar_csatar_teams.name',
+            'csatar_csatar_teams.status',
+            'csatar_csatar_teams.district_id'
+        );
+    }
+
+    public static function selectFromTroops($query) {
+        return $query->select(
+            'csatar_csatar_troops.id',
+            'csatar_csatar_troops.name',
+            'csatar_csatar_troops.status',
+            'csatar_csatar_troops.team_id'
+        );
+    }
+
+    public static function selectFromPatrols($query) {
+        return $query->select(
+            'csatar_csatar_patrols.id',
+            'csatar_csatar_patrols.name',
+            'csatar_csatar_patrols.status',
+            'csatar_csatar_patrols.troop_id',
+            'csatar_csatar_patrols.team_id'
+        );
+    }
+
+    public static function selectFromScouts($query) {
         return $query->select(
             'csatar_csatar_scouts.id',
             'csatar_csatar_scouts.ecset_code',
@@ -99,98 +126,145 @@ class StructureTree
         );
     }
 
-    public static function queryLegalRelationship($query) {
+    public static function selectFromLegalRelationship($query) {
         return $query->select(
             'csatar_csatar_legal_relationships.id',
             'csatar_csatar_legal_relationships.name'
         );
     }
 
-    //reconsider later
-    public static function getTree() {
-        return Association::with([
-            'districtsActive' => function($query) {
-                return $query->select('csatar_csatar_districts.id', 'csatar_csatar_districts.name', 'csatar_csatar_districts.status', 'csatar_csatar_districts.association_id')
-                    ->with([
-                        'teamsActive' => function($query) {
-                            return (self::queryTeams($query))
-                                ->with([
-                                    'troopsActive' => function($query) {
-                                        return (self::queryTroops($query))
-                                            ->with([
-                                                'patrolsActive' => function($query) {
-                                                    return (self::queryPatrols($query))
-                                                        ->with([
-                                                            'scoutsActive' => function($query) {
-                                                                return self::queryScouts($query)->with([
-                                                                    'legal_relationship' => function($query) {
-                                                                        return self::queryLegalRelationship($query);
-                                                                    }
-                                                                ]);
-                                                            }
-                                                        ]);
-                                                },
-                                                'scoutsActive' => function($query) {
-                                                    return self::queryScouts($query)->with([
-                                                        'legal_relationship' => function($query) {
-                                                            return self::queryLegalRelationship($query);
-                                                        }
-                                                    ]);
-                                                }
-                                            ]);
-                                    },
-                                    'patrolsActive' => function($query) {
-                                        return (self::queryPatrols($query))
-                                            ->with([
-                                                'scoutsActive' => function($query) {
-                                                    return self::queryScouts($query)->with([
-                                                        'legal_relationship' => function($query) {
-                                                            return self::queryLegalRelationship($query);
-                                                        }
-                                                    ]);
-                                                }
-                                            ]);
-                                    },
-                                    'scoutsActive' => function($query) {
-                                        return self::queryScouts($query)->with([
-                                            'legal_relationship' => function($query) {
-                                                return self::queryLegalRelationship($query);
-                                            }
-                                        ]);
-                                    }
-                                ]);
-                        },
-                    ]);
+    public static function getAssociationsWithTree() {
+        return StructureTree::getStructureTree();
+    }
+
+    public static function getAssociationScoutsCount($associationId) {
+        return StructureTree::getStructureTree()
+            ->where('id', $associationId)
+            ->pluck('districtsActive.*.teamsActive.*.scoutsActive')
+            ->collapse()
+            ->collapse()
+            ->count()
+            ;
+    }
+
+    public static function getDistrictsWithTree() {
+        return StructureTree::getStructureTree()->pluck('districtsActive')->collapse()->keyBy('id');
+    }
+
+    public static function getDistrictScoutsCount($districtId) {
+        return StructureTree::getStructureTree()
+            ->pluck('districtsActive')
+            ->collapse()
+            ->where('id', $districtId)
+            ->pluck('teamsActive.*.scoutsActive')
+            ->collapse()
+            ->collapse()
+            ->count();
+    }
+
+    public static function getTeamsWithTree() {
+        return StructureTree::getStructureTree()->pluck('districtsActive.*.teamsActive')->collapse()->collapse()->keyBy('id');
+    }
+
+    public static function getTroopsWithTree() {
+        return StructureTree::getStructureTree()->pluck('districtsActive.*.teamsActive.*.troopsActive')->collapse()->collapse()->keyBy('id');
+    }
+
+    public static function getPatrolsWithTree() {
+        return StructureTree::getStructureTree()->pluck('districtsActive.*.teamsActive.*.patrolsActive')->collapse()->collapse()->keyBy('id');
+    }
+
+    public static function updateTeamTree($districtId) {
+        $refreshedDistrict = District::where('id', $districtId)->with([
+            'teamsActive' => function($query) {
+                return self::selectFromTeams($query);
             },
-        ])
-        ->get()->toArray();
+            'teamsActive.scoutsActive' => function($query) {
+                return self::selectFromScouts($query);
+            },
+            'teamsActive.scoutsActive.legalRelationship' => function($query) {
+                return self::selectFromLegalRelationship($query);
+            },
+            'teamsActive.troopsActive' => function($query) {
+                return self::selectFromTroops($query);
+            },
+            'teamsActive.troopsActive.scoutsActive' => function($query) {
+                return self::selectFromScouts($query);
+            },
+            'teamsActive.troopsActive.scoutsActive.legalRelationship' => function($query) {
+                return self::selectFromLegalRelationship($query);
+            },
+            'teamsActive.troopsActive.patrolsActive' => function($query) {
+                return self::selectFromPatrols($query);
+            },
+            'teamsActive.troopsActive.patrolsActive.scoutsActive' => function($query) {
+                return self::selectFromScouts($query);
+            },
+            'teamsActive.troopsActive.patrolsActive.scoutsActive.legalRelationship' => function($query) {
+                return self::selectFromLegalRelationship($query);
+            },
+        ])->first();
+        dd($refreshedDistrict);
+        dd(self::toKeyedByIdArray($refreshedDistrict));
     }
 
-    public static function queryTeams($query) {
-        return $query->select(
-            'csatar_csatar_teams.id',
-            'csatar_csatar_teams.name',
-            'csatar_csatar_teams.status',
-            'csatar_csatar_teams.district_id'
-        );
-    }
-
-    public static function queryTroops($query) {
-        return $query->select(
-            'csatar_csatar_troops.id',
-            'csatar_csatar_troops.name',
-            'csatar_csatar_troops.status',
-            'csatar_csatar_troops.team_id'
-        );
-    }
-
-    public static function queryPatrols($query) {
-        return $query->select(
-            'csatar_csatar_patrols.id',
-            'csatar_csatar_patrols.name',
-            'csatar_csatar_patrols.status',
-            'csatar_csatar_patrols.troop_id',
-            'csatar_csatar_patrols.team_id'
-        );
-    }
+    //reconsider later
+//    public static function getTree() {
+//        return Association::with([
+//            'districtsActive' => function($query) {
+//                return $query->select('csatar_csatar_districts.id', 'csatar_csatar_districts.name', 'csatar_csatar_districts.status', 'csatar_csatar_districts.association_id')
+//                    ->with([
+//                        'teamsActive' => function($query) {
+//                            return (self::selectFromTeams($query))
+//                                ->with([
+//                                    'troopsActive' => function($query) {
+//                                        return (self::selectFromTroops($query))
+//                                            ->with([
+//                                                'patrolsActive' => function($query) {
+//                                                    return (self::selectFromPatrols($query))
+//                                                        ->with([
+//                                                            'scoutsActive' => function($query) {
+//                                                                return self::selectFromScouts($query)->with([
+//                                                                    'legal_relationship' => function($query) {
+//                                                                        return self::selectFromLegalRelationship($query);
+//                                                                    }
+//                                                                ]);
+//                                                            }
+//                                                        ]);
+//                                                },
+//                                                'scoutsActive' => function($query) {
+//                                                    return self::selectFromScouts($query)->with([
+//                                                        'legal_relationship' => function($query) {
+//                                                            return self::selectFromLegalRelationship($query);
+//                                                        }
+//                                                    ]);
+//                                                }
+//                                            ]);
+//                                    },
+//                                    'patrolsActive' => function($query) {
+//                                        return (self::selectFromPatrols($query))
+//                                            ->with([
+//                                                'scoutsActive' => function($query) {
+//                                                    return self::selectFromScouts($query)->with([
+//                                                        'legal_relationship' => function($query) {
+//                                                            return self::selectFromLegalRelationship($query);
+//                                                        }
+//                                                    ]);
+//                                                }
+//                                            ]);
+//                                    },
+//                                    'scoutsActive' => function($query) {
+//                                        return self::selectFromScouts($query)->with([
+//                                            'legal_relationship' => function($query) {
+//                                                return self::selectFromLegalRelationship($query);
+//                                            }
+//                                        ]);
+//                                    }
+//                                ]);
+//                        },
+//                    ]);
+//            },
+//        ])
+//        ->get()->toArray();
+//    }
 }

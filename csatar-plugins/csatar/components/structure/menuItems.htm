@@ -1,18 +1,18 @@
 {% if level == 1 %}
-    {% set childArrayName = 'districts_active' %}
+    {% set childArrayName = 'districtsActive' %}
     {% set noItemsMessage = 'Nincsenek Szövetségek.' %}
     {% set organizationTypeForUrl = 'szovetseg' %}
 {% elseif level == 2 %}
-    {% set childArrayName = 'teams_active' %}
+    {% set childArrayName = 'teamsActive' %}
     {% set noItemsMessage = 'Nincsenek Körzetek.' %}
     {% set organizationTypeForUrl = 'korzet' %}
 {% elseif level == 3 %}
-    {% set childArrayName = 'troops_active' %}
-    {% set child2ArrayName = 'patrols' %}
+    {% set childArrayName = 'troopsActive' %}
+    {% set child2ArrayName = 'patrolsActive' %}
     {% set noItemsMessage = 'Nincsenek Csapatok.' %}
     {% set organizationTypeForUrl = 'csapat' %}
 {% elseif level == 4 %}
-    {% set childArrayName = 'patrols_active' %}
+    {% set childArrayName = 'patrolsActive' %}
     {% set noItemsMessage = 'Nincsenek Rajok.' %}
     {% set organizationTypeForUrl = 'raj' %}
 {% elseif level == 5 %}
@@ -25,7 +25,7 @@
 {% if array | length > 0 %}
     {% for item in array %}
         {% set active = (level == 1 or (item['status'] != 0)) %}
-        {% if (level > 2 and item['scouts_active']|length == 0) or (level == 1 and item['districts_active']|length == 0) %}
+        {% if (level > 2 and item['scoutsActive']|length == 0) or (level == 1 and item['districtsActive']|length == 0) %}
             {% set active = false %}
         {% endif %}
         {% if active %}
