@@ -722,6 +722,7 @@
                 'csv' => [
                     'fileMissingOrInvalid' => 'A .csv fájl hiányzik vagy érvénytelen.',
                     'teamIdMissing' => 'Hiányzik a csapat azonosítója.',
+                    'personalIdentificationNumberMissing' => 'Hiányzó személyi szám.',
                 ],
             ],
             'twoFactorAuthentication' => [
