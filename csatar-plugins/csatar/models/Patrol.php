@@ -306,12 +306,10 @@ class Patrol extends OrganizationBase
 
     public function getActiveScouts() {
         return $this->scoutsActive;
-//        return Scout::activeScoutsInPatrol($this->id)->get();
     }
 
     public function getActiveScoutsCount() {
         return $this->scoutsActive->count();
-//        return Scout::activeScoutsInPatrol($this->id)->count();
     }
 
     public function scopeInTeam($query, $teamId) {
@@ -324,6 +322,6 @@ class Patrol extends OrganizationBase
 
     public function scopeActive($query)
     {
-        $query->where('status', Status::ACTIVE);
+        return $query->where('status', Status::ACTIVE);
     }
 }

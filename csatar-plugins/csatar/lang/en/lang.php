@@ -666,6 +666,7 @@ return [
                     'teamReportRefreshed' => 'The team report was refreshed.',
                     'teamReportDeleted' => 'The team report was deleted.',
                 ],
+                'confirmRefreshMessage' => 'Are you sure you want to refresh the report? During the refresh the member list will be regenerated, the number of member, the agea groups count and the fee will be recalculated.',
             ],
             'teamReports' => [
                 'name' => 'Team Reports',
@@ -706,6 +707,7 @@ return [
                 'csv' => [
                     'fileMissingOrInvalid' => 'The uploaded file is missing or invalid.',
                     'teamIdMissing' => 'Team Id is missing, please try again.',
+                    'personalIdentificationNumberMissing' => 'Personal Identification Number is missing.',
                 ],
             ],
             'twoFactorAuthentication' => [

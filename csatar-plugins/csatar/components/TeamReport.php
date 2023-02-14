@@ -15,7 +15,7 @@ use Session;
 
 class TeamReport extends ComponentBase
 {
-    public $id, $teamId, $action, $year, $teamReport, $team, $scouts, $teamFee, $totalAmount, $currency, $status, $basicForm, $redirectFromWaitingForApproval, $errors, $permissions, $confirmDeleteMessage;
+    public $id, $teamId, $action, $year, $teamReport, $team, $scouts, $teamFee, $totalAmount, $currency, $status, $basicForm, $redirectFromWaitingForApproval, $errors, $permissions, $confirmDeleteMessage, $confirmRefreshMessage, $legalRelationshipsInAssociation;
 
 
     public function init()
@@ -40,6 +40,7 @@ class TeamReport extends ComponentBase
     public function onRender($isRefresh = false)
     {
         $this->confirmDeleteMessage = Lang::get('backend::lang.form.confirm_delete');
+        $this->confirmRefreshMessage = Lang::get('csatar.csatar::lang.plugin.component.teamReport.confirmRefreshMessage');
         $this->year = date('n') == 1 ? date('Y') - 1 : date('Y');
 
         // retrieve the parameters
@@ -68,8 +69,7 @@ class TeamReport extends ComponentBase
                 }
             }
 
-            // retrieve the team
-            $this->team = Team::find($this->teamId);
+            $this->setVariables();
             if (!isset($this->team)) {
                 return Redirect::to('404')->with('message', Lang::get('csatar.csatar::lang.plugin.component.teamReport.validationExceptions.teamCannotBeFound'));
             }
@@ -81,6 +81,7 @@ class TeamReport extends ComponentBase
             $this->currency = $association->currency->code;
             $this->getScouts($this->teamId);
             $this->basicForm->specialValidationExceptions = $this->errors ?? [];
+            unset($this->basicForm->record->belongsToMany['ageGroups']);
         }
         else {
             // edit and view modes - retrieve the team report
@@ -98,8 +99,7 @@ class TeamReport extends ComponentBase
             $this->teamFee = $this->teamReport->team_fee;
             $this->totalAmount = $this->teamReport->total_amount;
 
-            // retrieve the team
-            $this->team = Team::find($this->teamId);
+            $this->setVariables();
             if (!isset($this->team)) {
                 return Redirect::to('404')->with('message', \Lang::get('csatar.csatar::lang.plugin.component.teamReport.validationExceptions.teamCannotBeFound'));
             }
@@ -123,6 +123,11 @@ class TeamReport extends ComponentBase
         array_multisort(array_column($this->scouts, 'name'), SORT_ASC, $this->scouts);
         $this->basicForm->additionalData = $this->renderPartial('@additionalData.htm');
         $this->basicForm->onRun();
+    }
+
+    private function setVariables() {
+        $this->team = Team::where('id', $this->teamId)->with(['district', 'district.association', 'district.association.currency', 'district.association.legal_relationships'])->first();
+        $this->legalRelationshipsInAssociation = $this->team->district->association->legal_relationships;
     }
 
     public function onSubmit()
@@ -210,6 +215,7 @@ class TeamReport extends ComponentBase
             $this->scouts[]    = [
                 'name'                     => $scout->family_name . ' ' . $scout->given_name,
                 'legal_relationship'       => $scout->legal_relationship,
+                'legal_relationship_id'    => $scout->legal_relationship->id,
                 'leadership_qualification' => $scout->leadership_qualifications->sortByDesc(function ($item, $key) {
                     return $item['pivot']['date'];
                 })->values()->first(),
