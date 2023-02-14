@@ -380,12 +380,11 @@ class Team extends OrganizationBase
 
     public function scopeActiveInAssociation($query, $associationId) {
         $districtIds = District::where('association_id', $associationId)->get()->pluck('id')->toArray();
-        $query->whereIn('district_id', $districtIds)->active();
+        return $query->whereIn('district_id', $districtIds)->active();
     }
 
     public function getTroops() {
         return $this->troops;
-//        return Troop::inTeam($this->id)->get();
     }
 
     public function getPatrols() {

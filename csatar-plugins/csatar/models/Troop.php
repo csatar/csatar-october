@@ -236,12 +236,11 @@ class Troop extends OrganizationBase
     }
 
     public function getPatrols() {
-        $this->patrols;
-//        return Patrol::inTroop($this->id)->get();
+        return $this->patrols;
     }
 
     public function scopeActive($query)
     {
-        $query->where('status', Status::ACTIVE);
+        return $query->where('status', Status::ACTIVE);
     }
 }
