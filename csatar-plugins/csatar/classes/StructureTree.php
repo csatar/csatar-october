@@ -201,6 +201,10 @@ class StructureTree
         }
 
         $structureTree = Cache::pull('structureTree');
+            if (empty($structureTree)) {
+                StructureTree::getStructureTree();
+                return;
+            }
         $structureTree[$associationId] = $refreshedAssociation;
         Cache::forever('structureTree', $structureTree);
     }
@@ -251,6 +255,10 @@ class StructureTree
         }
         // get old tree from cache and empty cache
         $structureTree = Cache::pull('structureTree');
+            if (empty($structureTree)) {
+                StructureTree::getStructureTree();
+                return;
+            }
         // update the tree
         $structureTree[$refreshedDistrict['association_id']]['districtsActive'][$refreshedDistrict['id']] = $refreshedDistrict;
         // insert the tree back to cache
@@ -303,6 +311,10 @@ class StructureTree
         }
         // get old tree from cache and empty cache
         $structureTree = Cache::pull('structureTree');
+            if (empty($structureTree)) {
+                StructureTree::getStructureTree();
+                return;
+            }
         // update the tree
         $associationId = $refreshedTeam['district']['association_id'];
         $districtId = $refreshedTeam['district']['id'];

@@ -318,6 +318,10 @@ class Scout extends OrganizationBase
         )
         {
             $structureTree = Cache::pull('structureTree');
+            if (empty($structureTree)) {
+                StructureTree::getStructureTree();
+                return;
+            }
 
             $teamsActive = $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'];
             $teamsActive[$this->team->id]['scoutsActive'][$this->id]['family_name'] = $this->family_name;

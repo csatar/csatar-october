@@ -135,6 +135,14 @@ class Association extends OrganizationBase
             || ($this->original['name_abbreviation'] && $this->original['name_abbreviation'] != $this->name_abbreviation)
         ) {
             $structureTree = Cache::pull('structureTree');
+            if (empty($structureTree)) {
+                StructureTree::getStructureTree();
+                return;
+            }
+            if (empty($structureTree)) {
+                StructureTree::getStructureTree();
+                return;
+            }
             $structureTree[$this->id]['name'] = $this->name;
             $structureTree[$this->id]['name_abbreviation'] = $this->name_abbreviation;
             $structureTree[$this->id]['extended_name'] = $this->extended_name;

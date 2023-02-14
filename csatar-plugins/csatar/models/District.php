@@ -150,6 +150,10 @@ class District extends OrganizationBase
 
         if (isset($this->original['name']) && $this->original['name'] != $this->name) {
             $structureTree = Cache::pull('structureTree');
+            if (empty($structureTree)) {
+                StructureTree::getStructureTree();
+                return;
+            }
             $structureTree[$this->association_id]['districtsActive'][$this->id]['name'] = $this->name;
             $structureTree[$this->association_id]['districtsActive'][$this->id]['extended_name'] = $this->extended_name;
             Cache::forever('structureTree', $structureTree);
