@@ -283,4 +283,9 @@ class Patrol extends OrganizationBase
     public function scopeInTroop($query, $troopId) {
         return $query->where('troop_id', $troopId);
     }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', Status::ACTIVE);
+    }
 }
