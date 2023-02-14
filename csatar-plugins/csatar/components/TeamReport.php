@@ -16,7 +16,7 @@ use Session;
 
 class TeamReport extends ComponentBase
 {
-    public $id, $teamId, $action, $year, $teamReport, $team, $scouts, $teamFee, $totalAmount, $currency, $status, $basicForm, $redirectFromWaitingForApproval, $errors, $permissions, $confirmDeleteMessage, $scoutsWithoutRegistrationForm;
+    public $id, $teamId, $action, $year, $teamReport, $team, $scouts, $teamFee, $totalAmount, $currency, $status, $basicForm, $redirectFromWaitingForApproval, $errors, $permissions, $confirmDeleteMessage, $confirmRefreshMessage, $scoutsWithoutRegistrationForm;
 
 
     public function init()
@@ -210,7 +210,7 @@ class TeamReport extends ComponentBase
                 $membership_fee = 0;
             }
 
-            $this->scouts[] = [
+            $this->scouts[]    = [
                 'name'                     => $scout->family_name . ' ' . $scout->given_name,
                 'legal_relationship'       => $scout->legal_relationship,
                 'leadership_qualification' => $scout->leadership_qualifications->sortByDesc(function ($item, $key) {
