@@ -147,8 +147,15 @@ name = "Team Report layout"
 
     <table>
         <tr>
-            <td>{{ 'Tagok száma'|_}}: {{ teamReport.scouts|length }}</td>
+            <td>{{ 'Összesen'| _ ~ ': ' }} {{ teamReport.scouts|length }} {{ 'fő'| _ }}</td>
         </tr>
+
+        {% for legalRelationship in teamReport.team.district.association.legal_relationships %}
+        <tr>
+            <td>{{ legalRelationship.name }}: {{ teamReport.scouts|filter(scout => scout.legal_relationship_id == legalRelationship.id)|length }} {{ 'fő'| _ }}</td>
+        </tr>
+        {% endfor %}
+
         <tr>
             <td>{{ 'Csapatfenntartói díj'|_}}: {{ teamReport.team_fee }} {{ teamReport.currency.code }}</td>
         </tr>
