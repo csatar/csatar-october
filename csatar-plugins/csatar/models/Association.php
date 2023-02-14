@@ -90,8 +90,8 @@ class Association extends OrganizationBase
         ],
         'districtsActive' => [
             '\Csatar\Csatar\Models\District',
-            'label' => 'csatar.csatar::lang.plugin.admin.district.districts',
             'scope' => 'active',
+            'ignoreInPermissionsMatrix' => true,
         ],
         'mandates' => [
             '\Csatar\Csatar\Models\Mandate',

@@ -156,8 +156,8 @@ class Team extends OrganizationBase
         ],
         'troopsActive' => [
             '\Csatar\Csatar\Models\Troop',
-            'label' => 'csatar.csatar::lang.plugin.admin.troop.troops',
             'scope' => 'active',
+            'ignoreInPermissionsMatrix' => true,
         ],
         'patrols' => [
             '\Csatar\Csatar\Models\Patrol',
@@ -165,8 +165,8 @@ class Team extends OrganizationBase
         ],
         'patrolsActive' => [
             '\Csatar\Csatar\Models\Patrol',
-            'label' => 'csatar.csatar::lang.plugin.admin.patrol.patrols',
             'scope' => 'active',
+            'ignoreInPermissionsMatrix' => true,
         ],
         'scouts' => [
             '\Csatar\Csatar\Models\Scout',
@@ -174,13 +174,13 @@ class Team extends OrganizationBase
         ],
         'scoutsActive' => [
             '\Csatar\Csatar\Models\Scout',
-            'label' => 'csatar.csatar::lang.plugin.admin.scout.scouts',
             'scope' => 'active',
+            'ignoreInPermissionsMatrix' => true,
         ],
         'scoutsInactive' => [
             '\Csatar\Csatar\Models\Scout',
-            'label' => 'csatar.csatar::lang.plugin.admin.scout.scouts',
             'scope' => 'inactive',
+            'ignoreInPermissionsMatrix' => true,
         ],
         'teamReports' => [
             '\Csatar\Csatar\Models\TeamReport',

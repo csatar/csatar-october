@@ -82,8 +82,8 @@ class District extends OrganizationBase
         ],
         'teamsActive' => [
             '\Csatar\Csatar\Models\Team',
-            'label' => 'csatar.csatar::lang.plugin.admin.team.teams',
             'scope' => 'active',
+            'ignoreInPermissionsMatrix' => true,
         ],
         'mandates' => [
             '\Csatar\Csatar\Models\Mandate',

@@ -69,8 +69,8 @@ class Troop extends OrganizationBase
         ],
         'patrolsActive' => [
             '\Csatar\Csatar\Models\Patrol',
-            'label' => 'csatar.csatar::lang.plugin.admin.patrol.patrols',
             'scope' => 'active',
+            'ignoreInPermissionsMatrix' => true,
         ],
         'scouts' => [
             '\Csatar\Csatar\Models\Scout',
@@ -78,8 +78,8 @@ class Troop extends OrganizationBase
         ],
         'scoutsActive' => [
             '\Csatar\Csatar\Models\Scout',
-            'label' => 'csatar.csatar::lang.plugin.admin.scout.scouts',
             'scope' => 'active',
+            'ignoreInPermissionsMatrix' => true,
         ],
         'mandates' => [
             '\Csatar\Csatar\Models\Mandate',
