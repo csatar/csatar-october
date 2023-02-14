@@ -157,8 +157,7 @@ class StructureTree
             ->pluck('districtsActive.*.teamsActive.*.scoutsActive')
             ->collapse()
             ->collapse()
-            ->count()
-            ;
+            ->count();
     }
 
     public static function getDistrictsWithTree() {
