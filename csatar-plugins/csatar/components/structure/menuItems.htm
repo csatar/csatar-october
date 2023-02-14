@@ -24,11 +24,17 @@
 
 {% if array | length > 0 %}
     {% for item in array %}
-        {% set active = (level == 1 or (item['status'] != 0)) %}
-        {% if (level == 1 and (__SELF__.getAssociationScoutsCount(item['id'])|length == 0 or item['districtsActive']|length == 0))
-            or (level == 2 and (__SELF__.getDistrictScoutsCount(item['id'])|length == 0 or item['teamsActive']|length == 0))
-            or (level > 2 and item['scoutsActive']|length == 0)
-        %}
+        {% if level == 1 %}
+            {% set scoutsCount = __SELF__.getAssociationScoutsCount(item['id']) %}
+        {% endif %}
+        {% if level == 2 %}
+            {% set scoutsCount = __SELF__.getDistrictScoutsCount(item['id']) %}
+        {% endif %}
+        {% if level > 2 %}
+            {% set scoutsCount = item['scoutsActive']|length %}
+        {% endif %}
+        {% set active = true %}
+        {% if scoutsCount == 0 %}
             {% set active = false %}
         {% endif %}
 
