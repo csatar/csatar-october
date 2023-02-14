@@ -1,6 +1,8 @@
 <?php namespace Csatar\Csatar\Models;
 
+use Cache;
 use Csatar\Csatar\Classes\Enums\Status;
+use Csatar\Csatar\Classes\StructureTree;
 use Lang;
 use Csatar\Csatar\Models\OrganizationBase;
 
@@ -129,6 +131,31 @@ class District extends OrganizationBase
         $this->generateSlugIfEmpty();
     }
 
+    public function afterSave()
+    {
+        if (empty($this->original)) {
+            return;
+        }
+
+        if (isset($this->original['status']) && $this->original['status'] != $this->status) {
+            StructureTree::updateAssociationTree($this->association_id);
+        }
+
+        if (isset($this->original['association_id']) && $this->original['association_id'] != $this->association_id) {
+            StructureTree::updateAssociationTree($this->association_id);
+            if (!empty($this->original['association_id'])) {
+                StructureTree::updateAssociationTree($this->original['association_id']);
+            }
+        }
+
+        if (isset($this->original['name']) && $this->original['name'] != $this->name) {
+            $structureTree = Cache::pull('structureTree');
+            $structureTree[$this->association_id]['districtsActive'][$this->id]['name'] = $this->name;
+            $structureTree[$this->association_id]['districtsActive'][$this->id]['extended_name'] = $this->extended_name;
+            Cache::forever('structureTree', $structureTree);
+        }
+    }
+
     public function generateSlugIfEmpty() {
         if (empty($this->slug)) {
             $this->slug = str_slug($this->association->name_abbreviation) . '/' . str_slug($this->name) . '-korzet';
@@ -184,8 +211,8 @@ class District extends OrganizationBase
         return $query->where('association_id', $associationId);
     }
 
-    // scope to get only districts with active teams
+    // scope to get only districts with active status and active teams
     public function scopeActive($query) {
-        return $query->where('status', Status::ACTIVE)->whereHas('teamsActive');
+        return $query->where('status', Status::ACTIVE);//->whereHas('teamsActive');
     }
 }

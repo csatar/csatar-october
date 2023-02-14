@@ -1,7 +1,9 @@
 <?php namespace Csatar\Csatar\Models;
 
+use Cache;
 use Csatar\Csatar\Classes\Enums\Gender;
 use Csatar\Csatar\Classes\Enums\Status;
+use Csatar\Csatar\Classes\StructureTree;
 use Lang;
 use DB;
 use Csatar\Csatar\Models\AgeGroup;
@@ -158,6 +160,33 @@ class Patrol extends OrganizationBase
                 $scout->forceSave();
             }
             Mandate::setAllMandatesExpiredInOrganization($this);
+        }
+
+        if (empty($this->original)) {
+            return;
+        }
+
+        if (isset($this->original['status']) && $this->original['status'] != $this->status) {
+            StructureTree::updateTeamTree($this->team_id);
+        }
+
+        if (isset($this->original['team_id']) && $this->original['team_id'] != $this->team_id) {
+            StructureTree::updateTeamTree($this->team_id);
+            if (!empty($this->original['team_id'])) {
+                StructureTree::updateTeamTree($this->original['team_id']);
+            }
+        }
+
+        if (isset($this->original['name']) && $this->original['name'] != $this->name) {
+            $structureTree = Cache::pull('structureTree');
+            $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['patrolsActive'][$this->id]['name'] = $this->name;
+            $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['patrolsActive'][$this->id]['extended_name'] = $this->extended_name;
+
+            if (isset($this->troop_id)) {
+                $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->id]['name'] = $this->name;
+                $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->id]['extended_name'] = $this->extended_name;
+            }
+            Cache::forever('structureTree', $structureTree);
         }
     }
 

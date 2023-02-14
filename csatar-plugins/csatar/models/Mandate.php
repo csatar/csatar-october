@@ -166,6 +166,9 @@ class Mandate extends Model
 
         $id = array_key_exists('id', $data) ? $data['id'] : null;
         $mandateType = MandateType::find($data['mandate_type_id']);
+        if (empty($mandateType)) {
+            return;
+        }
         $organizationUnit = ($mandateType->organization_type_model_name)::find($data['mandate_model_id']);
         $startDate = new DateTime($data['start_date']);
         $endDate = isset($data['end_date']) ? new DateTime($data['end_date']) : null;

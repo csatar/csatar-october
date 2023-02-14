@@ -1,5 +1,6 @@
 <?php namespace Csatar\Csatar\Models;
 
+use Cache;
 use Csatar\Csatar\Models\OrganizationBase;
 use DateTime;
 use Lang;
@@ -90,6 +91,7 @@ class Association extends OrganizationBase
         'districtsActive' => [
             '\Csatar\Csatar\Models\District',
             'label' => 'csatar.csatar::lang.plugin.admin.district.districts',
+            'scope' => 'active',
         ],
         'mandates' => [
             '\Csatar\Csatar\Models\Mandate',
@@ -119,6 +121,24 @@ class Association extends OrganizationBase
             && (is_null($this->team_report_submit_end_date) || new DateTime($this->team_report_submit_start_date) > new DateTime($this->team_report_submit_end_date))
         ) {
             throw new ValidationException(['team_report_submit_end_date' => Lang::get('csatar.csatar::lang.plugin.admin.association.validationExceptions.invalidTeamReportSubmissionPeriod')]);
+        }
+    }
+
+    public function afterSave()
+    {
+        if (empty($this->original)) {
+            return;
+        }
+
+        if (
+            (isset($this->original['name']) && $this->original['name'] != $this->name)
+            || ($this->original['name_abbreviation'] && $this->original['name_abbreviation'] != $this->name_abbreviation)
+        ) {
+            $structureTree = Cache::pull('structureTree');
+            $structureTree[$this->id]['name'] = $this->name;
+            $structureTree[$this->id]['name_abbreviation'] = $this->name_abbreviation;
+            $structureTree[$this->id]['extended_name'] = $this->extended_name;
+            Cache::forever('structureTree', $structureTree);
         }
     }
 
@@ -158,11 +178,5 @@ class Association extends OrganizationBase
 
     public function getActiveDistricts() {
         return $this->districtsActive;
-    }
-
-    public function getActiveTeamsCount() {
-//        return Team::activeInAssociation($this->id)->count();
-        return $this->districtsActive->count();
-//        return $this->districts->teamsActive;
     }
 }

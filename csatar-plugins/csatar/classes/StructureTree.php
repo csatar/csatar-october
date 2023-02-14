@@ -14,50 +14,58 @@ use Illuminate\Contracts\Support\Arrayable;
 
 class StructureTree
 {
+    private static function getAssociationsQueryWithArray(): array
+    {
+        return [
+            'districtsActive' => function($query) {
+                return self::selectFromDistricts($query);
+            },
+            'districtsActive.teamsActive' => function($query) {
+                return self::selectFromTeams($query);
+            },
+            'districtsActive.teamsActive.troopsActive' => function($query) {
+                return self::selectFromTroops($query);
+            },
+            'districtsActive.teamsActive.troopsActive.patrolsActive' => function($query) {
+                return self::selectFromPatrols($query);
+            },
+            'districtsActive.teamsActive.troopsActive.patrolsActive.scoutsActive' => function($query) {
+                return self::selectFromScouts($query);
+            },
+            'districtsActive.teamsActive.troopsActive.patrolsActive.scoutsActive.legal_relationship' => function($query) {
+                return self::selectFromLegalRelationship($query);
+            },
+            'districtsActive.teamsActive.troopsActive.scoutsActive' => function($query) {
+                return self::selectFromScouts($query);
+            },
+            'districtsActive.teamsActive.troopsActive.scoutsActive.legal_relationship' => function($query) {
+                return self::selectFromLegalRelationship($query);
+            },
+            'districtsActive.teamsActive.patrolsActive' => function($query) {
+                return self::selectFromPatrols($query);
+            },
+            'districtsActive.teamsActive.patrolsActive.scoutsActive' => function($query) {
+                return self::selectFromScouts($query);
+            },
+            'districtsActive.teamsActive.patrolsActive.scoutsActive.legal_relationship' => function($query) {
+                return self::selectFromLegalRelationship($query);
+            },
+            'districtsActive.teamsActive.scoutsActive' => function($query) {
+                return self::selectFromScouts($query);
+            },
+            'districtsActive.teamsActive.scoutsActive.legal_relationship' => function($query) {
+                return self::selectFromLegalRelationship($query);
+            },
+        ];
+    }
+
     public static function getStructureTree() {
         return collect(Cache::rememberForever('structureTree', function() {
-            return self::toKeyedByIdArray(Association::with([
-                'districtsActive' => function($query) {
-                    return self::selectFromDistricts($query);
-                },
-                'districtsActive.teamsActive' => function($query) {
-                    return self::selectFromTeams($query);
-                },
-                'districtsActive.teamsActive.troopsActive' => function($query) {
-                    return self::selectFromTroops($query);
-                },
-                'districtsActive.teamsActive.troopsActive.patrolsActive' => function($query) {
-                    return self::selectFromPatrols($query);
-                },
-                'districtsActive.teamsActive.troopsActive.patrolsActive.scoutsActive' => function($query) {
-                    return self::selectFromScouts($query);
-                },
-                'districtsActive.teamsActive.troopsActive.patrolsActive.scoutsActive.legal_relationship' => function($query) {
-                    return self::selectFromLegalRelationship($query);
-                },
-                'districtsActive.teamsActive.troopsActive.scoutsActive' => function($query) {
-                    return self::selectFromScouts($query);
-                },
-                'districtsActive.teamsActive.troopsActive.scoutsActive.legal_relationship' => function($query) {
-                    return self::selectFromLegalRelationship($query);
-                },
-                'districtsActive.teamsActive.patrolsActive' => function($query) {
-                    return self::selectFromPatrols($query);
-                },
-                'districtsActive.teamsActive.patrolsActive.scoutsActive' => function($query) {
-                    return self::selectFromScouts($query);
-                },
-                'districtsActive.teamsActive.patrolsActive.scoutsActive.legal_relationship' => function($query) {
-                    return self::selectFromLegalRelationship($query);
-                },
-                'districtsActive.teamsActive.scoutsActive' => function($query) {
-                    return self::selectFromScouts($query);
-                },
-                'districtsActive.teamsActive.scoutsActive.legal_relationship' => function($query) {
-                    return self::selectFromLegalRelationship($query);
-                },
-            ])
-            ->get());
+            return self::toKeyedByIdArray(
+                Association::with(self::getAssociationsQueryWithArray())
+                    ->select('id', 'name', 'name_abbreviation')
+                    ->get()
+                );
         }));
     }
 
@@ -180,6 +188,23 @@ class StructureTree
         return StructureTree::getStructureTree()->pluck('districtsActive.*.teamsActive.*.patrolsActive')->collapse()->collapse()->keyBy('id');
     }
 
+    public static function updateAssociationTree($associationId) {
+        $query = Association::where('id', $associationId)
+            ->with(self::getAssociationsQueryWithArray())
+            ->select('id', 'name', 'name_abbreviation');
+
+        $refreshedAssociation = self::toKeyedByIdArray($query->get()); //dd($refreshedAssociation);
+        $refreshedAssociation = array_merge([], ...$refreshedAssociation);
+
+        if(empty($refreshedAssociation)) {
+            return;
+        }
+
+        $structureTree = Cache::pull('structureTree');
+        $structureTree[$associationId] = $refreshedAssociation;
+        Cache::forever('structureTree', $structureTree);
+    }
+
     public static function updateDistrictTree($districtId) {
         $query = District::where('id', $districtId)->with([
             'teamsActive' => function($query) {
@@ -283,7 +308,7 @@ class StructureTree
         $districtId = $refreshedTeam['district']['id'];
         unset($refreshedTeam['district']);
         $structureTree[$associationId]['districtsActive'][$districtId]['teamsActive'][$refreshedTeam['id']] = $refreshedTeam;
-        return $structureTree;
+
         // insert the tree back to cache
         Cache::forever('structureTree', $structureTree);
     }

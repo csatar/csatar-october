@@ -1,5 +1,7 @@
 <?php namespace Csatar\Csatar\Models;
 
+use Cache;
+use Csatar\Csatar\Classes\StructureTree;
 use Csatar\Csatar\Models\Scout;
 use Lang;
 use Csatar\Csatar\Models\OrganizationBase;
@@ -231,6 +233,31 @@ class Team extends OrganizationBase
                 $scout->forceSave();
             }
             Mandate::setAllMandatesExpiredInOrganization($this);
+        }
+
+        if (empty($this->original)) {
+            return;
+        }
+
+        if (isset($this->original['status']) && $this->original['status'] != $this->status) {
+            StructureTree::updateDistrictTree($this->district_id);
+        }
+
+        if (isset($this->original['district_id']) && $this->original['district_id'] != $this->district_id) {
+            StructureTree::updateDistrictTree($this->district_id);
+            if (!empty($this->original['district_id'])) {
+                StructureTree::updateDistrictTree($this->original['district_id']);
+            }
+        }
+
+        if ((isset($this->original['name']) && $this->original['name'] != $this->name)
+            || (isset($this->original['team_number']) && $this->original['team_number'] != $this->team_number)
+        ) {
+            $structureTree = Cache::pull('structureTree');
+            $structureTree[$this->district->association_id]['districtsActive'][$this->district_id]['teamsActive'][$this->id]['name'] = $this->name;
+            $structureTree[$this->district->association_id]['districtsActive'][$this->district_id]['teamsActive'][$this->id]['extended_name'] = $this->extended_name;
+            $structureTree[$this->district->association_id]['districtsActive'][$this->district_id]['teamsActive'][$this->id]['team_number'] = $this->team_number;
+            Cache::forever('structureTree', $structureTree);
         }
     }
 

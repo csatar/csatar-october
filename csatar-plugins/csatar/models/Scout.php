@@ -1,8 +1,10 @@
 <?php namespace Csatar\Csatar\Models;
 
 use Auth;
+use Cache;
 use Csatar\Csatar\Classes\Enums\Status;
 use Csatar\Csatar\Classes\RightsMatrix;
+use Csatar\Csatar\Classes\StructureTree;
 use Csatar\Csatar\Models\Association;
 use Csatar\Csatar\Models\Mandate;
 use Csatar\Csatar\Models\MandateType;
@@ -286,6 +288,75 @@ class Scout extends OrganizationBase
             if (!empty($this->membership_cards)) {
                 MembershipCard::where('scout_id', $this->id)->where('active', Status::ACTIVE)->update(['active' => Status::INACTIVE]);
             }
+        }
+
+        if (empty($this->original)) {
+            return;
+        }
+
+        if (isset($this->original['status']) && $this->original['status'] != $this->status) {
+            StructureTree::updateTeamTree($this->team_id);
+        }
+
+        if (
+            (isset($this->original['team_id']) && $this->original['team_id'] != $this->team_id)
+            || (isset($this->original['troop_id']) && $this->original['troop_id'] != $this->troop_id)
+            || (isset($this->original['patrol_id']) && $this->original['patrol_id'] != $this->patrol_id)
+        )
+        {
+            StructureTree::updateTeamTree($this->team_id);
+            if (!empty($this->original['team_id'])) {
+                StructureTree::updateTeamTree($this->original['team_id']);
+            }
+        }
+
+        if (
+            (isset($this->original['family_name']) && $this->original['family_name'] != $this->family_name)
+            || (isset($this->original['given_name']) && $this->original['given_name'] != $this->given_name)
+            || (isset($this->original['ecset_code']) && $this->original['ecset_code'] != $this->given_name)
+            || (isset($this->original['legal_relationship_id']) && $this->original['legal_relationship_id'] != $this->legal_relationship_id)
+        )
+        {
+            $structureTree = Cache::pull('structureTree');
+
+            $teamsActive = $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'];
+            $teamsActive[$this->team->id]['scoutsActive'][$this->id]['family_name'] = $this->family_name;
+            $teamsActive[$this->team->id]['scoutsActive'][$this->id]['given_name'] = $this->given_name;
+            $teamsActive[$this->team->id]['scoutsActive'][$this->id]['full_name'] = $this->full_name;
+            $teamsActive[$this->team->id]['scoutsActive'][$this->id]['ecset_code'] = $this->ecset_code;
+            $teamsActive[$this->team->id]['scoutsActive'][$this->id]['legal_relationship_id'] = $this->legal_relationship_id;
+            $teamsActive[$this->team->id]['scoutsActive'][$this->id]['legal_relationship_name'] = $this->legal_relationship_name;
+            $teamsActive[$this->team->id]['scoutsActive'][$this->id]['legal_relationship'] = $this->legal_relationship->toArray();
+
+            if (isset($this->patrol_id)) {
+                $teamsActive[$this->team->id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['family_name'] = $this->family_name;
+                $teamsActive[$this->team->id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['given_name'] = $this->given_name;
+                $teamsActive[$this->team->id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['full_name'] = $this->full_name;
+                $teamsActive[$this->team->id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['ecset_code'] = $this->ecset_code;
+                $teamsActive[$this->team->id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['legal_relationship_id'] = $this->legal_relationship_id;
+                $teamsActive[$this->team->id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['legal_relationship_name'] = $this->legal_relationship_name;
+                $teamsActive[$this->team->id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['legal_relationship'] = $this->legal_relationship->toArray();
+            }
+            if (isset($this->troop_id)) {
+                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['scoutsActive'][$this->id]['family_name'] = $this->family_name;
+                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['scoutsActive'][$this->id]['given_name'] = $this->given_name;
+                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['scoutsActive'][$this->id]['full_name'] = $this->full_name;
+                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['scoutsActive'][$this->id]['ecset_code'] = $this->ecset_code;
+                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['scoutsActive'][$this->id]['legal_relationship_id'] = $this->legal_relationship_id;
+                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['scoutsActive'][$this->id]['legal_relationship_name'] = $this->legal_relationship_name;
+                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['scoutsActive'][$this->id]['legal_relationship'] = $this->legal_relationship->toArray();
+            }
+            if (isset($this->troop_id) && isset($this->patrol_id)) {
+                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['family_name'] = $this->family_name;
+                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['given_name'] = $this->given_name;
+                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['full_name'] = $this->full_name;
+                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['ecset_code'] = $this->ecset_code;
+                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['legal_relationship_id'] = $this->legal_relationship_id;
+                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['legal_relationship_name'] = $this->legal_relationship_name;
+                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['legal_relationship'] = $this->legal_relationship->toArray();
+            }
+            $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'] = $teamsActive;
+            Cache::forever('structureTree', $structureTree);
         }
     }
 
