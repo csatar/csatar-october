@@ -25,12 +25,13 @@
 {% if array | length > 0 %}
     {% for item in array %}
         {% set active = (level == 1 or (item['status'] != 0)) %}
-        {% if (level == 1 and (__SELF__.getAssociationScoutsCount(item['id'])|length == 0) or item['districtsActive']|length == 0)
-            or (level == 2 and (__SELF__.getDistrictScoutsCount(item['id'])|length == 0) or item['teamsActive']|length == 0)
+        {% if (level == 1 and (__SELF__.getAssociationScoutsCount(item['id'])|length == 0 or item['districtsActive']|length == 0))
+            or (level == 2 and (__SELF__.getDistrictScoutsCount(item['id'])|length == 0 or item['teamsActive']|length == 0))
             or (level > 2 and item['scoutsActive']|length == 0)
         %}
             {% set active = false %}
         {% endif %}
+
         {% if active %}
             {% if childArrayName and item[childArrayName]|length > 0 and level < maxLevel %}
             <li><a class="dropdown-item csat-nav-txt-wrap dropdown-toggle90">{{ item['extended_name'] }}</a>
