@@ -40,6 +40,7 @@ class TeamReport extends ComponentBase
     public function onRender($isRefresh = false)
     {
         $this->confirmDeleteMessage = Lang::get('backend::lang.form.confirm_delete');
+        $this->confirmRefreshMessage = Lang::get('csatar.csatar::lang.plugin.component.teamReport.confirmRefreshMessage');
         $this->year = date('n') == 1 ? date('Y') - 1 : date('Y');
 
         // retrieve the parameters
@@ -81,6 +82,7 @@ class TeamReport extends ComponentBase
             $this->currency = $association->currency->code;
             $this->getScouts($this->teamId);
             $this->basicForm->specialValidationExceptions = $this->errors ?? [];
+            unset($this->basicForm->record->belongsToMany['ageGroups']);
         }
         else {
             // edit and view modes - retrieve the team report
