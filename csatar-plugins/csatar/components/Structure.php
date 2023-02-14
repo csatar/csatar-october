@@ -86,5 +86,12 @@ class Structure extends ComponentBase
         $this->mode = $this->property('mode');
     }
 
+    public function getAssociationScoutsCount($associationId)
+    {
+        return StructureTree::getAssociationScoutsCount($associationId);
+    }
 
+    public static function getDistrictScoutsCount($districtId) {
+        return StructureTree::getDistrictScoutsCount($districtId);
+    }
 }
