@@ -1,0 +1,19 @@
+fields:
+    name:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.name'
+        span: left
+        readOnly: true
+        dependsOn:
+            - min
+            - max
+        type: text
+    min:
+        label: Min
+        span: left
+        type: number
+        required: true
+    max:
+        label: Max
+        span: left
+        type: number
+        required: true

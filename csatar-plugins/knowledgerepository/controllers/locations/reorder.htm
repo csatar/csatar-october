@@ -1,0 +1,12 @@
+<?php Block::put('breadcrumb') ?>
+    <ul>
+        <li>
+            <a href="<?= Backend::url('csatar/knowledgerepository/locations') ?>">
+                <?= e(trans('csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.locations')) ?>
+            </a>
+        </li>
+        <li><?= e($this->pageTitle) ?></li>
+    </ul>
+<?php Block::endPut() ?>
+
+<?= $this->reorderRender() ?>

@@ -1,0 +1,10 @@
+name: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.duration'
+form: $/csatar/knowledgerepository/models/duration/fields.yaml
+modelClass: Csatar\KnowledgeRepository\Models\Duration
+defaultRedirect: csatar/knowledgerepository/durations
+create:
+    redirect: 'csatar/knowledgerepository/durations/update/:id'
+    redirectClose: csatar/knowledgerepository/durations
+update:
+    redirect: csatar/knowledgerepository/durations
+    redirectClose: csatar/knowledgerepository/durations

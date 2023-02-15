@@ -1,0 +1,16 @@
+columns:
+    name:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.name'
+        type: text
+        searchable: true
+        sortable: true
+    min:
+        label: min
+        type: number
+        searchable: true
+        sortable: true
+    max:
+        label: max
+        type: number
+        searchable: true
+        sortable: true

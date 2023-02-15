@@ -1,0 +1,4 @@
+title: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.gameTypes'
+modelClass: Csatar\KnowledgeRepository\Models\GameType
+toolbar:
+    buttons: reorder_toolbar

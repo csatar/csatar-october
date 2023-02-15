@@ -2,12 +2,14 @@
 
 use Auth;
 use http\Env\Request;
+use DateTime;
 use Input;
 use Flash;
 use File;
 use Lang;
 use Validator;
 use Session;
+use Csatar\Csatar\Models\DynamicFields;
 use Csatar\Forms\Models\Form;
 use Response;
 use Cookie;
@@ -73,6 +75,10 @@ trait AjaxControllerSimple {
             throw new NotFoundException();
         }
 
+        if ($record->is_hidden_fronend) {
+            throw new NotFoundException();
+        }
+
         $record->fill($data = Input::get('data') ?? []);
 
         $config = $this->makeConfig($form->getFieldsConfig());
@@ -93,6 +99,9 @@ trait AjaxControllerSimple {
         $this->widget = new \Backend\Widgets\Form($this, $config);
 
         $this->loadBackendFormWidgets();
+
+        // render the extra fields if they are set
+        $this->renderExtraFields();
 
         if (isset($config->formBuilder_card_design) && $config->formBuilder_card_design && $preview) {
             $html = $this->renderViewMode($this->widget);
@@ -369,13 +378,19 @@ trait AjaxControllerSimple {
                     return $options;
                 }
 
-                return $allowDuplicates ?
+                $options = $allowDuplicates ?
                     (isset($scope) ?
-                        $relatedModelName::where('id', '>', 0)->{$scope}()->get()->lists('name', 'id') :
-                        $relatedModelName::all()->lists('name', 'id')) :
+                        $relatedModelName::where('id', '>', 0)->{$scope}()->get() :
+                        $relatedModelName::all()) :
                     (isset($scope) ?
-                        $relatedModelName::whereNotIn('id', $attachedIds)->{$scope}()->get()->lists('name', 'id') :
-                        $relatedModelName::whereNotIn('id', $attachedIds)->get()->lists('name', 'id'));
+                        $relatedModelName::whereNotIn('id', $attachedIds)->{$scope}()->get() :
+                        $relatedModelName::whereNotIn('id', $attachedIds)->get());
+
+                $options = $options->filter(function($item) {
+                    return $item->is_hidden_frontend != 1;
+                });
+
+                return $options->lists('name', 'id');
             });
         });
 
@@ -615,6 +630,31 @@ trait AjaxControllerSimple {
 
         $rules = $this->addRequiredRuleBasedOnUserRights($record->rules, $this->currentUserRights);
 
+        // add extra fields validation
+        $extraFields = $this->getExtraFields($this->record, (new DateTime())->format('Y-m-d')) ?? [];
+        $extraFieldValues = json_decode($this->record->extra_fields, true) ?? [];
+        foreach ($extraFieldValues as $extraFieldValue) {
+            $found = false;
+            foreach ($extraFields as $key => $extraField) {
+                if ($extraField['id'] == $extraFieldValue['id']) {
+                    $extraField[$key]['required'] = $extraFieldValue['required'];
+                    $found = true;
+                    break;
+                }
+            }
+            if (!$found) {
+                array_push($extraFields, $extraFieldValue);
+            }
+        }
+        foreach($extraFields as $extraField) {
+            $id = 'extra_fields_' . $extraField['id'];
+            $attributeNames[$id] = $extraField['label'];
+            $rules[$id] = 'max:500';
+            if ($extraField['required'] == 1) {
+                $rules[$id] .= '|required';
+            }
+        }
+
         $validation = Validator::make(
             $data,
             $rules,
@@ -643,7 +683,21 @@ trait AjaxControllerSimple {
             throw new \ValidationException($validation);
         }
 
+        // resolve extra fields data
+        if (array_key_exists('extra_fields', $this->record->attributes) && isset($extraFields)) {
+            foreach ($extraFields as &$extraField) {
+                $id = 'extra_fields_' . $extraField['id'];
+                $extraField['value'] = $data[$id];
+                unset($data[$id]);
+            }
+        }
+
         $data = $this->filterDataBasedOnUserRightsBeforeSave($data, $config->fields, $isNew);
+
+        // resolve extra fields data. It needs to be done after the data has been filtered by rights, as that removes extra_field from data, as extra_fields is not part of the permission matrix
+        if (array_key_exists('extra_fields', $this->record->attributes) && isset($extraFields)) {
+            $data['extra_fields'] = json_encode($extraFields);
+        }
 
         // Resolve belongsTo relations
         foreach($record->belongsTo as $name => $definition) {
@@ -796,6 +850,115 @@ trait AjaxControllerSimple {
                 $field['readOnly'] = 1;
             }
         }
+    }
+
+    private function renderExtraFields()
+    {
+        if (!array_key_exists('extra_fields', $this->widget->model->attributes)) {
+            return;
+        }
+
+        $extraFields = $this->getExtraFields($this->widget->model, (new DateTime())->format('Y-m-d'));
+        if (!isset($extraFields)) {
+            return;
+        }
+
+        // decode extra field values
+        $extraFieldValues = json_decode($this->widget->model->extra_fields, true) ?? [];
+
+        // add any newly added fields to the list
+        foreach ($extraFields as $extraField) {
+            $found = false;
+            foreach ($extraFieldValues as $key => $extraFieldValue) {
+                if ($extraField['id'] == $extraFieldValue['id']) {
+                    $extraFieldValues[$key]['required'] = $extraField['required'];
+                    $found = true;
+                    break;
+                }
+            }
+            if (!$found) {
+                array_push($extraFieldValues, $extraField);
+            }
+        }
+
+        // add the extra field values to the model
+        foreach ($extraFieldValues as $extraFieldValue) {
+            $id = 'extra_fields_' . $extraFieldValue['id'];
+            $this->widget->model->attributes[$id] = isset($extraFieldValue['value']) ? $extraFieldValue['value'] : '';
+        }
+
+        // add section for the extra fields
+        $this->widget->fields['extraFieldsData'] = $this->createExtraFieldsSection();
+
+        // add the extra fields
+        $this->widget->fields = array_merge($this->widget->fields, $this->createExtraFieldFields($extraFieldValues, $this->widget->model->rules));
+    }
+
+    private function createExtraFieldsSection() {
+        return [
+            'label' => Lang::get('csatar.csatar::lang.plugin.admin.dynamicFields.extraFields'),
+            'span' => 'full',
+            'type' => 'section',
+            'hidden' => 1,
+            'formBuilder' => [
+                'type' => 'card',
+                'position' => 'sheets',
+                'order' => 1000,
+                'class' => 'col-lg-12 col-md-12 col-sm-12',
+                'color' => 'csat-data-parent',
+            ],
+        ];
+    }
+
+    private function createExtraFieldFields($extraFields, &$rules = []) {
+        $fields = [];
+        $order = 1;
+        foreach($extraFields as $extraField) {
+            $id = 'extra_fields_' . $extraField['id'];
+            $fields[$id] = [
+                'label' => $extraField['label'],
+                'span' => 'auto',
+                'type' => 'textarea',
+                'formBuilder' => [
+                    'type' => 'field',
+                    'card' => 'extraFieldsData',
+                    'order' => $order,
+                ],
+            ];
+            if ($extraField['required'] == 1) {
+                $fields[$id]['required'] = 1;
+                $rules[$id] = 'required';
+            }
+            $order++;
+        }
+        return $fields;
+    }
+
+    private function getExtraFields($model, $date) {
+        // get the association and the model name
+        if (!method_exists($model, 'getAssociation') || !method_exists($model, 'getModelName')) {
+            return null;
+        }
+        $association = $model->getAssociation();
+        if (!isset($association)) {
+            return null;
+        }
+        $modelName = $model::getModelName();
+
+        // get the extra fields defined for the given association, model and current date
+        $dynamicFields = DynamicFields::where('association_id', $association->id)
+            ->where('model', $modelName)
+            ->where(function ($query) use ($date) {
+                return $query->where('start_date', '<=', $date)
+                    ->where('end_date', '>=', $date)
+                    ->orWhere('end_date', null);
+            })
+            ->get();
+        if (count($dynamicFields) == 0) {
+            return null;
+        }
+
+        return $dynamicFields[0]->extra_fields_definition;
     }
 
     private function getRecord() {
@@ -1007,6 +1170,9 @@ trait AjaxControllerSimple {
         }
 
         foreach ($records as $key => $relatedRecord){
+            if ($relatedRecord->is_hidden_frontend) {
+                continue;
+            }
             if ($defRecords) {
                 if (!$isHasManyRelation) {
                     $relatedRecord->pivot = (object)$defRecords[$key]->pivot_data;
@@ -1332,8 +1498,6 @@ trait AjaxControllerSimple {
             }
 
         }
-
-//        dd($this->record, $attribute, $attributeSettings);
 
         return $attribute;
     }

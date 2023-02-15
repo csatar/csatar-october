@@ -1,4 +1,5 @@
 {% if __SELF__.scouts|length > 0 %}
+
 <div>
     <table class="my-3">
         <tbody>
@@ -32,3 +33,15 @@
 <p>{{ 'Csapatfenntartói díj: ' ~ __SELF__.teamFee ~ ' ' ~ __SELF__.currency | _ }}</p>
 <p>{{ 'Befizetendő összeg: ' ~ __SELF__.totalAmount ~ ' ' ~ __SELF__.currency | _ }}</p>
 <p class="p-bold">{{ 'Csapatjelentés státusza: ' | _ }}{{ __SELF__.status }}</p>
+
+{% set scoutsWithoutRegistrationForm = __SELF__.scoutsWithoutRegistrationForm %}
+{% if scoutsWithoutRegistrationForm %}
+<div class="alert alert-danger rounded">
+    <p>{{ 'Az alábbi tagoknak nincs feltöltött bejelentkezési és nyilvántartási lapjuk'|_ }}:</p>
+    <ul>
+        {% for scout in scoutsWithoutRegistrationForm %}
+        <li>{{ scout['name'] }} - {{ scout['ecset_code'] }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}

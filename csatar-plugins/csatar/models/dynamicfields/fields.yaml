@@ -1,0 +1,43 @@
+fields:
+    association:
+        label: 'csatar.csatar::lang.plugin.admin.dynamicFields.association'
+        nameFrom: extendedName
+        descriptionFrom: description
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        span: auto
+        required: 1
+        type: relation
+    start_date:
+        label: 'csatar.csatar::lang.plugin.admin.dynamicFields.startDate'
+        span: auto
+        required: 1
+        default: now
+        type: datepicker
+        mode: date
+    end_date:
+        label: 'csatar.csatar::lang.plugin.admin.dynamicFields.endDate'
+        span: auto
+        type: datepicker
+        mode: date
+    model:
+        label: 'csatar.csatar::lang.plugin.admin.dynamicFields.model'
+        span: auto
+        type: dropdown
+        default: '\Csatar\Csatar\Models\TeamReport'
+        readOnly: 1
+    extra_fields_definition:
+        label: 'csatar.csatar::lang.plugin.admin.dynamicFields.extraFieldsDefinition'
+        prompt: 'csatar.csatar::lang.plugin.admin.dynamicFields.promptNew'
+        style: default
+        span: auto
+        type: repeater
+        form:
+            fields:
+                label:
+                    label: 'csatar.csatar::lang.plugin.admin.dynamicFields.fieldName'
+                    span: auto
+                    type: text
+                required:
+                    label: 'csatar.csatar::lang.plugin.admin.dynamicFields.fieldRequired'
+                    span: auto
+                    type: checkbox

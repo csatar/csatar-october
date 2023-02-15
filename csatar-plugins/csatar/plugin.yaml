@@ -78,6 +78,12 @@ navigation:
                 icon: icon-sitemap
                 permissions:
                     - csatar.manage.data
+            side-menu-item-dynamic-fields:
+                label: 'csatar.csatar::lang.plugin.admin.dynamicFields.dynamicFields'
+                url: /csatar/csatar/dynamicfields
+                icon: icon-sitemap
+                permissions:
+                    - csatar.manage.data
             side-menu-item-permissions-matrix:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.organizationSystemData.permissionsMatrix'
                 url: csatar/csatar/permissionsmatrix
@@ -264,6 +270,13 @@ navigation:
             side-menu-location-data:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.location'
                 url: csatar/csatar/seederdata/location
+                icon: icon-database
+                permissions:
+                    - csatar.admin
+
+            side-menu-knowledgerepository-data:
+                label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.knowledgeRepositoryParameters'
+                url: csatar/knowledgerepository/seederdata/seeder/
                 icon: icon-database
                 permissions:
                     - csatar.admin

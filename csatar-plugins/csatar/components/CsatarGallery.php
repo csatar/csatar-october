@@ -24,11 +24,11 @@ class CsatarGallery extends Gallery
     public $permission_to_edit;
     public $permission_to_watch;
 
-    public $associationMandateTypes = ['Elnök', 'Ügyvezető elnök', 'Mozgalmi vezető', 'Iroda'];
-    public $disctrictMandateTypes = ['Körzetvezető'];
-    public $teamMandateTypes = ['Csapatvezető'];
-    public $troopMandateTypes = ['Rajvezető'];
-    public $patrolMandateTypes = ['Őrsvezető'];
+    public $associationMandateTypes = ['Elnök', 'Ügyvezető elnök', 'Mozgalmi vezető', 'Iroda', 'CSATÁR fejlesztő'];
+    public $disctrictMandateTypes = ['Körzetvezető', 'CSATÁR fejlesztő'];
+    public $teamMandateTypes = ['Csapatvezető', 'CSATÁR fejlesztő'];
+    public $troopMandateTypes = ['Rajvezető', 'CSATÁR fejlesztő'];
+    public $patrolMandateTypes = ['Őrsvezető', 'CSATÁR fejlesztő'];
 
     public function defineProperties()
     {
@@ -51,6 +51,7 @@ class CsatarGallery extends Gallery
     public function onRun()
     {
         $this->prepareMarkup();
+        $this->addJs("/plugins/csatar/csatar/assets/touch-dnd.js");
 
         $modelName = "Csatar\Csatar\Models\\" . $this->property('model_name');
         $this->model = $modelName::find($this->property('model_id'));
@@ -58,11 +59,7 @@ class CsatarGallery extends Gallery
         $this->permission_to_watch = $this->getPermissiontoWatch();
 
         $galleryIDs = GalleryModelPivot::select('gallery_id')->where('model_type', $modelName)->where('model_id', $this->property('model_id'))->where('parent_id', null)->get();
-        $galleries = [];
-        foreach ($galleryIDs as $id) {
-            $gallery = GalleryModel::find($id);
-            $galleries[] = $gallery['0'];
-        }
+        $galleries = GalleryModel::orderBy('sort_order', 'asc')->find($galleryIDs);
         $this->galleries = $this->page['galleries'] = $galleries;
     }
 
@@ -101,6 +98,28 @@ class CsatarGallery extends Gallery
 
         return [
             $renderPartial => $this->renderPartial('@create')
+        ];
+    }
+
+    public function onOpenSortOrderForm()
+    {
+        $renderPartial = "#galleries";
+
+        if (post('parent_id')) {
+            $this->parent_id = $this->page['parent_id'] = post('parent_id');
+            $parentGallery = GalleryModel::find(post('parent_id'));
+            $this->images = $this->page['images'] = $parentGallery->images;
+        }
+
+        $this->galleries = $this->page['galleries'] = json_decode(post('gallerieArray'));
+
+        $modelName = "Csatar\Csatar\Models\\" . $this->property('model_name');
+        $this->model = $modelName::find($this->property('model_id'));
+
+        $this->permission_to_edit = $this->getPermissionToEdit();
+
+        return [
+            $renderPartial => $this->renderPartial('@sortOrder')
         ];
     }
 
@@ -330,11 +349,7 @@ class CsatarGallery extends Gallery
     {
         $modelName = "Csatar\Csatar\Models\\" . $this->property('model_name');
         $childIDs = GalleryModelPivot::select('gallery_id')->where('model_type', $modelName)->where('model_id', $this->property('model_id'))->where('parent_id', $parent_id)->get();
-        $childGalleries = [];
-        foreach ($childIDs as $id) {
-            $childGallery = GalleryModel::find($id);
-            $childGalleries[] = $childGallery['0'];
-        }
+        $childGalleries = GalleryModel::orderBy('sort_order', 'asc')->find($childIDs);
 
         return $childGalleries;
     }
@@ -443,6 +458,39 @@ class CsatarGallery extends Gallery
         $file->title = post('title-' . $file_id);
         $file->description = post('description-' . $file_id);
         $file->save();
+    }
+
+    public function onSaveSortOrder()
+    {
+        $modelName = "Csatar\Csatar\Models\\" . $this->property('model_name');
+        $this->model = $modelName::find($this->property('model_id'));
+
+        if ($this->getPermissionToEdit()) {
+            if (post('imageArray')) {
+                foreach (post('imageArray') as $key => $value) {
+                    $file = File::find($key);
+                    $file->sort_order = $value;
+                    $file->save();
+                }
+            }
+
+            if (post('galleryArray')) {
+                foreach (post('galleryArray') as $key => $value) {
+                    $gallery = GalleryModel::find($key);
+                    $gallery->sort_order = $value;
+                    $gallery->save();
+                }
+            }
+        }
+
+        if (post('parent_id') != null) {
+            return $this->onOpenGallery(post('parent_id'));
+        }
+
+        $this->onRun();
+        return [
+            '#galleries' => $this->renderPartial('@default')
+        ];
     }
 
 }

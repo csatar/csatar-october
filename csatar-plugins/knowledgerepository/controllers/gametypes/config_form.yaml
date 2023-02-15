@@ -1,0 +1,10 @@
+name: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.gameType'
+form: $/csatar/knowledgerepository/models/gametype/fields.yaml
+modelClass: Csatar\KnowledgeRepository\Models\GameType
+defaultRedirect: csatar/knowledgerepository/gametypes
+create:
+    redirect: 'csatar/knowledgerepository/gametypes/update/:id'
+    redirectClose: csatar/knowledgerepository/gametypes
+update:
+    redirect: csatar/knowledgerepository/gametypes
+    redirectClose: csatar/knowledgerepository/gametypes

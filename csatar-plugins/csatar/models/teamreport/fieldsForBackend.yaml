@@ -71,3 +71,9 @@ fields:
         maxDate: now
         span: auto
         type: datepicker
+    extra_fields:
+        label: 'csatar.csatar::lang.plugin.admin.dynamicFields.extraFields'
+        type: textarea
+        size: tiny
+        span: auto
+        readOnly: 1
