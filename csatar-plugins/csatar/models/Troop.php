@@ -89,6 +89,12 @@ class Troop extends OrganizationBase
             'renderableOnCreateForm' => true,
             'renderableOnUpdateForm' => true,
         ],
+        'mandatesInactive' => [
+            '\Csatar\Csatar\Models\Mandate',
+            'key' => 'mandate_model_id',
+            'scope' => 'inactiveMandatesInOrganization',
+            'ignoreInPermissionsMatrix' => true,
+        ],
     ];
 
     public $attachOne = [

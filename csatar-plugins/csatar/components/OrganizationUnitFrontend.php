@@ -23,6 +23,7 @@ class OrganizationUnitFrontend extends ComponentBase
     public $content_page;
     public $permissions;
     public $gallery_id;
+    public $inactiveMandates;
     public $inactiveMandatesColumns;
 
     public function componentDetails()
@@ -55,7 +56,34 @@ class OrganizationUnitFrontend extends ComponentBase
     {
         $modelName = "Csatar\Csatar\Models\\" . $this->property('model_name');
         if (is_numeric($this->property('model_id'))) {
-            $this->model = $modelName::find($this->property('model_id'));
+            $this->model = $modelName::where('id', $this->property('model_id'))->with([
+                'mandatesInactive',
+                'mandatesInactive.mandate_type' => function($query) {
+                    return $query->select(
+                        'csatar_csatar_mandate_types.id',
+                        'csatar_csatar_mandate_types.name',
+                    )->withTrashed();
+                },
+                'mandatesInactive.scout' => function($query) {
+                    return $query->select(
+                        'csatar_csatar_scouts.id',
+                        'csatar_csatar_scouts.ecset_code',
+                        'csatar_csatar_scouts.family_name',
+                        'csatar_csatar_scouts.given_name',
+                        'csatar_csatar_scouts.team_id',
+                    );
+                },
+                'mandatesInactive.scout.team'  => function($query) {
+                    return $query->select(
+                        'csatar_csatar_teams.id',
+                        'csatar_csatar_teams.name',
+                        'csatar_csatar_teams.team_number',
+                    );
+                },
+            ])->first(); //5 queries
+
+            $this->inactiveMandates = $this->model->mandatesInactive->toArray();
+
             if(isset(Auth::user()->scout)) {
                 $this->permissions = Auth::user()->scout->getRightsForModel($this->model);
             }
@@ -109,12 +137,9 @@ class OrganizationUnitFrontend extends ComponentBase
             'mandate_model_name' => [
                 'label' => Lang::get('csatar.csatar::lang.plugin.admin.mandateType.organizationTypeModelName'),
                 ],
-            'mandate_team' => [
-                'label' => Lang::get('csatar.csatar::lang.plugin.admin.team.team'),
-                ],
             'scout' => [
                 'label' => Lang::get('csatar.csatar::lang.plugin.admin.mandateType.scout'),
-                'nameFrom' => 'name',
+                'nameFrom' => 'full_name',
                 'link' => '/tag/',
                 'linkParam' => 'ecset_code',
                 ],
