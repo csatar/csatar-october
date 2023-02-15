@@ -5,4 +5,22 @@
 <p>{{ 'Körzetek' | _ }}</p>
 {% component 'builderList' %}
 
+{% partial "@formWithButton"
+    permissionValue = permissions['districts']['create']
+    actionUrl = '/korzet/letrehozas'
+    hiddenInputs = { 'association': association_id }
+    btnExtraClasses = 'btn-sm btn-primary'
+    btnValue = 'Körzet hozzáadása' |_
+    btnIconClass = 'csat-add-fill-wh-sm'
+    btnLabel = 'Körzet hozzáadása' |_
+%}
 
+{% partial "@formWithButton"
+    permissionValue = permissions['districts']['create']
+    actionUrl = '/valami/letrehozas'
+    hiddenInputs = { 'association': association_id }
+    btnExtraClasses = 'btn-sm btn-primary'
+    btnValue = 'Körzet hozzáadása' |_
+    btnIconClass = 'csat-add-fill-wh-sm'
+    btnLabel = 'Valami hozzáadása' |_
+%}
