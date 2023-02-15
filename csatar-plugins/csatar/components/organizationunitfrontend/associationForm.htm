@@ -1,6 +1,9 @@
-{#% component 'basicForm' %#}
-{#% partial __SELF__ ~ '::inactiveMandates' model=model %#}
+{% component 'basicForm' %}
+{% partial __SELF__ ~ '::inactiveMandates' model=model %}
 {% set permissions = __SELF__.permissions %}
+
+<p>{{ 'Körzetek' | _ }}</p>
+{% component 'builderList' %}
 
 {% partial "@formWithButton"
     permissionValue = permissions['districts']['create']
