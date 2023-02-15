@@ -146,7 +146,7 @@ class OrganizationBase extends PermissionBasedAccess
         return $query->where('status', Status::INACTIVE);
     }
 
-    public function getInactionMandatesInOrganization() {
+    public function getInactiveMandatesInOrganization() {
         return Mandate::inactiveMandatesInOrganizations($this)->get();
     }
 }

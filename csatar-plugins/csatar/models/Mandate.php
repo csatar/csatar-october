@@ -22,7 +22,7 @@ class Mandate extends Model
 
     protected $touches = ['scout'];
 
-    protected $appends = ['mandate_team'];
+    protected $appends = ['mandate_team', 'scout_team'];
 
     public $ignoreValidation = false;
 
@@ -295,6 +295,19 @@ class Mandate extends Model
             : $query->whereNull('id');
     }
 
+    public function scopeInactiveMandatesInOrganization($query, $model)
+    {
+        $currentDate = (new DateTime())->format('Y-m-d');
+        return $model
+            ? $query->where('mandate_model_type', $model::getModelName())
+                ->where(function ($query) use ($currentDate) {
+                    return $query->where('start_date', '>', $currentDate)
+                        ->orWhere('end_date', '<', $currentDate);
+                })
+                ->orderBy('end_date', 'desc')
+            : $query->whereNull('id');
+    }
+
     public function getMandateTeamAttribute(): string
     {
         if ($this->mandate_model_type == '\Csatar\Csatar\Models\Patrol') {
@@ -380,17 +393,6 @@ class Mandate extends Model
         return $query->whereHas('mandate_type', function ($query) use ($associationIds) {
             $query->whereIn('association_id', $associationIds);
         });
-    }
-
-    public function scopeInactiveMandatesInOrganizations($query, $record) {
-        $currentDate = (new DateTime())->format('Y-m-d');
-        $query->where('mandate_model_type', $record::getModelName())
-            ->where('mandate_model_id', $record->id)
-            ->where(function ($query) use ($currentDate) {
-                return $query->where('start_date', '>', $currentDate)
-                    ->orWhere('end_date', '<', $currentDate);
-            })
-            ->orderBy('end_date', 'desc');
     }
 
     public static function setAllMandatesExpiredInOrganization($organization) {

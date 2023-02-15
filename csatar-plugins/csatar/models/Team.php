@@ -194,6 +194,12 @@ class Team extends OrganizationBase
             'renderableOnCreateForm' => false,
             'renderableOnUpdateForm' => true,
         ],
+        'mandatesInactive' => [
+            '\Csatar\Csatar\Models\Mandate',
+            'key' => 'mandate_model_id',
+            'scope' => 'inactiveMandatesInOrganization',
+            'ignoreInPermissionsMatrix' => true,
+        ],
     ];
 
     public $attachOne = [
