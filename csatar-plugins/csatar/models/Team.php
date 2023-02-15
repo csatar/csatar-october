@@ -1,5 +1,7 @@
 <?php namespace Csatar\Csatar\Models;
 
+use Cache;
+use Csatar\Csatar\Classes\StructureTree;
 use Csatar\Csatar\Models\Scout;
 use Lang;
 use Csatar\Csatar\Models\OrganizationBase;
@@ -41,6 +43,8 @@ class Team extends OrganizationBase
         'district' => 'required',
         'logo' => 'image|nullable',
     ];
+
+    protected $appends = ['extended_name'];
 
     /**
      * Add custom validation
@@ -150,13 +154,33 @@ class Team extends OrganizationBase
             '\Csatar\Csatar\Models\Troop',
             'label' => 'csatar.csatar::lang.plugin.admin.troop.troops',
         ],
+        'troopsActive' => [
+            '\Csatar\Csatar\Models\Troop',
+            'scope' => 'active',
+            'ignoreInPermissionsMatrix' => true,
+        ],
         'patrols' => [
             '\Csatar\Csatar\Models\Patrol',
             'label' => 'csatar.csatar::lang.plugin.admin.patrol.patrols',
         ],
+        'patrolsActive' => [
+            '\Csatar\Csatar\Models\Patrol',
+            'scope' => 'active',
+            'ignoreInPermissionsMatrix' => true,
+        ],
         'scouts' => [
             '\Csatar\Csatar\Models\Scout',
             'label' => 'csatar.csatar::lang.plugin.admin.scout.scouts',
+        ],
+        'scoutsActive' => [
+            '\Csatar\Csatar\Models\Scout',
+            'scope' => 'active',
+            'ignoreInPermissionsMatrix' => true,
+        ],
+        'scoutsInactive' => [
+            '\Csatar\Csatar\Models\Scout',
+            'scope' => 'inactive',
+            'ignoreInPermissionsMatrix' => true,
         ],
         'teamReports' => [
             '\Csatar\Csatar\Models\TeamReport',
@@ -209,6 +233,35 @@ class Team extends OrganizationBase
                 $scout->forceSave();
             }
             Mandate::setAllMandatesExpiredInOrganization($this);
+        }
+
+        if (empty($this->original)) {
+            return;
+        }
+
+        if (isset($this->original['status']) && $this->original['status'] != $this->status) {
+            StructureTree::updateDistrictTree($this->district_id);
+        }
+
+        if (isset($this->original['district_id']) && $this->original['district_id'] != $this->district_id) {
+            StructureTree::updateDistrictTree($this->district_id);
+            if (!empty($this->original['district_id'])) {
+                StructureTree::updateDistrictTree($this->original['district_id']);
+            }
+        }
+
+        if ((isset($this->original['name']) && $this->original['name'] != $this->name)
+            || (isset($this->original['team_number']) && $this->original['team_number'] != $this->team_number)
+        ) {
+            $structureTree = Cache::pull('structureTree');
+            if (empty($structureTree)) {
+                StructureTree::getStructureTree();
+                return;
+            }
+            $structureTree[$this->district->association_id]['districtsActive'][$this->district_id]['teamsActive'][$this->id]['name'] = $this->name;
+            $structureTree[$this->district->association_id]['districtsActive'][$this->district_id]['teamsActive'][$this->id]['extended_name'] = $this->extended_name;
+            $structureTree[$this->district->association_id]['districtsActive'][$this->district_id]['teamsActive'][$this->id]['team_number'] = $this->team_number;
+            Cache::forever('structureTree', $structureTree);
         }
     }
 
@@ -309,15 +362,20 @@ class Team extends OrganizationBase
     }
 
     public function getActiveScoutsCount() {
-        return Scout::activeScoutsInTeam($this->id)->count();
+        return $this->scoutsActive->count();
     }
 
     public function getActiveScouts() {
-        return Scout::activeScoutsInTeam($this->id)->get();
+        return $this->scoutsInactive->count();
     }
 
     public function scopeInDistrict($query, $districtId) {
         $query->where('district_id', $districtId);
+    }
+
+    public function scopeActive($query)
+    {
+        $query->where('status', Status::ACTIVE)->orderByRaw('CONVERT(team_number, UNSIGNED) asc');
     }
 
     public function scopeActiveInDistrict($query, $districtId) {
@@ -326,18 +384,20 @@ class Team extends OrganizationBase
 
     public function scopeActiveInAssociation($query, $associationId) {
         $districtIds = District::where('association_id', $associationId)->get()->pluck('id')->toArray();
-        $query->whereIn('district_id', $districtIds)->active();
+        return $query->whereIn('district_id', $districtIds)->active();
     }
 
     public function getTroops() {
-        return Troop::inTeam($this->id)->get();
+        return $this->troops;
     }
 
     public function getPatrols() {
-        return Patrol::inTeam($this->id)->get();
+        return $this->patrols;
+//        return Patrol::inTeam($this->id)->get();
     }
 
     public function getPatrolsWithoutTroop() {
-        return Patrol::inTeam($this->id)->where('troop_id', null)->get();
+        return $this->patrols->where('troop_id', null);
+//        return Patrol::inTeam($this->id)->where('troop_id', null)->get();
     }
 }
