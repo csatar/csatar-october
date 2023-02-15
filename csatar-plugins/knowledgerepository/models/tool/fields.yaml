@@ -11,11 +11,13 @@ fields:
         label: 'csatar.knowledgerepository::lang.plugin.admin.general.isApproved'
         span: left
         type: checkbox
-    approver_csatar_code:
+    approver:
         label: 'csatar.knowledgerepository::lang.plugin.admin.general.approverCsatarCode'
         span: left
-        type: text
-    proposer_csatar_code:
+        type: relation
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+    proposer:
         label: 'csatar.knowledgerepository::lang.plugin.admin.general.proposerCsatarCode'
         span: left
-        type: text
+        type: relation
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
