@@ -20,10 +20,14 @@
 - CS-462 - Added warning to team report if any scout doesn't have registration form uploaded
 - CS-436 - Added option to hide mandate types on frontend
 - CS-466 - Created migrations for "Knowledge repository" models
-- CS-461 - Created membership card requests backend list
 - CS-327 - Create dynamic fields
 - CS-397 - Changed accordion to show the active tag lists on the model pages
 - CS-459 - Added team number to the Team reports filter
+
+## 1.8.3
+### 2023-02-15
+
+- CS-461 - Created membership card requests backend list
 
 ## 1.8.2
 ### 2023-02-15

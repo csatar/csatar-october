@@ -77,7 +77,8 @@ class MembershipCardRequests extends Controller
             ->where('csatar_csatar_team_reports_scouts.legal_relationship_id', $memberLegalRelationshipId)
             ->whereNotIn('csatar_csatar_team_reports_scouts.scout_id', \Db::table('csatar_csatar_membership_cards')->pluck('scout_id'))
             ->orderBy('csatar_csatar_teams.team_number')
-            ->orderBy('csatar_csatar_team_reports_scouts.name');
+            ->orderBy('csatar_csatar_team_reports_scouts.name')
+            ->distinct();
     }
 
     public function onExportToCsv()
