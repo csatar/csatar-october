@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+## 1.8.2
+### 2023-02-15
+
 - CS-478 Refactored structure component used for the accordion and menu
 - CS-478 Optimized the query for structure component
 - CS-478 Cached the query result used by the structure component
