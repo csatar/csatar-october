@@ -1,5 +1,6 @@
 <?php namespace Csatar\Csatar\Models;
 
+use Cache;
 use Csatar\Csatar\Models\OrganizationBase;
 use DateTime;
 use Lang;
@@ -19,6 +20,8 @@ class Association extends OrganizationBase
      * @var array The columns that should be searchable by ContentPageSearchProvider
      */
     protected static $searchable = ['name'];
+
+    protected $appends = ['extended_name'];
 
     protected $jsonable = ['personal_identification_number_validator'];
 
@@ -85,6 +88,11 @@ class Association extends OrganizationBase
             '\Csatar\Csatar\Models\District',
             'label' => 'csatar.csatar::lang.plugin.admin.district.districts',
         ],
+        'districtsActive' => [
+            '\Csatar\Csatar\Models\District',
+            'scope' => 'active',
+            'ignoreInPermissionsMatrix' => true,
+        ],
         'mandates' => [
             '\Csatar\Csatar\Models\Mandate',
             'key' => 'mandate_model_id',
@@ -113,6 +121,32 @@ class Association extends OrganizationBase
             && (is_null($this->team_report_submit_end_date) || new DateTime($this->team_report_submit_start_date) > new DateTime($this->team_report_submit_end_date))
         ) {
             throw new ValidationException(['team_report_submit_end_date' => Lang::get('csatar.csatar::lang.plugin.admin.association.validationExceptions.invalidTeamReportSubmissionPeriod')]);
+        }
+    }
+
+    public function afterSave()
+    {
+        if (empty($this->original)) {
+            return;
+        }
+
+        if (
+            (isset($this->original['name']) && $this->original['name'] != $this->name)
+            || ($this->original['name_abbreviation'] && $this->original['name_abbreviation'] != $this->name_abbreviation)
+        ) {
+            $structureTree = Cache::pull('structureTree');
+            if (empty($structureTree)) {
+                StructureTree::getStructureTree();
+                return;
+            }
+            if (empty($structureTree)) {
+                StructureTree::getStructureTree();
+                return;
+            }
+            $structureTree[$this->id]['name'] = $this->name;
+            $structureTree[$this->id]['name_abbreviation'] = $this->name_abbreviation;
+            $structureTree[$this->id]['extended_name'] = $this->extended_name;
+            Cache::forever('structureTree', $structureTree);
         }
     }
 
@@ -151,10 +185,6 @@ class Association extends OrganizationBase
     }
 
     public function getActiveDistricts() {
-        return District::inAssociation($this->id)->get();
-    }
-
-    public function getActiveTeamsCount() {
-        return Team::activeInAssociation($this->id)->count();
+        return $this->districtsActive;
     }
 }

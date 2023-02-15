@@ -1,18 +1,18 @@
 {% if level == 1 %}
-    {% set childArrayName = 'districts' %}
+    {% set childArrayName = 'districtsActive' %}
     {% set noItemsMessage = 'Nincsenek Szövetségek.' %}
     {% set organizationTypeForUrl = 'szovetseg' %}
 {% elseif level == 2 %}
-    {% set childArrayName = 'teams' %}
+    {% set childArrayName = 'teamsActive' %}
     {% set noItemsMessage = 'Nincsenek Körzetek.' %}
     {% set organizationTypeForUrl = 'korzet' %}
 {% elseif level == 3 %}
-    {% set childArrayName = 'troops' %}
-    {% set child2ArrayName = 'patrols' %}
+    {% set childArrayName = 'troopsActive' %}
+    {% set child2ArrayName = 'patrolsActive' %}
     {% set noItemsMessage = 'Nincsenek Csapatok.' %}
     {% set organizationTypeForUrl = 'csapat' %}
 {% elseif level == 4 %}
-    {% set childArrayName = 'patrols' %}
+    {% set childArrayName = 'patrolsActive' %}
     {% set noItemsMessage = 'Nincsenek Rajok.' %}
     {% set organizationTypeForUrl = 'raj' %}
 {% elseif level == 5 %}
@@ -24,19 +24,29 @@
 
 {% if array | length > 0 %}
     {% for item in array %}
-        {% set active = (level == 1 or (item.status != 0)) %}
-        {% if (level > 2 and item.getActiveScoutsCount() == 0) or (level == 1 and item.getActiveTeamsCount() == 0) %}
+        {% if level == 1 %}
+            {% set scoutsCount = __SELF__.getAssociationScoutsCount(item['id']) %}
+        {% endif %}
+        {% if level == 2 %}
+            {% set scoutsCount = __SELF__.getDistrictScoutsCount(item['id']) %}
+        {% endif %}
+        {% if level > 2 %}
+            {% set scoutsCount = item['scoutsActive']|length %}
+        {% endif %}
+        {% set active = true %}
+        {% if scoutsCount == 0 %}
             {% set active = false %}
         {% endif %}
+
         {% if active %}
-            {% if childArrayName and attribute(item, childArrayName)|length > 0 and level < maxLevel %}
-            <li><a class="dropdown-item csat-nav-txt-wrap dropdown-toggle90">{{ item.extendedName }}</a>
+            {% if childArrayName and item[childArrayName]|length > 0 and level < maxLevel %}
+            <li><a class="dropdown-item csat-nav-txt-wrap dropdown-toggle90">{{ item['extended_name'] }}</a>
                 <ul class="submenu dropdown-menu bg-primary {% if level == 2%}csat-menu-scroll{% endif %}">
-                    <li><a class="dropdown-item dropdown-underline csat-nav-txt-wrap" href="{{ url('/') ~ '/' ~ organizationTypeForUrl ~ '/' ~ item.id }}">{{ item.extendedName }}</a>
-                        {% partial __SELF__ ~ '::menuItems' array=attribute(item, childArrayName) level=level+1 %}
+                    <li><a class="dropdown-item dropdown-underline csat-nav-txt-wrap" href="{{ url('/') ~ '/' ~ organizationTypeForUrl ~ '/' ~ item['id'] }}">{{ item['extended_name'] }}</a>
+                        {% partial __SELF__ ~ '::menuItems' array=item[childArrayName] level=level+1 %}
                 </ul>
                 {% else %}
-            <li><a class="dropdown-item csat-nav-txt-wrap" href="{{ url('/') ~ '/' ~ organizationTypeForUrl ~ '/' ~ item.id }}">{{ item.extendedName }}</a>
+            <li><a class="dropdown-item csat-nav-txt-wrap" href="{{ url('/') ~ '/' ~ organizationTypeForUrl ~ '/' ~ item['id'] }}">{{ item['extended_name'] }}</a>
                 {% endif %}
             </li>
         {% endif %}
