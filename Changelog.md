@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-498 - Optimized query for inactive mandates, modified inactive mandates accordion according to the changes
 - CS-461 - Created membership card requests backend list
 
 ## 1.8.2
