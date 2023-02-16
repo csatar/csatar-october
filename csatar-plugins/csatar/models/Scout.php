@@ -37,6 +37,13 @@ class Scout extends OrganizationBase
     public $active_mandates = [];
 
     /**
+     * @var bool skipCacheRefresh
+     * If set to true, the cache will not be refreshed after save
+     * Usefull after bulk import, in such cases cache refresh should be done after all records are imported
+     */
+    public bool $skipCacheRefresh = false;
+
+    /**
      * @var array The columns that should be searchable by ContentPageSearchProvider
      */
     protected static $searchable = ['family_name', 'given_name'];
@@ -290,11 +297,11 @@ class Scout extends OrganizationBase
             }
         }
 
-        if (empty($this->original)) {
+        if (empty($this->original) || $this->skipCacheRefresh) {
             return;
         }
 
-        if (isset($this->original['is_active']) && $this->original['is_active'] != $this->is_active) {
+        if ((isset($this->original['is_active']) && $this->original['is_active'] != $this->is_active) || $this->wasRecentlyCreated || $this->deleted_at != null) {
             StructureTree::updateTeamTree($this->team_id);
         }
 
