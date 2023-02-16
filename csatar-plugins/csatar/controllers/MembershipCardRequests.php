@@ -5,6 +5,7 @@ use BackendMenu;
 use Backend\Classes\Controller;
 use Carbon\Carbon;
 use Csatar\Csatar\Classes\CsvCreator;
+use Csatar\Csatar\Classes\Enums\Status;
 use Csatar\Csatar\Models\MembershipCardRequest;
 use Db;
 use Flash;
@@ -73,12 +74,16 @@ class MembershipCardRequests extends Controller
         return $query->select('csatar_csatar_teams.team_number', 'csatar_csatar_team_reports_scouts.name', 'csatar_csatar_team_reports_scouts.ecset_code')
             ->join('csatar_csatar_team_reports', 'csatar_csatar_team_reports.id', '=', 'csatar_csatar_team_reports_scouts.team_report_id')
             ->join('csatar_csatar_teams', 'csatar_csatar_team_reports.team_id', '=', 'csatar_csatar_teams.id')
+            ->join('csatar_csatar_scouts', 'csatar_csatar_team_reports_scouts.scout_id', '=', 'csatar_csatar_scouts.id')
             ->whereNotNull('csatar_csatar_team_reports.submitted_at')
+            ->whereNull('csatar_csatar_team_reports.deleted_at')
+            ->whereNull('csatar_csatar_scouts.deleted_at')
+            ->where('csatar_csatar_scouts.is_active', Status::ACTIVE)
             ->where('csatar_csatar_team_reports_scouts.legal_relationship_id', $memberLegalRelationshipId)
             ->whereNotIn('csatar_csatar_team_reports_scouts.scout_id', \Db::table('csatar_csatar_membership_cards')->pluck('scout_id'))
             ->orderBy('csatar_csatar_teams.team_number')
             ->orderBy('csatar_csatar_team_reports_scouts.name')
-            ->distinct();
+            ->distinct(['csatar_csatar_team_reports_scouts.ecset_code']);
     }
 
     public function onExportToCsv()
