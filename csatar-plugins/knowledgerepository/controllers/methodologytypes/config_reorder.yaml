@@ -1,0 +1,4 @@
+title: MethodologyTypes
+modelClass: Csatar\KnowledgeRepository\Models\MethodologyType
+toolbar:
+    buttons: reorder_toolbar

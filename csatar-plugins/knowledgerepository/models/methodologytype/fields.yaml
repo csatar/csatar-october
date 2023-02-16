@@ -1,0 +1,9 @@
+fields:
+    name:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.name'
+        span: auto
+        type: text
+    sort_order:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.order'
+        span: auto
+        type: number

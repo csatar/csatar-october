@@ -24,6 +24,7 @@
 - CS-327 - Create dynamic fields
 - CS-397 - Changed accordion to show the active tag lists on the model pages
 - CS-459 - Added team number to the Team reports filter
+- CS-374 - Created MethodologyType model and backend menu
 
 ## 1.8.3
 ### 2023-02-15
