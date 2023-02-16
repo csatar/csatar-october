@@ -4,6 +4,7 @@ use Auth;
 use Carbon\Carbon;
 use Cms\Classes\ComponentBase;
 use Csatar\Csatar\Classes\CsvCreator;
+use Csatar\Csatar\Classes\StructureTree;
 use Csatar\Csatar\Classes\Enums\Gender;
 use Csatar\Csatar\Classes\Enums\Status;
 use Csatar\Csatar\Classes\Mappers\LegalRelationshipMapper;
@@ -323,6 +324,7 @@ class OrganizationUnitFrontend extends ComponentBase
             $scout = $this->convertCsvRowToScout($teamId, $attributes, $rowData);
 
             try {
+                $scout->skipCacheRefresh = true; //important, otherwise cache will be refreshed for each scout
                 if (empty($scout->personal_identification_number)){
                     $log['errors'][] = $rowNumber . ' | ' . Lang::get('csatar.csatar::lang.plugin.component.organizationUnitFrontend.csv.personalIdentificationNumberMissing');
                     continue;
@@ -346,7 +348,7 @@ class OrganizationUnitFrontend extends ComponentBase
         }
 
         $this->page['csvImportLog'] = $log;
-
+        StructureTree::updateTeamTree($teamId);
         return [
             '#csvImportLog' => $this->renderPartial('@csvImportLog', ['log' => $log])
         ];
