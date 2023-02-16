@@ -371,6 +371,15 @@ class Scout extends OrganizationBase
         }
     }
 
+    public function afterDelete() {
+        if ($this->skipCacheRefresh) {
+            return;
+        }
+        if (!empty($this->team_id)) {
+            StructureTree::updateTeamTree($this->team_id);
+        }
+    }
+
     public function initFromForm()
     {
         // set the mandates of the user
