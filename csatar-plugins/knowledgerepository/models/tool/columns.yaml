@@ -1,0 +1,23 @@
+columns:
+    name:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.name'
+        type: text
+        searchable: true
+    note:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.note'
+        type: text
+        searchable: true
+    is_approved:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.isApproved'
+        type: switch
+        searchable: true
+    approver:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.approverCsatarCode'
+        type: text
+        searchable: true
+        select: (SELECT CONCAT(ifnull(`csatar_csatar_scouts`.family_name, ''), ' ', ifnull(`csatar_csatar_scouts`.given_name, '')) as name FROM csatar_csatar_scouts WHERE csatar_csatar_scouts.ecset_code = approver_csatar_code)
+    proposer:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.proposerCsatarCode'
+        type: text
+        searchable: true
+        select: (SELECT CONCAT(ifnull(`csatar_csatar_scouts`.family_name, ''), ' ', ifnull(`csatar_csatar_scouts`.given_name, '')) as name FROM csatar_csatar_scouts WHERE csatar_csatar_scouts.ecset_code = proposer_csatar_code)

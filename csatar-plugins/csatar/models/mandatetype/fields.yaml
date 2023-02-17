@@ -32,3 +32,7 @@ fields:
         span: auto
         type: relation
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+    is_hidden_frontend:
+        label: 'csatar.csatar::lang.plugin.admin.mandateType.isHiddenFrontend'
+        span: auto
+        type: checkbox

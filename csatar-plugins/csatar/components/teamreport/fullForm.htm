@@ -1,64 +1,70 @@
-{% component 'basicForm' %}
+<div id="teamReportButtons">
+    {% component 'basicForm' %}
 
-{% if __SELF__.action == 'modositas' and __SELF__.teamReport.created_at is not null and __SELF__.teamReport.submitted_at is null %}
-    {% partial '@dataRequestButton'
-        permissionValue = 1
-        dataRequest = __SELF__ ~ '::onSubmit'
-        dataRequestData = 'id: ' ~ __SELF__.id
-        dataRequestLoading = '#fs-saving-loader'
-        btnExtraClasses = 'btn-sm btn-primary'
-        btnIconClass = 'csat-check-fill-wh-sm'
-        btnLabel = 'Csapatjelentés beküldése' |_
-    %}
-{% endif %}
+    {% set scoutsWithoutRegistrationForm = __SELF__.scoutsWithoutRegistrationForm %}
 
-{% if __SELF__.action == 'modositas' and __SELF__.teamReport.created_at is not null and __SELF__.teamReport.submitted_at is null %}
-    {% partial '@dataRequestButton'
-        permissionValue = 1
-        dataRequest = __SELF__ ~ '::onRefresh'
-        dataRequestData = 'id: ' ~ __SELF__.id
-        dataRequestLoading = '#fs-saving-loader'
-        dataRequestUpdate = "'" ~ __SELF__ ~ "::fullForm': '#fullForm'"
-        dataRequestConfirm = __SELF__.confirmRefreshMessage
-        btnExtraClasses = 'btn-sm btn-primary'
-        btnIconClass = 'csat-refresh-fill-wh-sm'
-        btnLabel = 'Csapatjelentés frissítése' |_
-    %}
-{% endif %}
+    {#% if __SELF__.action == 'modositas' and __SELF__.teamReport.created_at is not null and __SELF__.teamReport.submitted_at is null and not (scoutsWithoutRegistrationForm|length > 0) %#} {# this is temporary, because the team report can be submitted even if there are scouts without registration form, should be reverted with CS-476 #}
+    {% if __SELF__.action == 'modositas' and __SELF__.teamReport.created_at is not null and __SELF__.teamReport.submitted_at is null %}
+        {% partial '@dataRequestButton'
+            permissionValue = 1
+            dataRequest = __SELF__ ~ '::onSubmit'
+            dataRequestData = 'id: ' ~ __SELF__.id
+            dataRequestLoading = '#fs-saving-loader'
+            btnExtraClasses = 'btn-sm btn-primary'
+            btnIconClass = 'csat-check-fill-wh-sm'
+            btnLabel = 'Csapatjelentés beküldése' |_
+        %}
+    {% endif %}
 
-{% if __SELF__.teamReport.created_at is not null and __SELF__.teamReport.approved_at is null %}
-    {% partial '@dataRequestButton'
-        permissionValue = 1
-        dataRequest = __SELF__ ~ '::onDelete'
-        dataRequestData = 'id: ' ~ __SELF__.id
-        dataRequestLoading = '#fs-saving-loader'
-        dataRequestConfirm = __SELF__.confirmDeleteMessage
-        btnExtraClasses = 'btn-sm btn-danger'
-        btnIconClass = 'bi bi-trash'
-        btnLabel = 'Csapatjelentés törlése' |_
-    %}
-{% endif %}
+    {% if __SELF__.action == 'modositas' and __SELF__.teamReport.created_at is not null and __SELF__.teamReport.submitted_at is null %}
+        {% partial '@dataRequestButton'
+            permissionValue = 1
+            dataRequest = __SELF__ ~ '::onRefresh'
+            dataRequestData = 'id: ' ~ __SELF__.id
+            dataRequestLoading = '#fs-saving-loader'
+            dataRequestUpdate = "'" ~ __SELF__ ~ "::additionalData': '#additionalData', '" ~ __SELF__ ~ "::default': '#teamReportButtons'"
+            dataRequestConfirm = __SELF__.confirmRefreshMessage
+            btnExtraClasses = 'btn-sm btn-primary'
+            btnIconClass = 'csat-refresh-fill-wh-sm'
+            btnLabel = 'Csapatjelentés frissítése' |_
+        %}
+    {% endif %}
 
-{% if __SELF__.permissions['approved_at']['update'] > 0 and __SELF__.action == null and __SELF__.teamReport.submitted_at is not null and __SELF__.teamReport.approved_at is null %}
-    {% partial '@dataRequestButton'
-        permissionValue = __SELF__.permissions['approved_at']['update']
-        dataRequest = __SELF__ ~ '::onApprove'
-        dataRequestData = 'id: ' ~ __SELF__.id ~ ', redirectFromWaitingForApproval: ' ~ __SELF__.redirectFromWaitingForApproval
-        dataRequestLoading = '#fs-saving-loader'
-        btnExtraClasses = 'btn-sm btn-primary'
-        btnIconClass = 'csat-check-fill-wh-sm'
-        btnLabel = 'Csapatjelentés jóváhagyása' |_
-    %}
-{% endif %}
+    {% if __SELF__.teamReport.created_at is not null and __SELF__.teamReport.approved_at is null %}
+        {% partial '@dataRequestButton'
+            permissionValue = 1
+            dataRequest = __SELF__ ~ '::onDelete'
+            dataRequestData = 'id: ' ~ __SELF__.id
+            dataRequestLoading = '#fs-saving-loader'
+            dataRequestConfirm = __SELF__.confirmDeleteMessage
+            btnExtraClasses = 'btn-sm btn-danger'
+            btnIconClass = 'bi bi-trash'
+            btnLabel = 'Csapatjelentés törlése' |_
+        %}
+    {% endif %}
 
-{% if __SELF__.action == 'modositas' %}
-    {% partial '@dataRequestButton'
-        permissionValue = 1
-        dataRequest = __SELF__ ~ '::onDownloadPdf'
-        dataRequestData = 'id: ' ~ __SELF__.id
-        dataRequestLoading = '#fs-saving-loader'
-        btnExtraClasses = 'btn-sm btn-primary'
-        btnIconClass = 'csat-arrowdown-fill-wh-sm'
-        btnLabel = 'Csapatjelentés letöltése' |_
-    %}
-{% endif %}
+    {% if __SELF__.permissions['approved_at']['update'] > 0 and __SELF__.action == null and __SELF__.teamReport.submitted_at is not null and __SELF__.teamReport.approved_at is null %}
+        {% partial '@dataRequestButton'
+            permissionValue = __SELF__.permissions['approved_at']['update']
+            dataRequest = __SELF__ ~ '::onApprove'
+            dataRequestData = 'id: ' ~ __SELF__.id ~ ', redirectFromWaitingForApproval: ' ~ __SELF__.redirectFromWaitingForApproval
+            dataRequestLoading = '#fs-saving-loader'
+            btnExtraClasses = 'btn-sm btn-primary'
+            btnIconClass = 'csat-check-fill-wh-sm'
+            btnLabel = 'Csapatjelentés jóváhagyása' |_
+        %}
+    {% endif %}
+
+    {% if __SELF__.action == 'modositas' %}
+        {% partial '@dataRequestButton'
+            permissionValue = 1
+            dataRequest = __SELF__ ~ '::onDownloadPdf'
+            dataRequestData = 'id: ' ~ __SELF__.id
+            dataRequestLoading = '#fs-saving-loader'
+            btnExtraClasses = 'btn-sm btn-primary'
+            btnIconClass = 'csat-arrowdown-fill-wh-sm'
+            btnLabel = 'Csapatjelentés letöltése' |_
+        %}
+    {% endif %}
+</div>
+

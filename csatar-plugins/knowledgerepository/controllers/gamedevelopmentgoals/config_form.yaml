@@ -1,0 +1,10 @@
+name: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.gameDevelopmentGoal'
+form: $/csatar/knowledgerepository/models/gamedevelopmentgoal/fields.yaml
+modelClass: Csatar\KnowledgeRepository\Models\GameDevelopmentGoal
+defaultRedirect: csatar/knowledgerepository/gamedevelopmentgoals
+create:
+    redirect: 'csatar/knowledgerepository/gamedevelopmentgoals/update/:id'
+    redirectClose: csatar/knowledgerepository/gamedevelopmentgoals
+update:
+    redirect: csatar/knowledgerepository/gamedevelopmentgoals
+    redirectClose: csatar/knowledgerepository/gamedevelopmentgoals

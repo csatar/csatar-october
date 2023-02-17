@@ -1,0 +1,10 @@
+name: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.headCount'
+form: $/csatar/knowledgerepository/models/headcount/fields.yaml
+modelClass: Csatar\KnowledgeRepository\Models\HeadCount
+defaultRedirect: csatar/knowledgerepository/headcounts
+create:
+    redirect: 'csatar/knowledgerepository/headcounts/update/:id'
+    redirectClose: csatar/knowledgerepository/headcounts
+update:
+    redirect: csatar/knowledgerepository/headcounts
+    redirectClose: csatar/knowledgerepository/headcounts
