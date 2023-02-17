@@ -320,7 +320,7 @@ class Scout extends OrganizationBase
         if (
             (isset($this->original['family_name']) && $this->original['family_name'] != $this->family_name)
             || (isset($this->original['given_name']) && $this->original['given_name'] != $this->given_name)
-            || (isset($this->original['ecset_code']) && $this->original['ecset_code'] != $this->given_name)
+            || (isset($this->original['ecset_code']) && $this->original['ecset_code'] != $this->ecset_code)
             || (isset($this->original['legal_relationship_id']) && $this->original['legal_relationship_id'] != $this->legal_relationship_id)
         )
         {

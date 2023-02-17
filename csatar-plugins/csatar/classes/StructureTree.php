@@ -136,7 +136,8 @@ class StructureTree
             'csatar_csatar_scouts.legal_relationship_id',
             'csatar_csatar_scouts.team_id',
             'csatar_csatar_scouts.troop_id',
-            'csatar_csatar_scouts.patrol_id'
+            'csatar_csatar_scouts.patrol_id',
+            'csatar_csatar_scouts.is_active',
         );
     }
 
@@ -310,10 +311,11 @@ class StructureTree
         }
         // get old tree from cache and empty cache
         $structureTree = Cache::pull('structureTree');
-            if (empty($structureTree)) {
-                StructureTree::getStructureTree();
-                return;
-            }
+        if (empty($structureTree)) {
+            StructureTree::getStructureTree();
+            return;
+        }
+
         // update the tree
         $associationId = $refreshedTeam['district']['association_id'];
         $districtId = $refreshedTeam['district']['id'];
