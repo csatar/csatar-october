@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- CS-499 - Optimized pages with forms, added eager load settings to organization base models, optimized organization base models to reduce query numbers
+
 ## 1.9.0
 ### 2023-02-17
 

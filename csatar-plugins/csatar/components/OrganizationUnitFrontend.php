@@ -57,31 +57,11 @@ class OrganizationUnitFrontend extends ComponentBase
     {
         $modelName = "Csatar\Csatar\Models\\" . $this->property('model_name');
         if (is_numeric($this->property('model_id'))) {
-            $this->model = $modelName::where('id', $this->property('model_id'))->with([
-                'mandatesInactive',
-                'mandatesInactive.mandate_type' => function($query) {
-                    return $query->select(
-                        'csatar_csatar_mandate_types.id',
-                        'csatar_csatar_mandate_types.name',
-                    )->withTrashed();
-                },
-                'mandatesInactive.scout' => function($query) {
-                    return $query->select(
-                        'csatar_csatar_scouts.id',
-                        'csatar_csatar_scouts.ecset_code',
-                        'csatar_csatar_scouts.family_name',
-                        'csatar_csatar_scouts.given_name',
-                        'csatar_csatar_scouts.team_id',
-                    );
-                },
-                'mandatesInactive.scout.team'  => function($query) {
-                    return $query->select(
-                        'csatar_csatar_teams.id',
-                        'csatar_csatar_teams.name',
-                        'csatar_csatar_teams.team_number',
-                    );
-                },
-            ])->first(); //5 queries
+            $eagerLoadUseCase = 'inactiveMandates';
+            $eagerLoadUseCase = $eagerLoadUseCase . ($this->property('model_name') == 'Patrol' ? 'Patrol' : '');
+            $eagerLoadUseCase = $eagerLoadUseCase . ($this->property('model_name') == 'Troop' ? 'Troop' : '');
+            $eagerLoadSettings = $modelName::getEagerLoadSettings($eagerLoadUseCase);
+            $this->model = $modelName::where('id', $this->property('model_id'))->with($eagerLoadSettings)->first(); //5 queries
 
             $this->inactiveMandates = $this->model->mandatesInactive->toArray();
 
