@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+## 1.9.0
+### 2023-02-17
+
 - CS-498 - Optimized query for inactive mandates, modified inactive mandates accordion according to the changes
 - CS-384 - Created GameType model, controller, seeder, backend list and form
 - CS-371 - Created Location model, controller, seeder, backend list and form
