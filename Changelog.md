@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-499 - Optimized pages with forms, added eager load settings to organization base models, optimized organization base models to reduce query numbers
 - CS-498 - Optimized query for inactive mandates, modified inactive mandates accordion according to the changes
 - CS-461 - Created membership card requests backend list
 

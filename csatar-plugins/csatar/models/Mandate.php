@@ -55,6 +55,14 @@ class Mandate extends Model
             $mandate_type = $mandate_type_id ? MandateType::find($mandate_type_id) : null;
             $this->belongsTo['mandate_model'] = $mandate_type ? $mandate_type->organization_type_model_name : OrganizationBase::getModelName();
         }
+
+        if (isset($this->mandate_model_type) && $this->mandate_model_type != '\Csatar\Csatar\Models\Troop') {
+            unset($this->belongsTo['mandate_troop']);
+        }
+
+        if (isset($this->mandate_model_type) && $this->mandate_model_type != '\Csatar\Csatar\Models\Patrol') {
+            unset($this->belongsTo['mandate_patrol']);
+        }
     }
 
     /**
@@ -263,6 +271,14 @@ class Mandate extends Model
         'scout' => '\Csatar\Csatar\Models\Scout',
         'mandate_type' => '\Csatar\Csatar\Models\MandateType',
         'mandate_model' => '\Csatar\Csatar\Models\OrganizationBase',
+        'mandate_troop' => [
+            '\Csatar\Csatar\Models\Troop',
+            'key' => 'mandate_model_id',
+        ],
+        'mandate_patrol' => [
+            '\Csatar\Csatar\Models\Patrol',
+            'key' => 'mandate_model_id',
+        ],
     ];
 
     public function getMandateModelAttribute()
@@ -311,11 +327,11 @@ class Mandate extends Model
     public function getMandateTeamAttribute(): string
     {
         if ($this->mandate_model_type == '\Csatar\Csatar\Models\Patrol') {
-            return Patrol::find($this->mandate_model_id)->team->extendedName ?? '';
+            return $this->mandate_patrol->team->extended_name ?? '';
         }
 
         if ($this->mandate_model_type == '\Csatar\Csatar\Models\Troop') {
-            return Troop::find($this->mandate_model_id)->team->extendedName ?? '';
+            return $this->mandate_troop->team->extended_name ?? '';
         }
 
         return '';

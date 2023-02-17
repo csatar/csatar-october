@@ -66,7 +66,7 @@ trait AjaxControllerSimple {
 
     public function createForm($preview = false)
     {
-        $form  = Form::find($this->formId);
+        $form  = $this->form ?? Form::find($this->formId);
         $record = $this->getRecord();
 
         if(!$record) {
@@ -798,31 +798,6 @@ trait AjaxControllerSimple {
         }
     }
 
-    private function getRecord() {
-        if (!empty($this->record)) {
-            return $this->record;
-        }
-        $form       = Form::find($this->formId ?? Input::get('formId'));
-        $modelName  = $form->getModelName();
-        $key        = $this->recordKeyParam ?? Input::get('recordKeyParam');
-        $value      = $this->recordKeyValue ?? Input::get('recordKeyValue');
-
-        $record = null;
-        if (!empty($key) && !empty($value)) {
-            $record = $modelName::where($key, $value)->first();
-        }
-        if (!$record && $value == $this->createRecordKeyword) {
-            $record = new $modelName();
-        }
-
-        if (!$record) {
-            //TODO handle trashed records
-            return null;
-        }
-
-        return $record;
-    }
-
     public function getConfig($model, $config) {
         if ($config[0] != '$') {
             $config = '$/' . str_replace('\\', '/', strtolower($model)) . '/' . $config;
@@ -851,6 +826,7 @@ trait AjaxControllerSimple {
         // render hasMany relations
         foreach($record->hasMany as $relationName => $definition) {
             if ($this->canRead($relationName)
+                && (array_key_exists('renderableOnCreateForm', $definition) || array_key_exists('renderableOnUpdateForm', $definition)) //this is needed to avoid looping though relations that renderable and eager loaded
                 && is_array($definition)
                 && (count($record->{$relationName}) > 0 || $showEmpty)
                 && ((!$record->id
@@ -858,7 +834,9 @@ trait AjaxControllerSimple {
                     && $definition['renderableOnCreateForm'])
                     || ($record->id
                         && array_key_exists('renderableOnUpdateForm', $definition)
-                        && $definition['renderableOnUpdateForm']))) {
+                        && $definition['renderableOnUpdateForm'])
+                )
+            ) {
                 $pivotConfig = $this->getConfig($definition[0], 'columns.yaml');
                 $attributesToDisplay = $pivotConfig->columns;
                 $html .= $this->generatePivotSection($record, $relationName, $definition, $attributesToDisplay);
