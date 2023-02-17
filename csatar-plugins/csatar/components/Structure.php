@@ -1,9 +1,16 @@
 <?php namespace Csatar\Csatar\Components;
 
 use Auth;
+use Cache;
 use Lang;
 use Cms\Classes\ComponentBase;
+use Csatar\Csatar\Classes\StructureTree;
 use Csatar\Csatar\Models\Association;
+use Csatar\Csatar\Models\District;
+use Csatar\Csatar\Models\Team;
+use Csatar\Csatar\Models\Troop;
+use Csatar\Csatar\Models\Patrol;
+use Csatar\Csatar\Models\Scout;
 
 class Structure extends ComponentBase
 {
@@ -59,13 +66,14 @@ class Structure extends ComponentBase
     {
         if (!empty($this->property('level'))) {
             $this->level = $this->property('level');
+            $getterFunctionName = 'get'.$this->property('model_name').'sWithTree';
             $modelName = "Csatar\Csatar\Models\\" . $this->property('model_name');
-            $this->structureArray = $modelName::where('id', $this->property('model_id'))->get();
+            $this->structureArray = (StructureTree::$getterFunctionName())->where('id', $this->property('model_id'));
             $this->showActiveScouts = true;
         } else {
             $this->displayHeader = true;
             $this->level = 1;
-            $this->structureArray = Association::all();
+            $this->structureArray = StructureTree::getAssociationsWithTree();
             $modelName = "Csatar\Csatar\Models\Association";
             $this->showActiveScouts = false;
         }
@@ -76,5 +84,14 @@ class Structure extends ComponentBase
         }
 
         $this->mode = $this->property('mode');
+    }
+
+    public function getAssociationScoutsCount($associationId)
+    {
+        return StructureTree::getAssociationScoutsCount($associationId);
+    }
+
+    public static function getDistrictScoutsCount($districtId) {
+        return StructureTree::getDistrictScoutsCount($districtId);
     }
 }

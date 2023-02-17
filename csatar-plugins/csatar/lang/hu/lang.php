@@ -682,6 +682,7 @@
                     'teamReportRefreshed' => 'A csapatjelentés frissült.',
                     'teamReportDeleted' => 'A csapatjelentés törölve.',
                 ],
+                'confirmRefreshMessage' => 'Biztosan frissíti a csapatjelentést? A frissítés során újra generálódik a taglista, újraszámolódik tagok száma, a korosztályok száma és a befizetentdő összeg.',
             ],
             'teamReports' => [
                 'name' => 'Csapatjelentések',
@@ -722,6 +723,7 @@
                 'csv' => [
                     'fileMissingOrInvalid' => 'A .csv fájl hiányzik vagy érvénytelen.',
                     'teamIdMissing' => 'Hiányzik a csapat azonosítója.',
+                    'personalIdentificationNumberMissing' => 'Hiányzó személyi szám.',
                 ],
             ],
             'twoFactorAuthentication' => [

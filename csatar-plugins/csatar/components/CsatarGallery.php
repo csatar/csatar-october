@@ -24,11 +24,11 @@ class CsatarGallery extends Gallery
     public $permission_to_edit;
     public $permission_to_watch;
 
-    public $associationMandateTypes = ['Elnök', 'Ügyvezető elnök', 'Mozgalmi vezető', 'Iroda'];
-    public $disctrictMandateTypes = ['Körzetvezető'];
-    public $teamMandateTypes = ['Csapatvezető'];
-    public $troopMandateTypes = ['Rajvezető'];
-    public $patrolMandateTypes = ['Őrsvezető'];
+    public $associationMandateTypes = ['Elnök', 'Ügyvezető elnök', 'Mozgalmi vezető', 'Iroda', 'CSATÁR fejlesztő'];
+    public $disctrictMandateTypes = ['Körzetvezető', 'CSATÁR fejlesztő'];
+    public $teamMandateTypes = ['Csapatvezető', 'CSATÁR fejlesztő'];
+    public $troopMandateTypes = ['Rajvezető', 'CSATÁR fejlesztő'];
+    public $patrolMandateTypes = ['Őrsvezető', 'CSATÁR fejlesztő'];
 
     public function defineProperties()
     {

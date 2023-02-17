@@ -211,8 +211,15 @@ class PermissionsMatrix extends Controller
                     $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'hasOne', 'morphTo', 'morphOne',
                                        'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'];
 
-                    foreach ($relationArrays as $relationArray) {
-                        $fields = array_merge($fields, array_keys($model->$relationArray));
+                    foreach ($relationArrays as $relationArrayName) {
+                        $relationArray = $model->$relationArrayName;
+                        // filter out the value if ignoreInPermissionsMatrix is set to true
+                        if (is_array($relationArray)) {
+                            $relationArray = array_filter($relationArray, function ($value) {
+                                return !isset($value['ignoreInPermissionsMatrix']) || $value['ignoreInPermissionsMatrix'] === false;
+                            });
+                        }
+                        $fields = array_merge($fields, array_keys($relationArray));
                     }
 
                     $this->filterFieldsForRealtionKeys($fields);

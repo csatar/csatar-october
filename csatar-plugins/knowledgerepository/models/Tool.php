@@ -41,4 +41,19 @@ class Tool extends Model
         'approver_csatar_code',
         'proposer_csatar_code'
     ];
+
+    public $belongsTo = [
+        'proposer' => [
+            '\Csatar\Csatar\Models\Scout',
+            'key' => 'proposer_csatar_code',
+            'otherKey' => 'ecset_code',
+            'label' => 'csatar.knowledgerepository::lang.plugin.admin.game.uploader',
+        ],
+        'approver' => [
+            '\Csatar\Csatar\Models\Scout',
+            'key' => 'approver_csatar_code',
+            'otherKey' => 'ecset_code',
+            'label' => 'csatar.knowledgerepository::lang.plugin.admin.game.approver',
+        ],
+    ];
 }
