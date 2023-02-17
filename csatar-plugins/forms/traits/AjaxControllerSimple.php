@@ -130,6 +130,178 @@ trait AjaxControllerSimple {
         return $this->renderPartial('@partials/form', $variablesToPass);
     }
 
+    public function renderViewMode($widget)
+    {
+        $mainCardVariablesToPass = [];
+        $sheetCardVariablesToPass = [];
+        $fieldsToPass = [];
+
+        // gather all cards and fields in arrays
+        foreach ($widget->fields as $key => $field) {
+            // if no formBuilder data is set; or if any of the mandatory formBuilder attributes are not set, then continue
+            if (!array_key_exists('formBuilder', $field) || !array_key_exists('type', $field['formBuilder'])) {
+                continue;
+            }
+
+            // gather all cards and fields in arrays
+            if ($field['formBuilder']['type'] == 'card') {
+                if ($field['formBuilder']['position'] == 'main') {
+                    $mainCardVariablesToPass['name'] = $key;
+                    $mainCardVariablesToPass['class'] = $field['formBuilder']['class'];
+                }
+                else if ($field['formBuilder']['position'] == 'sheets') {
+                    $sheetCardVariablesToPass[$key] = [];
+                    $sheetCardVariablesToPass[$key]['name'] = array_key_exists('label', $field) ? Lang::get($field['label']) : null;
+                    if (array_key_exists('class', $field['formBuilder'])) {
+                        $sheetCardVariablesToPass[$key]['class'] = $field['formBuilder']['class'];
+                    }
+                    if (array_key_exists('color', $field['formBuilder'])) {
+                        $sheetCardVariablesToPass[$key]['color'] = $field['formBuilder']['color'];
+                    }
+                    if (array_key_exists('order', $field['formBuilder'])) {
+                        $sheetCardVariablesToPass[$key]['order'] = $field['formBuilder']['order'];
+                    }
+                }
+            }
+            else if ($field['formBuilder']['type'] == 'field') {
+                // if mandatory config is not set, then don't show the field
+                if (!isset($field['formBuilder']['card'])) {
+                    continue;
+                }
+
+                // if no value is set, then don't show the field
+                if (!isset($widget->model->{$key}) || empty(($widget->model->{$key}))) {
+                    continue;
+                }
+
+                // retrieve the value for the field
+                $value = '';
+                if (isset($widget->model->{$key})) {
+                    if (is_object($widget->model->{$key}) && array_key_exists('nameFrom', $field) && isset($widget->model->{$key}->{$field['nameFrom']})) { // relation fields
+                        $value = $widget->model->{$key}->{$field['nameFrom']};
+                    }
+                    else if (is_a($widget->model->{$key}, 'Illuminate\Database\Eloquent\Collection') && count($widget->model->{$key}) > 0 && array_key_exists('nameFrom', $field)) { // belongs to many with no pivot data
+                        $value = '';
+                        foreach ($widget->model->{$key} as $item) {
+                            if (isset($item->{$field['nameFrom']})) {
+                                $value .= $item->{$field['nameFrom']} . ', ';
+                            }
+                        }
+                    }
+                    else if ($field['type'] == 'dropdown' && array_key_exists('options', $field) && is_array($field['options']) && count($field['options']) > 0) { // dropdown fields
+                        $value = Lang::get($field['options'][$widget->model->{$key}]);
+                    }
+                    else if ($field['type'] == 'checkbox') { // bool fields
+                        $value = $widget->model->{$key} == 1 ? Lang::get('csatar.csatar::lang.plugin.admin.general.yes') : Lang::get('csatar.csatar::lang.plugin.admin.general.no');
+                    }
+                    else if ($field['type'] == 'fileupload' && $field['mode'] == 'image') { // images
+                        $value = $widget->model->{$key}->getPath();
+                        $mainCardVariablesToPass['customImage'] = true;
+                    }
+                    else if ($field['type'] == 'custom') { // custom field type, which permits to list title-value pairs in the descriptionList part of the mainCard
+                        $value = $widget->model->{$key};
+                    }
+                    else if (isset($widget->model->attributes[$key]) && !empty($widget->model->attributes[$key])) { // regular fields
+                        $value = $widget->model->attributes[$key];
+                    }
+                    else {
+                        continue;
+                    }
+                }
+
+                // if an array for the card does not exist yet, then create it
+                if (!array_key_exists($field['formBuilder']['card'], $fieldsToPass)) {
+                    $fieldsToPass[$field['formBuilder']['card']] = [];
+                }
+
+                $newField = [];
+                if (isset($field['label'])) {
+                    $newField['label'] = Lang::get($field['label']);
+                }
+                $newField['value'] = $value;
+
+                if (array_key_exists('position', $field['formBuilder'])) {
+                    $newField['position'] = $field['formBuilder']['position'];
+                }
+                if (array_key_exists('order', $field['formBuilder'])) {
+                    $newField['order'] = $field['formBuilder']['order'];
+                }
+                array_push($fieldsToPass[$field['formBuilder']['card']], $newField);
+            }
+        }
+
+        // sort the sheets
+        $this->sortArrayByOrder($sheetCardVariablesToPass);
+
+        // set the appropriate field array for each of the cards
+        foreach ($fieldsToPass as $key => $fields) {
+            if ($key == $mainCardVariablesToPass['name']) {
+                $titleFields = [];
+                $mainCardVariablesToPass['subtitleFields'] = [];
+                $mainCardVariablesToPass['fields'] = [];
+
+                // gather the fields by position
+                foreach ($fields as $field) {
+                    if ($field['position'] == 'image') {
+                        $mainCardVariablesToPass['image'] = $field['value'];
+                    }
+                    else if ($field['position'] == 'title') {
+                        array_push($titleFields, $field);
+                    }
+                    else if ($field['position'] == 'subtitle') {
+                        array_push($mainCardVariablesToPass['subtitleFields'], $field);
+                    }
+                    else if ($field['position'] == 'details') {
+                        array_push($mainCardVariablesToPass['fields'], $field);
+                    }
+                    else if ($field['position'] == 'descriptionList') {
+                        $mainCardVariablesToPass['descriptionList'] = $field['value'];
+                    }
+                }
+
+                // sort the title fields and create the title
+                $this->sortArrayByOrder($titleFields);
+                $mainCardVariablesToPass['title'] = '';
+                foreach ($titleFields as $field) {
+                    $mainCardVariablesToPass['title'] .= $field['value'] . ' ';
+                }
+
+                // sort the subtitle fields
+                $this->sortArrayByOrder($mainCardVariablesToPass['subtitleFields']);
+
+                // sort the fields array
+                $this->sortArrayByOrder($mainCardVariablesToPass['fields']);
+            }
+            else if (isset($sheetCardVariablesToPass[$key])) {
+                $this->sortArrayByOrder($fields);
+                $sheetCardVariablesToPass[$key]['fields'] = $fields;
+            }
+        }
+
+        // hide the empty boxes
+        foreach ($sheetCardVariablesToPass as $key => $card) {
+            if (!isset($card['fields'])) {
+                unset($sheetCardVariablesToPass[$key]);
+            }
+        }
+
+        // render the main card
+        $html = '<div class="row">';
+        $html .= $this->renderPartial('@partials/mainCard', $mainCardVariablesToPass);
+
+        // render the sheets
+        if (count($sheetCardVariablesToPass) > 0) {
+            $html .= '<div class="col"><div class="row">';
+            foreach ($sheetCardVariablesToPass as $sheet) {
+                $html .= $this->renderPartial('@partials/sheetCard', $sheet);
+            }
+            $html .= '</div></div>';
+        }
+
+        $html .= '</div>';
+        return $html;
+    }
+
     private function sortArrayByOrder(&$array)
     {
         foreach ($array as $i => $field) {
