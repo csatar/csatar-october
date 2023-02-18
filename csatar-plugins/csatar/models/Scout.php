@@ -270,7 +270,7 @@ class Scout extends OrganizationBase
 
             // the Date and Location pivot fields are required and the Date cannot be in the future
             $this->validatePivotDateAndLocationFields($this->promises, Lang::get('csatar.csatar::lang.plugin.admin.promise.promise'));
-            $this->validatePivotDateAndLocationFields($this->tests, Lang::get('csatar.csatar::lang.plugin.admin.test.test'));
+            $this->validatePivotDateAndLocationFields(
             $this->validatePivotDateAndLocationFields($this->special_tests, Lang::get('csatar.csatar::lang.plugin.admin.specialTest.specialTest'));
             $this->validatePivotDateAndLocationFields($this->professional_qualifications, Lang::get('csatar.csatar::lang.plugin.admin.professionalQualification.professionalQualification'));
             $this->validatePivotDateAndLocationFields($this->special_qualifications, Lang::get('csatar.csatar::lang.plugin.admin.specialQualification.specialQualification'));
@@ -278,7 +278,7 @@ class Scout extends OrganizationBase
             $this->validatePivotQualificationFields($this->training_qualifications, Lang::get('csatar.csatar::lang.plugin.admin.trainingQualification.trainingQualification'));
 
             // mandates: check that end date is not after the start date
-            foreach ($this->mandates as $field) {
+            foreach (
                 if (isset($field->pivot->start_date) && isset($field->pivot->end_date) && (new \DateTime($field->pivot->end_date) < new \DateTime($field->pivot->start_date))) {
                     throw new \ValidationException(['' => str_replace('%name', $field->name, Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.mandateEndDateBeforeStartDate'))]);
                 }
@@ -293,7 +293,7 @@ class Scout extends OrganizationBase
             Mandate::where('scout_id', $this->id)->update(['end_date' => date('Y-m-d')]);
 
             if (!empty($this->membership_cards)) {
-                MembershipCard::where('scout_id', $this->id)->where('active', Status::ACTIVE)->update(['active' => Status::INACTIVE]);
+                MembershipCard::where(')->update(['active' => Status::INACTIVE]);
             }
         }
 
@@ -331,7 +331,7 @@ class Scout extends OrganizationBase
             }
 
             $teamsActive = $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'];
-            $teamsActive[$this->team->id]['scoutsActive'][$this->id]['family_name'] = $this->family_name;
+            $teamsActive[$this->team->id]['sco_name'] = $this->family_name;
             $teamsActive[$this->team->id]['scoutsActive'][$this->id]['given_name'] = $this->given_name;
             $teamsActive[$this->team->id]['scoutsActive'][$this->id]['full_name'] = $this->full_name;
             $teamsActive[$this->team->id]['scoutsActive'][$this->id]['ecset_code'] = $this->ecset_code;
