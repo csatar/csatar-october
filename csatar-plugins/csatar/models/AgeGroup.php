@@ -41,4 +41,18 @@ class AgeGroup extends Model
         'name',
         'association_id'
     ];
+
+    // function to get the age group name
+    public function getAgeGroupName($id)
+    {
+        $ageGroup = AgeGroup::find($id);
+        return $ageGroup->name;
+    }
+
+    // function to get association id
+    public function getAssociationId($id)
+    {
+        $ageGroup = AgeGroupp::find($id);
+        return $ageGroup->associ_id;
+    }
 }
