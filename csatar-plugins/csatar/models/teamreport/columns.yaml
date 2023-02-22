@@ -15,6 +15,13 @@ columns:
         sortable: false
         valueFrom: name
         relation: team
+    team_number:
+        label: 'csatar.csatar::lang.plugin.admin.team.teamNumber'
+        type: number
+        searchable: true
+        sortable: false
+        relation: team
+        valueFrom: team_number
     year:
         label: 'csatar.csatar::lang.plugin.admin.teamReport.year'
         type: number

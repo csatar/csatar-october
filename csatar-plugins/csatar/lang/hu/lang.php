@@ -544,8 +544,8 @@
                 'startDate' => 'Kezdete',
                 'endDate' => 'Vége',
                 'breadcrumb' => 'Megbízatás típusok',
-                'activeMandateDeleteError' => 'Létezik %name típusú aktív Megbízatás, így ez a Megbízatás típus nem törölhető.',
                 'existingMandateTypeWithSameNameError' => 'Ez a megbízatás típus már létezik az adott szövetségnél.',
+                'activeMandateDeleteError' => 'Létezik %name típusú vagy ezen típus alá tartozó aktív Megbízatás, így ez a Megbízatás típus nem törölhető.',
                 'isHiddenFrontend' => 'Rejtett a frontenden',
             ],
             'mandate' => [
@@ -683,6 +683,7 @@
                     'teamReportRefreshed' => 'A csapatjelentés frissült.',
                     'teamReportDeleted' => 'A csapatjelentés törölve.',
                 ],
+                'confirmRefreshMessage' => 'Biztosan frissíti a csapatjelentést? A frissítés során újra generálódik a taglista, újraszámolódik tagok száma, a korosztályok száma és a befizetentdő összeg.',
             ],
             'teamReports' => [
                 'name' => 'Csapatjelentések',
@@ -723,6 +724,7 @@
                 'csv' => [
                     'fileMissingOrInvalid' => 'A .csv fájl hiányzik vagy érvénytelen.',
                     'teamIdMissing' => 'Hiányzik a csapat azonosítója.',
+                    'personalIdentificationNumberMissing' => 'Hiányzó személyi szám.',
                 ],
             ],
             'twoFactorAuthentication' => [

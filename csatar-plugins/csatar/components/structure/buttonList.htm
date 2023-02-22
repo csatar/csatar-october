@@ -1,0 +1,110 @@
+{% set level = __SELF__.level %}
+{% set permissions = __SELF__.permissions %}
+{% set patrol = this.controller.vars.basicForm.record %}
+{% set troop = this.controller.vars.basicForm.record %}
+
+<div class="d-flex flex-wrap">
+    {% if level == 3 %}
+        <div class="me-2">
+            {% partial "@formWithButton"
+            permissionValue = permissions['teamReports']['read']
+            actionUrl = '/csapatjelentesek/' ~ team_id
+            hiddenInputs = { 'team': team_id }
+            btnExtraClasses = 'btn-sm btn-primary'
+            btnValue = 'Csapatjelentések' |_
+            btnIconClass = 'csat-report-fill-wh-sm'
+            btnLabel = 'Csapatjelentések' |_
+            %}
+        </div>
+        <div class="me-2">
+            {% partial "@formWithButton"
+            permissionValue = permissions['troops']['create']
+            actionUrl = '/raj/letrehozas'
+            hiddenInputs = { 'team': team_id }
+            btnExtraClasses = 'btn-sm btn-primary'
+            btnValue = 'Raj hozzáadása' |_
+            btnIconClass = 'csat-add-fill-wh-sm'
+            btnLabel = 'Raj hozzáadása' |_
+            %}
+        </div>
+        <div class="me-2">
+            {% partial "@formWithButton"
+            permissionValue = permissions['patrols']['create']
+            actionUrl = '/ors/letrehozas'
+            hiddenInputs = { 'team': team_id }
+            btnExtraClasses = 'btn-sm btn-primary'
+            btnValue = 'Őrs hozzáadása' |_
+            btnIconClass = 'csat-add-fill-wh-sm'
+            btnLabel = 'Őrs hozzáadása' |_
+            %}
+        </div>
+        <div class="me-2">
+            {% partial "@formWithButton"
+            permissionValue = permissions['scouts']['create']
+            actionUrl = '/tag/letrehozas'
+            hiddenInputs = { 'team': team_id }
+            btnExtraClasses = 'btn-sm btn-primary'
+            btnValue = 'Tag hozzáadása' |_
+            btnIconClass = 'csat-useradd-fill-wh-sm'
+            btnLabel = 'Tag hozzáadása' |_
+            %}
+        </div>
+        <div class="me-2">
+            {% partial "@simpleATagButton"
+            permissionValue = permissions['scouts']['create']
+            targetUrl = '/tagok'
+            btnExtraClasses = 'btn-sm btn-primary'
+            btnIconClass = 'csat-add-fill-wh-sm'
+            btnLabel = 'Felhasználói fiók létrehozása' |_
+            %}
+        </div>
+    {% endif %}
+
+    {% if level == 4 %}
+        <div class="me-2">
+            {% partial "@formWithButton"
+            permissionValue = permissions['patrols']['create']
+            actionUrl = '/ors/letrehozas'
+            hiddenInputs = { 'team': team_id, 'troop': troop_id }
+            btnExtraClasses = 'btn-sm btn-primary'
+            btnValue = 'Őrs hozzáadása' |_
+            btnIconClass = 'csat-add-fill-wh-sm'
+            btnLabel = 'Őrs hozzáadása' |_
+            %}
+        </div>
+        <div class="me-2">
+            {% partial "@formWithButton"
+            permissionValue = user.scout.getRightsForModel(troop)['scouts']['create']
+            actionUrl = '/tag/letrehozas'
+            hiddenInputs = { 'team': troop.team_id, 'troop': troop.id }
+            btnExtraClasses = 'btn-sm btn-primary'
+            btnValue = 'Tag hozzáadása' |_
+            btnIconClass = 'csat-useradd-fill-wh-sm'
+            btnLabel = 'Tag hozzáadása' |_
+            %}
+        </div>
+        <div class="me-2">
+            {% partial "@simpleATagButton"
+            permissionValue = permissions['scouts']['create']
+            targetUrl = '/tagok'
+            btnExtraClasses = 'btn-sm btn-primary'
+            btnIconClass = 'csat-add-fill-wh-sm'
+            btnLabel = 'Felhasználói fiók létrehozása' |_
+            %}
+        </div>
+    {% endif %}
+
+    {% if level == 5 %}
+        <div class="me-2">
+            {% partial "@formWithButton"
+            permissionValue = user.scout.getRightsForModel(patrol)['scouts']['create']
+            actionUrl = '/tag/letrehozas'
+            hiddenInputs = { 'team': patrol.team_id, 'patrol': patrol.id,'troop': patrol.troop_id }
+            btnExtraClasses = 'btn-sm btn-primary'
+            btnValue = 'Tag hozzáadása' |_
+            btnIconClass = 'csat-useradd-fill-wh-sm'
+            btnLabel = 'Tag hozzáadása' |_
+            %}
+        </div>
+    {% endif %}
+</div>

@@ -4,9 +4,12 @@ use Auth;
 use Carbon\Carbon;
 use Cms\Classes\ComponentBase;
 use Csatar\Csatar\Classes\CsvCreator;
+use Csatar\Csatar\Classes\StructureTree;
 use Csatar\Csatar\Classes\Enums\Gender;
+use Csatar\Csatar\Classes\Enums\Status;
 use Csatar\Csatar\Classes\Mappers\LegalRelationshipMapper;
 use Csatar\Csatar\Classes\Mappers\ReligionMapper;
+use Csatar\Csatar\Classes\Mappers\TShirtSizeMapper;
 use Csatar\Csatar\Models\GalleryModelPivot;
 use Csatar\Csatar\Models\Team;
 use Csatar\Csatar\Models\Scout;
@@ -21,6 +24,7 @@ class OrganizationUnitFrontend extends ComponentBase
     public $content_page;
     public $permissions;
     public $gallery_id;
+    public $inactiveMandates;
     public $inactiveMandatesColumns;
 
     public function componentDetails()
@@ -53,7 +57,34 @@ class OrganizationUnitFrontend extends ComponentBase
     {
         $modelName = "Csatar\Csatar\Models\\" . $this->property('model_name');
         if (is_numeric($this->property('model_id'))) {
-            $this->model = $modelName::find($this->property('model_id'));
+            $this->model = $modelName::where('id', $this->property('model_id'))->with([
+                'mandatesInactive',
+                'mandatesInactive.mandate_type' => function($query) {
+                    return $query->select(
+                        'csatar_csatar_mandate_types.id',
+                        'csatar_csatar_mandate_types.name',
+                    )->withTrashed();
+                },
+                'mandatesInactive.scout' => function($query) {
+                    return $query->select(
+                        'csatar_csatar_scouts.id',
+                        'csatar_csatar_scouts.ecset_code',
+                        'csatar_csatar_scouts.family_name',
+                        'csatar_csatar_scouts.given_name',
+                        'csatar_csatar_scouts.team_id',
+                    );
+                },
+                'mandatesInactive.scout.team'  => function($query) {
+                    return $query->select(
+                        'csatar_csatar_teams.id',
+                        'csatar_csatar_teams.name',
+                        'csatar_csatar_teams.team_number',
+                    );
+                },
+            ])->first(); //5 queries
+
+            $this->inactiveMandates = $this->model->mandatesInactive->toArray();
+
             if(isset(Auth::user()->scout)) {
                 $this->permissions = Auth::user()->scout->getRightsForModel($this->model);
             }
@@ -107,12 +138,9 @@ class OrganizationUnitFrontend extends ComponentBase
             'mandate_model_name' => [
                 'label' => Lang::get('csatar.csatar::lang.plugin.admin.mandateType.organizationTypeModelName'),
                 ],
-            'mandate_team' => [
-                'label' => Lang::get('csatar.csatar::lang.plugin.admin.team.team'),
-                ],
             'scout' => [
                 'label' => Lang::get('csatar.csatar::lang.plugin.admin.mandateType.scout'),
-                'nameFrom' => 'name',
+                'nameFrom' => 'full_name',
                 'link' => '/tag/',
                 'linkParam' => 'ecset_code',
                 ],
@@ -173,6 +201,7 @@ class OrganizationUnitFrontend extends ComponentBase
             'gender',
             'legal_relationship_id',
             'religion_id',
+            'tshirt_size_id',
             'nationality',
             'birthdate',
             'nameday',
@@ -201,11 +230,15 @@ class OrganizationUnitFrontend extends ComponentBase
             'university',
             'occupation',
             'workplace',
+            'foreign_language_knowledge',
             'comment',
+            'is_active',
         ];
+
         $attributesWithLabels = array_intersect_key($attributesWithLabels, array_flip($attributes));
         $legalRelationshipsMap = (new LegalRelationshipMapper)->idsToNames;
         $religionsMap = (new ReligionMapper)->idsToNames;
+        $tShirtSizesMap = (new TShirtSizeMapper)->idsToNames;
 
         $data = [];
         foreach ($attributesWithLabels as $attribute => $label) {
@@ -217,15 +250,19 @@ class OrganizationUnitFrontend extends ComponentBase
             $dataRow = [];
             foreach (array_keys($attributesWithLabels) as $attribute) {
                 if ($attribute == 'gender') {
-                    $dataRow[] = Gender::getOptionsWithLabels()[$record->{$attribute}];
+                    $dataRow[] = Gender::getOptionsWithLabels()[$record->{$attribute}] ?? '';
                     continue;
                 }
                 if ($attribute == 'legal_relationship_id') {
-                    $dataRow[] = $legalRelationshipsMap[$record->{$attribute}];
+                    $dataRow[] = $legalRelationshipsMap[$record->{$attribute}] ?? '';
                     continue;
                 }
                 if ($attribute == 'religion_id') {
-                    $dataRow[] = $religionsMap[$record->{$attribute}];
+                    $dataRow[] = $religionsMap[$record->{$attribute}] ?? '';
+                    continue;
+                }
+                if ($attribute == 'tshirt_size_id') {
+                    $dataRow[] = $tShirtSizesMap[$record->{$attribute}] ?? '';
                     continue;
                 }
                 $dataRow[] = strval($record->{$attribute});
@@ -287,7 +324,18 @@ class OrganizationUnitFrontend extends ComponentBase
             $scout = $this->convertCsvRowToScout($teamId, $attributes, $rowData);
 
             try {
-                $scout->save();
+                $scout->skipCacheRefresh = true; //important, otherwise cache will be refreshed for each scout
+                if (empty($scout->personal_identification_number)){
+                    $log['errors'][] = $rowNumber . ' | ' . Lang::get('csatar.csatar::lang.plugin.component.organizationUnitFrontend.csv.personalIdentificationNumberMissing');
+                    continue;
+                }
+                if ($scout->is_active != Status::ACTIVE) {
+                    $scout->is_active = empty($scout->is_active) ? Status::INACTIVE : $scout->is_active;
+                    $scout->ignoreValidation = true;
+                    $scout->forceSave();
+                } else {
+                    $scout->save();
+                }
                 if ($scout->wasRecentlyCreated) {
                     $log['created'][] = $rowNumber . ' - ' . $scout->ecset_code;
                 } else {
@@ -300,7 +348,7 @@ class OrganizationUnitFrontend extends ComponentBase
         }
 
         $this->page['csvImportLog'] = $log;
-
+        StructureTree::updateTeamTree($teamId);
         return [
             '#csvImportLog' => $this->renderPartial('@csvImportLog', ['log' => $log])
         ];
@@ -310,11 +358,14 @@ class OrganizationUnitFrontend extends ComponentBase
     {
         $legalRelationshipsMap = (new LegalRelationshipMapper)->namesToIds;
         $religionsMap = (new ReligionMapper)->namesToIds;
+        $tShirtSizesMap = (new TShirtSizeMapper)->namesToIds;
 
         $personalIdentificationNumber = $rowData[array_search('personal_identification_number', $attributes)] ?? null;
         $ecsetCode = $rowData[array_search('ecset_code', $attributes)];
 
-        $data = [];
+        $data = [
+            'team_id' => $teamId,
+        ];
         foreach ($rowData as $key => $value) {
             if ($attributes[$key] == 'gender') {
                 $data[$attributes[$key]] = array_flip(Gender::getOptionsWithLabels())[$value] ?? null;
@@ -328,31 +379,26 @@ class OrganizationUnitFrontend extends ComponentBase
                 $data[$attributes[$key]] = $religionsMap[$value] ?? null;
                 continue;
             }
+            if ($attributes[$key] == 'tshirt_size_id') {
+                $data[$attributes[$key]] = $tShirtSizesMap[$value] ?? null;
+                continue;
+            }
             $data[$attributes[$key]] = $value;
         }
 
-        $firstOrNewConditions = [
-            'team_id' => $teamId,
-        ];
-
         if (!empty($ecsetCode)) {
-            $firstOrNewConditions['ecset_code'] = $ecsetCode;
+            $scout = Scout::where('team_id', $teamId)->where('ecset_code', $ecsetCode)->first();
         }
-
-        if (!empty($personalIdentificationNumber)) {
-            $firstOrNewConditions['personal_identification_number'] = $personalIdentificationNumber;
-            unset($data['personal_identification_number']);
-        }
-
-        if (empty($ecsetCode) && empty($personalIdentificationNumber)) {
-            $scout = new Scout();
-        } else {
-            $scout = Scout::firstOrNew($firstOrNewConditions);
-            unset($data['team_id']);
+        if (empty($scout) && !empty($personalIdentificationNumber)) {
             unset($data['ecset_code']);
+            $scout = Scout::where('team_id', $teamId)->where('personal_identification_number', $personalIdentificationNumber)->first();
+        }
+        if (empty($scout)) {
+            $scout = new Scout();
         }
 
         $scout->fill($data);
+        $scout->accepted_at = null;
 
         return $scout;
     }

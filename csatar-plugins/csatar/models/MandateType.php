@@ -23,7 +23,7 @@ class MandateType extends Model
 {
     use \October\Rain\Database\Traits\Validation;
 
-    use \October\Rain\Database\Traits\NestedTree;
+    use \October\Rain\Database\Traits\SimpleTree;
 
     use \October\Rain\Database\Traits\SoftDelete;
 
@@ -115,10 +115,13 @@ class MandateType extends Model
         }
     }
 
-    function beforeDelete()
+    public function canDelete()
     {
+        $selfAndChildrenIds = $this->getAllChildren()->lists('id');
+        $selfAndChildrenIds[] = $this->id;
+
         $now = new DateTime();
-        $mandates = Mandate::where('mandate_type_id', $this->id)->get();
+        $mandates = Mandate::whereIn('mandate_type_id', $selfAndChildrenIds)->get();
 
         foreach ($mandates as $mandate) {
             if (new DateTime($mandate->start_date) < $now && (new DateTime($mandate->end_date) > $now || $mandate->end_date == null)) {
@@ -128,6 +131,11 @@ class MandateType extends Model
             }
         }
 
+        return true;
+    }
+
+    function beforeDelete()
+    {
         MandatePermission::where('mandate_type_id', $this->id)->delete();
     }
 

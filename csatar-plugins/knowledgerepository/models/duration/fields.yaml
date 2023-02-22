@@ -1,7 +1,7 @@
 fields:
     name:
         label: 'csatar.knowledgerepository::lang.plugin.admin.general.name'
-        span: auto
+        span: left
         readOnly: true
         dependsOn:
             - min
@@ -9,11 +9,11 @@ fields:
         type: text
     min:
         label: Min
-        span: auto
+        span: left
         type: number
         required: true
     max:
         label: Max
-        span: auto
+        span: left
         type: number
         required: true

@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 1.9.0
+### 2023-02-17
+
+- CS-498 - Optimized query for inactive mandates, modified inactive mandates accordion according to the changes
 - CS-384 - Created GameType model, controller, seeder, backend list and form
 - CS-371 - Created Location model, controller, seeder, backend list and form
 - CS-369 - Created Duration model, controller, seeder, backend list and form
@@ -21,8 +25,27 @@
 - CS-462 - Added warning to team report if any scout doesn't have registration form uploaded
 - CS-436 - Added option to hide mandate types on frontend
 - CS-466 - Created migrations for "Knowledge repository" models
-- CS-461 - Created membership card requests backend list
 - CS-327 - Create dynamic fields
+- CS-397 - Changed accordion to show the active tag lists on the model pages
+- CS-459 - Added team number to the Team reports filter
+
+## 1.8.3
+### 2023-02-15
+
+- CS-461 - Created membership card requests backend list
+
+## 1.8.2
+### 2023-02-15
+
+- CS-478 Refactored structure component used for the accordion and menu
+- CS-478 Optimized the query for structure component
+- CS-478 Cached the query result used by the structure component
+
+## 1.8.1
+### 2023-02-08
+
+- CS-460 - Added frontend scout csv import-export
+- CS-397 - Changed accordion to show the active tag lists on the model pages
 
 ## 1.8.0
 ### 2023-02-06
