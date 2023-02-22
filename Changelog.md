@@ -20,6 +20,7 @@
 - CS-370 - Create Knowledge Repository and Knowledge Repository Parameters menus on backend
 - CS-451 - Membership card cannot be activated if the assigned scout is inactive
 - CS-460 - Added frontend scout csv import-export
+- CS-452 - Mandate Types must have different names
 - CS-460 - Fixed getBirthDateFromCNP method
 - CS-460 - Fixed typo in getOptionsWithLabels method name
 - CS-462 - Added warning to team report if any scout doesn't have registration form uploaded
