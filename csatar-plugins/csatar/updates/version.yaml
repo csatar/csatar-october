@@ -220,11 +220,17 @@
     - 'Updated table csatar_csatar_scouts'
     - builder_table_update_csatar_csatar_scouts_4.php
 1.0.77:
+    - 'Updated table csatar_csatar_scouts, changed is_active default value to 0'
+    - builder_table_update_csatar_csatar_scouts_5.php
+1.0.78:
     - 'Created table csatar_csatar_dynamic_fields'
     - builder_table_create_csatar_csatar_dynamic_fields.php
-1.0.78:
+1.0.79:
     - 'Updated table csatar_csatar_team_reports'
     - builder_table_update_csatar_csatar_team_reports.php
-1.0.79:
+1.0.80:
     - 'Updated table csatar_csatar_mandate_types, added is_hidden_frontend column'
     - builder_table_update_csatar_csatar_mandate_types.php
+1.0.81:
+    - 'Update table pollozen_simplegallery_galleries'
+    - migration_1077.php

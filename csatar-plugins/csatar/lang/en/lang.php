@@ -544,7 +544,7 @@
                 'startDate' => 'Start date',
                 'endDate' => 'End date',
                 'breadcrumb' => 'Mandate types',
-                'activeMandateDeleteError' => 'There exist active Mandates of %name type, thus this Mandate type cannot be deleted.',
+                'activeMandateDeleteError' => 'There exist active Mandates of %name or it\'s child types, thus this Mandate type cannot be deleted.',
                 'isHiddenFrontend' => 'Hidden on frontend',
             ],
             'mandate' => [
@@ -683,6 +683,7 @@
                     'teamReportRefreshed' => 'The team report was refreshed.',
                     'teamReportDeleted' => 'The team report was deleted.',
                 ],
+                'confirmRefreshMessage' => 'Are you sure you want to refresh the report? During the refresh the member list will be regenerated, the number of member, the agea groups count and the fee will be recalculated.',
             ],
             'teamReports' => [
                 'name' => 'Team Reports',
@@ -723,6 +724,7 @@
                 'csv' => [
                     'fileMissingOrInvalid' => 'The uploaded file is missing or invalid.',
                     'teamIdMissing' => 'Team Id is missing, please try again.',
+                    'personalIdentificationNumberMissing' => 'Personal Identification Number is missing.',
                 ],
             ],
             'twoFactorAuthentication' => [

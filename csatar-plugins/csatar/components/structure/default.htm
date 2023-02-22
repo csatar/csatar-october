@@ -2,8 +2,14 @@
 {% set starter_level = __SELF__.level %}
 {% set displayHeader = __SELF__.displayHeader %}
 {% set mode = __SELF__.mode %}
+{% set permissions = __SELF__.permissions %}
+{% set showActiveScouts = __SELF__.showActiveScouts %}
 
 {% if mode == 'accordion' %}
+    {% if starter_level > 2%}
+        {% partial __SELF__ ~ '::buttonList' level=starter_level permissions=permissions %}
+    {% endif %}
+
     <div class="row">
         <div class="col-lg-2 col-md-2">
         </div>
@@ -12,7 +18,13 @@
         {% if displayHeader %}
             <h2>{{ 'Szövetségek' | _ }}</h2>
         {% endif %}
-        {% partial __SELF__ ~ '::accordionItems' array=structureArray level=starter_level headingId='flush-heading-' collapseId='flush-collapse-' %}
+        {% partial __SELF__ ~ '::accordionItems'
+            array=structureArray
+            level=starter_level
+            headingId='flush-heading-'
+            collapseId='flush-collapse-'
+            showActiveScouts=showActiveScouts
+        %}
         </div>
 
         <div class="col-lg-2 col-md-2">

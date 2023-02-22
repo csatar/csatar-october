@@ -23,14 +23,20 @@
     </table>
 </div>
 {% endif %}
-<p>{{ 'Tagok száma: ' ~ (__SELF__.scouts|length) | _ }}</p>
+
+<p>{{ 'Összesen'| _ ~ ': ' }} {{ __SELF__.scouts|length }} {{ 'fő'| _ }}</p>
+<ul>
+{% for legalRelationship in __SELF__.legalRelationshipsInAssociation %}
+    <li class="p-light">{{ legalRelationship.name }}: {{ __SELF__.scouts|filter(scout => scout.legal_relationship_id == legalRelationship.id)|length }} {{ 'fő'| _ }}</li>
+{% endfor %}
+</ul>
 <p>{{ 'Csapatfenntartói díj: ' ~ __SELF__.teamFee ~ ' ' ~ __SELF__.currency | _ }}</p>
 <p>{{ 'Befizetendő összeg: ' ~ __SELF__.totalAmount ~ ' ' ~ __SELF__.currency | _ }}</p>
 <p class="p-bold">{{ 'Csapatjelentés státusza: ' | _ }}{{ __SELF__.status }}</p>
 
 {% set scoutsWithoutRegistrationForm = __SELF__.scoutsWithoutRegistrationForm %}
 {% if scoutsWithoutRegistrationForm %}
-<div class="alert alert-danger">
+<div class="alert alert-danger rounded">
     <p>{{ 'Az alábbi tagoknak nincs feltöltött bejelentkezési és nyilvántartási lapjuk'|_ }}:</p>
     <ul>
         {% for scout in scoutsWithoutRegistrationForm %}

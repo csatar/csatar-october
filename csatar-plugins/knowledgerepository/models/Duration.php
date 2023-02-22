@@ -50,13 +50,19 @@ class Duration extends Model
         if ($this->max == null) {
             $this->max = 0;
         }
+
+        $this->name = $this->generateNameFromMinMax($this->min, $this->max);
     }
 
     public function filterFields($fields, $context = null) {
         // fill name based on min and max
         if (isset($fields->min) && isset($fields->max)) {
-            $fields->name->value = $fields->min->value . '-' . $fields->max->value . ' ' . Lang::get('csatar.knowledgerepository::lang.plugin.admin.general.minute');
+            $fields->name->value = $this->generateNameFromMinMax($fields->min->value, $fields->max->value);
         }
 
+    }
+
+    public function generateNameFromMinMax($min, $max) {
+        return $min . '-' . $max . ' ' . Lang::get('csatar.knowledgerepository::lang.plugin.admin.general.minute');
     }
 }
