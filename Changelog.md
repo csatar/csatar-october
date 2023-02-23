@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- CS-411 - Fixed the header on the team page, so neither the image, nor the header will overflow the screen
+
 ## 1.9.0
 ### 2023-02-17
 
