@@ -1,6 +1,6 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
-        <li><a href="<?= Backend::url('csatar/knowledgerepository/methodologies') ?>">Methodologies</a></li>
+        <li><a href="<?= Backend::url('csatar/knowledgerepository/methodologies') ?>"><?= e(trans('csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepository.methodologies')) ?></a></li>
         <li><?= e($this->pageTitle) ?></li>
     </ul>
 <?php Block::endPut() ?>

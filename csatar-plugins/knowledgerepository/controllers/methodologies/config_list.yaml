@@ -1,6 +1,6 @@
 list: $/csatar/knowledgerepository/models/methodology/columns.yaml
 modelClass: Csatar\KnowledgeRepository\Models\Methodology
-title: Methodologies
+title: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.methodologies'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: true

@@ -1,4 +1,4 @@
-title: Methodologies
+title: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.methodologies'
 modelClass: Csatar\KnowledgeRepository\Models\Methodology
 toolbar:
     buttons: reorder_toolbar
