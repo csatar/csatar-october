@@ -30,6 +30,8 @@
                     'gameType' => 'Játék típus',
                     'methodologyType' => 'Módszertan típus',
                     'methodologyTypes' => 'Módszertan típusok',
+                    'methodologyName' => 'Módszer neve',
+                    'ageGroup' => 'Korosztály',
                 ],
             ],
             'general' => [
@@ -41,6 +43,11 @@
                 'proposerCsatarCode' => 'Felterjesztő',
                 'isApproved' => 'Jóváhagyva',
                 'minute' => 'perc',
+                'link' => 'Link',
+                'Attachment' => 'Csatolmány',
+                'sortOrder' => 'Sorszám',
+                'version' => 'Verzió',
+                'created_at' => 'Feltöltés Dátuma'
             ],
         ],
     ],

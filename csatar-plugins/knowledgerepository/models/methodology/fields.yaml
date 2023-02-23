@@ -1,0 +1,90 @@
+fields:
+    name:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.methodologyName'
+        span: auto
+        type: text
+    sort_order:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.sortOrder'
+        span: auto
+        type: number
+    link:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.link'
+        span: auto
+        type: text
+    timeframe:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.duration'
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+    methodologytype:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.methodologyType'
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+    attachment:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.Attachment'
+        mode: file
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        maxFiles: '5'
+        span: auto
+        type: fileupload
+    description:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.description'
+        size: large
+        span: full
+        type: richeditor
+    tools:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.tools'
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+    agegroups:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.ageGroup'
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+    locations:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.locations'
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+    headcounts:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.headCounts'
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+    uploaderscout:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.proposerCsatarCode'
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+    approverscout:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.approverCsatarCode'
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+    approved_at:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.isApproved'
+        mode: datetime
+        span: auto
+        type: datepicker
+    version:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.version'
+        mode: datetime
+        span: auto
+        type: datepicker
+    note:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.note'
+        span: auto
+        type: text

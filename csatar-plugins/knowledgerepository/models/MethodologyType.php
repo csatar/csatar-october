@@ -37,6 +37,10 @@ class MethodologyType extends Model
         'sort_order',
     ];
 
+    public $belongsToMany = [
+        'methodologies' => '\Csatar\Csatar\Models\Methodology'
+    ];
+
     public function beforeSave()
     {
         if (empty($this->sort_order))
