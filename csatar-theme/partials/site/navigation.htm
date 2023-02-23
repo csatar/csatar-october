@@ -3,7 +3,7 @@
         <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasWithBackdrop" aria-controls="offcanvasWithBackdrop">
         <span class="navbar-toggler-icon"></span>
         </button>
-        
+
         <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasWithBackdrop" aria-labelledby="offcanvasWithBackdropLabel">
             <div class="offcanvas-header">
                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -43,11 +43,11 @@
                                 <li class="nav-item">
                                     <a class="dropdown-item" href="/balesetek">{{ 'Adatok' | _ }}</a>
                                 </li>
-                                {% endif %} 
+                                {% endif %}
                             </ul>
                         </li>
                     {% endif %}
-                    
+
                     {% if user %}
                         <li class="nav-item dropdown">
                             <a class="nav dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">{{ 'Csapatjelentések' | _ }}</a>
@@ -61,6 +61,14 @@
                             </ul>
                         </li>
                     {% endif %}
+                    <li class="nav-item dropdown">
+                        <a class="nav dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">{{ 'Tudástár' | _ }}</a>
+                        <ul class="dropdown-menu bg-primary">
+                            <li class="nav-item">
+                                <a class="dropdown-item" href="/tudastar/jatekok">{{ 'Játékok' | _ }}</a>
+                            </li>
+                        </ul>
+                    </li>
                     <li class="nav-item">
                         <a class="nav" href="/tamogatok">{{ 'Támogatók' | _ }}</a>
                     </li>

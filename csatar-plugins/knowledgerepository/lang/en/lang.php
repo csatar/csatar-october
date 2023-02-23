@@ -54,5 +54,11 @@
                 'ageGroupsComment' => 'Age groups can be selected only after association is selected.',
             ],
         ],
+        'components' => [
+            'gameForm' => [
+                'name' => 'Game Form',
+                'description' => 'Game Form component',
+            ],
+        ],
     ],
 ];

@@ -15,6 +15,28 @@ pageNumber = "{{ :page }}"
 sortColumn = "name"
 sortDirection = "asc"
 ==
+<?php
+use Csatar\KnowledgeRepository\Models\Game;
+
+public function onStart(){
+    $user = Auth::user();
+    if (!empty($user->scout)) {
+        $this['association_id'] = $user->scout->getAssociationId();
+        $this['game'] = new Game();
+        $this['game']->association_id = $this['association_id'];
+    }
+    
+}
+?>
+==
 <div class="container">
+    {% if user.scout.getRightsForModel(game)['MODEL_GENERAL']['create'] > 0 %}
+        <form action="/tudastar/jatek/letrehozas" method="post">
+            <input type="hidden" name="association" value="{{ association_id }}">
+            <input type="hidden" name="uploader" value="{{ user.scout.ecset_code }}">
+            <button type="submit" class="btn btn-sm rounded btn-primary" value="{{ 'Játék hozzáadása' | _ }}"><i class="csat-add-fill-wh-sm"></i> {{ 'Játék hozzáadása' | _ }}</button>
+        </form>
+    {% endif %}
+
     {% component 'builderList' %}
 </div>

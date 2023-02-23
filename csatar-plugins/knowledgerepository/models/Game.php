@@ -24,22 +24,27 @@ class Game extends PermissionBasedAccess
     public $rules = [
     ];
 
+    protected $dates = [
+        'created_at',
+        'updated_at',
+        'approved_at',
+    ];
+
     public $fillable = [
+        'association_id',
         'name',
         'note',
         'other_tools',
         'link',
         'description',
-        'created_at',
-        'updated_at',
-        'approved_at',
+        'uploader_csatar_code',
+        'approver_csatar_code',
     ];
 
     public $nullable = [
         'description',
         'uploader_csatar_code',
         'approver_csatar_code',
-        'approved_at',
         'note',
         'other_tools',
         'link',
@@ -54,11 +59,12 @@ class Game extends PermissionBasedAccess
             '\Csatar\Csatar\Models\Scout',
             'key' => 'uploader_csatar_code',
             'otherKey' => 'ecset_code',
+            'keyType' => 'string',
             'label' => 'csatar.knowledgerepository::lang.plugin.admin.game.uploader',
         ],
         'approver' => [
             '\Csatar\Csatar\Models\Scout',
-            'key' => 'uploader_csatar_code',
+            'key' => 'approver_csatar_code',
             'otherKey' => 'ecset_code',
             'label' => 'csatar.knowledgerepository::lang.plugin.admin.game.approver',
         ],

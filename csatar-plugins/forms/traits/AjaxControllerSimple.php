@@ -706,7 +706,12 @@ trait AjaxControllerSimple {
             }
 
             $key = isset($definition['key']) ? $definition['key'] : $name . '_id';
-            $data[$key] = (int) $data[$name];
+            if (isset($definition['keyType'])) {
+                $data[$key] = $data[$name];
+                settype($data[$key], $definition['keyType']);
+            } else {
+                $data[$key] = (int) $data[$name];
+            }
 //            unset($data[$name]);
         }
 
