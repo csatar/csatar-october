@@ -14,6 +14,7 @@ use Lang;
 use Model;
 use October\Rain\Database\Collection;
 use Session;
+use ValidationException;
 
 /**
  * Model
@@ -93,6 +94,26 @@ class MandateType extends Model
             'delete' => true,
         ]
     ];
+    
+    /**
+     * Add custom validation
+     */
+    public function beforeValidate()
+    {
+        // if we don't have all the data for this validation, then return. The 'required' validation rules will be triggered
+        if (!isset($this->name) || !isset($this->association_id)) {
+            return;
+        }
+
+        // check that no other mandate type is already existing for this organization with the same name
+        $existingMandateType = self::where('association_id', $this->association_id)
+            ->where('name', $this->name)
+            ->first();
+
+        if (!empty($existingMandateType)) {
+            throw new ValidationException(['name' => Lang::get('csatar.csatar::lang.plugin.admin.mandateType.existingMandateTypeWithSameNameError')]);
+        }
+    }
 
     public function canDelete()
     {

@@ -1845,6 +1845,11 @@ a.login:link, a.login:visited, a.login:active {
     margin-bottom: 100px;
 }
 
+[aria-labelledby="about-us-tab"] img {
+    max-width: 100%;
+    height: auto;
+}
+
 /* Removing form, input, btn, etc. highlighting */
 
 input:focus,
