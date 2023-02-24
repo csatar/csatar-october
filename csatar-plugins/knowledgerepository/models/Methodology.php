@@ -40,13 +40,13 @@ class Methodology extends Model
         'uploaderscout' => [
             '\Csatar\Csatar\Models\Scout',
             'key' => 'uploader_csatar_code',
-            'other_key' => 'ecset_code',
+            'otherKey' => 'ecset_code',
             'label' => 'csatar.knowledgerepository::lang.plugin.admin.general.proposerCsatarCode'
         ],
         'approverscout' => [
             '\Csatar\Csatar\Models\Scout',
             'key' => 'approver_csatar_code',
-            'other_key' => 'ecset_code',
+            'otherKey' => 'ecset_code',
             'label' => 'csatar.knowledgerepository::lang.plugin.admin.general.approverCsatarCode'
         ]
     ];
@@ -82,23 +82,7 @@ class Methodology extends Model
         'attachment' => 'System\Models\File'
     ];
 
-    public function beforeCreate()
-    {
-        $uploaderScout = Scout::find($this->uploader_csatar_code);
-        $approverScout = Scout::find($this->approver_csatar_code);
 
-        $this->uploader_csatar_code = $uploaderScout->ecset_code;
-        $this->approver_csatar_code = $approverScout->ecset_code;
-    }
-
-    public function beforeSave()
-    {
-        $uploaderScout = Scout::find($this->uploader_csatar_code);
-        $approverScout = Scout::find($this->approver_csatar_code);
-
-        $this->uploader_csatar_code = $uploaderScout->ecset_code;
-        $this->approver_csatar_code = $approverScout->ecset_code;
-    }
 
 
 }
