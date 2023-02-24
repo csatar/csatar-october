@@ -7,7 +7,7 @@ modelClass = "Csatar\KnowledgeRepository\Models\Game"
 scope = "scopeApproved"
 scopeValue = "{{ :scope }}"
 displayColumn = "name"
-noRecordsMessage = "No records found"
+noRecordsMessage = "backend::lang.list.no_records"
 detailsPage = "tudastar/jatek"
 detailsKeyColumn = "id"
 detailsUrlParameter = "id"
@@ -25,7 +25,7 @@ public function onStart(){
         $this['game'] = new Game();
         $this['game']->association_id = $this['association_id'];
     }
-    
+
 }
 ?>
 ==

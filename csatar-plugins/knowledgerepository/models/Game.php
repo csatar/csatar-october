@@ -119,7 +119,7 @@ class Game extends PermissionBasedAccess
         'attachements' => ['System\Models\File'],
     ];
 
-    public static function filterAgeGroupByAssociation($query, $related, $parent)
+    public static function filterAgeGroupByAssociation($query, $related)
     {
         if (!isset($related->association_id)) {
             return $query->where('id', 0);

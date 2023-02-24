@@ -191,12 +191,10 @@ class PermissionBasedAccess extends Model
         $result = [];
         try {
             $pluginCodes = ['Csatar.Csatar', 'Csatar.KnowledgeRepository'];
-            $result = [];
 
             foreach ($pluginCodes as $pluginCode) {
                 $pluginCodeObj = new PluginCode($pluginCode);
                 $models = ModelModel::listPluginModels($pluginCodeObj);
-                $pluginCodeStr = $pluginCodeObj->toCode();
                 $pluginModelsNamespace = $pluginCodeObj->toPluginNamespace() . '\\Models\\';
                 foreach ($models as $model) {
                     $fullClassName = $pluginModelsNamespace . $model->className;
