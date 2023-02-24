@@ -67,6 +67,7 @@
                 'familyName' => 'Családnév',
                 'givenName' => 'Keresztnév',
                 'nickname' => 'Becenév',
+                'citizenship' => 'Állampolgárság',
                 'personalIdentificationNumber' => 'Személyi szám',
                 'gender' => [
                     'gender' => 'Nem',
@@ -402,7 +403,7 @@
                 'personalIdentificationNumberValidator' => 'Személyi szám hitelesítés',
                 'unique'    => 'Egyedi',
                 'required'  => 'Kötelező',
-                'cnp'       => 'CNP - Romániai személy szám formátum hitelesítő',
+                'cnp'       => 'CNP - Romániai személyi szám formátum hitelesítő',
                 'validationExceptions' => [
                     'invalidTeamReportSubmissionPeriod' => 'A csapatjelentés leadási periódus végének dátuma nagyobb kell legyen a periódus kezdetének dátumánál!',
                 ],

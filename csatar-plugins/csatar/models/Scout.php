@@ -171,6 +171,7 @@ class Scout extends OrganizationBase
         'patrol' => 'nullable',
         'phone' => 'nullable|regex:(^[0-9+-.()]{10,}$)',
         'birthdate' => 'required',
+        'citizenship' => 'required',
         'legal_representative_phone' => 'nullable|regex:(^[0-9+-.()]{10,}$)',
         'personal_identification_number' => 'nullable',
         'mothers_phone' => 'nullable|regex:(^[0-9+-.()]{10,}$)',
@@ -237,6 +238,10 @@ class Scout extends OrganizationBase
             }
 
             $personalIdentificationNumberValidators = $this->getPersonalIdentificationNumberValidators();
+
+            if (in_array('cnp', $personalIdentificationNumberValidators) && $this->shouldNotValidateCnp()) {
+                unset($personalIdentificationNumberValidators[array_search('cnp', $personalIdentificationNumberValidators)]);
+            }
 
             if (!empty($personalIdentificationNumberValidators)) {
                 $this->rules['personal_identification_number'] .= '|' . implode('|', $personalIdentificationNumberValidators);
@@ -456,6 +461,7 @@ class Scout extends OrganizationBase
         }
 
         if (isset($fields->personal_identification_number)
+            && !$this->shouldNotValidateCnp()
             && !empty($fields->personal_identification_number->value)
             && in_array('cnp', $this->getPersonalIdentificationNumberValidators())
             && ((isset($this->original['personal_identification_number']) && $this->original['personal_identification_number'] != $fields->personal_identification_number->value) || empty($this->original))
@@ -496,6 +502,11 @@ class Scout extends OrganizationBase
         ],
         'troop' => '\Csatar\Csatar\Models\Troop',
         'patrol' => '\Csatar\Csatar\Models\Patrol',
+        'citizenship' => [
+            '\Rainlab\Location\Models\Country',
+            'label' => 'csatar.csatar::lang.plugin.admin.scout.citizenship',
+            'key' => 'citizenship_country_id',
+            ],
     ];
 
     public $belongsToMany = [
@@ -623,7 +634,7 @@ class Scout extends OrganizationBase
         $this->patrol_id = $this->patrol_id != 0 ? $this->patrol_id : null;
     }
 
-    function beforeDelete()
+    public function beforeDelete()
     {
         $now = new DateTime();
         $mandates = Mandate::where('scout_id', $this->id)->get();
@@ -634,6 +645,10 @@ class Scout extends OrganizationBase
                 return false;
             }
         }
+    }
+
+    private function shouldNotValidateCnp() {
+        return empty($this->citizenship_country_id) || (!empty($this->citizenship_country_id) && $this->citizenship_country_id != (new CnpValidator())->getRomaniaCountryId());
     }
 
     public function setAllMandatesToExpiredInOrganization(OrganizationBase $organization): void
