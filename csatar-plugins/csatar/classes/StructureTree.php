@@ -62,7 +62,7 @@ class StructureTree
     public static function getStructureTree() {
         return collect(Cache::rememberForever('structureTree', function() {
             return self::toKeyedByIdArray(
-                Association::with(self::getAssociationsQueryWithArray())
+               Association::with(self::getAssociationsQueryWithArray())
                     ->select('id', 'name', 'name_abbreviation')
                     ->get()
                 );
@@ -180,12 +180,45 @@ class StructureTree
         return StructureTree::getStructureTree()->pluck('districtsActive.*.teamsActive')->collapse()->collapse()->keyBy('id');
     }
 
+    public static function getTeamScoutsCount($teamId) {
+        return StructureTree::getStructureTree()
+            ->pluck('districtsActive.*.teamsActive')
+            ->collapse()
+            ->collapse()
+            ->where('id', $teamId)
+            ->pluck('scoutsActive')
+            ->collapse()
+            ->count();
+    }
+
     public static function getTroopsWithTree() {
         return StructureTree::getStructureTree()->pluck('districtsActive.*.teamsActive.*.troopsActive')->collapse()->collapse()->keyBy('id');
     }
 
+    public static function getTroopScoutsCount($troopId) {
+        return StructureTree::getStructureTree()
+            ->pluck('districtsActive.*.teamsActive.*.troopsActive')
+            ->collapse()
+            ->collapse()
+            ->where('id', $troopId)
+            ->pluck('scoutsActive')
+            ->collapse()
+            ->count();
+    }
+
     public static function getPatrolsWithTree() {
         return StructureTree::getStructureTree()->pluck('districtsActive.*.teamsActive.*.patrolsActive')->collapse()->collapse()->keyBy('id');
+    }
+
+    public static function getPatrolScoutsCount($patrolId) {
+        return StructureTree::getStructureTree()
+            ->pluck('districtsActive.*.teamsActive.*.patrolsActive')
+            ->collapse()
+            ->collapse()
+            ->where('id', $patrolId)
+            ->pluck('scoutsActive')
+            ->collapse()
+            ->count();
     }
 
     public static function updateAssociationTree($associationId) {

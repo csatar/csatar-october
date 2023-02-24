@@ -46,6 +46,8 @@ class Team extends OrganizationBase
 
     protected $appends = ['extended_name'];
 
+    public $customAttributes = ['active_members_count'];
+
     /**
      * Add custom validation
      */
@@ -399,11 +401,13 @@ class Team extends OrganizationBase
 
     public function getPatrols() {
         return $this->patrols;
-//        return Patrol::inTeam($this->id)->get();
     }
 
     public function getPatrolsWithoutTroop() {
         return $this->patrols->where('troop_id', null);
-//        return Patrol::inTeam($this->id)->where('troop_id', null)->get();
+    }
+
+    public function getActiveMembersCountAttribute() {
+        return StructureTree::getTeamScoutsCount($this->id);
     }
 }

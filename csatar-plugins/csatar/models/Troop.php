@@ -23,6 +23,8 @@ class Troop extends OrganizationBase
 
     protected $appends = ['extended_name'];
 
+    public $customAttributes = ['active_members_count'];
+
     /**
      * @var array Validation rules
      */
@@ -252,5 +254,9 @@ class Troop extends OrganizationBase
     public function scopeActive($query)
     {
         return $query->where('status', Status::ACTIVE);
+    }
+
+    public function getActiveMembersCountAttribute() {
+        return StructureTree::getTroopScoutsCount($this->id);
     }
 }

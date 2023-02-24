@@ -50,6 +50,9 @@
                 'active' => 'Active',
                 'inactive' => 'Inactive',
                 'inactivationWarning' => 'Warning! If status is changed from active to any kind of inactive status, all child organizations will be inactivated and all mandates connected to the organization, it\'s child organizations and scouts belonging to the organization will expire!',
+                'bulkDeletePartialSuccess' => ':deletedCount items deleted from :totalCount. ',
+                'bulkDeleteError' => 'The following error occurred during the delete process: ',
+                'activeMembersCount' => 'Active members count',
             ],
             'ageGroups' => [
                 'ageGroups' => 'Age Groups',
