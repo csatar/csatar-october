@@ -3,6 +3,8 @@
 ## Unreleased
 
 - CS-411 - Fixed the header on the team page, so neither the image, nor the header will overflow the screen
+- CS-387 - Created Game development front end menu, added Create New Game and Edit Game buttons, added functionality to approve game
+- CS-387 - Created Partials component to make partial sharing possible between plugins
 
 ## 1.9.0
 ### 2023-02-17

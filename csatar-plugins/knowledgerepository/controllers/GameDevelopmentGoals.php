@@ -23,4 +23,11 @@ class GameDevelopmentGoals extends Controller
         parent::__construct();
         BackendMenu::setContext('Csatar.KnowledgeRepository', 'main-menu-knowledge-repository-parameters', 'side-menu-item');
     }
+
+    public $belongsToMany = [
+        'games' => [
+            'Csatar\KnowledgeRepository\Models\Game',
+            'table' => 'csatar_knowledgerepository_game_development_goal_game',
+        ]
+    ];
 }

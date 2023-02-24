@@ -1,0 +1,19 @@
+url = "/tudastar/jatek/:id/:action?"
+layout = "default"
+title = "Játék"
+
+[gameForm]
+==
+{% set game = this.controller.vars.basicForm.record %}
+
+<div class="container">
+    {% if user.scout.getRightsForModel(game)['MODEL_GENERAL']['create'] > 0
+        and this.param.action == false
+        and this.param[this.controller.vars.basicForm.recordKeyParam] != this.controller.vars.basicForm.createRecordKeyword %}
+        <form action="/tudastar/jatek/{{ game[basicForm.recordKeyParam] }}/{{ basicForm.actionUpdateKeyword }}" method="post">
+            <button type="submit" class="btn btn-sm rounded btn-primary" value="{{ 'Játék módosítása' | _ }}"><i class="csat-add-fill-wh-sm"></i> {{ 'Játék módosítása' | _ }}</button>
+        </form>
+    {% endif %}
+
+    {% component 'gameForm' %}
+</div>

@@ -768,6 +768,10 @@
                 'attachmentsValidationException' => 'Max. five files can be uploaded',
                 'created_by' => 'Created by',
             ],
+            'partial' => [
+                'name' => 'Partials Component',
+                'description' => 'Component to share partials between plugins'
+            ],
         ],
         'oauth' => [
             'onlyExistingUsersCanLogin'         => 'At the moment, only existing users are allowed to log in with oAuth!',

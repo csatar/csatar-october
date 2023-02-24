@@ -1,0 +1,10 @@
+name: Games
+form: $/csatar/knowledgerepository/models/game/fields.yaml
+modelClass: Csatar\KnowledgeRepository\Models\Game
+defaultRedirect: csatar/knowledgerepository/games
+create:
+    redirect: 'csatar/knowledgerepository/games/update/:id'
+    redirectClose: csatar/knowledgerepository/games
+update:
+    redirect: csatar/knowledgerepository/games
+    redirectClose: csatar/knowledgerepository/games
