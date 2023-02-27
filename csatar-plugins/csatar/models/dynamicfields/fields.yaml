@@ -7,6 +7,12 @@ fields:
         span: auto
         required: 1
         type: relation
+    model:
+        label: 'csatar.csatar::lang.plugin.admin.dynamicFields.model'
+        span: auto
+        type: dropdown
+        default: '\Csatar\Csatar\Models\TeamReport'
+        readOnly: 1
     start_date:
         label: 'csatar.csatar::lang.plugin.admin.dynamicFields.startDate'
         span: auto
@@ -19,12 +25,6 @@ fields:
         span: auto
         type: datepicker
         mode: date
-    model:
-        label: 'csatar.csatar::lang.plugin.admin.dynamicFields.model'
-        span: auto
-        type: dropdown
-        default: '\Csatar\Csatar\Models\TeamReport'
-        readOnly: 1
     extra_fields_definition:
         label: 'csatar.csatar::lang.plugin.admin.dynamicFields.extraFieldsDefinition'
         prompt: 'csatar.csatar::lang.plugin.admin.dynamicFields.promptNew'
