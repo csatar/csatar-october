@@ -54,6 +54,10 @@ trait AjaxControllerSimple {
                 'label' => 'MarkdownEditor',
                 'code'  => 'markdown'
             ],
+            'Backend\FormWidgets\TagList' => [
+                'label' => 'TagList',
+                'code'  => 'taglist'
+            ],
             // Custom file upload for frontend use
             'Csatar\Forms\Widgets\FrontendFileUpload' => [
                 'label' => 'FileUpload',

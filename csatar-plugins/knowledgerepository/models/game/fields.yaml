@@ -33,7 +33,7 @@ fields:
         emptyOption: ' - '
         span: auto
         type: relation
-        readOnly: true
+        disabled: true
     created_at:
         label: 'csatar.knowledgerepository::lang.plugin.admin.game.uploadedAt'
         mode: date
@@ -45,7 +45,7 @@ fields:
         mode: date
         span: auto
         type: datepicker
-        readOnly: true
+        disabled: true
     note:
         label: 'csatar.knowledgerepository::lang.plugin.admin.general.note'
         span: auto
@@ -59,42 +59,57 @@ fields:
     age_groups:
         label: 'csatar.csatar::lang.plugin.admin.ageGroups.ageGroups'
         span: auto
-        type: relation
+        type: taglist
+        mode: relation
+        customTags: false
         dependsOn: association
         nameFrom: name
     game_development_goals:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.gameDevelopmentGoals'
         span: auto
-        type: relation
-        nameFrom: name
+        type: taglist
+        mode: relation
+        customTags: false
+#        useKey: true
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
     tools:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.tools'
         span: auto
-        type: relation
+        type: taglist
+        mode: relation
+        customTags: false
         nameFrom: name
     other_tools:
-      label: 'csatar.knowledgerepository::lang.plugin.admin.game.otherTools'
-      span: auto
-      type: text
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.otherTools'
+        span: auto
+        type: text
     headcounts:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.headCount'
         span: auto
-        type: relation
-        nameFrom: name
+        type: taglist
+        mode: relation
+        customTags: false
+        nameFrom: description
     durations:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.duration'
         span: auto
-        type: relation
+        type: taglist
+        mode: relation
+        customTags: false
         nameFrom: name
     locations:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.locations'
         span: auto
-        type: relation
+        type: taglist
+        mode: relation
+        customTags: false
         nameFrom: name
     game_types:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.gameTypes'
         span: auto
-        type: relation
+        type: taglist
+        mode: relation
+        customTags: false
         nameFrom: name
     attachements:
         label: 'csatar.knowledgerepository::lang.plugin.admin.game.attachements'
