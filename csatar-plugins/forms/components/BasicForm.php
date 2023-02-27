@@ -34,9 +34,15 @@ class BasicForm extends ComponentBase  {
 
     /**
      * The Id of the form
-     * @var type
+     * @var int
      */
     public $formId = null;
+
+    /**
+     * The form
+     * @var Form
+     */
+    public $form = null;
 
     /**
      * The unique Id of the form instance
@@ -304,12 +310,44 @@ class BasicForm extends ComponentBase  {
     private function getForm() {
         $form = Form::where('slug', $this->property('formSlug'))->first();
         if (!empty($form)) {
+            $this->form = $form;
             $this->formId = $form->id;
             return $form;
         } else {
             $error = e(trans('csatar.forms::lang.errors.formNotFound'));
             throw new ApplicationException($error . $this->page->title);
         }
+    }
+
+    private function getRecord() {
+        if (!empty($this->record)) {
+            return $this->record;
+        }
+        $form       = $this->form ?? Form::find($this->formId ?? Input::get('formId'));
+        $modelName  = $form->getModelName();
+        $key        = $this->recordKeyParam ?? Input::get('recordKeyParam');
+        $value      = $this->recordKeyValue ?? Input::get('recordKeyValue');
+
+        $record = null;
+        if (!empty($key) && !empty($value)) {
+            $record = $modelName::where($key, $value)->first();
+        }
+
+        if (!empty($record)) {
+            $eagerLoadSettings = $modelName::getEagerLoadSettings('formBuilder');
+//            $record->load($eagerLoadSettings); //dd($record);
+        }
+
+        if (!$record && $value == $this->createRecordKeyword) {
+            $record = new $modelName();
+        }
+
+        if (!$record) {
+            //TODO handle trashed records
+            return null;
+        }
+
+        return $record;
     }
 
     private function getComponentSettings() {
