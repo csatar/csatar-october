@@ -545,7 +545,7 @@
                 'startDate' => 'Start date',
                 'endDate' => 'End date',
                 'breadcrumb' => 'Mandate types',
-                'existingMandateTypeWithSameNameError' => 'This Mandate Type already exists by the same association.',
+                'existingMandateTypeWithSameNameError' => 'This Mandate Type: :name already exists by the same association.',
                 'activeMandateDeleteError' => 'There exist active Mandates of %name or it\'s child types, thus this Mandate type cannot be deleted.',
                 'isHiddenFrontend' => 'Hidden on frontend',
             ],
@@ -595,6 +595,10 @@
                 'requests' => 'Requests',
                 'exportRequests' => 'Export requests to .csv',
                 'inactiveScoutError' => 'The Scout assigned to this Card is inactive. The Card cannot be set to Active if the assigned Scout\'s status is not active.',
+            ],
+            'countryNamesHungarianTranslations' => [
+                'countryNamesHungarianTranslations' => 'Country names Hungarian translations',
+                'explanation' => 'The hungarian translations of the country names in Rainlab.Localtion plugin.',
             ],
         ],
 

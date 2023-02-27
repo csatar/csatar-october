@@ -19,6 +19,7 @@ use Model;
 use October\Rain\Database\Collection;
 use Session;
 use ValidationException;
+use Rainlab\Location\Models\Country;
 
 /**
  * Model
@@ -67,6 +68,7 @@ class Scout extends OrganizationBase
         'nickname',
         'email',
         'phone',
+        'citizenship_country_id',
         'personal_identification_number',
         'gender',
         'is_active',
@@ -482,6 +484,10 @@ class Scout extends OrganizationBase
         if (isset($fields->address_street)) {
             $this->setAddressStreetOptions($fields->address_street);
         }
+
+        if (isset($fields->citizenship_country_id) && empty($fields->citizenship_country_id->value)) {
+            $fields->citizenship_country_id->value = Country::where('code', 'RO')->first()->id ?? null;
+        }
     }
 
     /**
@@ -624,6 +630,16 @@ class Scout extends OrganizationBase
             $teamOptions[$team->id] = $team->extended_name_with_association;
         }
         return $teamOptions;
+    }
+
+    public function getCitizenshipCountryIdOptions() {
+        $countries = Country::all();
+        $countryOptions = [];
+        foreach ($countries as $country) {
+            $countryOptions[$country->id] = $country->getAttributeTranslated('name', 'hu');
+            // this is a hardcoded language setting, will should be solved with task CS-521
+        }
+        return $countryOptions;
     }
 
     public function beforeCreate()
