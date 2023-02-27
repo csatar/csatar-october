@@ -2,8 +2,10 @@
 
 ## Unreleased
 
-- CS-411 - Fixed the header on the team page, so neither the image, nor the header will overflow the screen
+## 1.9.1
+### 2023-02-27
 
+- CS-411 - Fixed the header on the team page, so neither the image, nor the header will overflow the screen
 - CS-499 - Optimized pages with forms, added eager load settings to organization base models, optimized organization base models to reduce query numbers
 
 ## 1.9.0
