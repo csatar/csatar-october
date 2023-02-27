@@ -216,6 +216,11 @@ class PermissionBasedAccess extends Model
         return '';
     }
 
+    public static function getEagerLoadSettings(string $useCase = null): array
+    {
+        return [];
+    }
+
     public function getAssociation() {
         return null;
     }
