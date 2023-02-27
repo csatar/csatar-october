@@ -19,6 +19,7 @@ use Model;
 use October\Rain\Database\Collection;
 use Session;
 use ValidationException;
+use Rainlab\Location\Models\Country;
 
 /**
  * Model
@@ -67,6 +68,7 @@ class Scout extends OrganizationBase
         'nickname',
         'email',
         'phone',
+        'citizenship_country_id',
         'personal_identification_number',
         'gender',
         'is_active',
@@ -171,6 +173,7 @@ class Scout extends OrganizationBase
         'patrol' => 'nullable',
         'phone' => 'nullable|regex:(^[0-9+-.()]{10,}$)',
         'birthdate' => 'required',
+        'citizenship' => 'required',
         'legal_representative_phone' => 'nullable|regex:(^[0-9+-.()]{10,}$)',
         'personal_identification_number' => 'nullable',
         'mothers_phone' => 'nullable|regex:(^[0-9+-.()]{10,}$)',
@@ -237,6 +240,10 @@ class Scout extends OrganizationBase
             }
 
             $personalIdentificationNumberValidators = $this->getPersonalIdentificationNumberValidators();
+
+            if (in_array('cnp', $personalIdentificationNumberValidators) && $this->shouldNotValidateCnp()) {
+                unset($personalIdentificationNumberValidators[array_search('cnp', $personalIdentificationNumberValidators)]);
+            }
 
             if (!empty($personalIdentificationNumberValidators)) {
                 $this->rules['personal_identification_number'] .= '|' . implode('|', $personalIdentificationNumberValidators);
@@ -458,6 +465,7 @@ class Scout extends OrganizationBase
         }
 
         if (isset($fields->personal_identification_number)
+            && !$this->shouldNotValidateCnp()
             && !empty($fields->personal_identification_number->value)
             && in_array('cnp', $this->getPersonalIdentificationNumberValidators())
             && ((isset($this->original['personal_identification_number']) && $this->original['personal_identification_number'] != $fields->personal_identification_number->value) || empty($this->original))
@@ -475,6 +483,10 @@ class Scout extends OrganizationBase
 
         if (isset($fields->address_street)) {
             $this->setAddressStreetOptions($fields->address_street);
+        }
+
+        if (isset($fields->citizenship_country_id) && empty($fields->citizenship_country_id->value)) {
+            $fields->citizenship_country_id->value = Country::where('code', 'RO')->first()->id ?? null;
         }
     }
 
@@ -498,6 +510,11 @@ class Scout extends OrganizationBase
         ],
         'troop' => '\Csatar\Csatar\Models\Troop',
         'patrol' => '\Csatar\Csatar\Models\Patrol',
+        'citizenship' => [
+            '\Rainlab\Location\Models\Country',
+            'label' => 'csatar.csatar::lang.plugin.admin.scout.citizenship',
+            'key' => 'citizenship_country_id',
+            ],
     ];
 
     public $belongsToMany = [
@@ -615,6 +632,16 @@ class Scout extends OrganizationBase
         return $teamOptions;
     }
 
+    public function getCitizenshipCountryIdOptions() {
+        $countries = Country::all();
+        $countryOptions = [];
+        foreach ($countries as $country) {
+            $countryOptions[$country->id] = $country->getAttributeTranslated('name', 'hu');
+            // this is a hardcoded language setting, will should be solved with task CS-521
+        }
+        return $countryOptions;
+    }
+
     public function beforeCreate()
     {
         $this->ecset_code = isset($this->ecset_code) && !empty($this->ecset_code) ? $this->ecset_code : strtoupper($this->generateEcsetCode());
@@ -646,7 +673,7 @@ class Scout extends OrganizationBase
         $this->patrol_id = $this->patrol_id != 0 ? $this->patrol_id : null;
     }
 
-    function beforeDelete()
+    public function beforeDelete()
     {
         $now = new DateTime();
         $mandates = Mandate::where('scout_id', $this->id)->get();
@@ -657,6 +684,10 @@ class Scout extends OrganizationBase
                 return false;
             }
         }
+    }
+
+    private function shouldNotValidateCnp() {
+        return empty($this->citizenship_country_id) || (!empty($this->citizenship_country_id) && $this->citizenship_country_id != (new CnpValidator())->getRomaniaCountryId());
     }
 
     public function setAllMandatesToExpiredInOrganization(OrganizationBase $organization): void
