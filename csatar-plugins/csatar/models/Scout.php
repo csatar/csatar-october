@@ -320,7 +320,7 @@ class Scout extends OrganizationBase
         if (
             (isset($this->original['family_name']) && $this->original['family_name'] != $this->family_name)
             || (isset($this->original['given_name']) && $this->original['given_name'] != $this->given_name)
-            || (isset($this->original['ecset_code']) && $this->original['ecset_code'] != $this->given_name)
+            || (isset($this->original['ecset_code']) && $this->original['ecset_code'] != $this->ecset_code)
             || (isset($this->original['legal_relationship_id']) && $this->original['legal_relationship_id'] != $this->legal_relationship_id)
         )
         {
@@ -388,14 +388,16 @@ class Scout extends OrganizationBase
             ->where(function ($query) {
                 $query->whereNull('end_date')
                   ->orWhere('end_date', '>=', date('Y-m-d H:i'));
-            })->get();
+            })
+            ->with('mandate_type')
+            ->get();
 
         // first add the team mandates in the mandates list
         foreach ($mandates as $key => $value) {
             if ($value->mandate_model_type == '\Csatar\Csatar\Models\Team') {
                 array_push($this->active_mandates, [
                     'title' => '',
-                    'value' => isset(MandateType::find($value->mandate_type_id)->name) ? MandateType::find($value->mandate_type_id)->name : '',
+                    'value' => $value->mandate_type->name ?? '',
                 ]);
             }
         }
@@ -405,7 +407,7 @@ class Scout extends OrganizationBase
             if ($value->mandate_model_type != '\Csatar\Csatar\Models\Team') {
                 array_push($this->active_mandates, [
                     'title' => $value->mandate_model_name,
-                    'value' => isset(MandateType::find($value->mandate_type_id)->name) ? MandateType::find($value->mandate_type_id)->name : '',
+                    'value' => $value->mandate_type->name ?? ''
                 ]);
             }
         }
@@ -591,6 +593,27 @@ class Scout extends OrganizationBase
         'profile_image' => 'System\Models\File',
         'registration_form' => 'System\Models\File',
     ];
+
+    public static function getEagerLoadSettings(string $useCase = null): array
+    {
+        $eagerLoadSettings = parent::getEagerLoadSettings($useCase);
+        if ($useCase === 'formBuilder') {
+            // Important to extend the eager load settings, not to overwrite them!
+            $eagerLoadSettings = array_merge_recursive($eagerLoadSettings, [
+                'allergies', 'chronic_illnesses', 'food_sensitivities', 'promises', 'tests', 'special_tests', 'professional_qualifications', 'special_qualifications', 'leadership_qualifications', 'training_qualifications', 'team', 'team.district', 'team.district.association', 'troop', 'patrol'
+            ]);
+        }
+        return $eagerLoadSettings;
+    }
+
+    public function getTeamOptions() {
+        $teams = Team::forDropdown()->get();
+        $teamOptions = [];
+        foreach ($teams as $team) {
+            $teamOptions[$team->id] = $team->extended_name_with_association;
+        }
+        return $teamOptions;
+    }
 
     public function beforeCreate()
     {
@@ -977,17 +1000,15 @@ class Scout extends OrganizationBase
     }
 
     public function getMandatesForOrganization(PermissionBasedAccess $organization, bool $withInactive = false) {
-        return $this->mandates()
+        return $this->mandates
             ->where('mandate_model_type', $organization->getModelName())
             ->where('mandate_model_id', $organization->id)
-            ->when(!$withInactive, function ($query){
-                $query->where('start_date', '<=', date('Y-m-d H:i'))
-                      ->where(function ($query) {
-                    $query->whereNull('end_date')
-                          ->orWhere('end_date', '>=', date('Y-m-d H:i'));
-                });
-            })
-            ->get();
+            ->when(!$withInactive, function ($collection){
+                return $collection->where('start_date', '<=', date('Y-m-d H:i'))
+                    ->filter(function ($item) {
+                        return $item->end_date === null || $item->end_date >= date('Y-m-d H:i');
+                    });
+            });
     }
 
     public function saveMandateTypeIdsForEveryAssociationToSession(){
@@ -1016,6 +1037,8 @@ class Scout extends OrganizationBase
         if (empty($model)) {
             return;
         }
+
+        $this->load('mandates', 'mandates.mandate_type');
 
         $isOwn = false;
         if(Auth::user() && !empty(Auth::user()->scout)){
@@ -1160,8 +1183,7 @@ class Scout extends OrganizationBase
 
     public function setAddressCountyOptions(&$field)
     {
-        $savedCountyArray = Scout::where('id', $this->id)->select('address_county')->first();
-        $savedCounty = $savedCountyArray['address_county'] ?? null;
+        $savedCounty = $this->original['address_county'] ?? null;
         $array = [];
         if ($this->address_zipcode != null) {
             $array = Locations::where('country', '=', $this->address_country)->where('code', '=', $this->address_zipcode)->lists('county', 'county');
@@ -1182,8 +1204,7 @@ class Scout extends OrganizationBase
 
     public function setAddressLocationOptions(&$field)
     {
-        $savedLocationArray = Scout::where('id', $this->id)->select('address_location')->first();
-        $savedLocation = $savedLocationArray['address_location'] ?? null;
+        $savedLocation = $this->original['address_location'] ?? null;
         $array = [];
 
         if ($this->address_zipcode != null) {
@@ -1205,8 +1226,7 @@ class Scout extends OrganizationBase
 
     public function setAddressStreetOptions(&$field)
     {
-        $savedStreetArray = Scout::where('id', $this->id)->select('address_street')->first();
-        $savedStreet = $savedStreetArray['address_street'] ?? null;
+        $savedStreet = $this->original['address_street'] ?? null;
         $array = [];
 
         if ($this->address_zipcode != null) {
@@ -1235,8 +1255,7 @@ class Scout extends OrganizationBase
     public function getAddressCountryAttribute()
     {
         $savedCountry = array_get($this->attributes, 'address_country');
-        $teamId = array_get($this->attributes, 'team_id');
-        $team = Team::find($teamId);
+        $team = $this->team ?? Team::find($this->team_id);
 
         if (empty($team)) {
             return null;
