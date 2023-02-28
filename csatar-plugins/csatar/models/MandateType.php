@@ -110,8 +110,8 @@ class MandateType extends Model
             ->where('name', $this->name)
             ->first();
 
-        if (!empty($existingMandateType)) {
-            throw new ValidationException(['name' => Lang::get('csatar.csatar::lang.plugin.admin.mandateType.existingMandateTypeWithSameNameError')]);
+        if (!empty($existingMandateType) && $existingMandateType->id != $this->id) {
+            throw new ValidationException(['name' => Lang::get('csatar.csatar::lang.plugin.admin.mandateType.existingMandateTypeWithSameNameError', ['name' => $this->name])]);
         }
     }
 

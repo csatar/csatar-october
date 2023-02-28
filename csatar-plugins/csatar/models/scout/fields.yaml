@@ -18,12 +18,10 @@ fields:
         type: section
     team:
         label: 'csatar.csatar::lang.plugin.admin.scout.team'
-        nameFrom: extendedNameWithAssociation
-        descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
         required: 1
-        type: relation
+        type: dropdown
         formBuilder:
             type: field
             card: scoutData
@@ -32,8 +30,6 @@ fields:
             readOnlyIfPreselected: true
     troop:
         label: 'csatar.csatar::lang.plugin.admin.scout.troop'
-        nameFrom: extendedName
-        descriptionFrom: description
         dependsOn: team
         span: auto
         type: dropdown
@@ -44,8 +40,6 @@ fields:
             order: 2
     patrol:
         label: 'csatar.csatar::lang.plugin.admin.scout.patrol'
-        nameFrom: extendedName
-        descriptionFrom: description
         dependsOn:
             - team
             - troop
@@ -125,6 +119,17 @@ fields:
             card: scoutData
             position: details
             order: 4
+    citizenship_country:
+        label: 'csatar.csatar::lang.plugin.admin.scout.citizenship_country'
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        span: auto
+        type: dropdown
+        required: 1
+        formBuilder:
+            type: field
+            card: scoutData
+            position: details
+            order: 6
     personal_identification_number:
         label: 'csatar.csatar::lang.plugin.admin.scout.personalIdentificationNumber'
         span: auto
@@ -147,28 +152,7 @@ fields:
             type: field
             card: scoutData
             position: details
-            order: 6
-    is_active:
-        label: 'csatar.csatar::lang.plugin.admin.scout.isActive'
-        comment: 'csatar.csatar::lang.plugin.admin.scout.inactivationWarning'
-        span: auto
-        default: 1
-        type: checkbox
-        formBuilder:
-            type: field
-            card: scoutData
-            position: details
             order: 7
-    is_approved:
-        label: 'csatar.csatar::lang.plugin.admin.scout.isApproved'
-        span: auto
-        default: 0
-        type: checkbox
-        formBuilder:
-            type: field
-            card: scoutData
-            position: details
-            order: 8
     legal_relationship:
         label: 'csatar.csatar::lang.plugin.admin.scout.legalRelationship'
         nameFrom: name
@@ -181,7 +165,7 @@ fields:
             type: field
             card: scoutData
             position: details
-            order: 9
+            order: 10
     religion:
         label: 'csatar.csatar::lang.plugin.admin.scout.religion'
         nameFrom: name
@@ -193,7 +177,7 @@ fields:
             type: field
             card: scoutData
             position: details
-            order: 10
+            order: 11
     nationality:
         label: 'csatar.csatar::lang.plugin.admin.scout.nationality'
         span: auto
@@ -202,7 +186,7 @@ fields:
             type: field
             card: scoutData
             position: details
-            order: 11
+            order: 12
     tshirt_size:
         label: 'csatar.csatar::lang.plugin.admin.scout.tShirtSize'
         nameFrom: name
@@ -214,7 +198,28 @@ fields:
             type: field
             card: scoutData
             position: details
-            order: 12
+            order: 13
+    is_active:
+        label: 'csatar.csatar::lang.plugin.admin.scout.isActive'
+        comment: 'csatar.csatar::lang.plugin.admin.scout.inactivationWarning'
+        span: auto
+        default: 1
+        type: checkbox
+        formBuilder:
+            type: field
+            card: scoutData
+            position: details
+            order: 8
+    is_approved:
+        label: 'csatar.csatar::lang.plugin.admin.scout.isApproved'
+        span: auto
+        default: 0
+        type: checkbox
+        formBuilder:
+            type: field
+            card: scoutData
+            position: details
+            order: 9
     birthData:
         label: 'csatar.csatar::lang.plugin.admin.scout.sections.birthData'
         span: full

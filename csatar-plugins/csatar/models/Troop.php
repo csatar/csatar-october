@@ -103,6 +103,44 @@ class Troop extends OrganizationBase
         'logo' => 'System\Models\File'
     ];
 
+    public static function getEagerLoadSettings(string $useCase = null): array
+    {
+        $eagerLoadSettings = parent::getEagerLoadSettings($useCase);
+        if ($useCase === 'formBuilder') {
+            // Important to extend the eager load settings, not to overwrite them!
+            $eagerLoadSettings['mandates.mandate_troop'] = function($query) {
+                return $query->select(
+                    'csatar_csatar_troops.id',
+                    'csatar_csatar_troops.team_id'
+                );
+            };
+            $eagerLoadSettings['mandates.mandate_troop.team'] = function($query) {
+                return $query->select(
+                    'csatar_csatar_teams.id',
+                    'csatar_csatar_teams.name',
+                    'csatar_csatar_teams.team_number',
+                    'csatar_csatar_teams.district_id'
+                );
+            };
+            $eagerLoadSettings = array_merge_recursive($eagerLoadSettings, [
+                'team', 'team.district', 'team.district.association',
+            ]);
+        }
+        if ($useCase == 'inactiveMandatesTroop') {
+            $eagerLoadSettings = [
+                'mandatesInactive.mandate_troop.team' => function($query) {
+                    return $query->select(
+                        'csatar_csatar_teams.id',
+                        'csatar_csatar_teams.name',
+                        'csatar_csatar_teams.team_number'
+                    )->withTrashed();
+                },
+            ];
+            $eagerLoadSettings = array_merge($eagerLoadSettings, parent::getEagerLoadSettings('inactiveMandates'));
+        }
+        return $eagerLoadSettings;
+    }
+
     public function beforeSave()
     {
         $filterWords = explode(',', Lang::get('csatar.csatar::lang.plugin.admin.troop.filterOrganizationUnitNameForWords'));

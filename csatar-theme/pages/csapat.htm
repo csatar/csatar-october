@@ -10,28 +10,6 @@ createRecordKeyword = "letrehozas"
 actionUpdateKeyword = "modositas"
 actionDeleteKeyword = "torles"
 
-[builderList]
-modelClass = "Csatar\Csatar\Models\Troop"
-scope = "scopeTeamId"
-scopeValue = "{{ :id }}"
-displayColumn = "extendedName"
-noRecordsMessage = "backend::lang.list.no_records"
-detailsPage = "raj"
-detailsKeyColumn = "id"
-detailsUrlParameter = "id"
-pageNumber = "{{ :page }}"
-
-[builderList builderList2]
-modelClass = "Csatar\Csatar\Models\Patrol"
-scope = "scopeTeamId"
-scopeValue = "{{ :id }}"
-displayColumn = "extendedName"
-noRecordsMessage = "backend::lang.list.no_records"
-detailsPage = "ors"
-detailsKeyColumn = "id"
-detailsUrlParameter = "id"
-pageNumber = "{{ :page }}"
-
 [viewBag]
 localeTitle[en] = "Team"
 localeTitle[hu] = "Csapat"
@@ -49,17 +27,6 @@ mode = "accordion"
 [csatargallery]
 model_name = "Team"
 model_id = "{{ :id }}"
-
-[builderList activeScouts]
-modelClass = "Csatar\Csatar\Models\Scout"
-scope = "scopeActiveScoutsInTeam"
-scopeValue = "{{ :id }}"
-displayColumn = "getFullName()"
-noRecordsMessage = "backend::lang.list.no_records"
-detailsPage = "tag"
-detailsKeyColumn = "ecset_code"
-detailsUrlParameter = "ecset_code"
-pageNumber = "{{ :page }}"
 
 [builderList inactiveScouts]
 modelClass = "Csatar\Csatar\Models\Scout"

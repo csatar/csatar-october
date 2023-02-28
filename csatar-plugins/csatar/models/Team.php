@@ -20,6 +20,8 @@ class Team extends OrganizationBase
      */
     public $table = 'csatar_csatar_teams';
 
+    protected $with = ['district', 'district.association'];
+
     /**
      * @var array The columns that should be searchable by ContentPageSearchProvider
      */
@@ -393,6 +395,20 @@ class Team extends OrganizationBase
     public function scopeActiveInAssociation($query, $associationId) {
         $districtIds = District::where('association_id', $associationId)->get()->pluck('id')->toArray();
         return $query->whereIn('district_id', $districtIds)->active();
+    }
+
+    public function scopeForDropdown($query) {
+        return $query->with(
+            [
+                'district' => function($query) {
+                    $query->select('id', 'name', 'association_id');
+                },
+                'district.association' => function($query) {
+                    $query->select('id', 'name', 'name_abbreviation');
+                }
+            ]
+        )
+        ->select('id', 'name', 'team_number', 'district_id');
     }
 
     public function getTroops() {

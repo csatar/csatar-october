@@ -112,6 +112,22 @@ class Association extends OrganizationBase
         ],
     ];
 
+    public static function getEagerLoadSettings(string $useCase = null): array
+    {
+        $eagerLoadSettings = parent::getEagerLoadSettings($useCase);
+        if ($useCase === 'formBuilder') {
+            // Important to extend the eager load settings, not to overwrite them!
+//            $eagerLoadSettings['currency'] = function($query) {
+//                return $query->select(
+//                    'csatar_csatar_currencies.id',
+//                    'csatar_csatar_currencies.code',
+//                );
+//            };
+//            $eagerLoadSettings[] = 'logo';
+        }
+        return $eagerLoadSettings;
+    }
+
     public $attachOne = [
         'logo' => 'System\Models\File'
     ];

@@ -5,9 +5,17 @@
 - CS-493 - Added active members count to Association, District, Team, Troop, Patrol models
 - CS-493 - Modified form builder to display custom attributes
 - CS-493 - Added missing translations
+- CS-489 - Added citizenship attribute to scout model
+- CS-489 - Modified personal identification number validation to skip cnp validator if scout citizenship is not RO
 - CS-411 - Fixed the header on the team page, so neither the image, nor the header will overflow the screen
 - CS-387 - Created Game development front end menu, added Create New Game and Edit Game buttons, added functionality to approve game
 - CS-387 - Created Partials component to make partial sharing possible between plugins
+
+## 1.9.1
+### 2023-02-27
+
+- CS-411 - Fixed the header on the team page, so neither the image, nor the header will overflow the screen
+- CS-499 - Optimized pages with forms, added eager load settings to organization base models, optimized organization base models to reduce query numbers
 
 ## 1.9.0
 ### 2023-02-17
