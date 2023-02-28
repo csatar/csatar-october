@@ -16,7 +16,7 @@ In order to set up Xdebug you need to:
 1. Run - `setup\dev\init-xdebug.cmd` (Windows) or `setup/dev/init-xdebug.sh` (MacOS, Linux)
 2. Download 'Xdebug helper' extension for your browser (it surely exists for Chrome and Firefox)
    - Go to the Options of the extension and at the 'IDE key' setting select PhpStorm and click 'Save'
-   - Open the app in your browser (http://localhost:8089/), click on the 'Xdebug helper' icon and select 'Debug' to enable debugging for this site
+   - Open the app in your browser (http://localhost:8085/), click on the 'Xdebug helper' icon and select 'Debug' to enable debugging for this site
    
 3. In PHP strom:
    - Go to `Run` -> `Edit Configurations...`
