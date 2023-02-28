@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-411 - Fixed CSS to prevent images overflowing the screen
 - CS-493 - Added active members count to Association, District, Team, Troop, Patrol models
 - CS-493 - Modified form builder to display custom attributes
 - CS-493 - Added missing translations

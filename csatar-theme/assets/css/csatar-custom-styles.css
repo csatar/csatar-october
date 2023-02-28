@@ -1845,7 +1845,7 @@ a.login:link, a.login:visited, a.login:active {
     margin-bottom: 100px;
 }
 
-[aria-labelledby="about-us-tab"] img {
+img:not(.csat-logo-img):not(.csat-data-profile-img):not(.csat-gallery-cover):not(.csat-gallery-edit-img):not(.csat-data-card img) {
     max-width: 100%;
     height: auto;
 }
@@ -1901,10 +1901,6 @@ input:-webkit-autofill:active {
     border-radius: 12px;
     object-fit: cover;
     object-position: center;
-}
-
-.csat-gallery-img {
-    height: 200px;
 }
 
 .csat-gallery-edit-img {
