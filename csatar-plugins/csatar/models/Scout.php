@@ -236,17 +236,20 @@ class Scout extends OrganizationBase
                 return;
             }
 
-            $personalIdentificationNumberValidators = $this->getPersonalIdentificationNumberValidators();
+            // personal id number validations, for active scouts only
+            if ($this->is_active) {
+                $personalIdentificationNumberValidators = $this->getPersonalIdentificationNumberValidators();
 
-            if (!empty($personalIdentificationNumberValidators)) {
-                $this->rules['personal_identification_number'] .= '|' . implode('|', $personalIdentificationNumberValidators);
-            }
+                if (!empty($personalIdentificationNumberValidators)) {
+                    $this->rules['personal_identification_number'] .= '|' . implode('|', $personalIdentificationNumberValidators);
+                }
 
-            if (in_array('cnp', $personalIdentificationNumberValidators)
-                && !empty($this->personal_identification_number)
-                && (new DateTime($this->birthdate))->format('Y-m-d') != $this->getBirthDateFromCNP($this->personal_identification_number)
-            ) {
-                throw new \ValidationException(['birthdate' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.personalIdentificationNumberBirthdateMismatch')]);
+                if (in_array('cnp', $personalIdentificationNumberValidators)
+                    && !empty($this->personal_identification_number)
+                    && (new DateTime($this->birthdate))->format('Y-m-d') != $this->getBirthDateFromCNP($this->personal_identification_number)
+                ) {
+                    throw new \ValidationException(['birthdate' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.personalIdentificationNumberBirthdateMismatch')]);
+                }
             }
 
             // if the selected troop does not belong to the selected team, then throw and exception
@@ -297,11 +300,33 @@ class Scout extends OrganizationBase
             }
         }
 
-        if (empty($this->original) || $this->skipCacheRefresh) {
+        if (!$this->skipCacheRefresh) {
+            $this->updateCache();
+        }
+
+
+    }
+
+    public function afterDelete() {
+        if ($this->skipCacheRefresh) {
+            return;
+        }
+        if (!empty($this->team_id)) {
+            StructureTree::updateTeamTree($this->team_id);
+        }
+    }
+
+    public function updateCache(): void
+    {
+        if ($this->wasRecentlyCreated && $this->is_active == Status::ACTIVE) {
+            StructureTree::updateTeamTree($this->team_id);
+        }
+
+        if (empty($this->original) ) {
             return;
         }
 
-        if ((isset($this->original['is_active']) && $this->original['is_active'] != $this->is_active) || $this->wasRecentlyCreated || $this->deleted_at != null) {
+        if ((isset($this->original['is_active']) && $this->original['is_active'] != $this->is_active) || $this->deleted_at != null) {
             StructureTree::updateTeamTree($this->team_id);
         }
 
@@ -368,15 +393,6 @@ class Scout extends OrganizationBase
             }
             $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'] = $teamsActive;
             Cache::forever('structureTree', $structureTree);
-        }
-    }
-
-    public function afterDelete() {
-        if ($this->skipCacheRefresh) {
-            return;
-        }
-        if (!empty($this->team_id)) {
-            StructureTree::updateTeamTree($this->team_id);
         }
     }
 

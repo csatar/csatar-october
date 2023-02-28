@@ -335,7 +335,7 @@ class BasicForm extends ComponentBase  {
 
         if (!empty($record)) {
             $eagerLoadSettings = $modelName::getEagerLoadSettings('formBuilder');
-//            $record->load($eagerLoadSettings); //dd($record);
+            $record->load($eagerLoadSettings);
         }
 
         if (!$record && $value == $this->createRecordKeyword) {
