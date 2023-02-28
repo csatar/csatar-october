@@ -54,7 +54,7 @@ trait AjaxControllerSimple {
                 'label' => 'MarkdownEditor',
                 'code'  => 'markdown'
             ],
-            'Backend\FormWidgets\TagList' => [
+            'Csatar\Forms\Widgets\TagList' => [
                 'label' => 'TagList',
                 'code'  => 'taglist'
             ],

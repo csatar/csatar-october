@@ -61,6 +61,7 @@ fields:
         span: auto
         type: taglist
         mode: relation
+        useKey: true
         customTags: false
         dependsOn: association
         nameFrom: name
@@ -70,13 +71,14 @@ fields:
         type: taglist
         mode: relation
         customTags: false
-#        useKey: true
+        useKey: true
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
     tools:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.tools'
         span: auto
         type: taglist
         mode: relation
+        useKey: true
         customTags: false
         nameFrom: name
     other_tools:
@@ -88,6 +90,7 @@ fields:
         span: auto
         type: taglist
         mode: relation
+        useKey: true
         customTags: false
         nameFrom: description
     durations:
@@ -95,6 +98,7 @@ fields:
         span: auto
         type: taglist
         mode: relation
+        useKey: true
         customTags: false
         nameFrom: name
     locations:
@@ -102,6 +106,7 @@ fields:
         span: auto
         type: taglist
         mode: relation
+        useKey: true
         customTags: false
         nameFrom: name
     game_types:
@@ -109,6 +114,7 @@ fields:
         span: auto
         type: taglist
         mode: relation
+        useKey: true
         customTags: false
         nameFrom: name
     attachements:
