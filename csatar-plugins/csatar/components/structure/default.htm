@@ -18,7 +18,13 @@
         {% if displayHeader %}
             <h2>{{ 'Szövetségek' | _ }}</h2>
         {% endif %}
-        {% partial __SELF__ ~ '::accordionItems' array=structureArray level=starter_level headingId='flush-heading-' collapseId='flush-collapse-' showActiveScouts=showActiveScouts %}
+        {% partial __SELF__ ~ '::accordionItems'
+            array=structureArray
+            level=starter_level
+            headingId='flush-heading-'
+            collapseId='flush-collapse-'
+            showActiveScouts=showActiveScouts
+        %}
         </div>
 
         <div class="col-lg-2 col-md-2">

@@ -22,7 +22,7 @@ class Mandate extends Model
 
     protected $touches = ['scout'];
 
-    protected $appends = ['mandate_team'];
+    protected $appends = ['mandate_team', 'scout_team'];
 
     public $ignoreValidation = false;
 
@@ -54,6 +54,14 @@ class Mandate extends Model
             $mandate_type_id = $mandate ? $mandate['mandate_type'] : null;
             $mandate_type = $mandate_type_id ? MandateType::find($mandate_type_id) : null;
             $this->belongsTo['mandate_model'] = $mandate_type ? $mandate_type->organization_type_model_name : OrganizationBase::getModelName();
+        }
+
+        if (isset($this->mandate_model_type) && $this->mandate_model_type != '\Csatar\Csatar\Models\Troop') {
+            unset($this->belongsTo['mandate_troop']);
+        }
+
+        if (isset($this->mandate_model_type) && $this->mandate_model_type != '\Csatar\Csatar\Models\Patrol') {
+            unset($this->belongsTo['mandate_patrol']);
         }
     }
 
@@ -166,6 +174,9 @@ class Mandate extends Model
 
         $id = array_key_exists('id', $data) ? $data['id'] : null;
         $mandateType = MandateType::find($data['mandate_type_id']);
+        if (empty($mandateType)) {
+            return;
+        }
         $organizationUnit = ($mandateType->organization_type_model_name)::find($data['mandate_model_id']);
         $startDate = new DateTime($data['start_date']);
         $endDate = isset($data['end_date']) ? new DateTime($data['end_date']) : null;
@@ -260,6 +271,14 @@ class Mandate extends Model
         'scout' => '\Csatar\Csatar\Models\Scout',
         'mandate_type' => '\Csatar\Csatar\Models\MandateType',
         'mandate_model' => '\Csatar\Csatar\Models\OrganizationBase',
+        'mandate_troop' => [
+            '\Csatar\Csatar\Models\Troop',
+            'key' => 'mandate_model_id',
+        ],
+        'mandate_patrol' => [
+            '\Csatar\Csatar\Models\Patrol',
+            'key' => 'mandate_model_id',
+        ],
     ];
 
     public function getMandateModelAttribute()
@@ -292,14 +311,27 @@ class Mandate extends Model
             : $query->whereNull('id');
     }
 
+    public function scopeInactiveMandatesInOrganization($query, $model)
+    {
+        $currentDate = (new DateTime())->format('Y-m-d');
+        return $model
+            ? $query->where('mandate_model_type', $model::getModelName())
+                ->where(function ($query) use ($currentDate) {
+                    return $query->where('start_date', '>', $currentDate)
+                        ->orWhere('end_date', '<', $currentDate);
+                })
+                ->orderBy('end_date', 'desc')
+            : $query->whereNull('id');
+    }
+
     public function getMandateTeamAttribute(): string
     {
         if ($this->mandate_model_type == '\Csatar\Csatar\Models\Patrol') {
-            return Patrol::find($this->mandate_model_id)->team->extendedName ?? '';
+            return $this->mandate_patrol->team->extended_name ?? '';
         }
 
         if ($this->mandate_model_type == '\Csatar\Csatar\Models\Troop') {
-            return Troop::find($this->mandate_model_id)->team->extendedName ?? '';
+            return $this->mandate_troop->team->extended_name ?? '';
         }
 
         return '';
@@ -377,17 +409,6 @@ class Mandate extends Model
         return $query->whereHas('mandate_type', function ($query) use ($associationIds) {
             $query->whereIn('association_id', $associationIds);
         });
-    }
-
-    public function scopeInactiveMandatesInOrganizations($query, $record) {
-        $currentDate = (new DateTime())->format('Y-m-d');
-        $query->where('mandate_model_type', $record::getModelName())
-            ->where('mandate_model_id', $record->id)
-            ->where(function ($query) use ($currentDate) {
-                return $query->where('start_date', '>', $currentDate)
-                    ->orWhere('end_date', '<', $currentDate);
-            })
-            ->orderBy('end_date', 'desc');
     }
 
     public static function setAllMandatesExpiredInOrganization($organization) {

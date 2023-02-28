@@ -2,6 +2,50 @@
 
 ## Unreleased
 
+## 1.9.1
+### 2023-02-27
+
+- CS-411 - Fixed the header on the team page, so neither the image, nor the header will overflow the screen
+- CS-499 - Optimized pages with forms, added eager load settings to organization base models, optimized organization base models to reduce query numbers
+
+## 1.9.0
+### 2023-02-17
+
+- CS-498 - Optimized query for inactive mandates, modified inactive mandates accordion according to the changes
+- CS-384 - Created GameType model, controller, seeder, backend list and form
+- CS-371 - Created Location model, controller, seeder, backend list and form
+- CS-369 - Created Duration model, controller, seeder, backend list and form
+- CS-368 - Created Headcount model, controller, seeder, backend list and form
+- CS-375 - Created Tool model, controller, seeder backend list and form
+- CS-386 - Created AccidentRiskLevel model, seeder controller, backend list and form
+- CS-385 - Created GameDevelopmentGoal model, seeder controller, backend list and form
+- CS-385 - Changed migrations, renamed "order" columns to "sort_order"
+- CS-363 - Fixed success/error message issue on back list bulk delete
+- CS-455 - Sort the teams in the menu
+- CS-370 - Create Knowledge Repository and Knowledge Repository Parameters menus on backend
+- CS-451 - Membership card cannot be activated if the assigned scout is inactive
+- CS-460 - Added frontend scout csv import-export
+- CS-460 - Fixed getBirthDateFromCNP method
+- CS-460 - Fixed typo in getOptionsWithLabels method name
+- CS-462 - Added warning to team report if any scout doesn't have registration form uploaded
+- CS-436 - Added option to hide mandate types on frontend
+- CS-466 - Created migrations for "Knowledge repository" models
+- CS-327 - Create dynamic fields
+- CS-397 - Changed accordion to show the active tag lists on the model pages
+- CS-459 - Added team number to the Team reports filter
+
+## 1.8.3
+### 2023-02-15
+
+- CS-461 - Created membership card requests backend list
+
+## 1.8.2
+### 2023-02-15
+
+- CS-478 Refactored structure component used for the accordion and menu
+- CS-478 Optimized the query for structure component
+- CS-478 Cached the query result used by the structure component
+
 ## 1.8.1
 ### 2023-02-08
 

@@ -77,7 +77,10 @@ class TeamReport extends PermissionBasedAccess
         'currency_id',
         'submitted_at',
         'approved_at',
+        'extra_fields',
     ];
+
+    protected $jsonable = ['extra_fields'];
 
     /**
      * Relations
@@ -125,6 +128,8 @@ class TeamReport extends PermissionBasedAccess
             $fields->spiritual_leader_religion->value = $lastYearTeamReport->spiritual_leader_religion_id;
             $fields->spiritual_leader_occupation->value = $lastYearTeamReport->spiritual_leader_occupation;
         }
+
+        return $fields;
     }
 
     /**
@@ -180,7 +185,7 @@ class TeamReport extends PermissionBasedAccess
         $ageGroupsToSync = [];
 
         foreach ($ageGroups as $ageGroup) {
-            $count = Patrol::where('team_id', $this->team_id)->where('age_group_id', $ageGroup->id)->count();
+            $count = Patrol::active()->where('team_id', $this->team_id)->where('age_group_id', $ageGroup->id)->count();
             if($count>0) {
                 $ageGroupsToSync[$ageGroup->id] = ['number_of_patrols_in_age_group' => $count];
             }
@@ -242,5 +247,19 @@ class TeamReport extends PermissionBasedAccess
 
     public function getTeam() {
         return $this->team_id ? $this->team : null;
+    }
+
+    // method to get scouts without registration form
+    public static function getScoutsWithoutRegistrationForm($scouts): array
+    {
+        foreach ($scouts as $scout) {
+            if(!$scout->registration_form) {
+                $scoutsWithoutRegistrationForm[] = [
+                    'name' => $scout->name,
+                    'ecset_code' => $scout->ecset_code,
+                ];
+            }
+        }
+        return $scoutsWithoutRegistrationForm ?? [];
     }
 }

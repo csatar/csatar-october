@@ -1,6 +1,8 @@
 <?php namespace Csatar\Csatar\Models;
 
+use Cache;
 use Csatar\Csatar\Classes\Enums\Status;
+use Csatar\Csatar\Classes\StructureTree;
 use Lang;
 use Csatar\Csatar\Models\OrganizationBase;
 
@@ -18,6 +20,8 @@ class District extends OrganizationBase
      * @var array The columns that should be searchable by ContentPageSearchProvider
      */
     protected static $searchable = ['name'];
+
+    protected $appends = ['extended_name'];
 
     /**
      * @var array Validation rules
@@ -76,6 +80,11 @@ class District extends OrganizationBase
             '\Csatar\Csatar\Models\Team',
             'label' => 'csatar.csatar::lang.plugin.admin.team.teams',
         ],
+        'teamsActive' => [
+            '\Csatar\Csatar\Models\Team',
+            'scope' => 'active',
+            'ignoreInPermissionsMatrix' => true,
+        ],
         'mandates' => [
             '\Csatar\Csatar\Models\Mandate',
             'key' => 'mandate_model_id',
@@ -83,6 +92,12 @@ class District extends OrganizationBase
             'label' => 'csatar.csatar::lang.plugin.admin.mandate.mandates',
             'renderableOnCreateForm' => false,
             'renderableOnUpdateForm' => true,
+        ],
+        'mandatesInactive' => [
+            '\Csatar\Csatar\Models\Mandate',
+            'key' => 'mandate_model_id',
+            'scope' => 'inactiveMandatesInOrganization',
+            'ignoreInPermissionsMatrix' => true,
         ],
     ];
 
@@ -120,6 +135,35 @@ class District extends OrganizationBase
         $this->name = $this->filterNameForWords($this->name, $filterWords);
 
         $this->generateSlugIfEmpty();
+    }
+
+    public function afterSave()
+    {
+        if (empty($this->original)) {
+            return;
+        }
+
+        if (isset($this->original['status']) && $this->original['status'] != $this->status) {
+            StructureTree::updateAssociationTree($this->association_id);
+        }
+
+        if (isset($this->original['association_id']) && $this->original['association_id'] != $this->association_id) {
+            StructureTree::updateAssociationTree($this->association_id);
+            if (!empty($this->original['association_id'])) {
+                StructureTree::updateAssociationTree($this->original['association_id']);
+            }
+        }
+
+        if (isset($this->original['name']) && $this->original['name'] != $this->name) {
+            $structureTree = Cache::pull('structureTree');
+            if (empty($structureTree)) {
+                StructureTree::getStructureTree();
+                return;
+            }
+            $structureTree[$this->association_id]['districtsActive'][$this->id]['name'] = $this->name;
+            $structureTree[$this->association_id]['districtsActive'][$this->id]['extended_name'] = $this->extended_name;
+            Cache::forever('structureTree', $structureTree);
+        }
     }
 
     public function generateSlugIfEmpty() {
@@ -169,11 +213,22 @@ class District extends OrganizationBase
         return $this;
     }
 
+    public function getTeamsAttribute() {
+        return Team::where('district_id', $this->id)
+            ->orderByRaw('CONVERT(team_number, SIGNED) ASC')
+            ->get();
+    }
+
     public function getActiveTeams(){
-        return Team::inDistrict($this->id)->active()->get();
+        return $this->teamsActive;
     }
 
     public function scopeInAssociation($query, $associationId) {
         return $query->where('association_id', $associationId);
+    }
+
+    // scope to get only districts with active status and active teams
+    public function scopeActive($query) {
+        return $query->where('status', Status::ACTIVE)->whereHas('teamsActive');
     }
 }

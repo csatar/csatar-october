@@ -1,6 +1,4 @@
-<?php
-
-return [
+<?php return [
     'frontEnd' => [
         'authException' => 'The email address, the ID number or the password is incorrect.',
     ],
@@ -183,8 +181,10 @@ return [
                     'personalDataNotAccepted' => 'Please verify your personal data here!',
                 ],
                 'activeMandateDeleteError' => 'The Scout having the %name name has active Mandates, thus this Scout cannot be deleted.',
-                'scoutTeam' => 'Scout\'s team' ,
+                'scoutTeam' => 'Scout\'s team',
                 'inactivationWarning' => 'Please note that if you change status from active to inactive, scout\'s all mandates will expire!',
+                'bulkDeletePartialSuccess' => ':deletedCount deleted from :totalCount. ',
+                'bulkDeleteError' => 'The following errors occurred: ',
             ],
             'admin' => [
                 'menu' => [
@@ -368,6 +368,20 @@ return [
                 'sortOrder' => 'Sort order',
                 'breadcrumb' => 'Hierarchy',
             ],
+            'dynamicFields' => [
+                'dynamicFields' => 'Dynamic Fields',
+                'extraFields' => 'Extra fields',
+                'association' => 'Association',
+                'startDate' => 'Start date',
+                'endDate' => 'End date',
+                'model' => 'Model',
+                'extraFieldsDefinition' => 'Extra Fields Definition',
+                'promptNew' => 'Add new',
+                'fieldName' => 'Field name',
+                'fieldRequired' => 'Required',
+                'breadcrumb' => 'Dynamic Fields',
+                'overlappingDynamicFieldsError' => 'There already exists an overlapping Dynamic Fields for the given period for this association.',
+            ],
             'organizationBase' => [
                 'organizationBase' => 'Organization base',
             ],
@@ -530,8 +544,8 @@ return [
                 'startDate' => 'Start date',
                 'endDate' => 'End date',
                 'breadcrumb' => 'Mandate types',
-                'activeMandateDeleteError' => 'There exist active Mandates of %name type, thus this Mandate type cannot be deleted.',
-                'scoutTeam' => 'Scout\'s team',
+                'activeMandateDeleteError' => 'There exist active Mandates of %name or it\'s child types, thus this Mandate type cannot be deleted.',
+                'isHiddenFrontend' => 'Hidden on frontend',
             ],
             'mandate' => [
                 'mandate' => 'Mandate',
@@ -576,6 +590,9 @@ return [
                 'membershipCards' => 'Membership Cards',
                 'issued_date_time' => 'Issued',
                 'active' => 'Active',
+                'requests' => 'Requests',
+                'exportRequests' => 'Export requests to .csv',
+                'inactiveScoutError' => 'The Scout assigned to this Card is inactive. The Card cannot be set to Active if the assigned Scout\'s status is not active.',
             ],
         ],
 
@@ -666,6 +683,7 @@ return [
                     'teamReportRefreshed' => 'The team report was refreshed.',
                     'teamReportDeleted' => 'The team report was deleted.',
                 ],
+                'confirmRefreshMessage' => 'Are you sure you want to refresh the report? During the refresh the member list will be regenerated, the number of member, the agea groups count and the fee will be recalculated.',
             ],
             'teamReports' => [
                 'name' => 'Team Reports',
@@ -706,6 +724,7 @@ return [
                 'csv' => [
                     'fileMissingOrInvalid' => 'The uploaded file is missing or invalid.',
                     'teamIdMissing' => 'Team Id is missing, please try again.',
+                    'personalIdentificationNumberMissing' => 'Personal Identification Number is missing.',
                 ],
             ],
             'twoFactorAuthentication' => [

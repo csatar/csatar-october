@@ -168,6 +168,13 @@ class Plugin extends PluginBase
                         ]
                     ]);
                 }
+                $form->addFields([
+                    'sort_order' => [
+                        'label' => 'csatar.csatar::lang.plugin.admin.general.sortOrder',
+                        'type'  => 'number',
+                        'default'   => 0
+                    ]
+                ]);
             });
         }
 

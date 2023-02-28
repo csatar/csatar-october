@@ -1,6 +1,8 @@
 <?php namespace Csatar\Csatar\Models;
 
+use Cache;
 use Csatar\Csatar\Classes\Enums\Status;
+use Csatar\Csatar\Classes\StructureTree;
 use Lang;
 use Csatar\Csatar\Models\OrganizationBase;
 
@@ -18,6 +20,8 @@ class Troop extends OrganizationBase
      * @var array The columns that should be searchable by ContentPageSearchProvider
      */
     protected static $searchable = ['name'];
+
+    protected $appends = ['extended_name'];
 
     /**
      * @var array Validation rules
@@ -63,9 +67,19 @@ class Troop extends OrganizationBase
             '\Csatar\Csatar\Models\Patrol',
             'label' => 'csatar.csatar::lang.plugin.admin.patrol.patrols',
         ],
+        'patrolsActive' => [
+            '\Csatar\Csatar\Models\Patrol',
+            'scope' => 'active',
+            'ignoreInPermissionsMatrix' => true,
+        ],
         'scouts' => [
             '\Csatar\Csatar\Models\Scout',
             'label' => 'csatar.csatar::lang.plugin.admin.scout.scouts',
+        ],
+        'scoutsActive' => [
+            '\Csatar\Csatar\Models\Scout',
+            'scope' => 'active',
+            'ignoreInPermissionsMatrix' => true,
         ],
         'mandates' => [
             '\Csatar\Csatar\Models\Mandate',
@@ -75,11 +89,55 @@ class Troop extends OrganizationBase
             'renderableOnCreateForm' => true,
             'renderableOnUpdateForm' => true,
         ],
+        'mandatesInactive' => [
+            '\Csatar\Csatar\Models\Mandate',
+            'key' => 'mandate_model_id',
+            'scope' => 'inactiveMandatesInOrganization',
+            'ignoreInPermissionsMatrix' => true,
+        ],
     ];
 
     public $attachOne = [
         'logo' => 'System\Models\File'
     ];
+
+    public static function getEagerLoadSettings(string $useCase = null): array
+    {
+        $eagerLoadSettings = parent::getEagerLoadSettings($useCase);
+        if ($useCase === 'formBuilder') {
+            // Important to extend the eager load settings, not to overwrite them!
+            $eagerLoadSettings['mandates.mandate_troop'] = function($query) {
+                return $query->select(
+                    'csatar_csatar_troops.id',
+                    'csatar_csatar_troops.team_id'
+                );
+            };
+            $eagerLoadSettings['mandates.mandate_troop.team'] = function($query) {
+                return $query->select(
+                    'csatar_csatar_teams.id',
+                    'csatar_csatar_teams.name',
+                    'csatar_csatar_teams.team_number',
+                    'csatar_csatar_teams.district_id'
+                );
+            };
+            $eagerLoadSettings = array_merge_recursive($eagerLoadSettings, [
+                'team', 'team.district', 'team.district.association',
+            ]);
+        }
+        if ($useCase == 'inactiveMandatesTroop') {
+            $eagerLoadSettings = [
+                'mandatesInactive.mandate_troop.team' => function($query) {
+                    return $query->select(
+                        'csatar_csatar_teams.id',
+                        'csatar_csatar_teams.name',
+                        'csatar_csatar_teams.team_number'
+                    )->withTrashed();
+                },
+            ];
+            $eagerLoadSettings = array_merge($eagerLoadSettings, parent::getEagerLoadSettings('inactiveMandates'));
+        }
+        return $eagerLoadSettings;
+    }
 
     public function beforeSave()
     {
@@ -103,6 +161,32 @@ class Troop extends OrganizationBase
                 $scout->forceSave();
             }
             Mandate::setAllMandatesExpiredInOrganization($this);
+        }
+
+        if (empty($this->original)) {
+            return;
+        }
+
+        if (isset($this->original['status']) && $this->original['status'] != $this->status) {
+            StructureTree::updateTeamTree($this->team_id);
+        }
+
+        if (isset($this->original['team_id']) && $this->original['team_id'] != $this->district_id) {
+            StructureTree::updateTeamTree($this->team_id);
+            if (!empty($this->original['team_id'])) {
+                StructureTree::updateTeamTree($this->original['team_id']);
+            }
+        }
+
+        if (isset($this->original['name']) && $this->original['name'] != $this->name) {
+            $structureTree = Cache::pull('structureTree');
+            if (empty($structureTree)) {
+                StructureTree::getStructureTree();
+                return;
+            }
+            $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->id]['name'] = $this->name;
+            $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->id]['extended_name'] = $this->extended_name;
+            Cache::forever('structureTree', $structureTree);
         }
     }
 
@@ -188,11 +272,11 @@ class Troop extends OrganizationBase
     }
 
     public function getActiveScouts() {
-        return Scout::activeScoutsInTroop($this->id)->get();
+        return $this->scoutsActive;
     }
 
     public function getActiveScoutsCount() {
-        return Scout::activeScoutsInTroop($this->id)->count();
+        return $this->scoutsActive->count();
     }
 
     public function scopeInTeam($query, $teamId) {
@@ -200,6 +284,11 @@ class Troop extends OrganizationBase
     }
 
     public function getPatrols() {
-        return Patrol::inTroop($this->id)->get();
+        return $this->patrols;
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', Status::ACTIVE);
     }
 }

@@ -93,6 +93,69 @@ class OrganizationBase extends PermissionBasedAccess
         ],
     ];
 
+    public static function getEagerLoadSettings(string $useCase = null): array
+    {
+        $eagerLoadSettings = [];
+
+        if ($useCase == 'formBuilder') {
+            $eagerLoadSettings = [
+                'mandates',
+                'mandates.mandate_type' => function($query) {
+                    return $query->select(
+                        'csatar_csatar_mandate_types.id',
+                        'csatar_csatar_mandate_types.name'
+                    );
+                },
+                'mandates.scout' => function($query) {
+                    return $query->select(
+                        'csatar_csatar_scouts.id',
+                        'csatar_csatar_scouts.ecset_code',
+                        'csatar_csatar_scouts.family_name',
+                        'csatar_csatar_scouts.given_name',
+                        'csatar_csatar_scouts.team_id'
+                    );
+                },
+                'mandates.scout.team'  => function($query) {
+                    return $query->select(
+                        'csatar_csatar_teams.id',
+                        'csatar_csatar_teams.name',
+                        'csatar_csatar_teams.team_number'
+                    );
+                },
+            ];
+        }
+
+        if ($useCase == 'inactiveMandates') {
+            $eagerLoadSettings = [
+                'mandatesInactive',
+                'mandatesInactive.mandate_type' => function($query) {
+                    return $query->select(
+                        'csatar_csatar_mandate_types.id',
+                        'csatar_csatar_mandate_types.name'
+                    )->withTrashed();
+                },
+                'mandatesInactive.scout' => function($query) {
+                    return $query->select(
+                        'csatar_csatar_scouts.id',
+                        'csatar_csatar_scouts.ecset_code',
+                        'csatar_csatar_scouts.family_name',
+                        'csatar_csatar_scouts.given_name',
+                        'csatar_csatar_scouts.team_id'
+                    );
+                },
+                'mandatesInactive.scout.team'  => function($query) {
+                    return $query->select(
+                        'csatar_csatar_teams.id',
+                        'csatar_csatar_teams.name',
+                        'csatar_csatar_teams.team_number'
+                    );
+                },
+            ];
+        }
+
+        return $eagerLoadSettings;
+    }
+
     function afterUpdate()
     {
         $now = new DateTime();
@@ -146,7 +209,7 @@ class OrganizationBase extends PermissionBasedAccess
         return $query->where('status', Status::INACTIVE);
     }
 
-    public function getInactionMandatesInOrganization() {
+    public function getInactiveMandatesInOrganization() {
         return Mandate::inactiveMandatesInOrganizations($this)->get();
     }
 }

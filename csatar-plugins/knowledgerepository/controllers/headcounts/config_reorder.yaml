@@ -1,0 +1,4 @@
+title: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.headCounts'
+modelClass: Csatar\KnowledgeRepository\Models\HeadCount
+toolbar:
+    buttons: reorder_toolbar

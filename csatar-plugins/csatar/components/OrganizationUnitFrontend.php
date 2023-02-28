@@ -4,10 +4,12 @@ use Auth;
 use Carbon\Carbon;
 use Cms\Classes\ComponentBase;
 use Csatar\Csatar\Classes\CsvCreator;
+use Csatar\Csatar\Classes\StructureTree;
 use Csatar\Csatar\Classes\Enums\Gender;
 use Csatar\Csatar\Classes\Enums\Status;
 use Csatar\Csatar\Classes\Mappers\LegalRelationshipMapper;
 use Csatar\Csatar\Classes\Mappers\ReligionMapper;
+use Csatar\Csatar\Classes\Mappers\TShirtSizeMapper;
 use Csatar\Csatar\Models\GalleryModelPivot;
 use Csatar\Csatar\Models\Team;
 use Csatar\Csatar\Models\Scout;
@@ -22,6 +24,7 @@ class OrganizationUnitFrontend extends ComponentBase
     public $content_page;
     public $permissions;
     public $gallery_id;
+    public $inactiveMandates;
     public $inactiveMandatesColumns;
 
     public function componentDetails()
@@ -54,7 +57,14 @@ class OrganizationUnitFrontend extends ComponentBase
     {
         $modelName = "Csatar\Csatar\Models\\" . $this->property('model_name');
         if (is_numeric($this->property('model_id'))) {
-            $this->model = $modelName::find($this->property('model_id'));
+            $eagerLoadUseCase = 'inactiveMandates';
+            $eagerLoadUseCase = $eagerLoadUseCase . ($this->property('model_name') == 'Patrol' ? 'Patrol' : '');
+            $eagerLoadUseCase = $eagerLoadUseCase . ($this->property('model_name') == 'Troop' ? 'Troop' : '');
+            $eagerLoadSettings = $modelName::getEagerLoadSettings($eagerLoadUseCase);
+            $this->model = $modelName::where('id', $this->property('model_id'))->with($eagerLoadSettings)->first(); //5 queries
+
+            $this->inactiveMandates = $this->model->mandatesInactive->toArray();
+
             if(isset(Auth::user()->scout)) {
                 $this->permissions = Auth::user()->scout->getRightsForModel($this->model);
             }
@@ -108,12 +118,9 @@ class OrganizationUnitFrontend extends ComponentBase
             'mandate_model_name' => [
                 'label' => Lang::get('csatar.csatar::lang.plugin.admin.mandateType.organizationTypeModelName'),
                 ],
-            'mandate_team' => [
-                'label' => Lang::get('csatar.csatar::lang.plugin.admin.team.team'),
-                ],
             'scout' => [
                 'label' => Lang::get('csatar.csatar::lang.plugin.admin.mandateType.scout'),
-                'nameFrom' => 'name',
+                'nameFrom' => 'full_name',
                 'link' => '/tag/',
                 'linkParam' => 'ecset_code',
                 ],
@@ -174,6 +181,7 @@ class OrganizationUnitFrontend extends ComponentBase
             'gender',
             'legal_relationship_id',
             'religion_id',
+            'tshirt_size_id',
             'nationality',
             'birthdate',
             'nameday',
@@ -202,6 +210,7 @@ class OrganizationUnitFrontend extends ComponentBase
             'university',
             'occupation',
             'workplace',
+            'foreign_language_knowledge',
             'comment',
             'is_active',
         ];
@@ -209,6 +218,7 @@ class OrganizationUnitFrontend extends ComponentBase
         $attributesWithLabels = array_intersect_key($attributesWithLabels, array_flip($attributes));
         $legalRelationshipsMap = (new LegalRelationshipMapper)->idsToNames;
         $religionsMap = (new ReligionMapper)->idsToNames;
+        $tShirtSizesMap = (new TShirtSizeMapper)->idsToNames;
 
         $data = [];
         foreach ($attributesWithLabels as $attribute => $label) {
@@ -229,6 +239,10 @@ class OrganizationUnitFrontend extends ComponentBase
                 }
                 if ($attribute == 'religion_id') {
                     $dataRow[] = $religionsMap[$record->{$attribute}] ?? '';
+                    continue;
+                }
+                if ($attribute == 'tshirt_size_id') {
+                    $dataRow[] = $tShirtSizesMap[$record->{$attribute}] ?? '';
                     continue;
                 }
                 $dataRow[] = strval($record->{$attribute});
@@ -290,7 +304,13 @@ class OrganizationUnitFrontend extends ComponentBase
             $scout = $this->convertCsvRowToScout($teamId, $attributes, $rowData);
 
             try {
+                $scout->skipCacheRefresh = true; //important, otherwise cache will be refreshed for each scout
+                if (empty($scout->personal_identification_number)){
+                    $log['errors'][] = $rowNumber . ' | ' . Lang::get('csatar.csatar::lang.plugin.component.organizationUnitFrontend.csv.personalIdentificationNumberMissing');
+                    continue;
+                }
                 if ($scout->is_active != Status::ACTIVE) {
+                    $scout->is_active = empty($scout->is_active) ? Status::INACTIVE : $scout->is_active;
                     $scout->ignoreValidation = true;
                     $scout->forceSave();
                 } else {
@@ -308,7 +328,7 @@ class OrganizationUnitFrontend extends ComponentBase
         }
 
         $this->page['csvImportLog'] = $log;
-
+        StructureTree::updateTeamTree($teamId);
         return [
             '#csvImportLog' => $this->renderPartial('@csvImportLog', ['log' => $log])
         ];
@@ -318,6 +338,7 @@ class OrganizationUnitFrontend extends ComponentBase
     {
         $legalRelationshipsMap = (new LegalRelationshipMapper)->namesToIds;
         $religionsMap = (new ReligionMapper)->namesToIds;
+        $tShirtSizesMap = (new TShirtSizeMapper)->namesToIds;
 
         $personalIdentificationNumber = $rowData[array_search('personal_identification_number', $attributes)] ?? null;
         $ecsetCode = $rowData[array_search('ecset_code', $attributes)];
@@ -336,6 +357,10 @@ class OrganizationUnitFrontend extends ComponentBase
             }
             if ($attributes[$key] == 'religion_id') {
                 $data[$attributes[$key]] = $religionsMap[$value] ?? null;
+                continue;
+            }
+            if ($attributes[$key] == 'tshirt_size_id') {
+                $data[$attributes[$key]] = $tShirtSizesMap[$value] ?? null;
                 continue;
             }
             $data[$attributes[$key]] = $value;

@@ -50,6 +50,8 @@
                 'active' => 'Aktív',
                 'inactive' => 'Inaktív',
                 'inactivationWarning' => 'Figyelem! Ha a státusz aktívról bármilyen típusú inaktív státuszra változik, a szervezeti egység alá tartozó összes szervezeti egység és cserkész státusza is inaktívvá válik, valamint lejár az ezekhez tartozó összes mebízatás!',
+                'bulkDeletePartialSuccess' => ':deletedCount elem törlése sikerült a :totalCount-ból/ből. ',
+                'bulkDeleteError' => 'A következő hibák merültek fel a törlés során: ',
             ],
             'ageGroups' => [
                 'ageGroups' => 'Korosztályok',
@@ -366,6 +368,20 @@
                 'sortOrder' => 'Sorrend',
                 'breadcrumb' => 'Hierarchia',
             ],
+            'dynamicFields' => [
+                'dynamicFields' => 'Dinamikus mezők',
+                'extraFields' => 'További mezők',
+                'association' => 'Szövetség',
+                'startDate' => 'Kezdete',
+                'endDate' => 'Vége',
+                'model' => 'Modell',
+                'extraFieldsDefinition' => 'További mezők adatai',
+                'promptNew' => 'Új hozzáadása',
+                'fieldName' => 'Mező neve',
+                'fieldRequired' => 'Kötelező',
+                'breadcrumb' => 'Dinamikus mezők',
+                'overlappingDynamicFieldsError' => 'Már vannak megadva Dinamikus mezők az adott periódusra e szövetség esetén.',
+            ],
             'organizationBase' => [
                 'organizationBase' => 'Általános szervezeti egység',
             ],
@@ -528,7 +544,8 @@
                 'startDate' => 'Kezdete',
                 'endDate' => 'Vége',
                 'breadcrumb' => 'Megbízatás típusok',
-                'activeMandateDeleteError' => 'Létezik %name típusú aktív Megbízatás, így ez a Megbízatás típus nem törölhető.',
+                'activeMandateDeleteError' => 'Létezik %name típusú vagy ezen típus alá tartozó aktív Megbízatás, így ez a Megbízatás típus nem törölhető.',
+                'isHiddenFrontend' => 'Rejtett a frontenden',
             ],
             'mandate' => [
                 'mandate' => 'Megbízatás',
@@ -573,6 +590,9 @@
                 'membershipCards' => 'Tagkártyák',
                 'issued_date_time' => 'Kiállítva',
                 'active' => 'Érvényes',
+                'requests' => 'Tagkártya igénylések',
+                'exportRequests' => 'Igénylések exportálása .csv-be',
+                'inactiveScoutError' => 'A kártyához rendelt tag inaktív. A kártyát nem lehet érvényesre állítani, ha a tag státusza nem aktív.',
             ],
         ],
         'locations' => [
@@ -662,6 +682,7 @@
                     'teamReportRefreshed' => 'A csapatjelentés frissült.',
                     'teamReportDeleted' => 'A csapatjelentés törölve.',
                 ],
+                'confirmRefreshMessage' => 'Biztosan frissíti a csapatjelentést? A frissítés során újra generálódik a taglista, újraszámolódik tagok száma, a korosztályok száma és a befizetentdő összeg.',
             ],
             'teamReports' => [
                 'name' => 'Csapatjelentések',
@@ -702,6 +723,7 @@
                 'csv' => [
                     'fileMissingOrInvalid' => 'A .csv fájl hiányzik vagy érvénytelen.',
                     'teamIdMissing' => 'Hiányzik a csapat azonosítója.',
+                    'personalIdentificationNumberMissing' => 'Hiányzó személyi szám.',
                 ],
             ],
             'twoFactorAuthentication' => [
