@@ -6,6 +6,7 @@ services:
     ports:
       - 33306:3306
     environment:
+      - PHP_IDE_CONFIG=serverName=Docker
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=csatar
     networks:
