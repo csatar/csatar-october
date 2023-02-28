@@ -304,11 +304,33 @@ class Scout extends OrganizationBase
             }
         }
 
-        if (empty($this->original) || $this->skipCacheRefresh) {
+        if (!$this->skipCacheRefresh) {
+            $this->updateCache();
+        }
+
+
+    }
+
+    public function afterDelete() {
+        if ($this->skipCacheRefresh) {
+            return;
+        }
+        if (!empty($this->team_id)) {
+            StructureTree::updateTeamTree($this->team_id);
+        }
+    }
+
+    public function updateCache(): void
+    {
+        if ($this->wasRecentlyCreated && $this->is_active == Status::ACTIVE) {
+            StructureTree::updateTeamTree($this->team_id);
+        }
+
+        if (empty($this->original) ) {
             return;
         }
 
-        if ((isset($this->original['is_active']) && $this->original['is_active'] != $this->is_active) || $this->wasRecentlyCreated || $this->deleted_at != null) {
+        if ((isset($this->original['is_active']) && $this->original['is_active'] != $this->is_active) || $this->deleted_at != null) {
             StructureTree::updateTeamTree($this->team_id);
         }
 
@@ -375,15 +397,6 @@ class Scout extends OrganizationBase
             }
             $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'] = $teamsActive;
             Cache::forever('structureTree', $structureTree);
-        }
-    }
-
-    public function afterDelete() {
-        if ($this->skipCacheRefresh) {
-            return;
-        }
-        if (!empty($this->team_id)) {
-            StructureTree::updateTeamTree($this->team_id);
         }
     }
 
