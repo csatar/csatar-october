@@ -39,6 +39,7 @@ class Plugin extends PluginBase
         'PolloZen.SimpleGallery',
         'RainLab.Translate',
         'Rainlab.User',
+        'RainLab.Location',
         'Vdlp.TwoFactorAuthentication',
     ];
 

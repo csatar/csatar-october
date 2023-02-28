@@ -121,7 +121,6 @@ class Breadcrumb extends ComponentBase
         if (!empty($parent)) {
             $this->getAncestorsTree($parent);
         }
-//        dd($this->urlList);
     }
 
     private function getParent($currentRecord, $possibleParentModel) {
@@ -130,13 +129,15 @@ class Breadcrumb extends ComponentBase
         if (empty($parentRelationName)) {
             foreach ($currentRecord->belongsTo as $key => $relationArray) {
                 if (is_array($relationArray)) {
-                    $parentRelationName = array_search($possibleParentModel, $relationArray) >= 0 ? $key : null;
+                    $parentRelationName = array_search($possibleParentModel, $relationArray) !== false ? $key : null;
+                    if (!empty($parentRelationName)) {
+                        break;
+                    }
                 }
             }
         }
-
         $parent = $currentRecord->{$parentRelationName};
-        if (!empty($parent) && is_object($parent)) {
+        if (!empty($parent) && $parent instanceof PermissionBasedAccess) {
             $this->getRecordUrl($parent, $possibleParentModel);
             return $parent;
         }

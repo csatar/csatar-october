@@ -67,6 +67,7 @@
                 'familyName' => 'Családnév',
                 'givenName' => 'Keresztnév',
                 'nickname' => 'Becenév',
+                'citizenship' => 'Állampolgárság',
                 'personalIdentificationNumber' => 'Személyi szám',
                 'gender' => [
                     'gender' => 'Nem',
@@ -402,7 +403,7 @@
                 'personalIdentificationNumberValidator' => 'Személyi szám hitelesítés',
                 'unique'    => 'Egyedi',
                 'required'  => 'Kötelező',
-                'cnp'       => 'CNP - Romániai személy szám formátum hitelesítő',
+                'cnp'       => 'CNP - Romániai személyi szám formátum hitelesítő',
                 'validationExceptions' => [
                     'invalidTeamReportSubmissionPeriod' => 'A csapatjelentés leadási periódus végének dátuma nagyobb kell legyen a periódus kezdetének dátumánál!',
                 ],
@@ -544,7 +545,7 @@
                 'startDate' => 'Kezdete',
                 'endDate' => 'Vége',
                 'breadcrumb' => 'Megbízatás típusok',
-                'existingMandateTypeWithSameNameError' => 'Ez a megbízatás típus már létezik ennél a szövetségnél.',
+                'existingMandateTypeWithSameNameError' => 'Ez a megbízatás típus: :name már létezik ennél a szövetségnél.',
                 'activeMandateDeleteError' => 'Létezik %name típusú vagy ezen típus alá tartozó aktív Megbízatás, így ez a Megbízatás típus nem törölhető.',
                 'isHiddenFrontend' => 'Rejtett a frontenden',
             ],
@@ -594,6 +595,10 @@
                 'requests' => 'Tagkártya igénylések',
                 'exportRequests' => 'Igénylések exportálása .csv-be',
                 'inactiveScoutError' => 'A kártyához rendelt tag inaktív. A kártyát nem lehet érvényesre állítani, ha a tag státusza nem aktív.',
+            ],
+            'countryNamesHungarianTranslations' => [
+                'countryNamesHungarianTranslations' => 'Országnevek magyar fordításai',
+                'explanation' => 'A Rainlab.Localtion plugin által használt országnevek magyar fordításai.',
             ],
         ],
         'locations' => [
