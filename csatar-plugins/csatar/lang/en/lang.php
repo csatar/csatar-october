@@ -65,7 +65,7 @@
                 'familyName' => 'Family name',
                 'givenName' => 'Given name',
                 'nickname' => 'Nickname',
-                'citizenship' => 'Citizenship',
+                'citizenship_country' => 'citizenship_country',
                 'personalIdentificationNumber' => 'Personal identification number',
                 'gender' => [
                     'gender' => 'Gender',

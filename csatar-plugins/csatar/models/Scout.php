@@ -173,7 +173,7 @@ class Scout extends OrganizationBase
         'patrol' => 'nullable',
         'phone' => 'nullable|regex:(^[0-9+-.()]{10,}$)',
         'birthdate' => 'required',
-        'citizenship' => 'required',
+        'citizenship_country' => 'required',
         'legal_representative_phone' => 'nullable|regex:(^[0-9+-.()]{10,}$)',
         'personal_identification_number' => 'nullable',
         'mothers_phone' => 'nullable|regex:(^[0-9+-.()]{10,}$)',
@@ -498,8 +498,8 @@ class Scout extends OrganizationBase
             $this->setAddressStreetOptions($fields->address_street);
         }
 
-        if (isset($fields->citizenship_country_id) && empty($fields->citizenship_country_id->value)) {
-            $fields->citizenship_country_id->value = Country::where('code', 'RO')->first()->id ?? null;
+        if (isset($fields->citizenship_country) && empty($fields->citizenship_country->value)) {
+            $fields->citizenship_country->value = Country::where('code', 'RO')->first()->id ?? null;
         }
     }
 
@@ -523,9 +523,9 @@ class Scout extends OrganizationBase
         ],
         'troop' => '\Csatar\Csatar\Models\Troop',
         'patrol' => '\Csatar\Csatar\Models\Patrol',
-        'citizenship' => [
+        'citizenship_country' => [
             '\Rainlab\Location\Models\Country',
-            'label' => 'csatar.csatar::lang.plugin.admin.scout.citizenship',
+            'label' => 'csatar.csatar::lang.plugin.admin.scout.citizenship_country',
             'key' => 'citizenship_country_id',
             ],
     ];
@@ -645,7 +645,7 @@ class Scout extends OrganizationBase
         return $teamOptions;
     }
 
-    public function getCitizenshipCountryIdOptions() {
+    public function getCitizenshipCountryOptions() {
         $countries = Country::all();
         $countryOptions = [];
         foreach ($countries as $country) {
