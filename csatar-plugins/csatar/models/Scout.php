@@ -239,21 +239,24 @@ class Scout extends OrganizationBase
                 return;
             }
 
-            $personalIdentificationNumberValidators = $this->getPersonalIdentificationNumberValidators();
+            // personal id number validations, for active scouts only
+            if ($this->is_active) {
+                $personalIdentificationNumberValidators = $this->getPersonalIdentificationNumberValidators();
 
-            if (in_array('cnp', $personalIdentificationNumberValidators) && $this->shouldNotValidateCnp()) {
-                unset($personalIdentificationNumberValidators[array_search('cnp', $personalIdentificationNumberValidators)]);
-            }
+                if (in_array('cnp', $personalIdentificationNumberValidators) && $this->shouldNotValidateCnp()) {
+                    unset($personalIdentificationNumberValidators[array_search('cnp', $personalIdentificationNumberValidators)]);
+                }
 
-            if (!empty($personalIdentificationNumberValidators)) {
-                $this->rules['personal_identification_number'] .= '|' . implode('|', $personalIdentificationNumberValidators);
-            }
+                if (!empty($personalIdentificationNumberValidators)) {
+                    $this->rules['personal_identification_number'] .= '|' . implode('|', $personalIdentificationNumberValidators);
+                }
 
-            if (in_array('cnp', $personalIdentificationNumberValidators)
-                && !empty($this->personal_identification_number)
-                && (new DateTime($this->birthdate))->format('Y-m-d') != $this->getBirthDateFromCNP($this->personal_identification_number)
-            ) {
-                throw new \ValidationException(['birthdate' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.personalIdentificationNumberBirthdateMismatch')]);
+                if (in_array('cnp', $personalIdentificationNumberValidators)
+                    && !empty($this->personal_identification_number)
+                    && (new DateTime($this->birthdate))->format('Y-m-d') != $this->getBirthDateFromCNP($this->personal_identification_number)
+                ) {
+                    throw new \ValidationException(['birthdate' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.personalIdentificationNumberBirthdateMismatch')]);
+                }
             }
 
             // if the selected troop does not belong to the selected team, then throw and exception
