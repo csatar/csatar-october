@@ -23,6 +23,8 @@ class District extends OrganizationBase
 
     protected $appends = ['extended_name'];
 
+    public $customAttributes = ['active_members_count'];
+
     /**
      * @var array Validation rules
      */
@@ -230,5 +232,9 @@ class District extends OrganizationBase
     // scope to get only districts with active status and active teams
     public function scopeActive($query) {
         return $query->where('status', Status::ACTIVE)->whereHas('teamsActive');
+    }
+
+    public function getActiveMembersCountAttribute() {
+        return StructureTree::getDistrictScoutsCount($this->id);
     }
 }

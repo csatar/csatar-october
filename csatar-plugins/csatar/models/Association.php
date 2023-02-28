@@ -1,6 +1,7 @@
 <?php namespace Csatar\Csatar\Models;
 
 use Cache;
+use Csatar\Csatar\Classes\StructureTree;
 use Csatar\Csatar\Models\OrganizationBase;
 use DateTime;
 use Lang;
@@ -22,6 +23,8 @@ class Association extends OrganizationBase
     protected static $searchable = ['name'];
 
     protected $appends = ['extended_name'];
+
+    public $customAttributes = ['active_members_count'];
 
     protected $jsonable = ['personal_identification_number_validator'];
 
@@ -208,5 +211,9 @@ class Association extends OrganizationBase
 
     public function getActiveDistricts() {
         return $this->districtsActive;
+    }
+
+    public function getActiveMembersCountAttribute() {
+        return StructureTree::getAssociationScoutsCount($this->id);
     }
 }

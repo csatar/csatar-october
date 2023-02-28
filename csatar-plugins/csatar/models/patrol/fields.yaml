@@ -109,3 +109,14 @@ fields:
             card: patrolData
             position: subtitle
             order: 2
+    active_members_count:
+        label: 'csatar.csatar::lang.plugin.admin.general.activeMembersCount'
+        span: auto
+        readOnly: 1
+        type: number
+        formBuilder:
+            type: field
+            card: patrolData
+            position: details
+            order: 10
+            ignoreUserRights: 1

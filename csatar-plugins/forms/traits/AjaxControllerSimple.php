@@ -176,37 +176,39 @@ trait AjaxControllerSimple {
 
                 // retrieve the value for the field
                 $value = '';
-                if (isset($widget->model->{$key})) {
-                    if (is_object($widget->model->{$key}) && array_key_exists('nameFrom', $field) && isset($widget->model->{$key}->{$field['nameFrom']})) { // relation fields
-                        $value = $widget->model->{$key}->{$field['nameFrom']};
-                    }
-                    else if (is_a($widget->model->{$key}, 'Illuminate\Database\Eloquent\Collection') && count($widget->model->{$key}) > 0 && array_key_exists('nameFrom', $field)) { // belongs to many with no pivot data
-                        $value = '';
-                        foreach ($widget->model->{$key} as $item) {
-                            if (isset($item->{$field['nameFrom']})) {
-                                $value .= $item->{$field['nameFrom']} . ', ';
-                            }
+
+                if (is_object($widget->model->{$key}) && array_key_exists('nameFrom', $field) && isset($widget->model->{$key}->{$field['nameFrom']})) { // relation fields
+                    $value = $widget->model->{$key}->{$field['nameFrom']};
+                }
+                else if (is_a($widget->model->{$key}, 'Illuminate\Database\Eloquent\Collection') && count($widget->model->{$key}) > 0 && array_key_exists('nameFrom', $field)) { // belongs to many with no pivot data
+                    $value = '';
+                    foreach ($widget->model->{$key} as $item) {
+                        if (isset($item->{$field['nameFrom']})) {
+                            $value .= $item->{$field['nameFrom']} . ', ';
                         }
                     }
-                    else if ($field['type'] == 'dropdown' && array_key_exists('options', $field) && is_array($field['options']) && count($field['options']) > 0) { // dropdown fields
-                        $value = Lang::get($field['options'][$widget->model->{$key}]);
-                    }
-                    else if ($field['type'] == 'checkbox') { // bool fields
-                        $value = $widget->model->{$key} == 1 ? Lang::get('csatar.csatar::lang.plugin.admin.general.yes') : Lang::get('csatar.csatar::lang.plugin.admin.general.no');
-                    }
-                    else if ($field['type'] == 'fileupload' && $field['mode'] == 'image') { // images
-                        $value = $widget->model->{$key}->getPath();
-                        $mainCardVariablesToPass['customImage'] = true;
-                    }
-                    else if ($field['type'] == 'custom') { // custom field type, which permits to list title-value pairs in the descriptionList part of the mainCard
-                        $value = $widget->model->{$key};
-                    }
-                    else if (isset($widget->model->attributes[$key]) && !empty($widget->model->attributes[$key])) { // regular fields
-                        $value = $widget->model->attributes[$key];
-                    }
-                    else {
-                        continue;
-                    }
+                }
+                else if ($field['type'] == 'dropdown' && array_key_exists('options', $field) && is_array($field['options']) && count($field['options']) > 0) { // dropdown fields
+                    $value = Lang::get($field['options'][$widget->model->{$key}]);
+                }
+                else if ($field['type'] == 'checkbox') { // bool fields
+                    $value = $widget->model->{$key} == 1 ? Lang::get('csatar.csatar::lang.plugin.admin.general.yes') : Lang::get('csatar.csatar::lang.plugin.admin.general.no');
+                }
+                else if ($field['type'] == 'fileupload' && $field['mode'] == 'image') { // images
+                    $value = $widget->model->{$key}->getPath();
+                    $mainCardVariablesToPass['customImage'] = true;
+                }
+                else if ($field['type'] == 'custom') { // custom field type, which permits to list title-value pairs in the descriptionList part of the mainCard
+                    $value = $widget->model->{$key};
+                }
+                else if (is_array($widget->model->customAttributes) && in_array($key, $widget->model->customAttributes)) { // to display values from get...Arribute() functions
+                    $value = $widget->model->{$key};
+                }
+                else if (isset($widget->model->attributes[$key]) && !empty($widget->model->attributes[$key])) { // regular fields
+                    $value = $widget->model->attributes[$key];
+                }
+                else {
+                    continue;
                 }
 
                 // if an array for the card does not exist yet, then create it
