@@ -15,7 +15,9 @@
     {% if level == 3 %}
         {% partial __SELF__ ~ '::accordionItems' array=item['troopsActive'] level=level+1 headingId=headingId~item['id']~'-' collapseId=collapseId~item['id']~'-' %}
         {# Render the Patrols too for the Teams #}
-        {% set patrolsWithoutTroop = item['patrolsActive']|filter(patrol => patrol['troop_id'] is null) %}
+        {% if item['patrolsActive']|length != 0 %}
+            {% set patrolsWithoutTroop = item['patrolsActive']|filter(patrol => patrol['troop_id'] is null) %}
+        {% endif %}
         {% if patrolsWithoutTroop|length != 0 %}
             {% partial __SELF__ ~ '::accordionItems' array=patrolsWithoutTroop level=5 headingId=headingId~item['id']~'-0-' collapseId=collapseId~item['id']~'-0-' %}
         {% endif %}
