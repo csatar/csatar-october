@@ -988,8 +988,8 @@ trait AjaxControllerSimple {
         // render hasMany relations
         foreach($record->hasMany as $relationName => $definition) {
             if ($this->canRead($relationName)
-                && (array_key_exists('renderableOnCreateForm', $definition) || array_key_exists('renderableOnUpdateForm', $definition)) //this is needed to avoid looping though relations that renderable and eager loaded
                 && is_array($definition)
+                && (array_key_exists('renderableOnCreateForm', $definition) || array_key_exists('renderableOnUpdateForm', $definition)) //this is needed to avoid looping though relations that renderable and eager loaded
                 && (count($record->{$relationName}) > 0 || $showEmpty)
                 && ((!$record->id
                     && array_key_exists('renderableOnCreateForm', $definition)
