@@ -217,7 +217,7 @@ class OrganizationUnitFrontend extends ComponentBase
             'is_active',
         ];
 
-        $attributesWithLabels['citizenship_country_id'] = $attributesWithLabels['citizenship'];
+        $attributesWithLabels['citizenship_country_id'] = $attributesWithLabels['citizenship_country'];
         $attributes = array_flip($attributes);
         $attributesWithLabels = array_intersect_key(array_replace($attributes, $attributesWithLabels), $attributes);
         $legalRelationshipsMap = (new LegalRelationshipMapper)->idsToNames;

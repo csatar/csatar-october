@@ -67,7 +67,7 @@
                 'familyName' => 'Családnév',
                 'givenName' => 'Keresztnév',
                 'nickname' => 'Becenév',
-                'citizenship' => 'Állampolgárság',
+                'citizenship_country' => 'Állampolgárság',
                 'personalIdentificationNumber' => 'Személyi szám',
                 'gender' => [
                     'gender' => 'Nem',

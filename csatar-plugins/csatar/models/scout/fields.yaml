@@ -119,8 +119,8 @@ fields:
             card: scoutData
             position: details
             order: 4
-    citizenship_country_id:
-        label: 'csatar.csatar::lang.plugin.admin.scout.citizenship'
+    citizenship_country:
+        label: 'csatar.csatar::lang.plugin.admin.scout.citizenship_country'
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
         type: dropdown
