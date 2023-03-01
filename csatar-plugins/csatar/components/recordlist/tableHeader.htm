@@ -1,0 +1,13 @@
+{% set tableHeaderConfig = __SELF__.tableHeaderConfig %}
+
+<div class="tr d-none d-lg-block">
+    <div class="card csat-resp-gdtable csat-border-lg-none">
+        <div class="row">
+            {% for column in tableHeaderConfig %}
+                <div class="col">
+                    <div class="th-grid">{{ column.label }}</div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

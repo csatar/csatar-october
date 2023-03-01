@@ -776,6 +776,17 @@
                 'name' => 'Részlapok komponens',
                 'description' => 'Komponens ami lehetővé teszi a részlapok megosztását pluginek között',
             ],
+            'recordList' => [
+                'name' => 'Lista komponens',
+                'description' => 'Lista komponens szűrés és rendezés lehetőséggel',
+                'defaultSorting' => [
+                    'defaultSorting' => 'Alapértelmezett rendezés',
+                    'listSortColumn' => 'Oszlop',
+                    'listSortDirection' => 'Rendezés iránya',
+                    'listSortDirectionAsc' => 'Növekvő',
+                    'listSortDirectionDesc' => 'Csökkenő',
+                ],
+            ]
         ],
         'oauth' => [
             'onlyExistingUsersCanLogin' => 'Jelenleg csak létező felhasználók léphetnek be oAuth-al!',

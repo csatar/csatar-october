@@ -780,6 +780,22 @@
                 'name' => 'Partials Component',
                 'description' => 'Component to share partials between plugins'
             ],
+            'recordList' => [
+                'name' => 'List Component',
+                'description' => 'List component with filter and sort options',
+                'defaultSorting' => [
+                    'defaultSorting' => 'Default sorting',
+                    'listSortColumn' => 'Column',
+                    'listSortDirection' => 'Sort direction',
+                    'listSortDirectionAsc' => 'Ascending',
+                    'listSortDirectionDesc' => 'Descending',
+                ],
+                'columnsConfigFile' => [
+                    'columnsConfigFile' => 'Columns config file',
+                    'columnsConfigFileDescription' => 'File name with path to the columns config file, relative to the selected model',
+                    'columnsConfigFileMissing' => 'The columns config file is missing',
+                ],
+            ]
         ],
         'oauth' => [
             'onlyExistingUsersCanLogin'         => 'At the moment, only existing users are allowed to log in with oAuth!',

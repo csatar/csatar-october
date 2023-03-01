@@ -215,6 +215,7 @@ class Plugin extends PluginBase
             \Csatar\Csatar\Components\TwoFactorAuthentication::class => 'twoFactorAuthentication',
             \Csatar\Csatar\Components\AccidentLogRecordList::class => 'accidentLogRecordList',
             \Csatar\Csatar\Components\Partials::class => 'partials',
+            \Csatar\Csatar\Components\RecordList::class => 'recordList',
         ];
     }
 
