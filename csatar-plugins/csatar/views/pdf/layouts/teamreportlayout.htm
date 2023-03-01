@@ -131,7 +131,7 @@ name = "Team Report layout"
             </tr>
         </thead>
         <tbody>
-            {% for scout in teamReport.scouts %}
+            {% for scout in teamReport.scouts.lists('pivot') %}
             <tr>
                 <td>{{ scout.name }}</td>
                 <td>{{ scout.legal_relationship.name }}</td>

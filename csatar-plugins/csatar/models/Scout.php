@@ -333,14 +333,14 @@ class Scout extends OrganizationBase
             return;
         }
 
-        if ((isset($this->original['is_active']) && $this->original['is_active'] != $this->is_active) || $this->deleted_at != null) {
+        if (($this->getOriginalValue('is_active') != $this->is_active) || $this->deleted_at != null) {
             StructureTree::updateTeamTree($this->team_id);
         }
 
         if (
-            (isset($this->original['team_id']) && $this->original['team_id'] != $this->team_id)
-            || (isset($this->original['troop_id']) && $this->original['troop_id'] != $this->troop_id)
-            || (isset($this->original['patrol_id']) && $this->original['patrol_id'] != $this->patrol_id)
+            ($this->getOriginalValue('team_id') != $this->team_id)
+            || ($this->getOriginalValue('troop_id') != $this->troop_id)
+            || ($this->getOriginalValue('patrol_id') != $this->patrol_id)
         )
         {
             StructureTree::updateTeamTree($this->team_id);
@@ -350,10 +350,10 @@ class Scout extends OrganizationBase
         }
 
         if (
-            (isset($this->original['family_name']) && $this->original['family_name'] != $this->family_name)
-            || (isset($this->original['given_name']) && $this->original['given_name'] != $this->given_name)
-            || (isset($this->original['ecset_code']) && $this->original['ecset_code'] != $this->ecset_code)
-            || (isset($this->original['legal_relationship_id']) && $this->original['legal_relationship_id'] != $this->legal_relationship_id)
+            ($this->getOriginalValue('family_name') != $this->family_name)
+            || ($this->getOriginalValue('given_name') != $this->given_name)
+            || ($this->getOriginalValue('ecset_code') != $this->ecset_code)
+            || ($this->getOriginalValue('legal_relationship_id') != $this->legal_relationship_id)
         )
         {
             $structureTree = Cache::pull('structureTree');

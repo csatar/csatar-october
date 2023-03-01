@@ -220,7 +220,7 @@ class TeamReport extends ComponentBase
                 'legal_relationship'       => $scout->legal_relationship,
                 'legal_relationship_id'    => $scout->legal_relationship->id,
                 'leadership_qualification' => $scout->leadership_qualifications->sortByDesc(function ($item, $key) {
-                    return $item['pivot']['date'];
+                    return $item->id; // currently leadership qualifications are seeded in the correct order, so the highest id is the highest qualification, but if this changes, this should be changed to sort by the qualification level, and qualification level should be added to the leadership_qualifications table
                 })->values()->first(),
                 'ecset_code'               => $scout->ecset_code,
                 'membership_fee'           => $membership_fee,
