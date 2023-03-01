@@ -243,23 +243,32 @@ class Team extends OrganizationBase
             Mandate::setAllMandatesExpiredInOrganization($this);
         }
 
+        $this->updateCache();
+    }
+
+    public function updateCache(): void
+    {
+        if ($this->wasRecentlyCreated && $this->status == Status::ACTIVE) {
+            StructureTree::updateAssociationTree($this->association_id);
+        }
+
         if (empty($this->original)) {
             return;
         }
 
-        if (isset($this->original['status']) && $this->original['status'] != $this->status) {
+        if ($this->getOriginalValue('status') != $this->status) {
             StructureTree::updateDistrictTree($this->district_id);
         }
 
-        if (isset($this->original['district_id']) && $this->original['district_id'] != $this->district_id) {
+        if ($this->getOriginalValue('district_id') != $this->district_id) {
             StructureTree::updateDistrictTree($this->district_id);
             if (!empty($this->original['district_id'])) {
                 StructureTree::updateDistrictTree($this->original['district_id']);
             }
         }
 
-        if ((isset($this->original['name']) && $this->original['name'] != $this->name)
-            || (isset($this->original['team_number']) && $this->original['team_number'] != $this->team_number)
+        if (($this->getOriginalValue('name') != $this->name)
+            || ($this->getOriginalValue('team_number') != $this->team_number)
         ) {
             $structureTree = Cache::pull('structureTree');
             if (empty($structureTree)) {
