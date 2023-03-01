@@ -218,7 +218,7 @@ class TeamReport extends ComponentBase
             $this->scouts[]    = [
                 'name'                     => $scout->family_name . ' ' . $scout->given_name,
                 'legal_relationship'       => $scout->legal_relationship,
-                'legal_relationship_id'    => $scout->legal_relationship->id,
+                'legal_relationship_id'    => $scout->legal_relationship->id ?? null,
                 'leadership_qualification' => $scout->leadership_qualifications->sortByDesc(function ($item, $key) {
                     return $item['pivot']['date'];
                 })->values()->first(),
