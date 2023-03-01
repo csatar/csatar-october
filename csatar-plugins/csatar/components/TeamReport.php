@@ -188,9 +188,21 @@ class TeamReport extends ComponentBase
 
         $teamReport = \Csatar\Csatar\Models\TeamReport::find($teamReportId);
 
+        $extraFields = null;
+        if (isset($teamReport->extra_fields) && !empty($teamReport->extra_fields)) {
+            $extraFields = [];
+            foreach (json_decode($teamReport->extra_fields) as $id => $extraField) {
+                $extraFields[$id] = [
+                    'label' => $extraField->label,
+                    'value' => $extraField->value,
+                ]; 
+            }
+        }
+
         $data = [
             'css' => \File::get(plugins_path('csatar/csatar/assets/teamReportPdf.css')),
-            'teamReport' => $teamReport
+            'teamReport' => $teamReport,
+            'extraFields' => $extraFields,
         ];
 
         $fileName = $teamReport->team->id . '-teamreport.pdf';
