@@ -170,7 +170,7 @@ class SeederData extends Seeder
             'Felnőtt őrsvezető képzés',
             'Segédvezető képzés',
             'Cserkész vezető',
-        ],
+        ], // if new leader qualification is added, and it's level is below 'Cserkész vezető', qualification_level column must be introduced, and leadership qualifications must be sorter by level
         'form'                      => [
             [
                 'title' => 'Tag',
