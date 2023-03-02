@@ -1,13 +1,4 @@
 columns:
-    created_at:
-        label: 'csatar.csatar::lang.plugin.admin.general.createdAt'
-        type: datetime
-    updated_at:
-        label: 'csatar.csatar::lang.plugin.admin.general.updatedAt'
-        type: datetime
-    deleted_at:
-        label: 'csatar.csatar::lang.plugin.admin.general.deletedAt'
-        type: datetime
     association:
         label: 'csatar.csatar::lang.plugin.admin.dynamicFields.association'
         type: text
@@ -27,3 +18,12 @@ columns:
         sortable: false
         displayFrom: organization_type_model_name_user_friendly
         type: text
+    created_at:
+        label: 'csatar.csatar::lang.plugin.admin.general.createdAt'
+        type: datetime
+    updated_at:
+        label: 'csatar.csatar::lang.plugin.admin.general.updatedAt'
+        type: datetime
+    deleted_at:
+        label: 'csatar.csatar::lang.plugin.admin.general.deletedAt'
+        type: datetime

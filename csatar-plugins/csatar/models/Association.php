@@ -151,23 +151,29 @@ class Association extends OrganizationBase
 
     public function afterSave()
     {
-        if (empty($this->original)) {
+        $this->updateCache();
+    }
+
+    public function updateCache(): void
+    {
+        if ($this->wasRecentlyCreated) {
+            StructureTree::updateAssociationTree($this->association_id);
+        }
+
+        if (empty($this->original) ) {
             return;
         }
 
         if (
-            (isset($this->original['name']) && $this->original['name'] != $this->name)
-            || ($this->original['name_abbreviation'] && $this->original['name_abbreviation'] != $this->name_abbreviation)
+            ($this->getOriginalValue('name') != $this->name)
+            || ($this->getOriginalValue('name_abbreviation') != $this->name_abbreviation)
         ) {
             $structureTree = Cache::pull('structureTree');
             if (empty($structureTree)) {
                 StructureTree::getStructureTree();
                 return;
             }
-            if (empty($structureTree)) {
-                StructureTree::getStructureTree();
-                return;
-            }
+
             $structureTree[$this->id]['name'] = $this->name;
             $structureTree[$this->id]['name_abbreviation'] = $this->name_abbreviation;
             $structureTree[$this->id]['extended_name'] = $this->extended_name;

@@ -55,7 +55,7 @@
         %}
     {% endif %}
 
-    {% if __SELF__.action == 'modositas' %}
+    {% if user.scout %}
         {% partial '@dataRequestButton'
             permissionValue = 1
             dataRequest = __SELF__ ~ '::onDownloadPdf'

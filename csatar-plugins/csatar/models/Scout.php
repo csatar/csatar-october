@@ -239,21 +239,24 @@ class Scout extends OrganizationBase
                 return;
             }
 
-            $personalIdentificationNumberValidators = $this->getPersonalIdentificationNumberValidators();
+            // personal id number validations, for active scouts only
+            if ($this->is_active) {
+                $personalIdentificationNumberValidators = $this->getPersonalIdentificationNumberValidators();
 
-            if (in_array('cnp', $personalIdentificationNumberValidators) && $this->shouldNotValidateCnp()) {
-                unset($personalIdentificationNumberValidators[array_search('cnp', $personalIdentificationNumberValidators)]);
-            }
+                if (in_array('cnp', $personalIdentificationNumberValidators) && $this->shouldNotValidateCnp()) {
+                    unset($personalIdentificationNumberValidators[array_search('cnp', $personalIdentificationNumberValidators)]);
+                }
 
-            if (!empty($personalIdentificationNumberValidators)) {
-                $this->rules['personal_identification_number'] .= '|' . implode('|', $personalIdentificationNumberValidators);
-            }
+                if (!empty($personalIdentificationNumberValidators)) {
+                    $this->rules['personal_identification_number'] .= '|' . implode('|', $personalIdentificationNumberValidators);
+                }
 
-            if (in_array('cnp', $personalIdentificationNumberValidators)
-                && !empty($this->personal_identification_number)
-                && (new DateTime($this->birthdate))->format('Y-m-d') != $this->getBirthDateFromCNP($this->personal_identification_number)
-            ) {
-                throw new \ValidationException(['birthdate' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.personalIdentificationNumberBirthdateMismatch')]);
+                if (in_array('cnp', $personalIdentificationNumberValidators)
+                    && !empty($this->personal_identification_number)
+                    && (new DateTime($this->birthdate))->format('Y-m-d') != $this->getBirthDateFromCNP($this->personal_identification_number)
+                ) {
+                    throw new \ValidationException(['birthdate' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.personalIdentificationNumberBirthdateMismatch')]);
+                }
             }
 
             // if the selected troop does not belong to the selected team, then throw and exception
@@ -330,14 +333,14 @@ class Scout extends OrganizationBase
             return;
         }
 
-        if ((isset($this->original['is_active']) && $this->original['is_active'] != $this->is_active) || $this->deleted_at != null) {
+        if (($this->getOriginalValue('is_active') != $this->is_active) || $this->deleted_at != null) {
             StructureTree::updateTeamTree($this->team_id);
         }
 
         if (
-            (isset($this->original['team_id']) && $this->original['team_id'] != $this->team_id)
-            || (isset($this->original['troop_id']) && $this->original['troop_id'] != $this->troop_id)
-            || (isset($this->original['patrol_id']) && $this->original['patrol_id'] != $this->patrol_id)
+            ($this->getOriginalValue('team_id') != $this->team_id)
+            || ($this->getOriginalValue('troop_id') != $this->troop_id)
+            || ($this->getOriginalValue('patrol_id') != $this->patrol_id)
         )
         {
             StructureTree::updateTeamTree($this->team_id);
@@ -347,10 +350,10 @@ class Scout extends OrganizationBase
         }
 
         if (
-            (isset($this->original['family_name']) && $this->original['family_name'] != $this->family_name)
-            || (isset($this->original['given_name']) && $this->original['given_name'] != $this->given_name)
-            || (isset($this->original['ecset_code']) && $this->original['ecset_code'] != $this->ecset_code)
-            || (isset($this->original['legal_relationship_id']) && $this->original['legal_relationship_id'] != $this->legal_relationship_id)
+            ($this->getOriginalValue('family_name') != $this->family_name)
+            || ($this->getOriginalValue('given_name') != $this->given_name)
+            || ($this->getOriginalValue('ecset_code') != $this->ecset_code)
+            || ($this->getOriginalValue('legal_relationship_id') != $this->legal_relationship_id)
         )
         {
             $structureTree = Cache::pull('structureTree');
