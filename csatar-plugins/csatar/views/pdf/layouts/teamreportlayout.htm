@@ -163,5 +163,19 @@ name = "Team Report layout"
             <td>{{ 'Befizetendő összeg'|_}}: {{ teamReport.total_amount }} {{ teamReport.currency.code }}</td>
         </tr>
     </table>
+
+    {% if extraFields %}
+        <hr>
+
+        <h4>{{ 'További mezők'|_ }}:</h4>
+
+        <table>
+            {% for extra_field in extraFields %}
+                <tr>
+                    <td>{{ extra_field.label }}: {{ extra_field.value }}</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
 </body>
 </html>

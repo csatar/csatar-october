@@ -188,9 +188,21 @@ class TeamReport extends ComponentBase
 
         $teamReport = \Csatar\Csatar\Models\TeamReport::find($teamReportId);
 
+        $extraFields = null;
+        if (isset($teamReport->extra_fields) && !empty($teamReport->extra_fields)) {
+            $extraFields = [];
+            foreach (json_decode($teamReport->extra_fields) as $id => $extraField) {
+                $extraFields[$id] = [
+                    'label' => $extraField->label,
+                    'value' => $extraField->value,
+                ]; 
+            }
+        }
+
         $data = [
             'css' => \File::get(plugins_path('csatar/csatar/assets/teamReportPdf.css')),
-            'teamReport' => $teamReport
+            'teamReport' => $teamReport,
+            'extraFields' => $extraFields,
         ];
 
         $fileName = $teamReport->team->id . '-teamreport.pdf';
@@ -218,7 +230,7 @@ class TeamReport extends ComponentBase
             $this->scouts[]    = [
                 'name'                     => $scout->family_name . ' ' . $scout->given_name,
                 'legal_relationship'       => $scout->legal_relationship,
-                'legal_relationship_id'    => $scout->legal_relationship->id,
+                'legal_relationship_id'    => $scout->legal_relationship->id ?? null,
                 'leadership_qualification' => $scout->leadership_qualifications->sortByDesc(function ($item, $key) {
                     return $item->id; // currently leadership qualifications are seeded in the correct order, so the highest id is the highest qualification, but if this changes, this should be changed to sort by the qualification level, and qualification level should be added to the leadership_qualifications table
                 })->values()->first(),
