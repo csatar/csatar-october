@@ -4,7 +4,7 @@
             <div class="{{ 'card shadow csat-data-card ' ~ color ~ ' mx-auto my-2' }}">
                 <div class="card-body rounded">
                     <a href="{{ '#csat-data-collapse-' ~ name | replace({' ' : '-'}) }}" data-bs-toggle="collapse" aria-expanded="false" aria-controls="{{ 'csat-data-collapse-' ~ name | replace({' ' : '-'}) }}">
-                        <img class="p-2" src="{{ 'assets/images/csat_data_card_deco.svg' | theme }}" alt="" />
+                        <img class="p-2 not-auto-height" src="{{ 'assets/images/csat_data_card_deco.svg' | theme }}" alt="" />
                     </a>
                     <p class="p-title">{{ name }}</p>
                     <hr>

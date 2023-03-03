@@ -1845,7 +1845,7 @@ a.login:link, a.login:visited, a.login:active {
     margin-bottom: 100px;
 }
 
-img:not(.csat-logo-img):not(.csat-data-profile-img):not(.csat-gallery-cover):not(.csat-gallery-edit-img):not(.csat-data-card img) {
+img:not(.not-auto-height) {
     max-width: 100%;
     height: auto;
 }
