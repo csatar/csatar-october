@@ -1,34 +1,16 @@
-{% set records = __SELF__.records %}
-{% set noRecordsMessage = __SELF__.noRecordsMessage %}
+
 {% set detailsPage = __SELF__.detailsPage %}
 {% set detailsKeyColumn = __SELF__.detailsKeyColumn %}
 {% set detailsUrlParameter = __SELF__.detailsUrlParameter %}
+{% set filtersConfig = __SELF__.filtersConfig %}
 
 <div id="records-table" class="table csat-grid">
     {% partial __SELF__~'::tableHeader' %}
-    {% for record in records %}
-            {% if detailsPage %}<a href="{{ detailsPage|page({ (detailsUrlParameter): attribute(record, detailsKeyColumn) }) }}">{% endif %}
-            {% partial __SELF__~'::tableRow' record = record %}
-            {% if detailsPage %}</a>{% endif %}
-    {% else %}
-        <li class="no-data">{{ noRecordsMessage }}</li>
-    {% endfor %}
+    {% if filtersConfig|length > 0 %}
+        {% partial __SELF__~'::filters' filtersConfig = filtersConfig %}
+    {% endif %}
+    <div id="tableRows">
+        {% partial __SELF__~'::tableRows' %}
+    </div>
 </div>
 
-{% if records.lastPage > 1 %}
-    <ul class="pagination">
-        {% if records.currentPage > 1 %}
-            <li><a href="{{ this.page.baseFileName|page({ (pageParam): (records.currentPage-1) }) }}">&larr; Prev</a></li>
-        {% endif %}
-
-        {% for page in 1..records.lastPage %}
-            <li class="{{ records.currentPage == page ? 'active' : null }}">
-                <a href="{{ this.page.baseFileName|page({ (pageParam): page }) }}">{{ page }}</a>
-            </li>
-        {% endfor %}
-
-        {% if records.lastPage > records.currentPage %}
-            <li><a href="{{ this.page.baseFileName|page({ (pageParam): (records.currentPage+1) }) }}">Next &rarr;</a></li>
-        {% endif %}
-    </ul>
-{% endif %}

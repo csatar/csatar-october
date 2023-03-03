@@ -127,7 +127,7 @@ fields:
     active_members_count:
         label: 'csatar.csatar::lang.plugin.admin.general.activeMembersCount'
         span: auto
-        readOnly: 1
+        disabled: 1
         type: number
         formBuilder:
             type: field

@@ -5,7 +5,11 @@
         <div class="row">
             {% for column in tableHeaderConfig %}
                 <div class="col">
-                    <div class="th-grid">{{ column.label }}</div>
+                    <div class="th-grid">{{ column.label }}
+                    {% if column.sortable %}
+                        here should be the sorting buttons
+                    {% endif %}
+                    </div>
                 </div>
             {% endfor %}
         </div>

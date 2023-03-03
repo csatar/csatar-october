@@ -7,7 +7,19 @@
             {% for column in tableRowConfig %}
                 <div class="col">
                     <p class="td label d-block d-lg-none">{{ tableHeaderConfig[column['attribute']]['label'] }}</p>
-                    <p class="td">{{ record[column['attribute']] }}</p>
+                    {% if column['relationName'] %}
+                        {% if column['relationType'] == 'belongsToMany' %}
+                            <p class="td">
+                                {% for item in record[column['relationName']] %}
+                                    {{ item[column['valueFrom']] }}{% if not loop.last %}, {% endif %}
+                                {% endfor %}
+                            </p>
+                        {% else %}
+                            <p class="td">{{ record[column['relationName']][column['valueFrom']] }}</p>
+                        {% endif %}
+                    {% else %}
+                        <p class="td">{{ record[column['attribute']] }}</p>
+                    {% endif %}
                 </div>
             {% endfor %}
         </div>

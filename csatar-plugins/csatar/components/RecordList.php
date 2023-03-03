@@ -3,6 +3,8 @@
 use Auth;
 use Carbon\Carbon;
 use Cms\Classes\ComponentBase;
+use Csatar\Csatar\Classes\Conts;
+use Input;
 use Lang;
 use Storage;
 use Response;
@@ -12,6 +14,12 @@ use RainLab\Builder\Components\RecordList as RainRecordList;
 class RecordList extends RainRecordList {
 
     use \System\Traits\ConfigMaker;
+
+    /**
+     * The model class name
+     * @var string
+     */
+    public $modelClassName;
 
     /**
      * The configuration array of the model columns
@@ -30,6 +38,36 @@ class RecordList extends RainRecordList {
      * @var array
      */
     public array $tableRowConfig;
+
+    /**
+     * Sort column
+     * @var string
+     */
+    public string $sortColumn;
+
+    /**
+     * Sort order
+     * @var string
+     */
+    public string $sortOrder;
+
+    /**
+     * Filters config
+     * @var array
+     */
+    public array $filtersConfig;
+
+    /**
+     * Active filters applied by user
+     * @var mixed
+     */
+    public array $activeFilters;
+
+    /**
+     *  Records for filter options
+     * @var mixed
+     */
+    public $recordsForFilterOptions;
 
     public function componentDetails()
     {
@@ -115,13 +153,6 @@ class RecordList extends RainRecordList {
                 'validationMessage' => 'rainlab.builder::lang.components.list_records_per_page_validation',
                 'group'             => 'rainlab.builder::lang.components.list_pagination'
             ],
-            'pageNumber' => [
-                'title'       => 'rainlab.builder::lang.components.list_page_number',
-                'description' => 'rainlab.builder::lang.components.list_page_number_description',
-                'type'        => 'string',
-                'default'     => '{{ :page }}',
-                'group'       => 'rainlab.builder::lang.components.list_pagination'
-            ],
             'sortColumn' => [
                 'title'       => 'csatar.csatar::lang.plugin.component.recordList.defaultSorting.listSortColumn',
                 'type'        => 'autocomplete',
@@ -149,15 +180,27 @@ class RecordList extends RainRecordList {
         $this->prepareVars();
 
         $this->records = $this->page['records'] = $this->listRecords();
+
+        $this->filtersConfig = $this->page['filtersConfig'] = $this->getFiltersConfig();
+
+        if (!empty($this->filtersConfig)) {
+            $this->addCss('/plugins/csatar/csatar/assets/recordlist/filters.css');
+            $this->addJs('/plugins/csatar/csatar/assets/recordlist/filters.js');
+        }
     }
 
     protected function prepareVars()
     {
+        $this->modelClassName = $this->validateModelClassName();
         $this->noRecordsMessage = $this->page['noRecordsMessage'] = Lang::get($this->property('noRecordsMessage'));
-        $this->pageParam = $this->page['pageParam'] = $this->paramName('pageNumber');
+
         $this->columnsConfig = $this->page['columnsConfig'] = $this->makeConfig($this->getColumnsConfigFile());
         $this->tableHeaderConfig = $this->page['tableHeaderConfig'] = $this->getTableHeaderConfig();
         $this->tableRowConfig = $this->page['tableRowConfig'] = $this->getTableRowConfig();
+
+
+        $this->sortColumn = $this->page['sortColumn'] = trim($this->property('sortColumn'));
+        $this->sortDirection = $this->page['sortDirection'] = trim($this->property('sortDirection'));
 
         $this->detailsKeyColumn = $this->page['detailsKeyColumn'] = $this->property('detailsKeyColumn');
         $this->detailsUrlParameter = $this->page['detailsUrlParameter'] = $this->property('detailsUrlParameter');
@@ -180,6 +223,72 @@ class RecordList extends RainRecordList {
         }
     }
 
+    protected function listRecords()
+    {
+        $model = new $this->modelClassName();
+        $scope = $this->getScopeName($model);
+        $scopeValue = $this->property('scopeValue');
+
+        if ($scope !== null) {
+            $model = $model->$scope($scopeValue);
+        }
+
+        $this->recordsForFilterOptions = $this->getRecordsForFilterOptions($model);
+
+        if (!empty($this->activeFilters)) {
+            $model = $this->applyFilters($model);
+        }
+        $model = $this->sort($model);
+        $records = $this->paginate($model);
+
+        return $records;
+    }
+
+    protected function sort($model)
+    {
+        $sortColumn = trim($this->property('sortColumn'));
+        if (!strlen($sortColumn)) {
+            return $model;
+        }
+
+        $sortDirection = trim($this->property('sortDirection'));
+
+        if ($sortDirection !== 'desc') {
+            $sortDirection = 'asc';
+        }
+
+        // Note - no further validation of the sort column
+        // value is performed here, relying to the ORM sanitizing.
+        return $model->orderBy($sortColumn, $sortDirection);
+    }
+
+    protected function paginate($model)
+    {
+        $recordsPerPage = trim($this->property('recordsPerPage'));
+        if (!strlen($recordsPerPage)) {
+            // Pagination is disabled - return all records
+            return $model->get();
+        }
+
+        if (!preg_match('/^[0-9]+$/', $recordsPerPage)) {
+            throw new SystemException('Invalid records per page value.');
+        }
+
+        $pageNumber = $this->pageNumber;
+        if (!strlen($pageNumber) || !preg_match('/^[0-9]+$/', $pageNumber)) {
+            $pageNumber = 1;
+        }
+
+        return $model->paginate($recordsPerPage, $pageNumber);
+    }
+
+    public function onChangeSorting()
+    {
+        $this->sortColumn = Input::get('sortColumn');
+        $this->sortDirection = Input::get('sortDirection');
+        $this->records = $this->page['records'] = $this->listRecords();
+    }
+
     public function getColumnsConfigFile()
     {
         $modelClass = $this->property('modelClass');
@@ -193,13 +302,157 @@ class RecordList extends RainRecordList {
             if (!isset($config['recordList'])) {
                 continue;
             }
-            $headerConfig[$column]['label'] = Lang::get($config['label']);
+
+            if (isset($config['label'])) {
+                $headerConfig[$column]['label'] = Lang::get($config['label']);
+            }
+            else {
+                $headerConfig[$column]['label'] = ucfirst($column);
+            }
+
+            $headerConfig[$column]['sortable'] = $config['recordList']['sortable'] ?? false;
         }
 
         return $headerConfig;
     }
 
+    public function getFiltersConfig(bool $withoutOptions = false) {
+        $filterConfig = [];
+        foreach ($this->columnsConfig->columns as $column => $config) {
+            if (!isset($config['recordList']['filterable'])) {
+                continue;
+            }
+
+            if (isset($config['label'])) {
+                $filterConfig[$column]['label'] = Lang::get($config['label']);
+            }
+            else {
+                $filterConfig[$column]['label'] = ucfirst($column);
+            }
+
+            $filterConfig[$column]['type'] = $config['type']; //maybe this should be ignored and only the filterConfig type should be used
+            if (!$withoutOptions) {
+                $filterConfig[$column]['options'] = $this->getFilterOptions($column, $config);
+            }
+            $filterConfig[$column]['filterConfig'] = $config['recordList']['filterConfig'] ?? null;
+        }
+
+        return $filterConfig;
+    }
+
+    public function getFilterOptions($column, $config) {
+
+        if (
+            isset($config['recordList']['filterConfig']['type']) &&
+            $config['recordList']['filterConfig']['type']== 'freeText'
+        ) {
+            return [];
+        }
+
+        if (isset($config['recordList']['filterConfig']['options'])) {
+            return $this->processPreDefinedOptions($config['recordList']['filterConfig']['options']);
+        }
+
+        if (
+            isset($config['recordList']['filterConfig']['type']) &&
+            $config['recordList']['filterConfig']['type'] == 'relation'
+        ) {
+            return $this->getFilterOptionsForRelation($column, $config);
+        }
+
+        return $this->recordsForFilterOptions
+            ->reject(function ($item) use ($column) {
+                return empty($item[$column]);
+            })
+            ->map(function ($item) use ($column) {
+            return [
+                'id' => $item['id'],
+                'label' => $item[$column]
+            ];
+        });
+    }
+
+    protected function processPreDefinedOptions($options) {
+        if (!is_array($options)) {
+            return null;
+        }
+        $processedOptions = [];
+        foreach ($options as $key => $label) {
+            if (empty($label)) {
+                continue;
+            }
+            $processedOptions[] = [
+                'id' => $key,
+                'label' => $label
+            ];
+        }
+        return $processedOptions;
+    }
+
+    protected function getRecordsForFilterOptions($model) {
+        return $model->get();
+    }
+
+    protected function getFilterOptionsForRelation($column, $config) {
+        $options = [];
+        $model = new $this->modelClassName();
+        $relationName = $config['recordList']['filterConfig']['relationName'] ?? $column;
+        $relationType = $this->rowConfig[$column]['relationName'] ?? $this->getRelationType($relationName);
+        if (isset($model->$relationType[$relationName])) {
+            $relationModelClassName = is_array($model->$relationType[$relationName]) ? $model->$relationType[$column][0] : $model->$relationType[$relationName];
+            $relationModelClassName = $this->validateModelClassName($relationModelClassName);
+
+            return $relationModelClassName::all()->map(function ($item) use ($config) {
+                $keyFrom = $config['recordList']['filterConfig']['keyFrom'] ?? 'id';
+                $labelFrom = $config['recordList']['filterConfig']['labelFrom'] ?? 'name';
+                return [
+                    'id' => $item->$keyFrom,
+                    'label' => $item->$labelFrom,
+                ];
+            });
+        }
+
+
+        return $options;
+    }
+
+    protected function applyFilters($query) {
+        $filtersConfig = $this->getFiltersConfig(true);
+
+        foreach ($this->activeFilters as $column => $values) {
+            if (empty($values)) {
+                continue;
+            }
+
+            if (isset($filtersConfig[$column]['filterConfig']['type'])) {
+
+                if ($filtersConfig[$column]['filterConfig']['type'] == 'freeText') {
+                    $query = $query->where(function ($query) use ($column, $values) {
+                        foreach ($values as $value) {
+                            $query = $query->orWhere($column, 'like', '%' . $value . '%');
+                        }
+                    });
+                    continue;
+                }
+
+                if ($filtersConfig[$column]['filterConfig']['type'] == 'relation') {
+                    $key = $filtersConfig[$column]['filterConfig']['keyFrom'] ?? 'id';
+                    $relationName = $filtersConfig[$column]['filterConfig']['relationName'] ?? $column;
+                    $query = $query->whereHas($relationName, function ($query) use ($values, $key){
+                        $query->whereIn($key, $values);
+                    });
+                    continue;
+                }
+            }
+
+            $query = $query->whereIn('id', $values);
+        }
+
+        return $query;
+    }
+
     public function getTableRowConfig() {
+        // this method should work without recordList['filterConfig'] set, because not all columns should be filterable
         $rowConfig = [];
         foreach ($this->columnsConfig->columns as $column => $config) {
             if (!isset($config['recordList'])) {
@@ -207,8 +460,62 @@ class RecordList extends RainRecordList {
             }
             $rowConfig[$column]['attribute'] = $column;
             $rowConfig[$column]['type'] = $config['type'];
+
+            if (isset($config['relation'])) {
+                $rowConfig[$column]['relationName'] = $config['relation'];
+                $rowConfig[$column]['relationType'] = $this->getRelationType($config['relation']);
+                $rowConfig[$column]['attribute']  = $config['relation'];
+                $rowConfig[$column]['valueFrom']  = $config['valueFrom'] ?? 'name';
+            }
         }
 
         return $rowConfig;
+    }
+
+    public function getRelationType(string $relationName) {
+        $model = new $this->modelClassName();
+        $availableRelationTypes = Conts::AVAILABLE_RELATION_TYPES;
+        //check relation type based on availableRelationTypes
+        foreach ($availableRelationTypes as $relationType) {
+            if (isset($model->$relationType[$relationName])) {
+                return $relationType;
+            }
+        }
+        return null;
+    }
+
+    public function onFilter() {
+
+        $filters = json_decode(Input::get('activeFilters'), true);
+        $pageNumber = Input::get('page');
+        $this->prepareVars();
+
+        if (!empty($filters)) {
+            $this->activeFilters = $this->page['activeFilters'] = $filters;
+        }
+
+        if (!empty($pageNumber)) {
+            $this->pageNumber = $pageNumber;
+        }
+
+        $this->records = $this->page['records'] = $this->listRecords();
+        return [
+            '#tableRows' => $this->renderPartial('@tableRows')
+        ];
+    }
+
+    /**
+     * @return string
+     */
+    public function validateModelClassName($modelClassName = null): string
+    {
+        if ($modelClassName === null) {
+            $modelClassName = $this->property('modelClass');
+        }
+
+        if (!strlen($modelClassName) || !class_exists($modelClassName)) {
+            throw new SystemException('Invalid model class name');
+        }
+        return $modelClassName;
     }
 }
