@@ -68,7 +68,7 @@ trait AjaxControllerSimple {
 
     public function createForm($preview = false)
     {
-        $form  = Form::find($this->formId);
+        $form  = $this->form ?? Form::find($this->formId);
         $record = $this->getRecord();
 
         if(!$record) {
@@ -101,7 +101,7 @@ trait AjaxControllerSimple {
         $this->loadBackendFormWidgets();
 
         // render the extra fields if they are set
-        $this->renderExtraFields();
+        $this->renderExtraFields($record->{$this->recordKeyParam ?? Input::get('recordKeyParam')} ?? 'new');
 
         if (isset($config->formBuilder_card_design) && $config->formBuilder_card_design && $preview) {
             $html = $this->renderViewMode($this->widget);
@@ -176,37 +176,39 @@ trait AjaxControllerSimple {
 
                 // retrieve the value for the field
                 $value = '';
-                if (isset($widget->model->{$key})) {
-                    if (is_object($widget->model->{$key}) && array_key_exists('nameFrom', $field) && isset($widget->model->{$key}->{$field['nameFrom']})) { // relation fields
-                        $value = $widget->model->{$key}->{$field['nameFrom']};
-                    }
-                    else if (is_a($widget->model->{$key}, 'Illuminate\Database\Eloquent\Collection') && count($widget->model->{$key}) > 0 && array_key_exists('nameFrom', $field)) { // belongs to many with no pivot data
-                        $value = '';
-                        foreach ($widget->model->{$key} as $item) {
-                            if (isset($item->{$field['nameFrom']})) {
-                                $value .= $item->{$field['nameFrom']} . ', ';
-                            }
+
+                if (is_object($widget->model->{$key}) && array_key_exists('nameFrom', $field) && isset($widget->model->{$key}->{$field['nameFrom']})) { // relation fields
+                    $value = $widget->model->{$key}->{$field['nameFrom']};
+                }
+                else if (is_a($widget->model->{$key}, 'Illuminate\Database\Eloquent\Collection') && count($widget->model->{$key}) > 0 && array_key_exists('nameFrom', $field)) { // belongs to many with no pivot data
+                    $value = '';
+                    foreach ($widget->model->{$key} as $item) {
+                        if (isset($item->{$field['nameFrom']})) {
+                            $value .= $item->{$field['nameFrom']} . ', ';
                         }
                     }
-                    else if ($field['type'] == 'dropdown' && array_key_exists('options', $field) && is_array($field['options']) && count($field['options']) > 0) { // dropdown fields
-                        $value = Lang::get($field['options'][$widget->model->{$key}]);
-                    }
-                    else if ($field['type'] == 'checkbox') { // bool fields
-                        $value = $widget->model->{$key} == 1 ? Lang::get('csatar.csatar::lang.plugin.admin.general.yes') : Lang::get('csatar.csatar::lang.plugin.admin.general.no');
-                    }
-                    else if ($field['type'] == 'fileupload' && $field['mode'] == 'image') { // images
-                        $value = $widget->model->{$key}->getPath();
-                        $mainCardVariablesToPass['customImage'] = true;
-                    }
-                    else if ($field['type'] == 'custom') { // custom field type, which permits to list title-value pairs in the descriptionList part of the mainCard
-                        $value = $widget->model->{$key};
-                    }
-                    else if (isset($widget->model->attributes[$key]) && !empty($widget->model->attributes[$key])) { // regular fields
-                        $value = $widget->model->attributes[$key];
-                    }
-                    else {
-                        continue;
-                    }
+                }
+                else if ($field['type'] == 'dropdown' && array_key_exists('options', $field) && is_array($field['options']) && count($field['options']) > 0) { // dropdown fields
+                    $value = Lang::get($field['options'][$widget->model->{$key}]);
+                }
+                else if ($field['type'] == 'checkbox') { // bool fields
+                    $value = $widget->model->{$key} == 1 ? Lang::get('csatar.csatar::lang.plugin.admin.general.yes') : Lang::get('csatar.csatar::lang.plugin.admin.general.no');
+                }
+                else if ($field['type'] == 'fileupload' && $field['mode'] == 'image') { // images
+                    $value = $widget->model->{$key}->getPath();
+                    $mainCardVariablesToPass['customImage'] = true;
+                }
+                else if ($field['type'] == 'custom') { // custom field type, which permits to list title-value pairs in the descriptionList part of the mainCard
+                    $value = $widget->model->{$key};
+                }
+                else if (is_array($widget->model->customAttributes) && in_array($key, $widget->model->customAttributes)) { // to display values from get...Arribute() functions
+                    $value = $widget->model->{$key};
+                }
+                else if (isset($widget->model->attributes[$key]) && !empty($widget->model->attributes[$key])) { // regular fields
+                    $value = $widget->model->attributes[$key];
+                }
+                else {
+                    continue;
                 }
 
                 // if an array for the card does not exist yet, then create it
@@ -633,6 +635,7 @@ trait AjaxControllerSimple {
         // add extra fields validation
         $extraFields = $this->getExtraFields($this->record, (new DateTime())->format('Y-m-d')) ?? [];
         $extraFieldValues = json_decode($this->record->extra_fields, true) ?? [];
+
         foreach ($extraFieldValues as $extraFieldValue) {
             $found = false;
             foreach ($extraFields as $key => $extraField) {
@@ -684,7 +687,7 @@ trait AjaxControllerSimple {
         }
 
         // resolve extra fields data
-        if (array_key_exists('extra_fields', $this->record->attributes) && isset($extraFields)) {
+        if (isset($extraFields)) {
             foreach ($extraFields as &$extraField) {
                 $id = 'extra_fields_' . $extraField['id'];
                 $extraField['value'] = $data[$id];
@@ -695,7 +698,7 @@ trait AjaxControllerSimple {
         $data = $this->filterDataBasedOnUserRightsBeforeSave($data, $config->fields, $isNew);
 
         // resolve extra fields data. It needs to be done after the data has been filtered by rights, as that removes extra_field from data, as extra_fields is not part of the permission matrix
-        if (array_key_exists('extra_fields', $this->record->attributes) && isset($extraFields)) {
+        if (isset($extraFields)) {
             $data['extra_fields'] = json_encode($extraFields);
         }
 
@@ -706,13 +709,18 @@ trait AjaxControllerSimple {
             }
 
             $key = isset($definition['key']) ? $definition['key'] : $name . '_id';
-            $data[$key] = (int) $data[$name];
+            if (isset($definition['keyType'])) {
+                $data[$key] = $data[$name];
+                settype($data[$key], $definition['keyType']);
+            } else {
+                $data[$key] = (int) $data[$name];
+            }
 //            unset($data[$name]);
         }
 
         // Resolve belongsToMany relations
         foreach($record->belongsToMany as $relationName => $definition) {
-            if (!isset($data[$relationName]) || $data[$relationName] =='' || !isset($data[$relationName]['pivot'])) {
+            if (!isset($data[$relationName]) || $data[$relationName] =='') {
                 continue;
             }
 
@@ -771,14 +779,6 @@ trait AjaxControllerSimple {
 
             // resolve other relations
             $record->commitDeferred($this->sessionKey);
-        }
-
-        // Resolve belongsToMany relations
-        foreach($record->belongsToMany as $name => $definition) {
-            if (!isset($data[$name]) || $data[$name] =='' || !isset($data[$name]['pivot'])) {
-                continue;
-            }
-            $record->$name()->sync($data[$name]);
         }
 
         if (!$record->update($data) && !$isNew) {
@@ -852,13 +852,14 @@ trait AjaxControllerSimple {
         }
     }
 
-    private function renderExtraFields()
+    private function renderExtraFields($recordKeyValue)
     {
-        if (!array_key_exists('extra_fields', $this->widget->model->attributes)) {
+        if (!array_key_exists('extra_fields', $this->widget->model->attributes) && $recordKeyValue !== 'new') {
             return;
         }
 
         $extraFields = $this->getExtraFields($this->widget->model, (new DateTime())->format('Y-m-d'));
+
         if (!isset($extraFields)) {
             return;
         }
@@ -961,31 +962,6 @@ trait AjaxControllerSimple {
         return $dynamicFields[0]->extra_fields_definition;
     }
 
-    private function getRecord() {
-        if (!empty($this->record)) {
-            return $this->record;
-        }
-        $form       = Form::find($this->formId ?? Input::get('formId'));
-        $modelName  = $form->getModelName();
-        $key        = $this->recordKeyParam ?? Input::get('recordKeyParam');
-        $value      = $this->recordKeyValue ?? Input::get('recordKeyValue');
-
-        $record = null;
-        if (!empty($key) && !empty($value)) {
-            $record = $modelName::where($key, $value)->first();
-        }
-        if (!$record && $value == $this->createRecordKeyword) {
-            $record = new $modelName();
-        }
-
-        if (!$record) {
-            //TODO handle trashed records
-            return null;
-        }
-
-        return $record;
-    }
-
     public function getConfig($model, $config) {
         if ($config[0] != '$') {
             $config = '$/' . str_replace('\\', '/', strtolower($model)) . '/' . $config;
@@ -1015,13 +991,16 @@ trait AjaxControllerSimple {
         foreach($record->hasMany as $relationName => $definition) {
             if ($this->canRead($relationName)
                 && is_array($definition)
+                && (array_key_exists('renderableOnCreateForm', $definition) || array_key_exists('renderableOnUpdateForm', $definition)) //this is needed to avoid looping though relations that renderable and eager loaded
                 && (count($record->{$relationName}) > 0 || $showEmpty)
                 && ((!$record->id
                     && array_key_exists('renderableOnCreateForm', $definition)
                     && $definition['renderableOnCreateForm'])
                     || ($record->id
                         && array_key_exists('renderableOnUpdateForm', $definition)
-                        && $definition['renderableOnUpdateForm']))) {
+                        && $definition['renderableOnUpdateForm'])
+                )
+            ) {
                 $pivotConfig = $this->getConfig($definition[0], 'columns.yaml');
                 $attributesToDisplay = $pivotConfig->columns;
                 $html .= $this->generatePivotSection($record, $relationName, $definition, $attributesToDisplay);

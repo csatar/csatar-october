@@ -62,7 +62,7 @@ class StructureTree
     public static function getStructureTree() {
         return collect(Cache::rememberForever('structureTree', function() {
             return self::toKeyedByIdArray(
-                Association::with(self::getAssociationsQueryWithArray())
+               Association::with(self::getAssociationsQueryWithArray())
                     ->select('id', 'name', 'name_abbreviation')
                     ->get()
                 );
@@ -136,7 +136,8 @@ class StructureTree
             'csatar_csatar_scouts.legal_relationship_id',
             'csatar_csatar_scouts.team_id',
             'csatar_csatar_scouts.troop_id',
-            'csatar_csatar_scouts.patrol_id'
+            'csatar_csatar_scouts.patrol_id',
+            'csatar_csatar_scouts.is_active',
         );
     }
 
@@ -179,12 +180,45 @@ class StructureTree
         return StructureTree::getStructureTree()->pluck('districtsActive.*.teamsActive')->collapse()->collapse()->keyBy('id');
     }
 
+    public static function getTeamScoutsCount($teamId) {
+        return StructureTree::getStructureTree()
+            ->pluck('districtsActive.*.teamsActive')
+            ->collapse()
+            ->collapse()
+            ->where('id', $teamId)
+            ->pluck('scoutsActive')
+            ->collapse()
+            ->count();
+    }
+
     public static function getTroopsWithTree() {
         return StructureTree::getStructureTree()->pluck('districtsActive.*.teamsActive.*.troopsActive')->collapse()->collapse()->keyBy('id');
     }
 
+    public static function getTroopScoutsCount($troopId) {
+        return StructureTree::getStructureTree()
+            ->pluck('districtsActive.*.teamsActive.*.troopsActive')
+            ->collapse()
+            ->collapse()
+            ->where('id', $troopId)
+            ->pluck('scoutsActive')
+            ->collapse()
+            ->count();
+    }
+
     public static function getPatrolsWithTree() {
         return StructureTree::getStructureTree()->pluck('districtsActive.*.teamsActive.*.patrolsActive')->collapse()->collapse()->keyBy('id');
+    }
+
+    public static function getPatrolScoutsCount($patrolId) {
+        return StructureTree::getStructureTree()
+            ->pluck('districtsActive.*.teamsActive.*.patrolsActive')
+            ->collapse()
+            ->collapse()
+            ->where('id', $patrolId)
+            ->pluck('scoutsActive')
+            ->collapse()
+            ->count();
     }
 
     public static function updateAssociationTree($associationId) {
@@ -310,10 +344,11 @@ class StructureTree
         }
         // get old tree from cache and empty cache
         $structureTree = Cache::pull('structureTree');
-            if (empty($structureTree)) {
-                StructureTree::getStructureTree();
-                return;
-            }
+        if (empty($structureTree)) {
+            StructureTree::getStructureTree();
+            return;
+        }
+
         // update the tree
         $associationId = $refreshedTeam['district']['association_id'];
         $districtId = $refreshedTeam['district']['id'];

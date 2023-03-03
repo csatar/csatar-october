@@ -48,6 +48,25 @@
                 'sortOrder' => 'Sort order',
                 'version' => 'Version',
                 'created_at' => 'Created at'
+                'forms' => 'Forms',
+            ],
+            'game' => [
+                'game' => 'Game',
+                'name' => 'Name',
+                'uploader' => 'Uploader',
+                'approver' => 'Approver',
+                'otherTools' => 'Other tool(s)',
+                'attachements' => 'Attachements',
+                'uploadedAt' => 'Upload date',
+                'approvedAt' => 'Approval date',
+                'version' => 'Version',
+                'ageGroupsComment' => 'Age groups can be selected only after association is selected.',
+        ],
+    ],
+        'components' => [
+            'gameForm' => [
+                'name' => 'Game Form',
+                'description' => 'Game Form component',
             ],
         ],
     ],

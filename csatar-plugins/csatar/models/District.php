@@ -23,6 +23,8 @@ class District extends OrganizationBase
 
     protected $appends = ['extended_name'];
 
+    public $customAttributes = ['active_members_count'];
+
     /**
      * @var array Validation rules
      */
@@ -139,22 +141,31 @@ class District extends OrganizationBase
 
     public function afterSave()
     {
+        $this->updateCache();
+    }
+
+    public function updateCache(): void
+    {
+        if ($this->wasRecentlyCreated && $this->status == Status::ACTIVE) {
+            StructureTree::updateAssociationTree($this->association_id);
+        }
+
         if (empty($this->original)) {
             return;
         }
 
-        if (isset($this->original['status']) && $this->original['status'] != $this->status) {
+        if ($this->getOriginalValue('status') != $this->status) {
             StructureTree::updateAssociationTree($this->association_id);
         }
 
-        if (isset($this->original['association_id']) && $this->original['association_id'] != $this->association_id) {
+        if ($this->getOriginalValue('association_id') != $this->association_id) {
             StructureTree::updateAssociationTree($this->association_id);
             if (!empty($this->original['association_id'])) {
                 StructureTree::updateAssociationTree($this->original['association_id']);
             }
         }
 
-        if (isset($this->original['name']) && $this->original['name'] != $this->name) {
+        if ($this->getOriginalValue('name') != $this->name) {
             $structureTree = Cache::pull('structureTree');
             if (empty($structureTree)) {
                 StructureTree::getStructureTree();
@@ -230,5 +241,9 @@ class District extends OrganizationBase
     // scope to get only districts with active status and active teams
     public function scopeActive($query) {
         return $query->where('status', Status::ACTIVE)->whereHas('teamsActive');
+    }
+
+    public function getActiveMembersCountAttribute() {
+        return StructureTree::getDistrictScoutsCount($this->id);
     }
 }

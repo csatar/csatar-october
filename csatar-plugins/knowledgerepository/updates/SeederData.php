@@ -4,10 +4,11 @@ use Csatar\KnowledgeRepository\Models\AccidentRiskLevel;
 use Csatar\KnowledgeRepository\Models\GameDevelopmentGoal;
 use Csatar\KnowledgeRepository\Models\MethodologyType;
 use Csatar\KnowledgeRepository\Models\Tool;
-use Csatar\KnowledgeRepository\Models\HeadCount;
+use Csatar\KnowledgeRepository\Models\Headcount;
 use Csatar\KnowledgeRepository\Models\Duration;
 use Csatar\KnowledgeRepository\Models\Location;
 use Csatar\KnowledgeRepository\Models\GameType;
+use Csatar\Forms\Models\Form;
 use Db;
 use Seeder;
 
@@ -275,6 +276,12 @@ class SeederData extends Seeder
                 'sort_order' => 3
             ],
         ]
+        'forms' => [
+            [
+                'title' => 'Játék',
+                'model' => 'Csatar\KnowledgeRepository\Models\Game',
+            ],
+        ],
     ];
 
     public function run()
@@ -308,7 +315,7 @@ class SeederData extends Seeder
 
         // Head Counts
         foreach ($this::DATA['headCounts'] as $headCountData) {
-            $headCount = HeadCount::firstOrNew([
+            $headCount = Headcount::firstOrNew([
                 'description' => $headCountData['description'],
             ]);
             $headCount->min = $headCountData['min'];
@@ -354,6 +361,11 @@ class SeederData extends Seeder
             ]);
             $methodologyType->sort_order = $methodologyTypeData['sort_order'];
             $methodologyType->save();
+
+        // Forms
+        foreach ($this::DATA['forms'] as $formData) {
+            $form = Form::firstOrNew($formData);
+            $form->save();
         }
     }
 }

@@ -87,6 +87,15 @@
                     echo '<li>' . $data['name'] . '</li>';
                 }
                 ?>
+
+        <li>
+            <h4><?= e(trans('csatar.knowledgerepository::lang.plugin.admin.general.forms')) ?>:</h4>
+            <ul>
+                <?php
+                foreach ($seederData['forms'] as $data) {
+                    echo '<li>' . $data['title'] . '</li>';
+                }
+                ?>
             </ul>
         </li>
     </ul>

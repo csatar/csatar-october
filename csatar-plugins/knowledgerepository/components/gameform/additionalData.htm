@@ -1,0 +1,10 @@
+{% partial "partials::dataRequestButton"
+    permissionValue = basicForm.currentUserRights['approved_at']['update']
+    dataRequest = 'onApproveGame'
+    dataRequestUpdate = "'" ~ __SELF__ ~ "::default': '#main'"
+    btnExtraClasses = 'btn-sm rounded btn-primary mb-2'
+    btnValue = 'Játék jóváhagyása' |_
+    btnIconClass = 'csat-check-fill-wh-sm'
+    btnLabel = 'Játék jóváhagyása' |_
+    tooltip = 'Játék jóváhagyása' |_
+%}

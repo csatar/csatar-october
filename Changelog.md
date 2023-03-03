@@ -2,6 +2,24 @@
 
 ## Unreleased
 
+- CS-493 - Added active members count to Association, District, Team, Troop, Patrol models
+- CS-493 - Modified form builder to display custom attributes
+- CS-493 - Added missing translations
+- CS-489 - Added citizenship attribute to scout model
+- CS-489 - Modified personal identification number validation to skip cnp validator if scout citizenship is not RO
+- CS-411 - Fixed the header on the team page, so neither the image, nor the header will overflow the screen
+- CS-387 - Created Game development front end menu, added Create New Game and Edit Game buttons, added functionality to approve game
+- CS-387 - Created Partials component to make partial sharing possible between plugins
+
+## 1.9.1
+### 2023-02-27
+
+- CS-411 - Fixed the header on the team page, so neither the image, nor the header will overflow the screen
+- CS-499 - Optimized pages with forms, added eager load settings to organization base models, optimized organization base models to reduce query numbers
+
+## 1.9.0
+### 2023-02-17
+
 - CS-498 - Optimized query for inactive mandates, modified inactive mandates accordion according to the changes
 - CS-384 - Created GameType model, controller, seeder, backend list and form
 - CS-371 - Created Location model, controller, seeder, backend list and form
@@ -12,10 +30,12 @@
 - CS-385 - Created GameDevelopmentGoal model, seeder controller, backend list and form
 - CS-385 - Changed migrations, renamed "order" columns to "sort_order"
 - CS-363 - Fixed success/error message issue on back list bulk delete
+- CS-454 - Remove the Team column from the Mandates tables
 - CS-455 - Sort the teams in the menu
 - CS-370 - Create Knowledge Repository and Knowledge Repository Parameters menus on backend
 - CS-451 - Membership card cannot be activated if the assigned scout is inactive
 - CS-460 - Added frontend scout csv import-export
+- CS-452 - Mandate Types must have different names
 - CS-460 - Fixed getBirthDateFromCNP method
 - CS-460 - Fixed typo in getOptionsWithLabels method name
 - CS-462 - Added warning to team report if any scout doesn't have registration form uploaded
