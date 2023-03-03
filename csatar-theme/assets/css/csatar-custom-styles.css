@@ -1676,7 +1676,7 @@ body > div.pika-single.is-bound > div > table > tbody > tr > td {
     min-height: 40px;
 }
 
-textarea {
+textarea:not(.select2-search__field) {
     min-height: 120px !important;
 }
 
