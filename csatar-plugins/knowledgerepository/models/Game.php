@@ -10,8 +10,10 @@ use Lang;
 class Game extends PermissionBasedAccess
 {
     use \October\Rain\Database\Traits\Validation;
+
     use \October\Rain\Database\Traits\Nullable;
 
+    use \October\Rain\Database\Traits\SoftDelete;
 
     /**
      * @var string The database table used by the model.
@@ -28,6 +30,7 @@ class Game extends PermissionBasedAccess
         'created_at',
         'updated_at',
         'approved_at',
+        'deleted_at',
     ];
 
     public $fillable = [

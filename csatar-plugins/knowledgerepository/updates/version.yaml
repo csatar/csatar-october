@@ -81,3 +81,6 @@
 1.0.28:
     - 'Created table csatar_knowledgerepository_trial_system_trial_types'
     - builder_table_create_csatar_knowledgerepository_trial_system_trial_types.php
+1.0.29:
+    - 'Update knowledge repository tables with timestamps and deleted_at columns'
+    - update_tables_with_timestamps_and_deleted_at.php
