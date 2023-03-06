@@ -32,6 +32,8 @@
                     'trialSystemTopics' => 'Próbarendszer témák',
                     'trialSystemSubTopic' => 'Próbarendszer altéma',
                     'trialSystemSubTopics' => 'Próbarendszer altémák',
+                    'trialSystemType' => 'Próbarendszer típus',
+                    'trialSystemTypes' => 'Próbarendszer típusok',
                 ],
             ],
             'general' => [

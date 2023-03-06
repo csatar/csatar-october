@@ -9,6 +9,7 @@ use Csatar\KnowledgeRepository\Models\Location;
 use Csatar\KnowledgeRepository\Models\GameType;
 use Csatar\KnowledgeRepository\Models\TrialSystemTopic;
 use Csatar\KnowledgeRepository\Models\TrialSystemSubTopic;
+use Csatar\KnowledgeRepository\Models\TrialSystemType;
 use Csatar\Forms\Models\Form;
 use Db;
 use Seeder;
@@ -358,6 +359,43 @@ class SeederData extends Seeder
             'Lelki',
             'Szellemi',
         ],
+        'trialSystemTypes' => [
+            'Alapvető tudás',
+            'Egyszer teljesítendő anyag',
+            'Irányítottan választandó anyag',
+            'Alap kérdések az életemben. Alapjaim/gyökereim.',
+            'Alvás, pihenés',
+            'Családom és barátaim',
+            'Cserkész lelkiség',
+            'Cserkészközösségem',
+            'Egészségügy',
+            'Egyházközségem/gyülekezetem és lakóhelyem',
+            'Én-idő a mindennapokban',
+            'Épített környezetünk megismerése',
+            'Étkezés',
+            'Európaiság',
+            'Függőségek',
+            'Hazám és nemzetem',
+            'Időmenedzsment',
+            'Ima',
+            'Kapcsolataim',
+            'Közösségi élet',
+            'Lelki olvasmány',
+            'Liturgikus élet',
+            'Műveltség',
+            'Ökumené',
+            'Olvasottság',
+            'Önismeret',
+            'Személyi higiéné',
+            'Személyiséglélektan',
+            'Szentírás-ismeret',
+            'Szexualitás',
+            'Társadalmi ismeretek',
+            'Természetes környezetünkkel kapcsolatos feladatok',
+            'Természetünk és környezetünk megismerése',
+            'Testnevelés, Sport',
+            'Vallási ismeretek',
+        ],
     ];
 
     public function run()
@@ -449,6 +487,14 @@ class SeederData extends Seeder
                 'name' => $trialSystemSubTopicData,
             ]);
             $trialSystemSubTopic->save();
+        }
+
+        // Trial System Type
+        foreach ($this::DATA['trialSystemTypes'] as $trialSystemTypeData) {
+            $trialSystemType = TrialSystemType::firstOrNew([
+                'name' => $trialSystemTypeData,
+            ]);
+            $trialSystemType->save();
         }
     }
 }
