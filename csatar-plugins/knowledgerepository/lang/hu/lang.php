@@ -30,6 +30,8 @@
                     'gameType' => 'Játék típus',
                     'trialSystemTopic' => 'Próbarendszer téma',
                     'trialSystemTopics' => 'Próbarendszer témák',
+                    'trialSystemSubTopic' => 'Próbarendszer altéma',
+                    'trialSystemSubTopics' => 'Próbarendszer altémák',
                 ],
             ],
             'general' => [

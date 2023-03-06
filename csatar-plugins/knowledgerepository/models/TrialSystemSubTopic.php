@@ -5,18 +5,19 @@ use Model;
 /**
  * Model
  */
-class TrialSystemTopic extends Model
+class TrialSystemSubTopic extends Model
 {
+    use \October\Rain\Database\Traits\Validation;
+    
     use \October\Rain\Database\Traits\SoftDelete;
 
-    use \October\Rain\Database\Traits\Validation;
-
     protected $dates = ['deleted_at'];
-    
+
+
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'csatar_knowledgerepository_trial_system_topics';
+    public $table = 'csatar_knowledgerepository_trial_system_subtopics';
 
     /**
      * @var array Validation rules

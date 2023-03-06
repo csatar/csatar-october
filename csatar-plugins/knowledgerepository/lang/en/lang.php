@@ -30,6 +30,8 @@
                     'gameType' => 'Game Type',
                     'trialSystemTopic' => 'Trial System Topic',
                     'trialSystemTopics' => 'Trial System Topics',
+                    'trialSystemSubTopic' => 'Trial System Sub Topic',
+                    'trialSystemSubTopics' => 'Trial System Sub Topics',
                 ],
             ],
             'general' => [

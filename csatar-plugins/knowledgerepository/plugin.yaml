@@ -92,9 +92,15 @@ navigation:
                 icon: icon-gamepad
                 permissions:
                     - csatar.manage.data
-            side-menu-trialsystemtopic:
+            side-menu-trialsystemtopics:
                 label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.trialSystemTopics'
                 url: csatar/knowledgerepository/trialsystemtopics
+                icon: icon-gamepad
+                permissions:
+                    - csatar.manage.data
+            side-menu-trialsystemsubtopics:
+                label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.trialSystemSubTopics'
+                url: csatar/knowledgerepository/trialsystemsubtopics
                 icon: icon-gamepad
                 permissions:
                     - csatar.manage.data

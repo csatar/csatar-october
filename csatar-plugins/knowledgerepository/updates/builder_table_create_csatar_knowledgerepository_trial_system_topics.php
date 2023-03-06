@@ -3,11 +3,11 @@
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
-class BuilderTableCreateCsatarKnowledgerepositoryTrialSystemTopic extends Migration
+class BuilderTableCreateCsatarKnowledgerepositoryTrialSystemTopics extends Migration
 {
     public function up()
     {
-        Schema::create('csatar_knowledgerepository_trial_system_topic', function($table)
+        Schema::create('csatar_knowledgerepository_trial_system_topics', function($table)
         {
             $table->engine = 'InnoDB';
             $table->increments('id')->unsigned();
@@ -21,6 +21,6 @@ class BuilderTableCreateCsatarKnowledgerepositoryTrialSystemTopic extends Migrat
     
     public function down()
     {
-        Schema::dropIfExists('csatar_knowledgerepository_trial_system_topic');
+        Schema::dropIfExists('csatar_knowledgerepository_trial_system_topics');
     }
 }

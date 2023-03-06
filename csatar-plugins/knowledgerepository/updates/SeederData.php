@@ -8,6 +8,7 @@ use Csatar\KnowledgeRepository\Models\Duration;
 use Csatar\KnowledgeRepository\Models\Location;
 use Csatar\KnowledgeRepository\Models\GameType;
 use Csatar\KnowledgeRepository\Models\TrialSystemTopic;
+use Csatar\KnowledgeRepository\Models\TrialSystemSubTopic;
 use Csatar\Forms\Models\Form;
 use Db;
 use Seeder;
@@ -352,6 +353,11 @@ class SeederData extends Seeder
             'Vallási Ismeretek',
             'Velemjáró (cserkészfüzet)',
         ],
+        'trialSystemSubTopics' => [
+            'Testi',
+            'Lelki',
+            'Szellemi',
+        ],
     ];
 
     public function run()
@@ -435,6 +441,14 @@ class SeederData extends Seeder
                 'name' => $trialSystemTopicData,
             ]);
             $trialSystemTopic->save();
+        }
+
+        // Trial System Sub Topic
+        foreach ($this::DATA['trialSystemSubTopics'] as $trialSystemSubTopicData) {
+            $trialSystemSubTopic = TrialSystemSubTopic::firstOrNew([
+                'name' => $trialSystemSubTopicData,
+            ]);
+            $trialSystemSubTopic->save();
         }
     }
 }

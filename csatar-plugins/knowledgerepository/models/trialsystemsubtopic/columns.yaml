@@ -2,10 +2,6 @@ columns:
     id:
         label: id
         type: number
-        searchable: true
-        sortable: true
     name:
         label: 'csatar.knowledgerepository::lang.plugin.admin.general.name'
         type: text
-        searchable: true
-        sortable: true
