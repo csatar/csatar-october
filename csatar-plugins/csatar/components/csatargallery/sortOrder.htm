@@ -6,7 +6,7 @@
         <div class="row sortImages">
             {% for image in images %}
             <div id='image_{{ image.id }}' class="col-12 col-sm-6 col-md-4 col-xl-2 d-flex">
-                    <img src="{{ image.path }}" alt="" class="csat-gallery-edit-img p-2 mx-auto mx-sm-0">
+                    <img src="{{ image.path }}" alt="" class="csat-gallery-edit-img not-auto-height p-2 mx-auto mx-sm-0">
                     <input type="hidden" id="image_{{ image.id }}_id" name="imageArray[{{ image.id }}]" min="1" max="100" size="2" value="{{ loop.index }}" >
             </div>
             {% endfor %}
