@@ -212,4 +212,11 @@ class OrganizationBase extends PermissionBasedAccess
     public function getInactiveMandatesInOrganization() {
         return Mandate::inactiveMandatesInOrganizations($this)->get();
     }
+
+    public function getOriginalValue(string $attribute) {
+        if (!isset($this->original[$attribute])) {
+            return null;
+        }
+        return $this->original[$attribute];
+    }
 }

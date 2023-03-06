@@ -218,6 +218,14 @@ class Plugin extends PluginBase
         ];
     }
 
+    public function registerFormWidgets()
+    {
+        return [
+            \Csatar\Forms\Widgets\TagList::class => 'taglist',
+        ];
+    }
+
+
     public function registerSettings()
     {
         return [

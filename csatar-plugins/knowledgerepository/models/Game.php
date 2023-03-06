@@ -39,6 +39,7 @@ class Game extends PermissionBasedAccess
         'description',
         'uploader_csatar_code',
         'approver_csatar_code',
+        'approved_at',
     ];
 
     public $nullable = [
