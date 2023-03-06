@@ -783,13 +783,6 @@
             'recordList' => [
                 'name' => 'List Component',
                 'description' => 'List component with filter and sort options',
-                'defaultSorting' => [
-                    'defaultSorting' => 'Default sorting',
-                    'listSortColumn' => 'Column',
-                    'listSortDirection' => 'Sort direction',
-                    'listSortDirectionAsc' => 'Ascending',
-                    'listSortDirectionDesc' => 'Descending',
-                ],
                 'columnsConfigFile' => [
                     'columnsConfigFile' => 'Columns config file',
                     'columnsConfigFileDescription' => 'File name with path to the columns config file, relative to the selected model',

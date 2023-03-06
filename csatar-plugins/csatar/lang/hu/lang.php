@@ -779,13 +779,12 @@
             'recordList' => [
                 'name' => 'Lista komponens',
                 'description' => 'Lista komponens szűrés és rendezés lehetőséggel',
-                'defaultSorting' => [
-                    'defaultSorting' => 'Alapértelmezett rendezés',
-                    'listSortColumn' => 'Oszlop',
-                    'listSortDirection' => 'Rendezés iránya',
-                    'listSortDirectionAsc' => 'Növekvő',
-                    'listSortDirectionDesc' => 'Csökkenő',
+                'columnsConfigFile' => [
+                    'columnsConfigFile' => 'Oszlopok konfigurációs fájlja',
+                    'columnsConfigFileDescription' => 'Fájl név és elérési útj a konfigurációs fájlhoz',
+                    'columnsConfigFileMissing' => 'A konfigurációs fájl hiányzik',
                 ],
+
             ]
         ],
         'oauth' => [

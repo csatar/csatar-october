@@ -12,17 +12,17 @@
 <ul class="pagination">
     {% if records.lastPage > 1 %}
         {% if records.currentPage > 1 %}
-        <li><a href="javascript:" onclick="checkboxcheck({{ records.currentPage-1 }})">&larr; {{ 'Előző'|_ }}</a></li>
+        <li><a href="javascript:" onclick="filterSortPaginate({{ records.currentPage-1 }})">&larr; {{ 'Előző'|_ }}</a></li>
         {% endif %}
 
         {% for page in 1..records.lastPage %}
         <li class="{{ records.currentPage == page ? 'active' : null }}">
-            <a href="javascript:" onclick="checkboxcheck({{ page }})">{{ page }}</a>
+            <a href="javascript:" onclick="filterSortPaginate({{ page }})">{{ page }}</a>
         </li>
         {% endfor %}
 
         {% if records.lastPage > records.currentPage %}
-        <li><a href="javascript:" onclick="checkboxcheck({{ records.currentPage+1 }})">{{ 'Következő'|_ }} &rarr;</a></li>
+        <li><a href="javascript:" onclick="filterSortPaginate({{ records.currentPage+1 }})">{{ 'Következő'|_ }} &rarr;</a></li>
         {% endif %}
     {% endif %}
 </ul>

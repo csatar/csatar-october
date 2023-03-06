@@ -113,6 +113,8 @@ columns:
         relation: legal_relationship
         valueFrom: name
         recordList: #temp
+            sortable:
+                default: asc
             filterable: true
             filterConfig:
                 type: relation

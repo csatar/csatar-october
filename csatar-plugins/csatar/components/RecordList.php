@@ -46,10 +46,22 @@ class RecordList extends RainRecordList {
     public string $sortColumn;
 
     /**
-     * Sort order
+     * Default sort column
      * @var string
      */
-    public string $sortOrder;
+    public string $sortColumnDefault;
+
+    /**
+     * Sort direction
+     * @var string
+     */
+    public string $sortDirection;
+
+    /**
+     * Default sort direction
+     * @var string
+     */
+    public string $sortDirectionDefault;
 
     /**
      * Filters config
@@ -153,23 +165,6 @@ class RecordList extends RainRecordList {
                 'validationMessage' => 'rainlab.builder::lang.components.list_records_per_page_validation',
                 'group'             => 'rainlab.builder::lang.components.list_pagination'
             ],
-            'sortColumn' => [
-                'title'       => 'csatar.csatar::lang.plugin.component.recordList.defaultSorting.listSortColumn',
-                'type'        => 'autocomplete',
-                'depends'     => ['modelClass'],
-                'group'       => 'csatar.csatar::lang.plugin.component.recordList.defaultSorting.defaultSorting',
-                'showExternalParam' => false
-            ],
-            'sortDirection' => [
-                'title'       => 'csatar.csatar::lang.plugin.component.recordList.defaultSorting.listSortDirection',
-                'type'        => 'dropdown',
-                'showExternalParam' => false,
-                'group'       => 'csatar.csatar::lang.plugin.component.recordList.defaultSorting.defaultSorting',
-                'options'     => [
-                    'asc'     => 'csatar.csatar::lang.plugin.component.recordList.defaultSorting.listSortDirectionAsc',
-                    'desc'    => 'csatar.csatar::lang.plugin.component.recordList.defaultSorting.listSortDirectionDesc',
-                ]
-            ]
         ];
 
         return array_merge($properties, $parentProperties);
@@ -183,10 +178,8 @@ class RecordList extends RainRecordList {
 
         $this->filtersConfig = $this->page['filtersConfig'] = $this->getFiltersConfig();
 
-        if (!empty($this->filtersConfig)) {
-            $this->addCss('/plugins/csatar/csatar/assets/recordlist/filters.css');
-            $this->addJs('/plugins/csatar/csatar/assets/recordlist/filters.js');
-        }
+        $this->addCss('/plugins/csatar/csatar/assets/recordlist/recordList.css');
+        $this->addJs('/plugins/csatar/csatar/assets/recordlist/recordList.js');
     }
 
     protected function prepareVars()
@@ -199,8 +192,8 @@ class RecordList extends RainRecordList {
         $this->tableRowConfig = $this->page['tableRowConfig'] = $this->getTableRowConfig();
 
 
-        $this->sortColumn = $this->page['sortColumn'] = trim($this->property('sortColumn'));
-        $this->sortDirection = $this->page['sortDirection'] = trim($this->property('sortDirection'));
+//        $this->sortColumn = $this->page['sortColumn'] = trim($this->property('sortColumn'));
+//        $this->sortDirection = $this->page['sortDirection'] = trim($this->property('sortDirection'));
 
         $this->detailsKeyColumn = $this->page['detailsKeyColumn'] = $this->property('detailsKeyColumn');
         $this->detailsUrlParameter = $this->page['detailsUrlParameter'] = $this->property('detailsUrlParameter');
@@ -246,19 +239,22 @@ class RecordList extends RainRecordList {
 
     protected function sort($model)
     {
-        $sortColumn = trim($this->property('sortColumn'));
+        $sortColumn = $this->sortColumn ?? $this->sortColumnDefault ?? '';
         if (!strlen($sortColumn)) {
             return $model;
         }
 
-        $sortDirection = trim($this->property('sortDirection'));
+        if (!empty($this->sortDirection) && $this->sortDirection == 'noSort') {
+            $sortColumn = $this->sortColumnDefault;
+            $sortDirection = $this->sortDirectionDefault;
+        } else {
+            $sortDirection = $this->sortDirection ?? $this->sortDirectionDefault;
+        }
 
         if ($sortDirection !== 'desc') {
             $sortDirection = 'asc';
         }
 
-        // Note - no further validation of the sort column
-        // value is performed here, relying to the ORM sanitizing.
         return $model->orderBy($sortColumn, $sortDirection);
     }
 
@@ -282,13 +278,6 @@ class RecordList extends RainRecordList {
         return $model->paginate($recordsPerPage, $pageNumber);
     }
 
-    public function onChangeSorting()
-    {
-        $this->sortColumn = Input::get('sortColumn');
-        $this->sortDirection = Input::get('sortDirection');
-        $this->records = $this->page['records'] = $this->listRecords();
-    }
-
     public function getColumnsConfigFile()
     {
         $modelClass = $this->property('modelClass');
@@ -310,7 +299,15 @@ class RecordList extends RainRecordList {
                 $headerConfig[$column]['label'] = ucfirst($column);
             }
 
-            $headerConfig[$column]['sortable'] = $config['recordList']['sortable'] ?? false;
+            if (isset($config['recordList']['sortable']) && is_array($config['recordList']['sortable'])) {
+                $headerConfig[$column]['sortable'] = true;
+                $headerConfig[$column]['sortableDefault'] = $config['recordList']['sortable']['default'] ?? false;
+                $this->sortColumn = $this->sortColumnDefault = $config['recordList']['sortable']['default'] ? $column : null;
+                $this->sortDirection = $this->sortDirectionDefault = $config['recordList']['sortable']['default'] ?? 'asc';
+            } else {
+                $headerConfig[$column]['sortable'] = $config['recordList']['sortable'] ?? false;
+            }
+
         }
 
         return $headerConfig;
@@ -484,10 +481,12 @@ class RecordList extends RainRecordList {
         return null;
     }
 
-    public function onFilter() {
+    public function onFilterSortPaginate() {
 
         $filters = json_decode(Input::get('activeFilters'), true);
         $pageNumber = Input::get('page');
+        $sortColumn = Input::get('sortColumn');
+        $sortDirection = Input::get('sortDirection');
         $this->prepareVars();
 
         if (!empty($filters)) {
@@ -496,6 +495,11 @@ class RecordList extends RainRecordList {
 
         if (!empty($pageNumber)) {
             $this->pageNumber = $pageNumber;
+        }
+
+        if (!empty($sortColumn) && !empty($sortDirection)) {
+            $this->sortColumn = $sortColumn;
+            $this->sortDirection = $sortDirection;
         }
 
         $this->records = $this->page['records'] = $this->listRecords();

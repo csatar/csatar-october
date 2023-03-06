@@ -14,3 +14,15 @@
     max-height: 200px;
     text-align: left;
 }
+
+.sortButton::after {
+    content: "˄˅";
+}
+
+.sortButton.asc::after {
+    content: "˄";
+}
+
+.sortButton.desc::after {
+    content: "˅";
+}

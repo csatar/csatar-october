@@ -2,7 +2,7 @@
 $(document).ready(function() {
     console.log("recordlist filters.js loaded");
 
-    checkboxcheck();
+    filterSortPaginate();
 
     $('.freeText').on("keydown", function (event) {
         if (event.keyCode === 13 ) {//|| e.keyCode === 188
@@ -12,6 +12,19 @@ $(document).ready(function() {
 
     $('.searchButton').on('click', function(event){
         addKeywordCheckbox($('#' + $(this).data('input-id')));
+    });
+
+    $('.sortButton').on('click', function(event){
+        let previousSortDirection = $(this).data('sort-direction');
+        let element = $(this);
+        setSortButtonAttributes(element, previousSortDirection)
+
+        if ($(this).data('sort-direction') == 'noSort') {
+            let sortDefault = $('.sortDefault');
+            setSortButtonAttributes(sortDefault, 'noSort', sortDefault.data('default-sort-direction'))
+        }
+
+        filterSortPaginate(1, $(this).data('column'), $(this).data('sort-direction'));
     });
 
     $('.filter-input').keyup(function(event) {
@@ -41,13 +54,13 @@ function addKeywordCheckbox(element){
     element.val('');
     let html = '<div id="hiddenCheckbox_' + Date.now() + '">'
     html += '<input class="form-check-input" type="checkbox" value="' + keyword + '" data-column="' + column + '" data-column-label="' + filterLabel + '" id="keyword_' + Date.now()
-        + '" onchange="checkboxcheck()" checked><label class="form-check-label" for="keyword_' + Date.now()
+        + '" onchange="filterSortPaginate()" checked><label class="form-check-label" for="keyword_' + Date.now()
         + '">' + keyword + '</label></div>';
     $('#hiddenCheckboxes').append(html);
-    checkboxcheck();
+    filterSortPaginate();
 }
 
-function checkboxcheck(page = 1) {
+function filterSortPaginate(page = 1, sortColumn = '', sortDirection = '') {
     let selected = [];
     let activeFilters = {};
     $("input:checkbox:checked, input:radio:checked").each(function() {
@@ -75,13 +88,14 @@ function checkboxcheck(page = 1) {
         $( "#activeFiltersCard" ).addClass('d-none');
     }
 
-    console.log(activeFilters);
     // if (Object.keys(activeFilters).length !== 0) {
         activeFilters = JSON.stringify(activeFilters);
-        $.request('onFilter', {
+        $.request('onFilterSortPaginate', {
             data: {
                 activeFilters: activeFilters,
-                page: page
+                page: page,
+                sortColumn: sortColumn,
+                sortDirection: sortDirection
             }
         });
     // }
@@ -90,12 +104,41 @@ function checkboxcheck(page = 1) {
 
 function removeFilter(elementId){
     $('#' + elementId).prop( "checked", false );
-    checkboxcheck();
+    filterSortPaginate();
 }
 
 function removeAllFilters(){
     $("input:checkbox:checked, input:radio:checked").each(function() {
         $(this).prop( "checked", false );
     });
-    checkboxcheck();
+    filterSortPaginate();
+}
+
+function setSortButtonAttributes(element, previousSortDirection, sortDefault = ''){
+    switch (previousSortDirection) {
+        case 'asc':
+            console.log('asc');
+            element.removeClass('asc');
+            element.addClass('desc');
+            element.attr('data-sort-direction', 'desc');
+            element.data('sort-direction', 'desc');
+            break;
+        case 'desc':
+            console.log('desc');
+            element.removeClass('desc');
+            element.attr('data-sort-direction', 'noSort');
+            element.data('sort-direction', 'noSort');
+            break;
+        case 'noSort':
+        default:
+            console.log('noSort');
+            element.addClass(sortDefault ? sortDefault : 'asc');
+            element.attr('data-sort-direction', sortDefault ? sortDefault : 'asc');
+            element.data('sort-direction', sortDefault ? sortDefault : 'asc');
+    }
+    $('.sortButton').not(element).each(function(){
+        $(this).removeClass('desc');
+        $(this).removeClass('asc');
+        $(this).data('sort-direction', 'noSort');
+    });
 }
