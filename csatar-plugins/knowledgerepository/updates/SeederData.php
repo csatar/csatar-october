@@ -9,6 +9,7 @@ use Csatar\KnowledgeRepository\Models\Location;
 use Csatar\KnowledgeRepository\Models\GameType;
 use Csatar\KnowledgeRepository\Models\TrialSystemTopic;
 use Csatar\KnowledgeRepository\Models\TrialSystemSubTopic;
+use Csatar\KnowledgeRepository\Models\TrialSystemTrialType;
 use Csatar\KnowledgeRepository\Models\TrialSystemType;
 use Csatar\Forms\Models\Form;
 use Db;
@@ -396,6 +397,14 @@ class SeederData extends Seeder
             'Testnevelés, Sport',
             'Vallási ismeretek',
         ],
+        'trialSystemTrialTypes' => [
+            'Piros Pajzs',
+            'Fehér Pajzs',
+            'Zöld Pajzs',
+            'Első',
+            'Második',
+            'Újonc',
+        ],
     ];
 
     public function run()
@@ -495,6 +504,14 @@ class SeederData extends Seeder
                 'name' => $trialSystemTypeData,
             ]);
             $trialSystemType->save();
+        }
+
+        // Trial System Trial Type
+        foreach ($this::DATA['trialSystemTrialTypes'] as $trialSystemTrialTypeData) {
+            $trialSystemTrialType = TrialSystemTrialType::firstOrNew([
+                'name' => $trialSystemTrialTypeData,
+            ]);
+            $trialSystemTrialType->save();
         }
     }
 }

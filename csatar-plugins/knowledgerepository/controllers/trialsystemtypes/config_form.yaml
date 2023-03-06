@@ -1,4 +1,4 @@
-name: TrialSystemTypes
+name: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.trialSystemType'
 form: $/csatar/knowledgerepository/models/trialsystemtype/fields.yaml
 modelClass: Csatar\KnowledgeRepository\Models\TrialSystemType
 defaultRedirect: csatar/knowledgerepository/trialsystemtypes
@@ -6,5 +6,4 @@ create:
     redirect: 'csatar/knowledgerepository/trialsystemtypes/update/:id'
     redirectClose: csatar/knowledgerepository/trialsystemtypes
 update:
-    redirect: csatar/knowledgerepository/trialsystemtypes
-    redirectClose: csatar/knowledgerepository/trialsystemtypes
+    redirect: csatar/knowledgereposito

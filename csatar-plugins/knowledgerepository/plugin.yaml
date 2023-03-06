@@ -110,3 +110,9 @@ navigation:
                 icon: icon-gamepad
                 permissions:
                     - csatar.manage.data
+            side-menu-trialsystemtrialtypes:
+                label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.trialSystemTrialTypes'
+                url: csatar/knowledgerepository/trialsystemtrialtypes
+                icon: icon-gamepad
+                permissions:
+                    - csatar.manage.data

@@ -78,3 +78,6 @@
 1.0.27:
     - 'Created table csatar_knowledgerepository_trial_system_types'
     - builder_table_create_csatar_knowledgerepository_trial_system_types.php
+1.0.28:
+    - 'Created table csatar_knowledgerepository_trial_system_trial_types'
+    - builder_table_create_csatar_knowledgerepository_trial_system_trial_types.php
