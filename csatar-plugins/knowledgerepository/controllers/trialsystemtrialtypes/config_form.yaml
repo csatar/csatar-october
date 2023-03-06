@@ -1,4 +1,4 @@
-name: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.trialSystemTrialType'
+name: 'csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.trialSystemTrialType'
 form: $/csatar/knowledgerepository/models/trialsystemtrialtype/fields.yaml
 modelClass: Csatar\KnowledgeRepository\Models\TrialSystemTrialType
 defaultRedirect: csatar/knowledgerepository/trialsystemtrialtypes

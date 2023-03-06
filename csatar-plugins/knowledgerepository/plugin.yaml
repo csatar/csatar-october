@@ -42,6 +42,12 @@ navigation:
                 icon: icon-paint-brush
                 permissions:
                     - csatar.manage.data
+            side-menu-trialsystem:
+                label: 'csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.trialSystems'
+                url: csatar/knowledgerepository/trialsystems
+                icon: icon-paint-brush
+                permissions:
+                    - csatar.manage.data
     main-menu-knowledge-repository-parameters:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.knowledgeRepositoryParameters'
         url: /csatar/knowledgerepository/knowledgeRepositoryparameters
@@ -92,26 +98,32 @@ navigation:
                 icon: icon-gamepad
                 permissions:
                     - csatar.manage.data
+            side-menu-trialsystemcategory:
+                label: 'csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.trialSystemCategories'
+                url: csatar/knowledgerepository/trialsystemcategories
+                icon: icon-gamepad
+                permissions:
+                    - csatar.manage.data
             side-menu-trialsystemtopics:
-                label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.trialSystemTopics'
+                label: 'csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.trialSystemTopics'
                 url: csatar/knowledgerepository/trialsystemtopics
                 icon: icon-gamepad
                 permissions:
                     - csatar.manage.data
             side-menu-trialsystemsubtopics:
-                label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.trialSystemSubTopics'
+                label: 'csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.trialSystemSubTopics'
                 url: csatar/knowledgerepository/trialsystemsubtopics
                 icon: icon-gamepad
                 permissions:
                     - csatar.manage.data
             side-menu-trialsystemtypes:
-                label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.trialSystemTypes'
+                label: 'csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.trialSystemTypes'
                 url: csatar/knowledgerepository/trialsystemtypes
                 icon: icon-gamepad
                 permissions:
                     - csatar.manage.data
             side-menu-trialsystemtrialtypes:
-                label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.trialSystemTrialTypes'
+                label: 'csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.trialSystemTrialTypes'
                 url: csatar/knowledgerepository/trialsystemtrialtypes
                 icon: icon-gamepad
                 permissions:

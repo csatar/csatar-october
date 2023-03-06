@@ -1,0 +1,12 @@
+list: $/csatar/knowledgerepository/models/trialsystemcategory/columns.yaml
+modelClass: Csatar\KnowledgeRepository\Models\TrialSystemCategory
+title: 'csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.trialSystemCategories'
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'csatar/knowledgerepository/trialsystemcategories/update/:id'

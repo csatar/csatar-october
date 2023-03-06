@@ -11,6 +11,7 @@ use Csatar\KnowledgeRepository\Models\TrialSystemTopic;
 use Csatar\KnowledgeRepository\Models\TrialSystemSubTopic;
 use Csatar\KnowledgeRepository\Models\TrialSystemTrialType;
 use Csatar\KnowledgeRepository\Models\TrialSystemType;
+use Csatar\KnowledgeRepository\Models\TrialSystemCategory;
 use Csatar\Forms\Models\Form;
 use Db;
 use Seeder;
@@ -405,6 +406,11 @@ class SeederData extends Seeder
             'Második',
             'Újonc',
         ],
+        'trialSystemCategories' => [
+            'Ember és ember',
+            'Ember és környezete',
+            'Isten és ember',
+        ],
     ];
 
     public function run()
@@ -512,6 +518,14 @@ class SeederData extends Seeder
                 'name' => $trialSystemTrialTypeData,
             ]);
             $trialSystemTrialType->save();
+        }
+
+        // Trial System Category
+        foreach ($this::DATA['trialSystemCategories'] as $trialSystemCategoryData) {
+            $trialSystemCategory = TrialSystemCategory::firstOrNew([
+                'name' => $trialSystemCategoryData,
+            ]);
+            $trialSystemCategory->save();
         }
     }
 }

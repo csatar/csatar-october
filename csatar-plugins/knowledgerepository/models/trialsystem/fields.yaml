@@ -1,0 +1,67 @@
+fields:
+    id_string:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.idString'
+        span: auto
+        type: text
+    name:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.name'
+        span: auto
+        required: 1
+        type: text
+    trialSystemCategory:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.trialSystemCategory'
+        span: auto
+        type: relation
+        nameFrom: name
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+    trialSystemTopic:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.trialSystemTopic'
+        nameFrom: name
+        span: auto
+        type: relation
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+    trialSystemSubTopic:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.trialSystemSubTopic'
+        nameFrom: name
+        span: auto
+        type: relation
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+    ageGroup:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.ageGroup'
+        nameFrom: name
+        span: auto
+        type: relation
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+    trialSystemType:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.trialSystemType'
+        nameFrom: name
+        span: auto
+        type: relation
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+    trialSystemTrialType:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.trialSystemTrialType'
+        nameFrom: name
+        span: auto
+        type: relation
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+    for_patrols:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.forPatrols'
+        span: left
+        type: checkbox
+    individual:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.individual'
+        span: left
+        type: checkbox
+    obligatory:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.obligatory'
+        span: left
+        type: checkbox
+    task:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.task'
+        span: left
+        type: checkbox
+    note:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.note'
+        size: small
+        span: full
+        type: textarea

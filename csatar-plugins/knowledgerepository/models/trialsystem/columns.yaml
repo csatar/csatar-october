@@ -1,0 +1,75 @@
+columns:
+    id_string:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.idString'
+        type: text
+        searchable: true
+        sortable: true
+    name:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.name'
+        type: text
+        searchable: true
+        sortable: true
+    trial_system_category_id:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.trialSystemCategory'
+        type: number
+        searchable: true
+        sortable: true
+        relation: trialSystemCategory
+        valueFrom: name
+    trial_system_topic_id:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.trialSystemTopic'
+        type: number
+        searchable: true
+        sortable: true
+        relation: trialSystemTopic
+        valueFrom: name
+    trial_system_sub_topic_id:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.trialSystemSubTopic'
+        type: number
+        searchable: true
+        sortable: true
+        relation: trialSystemSubTopic
+        valueFrom: name
+    age_group_id:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.ageGroup'
+        type: number
+        searchable: true
+        sortable: true
+        relation: ageGroup
+        valueFrom: name
+    trial_system_type_id:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.trialSystemType'
+        type: number
+        searchable: true
+        sortable: true
+        relation: trialSystemType
+        valueFrom: name
+    trial_system_trial_type_id:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.trialSystemTrialType'
+        type: number
+        searchable: true
+        sortable: true
+        relation: trialSystemTrialType
+        valueFrom: name
+    for_patrols:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.forPatrols'
+        type: text
+        searchable: false
+        sortable: true
+    individuals:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.individual'
+        type: text
+        sortable: true
+    task:
+        label: tas
+        type: text
+        sortable: true
+    obligatory:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.obligatory'
+        type: text
+        sortable: true
+    note:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.note'
+        type: text
+        searchable: true
+        sortable: true

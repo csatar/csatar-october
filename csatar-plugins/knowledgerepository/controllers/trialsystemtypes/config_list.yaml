@@ -1,6 +1,6 @@
 list: $/csatar/knowledgerepository/models/trialsystemtype/columns.yaml
 modelClass: Csatar\KnowledgeRepository\Models\TrialSystemType
-title: TrialSystemTypes
+title: 'csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.trialSystemTypes'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: true
@@ -9,4 +9,3 @@ toolbar:
     buttons: list_toolbar
     search:
         prompt: 'backend::lang.list.search_prompt'
-recordUrl: 'csatar/knowledgerepository/trialsystemtypes/update/:id'

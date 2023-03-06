@@ -90,7 +90,17 @@
             </ul>
         </li>
         <li>
-            <h4><?= e(trans('csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.trialSystemTopics')) ?>:</h4>
+            <h4><?= e(trans('csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.trialSystemCategories')) ?>:</h4>
+            <ul>
+                <?php
+                foreach ($seederData['trialSystemCategories'] as $data) {
+                    echo '<li>' . $data . '</li>';
+                }
+                ?>
+            </ul>
+        </li>
+        <li>
+            <h4><?= e(trans('csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.trialSystemTopics')) ?>:</h4>
             <ul>
                 <?php
                 foreach ($seederData['trialSystemTopics'] as $data) {
@@ -100,7 +110,7 @@
             </ul>
         </li>
         <li>
-            <h4><?= e(trans('csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.trialSystemSubTopics')) ?>:</h4>
+            <h4><?= e(trans('csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.trialSystemSubTopics')) ?>:</h4>
             <ul>
                 <?php
                 foreach ($seederData['trialSystemSubTopics'] as $data) {
@@ -110,7 +120,7 @@
             </ul>
         </li>
         <li>
-            <h4><?= e(trans('csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.trialSystemTypes')) ?>:</h4>
+            <h4><?= e(trans('csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.trialSystemTypes')) ?>:</h4>
             <ul>
                 <?php
                 foreach ($seederData['trialSystemTypes'] as $data) {
@@ -120,7 +130,7 @@
             </ul>
         </li>
         <li>
-            <h4><?= e(trans('csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.trialSystemTrialTypes')) ?>:</h4>
+            <h4><?= e(trans('csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.trialSystemTrialTypes')) ?>:</h4>
             <ul>
                 <?php
                 foreach ($seederData['trialSystemTrialTypes'] as $data) {

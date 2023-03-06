@@ -1,0 +1,10 @@
+name: 'csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.trialSystemCategory'
+form: $/csatar/knowledgerepository/models/trialsystemcategory/fields.yaml
+modelClass: Csatar\KnowledgeRepository\Models\TrialSystemCategory
+defaultRedirect: csatar/knowledgerepository/trialsystemcategories
+create:
+    redirect: 'csatar/knowledgerepository/trialsystemcategories/update/:id'
+    redirectClose: csatar/knowledgerepository/trialsystemcategories
+update:
+    redirect: csatar/knowledgerepository/trialsystemcategories
+    redirectClose: csatar/knowledgerepository/trialsystemcategories
