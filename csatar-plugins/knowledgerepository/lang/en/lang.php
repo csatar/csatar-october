@@ -28,6 +28,8 @@
                     'location' => 'Location',
                     'gameTypes' => 'Game Types',
                     'gameType' => 'Game Type',
+                    'trialSystemTopic' => 'Trial System Topic',
+                    'trialSystemTopics' => 'Trial System Topics',
                 ],
             ],
             'general' => [

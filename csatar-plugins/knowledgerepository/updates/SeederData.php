@@ -7,6 +7,7 @@ use Csatar\KnowledgeRepository\Models\Headcount;
 use Csatar\KnowledgeRepository\Models\Duration;
 use Csatar\KnowledgeRepository\Models\Location;
 use Csatar\KnowledgeRepository\Models\GameType;
+use Csatar\KnowledgeRepository\Models\TrialSystemTopic;
 use Csatar\Forms\Models\Form;
 use Db;
 use Seeder;
@@ -267,6 +268,90 @@ class SeederData extends Seeder
                 'model' => 'Csatar\KnowledgeRepository\Models\Game',
             ],
         ],
+        'trialSystemTopics' => [
+            'A cserkészet története',
+            'A magyarság kiemelkedő alakjai',
+            'Alaki',
+            'A cserkészet története',
+            'A magyarság kiemelkedő alakjai',
+            'Alaki',
+            'Állatismeret',
+            'Ásvány és kőzetismeret',
+            'Az RMCSSZ ismerete',
+            'Becslés és mérés',
+            'Családi adatok, ünnepek',
+            'Cserkész lelkiség',
+            'Cserkészinduló, cserkészdalok',
+            'Cserkészkapcsolatok',
+            'Csillagászat',
+            'Egészséges életmód',
+            'Egyenruha ismerete',
+            'Élet a természetben',
+            'Elsősegély',
+            'Eszközhasználat',
+            'Foglalkozások ismerete',
+            'Földrajzi ismeretek',
+            'Gombaismeret',
+            'Gyógyszerismeret',
+            'Határontúli magyarság, nemzetiségeink',
+            'Helyi ünnepek',
+            'Higiéné',
+            'Hírközlési ismeretek',
+            'Hitoktatás / Bibliaóra',
+            'Hivatalos iratok, ügyintézés',
+            'Idegenvezetés',
+            'Illemszabályok',
+            'Ima',
+            'Karitászmunka (egyházközségi szervezésben)',
+            'Kerti munka',
+            'Környékismeret',
+            'Kötélmunkák',
+            'Közjogi méltóságok, államigazgatás, önkormányzatok',
+            'Közös jelképeink',
+            'KRESZ, közlekedési ismeretek',
+            'Krónika',
+            'Kultúra',
+            'Lelki olvasmány',
+            'Levélírás',
+            'Liturgikus élet',
+            'Média',
+            'Megismerés',
+            'Mentődoboz',
+            'Napi jótett, önfegyelem',
+            'Nemzeti jelképeink',
+            'Népdalok',
+            'Népi játékok',
+            'Népmesék, mondák',
+            'Népművészet, kismesterségek',
+            'Népszokások',
+            'Növényismeret',
+            'Nyelvtudás',
+            'Ökumené',
+            'Olvasottság',
+            'Őrsi élet',
+            'Őrsi jótett',
+            'Rovásírás',
+            'Segítség otthon',
+            'Sípjelek, karjelek',
+            'Sütés, főzés, tartósítás',
+            'Szabás-varrás, kézimunka',
+            'Szentírás-ismeret',
+            'Színjátszás',
+            'Szomszéd országok ismerete',
+            'Tábori építmények',
+            'Tábori rend',
+            'Tábortűz',
+            'Tájékozódás',
+            'Térképészet',
+            'Természet- és környezetvédelem',
+            'Természetes anyagok megmunkálása',
+            'Tevékenység',
+            'Túra',
+            'Ünnep',
+            'Utazási ismeretek',
+            'Vallási Ismeretek',
+            'Velemjáró (cserkészfüzet)',
+        ],
     ];
 
     public function run()
@@ -342,6 +427,14 @@ class SeederData extends Seeder
         foreach ($this::DATA['forms'] as $formData) {
             $form = Form::firstOrNew($formData);
             $form->save();
+        }
+
+        // Trial System Topic
+        foreach ($this::DATA['trialSystemTopics'] as $trialSystemTopicData) {
+            $trialSystemTopic = TrialSystemTopic::firstOrNew([
+                'name' => $trialSystemTopicData,
+            ]);
+            $trialSystemTopic->save();
         }
     }
 }

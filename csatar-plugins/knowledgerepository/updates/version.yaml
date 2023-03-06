@@ -69,3 +69,6 @@
 1.0.24:
     - 'Updated table csatar_knowledgerepository_games'
     - builder_table_update_csatar_knowledgerepository_games.php
+1.0.25:
+    - 'Created table csatar_knowledgerepository_trial_system_topic'
+    - builder_table_create_csatar_knowledgerepository_trial_system_topic.php
