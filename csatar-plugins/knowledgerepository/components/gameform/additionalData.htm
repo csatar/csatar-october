@@ -1,4 +1,4 @@
-{% if basicForm.record.approved_at is null %}
+{% if basicForm.record.approved_at is null and basicForm.record.created_at is not null %}
     {% partial "partials::dataRequestButton"
         permissionValue = basicForm.currentUserRights['approved_at']['update']
         dataRequest = 'onApproveGame'
