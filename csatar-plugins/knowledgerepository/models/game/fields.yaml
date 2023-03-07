@@ -24,15 +24,15 @@ fields:
         descriptionFrom: description
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
-        type: relation
-        readOnly: true
+        type: dropdown
+        disabled: true
     approver:
         label: 'csatar.knowledgerepository::lang.plugin.admin.game.approver'
         nameFrom: name_with_id_number
         descriptionFrom: description
         emptyOption: ' - '
         span: auto
-        type: relation
+        type: dropdown
         disabled: true
     created_at:
         label: 'csatar.knowledgerepository::lang.plugin.admin.game.uploadedAt'
