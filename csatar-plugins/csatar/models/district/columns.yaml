@@ -13,6 +13,11 @@ columns:
         type: text
         searchable: true
         sortable: true
+        recordList: #temp
+            sortable: true
+            filterable: true
+            filterConfig:
+                type: dropdown
     address:
         label: 'csatar.csatar::lang.plugin.admin.general.address'
         type: text
@@ -28,6 +33,11 @@ columns:
         type: text
         searchable: true
         sortable: true
+        recordList: #temp
+            sortable: true
+            filterable: true
+            filterConfig:
+                type: dropdown
     website:
         label: 'csatar.csatar::lang.plugin.admin.district.website'
         type: text
@@ -62,6 +72,10 @@ columns:
         type: text
         searchable: true
         invisible: true
+        recordList: #temp
+            filterable: true
+            filterConfig:
+                type: freeText
     bank_account:
         label: 'csatar.csatar::lang.plugin.admin.district.bankAccount'
         type: text
@@ -73,3 +87,9 @@ columns:
         sortable: false
         relation: association
         valueFrom: name
+        recordList: #temp
+            filterable: true
+            filterConfig:
+                type: relation
+                keyFrom: id
+                labelFrom: name

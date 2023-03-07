@@ -1,6 +1,6 @@
-title = "Körzetek"
+url = "/korzetek/:page?"
 layout = "default"
-url = "/korzetek"
+title = "Körzetek"
 
 [builderList]
 modelClass = "Csatar\Csatar\Models\District"
@@ -13,10 +13,27 @@ detailsKeyColumn = "id"
 detailsUrlParameter = "id"
 pageNumber = "{{ :page }}"
 
+[recordList]
+modelClass = "Csatar\Csatar\Models\District"
+scope = "-"
+scopeValue = "{{ :scope }}"
+noRecordsMessage = "No records found"
+detailsPage = "-"
+detailsUrlParameter = "id"
+recordsPerPage = 2
+pageNumber = "{{ :page }}"
+sortColumn = "name"
+sortDirection = "asc"
+columnsConfigFile = "columns.yaml"
+
 [viewBag]
 localeTitle[en] = "Districts"
 localeTitle[hu] = "Körzetek"
 ==
-<div class="container">
+{#<div class="container">
     {% component 'builderList' %}
+</div>#}
+
+<div class="container">
+    {% component 'recordList' %}
 </div>

@@ -1,0 +1,28 @@
+.collapse-button:after {
+    color: #0a53be;
+    content: "˄";
+    float: right;
+    font-weight: 900;
+}
+.collapse-button.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "˅";
+}
+
+.checkbox-container {
+    color: #99A56B;
+    max-height: 200px;
+    text-align: left;
+}
+
+.sortButton::after {
+    content: "˄˅";
+}
+
+.sortButton.asc::after {
+    content: "˄";
+}
+
+.sortButton.desc::after {
+    content: "˅";
+}

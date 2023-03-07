@@ -1,0 +1,15 @@
+{% partial __SELF__ ~ '::filtersActive' %}
+
+<div class="tr">
+    <div class="card csat-resp-gdtable csat-border-lg-none">
+        <div class="row">
+            {% for column, config in filtersConfig %}
+                <div class="col-12 col-sm-4">
+                    <div class="td">
+                        {% partial __SELF__ ~ '::filter' column = column config=config %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

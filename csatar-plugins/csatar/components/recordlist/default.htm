@@ -1,0 +1,16 @@
+
+{% set detailsPage = __SELF__.detailsPage %}
+{% set detailsKeyColumn = __SELF__.detailsKeyColumn %}
+{% set detailsUrlParameter = __SELF__.detailsUrlParameter %}
+{% set filtersConfig = __SELF__.filtersConfig %}
+
+<div id="records-table" class="table csat-grid">
+    {% partial __SELF__~'::tableHeader' %}
+    {% if filtersConfig|length > 0 %}
+        {% partial __SELF__~'::filters' filtersConfig = filtersConfig %}
+    {% endif %}
+    <div id="tableRows">
+        {% partial __SELF__~'::tableRows' %}
+    </div>
+</div>
+
