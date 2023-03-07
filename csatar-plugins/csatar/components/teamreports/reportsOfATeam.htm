@@ -65,10 +65,12 @@
 {% endif %}
 
 <div class="row">
-    {% if __SELF__.showTeamReportCreateButton %}
-        <form action="/csapatjelentes/letrehozas" method="post">
-            <input type="hidden" name="team" value="{{ __SELF__.id }}">
-            <input type="submit" class="btn rounded btn-primary" value="{{ 'Csapatjelentés létrehozása ' | _ }}">
-        </form>
-    {% endif %}
+    {% partial "@formWithButton"
+        permissionValue = __SELF__.permissionForCreateButton
+        actionUrl = "/csapatjelentes/letrehozas"
+        hiddenInputs = { 'team': __SELF__.id }
+        btnExtraClasses = 'btn-primary btn-sm'
+        btnIconClass = 'csat-add-fill-wh-sm'
+        btnLabel = 'Csapatjelentés létrehozása ' | _
+    %}
 </div>
