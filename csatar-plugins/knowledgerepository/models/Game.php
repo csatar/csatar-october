@@ -27,7 +27,6 @@ class Game extends PermissionBasedAccess
     protected $dates = [
         'created_at',
         'updated_at',
-        'approved_at',
     ];
 
     public $fillable = [
