@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+- CS-514 - Created TrialSystem model, backend and frontend form and list
+- CS-514 - Created TrialSystem related models, backend forms and lists
+- CS-514 - Added TrialSystems relation to Game model
+- CS-520 - Created RecordList component
 - CS-411 - Fixed CSS to prevent images overflowing the screen
 - CS-493 - Added active members count to Association, District, Team, Troop, Patrol models
 - CS-493 - Modified form builder to display custom attributes
