@@ -90,3 +90,6 @@
 1.0.31:
     - 'Created table csatar_knowledgerepository_trial_systems'
     - builder_table_create_csatar_knowledgerepository_trial_systems.php
+1.0.32:
+    - 'Created table csatar_knowledgerepository_game_trial_system'
+    - builder_table_create_csatar_knowledgerepository_game_trial_system.php

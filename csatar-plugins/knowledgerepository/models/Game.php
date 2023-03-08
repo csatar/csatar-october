@@ -117,6 +117,11 @@ class Game extends PermissionBasedAccess
             'table' => 'csatar_knowledgerepository_game_game_type',
             'label' => 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.gameTypes',
         ],
+        'trial_systems' => [
+            '\Csatar\KnowledgeRepository\Models\TrialSystem',
+            'table' => 'csatar_knowledgerepository_game_trial_system',
+            'label' => 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystems',
+        ],
     ];
 
     public $attachMany = [
