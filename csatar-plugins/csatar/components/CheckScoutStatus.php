@@ -66,7 +66,7 @@ class CheckScoutStatus extends ComponentBase
 
         $variablesToPass = [
             'code' =>   $this->scoutCode,
-            'is_active' => $scout->is_active,
+            'is_active' => $scout->inactivated_at == null ? true : false,
             'is_exists' => true,
             'team_id' => $team->id,
             'team_name' => $team->name,

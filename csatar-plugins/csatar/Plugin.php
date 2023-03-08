@@ -8,6 +8,7 @@ use Csatar\Csatar\Models\MandateType;
 use Csatar\Csatar\Models\Scout;
 use Csatar\Csatar\Classes\ContentPageSearchProvider;
 use Csatar\Csatar\Classes\OrganizationSearchProvider;
+use Db;
 use Event;
 use Input;
 use Media\Classes\MediaLibrary;
@@ -302,5 +303,15 @@ class Plugin extends PluginBase
         ];
     }
 
-
+    public function registerSchedule($schedule)
+    {
+        $schedule->call(function () {
+            Db::select(
+                'UPDATE csatar_csatar_scouts
+                SET family_name = "Inaktivítás miatt törölt név", given_name = family_name
+                WHERE inactivated_at < DATE_SUB(NOW(), INTERVAL 5 YEAR) AND family_name <> "Inaktivítás miatt törölt név";'
+            );
+        })
+            ->daily();
+    }
 }

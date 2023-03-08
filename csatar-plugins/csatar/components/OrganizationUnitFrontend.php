@@ -254,6 +254,10 @@ class OrganizationUnitFrontend extends ComponentBase
                     $dataRow[] = $countryMap[$record->{$attribute}] ?? '';
                     continue;
                 }
+                if ($attribute == 'is_active') {
+                    $dataRow[] = $record->inactivated_at ? '0' : '1';
+                    continue;
+                }
                 $dataRow[] = strval($record->{$attribute});
             }
 
@@ -319,7 +323,7 @@ class OrganizationUnitFrontend extends ComponentBase
                     continue;
                 }
                 if ($scout->is_active != Status::ACTIVE) {
-                    $scout->is_active = empty($scout->is_active) ? Status::INACTIVE : $scout->is_active;
+                    $scout->inactivated_at = empty($scout->inactivated_at) ? date('Y-m-d H:i:s') : $scout->inactivated_at;
                     $scout->ignoreValidation = true;
                     $scout->forceSave();
                 } else {

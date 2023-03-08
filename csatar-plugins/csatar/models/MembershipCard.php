@@ -51,7 +51,7 @@ class MembershipCard extends Model
     public function beforeValidate()
     {
         // if the scout assigned to this card is inactive, then this card cannot be set to active
-        if ($this->active == 1 && $this->scout->is_active != 1) {
+        if ($this->active == 1 && $this->scout->inactivated_at != null) {
             throw new ValidationException(['active' => Lang::get('csatar.csatar::lang.plugin.admin.membershipCard.inactiveScoutError')]);
         }
     }
