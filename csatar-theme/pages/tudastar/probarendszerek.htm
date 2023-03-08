@@ -1,0 +1,19 @@
+url = "/tudastar/probarendszerek"
+layout = "default"
+title = "Próbarendszerek"
+
+[recordList]
+modelClass = "Csatar\KnowledgeRepository\Models\TrialSystem"
+scope = "-"
+scopeValue = "{{ :scope }}"
+columnsConfigFile = "columns.yaml"
+noRecordsMessage = "No records found"
+detailsPage = "tudastar/probarendszer"
+detailsKeyColumn = "id"
+detailsUrlParameter = "id"
+recordsPerPage = 2
+pageNumber = "{{ :page }}"
+==
+<div class="container">
+    {% component 'recordList' %}
+</div>

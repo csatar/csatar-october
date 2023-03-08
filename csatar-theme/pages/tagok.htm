@@ -9,24 +9,9 @@ localeTitle[hu] = "Tagok"
 [createFrontendAccounts]
 paramCode = "code"
 resetPage = "jelszo-beallitasa"
-
-[recordList]
-modelClass = "Csatar\Csatar\Models\Scout"
-scope = "scopeActive"
-scopeValue = "{{ :scope }}"
-noRecordsMessage = "No records found"
-detailsPage = "-"
-detailsUrlParameter = "id"
-recordsPerPage = 15
-pageNumber = "{{ :page }}"
-columnsConfigFile = "columns.yaml"
 ==
-{#<div class="container">
+<div class="container">
 
     {% component 'createFrontendAccounts' %}
 
-</div>#}
-
-<div class="container">
-    {% component 'recordList' %}
 </div>

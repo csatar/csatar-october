@@ -1,4 +1,4 @@
-name: 'csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.trialSystemTopic'
+name: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystemTopic'
 form: $/csatar/knowledgerepository/models/trialsystemtopic/fields.yaml
 modelClass: Csatar\KnowledgeRepository\Models\TrialSystemTopic
 defaultRedirect: csatar/knowledgerepository/trialsystemtopics

@@ -1,6 +1,5 @@
 // on document load
 $(document).ready(function() {
-    console.log("recordlist filters.js loaded");
 
     filterSortPaginate();
 
@@ -18,13 +17,17 @@ $(document).ready(function() {
         let previousSortDirection = $(this).data('sort-direction');
         let element = $(this);
         setSortButtonAttributes(element, previousSortDirection)
+        let column = $(this).data('column');
+        let sortDirection = $(this).data('sort-direction');
 
         if ($(this).data('sort-direction') == 'noSort') {
             let sortDefault = $('.sortDefault');
             setSortButtonAttributes(sortDefault, 'noSort', sortDefault.data('default-sort-direction'))
+            column = $('.sortDefault').data('column');
+            sortDirection = $('.sortDefault').data('sort-direction');
         }
 
-        filterSortPaginate(1, $(this).data('column'), $(this).data('sort-direction'));
+        filterSortPaginate(1, column, sortDirection);
     });
 
     $('.filter-input').keyup(function(event) {

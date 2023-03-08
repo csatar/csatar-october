@@ -46,22 +46,10 @@ class RecordList extends RainRecordList {
     public string $sortColumn;
 
     /**
-     * Default sort column
-     * @var string
-     */
-    public string $sortColumnDefault;
-
-    /**
      * Sort direction
      * @var string
      */
     public string $sortDirection;
-
-    /**
-     * Default sort direction
-     * @var string
-     */
-    public string $sortDirectionDefault;
 
     /**
      * Filters config
@@ -167,6 +155,14 @@ class RecordList extends RainRecordList {
             ],
         ];
 
+        if (isset($parentProperties['sortColumn'])) {
+            unset($parentProperties['sortColumn']);
+        }
+
+        if (isset($parentProperties['sortDirection'])) {
+            unset($parentProperties['sortDirection']);
+        }
+
         return array_merge($properties, $parentProperties);
     }
 
@@ -239,17 +235,12 @@ class RecordList extends RainRecordList {
 
     protected function sort($model)
     {
-        $sortColumn = $this->sortColumn ?? $this->sortColumnDefault ?? '';
+        $sortColumn = $this->sortColumn ?? '';
         if (!strlen($sortColumn)) {
             return $model;
         }
 
-        if (!empty($this->sortDirection) && $this->sortDirection == 'noSort') {
-            $sortColumn = $this->sortColumnDefault;
-            $sortDirection = $this->sortDirectionDefault;
-        } else {
-            $sortDirection = $this->sortDirection ?? $this->sortDirectionDefault;
-        }
+        $sortDirection = $this->sortDirection;
 
         if ($sortDirection !== 'desc') {
             $sortDirection = 'asc';
@@ -302,8 +293,8 @@ class RecordList extends RainRecordList {
             if (isset($config['recordList']['sortable']) && is_array($config['recordList']['sortable'])) {
                 $headerConfig[$column]['sortable'] = true;
                 $headerConfig[$column]['sortableDefault'] = $config['recordList']['sortable']['default'] ?? false;
-                $this->sortColumn = $this->sortColumnDefault = $config['recordList']['sortable']['default'] ? $column : null;
-                $this->sortDirection = $this->sortDirectionDefault = $config['recordList']['sortable']['default'] ?? 'asc';
+                $this->sortColumn = $config['recordList']['sortable']['default'] ? $column : null;
+                $this->sortDirection = $config['recordList']['sortable']['default'] ?? 'asc';
             } else {
                 $headerConfig[$column]['sortable'] = $config['recordList']['sortable'] ?? false;
             }
@@ -396,7 +387,7 @@ class RecordList extends RainRecordList {
         $relationName = $config['recordList']['filterConfig']['relationName'] ?? $column;
         $relationType = $this->rowConfig[$column]['relationName'] ?? $this->getRelationType($relationName);
         if (isset($model->$relationType[$relationName])) {
-            $relationModelClassName = is_array($model->$relationType[$relationName]) ? $model->$relationType[$column][0] : $model->$relationType[$relationName];
+            $relationModelClassName = is_array($model->$relationType[$relationName]) ? $model->$relationType[$relationName][0] : $model->$relationType[$relationName];
             $relationModelClassName = $this->validateModelClassName($relationModelClassName);
 
             return $relationModelClassName::all()->map(function ($item) use ($config) {

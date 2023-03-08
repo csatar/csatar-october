@@ -11,6 +11,7 @@ class BuilderTableCreateCsatarKnowledgerepositoryTrialSystems extends Migration
         {
             $table->engine = 'InnoDB';
             $table->increments('id')->unsigned();
+            $table->integer('association_id')->unsigned();
             $table->string('id_string', 15)->nullable();
             $table->string('name');
             $table->integer('trial_system_category_id')->nullable()->unsigned();
@@ -29,6 +30,7 @@ class BuilderTableCreateCsatarKnowledgerepositoryTrialSystems extends Migration
             $table->timestamp('updated_at')->nullable();
             $table->timestamp('deleted_at')->nullable();
     
+            $table->foreign('association_id', 'association_foreign')->references('id')->on('csatar_csatar_associations');
             $table->foreign('trial_system_category_id', 'trial_system_category_foreign')->references('id')->on('csatar_knowledgerepository_trial_system_categories');
             $table->foreign('trial_system_topic_id', 'trial_system_topic_foreign')->references('id')->on('csatar_knowledgerepository_trial_system_topics');
             $table->foreign('trial_system_sub_topic_id', 'trial_system_sub_topic_foreign')->references('id')->on('csatar_knowledgerepository_trial_system_subtopics');

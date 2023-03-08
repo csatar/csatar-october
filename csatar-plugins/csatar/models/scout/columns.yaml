@@ -25,13 +25,6 @@ columns:
         sortable: false
         relation: team
         valueFrom: name
-        recordList: #temp
-            filterable: true
-            filterConfig:
-                type: relation
-                relationName: team
-                keyFrom: id
-                labelFrom: name
     troop:
         label: 'csatar.csatar::lang.plugin.admin.scout.troop'
         type: text
@@ -56,20 +49,11 @@ columns:
         type: text
         searchable: true
         sortable: true
-        recordList: #temp
-            sortable: true
-            filterable: true
-            filterConfig:
-                type: freeText
     given_name:
         label: 'csatar.csatar::lang.plugin.admin.scout.givenName'
         type: text
         searchable: true
         sortable: true
-        recordList: #temp
-            filterable: true
-            filterConfig:
-                type: freeText
     nickname:
         label: 'csatar.csatar::lang.plugin.admin.scout.nickname'
         type: text
@@ -112,15 +96,6 @@ columns:
         sortable: false
         relation: legal_relationship
         valueFrom: name
-        recordList: #temp
-            sortable:
-                default: asc
-            filterable: true
-            filterConfig:
-                type: relation
-                relationName: legal_relationship
-                keyFrom: id
-                labelFrom: name
     religion_id:
         label: 'csatar.csatar::lang.plugin.admin.scout.religion'
         type: text
@@ -296,13 +271,6 @@ columns:
         sortable: false
         relation: chronic_illnesses
         valueFrom: name
-        recordList: #temp
-            filterable: true
-            filterConfig:
-                type: relation
-                relationName: chronic_illnesses
-                keyFrom: id
-                labelFrom: name
     special_diet_id:
         label: 'csatar.csatar::lang.plugin.admin.scout.specialDiet'
         type: text

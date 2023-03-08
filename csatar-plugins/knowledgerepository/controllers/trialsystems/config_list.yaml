@@ -1,6 +1,6 @@
 list: $/csatar/knowledgerepository/models/trialsystem/columns.yaml
 modelClass: Csatar\KnowledgeRepository\Models\TrialSystem
-title: 'csatar.knowledgerepository::lang.plugin.admin.knowledgeRepository.trialSystems.trialSystems'
+title: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystems'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: true
