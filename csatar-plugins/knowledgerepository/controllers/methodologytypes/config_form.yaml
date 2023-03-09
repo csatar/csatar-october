@@ -1,0 +1,10 @@
+name: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.methodologyTypes'
+form: $/csatar/knowledgerepository/models/methodologytype/fields.yaml
+modelClass: Csatar\KnowledgeRepository\Models\MethodologyType
+defaultRedirect: csatar/knowledgerepository/methodologytypes
+create:
+    redirect: 'csatar/knowledgerepository/methodologytypes/update/:id'
+    redirectClose: csatar/knowledgerepository/methodologytypes
+update:
+    redirect: csatar/knowledgerepository/methodologytypes
+    redirectClose: csatar/knowledgerepository/methodologytypes

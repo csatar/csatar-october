@@ -28,6 +28,8 @@
                     'location' => 'Helyszín',
                     'gameTypes' => 'Játék típusok',
                     'gameType' => 'Játék típus',
+                    'methodologyType' => 'Módszertan típus',
+                    'methodologyTypes' => 'Módszertan típusok',
                 ],
             ],
             'general' => [

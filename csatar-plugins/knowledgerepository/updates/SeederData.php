@@ -2,6 +2,7 @@
 
 use Csatar\KnowledgeRepository\Models\AccidentRiskLevel;
 use Csatar\KnowledgeRepository\Models\GameDevelopmentGoal;
+use Csatar\KnowledgeRepository\Models\MethodologyType;
 use Csatar\KnowledgeRepository\Models\Tool;
 use Csatar\KnowledgeRepository\Models\Headcount;
 use Csatar\KnowledgeRepository\Models\Duration;
@@ -267,6 +268,20 @@ class SeederData extends Seeder
                 'model' => 'Csatar\KnowledgeRepository\Models\Game',
             ],
         ],
+        'methodologyTypes' => [
+            [
+                'name' => 'új (eddig az őrs még sosem találkozott az átadott anyaggal)',
+                'sort_order' => 1
+            ],
+            [
+                'name' => 'régi/ismétlés (ismétlés, az őrs már találkozott a megnevezett anyaggal)',
+                'sort_order' => 2
+            ],
+            [
+                'name' => 'mindkettő',
+                'sort_order' => 3
+            ],
+        ]
     ];
 
     public function run()
@@ -342,6 +357,15 @@ class SeederData extends Seeder
         foreach ($this::DATA['forms'] as $formData) {
             $form = Form::firstOrNew($formData);
             $form->save();
+        }
+        // Methodology Types
+
+        foreach ($this::DATA['methodologyTypes'] as $methodologyTypeData) {
+            $methodologyType = MethodologyType::firstOrNew([
+                'name' => $methodologyTypeData['name'],
+            ]);
+            $methodologyType->sort_order = $methodologyTypeData['sort_order'];
+            $methodologyType->save();
         }
     }
 }

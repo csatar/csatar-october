@@ -28,6 +28,8 @@
                     'location' => 'Location',
                     'gameTypes' => 'Game Types',
                     'gameType' => 'Game Type',
+                    'methodologyType' => 'Methodology Type',
+                    'methodologyTypes' => 'Methodology Types',
                 ],
             ],
             'general' => [
