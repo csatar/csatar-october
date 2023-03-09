@@ -106,6 +106,7 @@ class TeamReport extends PermissionBasedAccess
             '\Csatar\Csatar\Models\AgeGroup',
             'table' => 'csatar_csatar_age_group_team_report',
             'pivot' => ['number_of_patrols_in_age_group'],
+            'pivotModel' => '\Csatar\Csatar\Models\TeamReportAgeGroupPivot',
             'label' => 'csatar.csatar::lang.plugin.admin.ageGroups.ageGroups',
         ],
     ];
