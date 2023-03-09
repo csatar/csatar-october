@@ -1,0 +1,28 @@
+columns:
+    uploader_csatar_code:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.uploader'
+        type: text
+    approver_csatar_code:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.approverCsatarCode'
+        type: text
+    name:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.name'
+        type: text
+    description:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.description'
+        type: text
+    link:
+        label: Link
+        type: text
+    approved_at:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.approvedAt'
+        type: text
+    created_at:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.uploadedAt'
+        type: datetime
+    updated_at:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.version'
+        type: datetime
+    note:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.note'
+        type: text

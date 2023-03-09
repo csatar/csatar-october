@@ -124,6 +124,17 @@ fields:
             card: teamData
             position: details
             order: 9
+    active_members_count:
+        label: 'csatar.csatar::lang.plugin.admin.general.activeMembersCount'
+        span: auto
+        readOnly: 1
+        type: number
+        formBuilder:
+            type: field
+            card: teamData
+            position: details
+            order: 10
+            ignoreUserRights: 1
     descriptionData:
         label: 'csatar.csatar::lang.plugin.admin.team.description'
         span: full

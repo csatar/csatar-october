@@ -27,6 +27,8 @@ class Patrol extends OrganizationBase
 
     protected $appends = ['extended_name'];
 
+    public $customAttributes = ['active_members_count'];
+
     /**
      * @var array Validation rules
      */
@@ -148,6 +150,45 @@ class Patrol extends OrganizationBase
         'logo' => 'System\Models\File'
     ];
 
+    public static function getEagerLoadSettings(string $useCase = null): array
+    {
+        $eagerLoadSettings = parent::getEagerLoadSettings($useCase);
+        if ($useCase === 'formBuilder') {
+            // Important to extend the eager load settings, not to overwrite them!
+            $eagerLoadSettings['mandates.mandate_patrol'] = function($query) {
+                return $query->select(
+                    'csatar_csatar_patrols.id',
+                    'csatar_csatar_patrols.team_id',
+                    'csatar_csatar_patrols.troop_id'
+                );
+            };
+            $eagerLoadSettings['mandates.mandate_patrol.team'] = function($query) {
+                return $query->select(
+                    'csatar_csatar_teams.id',
+                    'csatar_csatar_teams.name',
+                    'csatar_csatar_teams.team_number',
+                    'csatar_csatar_teams.district_id'
+                );
+            };
+            $eagerLoadSettings = array_merge_recursive($eagerLoadSettings, [
+                'team.district.association', 'troop'
+            ]);
+        }
+        if ($useCase == 'inactiveMandatesPatrol') {
+            $eagerLoadSettings = [
+                'mandatesInactive.mandate_patrol.team' => function($query) {
+                    return $query->select(
+                        'csatar_csatar_teams.id',
+                        'csatar_csatar_teams.name',
+                        'csatar_csatar_teams.team_number'
+                    )->withTrashed();
+                },
+            ];
+            $eagerLoadSettings = array_merge($eagerLoadSettings, parent::getEagerLoadSettings('inactiveMandates'));
+        }
+        return $eagerLoadSettings;
+    }
+
     public function beforeSave()
     {
         $filterWords = explode(',', Lang::get('csatar.csatar::lang.plugin.admin.patrol.filterOrganizationUnitNameForWords'));
@@ -168,22 +209,31 @@ class Patrol extends OrganizationBase
             Mandate::setAllMandatesExpiredInOrganization($this);
         }
 
-        if (empty($this->original)) {
+        $this->updateCache();
+    }
+
+    public function updateCache(): void
+    {
+        if ($this->wasRecentlyCreated && $this->status == Status::ACTIVE) {
+            StructureTree::updateAssociationTree($this->association_id);
+        }
+
+        if (empty($this->original) ) {
             return;
         }
 
-        if (isset($this->original['status']) && $this->original['status'] != $this->status) {
+        if ($this->getOriginalValue('status') != $this->status) {
             StructureTree::updateTeamTree($this->team_id);
         }
 
-        if (isset($this->original['team_id']) && $this->original['team_id'] != $this->team_id) {
+        if ($this->getOriginalValue('team_id') != $this->team_id) {
             StructureTree::updateTeamTree($this->team_id);
             if (!empty($this->original['team_id'])) {
                 StructureTree::updateTeamTree($this->original['team_id']);
             }
         }
 
-        if (isset($this->original['name']) && $this->original['name'] != $this->name) {
+        if ($this->getOriginalValue('name') != $this->name) {
             $structureTree = Cache::pull('structureTree');
             if (empty($structureTree)) {
                 StructureTree::getStructureTree();
@@ -242,7 +292,7 @@ class Patrol extends OrganizationBase
 
     public function getAgeGroupOptions(){
         if($this->team_id){
-            $team = Team::find($this->team_id);
+            $team = $this->team;
             return AgeGroup::select(
                 DB::raw("CONCAT(NAME, IF(note, CONCAT(' (',note, ')'), '')) AS name"),'id')
                 ->where('association_id', $team->district->association->id)
@@ -333,5 +383,9 @@ class Patrol extends OrganizationBase
     public function scopeActive($query)
     {
         return $query->where('status', Status::ACTIVE);
+    }
+
+    public function getActiveMembersCountAttribute() {
+        return StructureTree::getPatrolScoutsCount($this->id);
     }
 }

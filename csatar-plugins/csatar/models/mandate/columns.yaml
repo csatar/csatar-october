@@ -10,11 +10,6 @@ columns:
         label: 'csatar.csatar::lang.plugin.admin.mandateType.organizationTypeModelName'
         span: auto
         type: text
-    mandate_team:
-        label: 'csatar.csatar::lang.plugin.admin.team.team'
-        type: text
-        searchable: false
-        sortable: false
     scout:
         label: 'csatar.csatar::lang.plugin.admin.mandateType.scout'
         relation: scout

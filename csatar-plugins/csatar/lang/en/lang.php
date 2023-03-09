@@ -50,6 +50,9 @@
                 'active' => 'Active',
                 'inactive' => 'Inactive',
                 'inactivationWarning' => 'Warning! If status is changed from active to any kind of inactive status, all child organizations will be inactivated and all mandates connected to the organization, it\'s child organizations and scouts belonging to the organization will expire!',
+                'bulkDeletePartialSuccess' => ':deletedCount items deleted from :totalCount. ',
+                'bulkDeleteError' => 'The following error occurred during the delete process: ',
+                'activeMembersCount' => 'Active members count',
             ],
             'ageGroups' => [
                 'ageGroups' => 'Age Groups',
@@ -65,6 +68,7 @@
                 'familyName' => 'Family name',
                 'givenName' => 'Given name',
                 'nickname' => 'Nickname',
+                'citizenship_country' => 'citizenship_country',
                 'personalIdentificationNumber' => 'Personal identification number',
                 'gender' => [
                     'gender' => 'Gender',
@@ -544,6 +548,7 @@
                 'startDate' => 'Start date',
                 'endDate' => 'End date',
                 'breadcrumb' => 'Mandate types',
+                'existingMandateTypeWithSameNameError' => 'This Mandate Type already exists by the same association.',
                 'activeMandateDeleteError' => 'There exist active Mandates of %name or it\'s child types, thus this Mandate type cannot be deleted.',
                 'isHiddenFrontend' => 'Hidden on frontend',
             ],
@@ -593,6 +598,10 @@
                 'requests' => 'Requests',
                 'exportRequests' => 'Export requests to .csv',
                 'inactiveScoutError' => 'The Scout assigned to this Card is inactive. The Card cannot be set to Active if the assigned Scout\'s status is not active.',
+            ],
+            'countryNamesHungarianTranslations' => [
+                'countryNamesHungarianTranslations' => 'Country names Hungarian translations',
+                'explanation' => 'The hungarian translations of the country names in Rainlab.Localtion plugin.',
             ],
         ],
 
@@ -766,6 +775,10 @@
                 'attachmentsComment' => 'Max. five files can be uploaded',
                 'attachmentsValidationException' => 'Max. five files can be uploaded',
                 'created_by' => 'Created by',
+            ],
+            'partial' => [
+                'name' => 'Partials Component',
+                'description' => 'Component to share partials between plugins'
             ],
         ],
         'oauth' => [

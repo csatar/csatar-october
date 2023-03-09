@@ -4,10 +4,11 @@ use Csatar\KnowledgeRepository\Models\AccidentRiskLevel;
 use Csatar\KnowledgeRepository\Models\GameDevelopmentGoal;
 use Csatar\KnowledgeRepository\Models\MethodologyType;
 use Csatar\KnowledgeRepository\Models\Tool;
-use Csatar\KnowledgeRepository\Models\HeadCount;
+use Csatar\KnowledgeRepository\Models\Headcount;
 use Csatar\KnowledgeRepository\Models\Duration;
 use Csatar\KnowledgeRepository\Models\Location;
 use Csatar\KnowledgeRepository\Models\GameType;
+use Csatar\Forms\Models\Form;
 use Db;
 use Seeder;
 
@@ -261,6 +262,12 @@ class SeederData extends Seeder
                 'sort_order' => 6,
             ],
         ],
+        'forms' => [
+            [
+                'title' => 'Játék',
+                'model' => 'Csatar\KnowledgeRepository\Models\Game',
+            ],
+        ],
         'methodologyTypes' => [
             [
                 'name' => 'új (eddig az őrs még sosem találkozott az átadott anyaggal)',
@@ -308,7 +315,7 @@ class SeederData extends Seeder
 
         // Head Counts
         foreach ($this::DATA['headCounts'] as $headCountData) {
-            $headCount = HeadCount::firstOrNew([
+            $headCount = Headcount::firstOrNew([
                 'description' => $headCountData['description'],
             ]);
             $headCount->min = $headCountData['min'];
@@ -346,6 +353,11 @@ class SeederData extends Seeder
             $gameType->save();
         }
 
+        // Forms
+        foreach ($this::DATA['forms'] as $formData) {
+            $form = Form::firstOrNew($formData);
+            $form->save();
+        }
         // Methodology Types
 
         foreach ($this::DATA['methodologyTypes'] as $methodologyTypeData) {

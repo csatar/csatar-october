@@ -39,6 +39,7 @@ class Plugin extends PluginBase
         'PolloZen.SimpleGallery',
         'RainLab.Translate',
         'Rainlab.User',
+        'RainLab.Location',
         'Vdlp.TwoFactorAuthentication',
     ];
 
@@ -213,8 +214,17 @@ class Plugin extends PluginBase
             \Csatar\Csatar\Components\Breadcrumb::class => 'csatarBreadcrumb',
             \Csatar\Csatar\Components\TwoFactorAuthentication::class => 'twoFactorAuthentication',
             \Csatar\Csatar\Components\AccidentLogRecordList::class => 'accidentLogRecordList',
+            \Csatar\Csatar\Components\Partials::class => 'partials',
         ];
     }
+
+    public function registerFormWidgets()
+    {
+        return [
+            \Csatar\Forms\Widgets\TagList::class => 'taglist',
+        ];
+    }
+
 
     public function registerSettings()
     {

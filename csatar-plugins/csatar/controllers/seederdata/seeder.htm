@@ -5,12 +5,15 @@
         <?php
             foreach ($seederData as $key => $value) {
                 echo '<li>' . e(trans('csatar.csatar::lang.plugin.admin.' . $key . '.' . $key)) . ': ';
-                if (is_array($value) && $key == 'sitesearchSettings') {
+                if ($key == 'countryNamesHungarianTranslations') {
+                    echo e(trans('csatar.csatar::lang.plugin.admin.' . $key . '.explanation'));;
+                }
+                else if (is_array($value) && $key == 'sitesearchSettings') {
                     foreach ($value as $setting) {
                         echo e(trans('csatar.csatar::lang.plugin.admin.' . $key . '.' . $setting));
                     }
                 }
-                elseif (is_array($value) && array_key_exists(0, $value) && !is_array($value[0])) {
+                else if (is_array($value) && array_key_exists(0, $value) && !is_array($value[0])) {
                     echo implode(', ', $value);
                 }
                 else if (is_array($value) && $key == 'userGroups') {

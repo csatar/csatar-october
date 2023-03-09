@@ -15,8 +15,8 @@
                     <input type="hidden" name="gallery_id" value="{{ gallery.id }}">
                     <button class="bg-transparent border-0">
                         <div class="d-flex justify-content-center align-items-center">
-                            <img class="csat-gallery-decor img-fluid" src="{{ 'assets/images/csat-gallery-cover-bg.webp' | theme }}" alt="">
-                            <img class="csat-gallery-cover img-fluid" src="{{ gallery.images[0].thumb(auto, 200) }}" alt="">
+                            <img class="csat-gallery-decor img-fluid not-auto-height" src="{{ 'assets/images/csat-gallery-cover-bg.webp' | theme }}" alt="">
+                            <img class="csat-gallery-cover img-fluid not-auto-height" src="{{ gallery.images[0].thumb(auto, 200) }}" alt="">
                         </div>
                     </button>
                 </form>

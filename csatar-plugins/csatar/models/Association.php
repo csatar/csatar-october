@@ -1,6 +1,7 @@
 <?php namespace Csatar\Csatar\Models;
 
 use Cache;
+use Csatar\Csatar\Classes\StructureTree;
 use Csatar\Csatar\Models\OrganizationBase;
 use DateTime;
 use Lang;
@@ -22,6 +23,8 @@ class Association extends OrganizationBase
     protected static $searchable = ['name'];
 
     protected $appends = ['extended_name'];
+
+    public $customAttributes = ['active_members_count'];
 
     protected $jsonable = ['personal_identification_number_validator'];
 
@@ -109,6 +112,22 @@ class Association extends OrganizationBase
         ],
     ];
 
+    public static function getEagerLoadSettings(string $useCase = null): array
+    {
+        $eagerLoadSettings = parent::getEagerLoadSettings($useCase);
+        if ($useCase === 'formBuilder') {
+            // Important to extend the eager load settings, not to overwrite them!
+//            $eagerLoadSettings['currency'] = function($query) {
+//                return $query->select(
+//                    'csatar_csatar_currencies.id',
+//                    'csatar_csatar_currencies.code',
+//                );
+//            };
+//            $eagerLoadSettings[] = 'logo';
+        }
+        return $eagerLoadSettings;
+    }
+
     public $attachOne = [
         'logo' => 'System\Models\File'
     ];
@@ -132,23 +151,29 @@ class Association extends OrganizationBase
 
     public function afterSave()
     {
-        if (empty($this->original)) {
+        $this->updateCache();
+    }
+
+    public function updateCache(): void
+    {
+        if ($this->wasRecentlyCreated) {
+            StructureTree::updateAssociationTree($this->association_id);
+        }
+
+        if (empty($this->original) ) {
             return;
         }
 
         if (
-            (isset($this->original['name']) && $this->original['name'] != $this->name)
-            || ($this->original['name_abbreviation'] && $this->original['name_abbreviation'] != $this->name_abbreviation)
+            ($this->getOriginalValue('name') != $this->name)
+            || ($this->getOriginalValue('name_abbreviation') != $this->name_abbreviation)
         ) {
             $structureTree = Cache::pull('structureTree');
             if (empty($structureTree)) {
                 StructureTree::getStructureTree();
                 return;
             }
-            if (empty($structureTree)) {
-                StructureTree::getStructureTree();
-                return;
-            }
+
             $structureTree[$this->id]['name'] = $this->name;
             $structureTree[$this->id]['name_abbreviation'] = $this->name_abbreviation;
             $structureTree[$this->id]['extended_name'] = $this->extended_name;
@@ -192,5 +217,9 @@ class Association extends OrganizationBase
 
     public function getActiveDistricts() {
         return $this->districtsActive;
+    }
+
+    public function getActiveMembersCountAttribute() {
+        return StructureTree::getAssociationScoutsCount($this->id);
     }
 }

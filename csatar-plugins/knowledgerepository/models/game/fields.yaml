@@ -1,0 +1,128 @@
+fields:
+    association:
+        label: 'csatar.csatar::lang.plugin.admin.association.association'
+        span: auto
+        type: relation
+        nameFrom: name
+        formBuilder:
+            readOnlyIfPreselected: true
+    name:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.name'
+        span: auto
+        type: text
+    description:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.description'
+        span: auto
+        type: textarea
+    link:
+        label: Link
+        span: auto
+        type: text
+    uploader:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.uploader'
+        nameFrom: name_with_id_number
+        descriptionFrom: description
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        span: auto
+        type: dropdown
+        disabled: true
+    approver:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.approver'
+        nameFrom: name_with_id_number
+        descriptionFrom: description
+        emptyOption: ' - '
+        span: auto
+        type: dropdown
+        disabled: true
+    created_at:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.uploadedAt'
+        mode: date
+        span: auto
+        type: datepicker
+        readOnly: true
+    approved_at:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.approvedAt'
+        mode: date
+        span: auto
+        type: datepicker
+        disabled: true
+    note:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.note'
+        span: auto
+        type: text
+    updated_at:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.version'
+        mode: date
+        span: auto
+        type: datepicker
+        readOnly: true
+    age_groups:
+        label: 'csatar.csatar::lang.plugin.admin.ageGroups.ageGroups'
+        span: auto
+        type: taglist
+        mode: relation
+        useKey: true
+        customTags: false
+        dependsOn: association
+        nameFrom: name
+    game_development_goals:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.gameDevelopmentGoals'
+        span: auto
+        type: taglist
+        mode: relation
+        customTags: false
+        useKey: true
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+    tools:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.tools'
+        span: auto
+        type: taglist
+        mode: relation
+        useKey: true
+        customTags: false
+        nameFrom: name
+    other_tools:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.otherTools'
+        span: auto
+        type: text
+    headcounts:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.headCount'
+        span: auto
+        type: taglist
+        mode: relation
+        useKey: true
+        customTags: false
+        nameFrom: description
+    durations:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.duration'
+        span: auto
+        type: taglist
+        mode: relation
+        useKey: true
+        customTags: false
+        nameFrom: name
+    locations:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.locations'
+        span: auto
+        type: taglist
+        mode: relation
+        useKey: true
+        customTags: false
+        nameFrom: name
+    game_types:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.gameTypes'
+        span: auto
+        type: taglist
+        mode: relation
+        useKey: true
+        customTags: false
+        nameFrom: name
+    attachements:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.attachements'
+        mode: file
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        span: auto
+        type: fileupload

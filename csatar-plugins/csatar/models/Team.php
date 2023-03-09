@@ -20,6 +20,8 @@ class Team extends OrganizationBase
      */
     public $table = 'csatar_csatar_teams';
 
+    protected $with = ['district', 'district.association'];
+
     /**
      * @var array The columns that should be searchable by ContentPageSearchProvider
      */
@@ -45,6 +47,8 @@ class Team extends OrganizationBase
     ];
 
     protected $appends = ['extended_name'];
+
+    public $customAttributes = ['active_members_count'];
 
     /**
      * Add custom validation
@@ -241,23 +245,32 @@ class Team extends OrganizationBase
             Mandate::setAllMandatesExpiredInOrganization($this);
         }
 
+        $this->updateCache();
+    }
+
+    public function updateCache(): void
+    {
+        if ($this->wasRecentlyCreated && $this->status == Status::ACTIVE) {
+            StructureTree::updateAssociationTree($this->association_id);
+        }
+
         if (empty($this->original)) {
             return;
         }
 
-        if (isset($this->original['status']) && $this->original['status'] != $this->status) {
+        if ($this->getOriginalValue('status') != $this->status) {
             StructureTree::updateDistrictTree($this->district_id);
         }
 
-        if (isset($this->original['district_id']) && $this->original['district_id'] != $this->district_id) {
+        if ($this->getOriginalValue('district_id') != $this->district_id) {
             StructureTree::updateDistrictTree($this->district_id);
             if (!empty($this->original['district_id'])) {
                 StructureTree::updateDistrictTree($this->original['district_id']);
             }
         }
 
-        if ((isset($this->original['name']) && $this->original['name'] != $this->name)
-            || (isset($this->original['team_number']) && $this->original['team_number'] != $this->team_number)
+        if (($this->getOriginalValue('name') != $this->name)
+            || ($this->getOriginalValue('team_number') != $this->team_number)
         ) {
             $structureTree = Cache::pull('structureTree');
             if (empty($structureTree)) {
@@ -393,17 +406,33 @@ class Team extends OrganizationBase
         return $query->whereIn('district_id', $districtIds)->active();
     }
 
+    public function scopeForDropdown($query) {
+        return $query->with(
+            [
+                'district' => function($query) {
+                    $query->select('id', 'name', 'association_id');
+                },
+                'district.association' => function($query) {
+                    $query->select('id', 'name', 'name_abbreviation');
+                }
+            ]
+        )
+        ->select('id', 'name', 'team_number', 'district_id');
+    }
+
     public function getTroops() {
         return $this->troops;
     }
 
     public function getPatrols() {
         return $this->patrols;
-//        return Patrol::inTeam($this->id)->get();
     }
 
     public function getPatrolsWithoutTroop() {
         return $this->patrols->where('troop_id', null);
-//        return Patrol::inTeam($this->id)->where('troop_id', null)->get();
+    }
+
+    public function getActiveMembersCountAttribute() {
+        return StructureTree::getTeamScoutsCount($this->id);
     }
 }

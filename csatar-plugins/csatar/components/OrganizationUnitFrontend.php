@@ -4,6 +4,8 @@ use Auth;
 use Carbon\Carbon;
 use Cms\Classes\ComponentBase;
 use Csatar\Csatar\Classes\CsvCreator;
+use Csatar\Csatar\Classes\Mappers\CountryMapper;
+use Csatar\Csatar\Classes\StructureTree;
 use Csatar\Csatar\Classes\Enums\Gender;
 use Csatar\Csatar\Classes\Enums\Status;
 use Csatar\Csatar\Classes\Mappers\LegalRelationshipMapper;
@@ -56,31 +58,11 @@ class OrganizationUnitFrontend extends ComponentBase
     {
         $modelName = "Csatar\Csatar\Models\\" . $this->property('model_name');
         if (is_numeric($this->property('model_id'))) {
-            $this->model = $modelName::where('id', $this->property('model_id'))->with([
-                'mandatesInactive',
-                'mandatesInactive.mandate_type' => function($query) {
-                    return $query->select(
-                        'csatar_csatar_mandate_types.id',
-                        'csatar_csatar_mandate_types.name',
-                    )->withTrashed();
-                },
-                'mandatesInactive.scout' => function($query) {
-                    return $query->select(
-                        'csatar_csatar_scouts.id',
-                        'csatar_csatar_scouts.ecset_code',
-                        'csatar_csatar_scouts.family_name',
-                        'csatar_csatar_scouts.given_name',
-                        'csatar_csatar_scouts.team_id',
-                    );
-                },
-                'mandatesInactive.scout.team'  => function($query) {
-                    return $query->select(
-                        'csatar_csatar_teams.id',
-                        'csatar_csatar_teams.name',
-                        'csatar_csatar_teams.team_number',
-                    );
-                },
-            ])->first(); //5 queries
+            $eagerLoadUseCase = 'inactiveMandates';
+            $eagerLoadUseCase = $eagerLoadUseCase . ($this->property('model_name') == 'Patrol' ? 'Patrol' : '');
+            $eagerLoadUseCase = $eagerLoadUseCase . ($this->property('model_name') == 'Troop' ? 'Troop' : '');
+            $eagerLoadSettings = $modelName::getEagerLoadSettings($eagerLoadUseCase);
+            $this->model = $modelName::where('id', $this->property('model_id'))->with($eagerLoadSettings)->first(); //5 queries
 
             $this->inactiveMandates = $this->model->mandatesInactive->toArray();
 
@@ -196,6 +178,7 @@ class OrganizationUnitFrontend extends ComponentBase
             'nickname',
             'email',
             'phone',
+            'citizenship_country_id',
             'personal_identification_number',
             'gender',
             'legal_relationship_id',
@@ -234,10 +217,13 @@ class OrganizationUnitFrontend extends ComponentBase
             'is_active',
         ];
 
-        $attributesWithLabels = array_intersect_key($attributesWithLabels, array_flip($attributes));
+        $attributesWithLabels['citizenship_country_id'] = $attributesWithLabels['citizenship_country'];
+        $attributes = array_flip($attributes);
+        $attributesWithLabels = array_intersect_key(array_replace($attributes, $attributesWithLabels), $attributes);
         $legalRelationshipsMap = (new LegalRelationshipMapper)->idsToNames;
         $religionsMap = (new ReligionMapper)->idsToNames;
         $tShirtSizesMap = (new TShirtSizeMapper)->idsToNames;
+        $countryMap = (new CountryMapper)->idToCountryCode;
 
         $data = [];
         foreach ($attributesWithLabels as $attribute => $label) {
@@ -262,6 +248,10 @@ class OrganizationUnitFrontend extends ComponentBase
                 }
                 if ($attribute == 'tshirt_size_id') {
                     $dataRow[] = $tShirtSizesMap[$record->{$attribute}] ?? '';
+                    continue;
+                }
+                if ($attribute == 'citizenship_country_id') {
+                    $dataRow[] = $countryMap[$record->{$attribute}] ?? '';
                     continue;
                 }
                 $dataRow[] = strval($record->{$attribute});
@@ -323,6 +313,7 @@ class OrganizationUnitFrontend extends ComponentBase
             $scout = $this->convertCsvRowToScout($teamId, $attributes, $rowData);
 
             try {
+                $scout->skipCacheRefresh = true; //important, otherwise cache will be refreshed for each scout
                 if (empty($scout->personal_identification_number)){
                     $log['errors'][] = $rowNumber . ' | ' . Lang::get('csatar.csatar::lang.plugin.component.organizationUnitFrontend.csv.personalIdentificationNumberMissing');
                     continue;
@@ -346,7 +337,7 @@ class OrganizationUnitFrontend extends ComponentBase
         }
 
         $this->page['csvImportLog'] = $log;
-
+        StructureTree::updateTeamTree($teamId);
         return [
             '#csvImportLog' => $this->renderPartial('@csvImportLog', ['log' => $log])
         ];
@@ -357,6 +348,7 @@ class OrganizationUnitFrontend extends ComponentBase
         $legalRelationshipsMap = (new LegalRelationshipMapper)->namesToIds;
         $religionsMap = (new ReligionMapper)->namesToIds;
         $tShirtSizesMap = (new TShirtSizeMapper)->namesToIds;
+        $countryMap = (new CountryMapper)->countryCodeToId;
 
         $personalIdentificationNumber = $rowData[array_search('personal_identification_number', $attributes)] ?? null;
         $ecsetCode = $rowData[array_search('ecset_code', $attributes)];
@@ -379,6 +371,10 @@ class OrganizationUnitFrontend extends ComponentBase
             }
             if ($attributes[$key] == 'tshirt_size_id') {
                 $data[$attributes[$key]] = $tShirtSizesMap[$value] ?? null;
+                continue;
+            }
+            if ($attributes[$key] == 'citizenship_country_id') {
+                $data[$attributes[$key]] = $countryMap[$value] ?? null;
                 continue;
             }
             $data[$attributes[$key]] = $value;

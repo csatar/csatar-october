@@ -79,3 +79,14 @@ fields:
             card: troopData
             position: subtitle
             readOnlyIfPreselected: true
+    active_members_count:
+        label: 'csatar.csatar::lang.plugin.admin.general.activeMembersCount'
+        span: auto
+        readOnly: 1
+        type: number
+        formBuilder:
+            type: field
+            card: troopData
+            position: details
+            order: 10
+            ignoreUserRights: 1

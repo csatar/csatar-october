@@ -2,6 +2,8 @@
 
 namespace Csatar\Csatar\Classes\Validators;
 
+use Rainlab\Location\Models\Country;
+
 //based on https://github.com/laravel-enso/cnp-validator
 
 class CnpValidator
@@ -77,5 +79,11 @@ class CnpValidator
         ) % 11;
 
         return $hash === 10 ? 1 : $hash;
+    }
+
+    public function getRomaniaCountryId()
+    {
+        $country = Country::where('code', 'RO')->first();
+        return $country->id ?? null;
     }
 }
