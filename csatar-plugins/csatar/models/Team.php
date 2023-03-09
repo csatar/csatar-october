@@ -237,8 +237,8 @@ class Team extends OrganizationBase
                 $patrol->ignoreValidation = true;
                 $patrol->forceSave();
             }
-            foreach (Scout::where(['team_id' => $this->id, 'is_active' => Status::ACTIVE])->get() as $scout) {
-                $scout->is_active = Status::INACTIVE;
+            foreach (Scout::where('team_id', $this->id)->whereNull('inactivated_at')->get() as $scout) {
+                $scout->inactivated_at = date('Y-m-d H:i:s');
                 $scout->ignoreValidation = true;
                 $scout->forceSave();
             }

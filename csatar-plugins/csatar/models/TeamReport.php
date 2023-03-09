@@ -152,7 +152,7 @@ class TeamReport extends PermissionBasedAccess
             return;
         }
         // save the scouts (the pivot data can be saved only after the team report has been created)
-        $scouts = Scout::where('team_id', $this->team_id)->where('is_active', true)->get();
+        $scouts = Scout::where('team_id', $this->team_id)->whereNull('inactivated_at')->get();
         $scoutsToSync = [];
         $this->total_amount = $this->team_fee;
 

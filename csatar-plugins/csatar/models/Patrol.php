@@ -201,8 +201,8 @@ class Patrol extends OrganizationBase
     public function afterSave() {
         if (isset($this->original['status']) && $this->status != $this->original['status'] && $this->original['status'] == Status::ACTIVE) {
             // it would be more efficient to use mass update here, but in that case model events are not fired
-            foreach (Scout::where(['patrol_id' => $this->id, 'is_active' => Status::ACTIVE])->get() as $scout) {
-                $scout->is_active = Status::INACTIVE;
+            foreach (Scout::where('patrol_id', $this->id)->whereNull('inactivated_at')->get() as $scout) {
+                $scout->inactivated_at = date('Y-m-d H:i:s');
                 $scout->ignoreValidation = true;
                 $scout->forceSave();
             }
