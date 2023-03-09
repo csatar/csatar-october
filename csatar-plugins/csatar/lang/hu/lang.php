@@ -546,7 +546,7 @@
                 'startDate' => 'Kezdete',
                 'endDate' => 'Vége',
                 'breadcrumb' => 'Megbízatás típusok',
-                'existingMandateTypeWithSameNameError' => 'Ez a megbízatás típus: :name már létezik ennél a szövetségnél.',
+                'existingMandateTypeWithSameNameError' => 'Ez a megbízatás típus már létezik ennél a szövetségnél.',
                 'activeMandateDeleteError' => 'Létezik %name típusú vagy ezen típus alá tartozó aktív Megbízatás, így ez a Megbízatás típus nem törölhető.',
                 'isHiddenFrontend' => 'Rejtett a frontenden',
             ],

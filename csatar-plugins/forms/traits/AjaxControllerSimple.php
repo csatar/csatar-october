@@ -54,6 +54,10 @@ trait AjaxControllerSimple {
                 'label' => 'MarkdownEditor',
                 'code'  => 'markdown'
             ],
+            'Csatar\Forms\Widgets\TagList' => [
+                'label' => 'TagList',
+                'code'  => 'taglist'
+            ],
             // Custom file upload for frontend use
             'Csatar\Forms\Widgets\FrontendFileUpload' => [
                 'label' => 'FileUpload',
@@ -101,7 +105,7 @@ trait AjaxControllerSimple {
         $this->loadBackendFormWidgets();
 
         // render the extra fields if they are set
-        $this->renderExtraFields();
+        $this->renderExtraFields($record->{$this->recordKeyParam ?? Input::get('recordKeyParam')} ?? 'new');
 
         if (isset($config->formBuilder_card_design) && $config->formBuilder_card_design && $preview) {
             $html = $this->renderViewMode($this->widget);
@@ -635,6 +639,7 @@ trait AjaxControllerSimple {
         // add extra fields validation
         $extraFields = $this->getExtraFields($this->record, (new DateTime())->format('Y-m-d')) ?? [];
         $extraFieldValues = json_decode($this->record->extra_fields, true) ?? [];
+
         foreach ($extraFieldValues as $extraFieldValue) {
             $found = false;
             foreach ($extraFields as $key => $extraField) {
@@ -686,7 +691,7 @@ trait AjaxControllerSimple {
         }
 
         // resolve extra fields data
-        if (array_key_exists('extra_fields', $this->record->attributes) && isset($extraFields)) {
+        if (isset($extraFields)) {
             foreach ($extraFields as &$extraField) {
                 $id = 'extra_fields_' . $extraField['id'];
                 $extraField['value'] = $data[$id];
@@ -697,7 +702,7 @@ trait AjaxControllerSimple {
         $data = $this->filterDataBasedOnUserRightsBeforeSave($data, $config->fields, $isNew);
 
         // resolve extra fields data. It needs to be done after the data has been filtered by rights, as that removes extra_field from data, as extra_fields is not part of the permission matrix
-        if (array_key_exists('extra_fields', $this->record->attributes) && isset($extraFields)) {
+        if (isset($extraFields)) {
             $data['extra_fields'] = json_encode($extraFields);
         }
 
@@ -851,13 +856,14 @@ trait AjaxControllerSimple {
         }
     }
 
-    private function renderExtraFields()
+    private function renderExtraFields($recordKeyValue)
     {
-        if (!array_key_exists('extra_fields', $this->widget->model->attributes)) {
+        if (!array_key_exists('extra_fields', $this->widget->model->attributes) && $recordKeyValue !== 'new') {
             return;
         }
 
         $extraFields = $this->getExtraFields($this->widget->model, (new DateTime())->format('Y-m-d'));
+
         if (!isset($extraFields)) {
             return;
         }

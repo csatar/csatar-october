@@ -2,14 +2,16 @@
 
 ## Unreleased
 
+- CS-411 - Fixed CSS to prevent images overflowing the screen
 - CS-493 - Added active members count to Association, District, Team, Troop, Patrol models
 - CS-493 - Modified form builder to display custom attributes
 - CS-493 - Added missing translations
 - CS-489 - Added citizenship attribute to scout model
 - CS-489 - Modified personal identification number validation to skip cnp validator if scout citizenship is not RO
 - CS-411 - Fixed the header on the team page, so neither the image, nor the header will overflow the screen
-- CS-387 - Created Game development front end menu, added Create New Game and Edit Game buttons, added functionality to approve game
+- CS-387 - Created Games front end menu, added Create New Game and Edit Game buttons, added functionality to approve game
 - CS-387 - Created Partials component to make partial sharing possible between plugins
+- CS-387 - Added TagList (multiselect) widget to form builder, it is based on OctoberCMS Taglist widget, but bugs related key based use are fixed
 
 ## 1.9.1
 ### 2023-02-27
