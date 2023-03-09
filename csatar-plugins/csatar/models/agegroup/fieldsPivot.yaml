@@ -9,3 +9,4 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.ageGroups.numberOfPatrolsInAgeGroup'
         span: auto
         type: number
+        required: true
