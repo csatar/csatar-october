@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- CS-490 - Moved inactive members list to structure tab, in accordion
+- CS-490 - Moved member list csv download/upload to structure tab
 - CS-411 - Fixed CSS to prevent images overflowing the screen
 - CS-493 - Added active members count to Association, District, Team, Troop, Patrol models
 - CS-493 - Modified form builder to display custom attributes
