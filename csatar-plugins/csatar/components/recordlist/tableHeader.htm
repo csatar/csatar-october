@@ -10,7 +10,7 @@
                         {% set sortDefault = columnConfig.sortableDefault ? 'sortDefault' : '' %}
                         {% set sortDirection = columnConfig.sortableDefault ? columnConfig.sortableDefault : 'noSort' %}
                         <button
-                            class="btn btn-sm btn-light sortButton {{ sortDirection }} {{ sortDefault }}"
+                            class="btn btn-sm sortButton {{ sortDirection }} {{ sortDefault }}"
                             type="button"
                             data-column="{{ attribute }}"
                             data-sort-direction="{{ sortDirection }}"

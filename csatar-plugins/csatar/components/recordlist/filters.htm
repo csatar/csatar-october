@@ -1,11 +1,11 @@
 {% partial __SELF__ ~ '::filtersActive' %}
 
-<div class="tr">
+<div class="tr my-2">
     <div class="card csat-resp-gdtable csat-border-lg-none">
         <div class="row">
             {% for column, config in filtersConfig %}
                 <div class="col-12 col-sm-4">
-                    <div class="td">
+                    <div class="td td-h-no100 mb-2 me-1 me-lg-0">
                         {% partial __SELF__ ~ '::filter' column = column config=config %}
                     </div>
                 </div>

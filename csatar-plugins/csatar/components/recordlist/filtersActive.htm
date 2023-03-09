@@ -1,31 +1,21 @@
-<div class="tr">
-    <div class="card csat-resp-gdtable csat-border-lg-none">
-        <div class="row">
-            <div class="col">
-                <div class="th-grid">
-                    <div class="card job-filter-card d-none" id="activeFiltersCard">
-                        <a href="#activeFilters"
-                           class="collapse-button collapsed"
-                           role="button"
-                           data-bs-toggle="collapse"
-                           data-bs-target="#activeFilters"
-                           aria-expanded="false"
-                           aria-controls="activeFilters">{{ 'Aktív szűrők'|_ }}
-                        </a>
-                        <div class="collapse show applicant-filter-card-body" id="activeFilters">
-                            <div class="overflow-auto job-filter-checkbox-list" id="activeFiltersList">
-
-                            </div>
-                        </div>
-                        <div class="card-footer">
-                            <a onClick="removeAllFilters()">{{ 'Szűrők törlése'|_ }}</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+<div class="card job-filter-card d-none border-0 bg-light rounded my-2" id="activeFiltersCard">
+    <a href="#activeFilters"
+        class="collapse-button px-2 collapsed"
+        role="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#activeFilters"
+        aria-expanded="false"
+        aria-controls="activeFilters">{{ 'Aktív szűrők'|_ }}
+    </a>
+    <div class="collapse show applicant-filter-card-body mb-2" id="activeFilters">
+    
+    
+    <div class="overflow-auto job-filter-checkbox-list p-0" id="activeFiltersList">
     </div>
+    </div>
+    <a onClick="removeAllFilters()" class="code-red text-decoration-none text-end pe-2">{{ 'X Szűrők törlése'|_ }}</a>
 </div>
+               
 
 <div id="hiddenCheckboxes" style="opacsity:0; position:absolute; left:9999px;">
 

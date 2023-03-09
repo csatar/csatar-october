@@ -3,30 +3,30 @@
 {% set collapsableAreaId = 'filter-' ~ column ~ '-collapse' %}
 {% set filterNameArrayName = 'filter' ~column %}
 
-<div class="card {{ column }}-filter-card">
+<div class="card {{ column }}-filter-card border-0 p-0">
     {% if config['filterConfig']['type'] == 'freeText' %}
-        <div class="input-group">
+        <div class="input-group border-0">
             <input
-                    class="form-control py-2 border-right-0 border {{ config['filterConfig']['type'] }}"
+                    class="form-control border-0 {{ config['filterConfig']['type'] }}"
                     type="search"
                     data-column="{{ column }}"
                     placeholder="{{ config.label }}"
                     id="{{ filterInputId }}"
             <span class="input-group-append">
                 <button
-                        class="btn btn-outline-secondary border-left-0 border searchButton"
+                        class="btn border-0 rounded-0 searchButton"
                         type="button"
                         data-input-id="{{ filterInputId }}"
                 >
-                    <i class="fa fa-search"></i>
+                    <i class="csat-magnif-fill-sm"></i>
                 </button>
             </span>
         </div>
     {% else %}
-        <div class="filter-header input-group">
-            <input type="text" id="{{ filterInputId }}" class="form-control filter-input" placeholder="{{ config.label }}" onfocus="$('#{{ collapsableAreaId }}').collapse('show');">
+        <div class="filter-header input-group border-0">
+            <input type="text" id="{{ filterInputId }}" class="form-control filter-input border-0" placeholder="{{ config.label }}" onfocus="$('#{{ collapsableAreaId }}').collapse('show');">
             <span class="input-group-append">
-                <button class="btn btn-sm btn-light collapse-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{ collapsableAreaId }}" aria-expanded="false" aria-controls="{{ collapsableAreaId }}"></button>
+                <button class="btn btn-sm collapse-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{ collapsableAreaId }}" aria-expanded="false" aria-controls="{{ collapsableAreaId }}"></button>
             </span>
         </div>
         <div class="collapse" id="{{ collapsableAreaId }}">
