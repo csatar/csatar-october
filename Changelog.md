@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- CS-497 - Made Number of Patrols in Age Group field required on Team Reports
+
 ## 1.9.1
 ### 2023-02-27
 
