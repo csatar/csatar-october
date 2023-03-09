@@ -275,7 +275,7 @@ class SeederData extends Seeder
                 'name' => 'mindkettő',
                 'sort_order' => 3
             ],
-        ]
+        ],
         'forms' => [
             [
                 'title' => 'Játék',
@@ -361,7 +361,7 @@ class SeederData extends Seeder
             ]);
             $methodologyType->sort_order = $methodologyTypeData['sort_order'];
             $methodologyType->save();
-
+        }
         // Forms
         foreach ($this::DATA['forms'] as $formData) {
             $form = Form::firstOrNew($formData);

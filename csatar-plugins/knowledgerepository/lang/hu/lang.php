@@ -31,6 +31,7 @@
                     'methodologyType' => 'Módszertan típus',
                     'methodologyTypes' => 'Módszertan típusok',
                     'methodologyName' => 'Módszer neve',
+                    'methodology' => 'Módszertan',
                     'ageGroup' => 'Korosztály',
                 ],
             ],
@@ -47,7 +48,7 @@
                 'Attachment' => 'Csatolmány',
                 'sortOrder' => 'Sorszám',
                 'version' => 'Verzió',
-                'created_at' => 'Feltöltés Dátuma'
+                'created_at' => 'Feltöltés Dátuma',
                 'forms' => 'Űrlapok',
             ],
             'game' => [

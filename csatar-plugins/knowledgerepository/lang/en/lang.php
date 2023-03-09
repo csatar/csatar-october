@@ -31,6 +31,7 @@
                     'methodologyType' => 'Methodology type',
                     'methodologyTypes' => 'Methodology types',
                     'methodologyName' => 'Methodology name',
+                    'methodology' => 'Methodology',
                     'ageGroup' => 'Age group',
                 ],
             ],
@@ -47,7 +48,7 @@
                 'Attachment' => 'Attachment',
                 'sortOrder' => 'Sort order',
                 'version' => 'Version',
-                'created_at' => 'Created at'
+                'created_at' => 'Created at',
                 'forms' => 'Forms',
             ],
             'game' => [

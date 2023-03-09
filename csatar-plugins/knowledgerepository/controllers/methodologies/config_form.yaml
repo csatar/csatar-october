@@ -1,4 +1,4 @@
-name: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.methodologies'
+name: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.methodology'
 form: $/csatar/knowledgerepository/models/methodology/fields.yaml
 modelClass: Csatar\KnowledgeRepository\Models\Methodology
 defaultRedirect: csatar/knowledgerepository/methodologies

@@ -72,6 +72,3 @@
 1.0.25:
     - 'Updated table csatar_knowledgerepository_methodologies'
     - builder_table_update_csatar_knowledgerepository_methodologies.php
-1.0.26:
-    - 'Updated table csatar_knowledgerepository_headcount_methodology'
-    - builder_table_update_csatar_knowledgerepository_headcount_methodology.php

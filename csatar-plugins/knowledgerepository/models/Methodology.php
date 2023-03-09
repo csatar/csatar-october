@@ -53,7 +53,7 @@ class Methodology extends Model
 
     public $belongsToMany = [
         'headcounts' => [
-            '\Csatar\KnowledgeRepository\Models\HeadCount',
+            '\Csatar\KnowledgeRepository\Models\Headcount',
             'table' => 'csatar_knowledgerepository_headcount_methodology',
             'pivotModel' => '\Csatar\KnowledgeRepository\Models\HeadcountMethodologyPivot',
             'label' => 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.headCounts'
