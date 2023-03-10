@@ -137,7 +137,7 @@ class StructureTree
             'csatar_csatar_scouts.team_id',
             'csatar_csatar_scouts.troop_id',
             'csatar_csatar_scouts.patrol_id',
-            'csatar_csatar_scouts.is_active',
+            'csatar_csatar_scouts.inactivated_at',
         );
     }
 

@@ -12,6 +12,9 @@
 - CS-387 - Created Games front end menu, added Create New Game and Edit Game buttons, added functionality to approve game
 - CS-387 - Created Partials component to make partial sharing possible between plugins
 - CS-387 - Added TagList (multiselect) widget to form builder, it is based on OctoberCMS Taglist widget, but bugs related key based use are fixed
+- CS-497 - Made Number of Patrols in Age Group field required on Team Reports
+- CS-377 - Created Methodology model and backend form
+- CS-374 - Created MethodologyType model and backend menu
 
 ## 1.9.1
 ### 2023-02-27
@@ -32,12 +35,10 @@
 - CS-385 - Created GameDevelopmentGoal model, seeder controller, backend list and form
 - CS-385 - Changed migrations, renamed "order" columns to "sort_order"
 - CS-363 - Fixed success/error message issue on back list bulk delete
-- CS-454 - Remove the Team column from the Mandates tables
 - CS-455 - Sort the teams in the menu
 - CS-370 - Create Knowledge Repository and Knowledge Repository Parameters menus on backend
 - CS-451 - Membership card cannot be activated if the assigned scout is inactive
 - CS-460 - Added frontend scout csv import-export
-- CS-452 - Mandate Types must have different names
 - CS-460 - Fixed getBirthDateFromCNP method
 - CS-460 - Fixed typo in getOptionsWithLabels method name
 - CS-462 - Added warning to team report if any scout doesn't have registration form uploaded
@@ -46,8 +47,6 @@
 - CS-327 - Create dynamic fields
 - CS-397 - Changed accordion to show the active tag lists on the model pages
 - CS-459 - Added team number to the Team reports filter
-- CS-374 - Created MethodologyType model and backend menu
-- CS-377 - Created Methodology model and backend form
 
 ## 1.8.3
 ### 2023-02-15

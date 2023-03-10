@@ -125,7 +125,6 @@ class Scout extends OrganizationBase
         'phone',
         'personal_identification_number',
         'gender',
-        'is_active',
         'legal_relationship_id',
         'special_diet_id',
         'religion_id',
@@ -233,6 +232,16 @@ class Scout extends OrganizationBase
      * Add custom validation
      */
     public function beforeValidate() {
+        if ($this->is_active == 0 && $this->getOriginalValue('inactivated_at') == null) {
+            $this->inactivated_at = date('Y-m-d H:i:s');
+        }
+
+        if ($this->is_active == 1 && $this->getOriginalValue('inactivated_at') != null) {
+            $this->inactivated_at = null;
+        }
+
+        unset($this->is_active);
+
         if (!$this->ignoreValidation) {
             // if we don't have all the data for this validation, then return. The 'required' validation rules will be triggered
             if (!isset($this->team_id)) {
@@ -240,7 +249,7 @@ class Scout extends OrganizationBase
             }
 
             // personal id number validations, for active scouts only
-            if ($this->is_active) {
+            if ($this->inactivated_at == null) {
                 $personalIdentificationNumberValidators = $this->getPersonalIdentificationNumberValidators();
 
                 if (in_array('cnp', $personalIdentificationNumberValidators) && $this->shouldNotValidateCnp()) {
@@ -297,9 +306,9 @@ class Scout extends OrganizationBase
     }
 
     public function afterSave() {
-        if (isset($this->original['is_active'])
-            && $this->is_active != $this->original['is_active']
-            && $this->original['is_active'] == Status::ACTIVE) {
+        if (isset($this->original['inactivated_at'])
+            && $this->inactivated_at != $this->original['inactivated_at']
+            && $this->original['inactivated_at'] == null) {
             Mandate::where('scout_id', $this->id)->update(['end_date' => date('Y-m-d')]);
 
             if (!empty($this->membership_cards)) {
@@ -325,7 +334,7 @@ class Scout extends OrganizationBase
 
     public function updateCache(): void
     {
-        if ($this->wasRecentlyCreated && $this->is_active == Status::ACTIVE) {
+        if ($this->wasRecentlyCreated && $this->inactivated_at == null) {
             StructureTree::updateTeamTree($this->team_id);
         }
 
@@ -333,7 +342,7 @@ class Scout extends OrganizationBase
             return;
         }
 
-        if (($this->getOriginalValue('is_active') != $this->is_active) || $this->deleted_at != null) {
+        if (($this->getOriginalValue('inactivated_at') != $this->inactivated_at) || $this->deleted_at != null) {
             StructureTree::updateTeamTree($this->team_id);
         }
 
@@ -504,6 +513,8 @@ class Scout extends OrganizationBase
         if (isset($fields->citizenship_country) && empty($fields->citizenship_country->value)) {
             $fields->citizenship_country->value = Country::where('code', 'RO')->first()->id ?? null;
         }
+
+        $fields->is_active->value = $this->inactivated_at == null;
     }
 
     /**
@@ -882,17 +893,11 @@ class Scout extends OrganizationBase
     }
 
     public function scopeActive($query) {
-        return $query->where(function($query) {
-            $query->where('is_active', Status::ACTIVE)
-                ->orWhere('is_active', Status::FORMING);
-        });
+        return $query->whereNull('inactivated_at');
     }
 
     public function scopeInactive($query) {
-        return $query->where(function($query) {
-            $query->where('is_active', Status::INACTIVE)
-                ->orWhere('is_active', Status::SUSPENDED);
-        });
+        return $query->whereNotNull('inactivated_at');
     }
 
     public function scopeActiveScoutsInTeam($query, $id)

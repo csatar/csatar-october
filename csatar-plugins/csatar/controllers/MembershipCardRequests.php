@@ -78,7 +78,7 @@ class MembershipCardRequests extends Controller
             ->whereNotNull('csatar_csatar_team_reports.submitted_at')
             ->whereNull('csatar_csatar_team_reports.deleted_at')
             ->whereNull('csatar_csatar_scouts.deleted_at')
-            ->where('csatar_csatar_scouts.is_active', Status::ACTIVE)
+            ->whereNull('csatar_csatar_scouts.inactivated_at')
             ->where('csatar_csatar_team_reports_scouts.legal_relationship_id', $memberLegalRelationshipId)
             ->whereNotIn('csatar_csatar_team_reports_scouts.scout_id', \Db::table('csatar_csatar_membership_cards')->pluck('scout_id'))
             ->orderBy('csatar_csatar_teams.team_number')

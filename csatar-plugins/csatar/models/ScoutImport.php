@@ -156,6 +156,12 @@ class ScoutImport extends \Backend\Models\ImportModel
                 $scout = Scout::firstOrNew([
                     'ecset_code' => $data['ecset_code'],
                 ]);
+
+                if ($data['is_active'] != 1) {
+                    $scout->inactivated_at = $scout->inactivated_at == null ? date('Y-m-d H:i:s') : $scout->inactivated_at;
+                    $scout->ignoreValidation = true;
+                    unset($data['is_active']);
+                }
                 $scout->fill($data);
 
                 // generate an empty registration form
