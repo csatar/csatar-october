@@ -262,6 +262,12 @@ class SeederData extends Seeder
                 'sort_order' => 6,
             ],
         ],
+        'forms' => [
+            [
+                'title' => 'Játék',
+                'model' => 'Csatar\KnowledgeRepository\Models\Game',
+            ],
+        ],
         'methodologyTypes' => [
             [
                 'name' => 'új (eddig az őrs még sosem találkozott az átadott anyaggal)',
@@ -275,13 +281,7 @@ class SeederData extends Seeder
                 'name' => 'mindkettő',
                 'sort_order' => 3
             ],
-        ],
-        'forms' => [
-            [
-                'title' => 'Játék',
-                'model' => 'Csatar\KnowledgeRepository\Models\Game',
-            ],
-        ],
+        ]
     ];
 
     public function run()
@@ -353,6 +353,11 @@ class SeederData extends Seeder
             $gameType->save();
         }
 
+        // Forms
+        foreach ($this::DATA['forms'] as $formData) {
+            $form = Form::firstOrNew($formData);
+            $form->save();
+        }
         // Methodology Types
 
         foreach ($this::DATA['methodologyTypes'] as $methodologyTypeData) {
@@ -361,11 +366,6 @@ class SeederData extends Seeder
             ]);
             $methodologyType->sort_order = $methodologyTypeData['sort_order'];
             $methodologyType->save();
-        }
-        // Forms
-        foreach ($this::DATA['forms'] as $formData) {
-            $form = Form::firstOrNew($formData);
-            $form->save();
         }
     }
 }

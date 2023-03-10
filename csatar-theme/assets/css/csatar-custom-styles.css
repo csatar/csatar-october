@@ -1676,7 +1676,7 @@ body > div.pika-single.is-bound > div > table > tbody > tr > td {
     min-height: 40px;
 }
 
-textarea {
+textarea:not(.select2-search__field) {
     min-height: 120px !important;
 }
 
@@ -1845,7 +1845,7 @@ a.login:link, a.login:visited, a.login:active {
     margin-bottom: 100px;
 }
 
-[aria-labelledby="about-us-tab"] img {
+img:not(.not-auto-height) {
     max-width: 100%;
     height: auto;
 }
@@ -1901,10 +1901,6 @@ input:-webkit-autofill:active {
     border-radius: 12px;
     object-fit: cover;
     object-position: center;
-}
-
-.csat-gallery-img {
-    height: 200px;
 }
 
 .csat-gallery-edit-img {
