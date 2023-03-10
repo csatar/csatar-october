@@ -34,9 +34,9 @@
                 {% for scout in item['scoutsActive'] %}
                 {% if (level == 3 and scout['troop_id'] == null and scout['patrol_id'] == null) or (level == 4 and scout['patrol_id'] == null) or (level == 5) %}
                 <li>
-                    {% if detailsPage %}<a href="{{ detailsPage|page({ (detailsUrlParameter): attribute(scout, detailsKeyColumn) }) }}">{% endif %}
-                    {{ scout['full_name'] }} - {{ scout['legal_relationship_name'] }}
-                    {% if detailsPage %}</a>{% endif %}
+                    <a href="/tag/{{ scout['ecset_code'] }}">
+                        {{ scout['full_name'] }} - {{ scout['legal_relationship_name'] }}
+                    </a>
                 </li>
                 {% endif %}
                 {% else %}
@@ -45,6 +45,35 @@
             </ul>
         </div>
     </div>
+    {% endif %}
+
+    {% if level == 3 and item['scoutsInactive']|length > 0 %}
+        <div class="accordion accordion-flush">
+            {% set array = item['scoutsInactive']|sort((a, b) => a['team_number'] <=> b['team_number']) %}
+            <div class="accordion-item my-3">
+                <h2 class="accordion-header" id="{{ headingId ~ item['id'] }}">
+                    <button class="accordion-button py-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="{{ '#' ~ collapseId ~ item['id'] }}" aria-expanded="false" aria-controls="{{ collapseId ~ item['id'] }}">
+                            <span>{{ "Inaktív tagok" | _ }}</span>
+                    </button>
+                </h2>
+                <div id="{{ collapseId ~ item['id'] }}" class="accordion-collapse collapse" aria-labelledby="{{ headingId ~ item['id'] }}" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body py-2">
+                        <ul class="record-list">
+                            {% for scout in array %}
+                                <li>
+                                    <a href="/tag/{{ scout['ecset_code'] }}">
+                                    {{ scout['full_name'] }} - {{ scout['legal_relationship_name'] }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    {% else %}
+        <i>{{ noItemsMessage | _ }}</i>
     {% endif %}
 
 </div>
