@@ -1,4 +1,11 @@
 fields:
+    association:
+        label: 'csatar.csatar::lang.plugin.admin.association.association'
+        span: auto
+        type: relation
+        nameFrom: name
+        formBuilder:
+            readOnlyIfPreselected: true
     name:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.methodologyName'
         span: auto
@@ -6,6 +13,7 @@ fields:
     sort_order:
         label: 'csatar.knowledgerepository::lang.plugin.admin.general.sortOrder'
         span: auto
+        default: 0
         type: number
     link:
         label: 'csatar.knowledgerepository::lang.plugin.admin.general.link'
@@ -23,8 +31,8 @@ fields:
         descriptionFrom: description
         span: auto
         type: relation
-    attachment:
-        label: 'csatar.knowledgerepository::lang.plugin.admin.general.Attachment'
+    attachements:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.attachements'
         mode: file
         useCaption: true
         thumbOptions:
@@ -37,54 +45,72 @@ fields:
         label: 'csatar.knowledgerepository::lang.plugin.admin.general.description'
         size: large
         span: full
-        type: richeditor
+        type: textarea
     tools:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.tools'
-        nameFrom: name
-        descriptionFrom: description
         span: auto
-        type: relation
+        type: taglist
+        mode: relation
+        useKey: true
+        customTags: false
+        nameFrom: name
     agegroups:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.ageGroup'
-        nameFrom: name
-        descriptionFrom: description
         span: auto
-        type: relation
+        type: taglist
+        mode: relation
+        useKey: true
+        customTags: false
+        nameFrom: name
     locations:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.locations'
-        nameFrom: name
-        descriptionFrom: description
         span: auto
-        type: relation
+        type: taglist
+        mode: relation
+        useKey: true
+        customTags: false
+        nameFrom: name
     headcounts:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.headCounts'
-        nameFrom: name
-        descriptionFrom: description
         span: auto
-        type: relation
+        type: taglist
+        mode: relation
+        useKey: true
+        customTags: false
+        nameFrom: description
     uploaderscout:
-        label: 'csatar.knowledgerepository::lang.plugin.admin.general.proposerCsatarCode'
-        nameFrom: name
-        descriptionFrom: description
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.uploader'
+        emptyOption: ' - '
+        showSearch: true
         span: auto
-        type: relation
+        disabled: 1
+        type: dropdown
     approverscout:
-        label: 'csatar.knowledgerepository::lang.plugin.admin.general.approverCsatarCode'
-        nameFrom: name
-        descriptionFrom: description
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.approver'
+        emptyOption: ' - '
+        nameFrom: name_with_id_number
+        showSearch: true
         span: auto
-        type: relation
+        disabled: 1
+        type: dropdown
+    created_at:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.uploadedAt'
+        mode: date
+        span: auto
+        type: datepicker
+        disabled: true
     approved_at:
-        label: 'csatar.knowledgerepository::lang.plugin.admin.general.isApproved'
-        mode: datetime
-        span: auto
-        type: datepicker
-    version:
-        label: 'csatar.knowledgerepository::lang.plugin.admin.general.version'
-        mode: datetime
-        span: auto
-        type: datepicker
+      label: 'csatar.knowledgerepository::lang.plugin.admin.game.approvedAt'
+      mode: date
+      span: auto
+      type: datepicker
+      disabled: true
     note:
         label: 'csatar.knowledgerepository::lang.plugin.admin.general.note'
         span: auto
         type: text
+    version:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.version'
+        mode: date
+        span: auto
+        type: datepicker

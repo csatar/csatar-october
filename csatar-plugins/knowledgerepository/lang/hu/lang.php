@@ -69,6 +69,10 @@
                 'name' => 'Játék űrlap',
                 'description' => 'Játék űrlap komponens',
             ],
+            'methodologyForm' => [
+                'name' => 'Módszertan űrlap',
+                'description' => 'Módszertan űrlap komponens'
+            ]
         ],
     ],
 ];
