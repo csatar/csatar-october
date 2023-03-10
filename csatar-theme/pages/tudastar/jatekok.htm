@@ -14,6 +14,8 @@ detailsUrlParameter = "id"
 pageNumber = "{{ :page }}"
 sortColumn = "name"
 sortDirection = "asc"
+
+[partials]
 ==
 <?php
 use Csatar\KnowledgeRepository\Models\Game;
@@ -34,7 +36,12 @@ public function onStart(){
         <form action="/tudastar/jatek/letrehozas" method="post">
             <input type="hidden" name="association" value="{{ association_id }}">
             <input type="hidden" name="uploader" value="{{ user.scout.ecset_code }}">
-            <button type="submit" class="btn btn-sm rounded btn-primary" value="{{ 'Játék hozzáadása' | _ }}"><i class="csat-add-fill-wh-sm"></i> {{ 'Játék hozzáadása' | _ }}</button>
+            {% partial "@formButton"
+            permissionValue = user.scout.getRightsForModel(game)['MODEL_GENERAL']['create']
+            btnExtraClasses = 'btn btn-sm rounded btn-primary'
+            btnIconClass = 'csat-add-fill-wh-sm'
+            btnLabel = 'Játék hozzáadása' |_
+            %}
         </form>
     {% endif %}
 

@@ -267,6 +267,10 @@ class SeederData extends Seeder
                 'title' => 'Játék',
                 'model' => 'Csatar\KnowledgeRepository\Models\Game',
             ],
+            [
+                'title' => 'Módszertan',
+                'model' => 'Csatar\KnowledgeRepository\Models\Methodology',
+            ],
         ],
         'methodologyTypes' => [
             [

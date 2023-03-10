@@ -30,6 +30,9 @@
                     'gameType' => 'Játék típus',
                     'methodologyType' => 'Módszertan típus',
                     'methodologyTypes' => 'Módszertan típusok',
+                    'methodologyName' => 'Módszer neve',
+                    'methodology' => 'Módszertan',
+                    'ageGroup' => 'Korosztály',
                 ],
             ],
             'general' => [
@@ -41,6 +44,11 @@
                 'proposerCsatarCode' => 'Felterjesztő - igazolványszám',
                 'isApproved' => 'Jóváhagyva',
                 'minute' => 'perc',
+                'link' => 'Link',
+                'Attachment' => 'Csatolmány',
+                'sortOrder' => 'Sorszám',
+                'version' => 'Verzió',
+                'created_at' => 'Feltöltés Dátuma',
                 'forms' => 'Űrlapok',
             ],
             'game' => [
@@ -54,13 +62,17 @@
                 'approvedAt' => 'Jóváhagyás dátuma',
                 'version' => 'Verzió',
                 'ageGroupsComment' => 'A korosztályok csak a szövetség kiválasztása után választhatók ki.',
-            ],
         ],
+    ],
         'components' => [
             'gameForm' => [
                 'name' => 'Játék űrlap',
                 'description' => 'Játék űrlap komponens',
             ],
+            'methodologyForm' => [
+                'name' => 'Módszertan űrlap',
+                'description' => 'Módszertan űrlap komponens'
+            ]
         ],
     ],
 ];

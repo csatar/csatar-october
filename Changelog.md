@@ -13,6 +13,8 @@
 - CS-387 - Created Partials component to make partial sharing possible between plugins
 - CS-387 - Added TagList (multiselect) widget to form builder, it is based on OctoberCMS Taglist widget, but bugs related key based use are fixed
 - CS-497 - Made Number of Patrols in Age Group field required on Team Reports
+- CS-377 - Created Methodology model and backend form
+- CS-374 - Created MethodologyType model and backend menu
 
 ## 1.9.1
 ### 2023-02-27

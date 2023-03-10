@@ -1,0 +1,62 @@
+columns:
+    name:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.methodologyName'
+        type: text
+        searchable: true
+        sortable: true
+    description:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.description'
+        type: text
+        searchable: true
+        sortable: true
+    sort_order:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.sortOrder'
+        type: number
+        searchable: true
+        sortable: true
+    timeframe_id:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.duration'
+        type: text
+        searchable: false
+        relation: timeframe
+        valueFrom: name
+    methodology_type_id:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.methodologyType'
+        type: text
+        relation: methodologytype
+        valueFrom: name
+    link:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.link'
+        type: text
+        searchable: true
+        sortable: true
+    uploader_csatar_code:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.proposerCsatarCode'
+        type: text
+        searchable: true
+        sortable: true
+    approver_csatar_code:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.approverCsatarCode'
+        type: text
+        searchable: true
+        sortable: true
+    created_at:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.created_at'
+        type: datetime
+        searchable: true
+        sortable: true
+    approved_at:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.isApproved'
+        type: datetime
+        searchable: true
+        sortable: true
+    note:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.note'
+        type: text
+        searchable: true
+        sortable: true
+    version:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.version'
+        type: datetime
+        searchable: true
+        sortable: true

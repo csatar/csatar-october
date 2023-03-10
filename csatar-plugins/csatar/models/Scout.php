@@ -622,6 +622,10 @@ class Scout extends OrganizationBase
             'pivotModel' => '\Csatar\Csatar\Models\TeamReportScoutPivot',
             'label' => 'csatar.csatar::lang.plugin.admin.teamReport.teamReports',
         ],
+        'methodologies' => [
+            '\Csatar\Csatar\Models\Methodology',
+            'key' => 'ecset_code'
+        ]
     ];
 
     public $hasMany = [

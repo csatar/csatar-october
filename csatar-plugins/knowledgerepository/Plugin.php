@@ -10,6 +10,7 @@ class Plugin extends PluginBase
     {
         return [
             \Csatar\KnowledgeRepository\Components\GameForm::class => 'gameForm',
+            \Csatar\KnowledgeRepository\Components\MethodologyForm::class => 'methodologyForm',
         ];
     }
 

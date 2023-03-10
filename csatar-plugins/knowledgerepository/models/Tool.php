@@ -56,4 +56,13 @@ class Tool extends Model
             'label' => 'csatar.knowledgerepository::lang.plugin.admin.game.approver',
         ],
     ];
+
+    public $belongsToMany = [
+        'methodologies' => [
+            '\Csatar\KnowledgeRepository\Models\Methodology',
+            'table' => 'csatar_knowledgerepository_methodology_tool',
+            'pivotModel' => '\Csatar\KnowledgeRepository\Models\MethodologyToolPivot',
+            'label' => 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.methodologies'
+        ]
+    ];
 }
