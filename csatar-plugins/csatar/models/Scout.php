@@ -32,6 +32,8 @@ class Scout extends OrganizationBase
 
     use \October\Rain\Database\Traits\Nullable;
 
+    public const NAME_DELETED_INACTIVITY = 'Inaktivítás miatt törölt név';
+
     protected $dates = ['deleted_at'];
 
     protected static $relationLabels = null;

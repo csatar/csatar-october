@@ -74,7 +74,8 @@ class CheckScoutStatus extends ComponentBase
             'district_name' => $team->district->name,
             'district_id' => $team->district_id,
             'scout_name' => $scout->name,
-            'is_user_logged_id' => Auth::user() ? true : false
+            'is_user_logged_id' => Auth::user() ? true : false,
+            'show_link' => $scout->family_name != Scout::NAME_DELETED_INACTIVITY ? true : false,
         ];
 
         if ($this->json) {
