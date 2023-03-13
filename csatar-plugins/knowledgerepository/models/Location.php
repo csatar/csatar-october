@@ -40,6 +40,15 @@ class Location extends Model
         'sort_order',
     ];
 
+    public $belongsToMany = [
+        'methodologies' => [
+            '\Csatar\KnowledgeRepository\Models\Methodology',
+            'table' => 'csatar_knowledgerepository_location_methodology',
+            'pivotModel' => '\Csatar\KnowledgeRepository\Models\LocationMethodologyPivot',
+            'label' => 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.methodologies'
+        ]
+    ];
+
     public function beforeSave()
     {
         if (empty($this->sort_order))

@@ -215,7 +215,7 @@ class TeamReport extends ComponentBase
 
     public function getScouts($teamId): void
     {
-        $scouts = Scout::where('team_id', $teamId)->where('is_active', true)->get();
+        $scouts = Scout::where('team_id', $teamId)->whereNull('inactivated_at', true)->get();
         $this->totalAmount = $this->teamFee;
         $this->scoutsWithoutRegistrationForm = TeamReportModel::getScoutsWithoutRegistrationForm($scouts);
 

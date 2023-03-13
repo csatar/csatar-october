@@ -40,6 +40,10 @@ class Duration extends Model
         'max',
     ];
 
+    public $belongsToMany = [
+        'methodologies' => '\Csatar\Csatar\Models\Methodology'
+    ];
+
     public function beforeSave()
     {
         if ($this->min == null) {

@@ -82,8 +82,8 @@ columns:
     is_active:
         label: 'csatar.csatar::lang.plugin.admin.scout.isActive'
         type: switch
-        searchable: true
-        sortable: true
+        searchable: false
+        sortable: false
     is_approved:
         label: 'csatar.csatar::lang.plugin.admin.scout.isApproved'
         type: switch

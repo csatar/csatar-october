@@ -28,6 +28,11 @@
                     'location' => 'Location',
                     'gameTypes' => 'Game Types',
                     'gameType' => 'Game Type',
+                    'methodologyType' => 'Methodology type',
+                    'methodologyTypes' => 'Methodology types',
+                    'methodologyName' => 'Methodology name',
+                    'methodology' => 'Methodology',
+                    'ageGroup' => 'Age group',
                 ],
             ],
             'general' => [
@@ -39,6 +44,11 @@
                 'proposerCsatarCode' => 'Proposer',
                 'isApproved' => 'Approved',
                 'minute' => 'minute',
+                'link' => 'Link',
+                'Attachment' => 'Attachment',
+                'sortOrder' => 'Sort order',
+                'version' => 'Version',
+                'created_at' => 'Created at',
                 'forms' => 'Forms',
             ],
             'game' => [

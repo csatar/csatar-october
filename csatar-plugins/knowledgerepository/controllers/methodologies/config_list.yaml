@@ -1,0 +1,12 @@
+list: $/csatar/knowledgerepository/models/methodology/columns.yaml
+modelClass: Csatar\KnowledgeRepository\Models\Methodology
+title: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.methodologies'
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'csatar/knowledgerepository/methodologies/update/:id'

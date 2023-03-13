@@ -12,7 +12,7 @@ use Csatar\Csatar\Models\TeamReport;
 
 class TeamReports extends ComponentBase
 {
-    public $id, $waitingForApprovalMode, $team, $teamReports, $legalRelationships, $teamReportData, $showTeamReportCreateButton, $permissions, $listingAll;
+    public $id, $waitingForApprovalMode, $team, $teamReports, $legalRelationships, $teamReportData, $showTeamReportCreateButton, $permissions, $permissionForCreateButton, $listingAll;
 
     public function componentDetails()
     {
@@ -29,10 +29,13 @@ class TeamReports extends ComponentBase
 
         $newTeamReport = new TeamReport();
         $newTeamReport->team_id = Auth::user()->scout->team_id;
+        $generalTeamReportPermissions = Auth::user()->scout->getRightsForModel($newTeamReport);
 
-        if (Auth::user()->scout->getRightsForModel($newTeamReport)['MODEL_GENERAL']['read'] < 1) {
+        if ($generalTeamReportPermissions['MODEL_GENERAL']['read'] < 1) {
             \App::abort(403, 'Access denied!');
         }
+
+        $this->permissionForCreateButton = $generalTeamReportPermissions['MODEL_GENERAL']['create'];
     }
 
     public function onRender()

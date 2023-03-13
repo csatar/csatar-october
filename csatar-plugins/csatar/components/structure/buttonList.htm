@@ -58,6 +58,22 @@
             btnLabel = 'Felhasználói fiók létrehozása' |_
             %}
         </div>
+
+        <div class="me-2">
+            {% set orgPermissions = organizationUnitFrontend.permissions %}
+            {% partial "@dataRequestButton"
+                permissionValue = orgPermissions['scouts']['read']
+                dataRequest = 'onExportScoutsToCsv'
+                dataRequestData = 'teamId: ' ~ team_id
+                btnExtraClasses = 'btn-sm btn-primary'
+                btnValue = 'Tag lista letöltése csv-ben' |_
+                btnIconClass = 'csat-download-fill-wh-sm'
+                btnLabel = 'Tag lista letöltése csv-ben' |_
+            %}
+        </div>
+        <div id="uploadCsv" class="me-2">
+            {#% partial 'organizationUnitFrontend::csvUploadForm' permissionValue=orgPermissions["scouts"]["update"] teamId=team_id %#}
+        </div>
     {% endif %}
 
     {% if level == 4 %}

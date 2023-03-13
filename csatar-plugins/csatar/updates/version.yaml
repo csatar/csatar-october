@@ -237,3 +237,6 @@
 1.0.82:
     - 'Updated table csatar_csatar_scouts'
     - builder_table_update_csatar_csatar_scouts_6.php
+1.0.83:
+    - 'Update csatar_csatar_scouts, change is_active bool to inactivated_at timestamp'
+    - builder_table_update_csatar_csatar_scouts_7.php

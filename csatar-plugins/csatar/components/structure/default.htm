@@ -6,7 +6,7 @@
 {% set showActiveScouts = __SELF__.showActiveScouts %}
 
 {% if mode == 'accordion' %}
-    {% if starter_level > 2%}
+    {% if starter_level > 2 %}
         {% partial __SELF__ ~ '::buttonList' level=starter_level permissions=permissions %}
     {% endif %}
 

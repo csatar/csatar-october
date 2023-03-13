@@ -241,7 +241,7 @@ class Mandate extends Model
         }
 
         // from the Organization pages: populate the Scouts dropdown
-        $scouts = Scout::where('is_active', true)->organization($mandate_model_type, $mandate_model_id)->get();
+        $scouts = Scout::whereNull('inactivated_at')->organization($mandate_model_type, $mandate_model_id)->get();
         $options = [];
         foreach ($scouts as $item) {
             $options[$item->id] = $item->name;

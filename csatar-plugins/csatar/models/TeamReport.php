@@ -106,6 +106,7 @@ class TeamReport extends PermissionBasedAccess
             '\Csatar\Csatar\Models\AgeGroup',
             'table' => 'csatar_csatar_age_group_team_report',
             'pivot' => ['number_of_patrols_in_age_group'],
+            'pivotModel' => '\Csatar\Csatar\Models\TeamReportAgeGroupPivot',
             'label' => 'csatar.csatar::lang.plugin.admin.ageGroups.ageGroups',
         ],
     ];
@@ -152,7 +153,7 @@ class TeamReport extends PermissionBasedAccess
             return;
         }
         // save the scouts (the pivot data can be saved only after the team report has been created)
-        $scouts = Scout::where('team_id', $this->team_id)->where('is_active', true)->get();
+        $scouts = Scout::where('team_id', $this->team_id)->whereNull('inactivated_at')->get();
         $scoutsToSync = [];
         $this->total_amount = $this->team_fee;
 

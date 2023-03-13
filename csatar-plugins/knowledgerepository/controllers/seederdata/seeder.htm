@@ -90,6 +90,16 @@
             </ul>
         </li>
         <li>
+            <h4><?= e(trans('csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.methodologyTypes')) ?>:</h4>
+            <ul>
+                <?php
+                foreach ($seederData['methodologyTypes'] as $data) {
+                    echo '<li>' . $data['name'] . '</li>';
+                }
+                ?>
+            </ul>
+        </li>
+        <li>
             <h4><?= e(trans('csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystemCategories')) ?>:</h4>
             <ul>
                 <?php

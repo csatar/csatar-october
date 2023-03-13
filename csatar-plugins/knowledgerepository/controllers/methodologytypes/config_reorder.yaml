@@ -1,0 +1,4 @@
+title: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.methodologyTypes'
+modelClass: Csatar\KnowledgeRepository\Models\MethodologyType
+toolbar:
+    buttons: reorder_toolbar

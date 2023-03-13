@@ -53,6 +53,9 @@ class StructureTree
             'districtsActive.teamsActive.scoutsActive' => function($query) {
                 return self::selectFromScouts($query);
             },
+            'districtsActive.teamsActive.scoutsInactive' => function($query) {
+                return self::selectFromScouts($query);
+            },
             'districtsActive.teamsActive.scoutsActive.legal_relationship' => function($query) {
                 return self::selectFromLegalRelationship($query);
             },
@@ -137,7 +140,7 @@ class StructureTree
             'csatar_csatar_scouts.team_id',
             'csatar_csatar_scouts.troop_id',
             'csatar_csatar_scouts.patrol_id',
-            'csatar_csatar_scouts.is_active',
+            'csatar_csatar_scouts.inactivated_at',
         );
     }
 
@@ -250,6 +253,9 @@ class StructureTree
             'teamsActive.scoutsActive' => function($query) {
                 return self::selectFromScouts($query);
             },
+            'teamsActive.scoutsInactive' => function($query) {
+                return self::selectFromScouts($query);
+            },
             'teamsActive.scoutsActive.legal_relationship' => function($query) {
                 return self::selectFromLegalRelationship($query);
             },
@@ -301,6 +307,9 @@ class StructureTree
     public static function updateTeamTree($teamId) {
         $query = Team::where('id', $teamId)->with([
             'scoutsActive' => function($query) {
+                return self::selectFromScouts($query);
+            },
+            'scoutsInactive' => function($query) {
                 return self::selectFromScouts($query);
             },
             'scoutsActive.legal_relationship' => function($query) {
