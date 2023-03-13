@@ -274,15 +274,15 @@ class SeederData extends Seeder
         ],
         'methodologyTypes' => [
             [
-                'name' => 'új (eddig az őrs még sosem találkozott az átadott anyaggal)',
+                'name' => 'Új (eddig az őrs még sosem találkozott az átadott anyaggal)',
                 'sort_order' => 1
             ],
             [
-                'name' => 'régi/ismétlés (ismétlés, az őrs már találkozott a megnevezett anyaggal)',
+                'name' => 'Régi/ismétlés (ismétlés, az őrs már találkozott a megnevezett anyaggal)',
                 'sort_order' => 2
             ],
             [
-                'name' => 'mindkettő',
+                'name' => 'Mindkettő',
                 'sort_order' => 3
             ],
         ]
