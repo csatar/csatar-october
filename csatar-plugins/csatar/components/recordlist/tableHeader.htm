@@ -5,19 +5,8 @@
         <div class="row">
             {% for attribute, columnConfig in tableHeaderConfig %}
                 <div class="col">
-                    <div class="th-grid">{{ columnConfig.label }}
-                    {% if columnConfig.sortable %}
-                        {% set sortDefault = columnConfig.sortableDefault ? 'sortDefault' : '' %}
-                        {% set sortDirection = columnConfig.sortableDefault ? columnConfig.sortableDefault : 'noSort' %}
-                        <button
-                            class="btn btn-sm sortButton {{ sortDirection }} {{ sortDefault }}"
-                            type="button"
-                            data-column="{{ attribute }}"
-                            data-sort-direction="{{ sortDirection }}"
-                            data-default-sort-direction="{{ sortDirection }}"
-                        >
-                        </button>
-                    {% endif %}
+                    <div class="th-grid">
+                        {{ columnConfig.label }}
                     </div>
                 </div>
             {% endfor %}

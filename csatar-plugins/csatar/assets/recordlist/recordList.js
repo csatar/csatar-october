@@ -13,21 +13,12 @@ $(document).ready(function() {
         addKeywordCheckbox($('#' + $(this).data('input-id')));
     });
 
-    $('.sortButton').on('click', function(event){
-        let previousSortDirection = $(this).data('sort-direction');
-        let element = $(this);
-        setSortButtonAttributes(element, previousSortDirection)
-        let column = $(this).data('column');
-        let sortDirection = $(this).data('sort-direction');
+    $('#sort').on('change', function(event){
+        let selectedOption = $(this).find('option:selected');
+        let sortColumn = selectedOption.data('column');
+        let sortDirection = selectedOption.data('direction');
 
-        if ($(this).data('sort-direction') == 'noSort') {
-            let sortDefault = $('.sortDefault');
-            setSortButtonAttributes(sortDefault, 'noSort', sortDefault.data('default-sort-direction'))
-            column = $('.sortDefault').data('column');
-            sortDirection = $('.sortDefault').data('sort-direction');
-        }
-
-        filterSortPaginate(1, column, sortDirection);
+        filterSortPaginate(1, sortColumn, sortDirection);
     });
 
     $('.filter-input').keyup(function(event) {
@@ -66,6 +57,7 @@ function addKeywordCheckbox(element){
 function filterSortPaginate(page = 1, sortColumn = '', sortDirection = '') {
     let selected = [];
     let activeFilters = {};
+
     $("input:checkbox:checked, input:radio:checked").each(function() {
         let filterColumn = $(this).data('column');
         // check if filterColumn exists in activeFilters
@@ -76,7 +68,10 @@ function filterSortPaginate(page = 1, sortColumn = '', sortDirection = '') {
         selected.push([ $(this), '']);
     });
 
+    $('#activeFiltersNumber').text(selected.length);
+
     if(selected.length>0){
+
         $( "#activeFiltersCard" ).removeClass('d-none');
         $( "#activeFiltersList" ).empty();
 
@@ -84,7 +79,7 @@ function filterSortPaginate(page = 1, sortColumn = '', sortDirection = '') {
             let columnLabel = $(item[0][0]).attr('data-column-label');
             let label = columnLabel + ': ' + $(item[0][0].parentElement).children("label").text() + item[1];
             let html = '<span class="filter-tag badge bg-primary m-1">' + label + ' <a class="badge badge-dark"';
-            html += 'onClick="removeFilter(\x27' + item[0][0].id + '\x27);">X</a></span>';
+            html += 'onClick="removeFilter(\x27' + item[0][0].id + '\x27);">x</a></span>';
             $( "#activeFiltersList" ).append( html );
         });
     } else {
@@ -115,33 +110,4 @@ function removeAllFilters(){
         $(this).prop( "checked", false );
     });
     filterSortPaginate();
-}
-
-function setSortButtonAttributes(element, previousSortDirection, sortDefault = ''){
-    switch (previousSortDirection) {
-        case 'asc':
-            console.log('asc');
-            element.removeClass('asc');
-            element.addClass('desc');
-            element.attr('data-sort-direction', 'desc');
-            element.data('sort-direction', 'desc');
-            break;
-        case 'desc':
-            console.log('desc');
-            element.removeClass('desc');
-            element.attr('data-sort-direction', 'noSort');
-            element.data('sort-direction', 'noSort');
-            break;
-        case 'noSort':
-        default:
-            console.log('noSort');
-            element.addClass(sortDefault ? sortDefault : 'asc');
-            element.attr('data-sort-direction', sortDefault ? sortDefault : 'asc');
-            element.data('sort-direction', sortDefault ? sortDefault : 'asc');
-    }
-    $('.sortButton').not(element).each(function(){
-        $(this).removeClass('desc');
-        $(this).removeClass('asc');
-        $(this).data('sort-direction', 'noSort');
-    });
 }

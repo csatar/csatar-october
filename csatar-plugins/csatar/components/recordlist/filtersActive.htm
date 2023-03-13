@@ -1,21 +1,9 @@
-<div class="card job-filter-card d-none border-0 bg-light rounded my-2" id="activeFiltersCard">
-    <a href="#activeFilters"
-        class="collapse-button px-2 collapsed"
-        role="button"
-        data-bs-toggle="collapse"
-        data-bs-target="#activeFilters"
-        aria-expanded="false"
-        aria-controls="activeFilters">{{ 'Aktív szűrők'|_ }}
-    </a>
+<div class="card d-none border-0 bg-light rounded my-2" id="activeFiltersCard">
     <div class="collapse show applicant-filter-card-body mb-2" id="activeFilters">
-    
-    
-    <div class="overflow-auto job-filter-checkbox-list p-0" id="activeFiltersList">
+        <div class="overflow-auto job-filter-checkbox-list p-0" id="activeFiltersList">
+        </div>
     </div>
-    </div>
-    <a onClick="removeAllFilters()" class="code-red text-decoration-none text-end pe-2">{{ 'X Szűrők törlése'|_ }}</a>
 </div>
-               
 
 <div id="hiddenCheckboxes" style="opacsity:0; position:absolute; left:9999px;">
 

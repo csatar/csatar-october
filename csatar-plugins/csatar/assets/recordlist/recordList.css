@@ -1,15 +1,25 @@
+.sortButton,
+.collapse-button {
+    font-family: FontAwesome !important;
+    font-weight: 400;
+    font-style: normal;
+}
+
 .collapse-button:after {
-    font-family: arial !important;
-    font-weight: bold !important;
+    font-family: FontAwesome;
+    font-weight: 400;
+    font-style: normal;
     color: #78863F;
-    content: "˄";
+    /*content: "▲";*/
+    content: "\f106";
     float: right;
     padding: 5px 0px 0px 0px;
 }
 
 .collapse-button.collapsed:after {
     /* symbol for "collapsed" panels */
-    content: "˅";
+    /*content: "▼";*/
+    content: "\f106";
 }
 
 .checkbox-container {
@@ -23,25 +33,33 @@
 }
 
 .sortButton {
-    font-family: arial !important;
-    font-weight: bold !important;
     color: #FFFFFF !important;
     position: absolute;
     right: 0px;
 }
 
-.sortButton::after {
-    content: "˄˅";
-}
-
 .sortButton.asc::after {
-    content: "˄";
+    /*content: "▲";*/
+    content: "\f107";
 }
 
 .sortButton.desc::after {
-    content: "˅";
+    /*content: "▼";*/
+    content: "\f106";
 }
 
 .searchButton:hover {
     background-color: #F5F5F5;
+}
+
+select {
+    display: inline-block;
+    background-color: #fff;
+    border: 1px solid #cfd7e1;
+    color: #78863F;
+    font-size: 14px;
+    height: 38px;
+    line-height: 1.42857143;
+    padding: 8px 25px 8px 13px;
+    border-radius: 12px;
 }

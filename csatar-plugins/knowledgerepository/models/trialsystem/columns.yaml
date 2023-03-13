@@ -84,10 +84,7 @@ columns:
             sortable: true
             filterable: true
             filterConfig:
-                type: relation
-                relationName: trialSystemTrialType
-                keyFrom: id
-                labelFrom: name
+                type: freeText
     for_patrols:
         label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.forPatrols'
         type: text

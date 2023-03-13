@@ -186,10 +186,7 @@ class RecordList extends RainRecordList {
         $this->columnsConfig = $this->page['columnsConfig'] = $this->makeConfig($this->getColumnsConfigFile());
         $this->tableHeaderConfig = $this->page['tableHeaderConfig'] = $this->getTableHeaderConfig();
         $this->tableRowConfig = $this->page['tableRowConfig'] = $this->getTableRowConfig();
-
-
-//        $this->sortColumn = $this->page['sortColumn'] = trim($this->property('sortColumn'));
-//        $this->sortDirection = $this->page['sortDirection'] = trim($this->property('sortDirection'));
+        $this->sortConfig = $this->page['sortConfig'] = $this->getSortConfig();
 
         $this->detailsKeyColumn = $this->page['detailsKeyColumn'] = $this->property('detailsKeyColumn');
         $this->detailsUrlParameter = $this->page['detailsUrlParameter'] = $this->property('detailsUrlParameter');
@@ -302,6 +299,30 @@ class RecordList extends RainRecordList {
         }
 
         return $headerConfig;
+    }
+
+    public function getSortConfig() {
+        $sortConfig = [];
+        foreach ($this->columnsConfig->columns as $column => $config) {
+            if (!isset($config['recordList']['sortable'])) {
+                continue;
+            }
+
+            if (isset($config['label'])) {
+                $sortConfig[$column]['label'] = Lang::get($config['label']);
+            }
+            else {
+                $sortConfig[$column]['label'] = ucfirst($column);
+            }
+
+            if (isset($config['recordList']['sortable']) && is_array($config['recordList']['sortable'])) {
+                $sortConfig[$column]['default'] = $config['recordList']['sortable']['default'] ?? false;
+            } else {
+                $headerConfig[$column]['sortable'] = $config['recordList']['sortable'] ?? false;
+            }
+        }
+
+        return $sortConfig;
     }
 
     public function getFiltersConfig(bool $withoutOptions = false) {
