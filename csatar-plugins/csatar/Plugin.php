@@ -223,6 +223,7 @@ class Plugin extends PluginBase
     {
         return [
             \Csatar\Forms\Widgets\TagList::class => 'taglist',
+            \Csatar\Forms\Widgets\RichEditor::class => 'richeditor',
         ];
     }
 

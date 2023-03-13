@@ -7,6 +7,7 @@ use October\Rain\Database\Models\DeferredBinding;
 use Request;
 use Response;
 use Validator;
+use System\Models\File as StandAloneFile;
 
 // Returns a file size limit in bytes based on the PHP upload_max_filesize
 // and post_max_size
@@ -143,7 +144,7 @@ trait ManagesUploads {
      * @return mixed
      */
     protected function processUploads() {
-        if (! Request::header('X-OCTOBER-FILEUPLOAD')) {
+        if (!Request::header('X-OCTOBER-FILEUPLOAD') && !post('X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD')) {
             return false;
         }
 
@@ -158,6 +159,10 @@ trait ManagesUploads {
 
             if (!$uploadedFile->isValid()) {
                 throw new \Exception(sprintf(Lang::get('csatar.forms::lang.widgets.frontendFileUploadException.fileIsNotValid'), $uploadedFile->getClientOriginalName()));
+            }
+
+            if (post('X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD')) {
+                return $this->manageRichTextEditorUpload($uploadedFile);
             }
 
             $model_field = Request::header('X-OCTOBER-FILEUPLOAD');
@@ -322,6 +327,30 @@ trait ManagesUploads {
         return DeferredBinding::where('master_field', $relationName)
                        ->where('session_key', $sessionKey)
                        ->count();
+    }
+
+    public function manageRichTextEditorUpload($uploadedFile) {
+
+        $data = [ 'file' => $uploadedFile ];
+        $rules = ['file' => 'image|max:5000'];
+
+        $validation = Validator::make(
+            $data,
+            $rules
+        );
+
+        if ($validation->fails()) {
+            throw new ValidationException($validation);
+        }
+
+        $file = new StandAloneFile();
+        $file->data = $uploadedFile;
+        $file->attachment_id = $this->record->id ?? null;
+        $file->attachment_type = get_class($this->record) ?? null;
+        $file->is_public = true;
+        $file->save();
+
+        return Response::json([ 'link' => $file->getPath() ], 200);
     }
 
 }

@@ -99,7 +99,7 @@ fields:
     active_members_count:
         label: 'csatar.csatar::lang.plugin.admin.general.activeMembersCount'
         span: auto
-        readOnly: 1
+        disabled: 1
         type: number
         formBuilder:
             type: field
@@ -120,9 +120,31 @@ fields:
             order: 1
     description:
         label: 'csatar.csatar::lang.plugin.admin.district.description'
-        size: ''
+        size: huge
         span: auto
-        type: textarea
+        type: richeditor
+        toolbarButtons:
+            - paragraphFormat
+            - paragraphStyle
+            - bold
+            - italic
+            - underline
+            - strikeThrough
+            - align
+            - formatOL
+            - formatUL
+            - outdent
+            - indent
+            - quote,
+            - -
+            - undo
+            - redo
+            - insertLink
+            - insertImage
+            - insertTable
+            - insertHR
+            - clearFormatting
+            - html
         formBuilder:
             type: field
             card: descriptionData

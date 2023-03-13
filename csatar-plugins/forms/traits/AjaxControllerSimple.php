@@ -19,10 +19,12 @@ use October\Rain\Exception\ApplicationException;
 use October\Rain\Exception\NotFoundException;
 use October\Rain\Database\Models\DeferredBinding;
 use October\Rain\Database\Collection;
+use Media\Widgets\MediaManager;
 
 trait AjaxControllerSimple {
 
     use \System\Traits\ConfigMaker;
+    use \Backend\Traits\VueMaker;
 
     public $widget;
 
@@ -42,7 +44,8 @@ trait AjaxControllerSimple {
                 'label' => 'Date picker',
                 'code'  => 'datepicker'
             ],
-            'Backend\FormWidgets\RichEditor' => [
+//            'Backend\FormWidgets\RichEditor' => [
+            'Csatar\Forms\Widgets\RichEditor' => [
                 'label' => 'Rich editor',
                 'code'  => 'richeditor'
             ],
@@ -53,6 +56,10 @@ trait AjaxControllerSimple {
             'Backend\FormWidgets\MarkdownEditor' => [
                 'label' => 'MarkdownEditor',
                 'code'  => 'markdown'
+            ],
+            'Media\Widgets\MediaManager' => [
+                'label' => 'MediaManager',
+                'code'  => 'mediamanager'
             ],
             'Csatar\Forms\Widgets\TagList' => [
                 'label' => 'TagList',
@@ -65,9 +72,19 @@ trait AjaxControllerSimple {
             ]
         ];
 
+        $this->registerGlobalInstance();
+
         foreach ($widgets as $className => $widgetInfo) {
             WidgetManager::instance()->registerFormWidget($className, $widgetInfo);
         }
+    }
+
+    protected function registerGlobalInstance()
+    {
+        \Backend\Classes\Controller::extend(function($controller) {
+            $manager = new MediaManager($controller, 'ocmediamanager');
+            $manager->bindToController();
+        });
     }
 
     public function createForm($preview = false)
@@ -231,6 +248,9 @@ trait AjaxControllerSimple {
                 }
                 if (array_key_exists('order', $field['formBuilder'])) {
                     $newField['order'] = $field['formBuilder']['order'];
+                }
+                if ($field['type'] == 'richeditor') { // richteditor field type
+                    $newField['raw'] = true;
                 }
                 array_push($fieldsToPass[$field['formBuilder']['card']], $newField);
             }
