@@ -83,7 +83,7 @@ function filterSortPaginate(page = 1, sortColumn = '', sortDirection = '') {
         selected.forEach(function(item){
             let columnLabel = $(item[0][0]).attr('data-column-label');
             let label = columnLabel + ': ' + $(item[0][0].parentElement).children("label").text() + item[1];
-            let html = '<span class="filter-tag badge bg-primary mr-1">' + label + ' <a class="badge badge-dark"';
+            let html = '<span class="filter-tag badge bg-primary m-1">' + label + ' <a class="badge badge-dark"';
             html += 'onClick="removeFilter(\x27' + item[0][0].id + '\x27);">X</a></span>';
             $( "#activeFiltersList" ).append( html );
         });

@@ -1,9 +1,12 @@
 .collapse-button:after {
-    color: #0a53be;
+    font-family: arial !important;
+    font-weight: bold !important;
+    color: #78863F;
     content: "˄";
     float: right;
-    font-weight: 900;
+    padding: 5px 0px 0px 0px;
 }
+
 .collapse-button.collapsed:after {
     /* symbol for "collapsed" panels */
     content: "˅";
@@ -13,6 +16,18 @@
     color: #99A56B;
     max-height: 200px;
     text-align: left;
+}
+
+.th-grid:has(button.sortButton) {
+    position: relative;
+}
+
+.sortButton {
+    font-family: arial !important;
+    font-weight: bold !important;
+    color: #FFFFFF !important;
+    position: absolute;
+    right: 0px;
 }
 
 .sortButton::after {
@@ -25,4 +40,8 @@
 
 .sortButton.desc::after {
     content: "˅";
+}
+
+.searchButton:hover {
+    background-color: #F5F5F5;
 }

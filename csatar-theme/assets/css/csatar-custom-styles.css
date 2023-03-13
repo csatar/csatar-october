@@ -272,6 +272,11 @@ label {
     font-weight: 200;
 }
 
+.badge {
+    font-weight: 400;
+    font-size: calc(0.8rem + 0.2vw);
+}
+
 /* Color settings */
 
 .swatch {
@@ -788,7 +793,7 @@ body>p.flash-message.success, body>p.flash-message.info, body>p.flash-message.wa
     }
 }
 
-a:link, a:visited, a:hover, a:active {
+a:link, a:visited, a:hover, a:active, a.badge {
      text-decoration: none;
 }
 
@@ -996,7 +1001,7 @@ a.btn-warning:link, a.btn-warning:visited, a.btn-warning:active {
     color:#303030 !important;
 }
 
-.btn {
+.btn:not(.sortButton) {
     font-family: geomanist !important;
     font-weight: 400 !important;
     font-size: calc(0.9rem + 0.2vw) !important;
@@ -1429,7 +1434,7 @@ div.table.csat-grid > .tr {
 }
 
 @media (min-width: 992px) {
-    th, td, .th, .td, .th-grid {
+    th, td, .th, .td:not(.td-h-no100), .th-grid {
         height: 100%;
     }
 }
@@ -1452,6 +1457,10 @@ div.table.csat-grid > div.tr > div.card.csat-resp-gdtable > div.row > * {
 div.table.csat-grid > div.tr > div.card.csat-resp-gdtable > div.row > * > p.td {
     padding-left: 15px;
     margin-bottom: 0px !important;
+}
+
+div.card.csat-resp-gdtable > div.row > div.col {
+    padding: 2px;
 }
 
 @media (min-width: 992px) {
