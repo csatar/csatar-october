@@ -121,7 +121,7 @@ fields:
     description:
         label: 'csatar.csatar::lang.plugin.admin.district.description'
         size: huge
-        span: auto
+        span: full
         type: richeditor
         toolbarButtons:
             - paragraphFormat
@@ -141,6 +141,7 @@ fields:
             - redo
             - insertLink
             - insertImage
+            - insertFile
             - insertTable
             - insertHR
             - clearFormatting
@@ -162,13 +163,36 @@ fields:
             order: 2
     leadership_presentation:
         label: 'csatar.csatar::lang.plugin.admin.district.leadershipPresentation'
-        size: ''
-        span: auto
-        type: textarea
         formBuilder:
             type: field
             card: leadershipPresentationData
             position: details
+        size: huge
+        span: full
+        type: richeditor
+        toolbarButtons:
+            - paragraphFormat
+            - paragraphStyle
+            - bold
+            - italic
+            - underline
+            - strikeThrough
+            - align
+            - formatOL
+            - formatUL
+            - outdent
+            - indent
+            - quote,
+            -   -
+            - undo
+            - redo
+            - insertLink
+            - insertImage
+            - insertFile
+            - insertTable
+            - insertHR
+            - clearFormatting
+            - html
     bank_account:
         label: 'csatar.csatar::lang.plugin.admin.district.bankAccount'
         span: auto

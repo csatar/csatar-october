@@ -5,9 +5,10 @@ use Input;
 use Lang;
 use October\Rain\Database\Models\DeferredBinding;
 use Request;
+use Resizer;
 use Response;
-use Validator;
 use System\Models\File as StandAloneFile;
+use Validator;
 
 // Returns a file size limit in bytes based on the PHP upload_max_filesize
 // and post_max_size
@@ -162,10 +163,10 @@ trait ManagesUploads {
             }
 
             if (post('X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD')) {
-                return $this->manageRichTextEditorUpload($uploadedFile);
+                $model_field = 'richTextUploads';
+            } else {
+                $model_field = Request::header('X-OCTOBER-FILEUPLOAD');
             }
-
-            $model_field = Request::header('X-OCTOBER-FILEUPLOAD');
 
             if (! $this->record->hasRelation($model_field)) {
                 throw new \Exception(Lang::get('csatar.forms::lang.widgets.frontendFileUploadException.invalidField'));
@@ -179,6 +180,18 @@ trait ManagesUploads {
             $file->data = $uploadedFile;
             $file->is_public = true;
             $file->save();
+
+            if (strpos($uploadedFile->getMimeType(), 'image') !== false) {
+                list($width, $height) = getimagesize($file->getLocalPath());
+
+                if ($width > 1920) {
+                    $resizer = new Resizer();
+                    $resizer::open($file->getLocalPath())
+                        ->resize(1920, null, ['mode' => 'auto'])
+                        ->save($file->getLocalPath());
+                }
+            }
+
             if($isNew){
                 $this->record->{$model_field}()->add($file, $this->sessionKey);
             } else {
@@ -192,6 +205,10 @@ trait ManagesUploads {
                 //'thumb' => $file->thumbUrl,
                 //'path' => $file->pathUrl
             ];
+
+            if (post('X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD')) {
+                return Response::json([ 'link' => $file->getPath() ], 200);
+            }
 
             return Response::json($result, 200);
         }

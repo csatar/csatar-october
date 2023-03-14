@@ -108,7 +108,7 @@ fields:
     active_members_count:
         label: 'csatar.csatar::lang.plugin.admin.general.activeMembersCount'
         span: auto
-        readOnly: 1
+        disabled: 1
         type: number
         formBuilder:
             type: field
@@ -128,13 +128,36 @@ fields:
             color: csat-data-address
     leadership_presentation:
         label: 'csatar.csatar::lang.plugin.admin.association.leadershipPresentation'
-        size: ''
-        span: auto
-        type: textarea
         formBuilder:
             type: field
             card: leadershipPresentationData
             position: details
+        size: huge
+        span: full
+        type: richeditor
+        toolbarButtons:
+            - paragraphFormat
+            - paragraphStyle
+            - bold
+            - italic
+            - underline
+            - strikeThrough
+            - align
+            - formatOL
+            - formatUL
+            - outdent
+            - indent
+            - quote,
+            -   -
+            - undo
+            - redo
+            - insertLink
+            - insertImage
+            - insertFile
+            - insertTable
+            - insertHR
+            - clearFormatting
+            - html
     logo:
         label: 'csatar.csatar::lang.plugin.admin.general.logo'
         mode: image
