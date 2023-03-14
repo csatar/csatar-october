@@ -10,7 +10,7 @@ title = "Módszertan"
     {% if user.scout.getRightsForModel(methodology)['MODEL_GENERAL']['create'] > 0
     and this.param.action == false
     and this.param[this.controller.vars.basicForm.recordKeyParam] != this.controller.vars.basicForm.createRecordKeyword %}
-    <form action="/tudastar/methodology/{{ methodology[basicForm.recordKeyParam] }}/{{ basicForm.actionUpdateKeyword }}" method="post">
+    <form action="/tudastar/modszertan/{{ methodology[basicForm.recordKeyParam] }}/{{ basicForm.actionUpdateKeyword }}" method="post">
         <button type="submit" class="btn btn-sm rounded btn-primary" value="{{ 'Módszertan módosítása' | _ }}"><i class="csat-add-fill-wh-sm"></i> {{ 'Módszertan módosítása' | _ }}</button>
     </form>
     {% endif %}
