@@ -32,6 +32,8 @@ class Scout extends OrganizationBase
 
     use \October\Rain\Database\Traits\Nullable;
 
+    public const NAME_DELETED_INACTIVITY = 'Inaktivítás miatt törölt név';
+
     protected $dates = ['deleted_at'];
 
     protected static $relationLabels = null;
@@ -622,6 +624,10 @@ class Scout extends OrganizationBase
             'pivotModel' => '\Csatar\Csatar\Models\TeamReportScoutPivot',
             'label' => 'csatar.csatar::lang.plugin.admin.teamReport.teamReports',
         ],
+        'methodologies' => [
+            '\Csatar\Csatar\Models\Methodology',
+            'key' => 'ecset_code'
+        ]
     ];
 
     public $hasMany = [

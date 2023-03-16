@@ -8,7 +8,14 @@
         {% if not is_exists %}
         {{ 'Nem létezik'|_ }}
         {% else %}
-        <p><a href="/tag/{{ code }}">{{ scout_name }}</a></p>
+        <p>
+            {% if show_link %}
+                <a href="/tag/{{ code }}">{{ scout_name }}</a>
+            {% else %}
+                {{ scout_name }}
+            {% endif %}
+
+        </p>
         <p><a href="/csapat/{{ team_id }}">{{ team_number }}. {{ team_name }}</a></p>
         <p><a href="/korzet/{{ district_id }}">{{ district_name }}</a></p>
         <p>{{ 'Státusz:'|_ }} {% if is_active %} {{ 'aktív'|_ }} {% else %} {{ 'inaktív'|_ }} {% endif %}</p>

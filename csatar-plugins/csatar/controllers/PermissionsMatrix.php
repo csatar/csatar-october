@@ -208,6 +208,7 @@ class PermissionsMatrix extends Controller
 
                     $model = new $permissionBasedModel();
                     $fields = $model->fillable ?? [];
+                    $fields = array_merge($fields, $model->additionalFieldsForPermissionMatrix ?? []);
                     $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'hasOne', 'morphTo', 'morphOne',
                                        'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'];
 

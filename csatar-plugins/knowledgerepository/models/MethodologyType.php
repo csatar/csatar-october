@@ -8,6 +8,7 @@ use Model;
 class MethodologyType extends Model
 {
     use \October\Rain\Database\Traits\Validation;
+    use \October\Rain\Database\Traits\Sortable;
 
     /*
      * Disable timestamps by default.
@@ -35,6 +36,10 @@ class MethodologyType extends Model
     public $nullable = [
         'name',
         'sort_order',
+    ];
+
+    public $belongsToMany = [
+        'methodologies' => '\Csatar\Csatar\Models\Methodology'
     ];
 
     public function beforeSave()

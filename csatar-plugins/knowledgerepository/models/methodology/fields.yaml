@@ -1,0 +1,114 @@
+fields:
+    association:
+        label: 'csatar.csatar::lang.plugin.admin.association.association'
+        span: auto
+        type: relation
+        nameFrom: name
+        formBuilder:
+            readOnlyIfPreselected: true
+    name:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.methodologyName'
+        span: auto
+        type: text
+    sort_order:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.sortOrder'
+        span: auto
+        default: 0
+        type: number
+    link:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.link'
+        span: auto
+        type: text
+    timeframe:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.duration'
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+    methodologytype:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.methodologyType'
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+    attachements:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.attachements'
+        mode: file
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        maxFiles: '5'
+        span: auto
+        type: fileupload
+    description:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.description'
+        size: large
+        span: full
+        type: textarea
+    tools:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.tools'
+        span: auto
+        type: taglist
+        mode: relation
+        useKey: true
+        customTags: false
+        nameFrom: name
+    agegroups:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.ageGroup'
+        span: auto
+        type: taglist
+        mode: relation
+        useKey: true
+        customTags: false
+        dependsOn: association
+        nameFrom: name
+    locations:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.locations'
+        span: auto
+        type: taglist
+        mode: relation
+        useKey: true
+        customTags: false
+        nameFrom: name
+    headcounts:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.headCounts'
+        span: auto
+        type: taglist
+        mode: relation
+        useKey: true
+        customTags: false
+        nameFrom: description
+    uploader_csatar_code:
+      label: 'csatar.knowledgerepository::lang.plugin.admin.game.uploader'
+      span: auto
+      path: $/csatar/knowledgerepository/models/methodology/uploaderscout.htm
+      readOnly: 0
+      type: partial
+    approver_csatar_code:
+      label: 'csatar.knowledgerepository::lang.plugin.admin.game.approver'
+      span: auto
+      path: $/csatar/knowledgerepository/models/methodology/approverscout.htm
+      readOnly: 0
+      type: partial
+    created_at:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.uploadedAt'
+        mode: date
+        span: auto
+        type: datepicker
+        disabled: true
+    approved_at:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.approvedAt'
+        mode: date
+        span: auto
+        type: datepicker
+        disabled: true
+    note:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.note'
+        span: auto
+        type: text
+    version:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.version'
+        mode: date
+        span: auto
+        type: datepicker

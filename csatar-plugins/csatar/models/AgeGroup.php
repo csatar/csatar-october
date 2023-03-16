@@ -41,4 +41,13 @@ class AgeGroup extends Model
         'name',
         'association_id'
     ];
+
+    public $belongsToMany = [
+        'methodologies' => [
+            '\Csatar\KnowledgeRepository\Models\Methodology',
+            'table' => 'csatar_knowledgerepository_age_group_methodology',
+            'pivotModel' => '\Csatar\KnowledgeRepository\Models\AgeGroupMethodologyPivot',
+            'label' => 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.methodologies'
+        ]
+    ];
 }

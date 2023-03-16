@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- CS-490 - Moved inactive members list to structure tab, in accordion
+- CS-490 - Moved member list csv download/upload to structure tab
 - CS-411 - Fixed CSS to prevent images overflowing the screen
 - CS-493 - Added active members count to Association, District, Team, Troop, Patrol models
 - CS-493 - Modified form builder to display custom attributes
@@ -13,6 +15,8 @@
 - CS-387 - Created Partials component to make partial sharing possible between plugins
 - CS-387 - Added TagList (multiselect) widget to form builder, it is based on OctoberCMS Taglist widget, but bugs related key based use are fixed
 - CS-497 - Made Number of Patrols in Age Group field required on Team Reports
+- CS-377 - Created Methodology model and backend form
+- CS-374 - Created MethodologyType model and backend menu
 
 ## 1.9.1
 ### 2023-02-27

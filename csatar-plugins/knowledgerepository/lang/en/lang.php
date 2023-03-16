@@ -28,8 +28,11 @@
                     'location' => 'Location',
                     'gameTypes' => 'Game Types',
                     'gameType' => 'Game Type',
-                    'methodologyType' => 'Methodology Type',
-                    'methodologyTypes' => 'Methodology Types',
+                    'methodologyType' => 'Methodology type',
+                    'methodologyTypes' => 'Methodology types',
+                    'methodologyName' => 'Methodology name',
+                    'methodology' => 'Methodology',
+                    'ageGroup' => 'Age group',
                 ],
             ],
             'general' => [
@@ -41,6 +44,11 @@
                 'proposerCsatarCode' => 'Proposer',
                 'isApproved' => 'Approved',
                 'minute' => 'minute',
+                'link' => 'Link',
+                'Attachment' => 'Attachment',
+                'sortOrder' => 'Sort order',
+                'version' => 'Version',
+                'created_at' => 'Created at',
                 'forms' => 'Forms',
             ],
             'game' => [
@@ -54,8 +62,8 @@
                 'approvedAt' => 'Approval date',
                 'version' => 'Version',
                 'ageGroupsComment' => 'Age groups can be selected only after association is selected.',
-            ],
         ],
+    ],
         'components' => [
             'gameForm' => [
                 'name' => 'Game Form',

@@ -308,9 +308,9 @@ class Plugin extends PluginBase
     {
         $schedule->call(function () {
             Db::select(
-                'UPDATE csatar_csatar_scouts
-                SET family_name = "Inaktivítás miatt törölt név", given_name = ""
-                WHERE inactivated_at < DATE_SUB(NOW(), INTERVAL 5 YEAR) AND family_name <> "Inaktivítás miatt törölt név";'
+                "UPDATE csatar_csatar_scouts
+                SET family_name = '" . Scout::NAME_DELETED_INACTIVITY . "', given_name = ''
+                WHERE inactivated_at < DATE_SUB(NOW(), INTERVAL 5 YEAR) AND family_name <> '" . Scout::NAME_DELETED_INACTIVITY . "';"
             );
         })
             ->daily();

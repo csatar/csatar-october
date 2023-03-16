@@ -43,6 +43,14 @@ class Headcount extends Model
         'max',
     ];
 
+    public $belongsToMany = [
+        'methodologies' => [
+            '\Csatar\KnowledgeRepository\Models\Methodology',
+            'table' => 'csatar_knowledgerepository_headcount_methodology',
+            'pivotModel' => '\Csatar\KnowledgeRepository\Models\HeadcountMethodologyPivot',
+            'label' => 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.methodologies'
+        ]
+    ];
 
     public function getNameAttribute()
     {
