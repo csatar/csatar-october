@@ -35,7 +35,6 @@ public function onStart(){
     {% if user.scout.getRightsForModel(game)['MODEL_GENERAL']['create'] > 0 %}
         <form action="/tudastar/jatek/letrehozas" method="post">
             <input type="hidden" name="association" value="{{ association_id }}">
-            <input type="hidden" name="uploader" value="{{ user.scout.ecset_code }}">
             {% partial "@formButton"
             permissionValue = user.scout.getRightsForModel(game)['MODEL_GENERAL']['create']
             btnExtraClasses = 'btn btn-sm rounded btn-primary'

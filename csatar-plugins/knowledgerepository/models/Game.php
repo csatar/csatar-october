@@ -1,10 +1,10 @@
 <?php namespace Csatar\KnowledgeRepository\Models;
 
+use Auth;
 use Model;
 use Csatar\Csatar\Models\PermissionBasedAccess;
 use \Csatar\Csatar\Models\Scout;
 use Lang;
-
 /**
  * Model
  */
@@ -39,6 +39,7 @@ class Game extends PermissionBasedAccess
         'description',
         'uploader_csatar_code',
         'approver_csatar_code',
+        'created_at',
         'approved_at',
     ];
 
@@ -148,17 +149,20 @@ class Game extends PermissionBasedAccess
         return $query->whereNotNull('approved_at');
     }
 
-    public function getUploaderOptions() {
+    public function beforeCreate()
+    {
         if (empty($this->uploader_csatar_code)) {
-            return [];
+            $scout = Auth::user()->scout;
+
+            $this->uploader_csatar_code = $scout->ecset_code;
         }
-        return Scout::where('ecset_code', $this->uploader_csatar_code)->get()->pluck('name', 'ecset_code');
     }
 
-    public function getApproverOptions() {
-        if (empty($this->approver_csatar_code)) {
-            return [];
-        }
-        return Scout::where('ecset_code', $this->approver_csatar_code)->get()->pluck('name', 'ecset_code');
+    public function getUploaderScout() {
+        return $this->uploader_csatar_code ? $this->uploader : null;
+    }
+
+    public function getApproverScout() {
+        return $this->approver_csatar_code ? $this->approver : null;
     }
 }
