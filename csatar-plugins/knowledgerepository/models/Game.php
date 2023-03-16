@@ -53,6 +53,7 @@ class Game extends PermissionBasedAccess
         'description',
         'created_at',
         'updated_at',
+        'created_at',
         'approved_at',
     ];
 
