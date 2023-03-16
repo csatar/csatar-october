@@ -19,6 +19,7 @@ class BasicForm extends ComponentBase  {
 
     use AjaxControllerSimple;
     use ManagesUploads;
+    use \System\Traits\ViewMaker;
 
     /**
      * Session key for deferred bindings

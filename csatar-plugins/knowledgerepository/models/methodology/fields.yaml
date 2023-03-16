@@ -61,6 +61,7 @@ fields:
         mode: relation
         useKey: true
         customTags: false
+        dependsOn: association
         nameFrom: name
     locations:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.locations'
@@ -78,21 +79,18 @@ fields:
         useKey: true
         customTags: false
         nameFrom: description
-    uploaderscout:
-        label: 'csatar.knowledgerepository::lang.plugin.admin.game.uploader'
-        emptyOption: ' - '
-        showSearch: true
-        span: auto
-        disabled: 1
-        type: dropdown
-    approverscout:
-        label: 'csatar.knowledgerepository::lang.plugin.admin.game.approver'
-        emptyOption: ' - '
-        nameFrom: name_with_id_number
-        showSearch: true
-        span: auto
-        disabled: 1
-        type: dropdown
+    uploader_csatar_code:
+      label: 'csatar.knowledgerepository::lang.plugin.admin.game.uploader'
+      span: auto
+      path: $/csatar/knowledgerepository/models/methodology/uploaderscout.htm
+      readOnly: 0
+      type: partial
+    approver_csatar_code:
+      label: 'csatar.knowledgerepository::lang.plugin.admin.game.approver'
+      span: auto
+      path: $/csatar/knowledgerepository/models/methodology/approverscout.htm
+      readOnly: 0
+      type: partial
     created_at:
         label: 'csatar.knowledgerepository::lang.plugin.admin.game.uploadedAt'
         mode: date
@@ -100,11 +98,11 @@ fields:
         type: datepicker
         disabled: true
     approved_at:
-      label: 'csatar.knowledgerepository::lang.plugin.admin.game.approvedAt'
-      mode: date
-      span: auto
-      type: datepicker
-      disabled: true
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.approvedAt'
+        mode: date
+        span: auto
+        type: datepicker
+        disabled: true
     note:
         label: 'csatar.knowledgerepository::lang.plugin.admin.general.note'
         span: auto
