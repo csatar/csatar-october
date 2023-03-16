@@ -234,7 +234,7 @@
                     'updateData' => 'Adatok frissítése',
                     'updateDataSuccess' => 'Az adatok frissítve lettek.',
                     'synchronize' => 'Szinkronizálás',
-                    'synchronizePermissionsMatrixDesc' => 'Ez a szinkronizálás megkeresi az összes "PermissionBasedAccess" modell-ből származatatott osztályt és létrehoz egy jogosultságot a jogsultság mátrixban, minden létező jogosultság típushoz, a származtatott modell "fillable", "belongsTo", "belongsToMany", "hasMany", "attachOne", "hasOne", "morphTo", "morphOne", "morphMany", "morphToMany", "morphedByMany", "attachMany", "hasManyThrough", "hasOneThrough" tömbjei alapján. Az újonnan létrehozott jogosultság minden értéke "null" lesz. A már létező jogosultságok nem változnak.',
+                    'synchronizePermissionsMatrixDesc' => 'Ez a szinkronizálás megkeresi az összes "PermissionBasedAccess" modell-ből származatatott osztályt és létrehoz egy jogosultságot a jogsultság mátrixban, minden létező jogosultság típushoz, a származtatott modell "fillable", "additionalFieldsForPermissionMatrix", "belongsTo", "belongsToMany", "hasMany", "attachOne", "hasOne", "morphTo", "morphOne", "morphMany", "morphToMany", "morphedByMany", "attachMany", "hasManyThrough", "hasOneThrough" tömbjei alapján. Az újonnan létrehozott jogosultság minden értéke "null" lesz. A már létező jogosultságok nem változnak.',
                     'synchronizeComplete' => 'Szinkronizálás befejezve!',
                 ],
                 'permissionsMatrix' => [

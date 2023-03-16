@@ -7,6 +7,7 @@ use Cms\Classes\ComponentBase;
 use Csatar\Forms\Components\BasicForm;
 use Csatar\Csatar\Components\Partials;
 use Lang;
+use Redirect;
 
 class MethodologyForm extends ComponentBase
 {
@@ -52,5 +53,6 @@ class MethodologyForm extends ComponentBase
         $methodology->save();
 
         $this->onRender();
+        return Redirect::refresh();
     }
 }

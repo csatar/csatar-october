@@ -8,6 +8,7 @@ use Csatar\KnowledgeRepository\Models\Game;
 use Csatar\Forms\Components\BasicForm;
 use Csatar\Csatar\Components\Partials;
 use Lang;
+use Redirect;
 
 class GameForm extends ComponentBase
 {
@@ -53,5 +54,6 @@ class GameForm extends ComponentBase
         $game->save();
 
         $this->onRender();
+        return Redirect::refresh();
     }
 }

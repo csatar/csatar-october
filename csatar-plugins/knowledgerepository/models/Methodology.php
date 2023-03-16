@@ -1,5 +1,6 @@
 <?php namespace Csatar\KnowledgeRepository\Models;
 
+use Auth;
 use Csatar\Csatar\Models\PermissionBasedAccess;
 use Csatar\Csatar\Models\Scout;
 use Model;
@@ -12,6 +13,7 @@ class Methodology extends PermissionBasedAccess
 {
     use \October\Rain\Database\Traits\Validation;
     use \October\Rain\Database\Traits\SoftDelete;
+    use \October\Rain\Database\Traits\Nullable;
 
     /**
      * @var string The database table used by the model.
@@ -33,10 +35,14 @@ class Methodology extends PermissionBasedAccess
         'other_tools',
         'uploader_csatar_code',
         'approver_csatar_code',
+        'approved_at',
         'note',
         'sort_order',
         'version',
-        'created_at'
+    ];
+
+    public $additionalFieldsForPermissionMatrix = [
+        'created_at',
     ];
 
     public $nullable = [
@@ -109,7 +115,8 @@ class Methodology extends PermissionBasedAccess
             '\Csatar\Csatar\Models\AgeGroup',
             'table' => 'csatar_knowledgerepository_age_group_methodology',
             'pivotModel' => '\Csatar\KnowledgeRepository\Models\AgeGroupMethodologyPivot',
-            'label' => 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.ageGroup'
+            'label' => 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.ageGroup',
+            'scope' => [self::class, 'filterAgeGroupByAssociation']
         ],
         'locations' => [
             '\Csatar\KnowledgeRepository\Models\Location',
@@ -122,6 +129,15 @@ class Methodology extends PermissionBasedAccess
     public $attachMany = [
         'attachements' => ['System\Models\File'],
     ];
+
+    public function beforeCreate()
+    {
+        if (empty($this->uploader_csatar_code)) {
+            $scout = Auth::user()->scout;
+
+            $this->uploader_csatar_code = $scout->ecset_code;
+        }
+    }
 
     public static function filterAgeGroupByAssociation($query, $related)
     {
@@ -151,17 +167,11 @@ class Methodology extends PermissionBasedAccess
         return $query->whereNotNull('approved_at');
     }
 
-    public function getUploaderScoutOptions() {
-        if (empty($this->uploader_csatar_code)) {
-            return [];
-        }
-        return Scout::where('ecset_code', $this->uploader_csatar_code)->get()->pluck('name', 'ecset_code');
+    public function getUploaderScout() {
+        return $this->uploader_csatar_code ? $this->uploaderscout : null;
     }
 
-    public function getApproverScoutOptions() {
-        if (empty($this->approver_csatar_code)) {
-            return [];
-        }
-        return Scout::where('ecset_code', $this->approver_csatar_code)->get()->pluck('name', 'ecset_code');
+    public function getApproverScout() {
+        return $this->approver_csatar_code ? $this->approverscout : null;
     }
 }

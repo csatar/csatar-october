@@ -209,6 +209,7 @@ class PermissionsMatrix extends Controller
 
                     $model = new $permissionBasedModel();
                     $fields = $model->fillable ?? [];
+                    $fields = array_merge($fields, $model->additionalFieldsForPermissionMatrix ?? []);
                     $relationArrays = Conts::AVAILABLE_RELATION_TYPES;
 
                     foreach ($relationArrays as $relationArrayName) {
