@@ -39,6 +39,9 @@ class Methodology extends PermissionBasedAccess
         'note',
         'sort_order',
         'version',
+    ];
+
+    public $additionalFieldsForPermissionMatrix = [
         'created_at',
     ];
 

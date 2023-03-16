@@ -39,8 +39,11 @@ class Game extends PermissionBasedAccess
         'description',
         'uploader_csatar_code',
         'approver_csatar_code',
-        'created_at',
         'approved_at',
+    ];
+
+    public $additionalFieldsForPermissionMatrix = [
+        'created_at',
     ];
 
     public $nullable = [
@@ -53,7 +56,6 @@ class Game extends PermissionBasedAccess
         'description',
         'created_at',
         'updated_at',
-        'created_at',
         'approved_at',
     ];
 
