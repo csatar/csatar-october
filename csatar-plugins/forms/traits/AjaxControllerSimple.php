@@ -642,6 +642,21 @@ trait AjaxControllerSimple {
         //until this point record was displayed based on rights cached in session
         $this->currentUserRights = $this->getRights($record, true); // now we get rights from database and ignore session
 
+        if ($this->properties['subForm']) {
+            $relationName = $this->properties['getRecordFromParent'] ?? null;
+            $parent = $this->getParent();
+
+            $this->getRightsFromParent($parent, $relationName);
+
+            if ($this->properties['action'] == 'create' && $this->currentUserRights['MODEL_GENERAL']['create'] < 1) {
+                return;
+            }
+
+            if ($this->properties['action'] == 'update' && $this->currentUserRights['MODEL_GENERAL']['update'] < 1) {
+                return;
+            }
+        }
+
         // validate the form
         $form = Form::find($this->formId ?? Input::get('formId'));
         $config = $this->makeConfig($form->getFieldsConfig());
@@ -654,7 +669,7 @@ trait AjaxControllerSimple {
             }
         }
 
-        $rules = $this->addRequiredRuleBasedOnUserRights($record->rules, $this->currentUserRights);
+        $rules = $this->addRequiredRuleBasedOnUserRights($record->rules, $this->currentUserRights ?? []);
 
         // add extra fields validation
         $extraFields = $this->getExtraFields($this->record, (new DateTime())->format('Y-m-d')) ?? [];

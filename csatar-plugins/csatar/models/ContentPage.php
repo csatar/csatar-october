@@ -5,7 +5,7 @@ use Model;
 /**
  * Model
  */
-class ContentPage extends Model
+class ContentPage extends PermissionBasedAccess
 {
     use \October\Rain\Database\Traits\Validation;
 
