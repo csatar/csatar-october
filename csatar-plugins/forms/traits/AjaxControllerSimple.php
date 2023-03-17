@@ -19,10 +19,12 @@ use October\Rain\Exception\ApplicationException;
 use October\Rain\Exception\NotFoundException;
 use October\Rain\Database\Models\DeferredBinding;
 use October\Rain\Database\Collection;
+use Media\Widgets\MediaManager;
 
 trait AjaxControllerSimple {
 
     use \System\Traits\ConfigMaker;
+    use \Backend\Traits\VueMaker;
 
     public $widget;
 
@@ -42,7 +44,8 @@ trait AjaxControllerSimple {
                 'label' => 'Date picker',
                 'code'  => 'datepicker'
             ],
-            'Backend\FormWidgets\RichEditor' => [
+//            'Backend\FormWidgets\RichEditor' => [
+            'Csatar\Forms\Widgets\RichEditor' => [
                 'label' => 'Rich editor',
                 'code'  => 'richeditor'
             ],
@@ -53,6 +56,10 @@ trait AjaxControllerSimple {
             'Backend\FormWidgets\MarkdownEditor' => [
                 'label' => 'MarkdownEditor',
                 'code'  => 'markdown'
+            ],
+            'Media\Widgets\MediaManager' => [
+                'label' => 'MediaManager',
+                'code'  => 'mediamanager'
             ],
             'Csatar\Forms\Widgets\TagList' => [
                 'label' => 'TagList',
@@ -65,9 +72,19 @@ trait AjaxControllerSimple {
             ]
         ];
 
+        $this->registerGlobalInstance();
+
         foreach ($widgets as $className => $widgetInfo) {
             WidgetManager::instance()->registerFormWidget($className, $widgetInfo);
         }
+    }
+
+    protected function registerGlobalInstance()
+    {
+        \Backend\Classes\Controller::extend(function($controller) {
+            $manager = new MediaManager($controller, 'ocmediamanager');
+            $manager->bindToController();
+        });
     }
 
     public function createForm($preview = false)
@@ -231,6 +248,9 @@ trait AjaxControllerSimple {
                 }
                 if (array_key_exists('order', $field['formBuilder'])) {
                     $newField['order'] = $field['formBuilder']['order'];
+                }
+                if ($field['type'] == 'richeditor') {
+                    $newField['raw'] = true;
                 }
                 array_push($fieldsToPass[$field['formBuilder']['card']], $newField);
             }
@@ -622,6 +642,21 @@ trait AjaxControllerSimple {
         //until this point record was displayed based on rights cached in session
         $this->currentUserRights = $this->getRights($record, true); // now we get rights from database and ignore session
 
+        if ($this->properties['subForm']) {
+            $relationName = $this->properties['getRecordFromParent'] ?? null;
+            $parent = $this->getParent();
+
+            $this->getRightsFromParent($parent, $relationName);
+
+            if ($this->properties['action'] == 'create' && $this->currentUserRights['MODEL_GENERAL']['create'] < 1) {
+                return;
+            }
+
+            if ($this->properties['action'] == 'update' && $this->currentUserRights['MODEL_GENERAL']['update'] < 1) {
+                return;
+            }
+        }
+
         // validate the form
         $form = Form::find($this->formId ?? Input::get('formId'));
         $config = $this->makeConfig($form->getFieldsConfig());
@@ -634,7 +669,7 @@ trait AjaxControllerSimple {
             }
         }
 
-        $rules = $this->addRequiredRuleBasedOnUserRights($record->rules, $this->currentUserRights);
+        $rules = $this->addRequiredRuleBasedOnUserRights($record->rules, $this->currentUserRights ?? []);
 
         // add extra fields validation
         $extraFields = $this->getExtraFields($this->record, (new DateTime())->format('Y-m-d')) ?? [];
@@ -1592,38 +1627,4 @@ trait AjaxControllerSimple {
     {
         $this->messages[$messageType][$message] = $message;
     }
-
-//    private function removeRulesBasedOnUserRights(array $rules, $rights, bool $isNewRecord): array
-//    {
-//        // Should we remove rules for attributes that user can't create/update?
-//        // If we do, will there be another validation on model level?
-//        //        $rules = array_intersect_key($rules, $rights->toArray());
-//
-//        foreach ($rules as $attribute => $value) {
-//            if(!$this->canSaveAttribute($attribute) ) {
-//                unset($rules[$attribute]);
-//            }
-//        }
-//
-//        return $rules;
-//    }
-//
-//    private function validateDataBasedOnUserRights(array $rules, $rights, array $data, bool $isNewRecord){
-//        if ($isNewRecord) {
-//            //we do not care about read/update/delete rights
-//            //what if can NOT create but is obligatory --> there will be validation error
-//            //what if can NOT create but attribute is required by default --> there will be validation error
-//
-//            // trow exception to contact admin and review rights?
-//        }
-//
-//        if (!$isNewRecord) {
-//            //we do not care about read/create rights.
-//            //what if can NOT update but is obligatory and empty?
-//            // --> field should be read only, and value should not be empty BUT what if it is
-//            //what if can NOT update but attribute is required by default
-//            // --> field should be read only AND there should be no record with empty value
-//            // There will be validation error in both cases
-//        }
-//    }
 }

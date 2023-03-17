@@ -5,7 +5,9 @@ use Input;
 use Lang;
 use October\Rain\Database\Models\DeferredBinding;
 use Request;
+use Resizer;
 use Response;
+use System\Models\File as StandAloneFile;
 use Validator;
 
 // Returns a file size limit in bytes based on the PHP upload_max_filesize
@@ -143,7 +145,7 @@ trait ManagesUploads {
      * @return mixed
      */
     protected function processUploads() {
-        if (! Request::header('X-OCTOBER-FILEUPLOAD')) {
+        if (!Request::header('X-OCTOBER-FILEUPLOAD') && !post('X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD')) {
             return false;
         }
 
@@ -160,7 +162,11 @@ trait ManagesUploads {
                 throw new \Exception(sprintf(Lang::get('csatar.forms::lang.widgets.frontendFileUploadException.fileIsNotValid'), $uploadedFile->getClientOriginalName()));
             }
 
-            $model_field = Request::header('X-OCTOBER-FILEUPLOAD');
+            if (post('X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD')) {
+                $model_field = 'richTextUploads';
+            } else {
+                $model_field = Request::header('X-OCTOBER-FILEUPLOAD');
+            }
 
             if (! $this->record->hasRelation($model_field)) {
                 throw new \Exception(Lang::get('csatar.forms::lang.widgets.frontendFileUploadException.invalidField'));
@@ -174,6 +180,18 @@ trait ManagesUploads {
             $file->data = $uploadedFile;
             $file->is_public = true;
             $file->save();
+
+            if (strpos($uploadedFile->getMimeType(), 'image') !== false) {
+                list($width, $height) = getimagesize($file->getLocalPath());
+
+                if ($width > 1920) {
+                    $resizer = new Resizer();
+                    $resizer::open($file->getLocalPath())
+                        ->resize(1920, null, ['mode' => 'auto'])
+                        ->save($file->getLocalPath());
+                }
+            }
+
             if($isNew){
                 $this->record->{$model_field}()->add($file, $this->sessionKey);
             } else {
@@ -187,6 +205,10 @@ trait ManagesUploads {
                 //'thumb' => $file->thumbUrl,
                 //'path' => $file->pathUrl
             ];
+
+            if (post('X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD')) {
+                return Response::json([ 'link' => $file->getPath() ], 200);
+            }
 
             return Response::json($result, 200);
         }
@@ -322,6 +344,30 @@ trait ManagesUploads {
         return DeferredBinding::where('master_field', $relationName)
                        ->where('session_key', $sessionKey)
                        ->count();
+    }
+
+    public function manageRichTextEditorUpload($uploadedFile) {
+
+        $data = [ 'file' => $uploadedFile ];
+        $rules = ['file' => 'image|max:5000'];
+
+        $validation = Validator::make(
+            $data,
+            $rules
+        );
+
+        if ($validation->fails()) {
+            throw new ValidationException($validation);
+        }
+
+        $file = new StandAloneFile();
+        $file->data = $uploadedFile;
+        $file->attachment_id = $this->record->id ?? null;
+        $file->attachment_type = get_class($this->record) ?? null;
+        $file->is_public = true;
+        $file->save();
+
+        return Response::json([ 'link' => $file->getPath() ], 200);
     }
 
 }

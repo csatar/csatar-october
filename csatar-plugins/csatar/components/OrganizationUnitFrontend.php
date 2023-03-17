@@ -93,7 +93,7 @@ class OrganizationUnitFrontend extends ComponentBase
 
         $content = $model->content_page;
         return [
-            '#tabContent' => $this->renderPartial('@editor', ['content_page' => $content])
+            '#contentPage' => $this->renderPartial('@editor', ['content_page' => $content])
         ];
     }
 

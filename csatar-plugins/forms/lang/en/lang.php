@@ -27,6 +27,10 @@
                     'title'             => 'Form',
                     'description'       => 'Select from',
                 ],
+                'subForm' => [
+                    'title'             => 'Sub form',
+                    'description'       => 'If true, CRUD parameters will be ignored and the form will be rendered as a sub form.',
+                ],
                 'groupCRUD' => [
                     'groupName'                 => 'CRUD parametes',
                     'recordKeyParam'            => 'Record key link param. name',

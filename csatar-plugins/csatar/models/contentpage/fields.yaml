@@ -1,0 +1,37 @@
+fields:
+    title:
+        label: 'csatar.csatar::lang.plugin.admin.contentPage.title'
+        span: auto
+        type: text
+        formBuilder:
+            ignoreUserRights: 1
+    content:
+        label: 'csatar.csatar::lang.plugin.admin.contentPage.content'
+        size: huge
+        span: full
+        type: richeditor
+        formBuilder:
+            ignoreUserRights: 1
+        toolbarButtons:
+            - paragraphFormat
+            - paragraphStyle
+            - bold
+            - italic
+            - underline
+            - strikeThrough
+            - align
+            - formatOL
+            - formatUL
+            - outdent
+            - indent
+            - quote,
+            -   -
+            - undo
+            - redo
+            - insertLink
+            - insertImage
+            - insertFile
+            - insertTable
+            - insertHR
+            - clearFormatting
+            - html

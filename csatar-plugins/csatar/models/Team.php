@@ -210,6 +210,13 @@ class Team extends OrganizationBase
         'logo' => 'System\Models\File'
     ];
 
+    public $attachMany = [
+        'richTextUploads' => [
+            'System\Models\File',
+            'ignoreInPermissionsMatrix' => true,
+        ],
+    ];
+
     public function beforeSave()
     {
         $filterWords = explode(',', Lang::get('csatar.csatar::lang.plugin.admin.team.filterOrganizationUnitNameForWords'));

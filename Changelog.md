@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- CS-318 - Added richtext editor to FromBuilder
+- CS-318 - Changed Assocation leadership_presentation field to richt text
+- CS-318 - Changed District leadership_presentation, description to rich text
+- CS-318 - Changed Team leadership_presentation, history and description to richtext
+- CS-318 - Updated formbuilder to support subforms, created ContentPageForm component using formbuilder subform capability
+- CS-318 - Changed TinyMCE modules to ContentPageForm component
+
 ## 1.10.0
 ### 2023-03-17
 
