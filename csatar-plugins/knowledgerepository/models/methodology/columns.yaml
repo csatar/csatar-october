@@ -9,6 +9,16 @@ columns:
         type: text
         searchable: true
         sortable: true
+    tool_id:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.tools'
+        type: text
+        select: name
+        relation: tools
+    headcount_id:
+      label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.headCounts'
+      type: text
+      select: description
+      relation: headcounts
     sort_order:
         label: 'csatar.knowledgerepository::lang.plugin.admin.general.sortOrder'
         type: number
@@ -20,6 +30,16 @@ columns:
         searchable: false
         relation: timeframe
         valueFrom: name
+    age_group_id:
+      label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.ageGroup'
+      type: text
+      select: name
+      relation: agegroups
+    location_id:
+      label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.locations'
+      type: text
+      select: name
+      relation: locations
     methodology_type_id:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.methodologyType'
         type: text
@@ -30,6 +50,11 @@ columns:
         type: text
         searchable: true
         sortable: true
+    attachment_id:
+      label: 'csatar.knowledgerepository::lang.plugin.admin.game.attachements'
+      type: text
+      select: file_name
+      relation: attachements
     uploader_csatar_code:
         label: 'csatar.knowledgerepository::lang.plugin.admin.general.proposerCsatarCode'
         type: text
