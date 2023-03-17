@@ -72,7 +72,7 @@
             %}
         </div>
         <div id="uploadCsv" class="me-2">
-            {#% partial 'organizationUnitFrontend::csvUploadForm' permissionValue=orgPermissions["scouts"]["update"] teamId=team_id %#}
+            {% partial 'organizationUnitFrontend::csvUploadForm' permissionValue=orgPermissions["scouts"]["update"] teamId=team_id %}
         </div>
     {% endif %}
 
