@@ -314,6 +314,6 @@ class Plugin extends PluginBase
                 WHERE inactivated_at < DATE_SUB(NOW(), INTERVAL 5 YEAR) AND family_name <> '" . Scout::NAME_DELETED_INACTIVITY . "';"
             );
         })
-            ->daily();
+            ->dailyAt('00:15');
     }
 }
