@@ -103,6 +103,13 @@ class Troop extends OrganizationBase
         'logo' => 'System\Models\File'
     ];
 
+    public $attachMany = [
+        'richTextUploads' => [
+            'System\Models\File',
+            'ignoreInPermissionsMatrix' => true,
+        ],
+    ];
+
     public static function getEagerLoadSettings(string $useCase = null): array
     {
         $eagerLoadSettings = parent::getEagerLoadSettings($useCase);

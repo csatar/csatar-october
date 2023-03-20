@@ -58,6 +58,10 @@
                 'ageGroups' => 'Age Groups',
                 'numberOfPatrolsInAgeGroup' => 'Number of patrols in age group',
             ],
+            'contentPage' => [
+                'title' => 'Title',
+                'content' => 'Content',
+            ],
             'scout' => [
                 'scout' => 'Scout',
                 'scouts' => 'Scouts',
@@ -614,6 +618,13 @@
             'code' => 'Zip code',
         ],
         'component' => [
+            'contentPageForm' => [
+                'name' => 'Content Page Form',
+                'description' => 'Displays a form for creating and editing content pages.',
+                'parentModelClass' => 'Parent model class',
+                'parentRecordKeyParam' => 'Parent record key parameter',
+                'parentRecordKeyParamDescription' => 'The key of the parent model class.',
+            ],
             'general' => [
                 'validationExceptions' => [
                     'emailAlreadyAssigned' => 'The e-mail address is already assgined to a user account.',

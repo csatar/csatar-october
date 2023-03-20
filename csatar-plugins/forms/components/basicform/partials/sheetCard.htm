@@ -16,7 +16,11 @@
                             <div class="col-lg-6 col-md-6 col-sm-12">
                             {% endif %}
                                 <p class="p-small mb-2 text-subtitle">{{ field.label }}</p>
-                                <p class="card-text">{{ field.value }}</p>
+                                {% if field.raw %}
+                                    <p class="card-text">{{ field.value|raw }}</p>
+                                {% else %}
+                                    <p class="card-text">{{ field.value }}</p>
+                                {% endif %}
                             </div>
                         {% endfor %}
                     </div>

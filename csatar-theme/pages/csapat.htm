@@ -28,6 +28,9 @@ mode = "accordion"
 model_name = "Team"
 model_id = "{{ :id }}"
 
+[contentPageForm]
+parentModelClass = "Csatar\Csatar\Models\Team"
+parentRecordKeyParam = "id"
 ==
 <?php
 public function onStart() {

@@ -58,6 +58,10 @@
                 'ageGroups' => 'Korosztályok',
                 'numberOfPatrolsInAgeGroup' => 'Őrsök száma a korosztályban',
             ],
+            'contentPage' => [
+                'title' => 'Cím',
+                'content' => 'Tartalom',
+            ],
             'scout' => [
                 'scout' => 'Cserkész',
                 'scouts' => 'Cserkészek',
@@ -611,6 +615,13 @@
             'code' => 'Irányitószám',
         ],
         'component' => [
+            'contentPageForm' => [
+                'name' => 'Tartalom oldal űrlap',
+                'description' => 'Tartalom oldal űrlap komponens',
+                'parentModelClass' => 'Szülő model osztály',
+                'parentRecordKeyParam' => 'Szülő rekord kulcs paraméter',
+                'parentRecordKeyParamDescription' => 'A szülő moldel kulcs paraméter neve.',
+            ],
             'general' => [
                 'validationExceptions' => [
                     'emailAlreadyAssigned' => 'Ez az e-mail cím már felhasználói fiókhoz van rendelve.',

@@ -39,6 +39,10 @@ mode = "accordion"
 [csatargallery]
 model_name = "Association"
 model_id = "{{ :id }}"
+
+[contentPageForm]
+parentModelClass = "Csatar\Csatar\Models\Association"
+parentRecordKeyParam = "id"
 ==
 <?php
 function onStart()

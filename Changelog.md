@@ -7,6 +7,16 @@
 - CS-514 - Created TrialSystem related models, backend forms and lists
 - CS-514 - Added TrialSystems relation to Game model
 - CS-520 - Created RecordList component
+- CS-318 - Added richtext editor to FromBuilder
+- CS-318 - Changed Assocation leadership_presentation field to richt text
+- CS-318 - Changed District leadership_presentation, description to rich text
+- CS-318 - Changed Team leadership_presentation, history and description to richtext
+- CS-318 - Updated formbuilder to support subforms, created ContentPageForm component using formbuilder subform capability
+- CS-318 - Changed TinyMCE modules to ContentPageForm component
+
+## 1.10.0
+### 2023-03-17
+
 - CS-490 - Moved inactive members list to structure tab, in accordion
 - CS-490 - Moved member list csv download/upload to structure tab
 - CS-411 - Fixed CSS to prevent images overflowing the screen

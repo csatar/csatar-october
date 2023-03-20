@@ -195,7 +195,7 @@ class TeamReport extends ComponentBase
                 $extraFields[$id] = [
                     'label' => $extraField->label,
                     'value' => $extraField->value,
-                ]; 
+                ];
             }
         }
 
@@ -215,7 +215,7 @@ class TeamReport extends ComponentBase
 
     public function getScouts($teamId): void
     {
-        $scouts = Scout::where('team_id', $teamId)->whereNull('inactivated_at', true)->get();
+        $scouts = Scout::where('team_id', $teamId)->whereNull('inactivated_at')->get();
         $this->totalAmount = $this->teamFee;
         $this->scoutsWithoutRegistrationForm = TeamReportModel::getScoutsWithoutRegistrationForm($scouts);
 

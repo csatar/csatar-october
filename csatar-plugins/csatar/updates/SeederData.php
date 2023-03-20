@@ -208,6 +208,10 @@ class SeederData extends Seeder
             [
                 'title' => 'Baleseti log',
                 'model' => 'Csatar\Csatar\Models\AccidentLogRecord',
+            ],
+            [
+                'title' => 'Rólunk',
+                'model' => 'Csatar\Csatar\Models\ContentPage',
             ]
         ],
         'ageGroups'                 => [
