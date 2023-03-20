@@ -1,25 +1,10 @@
-.sortButton,
 .collapse-button {
-    font-family: FontAwesome !important;
-    font-weight: 400;
-    font-style: normal;
-}
-
-.collapse-button:after {
-    font-family: FontAwesome;
-    font-weight: 400;
-    font-style: normal;
-    color: #78863F;
-    /*content: "▲";*/
-    content: "\f106";
-    float: right;
-    padding: 5px 0px 0px 0px;
-}
-
-.collapse-button.collapsed:after {
-    /* symbol for "collapsed" panels */
-    /*content: "▼";*/
-    content: "\f106";
+    height: 40px;
+    width: 12px;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2378863F' stroke-linecap='round' stroke-linejoin='round' stroke-width='3.5' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: center;
+    padding: 0px !important;
 }
 
 .checkbox-container {
@@ -30,22 +15,6 @@
 
 .th-grid:has(button.sortButton) {
     position: relative;
-}
-
-.sortButton {
-    color: #FFFFFF !important;
-    position: absolute;
-    right: 0px;
-}
-
-.sortButton.asc::after {
-    /*content: "▲";*/
-    content: "\f107";
-}
-
-.sortButton.desc::after {
-    /*content: "▼";*/
-    content: "\f106";
 }
 
 .searchButton:hover {

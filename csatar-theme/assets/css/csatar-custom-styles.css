@@ -1483,7 +1483,7 @@ div.card.csat-resp-gdtable > div.row > div.col {
     div.card.csat-resp-gdtable > div.row > * > .td {
         border-width: 0px;
         padding: 0px;
-        margin: 0px 0px 0px 10px;
+        margin: 0px 10px 0px 10px;
     }
 
     div.table.csat-grid> div.tr {
@@ -1647,6 +1647,10 @@ table tr:nth-child(odd) td, div div.row:nth-child(odd) div.td {
 }
 table tr:nth-child(even) td, div div.row:nth-child(even) div.td {
     background-color: white;
+}
+
+.table_top_no_border {
+    border-top: none !important;
 }
 
 /* Pick a date calendar */
@@ -2036,4 +2040,20 @@ input:-webkit-autofill:active {
 
 .unordered li::before {
     content: "- ";
+}
+
+/* custom breakpoint width */
+
+@media (min-width: 768px) {
+    .w-md-50 {
+       width:50% !important;
+    }
+}
+  
+/* pagination customization */
+
+.pagination > .active {
+    text-decoration: underline;
+    text-decoration-color: #B08B04;
+    text-underline-offset: 4px;
 }
