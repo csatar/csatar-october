@@ -102,34 +102,33 @@ navigation:
                 label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.methodologyType'
                 url: csatar/knowledgerepository/methodologytypes
                 icon: icon-tag
-
             side-menu-trialsystemcategory:
                 label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystemCategories'
                 url: csatar/knowledgerepository/trialsystemcategories
-                icon: icon-gamepad
+                icon: icon-cubes
                 permissions:
                     - csatar.manage.data
             side-menu-trialsystemtopics:
                 label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystemTopics'
                 url: csatar/knowledgerepository/trialsystemtopics
-                icon: icon-gamepad
+                icon: icon-cubes
                 permissions:
                     - csatar.manage.data
             side-menu-trialsystemsubtopics:
                 label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystemSubTopics'
                 url: csatar/knowledgerepository/trialsystemsubtopics
-                icon: icon-gamepad
+                icon: icon-cubes
                 permissions:
                     - csatar.manage.data
             side-menu-trialsystemtypes:
                 label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystemTypes'
                 url: csatar/knowledgerepository/trialsystemtypes
-                icon: icon-gamepad
+                icon: icon-cubes
                 permissions:
                     - csatar.manage.data
             side-menu-trialsystemtrialtypes:
                 label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystemTrialTypes'
                 url: csatar/knowledgerepository/trialsystemtrialtypes
-                icon: icon-gamepad
+                icon: icon-cubes
                 permissions:
                     - csatar.manage.data
