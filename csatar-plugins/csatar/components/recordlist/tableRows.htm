@@ -9,7 +9,7 @@
 <li class="no-data">{{ noRecordsMessage }}</li>
 {% endfor %}
 
-<ul class="pagination">
+<ul class="pagination mt-2">
     {% if records.lastPage > 1 %}
         {% if records.currentPage > 1 %}
         <li><a href="javascript:" onclick="filterSortPaginate({{ records.currentPage-1 }})">&larr; {{ 'Előző'|_ }}</a></li>

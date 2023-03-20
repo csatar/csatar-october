@@ -3,16 +3,16 @@
 {% set collapsableAreaId = 'filter-' ~ column ~ '-collapse' %}
 {% set filterNameArrayName = 'filter' ~column %}
 
-<div class="card {{ column }}-filter-card border-0 p-0">
+<div class="card {{ column }}-filter-card border-0 rounded p-0">
     {% if config['filterConfig']['type'] == 'freeText' %}
-        <div class="input-group border-0">
+        <div class="input-group border-0 rounded bg-white">
             <input
-                    class="form-control border-0 {{ config['filterConfig']['type'] }}"
+                    class="form-control border-0 bg-white {{ config['filterConfig']['type'] }}"
                     type="search"
                     data-column="{{ column }}"
                     placeholder="{{ config.label }}"
                     id="{{ filterInputId }}"
-            <span class="input-group-append">
+            <span class="input-group-append my-auto">
                 <button
                         class="btn border-0 rounded-0 searchButton"
                         type="button"
@@ -23,14 +23,14 @@
             </span>
         </div>
     {% else %}
-        <div class="filter-header input-group border-0">
-            <input type="text" id="{{ filterInputId }}" class="form-control filter-input border-0" placeholder="{{ config.label }}" onfocus="$('#{{ collapsableAreaId }}').collapse('show');">
-            <span class="input-group-append">
+        <div class="filter-header input-group border-0 rounded bg-white">
+            <input type="text" id="{{ filterInputId }}" class="form-control filter-input border-0 rounded bg-white" placeholder="{{ config.label }}" onfocus="$('#{{ collapsableAreaId }}').collapse('show');">
+            <span class="input-group-append my-auto">
                 <button class="btn btn-sm collapse-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{ collapsableAreaId }}" aria-expanded="false" aria-controls="{{ collapsableAreaId }}"></button>
             </span>
         </div>
         <div class="collapse" id="{{ collapsableAreaId }}">
-            <div class="overflow-auto checkbox-container {{ filterCheckboxContainerId }}" id="{{ filterCheckboxContainerId }}">
+            <div class="overflow-auto checkbox-container {{ filterCheckboxContainerId }} mb-2 px-2" id="{{ filterCheckboxContainerId }}">
                 {% for option in config['options'] %}
 
                     <div class="form-check">
