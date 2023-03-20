@@ -29,7 +29,7 @@
                 <button class="btn btn-sm collapse-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#{{ collapsableAreaId }}" aria-expanded="false" aria-controls="{{ collapsableAreaId }}"></button>
             </span>
         </div>
-        <div class="collapse" id="{{ collapsableAreaId }}">
+        <div class="collapse collapsable-filter" id="{{ collapsableAreaId }}">
             <div class="overflow-auto checkbox-container {{ filterCheckboxContainerId }} mb-2 px-2" id="{{ filterCheckboxContainerId }}">
                 {% for option in config['options'] %}
 

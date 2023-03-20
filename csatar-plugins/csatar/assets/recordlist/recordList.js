@@ -86,17 +86,15 @@ function filterSortPaginate(page = 1, sortColumn = '', sortDirection = '') {
         $( "#activeFiltersCard" ).addClass('d-none');
     }
 
-    // if (Object.keys(activeFilters).length !== 0) {
-        activeFilters = JSON.stringify(activeFilters);
-        $.request('onFilterSortPaginate', {
-            data: {
-                activeFilters: activeFilters,
-                page: page,
-                sortColumn: sortColumn,
-                sortDirection: sortDirection
-            }
-        });
-    // }
+    activeFilters = JSON.stringify(activeFilters);
+    $.request('onFilterSortPaginate', {
+        data: {
+            activeFilters: activeFilters,
+            page: page,
+            sortColumn: sortColumn,
+            sortDirection: sortDirection
+        }
+    });
 
 }
 
@@ -110,4 +108,12 @@ function removeAllFilters(){
         $(this).prop( "checked", false );
     });
     filterSortPaginate();
+}
+
+function collapseOtherFilters(currentFilterId){
+    $('.collapsable-filter').each(function(){
+        if ($(this).attr('id') != currentFilterId) {
+            $(this).collapse('hide');
+        }
+    });
 }

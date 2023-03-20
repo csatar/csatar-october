@@ -38,7 +38,7 @@
     </div>
     
     <div class="row mx-2">
-        <div class="collapse show filter-card-body bg-light pt-0" id="filters">
+        <div class="collapse filter-card-body bg-light pt-0" id="filters">
             {% partial __SELF__ ~ '::filtersActive' %}
             <div class="tr">
                 <div class="card csat-resp-gdtable bg-light csat-border-lg-none mb-2">
@@ -53,7 +53,12 @@
                     </div>
                 </div>
             </div>
-            <a onClick="removeAllFilters()" class="code-red text-decoration-none mt-2">{{ 'Szűrők törlése'|_ }}</a>
+            <a onClick="removeAllFilters();"
+               data-bs-toggle="collapse"
+               data-bs-target="#filters"
+               aria-controls="filters"
+               class="code-red text-decoration-none mt-2">{{ 'Szűrők törlése'|_ }}
+            </a>
         </div>
     </div>
 </div>

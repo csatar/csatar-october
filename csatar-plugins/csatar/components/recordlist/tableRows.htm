@@ -6,7 +6,7 @@
     {% partial __SELF__~'::tableRow' record = record %}
     {% if detailsPage %}</a>{% endif %}
 {% else %}
-<li class="no-data">{{ noRecordsMessage }}</li>
+<p>{{ noRecordsMessage }}</p>
 {% endfor %}
 
 <ul class="pagination mt-2">
