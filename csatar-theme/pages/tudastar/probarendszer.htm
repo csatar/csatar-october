@@ -1,0 +1,16 @@
+url = "/tudastar/probarendszer/:id"
+layout = "default"
+title = "Próbarendszer"
+
+[basicForm]
+formSlug = "probarendszer"
+recordKeyParam = "id"
+recordActionParam = "action"
+readOnly = 1
+createRecordKeyword = "letrehozas"
+actionUpdateKeyword = "modositas"
+actionDeleteKeyword = "torles"
+==
+<div class="container">
+    {% component 'basicForm' %}
+</div>

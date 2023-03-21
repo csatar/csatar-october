@@ -217,6 +217,7 @@ class Plugin extends PluginBase
             \Csatar\Csatar\Components\AccidentLogRecordList::class => 'accidentLogRecordList',
             \Csatar\Csatar\Components\Partials::class => 'partials',
             \Csatar\Csatar\Components\ContentPageForm::class => 'contentPageForm',
+            \Csatar\Csatar\Components\RecordList::class => 'recordList',
         ];
     }
 
