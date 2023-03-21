@@ -8,6 +8,11 @@ use Csatar\KnowledgeRepository\Models\Headcount;
 use Csatar\KnowledgeRepository\Models\Duration;
 use Csatar\KnowledgeRepository\Models\Location;
 use Csatar\KnowledgeRepository\Models\GameType;
+use Csatar\KnowledgeRepository\Models\TrialSystemTopic;
+use Csatar\KnowledgeRepository\Models\TrialSystemSubTopic;
+use Csatar\KnowledgeRepository\Models\TrialSystemTrialType;
+use Csatar\KnowledgeRepository\Models\TrialSystemType;
+use Csatar\KnowledgeRepository\Models\TrialSystemCategory;
 use Csatar\Forms\Models\Form;
 use Db;
 use Seeder;
@@ -271,6 +276,149 @@ class SeederData extends Seeder
                 'title' => 'Módszertan',
                 'model' => 'Csatar\KnowledgeRepository\Models\Methodology',
             ],
+            [
+                'title' => 'Próbarendszer',
+                'model' => 'Csatar\KnowledgeRepository\Models\TrialSystem',
+            ],
+        ],
+        'trialSystemTopics' => [
+            'A cserkészet története',
+            'A magyarság kiemelkedő alakjai',
+            'Alaki',
+            'A cserkészet története',
+            'A magyarság kiemelkedő alakjai',
+            'Alaki',
+            'Állatismeret',
+            'Ásvány és kőzetismeret',
+            'Az RMCSSZ ismerete',
+            'Becslés és mérés',
+            'Családi adatok, ünnepek',
+            'Cserkész lelkiség',
+            'Cserkészinduló, cserkészdalok',
+            'Cserkészkapcsolatok',
+            'Csillagászat',
+            'Egészséges életmód',
+            'Egyenruha ismerete',
+            'Élet a természetben',
+            'Elsősegély',
+            'Eszközhasználat',
+            'Foglalkozások ismerete',
+            'Földrajzi ismeretek',
+            'Gombaismeret',
+            'Gyógyszerismeret',
+            'Határontúli magyarság, nemzetiségeink',
+            'Helyi ünnepek',
+            'Higiéné',
+            'Hírközlési ismeretek',
+            'Hitoktatás / Bibliaóra',
+            'Hivatalos iratok, ügyintézés',
+            'Idegenvezetés',
+            'Illemszabályok',
+            'Ima',
+            'Karitászmunka (egyházközségi szervezésben)',
+            'Kerti munka',
+            'Környékismeret',
+            'Kötélmunkák',
+            'Közjogi méltóságok, államigazgatás, önkormányzatok',
+            'Közös jelképeink',
+            'KRESZ, közlekedési ismeretek',
+            'Krónika',
+            'Kultúra',
+            'Lelki olvasmány',
+            'Levélírás',
+            'Liturgikus élet',
+            'Média',
+            'Megismerés',
+            'Mentődoboz',
+            'Napi jótett, önfegyelem',
+            'Nemzeti jelképeink',
+            'Népdalok',
+            'Népi játékok',
+            'Népmesék, mondák',
+            'Népművészet, kismesterségek',
+            'Népszokások',
+            'Növényismeret',
+            'Nyelvtudás',
+            'Ökumené',
+            'Olvasottság',
+            'Őrsi élet',
+            'Őrsi jótett',
+            'Rovásírás',
+            'Segítség otthon',
+            'Sípjelek, karjelek',
+            'Sütés, főzés, tartósítás',
+            'Szabás-varrás, kézimunka',
+            'Szentírás-ismeret',
+            'Színjátszás',
+            'Szomszéd országok ismerete',
+            'Tábori építmények',
+            'Tábori rend',
+            'Tábortűz',
+            'Tájékozódás',
+            'Térképészet',
+            'Természet- és környezetvédelem',
+            'Természetes anyagok megmunkálása',
+            'Tevékenység',
+            'Túra',
+            'Ünnep',
+            'Utazási ismeretek',
+            'Vallási Ismeretek',
+            'Velemjáró (cserkészfüzet)',
+        ],
+        'trialSystemSubTopics' => [
+            'Testi',
+            'Lelki',
+            'Szellemi',
+        ],
+        'trialSystemTypes' => [
+            'Alapvető tudás',
+            'Egyszer teljesítendő anyag',
+            'Irányítottan választandó anyag',
+            'Alap kérdések az életemben. Alapjaim/gyökereim.',
+            'Alvás, pihenés',
+            'Családom és barátaim',
+            'Cserkész lelkiség',
+            'Cserkészközösségem',
+            'Egészségügy',
+            'Egyházközségem/gyülekezetem és lakóhelyem',
+            'Én-idő a mindennapokban',
+            'Épített környezetünk megismerése',
+            'Étkezés',
+            'Európaiság',
+            'Függőségek',
+            'Hazám és nemzetem',
+            'Időmenedzsment',
+            'Ima',
+            'Kapcsolataim',
+            'Közösségi élet',
+            'Lelki olvasmány',
+            'Liturgikus élet',
+            'Műveltség',
+            'Ökumené',
+            'Olvasottság',
+            'Önismeret',
+            'Személyi higiéné',
+            'Személyiséglélektan',
+            'Szentírás-ismeret',
+            'Szexualitás',
+            'Társadalmi ismeretek',
+            'Természetes környezetünkkel kapcsolatos feladatok',
+            'Természetünk és környezetünk megismerése',
+            'Testnevelés, Sport',
+            'Vallási ismeretek',
+        ],
+        'trialSystemTrialTypes' => [
+            'Piros Pajzs',
+            'Fehér Pajzs',
+            'Zöld Pajzs',
+            'Első',
+            'Második',
+            'Újonc',
+        ],
+        'trialSystemCategories' => [
+            'Ember és ember',
+            'Ember és környezete',
+            'Isten és ember',
         ],
         'methodologyTypes' => [
             [
@@ -370,6 +518,46 @@ class SeederData extends Seeder
             ]);
             $methodologyType->sort_order = $methodologyTypeData['sort_order'];
             $methodologyType->save();
+        }
+
+        // Trial System Topic
+        foreach ($this::DATA['trialSystemTopics'] as $trialSystemTopicData) {
+            $trialSystemTopic = TrialSystemTopic::firstOrNew([
+                'name' => $trialSystemTopicData,
+            ]);
+            $trialSystemTopic->save();
+        }
+
+        // Trial System Sub Topic
+        foreach ($this::DATA['trialSystemSubTopics'] as $trialSystemSubTopicData) {
+            $trialSystemSubTopic = TrialSystemSubTopic::firstOrNew([
+                'name' => $trialSystemSubTopicData,
+            ]);
+            $trialSystemSubTopic->save();
+        }
+
+        // Trial System Type
+        foreach ($this::DATA['trialSystemTypes'] as $trialSystemTypeData) {
+            $trialSystemType = TrialSystemType::firstOrNew([
+                'name' => $trialSystemTypeData,
+            ]);
+            $trialSystemType->save();
+        }
+
+        // Trial System Trial Type
+        foreach ($this::DATA['trialSystemTrialTypes'] as $trialSystemTrialTypeData) {
+            $trialSystemTrialType = TrialSystemTrialType::firstOrNew([
+                'name' => $trialSystemTrialTypeData,
+            ]);
+            $trialSystemTrialType->save();
+        }
+
+        // Trial System Category
+        foreach ($this::DATA['trialSystemCategories'] as $trialSystemCategoryData) {
+            $trialSystemCategory = TrialSystemCategory::firstOrNew([
+                'name' => $trialSystemCategoryData,
+            ]);
+            $trialSystemCategory->save();
         }
     }
 }

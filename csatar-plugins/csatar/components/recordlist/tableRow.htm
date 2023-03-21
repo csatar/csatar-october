@@ -1,0 +1,27 @@
+{% set tableRowConfig = __SELF__.tableRowConfig %}
+{% set tableHeaderConfig = __SELF__.tableHeaderConfig %}
+
+<div class="tr my-2 my-lg-0 py-md-0 px-0">
+    <div class="card csat-resp-gdtable csat-border-lg-none px-2">
+        <div class="row">
+            {% for column in tableRowConfig %}
+                <div class="col">
+                    <p class="td label d-block d-lg-none">{{ tableHeaderConfig[column['attribute']]['label'] }}</p>
+                    {% if column['relationName'] %}
+                        {% if column['relationType'] == 'belongsToMany' %}
+                            <p class="td">
+                                {% for item in record[column['relationName']] %}
+                                    {{ item[column['valueFrom']] }}{% if not loop.last %}, {% endif %}
+                                {% endfor %}
+                            </p>
+                        {% else %}
+                            <p class="td">{{ record[column['relationName']][column['valueFrom']] }}</p>
+                        {% endif %}
+                    {% else %}
+                        <p class="td">{{ record[column['attribute']] }}</p>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

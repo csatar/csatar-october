@@ -1,0 +1,11 @@
+fields:
+    name:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.name'
+        span: left
+        required: 1
+        type: text
+    note:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.note'
+        size: ''
+        span: left
+        type: textarea

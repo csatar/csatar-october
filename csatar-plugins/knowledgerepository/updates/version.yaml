@@ -72,3 +72,27 @@
 1.0.25:
     - 'Updated table csatar_knowledgerepository_methodologies'
     - builder_table_update_csatar_knowledgerepository_methodologies.php
+1.0.26:
+    - 'Created table csatar_knowledgerepository_trial_system_topics'
+    - builder_table_create_csatar_knowledgerepository_trial_system_topics.php
+1.0.27:
+    - 'Created table csatar_knowledgerepository_trial_system_subtopics'
+    - builder_table_create_csatar_knowledgerepository_trial_system_subtopics.php
+1.0.28:
+    - 'Created table csatar_knowledgerepository_trial_system_types'
+    - builder_table_create_csatar_knowledgerepository_trial_system_types.php
+1.0.29:
+    - 'Created table csatar_knowledgerepository_trial_system_trial_types'
+    - builder_table_create_csatar_knowledgerepository_trial_system_trial_types.php
+1.0.30:
+    - 'Update knowledge repository tables with timestamps and deleted_at columns'
+    - update_tables_with_timestamps_and_deleted_at.php
+1.0.31:
+    - 'Created table csatar_knowledgerepository_trial_system_categories'
+    - builder_table_create_csatar_knowledgerepository_trial_system_categories.php
+1.0.32:
+    - 'Created table csatar_knowledgerepository_trial_systems'
+    - builder_table_create_csatar_knowledgerepository_trial_systems.php
+1.0.33:
+    - 'Created table csatar_knowledgerepository_game_trial_system'
+    - builder_table_create_csatar_knowledgerepository_game_trial_system.php

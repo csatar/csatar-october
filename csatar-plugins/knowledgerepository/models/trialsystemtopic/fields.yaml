@@ -1,0 +1,6 @@
+fields:
+    name:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.name'
+        span: auto
+        required: 1
+        type: text

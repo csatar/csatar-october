@@ -111,6 +111,14 @@ fields:
         useKey: true
         customTags: false
         nameFrom: name
+    trial_systems:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystems'
+        span: auto
+        type: taglist
+        mode: relation
+        useKey: true
+        customTags: false
+        nameFrom: name
     attachements:
         label: 'csatar.knowledgerepository::lang.plugin.admin.game.attachements'
         mode: file
