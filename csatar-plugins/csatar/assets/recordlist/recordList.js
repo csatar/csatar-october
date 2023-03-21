@@ -26,7 +26,6 @@ $(document).ready(function() {
         let checkboxContainer = $(this).parent().parent().find('.checkbox-container');
         checkboxContainer.children().each( function(){
             let textToSearch = event.target.value.toUpperCase().replace(/ /g, "");
-            console.log(textToSearch);
             let searchIn = ($(this).children("label").text()).replace(/ /g, "");
             if (searchIn.toUpperCase().indexOf(textToSearch) > -1) {
                 $(this).show();

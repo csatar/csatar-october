@@ -2,7 +2,7 @@
 
 namespace Csatar\Csatar\Classes;
 
-class Conts
+class Constants
 {
     public const AVAILABLE_RELATION_TYPES = [
         'belongsTo',

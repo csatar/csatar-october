@@ -3,7 +3,7 @@
 use BackendMenu;
 use Backend\Classes\Controller;
 use Backend\Widgets\Lists;
-use Csatar\Csatar\Classes\Conts;
+use Csatar\Csatar\Classes\Constants;
 use Csatar\Csatar\Models\MandatePermission;
 use Csatar\Csatar\Models\MandateType;
 use Csatar\Csatar\Models\PermissionBasedAccess;
@@ -210,7 +210,7 @@ class PermissionsMatrix extends Controller
                     $model = new $permissionBasedModel();
                     $fields = $model->fillable ?? [];
                     $fields = array_merge($fields, $model->additionalFieldsForPermissionMatrix ?? []);
-                    $relationArrays = Conts::AVAILABLE_RELATION_TYPES;
+                    $relationArrays = Constants::AVAILABLE_RELATION_TYPES;
 
                     foreach ($relationArrays as $relationArrayName) {
                         $relationArray = $model->$relationArrayName;

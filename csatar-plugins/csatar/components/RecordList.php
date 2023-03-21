@@ -3,7 +3,7 @@
 use Auth;
 use Carbon\Carbon;
 use Cms\Classes\ComponentBase;
-use Csatar\Csatar\Classes\Conts;
+use Csatar\Csatar\Classes\Constants;
 use Input;
 use Lang;
 use Storage;
@@ -483,7 +483,7 @@ class RecordList extends RainRecordList {
 
     public function getRelationType(string $relationName) {
         $model = new $this->modelClassName();
-        $availableRelationTypes = Conts::AVAILABLE_RELATION_TYPES;
+        $availableRelationTypes = Constants::AVAILABLE_RELATION_TYPES;
         //check relation type based on availableRelationTypes
         foreach ($availableRelationTypes as $relationType) {
             if (isset($model->$relationType[$relationName])) {

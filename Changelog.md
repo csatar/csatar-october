@@ -6,6 +6,7 @@
 - CS-514 - Created TrialSystem model, backend and frontend form and list
 - CS-514 - Created TrialSystem related models, backend forms and lists
 - CS-514 - Added TrialSystems relation to Game model
+- CS-509 - Created TrialSystemCategory model, seeder, backend form and list
 - CS-520 - Created RecordList component
 - CS-318 - Added richtext editor to FromBuilder
 - CS-318 - Changed Assocation leadership_presentation field to richt text

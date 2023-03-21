@@ -1,6 +1,10 @@
 <?php Block::put('breadcrumb') ?>
     <ul>
-        <li><a href="<?= Backend::url('csatar/knowledgerepository/trialsystems') ?>">TrialSystems</a></li>
+        <li>
+            <a href="<?= Backend::url('csatar/knowledgerepository/trialsystems') ?>">
+                <?= e(trans('csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystems')) ?>
+            </a>
+        </li>
         <li><?= e($this->pageTitle) ?></li>
     </ul>
 <?php Block::endPut() ?>
