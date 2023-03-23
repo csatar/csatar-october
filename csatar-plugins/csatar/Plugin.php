@@ -367,11 +367,13 @@ class Plugin extends PluginBase
     public function registerSchedule($schedule)
     {
         $schedule->call(function () {
-            Db::select(
-                "UPDATE csatar_csatar_scouts
-                SET family_name = '" . Scout::NAME_DELETED_INACTIVITY . "', given_name = ''
-                WHERE inactivated_at < DATE_SUB(NOW(), INTERVAL 5 YEAR) AND family_name <> '" . Scout::NAME_DELETED_INACTIVITY . "';"
-            );
+            $scouts = Scout::where('inactivated_at', '<', Carbon::now()->subYears(5))->where('family_name', '!=', Scout::NAME_DELETED_INACTIVITY)->get();
+            foreach ($scouts as $scout) {
+                $scout->family_name = Scout::NAME_DELETED_INACTIVITY;
+                $scout->given_name = '';
+                $scout->ignoreValidation = true;
+                $scout->forceSave();
+            }
         })
             ->dailyAt('00:15');
     }
