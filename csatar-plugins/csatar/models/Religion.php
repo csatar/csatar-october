@@ -11,6 +11,8 @@ class Religion extends Model
     
     use \October\Rain\Database\Traits\SoftDelete;
 
+    use \Csatar\Csatar\Traits\History;
+
     protected $dates = ['deleted_at'];
 
 
@@ -39,6 +41,13 @@ class Religion extends Model
     public $belongsToMany = [
         'scouts' => '\Csatar\Csatar\Models\Scout',
         'team_reports' => '\Csatar\Csatar\Models\TeamReport',
+    ];
+
+    public $morphMany = [
+        'history' => [
+            \Csatar\Csatar\Models\History::class,
+            'name' => 'history',
+        ],
     ];
 
     public static function getOtherReligionId()

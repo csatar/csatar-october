@@ -27,6 +27,8 @@ class MandateType extends Model
 
     use \October\Rain\Database\Traits\SoftDelete;
 
+    use \Csatar\Csatar\Traits\History;
+
     protected $dates = ['deleted_at'];
 
     const MODEL_NAME_GUEST = 'GUEST';
@@ -93,6 +95,13 @@ class MandateType extends Model
             '\Csatar\Csatar\Models\MandatePermission',
             'delete' => true,
         ]
+    ];
+
+    public $morphMany = [
+        'history' => [
+            \Csatar\Csatar\Models\History::class,
+            'name' => 'history',
+        ],
     ];
     
     /**

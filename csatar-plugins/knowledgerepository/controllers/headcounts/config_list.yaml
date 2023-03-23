@@ -1,5 +1,5 @@
 list: $/csatar/knowledgerepository/models/headcount/columns.yaml
-modelClass: Csatar\KnowledgeRepository\Models\HeadCount
+modelClass: Csatar\KnowledgeRepository\Models\Headcount
 title: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.headCounts'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true

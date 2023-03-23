@@ -11,6 +11,8 @@ class Training extends Model
 
     use \October\Rain\Database\Traits\SoftDelete;
 
+    use \Csatar\Csatar\Traits\History;
+
     protected $dates = ['deleted_at'];
 
     /*
@@ -35,5 +37,12 @@ class Training extends Model
     public $fillable = [
       'name',
       'comment',
+    ];
+
+    public $morphMany = [
+        'history' => [
+            \Csatar\Csatar\Models\History::class,
+            'name' => 'history',
+        ],
     ];
 }

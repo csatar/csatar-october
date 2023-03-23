@@ -1,13 +1,15 @@
 <?php namespace Csatar\Csatar\Models;
 
-use October\Rain\Database\Pivot;
+use Csatar\Csatar\Classes\CsatarPivot;
 
 /**
  * Model
  */
-class TeamReportAgeGroupPivot extends Pivot
+class TeamReportAgeGroupPivot extends CsatarPivot
 {
     use \October\Rain\Database\Traits\Validation;
+
+    use \Csatar\Csatar\Traits\History;
 
     /*
      * Disable timestamps by default.
@@ -30,5 +32,12 @@ class TeamReportAgeGroupPivot extends Pivot
 
     public $fillable = [
         'number_of_patrols_in_age_group',
+    ];
+
+    public $morphMany = [
+        'history' => [
+            \Csatar\Csatar\Models\History::class,
+            'name' => 'history'
+        ],
     ];
 }

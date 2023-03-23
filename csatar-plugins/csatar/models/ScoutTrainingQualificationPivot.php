@@ -3,16 +3,17 @@
 use DateTime;
 use Lang;
 use ValidationException;
-use October\Rain\Database\Pivot;
+use Csatar\Csatar\Classes\CsatarPivot;
 use Csatar\Csatar\Models\Training;
 
 /**
  * Pivot Model
  */
-class ScoutTrainingQualificationPivot extends Pivot
+class ScoutTrainingQualificationPivot extends CsatarPivot
 {
     use \October\Rain\Database\Traits\Validation;
 
+    use \Csatar\Csatar\Traits\History;
     /**
      * @var string The database table used by the model.
      */
@@ -70,4 +71,11 @@ class ScoutTrainingQualificationPivot extends Pivot
             $this->training_name = Training::find($this->training_id)->name;
         }
     }
+
+    public $morphMany = [
+        'history' => [
+            \Csatar\Csatar\Models\History::class,
+            'name' => 'history'
+        ],
+    ];
 }

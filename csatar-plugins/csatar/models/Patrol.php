@@ -15,6 +15,9 @@ use Csatar\Csatar\Models\OrganizationBase;
 class Patrol extends OrganizationBase
 {
     use \October\Rain\Database\Traits\Nullable;
+
+    use \Csatar\Csatar\Traits\History;
+
     /**
      * @var string The database table used by the model.
      */
@@ -222,7 +225,7 @@ class Patrol extends OrganizationBase
     public function updateCache(): void
     {
         if ($this->wasRecentlyCreated && $this->status == Status::ACTIVE) {
-            StructureTree::updateAssociationTree($this->association_id);
+            StructureTree::updateTeamTree($this->team_id);
         }
 
         if (empty($this->original) ) {
@@ -278,6 +281,13 @@ class Patrol extends OrganizationBase
             '\Csatar\Csatar\Models\ContentPage',
             'name' => 'model',
             'label' => 'csatar.csatar::lang.plugin.admin.general.contentPage',
+        ],
+    ];
+
+    public $morphMany = [
+        'history' => [
+            \Csatar\Csatar\Models\History::class,
+            'name' => 'history',
         ],
     ];
 

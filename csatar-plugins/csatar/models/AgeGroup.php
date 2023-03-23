@@ -13,6 +13,8 @@ class AgeGroup extends Model
 
     use \October\Rain\Database\Traits\Sortable;
 
+    use \Csatar\Csatar\Traits\History;
+
     protected $dates = ['deleted_at'];
 
     /*
@@ -49,5 +51,12 @@ class AgeGroup extends Model
             'pivotModel' => '\Csatar\KnowledgeRepository\Models\AgeGroupMethodologyPivot',
             'label' => 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.methodologies'
         ]
+    ];
+
+    public $morphMany = [
+        'history' => [
+            \Csatar\Csatar\Models\History::class,
+            'name' => 'history',
+        ],
     ];
 }

@@ -1,5 +1,5 @@
 list: $/csatar/knowledgerepository/models/trialsystemsubtopic/columns.yaml
-modelClass: Csatar\KnowledgeRepository\Models\TrialSystemSubtopic
+modelClass: Csatar\KnowledgeRepository\Models\TrialSystemSubTopic
 title: TrialSystemSubTopics
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true

@@ -15,6 +15,8 @@ class TeamReport extends PermissionBasedAccess
 
     use \October\Rain\Database\Traits\SoftDelete;
 
+    use \Csatar\Csatar\Traits\History;
+
     protected $dates = ['deleted_at'];
 
     public $updateScoutsList = false;
@@ -108,6 +110,13 @@ class TeamReport extends PermissionBasedAccess
             'pivot' => ['number_of_patrols_in_age_group'],
             'pivotModel' => '\Csatar\Csatar\Models\TeamReportAgeGroupPivot',
             'label' => 'csatar.csatar::lang.plugin.admin.ageGroups.ageGroups',
+        ],
+    ];
+
+    public $morphMany = [
+        'history' => [
+            \Csatar\Csatar\Models\History::class,
+            'name' => 'history',
         ],
     ];
 

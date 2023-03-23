@@ -11,6 +11,8 @@ class ContentPage extends PermissionBasedAccess
 
     use \October\Rain\Database\Traits\SoftDelete;
 
+    use \Csatar\Csatar\Traits\History;
+
     protected $dates = ['deleted_at'];
 
 
@@ -35,5 +37,12 @@ class ContentPage extends PermissionBasedAccess
 
     public $morphTo = [
         'model' => []
+    ];
+
+    public $morphMany = [
+        'history' => [
+            \Csatar\Csatar\Models\History::class,
+            'name' => 'history',
+        ],
     ];
 }

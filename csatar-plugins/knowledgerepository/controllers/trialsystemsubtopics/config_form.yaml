@@ -1,6 +1,6 @@
 name: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystemTopic'
 form: $/csatar/knowledgerepository/models/trialsystemsubtopic/fields.yaml
-modelClass: Csatar\KnowledgeRepository\Models\TrialSystemSubtopic
+modelClass: Csatar\KnowledgeRepository\Models\TrialSystemSubTopic
 defaultRedirect: csatar/knowledgerepository/trialsystemsubtopics
 create:
     redirect: 'csatar/knowledgerepository/trialsystemsubtopics/update/:id'

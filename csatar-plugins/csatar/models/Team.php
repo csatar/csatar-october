@@ -15,6 +15,10 @@ class Team extends OrganizationBase
 {
     use \October\Rain\Database\Traits\Nullable;
 
+    use \Csatar\Csatar\Traits\History;
+
+    const HISTORY_RELATION_NAME = 'change_history';
+
     /**
      * @var string The database table used by the model.
      */
@@ -258,7 +262,18 @@ class Team extends OrganizationBase
     public function updateCache(): void
     {
         if ($this->wasRecentlyCreated && $this->status == Status::ACTIVE) {
-            StructureTree::updateAssociationTree($this->association_id);
+            $structureTree = Cache::pull('structureTree');
+            if (empty($structureTree)) {
+                StructureTree::getStructureTree();
+                return;
+            }
+            $structureTree[$this->district->association_id]['districtsActive'][$this->district_id]['teamsActive'][$this->id]['id'] = $this->name;
+            $structureTree[$this->district->association_id]['districtsActive'][$this->district_id]['teamsActive'][$this->id]['name'] = $this->name;
+            $structureTree[$this->district->association_id]['districtsActive'][$this->district_id]['teamsActive'][$this->id]['extended_name'] = $this->extended_name;
+            $structureTree[$this->district->association_id]['districtsActive'][$this->district_id]['teamsActive'][$this->id]['team_number'] = $this->team_number;
+            $structureTree[$this->district->association_id]['districtsActive'][$this->district_id]['teamsActive'][$this->id]['district_id'] = $this->district_id;
+            $structureTree[$this->district->association_id]['districtsActive'][$this->district_id]['teamsActive'][$this->id]['status'] = $this->status;
+            Cache::forever('structureTree', $structureTree);
         }
 
         if (empty($this->original)) {
@@ -329,6 +344,13 @@ class Team extends OrganizationBase
             'name' => 'model',
             'label' => 'csatar.csatar::lang.plugin.admin.general.contentPage',
         ]
+    ];
+
+    public $morphMany = [
+        'change_history' => [
+            \Csatar\Csatar\Models\History::class,
+            'name' => 'history' // TODO: check why this is needed
+        ],
     ];
 
     /**

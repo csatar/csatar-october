@@ -3,14 +3,16 @@
 use DateTime;
 use Lang;
 use ValidationException;
-use October\Rain\Database\Pivot;
+use Csatar\Csatar\Classes\CsatarPivot;
 
 /**
  * Pivot Model
  */
-class ScoutSpecialQualificationPivot extends Pivot
+class ScoutSpecialQualificationPivot extends CsatarPivot
 {
     use \October\Rain\Database\Traits\Validation;
+
+    use \Csatar\Csatar\Traits\History;
 
     /**
      * @var string The database table used by the model.
@@ -49,4 +51,12 @@ class ScoutSpecialQualificationPivot extends Pivot
         'date',
         'location',
     ];
+
+    public $morphMany = [
+        'history' => [
+            \Csatar\Csatar\Models\History::class,
+            'name' => 'history'
+        ],
+    ];
 }
+

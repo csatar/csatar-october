@@ -4,6 +4,8 @@ use Model;
 
 class ContactSettings extends Model
 {
+    use \Csatar\Csatar\Traits\History;
+
     /**
      * @var array implement these behaviors
      */
@@ -32,4 +34,11 @@ class ContactSettings extends Model
     ];
 
     protected $jsonable = ['offices'];
+
+    public $morphMany = [
+        'history' => [
+            \Csatar\Csatar\Models\History::class,
+            'name' => 'history',
+        ],
+    ];
 }

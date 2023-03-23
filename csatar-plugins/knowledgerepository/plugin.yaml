@@ -12,12 +12,6 @@ navigation:
         permissions:
             - csatar.manage.data
         sideMenu:
-            side-menu-test-system:
-                label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepository.testSystem'
-                url: csatar/knowledgerepository/testsystem
-                icon: icon-microchip
-                permissions:
-                    - csatar.manage.data
             side-menu-games:
                 label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepository.games'
                 url: /csatar/knowledgerepository/games
@@ -45,7 +39,7 @@ navigation:
             side-menu-trialsystem:
                 label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystems'
                 url: csatar/knowledgerepository/trialsystems
-                icon: icon-paint-brush
+                icon: icon-cubes
                 permissions:
                     - csatar.manage.data
     main-menu-knowledge-repository-parameters:

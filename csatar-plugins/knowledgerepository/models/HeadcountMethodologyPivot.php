@@ -8,6 +8,8 @@ use Model;
 class HeadcountMethodologyPivot extends Model
 {
     use \October\Rain\Database\Traits\Validation;
+
+    use \Csatar\Csatar\Traits\History;
     
     /*
      * Disable timestamps by default.

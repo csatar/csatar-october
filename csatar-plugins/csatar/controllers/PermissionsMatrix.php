@@ -4,6 +4,7 @@ use BackendMenu;
 use Backend\Classes\Controller;
 use Backend\Widgets\Lists;
 use Csatar\Csatar\Classes\Constants;
+use Csatar\Csatar\Models\History;
 use Csatar\Csatar\Models\MandatePermission;
 use Csatar\Csatar\Models\MandateType;
 use Csatar\Csatar\Models\PermissionBasedAccess;
@@ -112,6 +113,9 @@ class PermissionsMatrix extends Controller
                 $permissionsIdsToUpdate = $valueGroup->pluck('id');
                 $numberOfUpdatedPermissions = MandatePermission::whereIn('id', $permissionsIdsToUpdate)
                     ->update([$action => $value]);
+                if ($numberOfUpdatedPermissions == $valueGroup->count()) {
+                    (new MandatePermission())->historyRecordBulkAction($valueGroup->toArray());
+                }
                 if ($numberOfUpdatedPermissions < $valueGroup->count()) {
                     $warning = Lang::get('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.notAllPermissionChanged',
                         [
@@ -121,6 +125,7 @@ class PermissionsMatrix extends Controller
                             'updated' => $numberOfUpdatedPermissions,
                             'from' => $valueGroup->count()
                         ]);
+                    (new MandatePermission())->historyRecordBulkAction($valueGroup->toArray(), $warning);
                     Log::warning($warning);
                     \Flash::warning($warning);
                 }
@@ -161,21 +166,18 @@ class PermissionsMatrix extends Controller
             $permissionsToCopy = MandatePermission::where('mandate_type_id', $formData['fromMandateType'])->get();
             foreach ($permissionsToCopy as $permissionToCopy) {
                 foreach ($formData['toMandateTypes'] as $toMandateTypeId) {
-                    Db::table('csatar_csatar_mandates_permissions')
-                        ->updateOrInsert(
-                            [
-                                'mandate_type_id'   => $toMandateTypeId,
-                                'model'             => $permissionToCopy->model,
-                                'field'             => $permissionToCopy->field,
-                                'own'               => $permissionToCopy->own,
-                            ],
-                            [
-                                'create'        => $permissionToCopy->create,
-                                'read'          => $permissionToCopy->read,
-                                'update'        => $permissionToCopy->update,
-                                'delete'        => $permissionToCopy->delete,
-                            ]
-                        );
+                    $mandatePermission = MandatePermission::firstOrNew([
+                        'mandate_type_id'   => $toMandateTypeId,
+                        'model'             => $permissionToCopy->model,
+                        'field'             => $permissionToCopy->field,
+                        'own'               => $permissionToCopy->own,
+                    ]);
+
+                    $mandatePermission->create = $permissionToCopy->create;
+                    $mandatePermission->read = $permissionToCopy->read;
+                    $mandatePermission->update = $permissionToCopy->update;
+                    $mandatePermission->delete = $permissionToCopy->delete;
+                    $mandatePermission->save();
                 }
             }
             \Flash::success(e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.copySuccess')));
@@ -186,7 +188,8 @@ class PermissionsMatrix extends Controller
         }
 
         if ($formData['action'] === 'delete') {
-            MandatePermission::where('mandate_type_id', $formData['fromMandateType'])->delete();
+            $ids = MandatePermission::where('mandate_type_id', $formData['fromMandateType'])->get()->pluck('id'); //TODO: history record
+            MandatePermission::destroy($ids);
             \Flash::success(e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.deleteSuccess')));
             if (Input::get('close')) {
                 return \Backend::redirect('csatar/csatar/permissionsmatrix');
@@ -267,6 +270,7 @@ class PermissionsMatrix extends Controller
 
             $newPermissionsToSave->chunk(1000)->each(function ($item){
                 Db::table('csatar_csatar_mandates_permissions')->insert($item->toArray());
+                (new MandatePermission())->historyRecordMatrixSynchronization($item->toArray());
             });
 
             Flash::success(e(trans('csatar.csatar::lang.plugin.admin.admin.seederData.synchronizeComplete')));

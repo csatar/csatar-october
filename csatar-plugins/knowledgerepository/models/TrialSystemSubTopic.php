@@ -11,6 +11,8 @@ class TrialSystemSubTopic extends Model
     
     use \October\Rain\Database\Traits\SoftDelete;
 
+    use \Csatar\Csatar\Traits\History;
+
     protected $dates = ['deleted_at'];
 
 
@@ -28,5 +30,12 @@ class TrialSystemSubTopic extends Model
 
     public $fillable = [
         'name',
+    ];
+
+    public $morphMany = [
+        'history' => [
+            \Csatar\Csatar\Models\History::class,
+            'name' => 'history',
+        ],
     ];
 }

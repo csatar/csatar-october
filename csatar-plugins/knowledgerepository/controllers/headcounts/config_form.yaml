@@ -1,6 +1,6 @@
 name: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.headCount'
 form: $/csatar/knowledgerepository/models/headcount/fields.yaml
-modelClass: Csatar\KnowledgeRepository\Models\HeadCount
+modelClass: Csatar\KnowledgeRepository\Models\Headcount
 defaultRedirect: csatar/knowledgerepository/headcounts
 create:
     redirect: 'csatar/knowledgerepository/headcounts/update/:id'

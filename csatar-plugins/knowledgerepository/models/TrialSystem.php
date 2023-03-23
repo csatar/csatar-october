@@ -13,6 +13,8 @@ class TrialSystem extends PermissionBasedAccess
     
     use \October\Rain\Database\Traits\SoftDelete;
 
+    use \Csatar\Csatar\Traits\History;
+
     protected $dates = ['deleted_at'];
 
 
@@ -69,6 +71,13 @@ class TrialSystem extends PermissionBasedAccess
 //                'requiredBeforeRender' => true,
 //            ],
         ]
+    ];
+
+    public $morphMany = [
+        'history' => [
+            \Csatar\Csatar\Models\History::class,
+            'name' => 'history',
+        ],
     ];
 
     public static function getOrganizationTypeModelNameUserFriendly()

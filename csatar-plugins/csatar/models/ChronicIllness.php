@@ -11,6 +11,8 @@ class ChronicIllness extends Model
     
     use \October\Rain\Database\Traits\SoftDelete;
 
+    use \Csatar\Csatar\Traits\History;
+
     protected $dates = ['deleted_at'];
 
 
@@ -44,5 +46,12 @@ class ChronicIllness extends Model
             'pivot' => ['comment'],
             'pivotModel' => '\Csatar\Csatar\Models\ScoutChronicIllnessPivot',
         ]
+    ];
+
+    public $morphMany = [
+        'history' => [
+            \Csatar\Csatar\Models\History::class,
+            'name' => 'history',
+        ],
     ];
 }
