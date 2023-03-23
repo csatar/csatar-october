@@ -234,7 +234,7 @@ class Scout extends OrganizationBase
      * Add custom validation
      */
     public function beforeValidate() {
-        if ($this->is_active == 0 && $this->getOriginalValue('inactivated_at') == null) {
+        if (isset($this->is_active) && $this->is_active == 0 && $this->getOriginalValue('inactivated_at') == null) {
             $this->inactivated_at = date('Y-m-d H:i:s');
         }
 
