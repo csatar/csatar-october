@@ -20,4 +20,15 @@ class History extends Model
      */
     public $rules = [
     ];
+
+    public $belongsTo = [
+        'frontendUser' => [
+            'RainLab\User\Models\User',
+            'key' => 'fe_user_id',
+        ],
+        'backendUser' => [
+            'Backend\Models\User',
+            'key' => 'be_user_id',
+        ],
+    ];
 }
