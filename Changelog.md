@@ -33,6 +33,7 @@
 - CS-497 - Made Number of Patrols in Age Group field required on Team Reports
 - CS-377 - Created Methodology model and backend form
 - CS-374 - Created MethodologyType model and backend menu
+- CS-550 - Added erasmus to the sponsors
 
 ## 1.9.1
 ### 2023-02-27
