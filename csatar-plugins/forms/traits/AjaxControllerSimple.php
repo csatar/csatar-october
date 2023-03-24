@@ -654,7 +654,8 @@ trait AjaxControllerSimple {
             }
         }
         foreach($extraFields as $extraField) {
-            $id = 'extra_fields_' . $extraField['id'];
+            $dynamicFieldModelId = $extraField['dynamicFieldModelId'] ?? '';
+            $id = 'extra_fields_' . $extraField['id'] . '_' . $dynamicFieldModelId;
             $attributeNames[$id] = $extraField['label'];
             $rules[$id] = 'max:500';
             if ($extraField['required'] == 1) {
@@ -693,7 +694,8 @@ trait AjaxControllerSimple {
         // resolve extra fields data
         if (isset($extraFields)) {
             foreach ($extraFields as &$extraField) {
-                $id = 'extra_fields_' . $extraField['id'];
+                $dynamicFieldModelId = $extraField['dynamicFieldModelId'] ?? '';
+                $id = 'extra_fields_' . $extraField['id'] . '_' . $dynamicFieldModelId;
                 $extraField['value'] = $data[$id];
                 unset($data[$id]);
             }
@@ -862,33 +864,37 @@ trait AjaxControllerSimple {
             return;
         }
 
-        $extraFields = $this->getExtraFields($this->widget->model, (new DateTime())->format('Y-m-d'));
-
-        if (!isset($extraFields)) {
-            return;
-        }
-
         // decode extra field values
         $extraFieldValues = json_decode($this->widget->model->extra_fields, true) ?? [];
 
-        // add any newly added fields to the list
-        foreach ($extraFields as $extraField) {
-            $found = false;
-            foreach ($extraFieldValues as $key => $extraFieldValue) {
-                if ($extraField['id'] == $extraFieldValue['id']) {
-                    $extraFieldValues[$key]['required'] = $extraField['required'];
-                    $found = true;
-                    break;
+        $extraFieldsActive = $this->getExtraFields($this->widget->model, (new DateTime())->format('Y-m-d'));
+
+        if (isset($extraFieldsActive)) {
+            // add any newly added fields to the list
+            foreach ($extraFieldsActive as $extraFieldActive) {
+                $found = false;
+                foreach ($extraFieldValues as $key => $extraFieldValue) {
+                    if (($extraFieldActive['id'] == $extraFieldValue['id'])
+                        && (isset($extraFieldActive['dynamicFieldModelId']) && isset($extraFieldValue['dynamicFieldModelId']) && $extraFieldActive['dynamicFieldModelId'] == $extraFieldValue['dynamicFieldModelId'])
+                    ) {
+                        $extraFieldValues[$key]['required'] = $extraFieldActive['required'];
+                        $found = true;
+                        break;
+                    }
                 }
-            }
-            if (!$found) {
-                array_push($extraFieldValues, $extraField);
+                if (!$found) {
+                    array_push($extraFieldValues, $extraFieldActive);
+                }
             }
         }
 
         // add the extra field values to the model
-        foreach ($extraFieldValues as $extraFieldValue) {
-            $id = 'extra_fields_' . $extraFieldValue['id'];
+        foreach ($extraFieldValues as $key => $extraFieldValue) {
+            $dynamicFieldModelId = $extraFieldValue['dynamicFieldModelId'] ?? '';
+            $id = 'extra_fields_' . $extraFieldValue['id'] . '_' . $dynamicFieldModelId;
+            if (empty($extraFieldsActive) || !$this->isSavedExtraFieldActive($extraFieldValue, $extraFieldsActive)) {
+                $extraFieldValues[$key]['disabled'] = true;
+            }
             $this->widget->model->attributes[$id] = isset($extraFieldValue['value']) ? $extraFieldValue['value'] : '';
         }
 
@@ -897,6 +903,18 @@ trait AjaxControllerSimple {
 
         // add the extra fields
         $this->widget->fields = array_merge($this->widget->fields, $this->createExtraFieldFields($extraFieldValues, $this->widget->model->rules));
+    }
+
+    private function isSavedExtraFieldActive($savedExtraField, $extraFieldsActive)
+    {
+        foreach ($extraFieldsActive as $extraFieldActive) {
+            if (($savedExtraField['id'] == $extraFieldActive['id'])
+                && (isset($savedExtraField['dynamicFieldModelId']) && isset($extraFieldActive['dynamicFieldModelId']) && $savedExtraField['dynamicFieldModelId'] == $extraFieldActive['dynamicFieldModelId'])
+            ) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private function createExtraFieldsSection() {
@@ -919,7 +937,8 @@ trait AjaxControllerSimple {
         $fields = [];
         $order = 1;
         foreach($extraFields as $extraField) {
-            $id = 'extra_fields_' . $extraField['id'];
+            $dynamicFieldModelId = $extraField['dynamicFieldModelId'] ?? '';
+            $id = 'extra_fields_' . $extraField['id'] . '_' . $dynamicFieldModelId;
             $fields[$id] = [
                 'label' => $extraField['label'],
                 'span' => 'auto',
@@ -933,6 +952,9 @@ trait AjaxControllerSimple {
             if ($extraField['required'] == 1) {
                 $fields[$id]['required'] = 1;
                 $rules[$id] = 'required';
+            }
+            if (isset($extraField['disabled'])) {
+                $fields[$id]['disabled'] = $extraField['disabled'];
             }
             $order++;
         }
@@ -963,7 +985,14 @@ trait AjaxControllerSimple {
             return null;
         }
 
-        return $dynamicFields[0]->extra_fields_definition;
+        $extraFields = [];
+
+        foreach ($dynamicFields[0]->extra_fields_definition as $key => $extraField) {
+            $extraFields[$key] = $extraField;
+            $extraFields[$key]['dynamicFieldModelId'] = $dynamicFields[0]->id;
+        }
+
+        return $extraFields;
     }
 
     public function getConfig($model, $config) {

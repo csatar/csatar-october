@@ -657,6 +657,7 @@
                     'harghitaCountyCouncil' => 'Harghita County Council',
                     'communitasFoundation' => 'Communitas Foundation',
                     'toyota' => 'Toyota',
+                    'erasmus' => 'Erasmus+'
                 ],
                 'discounts' => [
                     'title' => 'Companies offering discounts',

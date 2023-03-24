@@ -7,6 +7,7 @@
 ## 1.10.0
 ### 2023-03-17
 
+- CS-327 - Made inactive dynamic fields visible as disabled if they are saved on the model
 - CS-490 - Moved inactive members list to structure tab, in accordion
 - CS-490 - Moved member list csv download/upload to structure tab
 - CS-411 - Fixed CSS to prevent images overflowing the screen
@@ -22,6 +23,7 @@
 - CS-497 - Made Number of Patrols in Age Group field required on Team Reports
 - CS-377 - Created Methodology model and backend form
 - CS-374 - Created MethodologyType model and backend menu
+- CS-550 - Added erasmus to the sponsors
 
 ## 1.9.1
 ### 2023-02-27
