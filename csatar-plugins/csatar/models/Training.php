@@ -43,6 +43,7 @@ class Training extends Model
         'history' => [
             \Csatar\Csatar\Models\History::class,
             'name' => 'history',
+            'ignoreInPermissionsMatrix' => true,
         ],
     ];
 }

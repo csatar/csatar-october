@@ -53,6 +53,7 @@ class ProfessionalQualification extends Model
         'history' => [
             \Csatar\Csatar\Models\History::class,
             'name' => 'history',
+            'ignoreInPermissionsMatrix' => true,
         ],
     ];
 }

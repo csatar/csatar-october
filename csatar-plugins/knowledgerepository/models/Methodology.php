@@ -143,6 +143,7 @@ class Methodology extends PermissionBasedAccess
         'history' => [
             \Csatar\Csatar\Models\History::class,
             'name' => 'history',
+            'ignoreInPermissionsMatrix' => true,
         ],
     ];
 

@@ -116,6 +116,7 @@ class Troop extends OrganizationBase
         'history' => [
             \Csatar\Csatar\Models\History::class,
             'name' => 'history',
+            'ignoreInPermissionsMatrix' => true,
         ],
     ];
 
