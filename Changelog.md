@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-549 - Fixed exception caused by missing getEagerLoadSettings method on AccidentLogRecord model
 - CS-514 - Fixed design for TrialSystem related models
 - CS-514 - Created TrialSystem model, backend and frontend form and list
 - CS-514 - Created TrialSystem related models, backend forms and lists

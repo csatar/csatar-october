@@ -345,7 +345,7 @@ class BasicForm extends ComponentBase  {
             $record = $modelName::where($key, $value)->first();
         }
 
-        if (!empty($record)) {
+        if (!empty($record) && method_exists($modelName, 'getEagerLoadSettings')) {
             $eagerLoadSettings = $modelName::getEagerLoadSettings('formBuilder');
             $record->load($eagerLoadSettings);
         }
