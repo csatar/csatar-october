@@ -654,6 +654,7 @@
                     'harghitaCountyCouncil' => 'Hargita Megye Tanácsa',
                     'communitasFoundation' => 'Communitas Alapítvány',
                     'toyota' => 'Toyota',
+                    'erasmus' => 'Erasmus+'
                 ],
                 'discounts' => [
                     'title' => 'Kedvezményeket kínáló cégek',
