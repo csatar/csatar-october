@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- CS-549 - Fixed exception caused by missing getEagerLoadSettings method on AccidentLogRecord model
+
 ## 1.10.0
 ### 2023-03-17
 
