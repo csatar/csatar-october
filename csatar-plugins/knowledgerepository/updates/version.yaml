@@ -96,3 +96,6 @@
 1.0.33:
     - 'Created table csatar_knowledgerepository_game_trial_system'
     - builder_table_create_csatar_knowledgerepository_game_trial_system.php
+1.0.34:
+    - 'Created table methodology_trial_system_id_foreign'
+    - builder_table_create_csatar_methodology_trial_system.php
