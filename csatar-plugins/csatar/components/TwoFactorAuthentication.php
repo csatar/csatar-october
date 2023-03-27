@@ -4,6 +4,7 @@ use Auth;
 use Cms\Classes\ComponentBase;
 use Csatar\Csatar\Classes\GoogleTwoFactorAuthentication;
 use Csatar\Csatar\Models\Scout;
+use Event;
 use Input;
 use Lang;
 use Redirect;
@@ -44,6 +45,7 @@ class TwoFactorAuthentication extends ComponentBase
         if ($this->google2FA->verifyKey($this->userSecretKey, Input::get('code'))) {
             Session::forget('scout.rightsForModels');
             Session::put('scout.twoFA', true);
+            Event::fire('csatar.twoFA.authenticated', [Auth::user()]);
             return Redirect::to(Session::get('urlBefore403Redirect'))
                            ->with('message', Lang::get('csatar.csatar::lang.plugin.component.twoFactorAuthentication.twoFactorAuthSuccess'));
         } else {

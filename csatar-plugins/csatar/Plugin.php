@@ -85,6 +85,9 @@ class Plugin extends PluginBase
                     'rainlab.user.activate' => 'historyRecordEvent',
                     'rainlab.user.deactivate' => 'historyRecordEvent',
                     'rainlab.user.reactivate' => 'historyRecordEvent',
+                    'csatar.twoFA.authenticated' => 'historyRecordEvent',
+                    'csatar.oauthRegistration' => 'historyRecordEvent',
+                    'csatar.oauthLogin' => 'historyRecordEvent',
                 ],
                 'extraEvents' => [
                     'model.auth.beforeImpersonate' => 'historyRecordEvent',
@@ -159,9 +162,7 @@ class Plugin extends PluginBase
                 throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.onlyExistingUsersCanLogin'), 1);
             }
 
-            if(!empty($scout->user_id)) {
-                throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.onlyExistingUsersCanLogin'), 4);
-            }
+            Event::fire('csatar.oauthRegistration', [$scout]);
 
         });
 
@@ -191,6 +192,8 @@ class Plugin extends PluginBase
                 $scout->user_id = $user->id;
                 $scout->save();
             }
+
+            Event::fire('csatar.oauthLogin', [$scout]);
 
         });
 

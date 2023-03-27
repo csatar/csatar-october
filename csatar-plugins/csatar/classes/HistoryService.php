@@ -16,7 +16,9 @@ use Csatar\Csatar\Models\History as HistoryModelDefault;
 
 class HistoryService
 {
-    public const SENSITIVE_FIELDS = ['password', 'persist_code'];
+    public const SENSITIVE_FIELDS = ['password', 'google_two_fa_secret_key'];
+
+    public const PERMANENTLY_EXCLUDED_FIELDS = ['updated_at', 'persist_code', ];
 
     /**
      * @param array $models example: ['\RainLab\User\Models\User' => ['basicEvents' => true, 'relationEvents' => true, 'addDefaultHistoryRelation' => true, 'extraEvents' => [], 'extraEventListeners' => []]]
@@ -211,6 +213,8 @@ class HistoryService
             if (
                 (is_array($model->exlcudedFromHistory) && in_array($attribute, $model->exlcudedFromHistory))
                 ||
+                (is_array(HistoryService::PERMANENTLY_EXCLUDED_FIELDS) && in_array($attribute, HistoryService::PERMANENTLY_EXCLUDED_FIELDS))
+                ||
                 ($model->wasRecentlyCreated && empty($value))
             ) {
                 continue;
@@ -255,7 +259,11 @@ class HistoryService
             class_uses_recursive(get_class($model))
         );
 
-        if (is_array($model->exlcudedFromHistory) && in_array('deleted_at', $model->exlcudedFromHistory)) {
+        if (
+            is_array($model->exlcudedFromHistory) && in_array('deleted_at', $model->exlcudedFromHistory)
+            ||
+            (is_array(HistoryService::PERMANENTLY_EXCLUDED_FIELDS) && in_array('deleted_at', HistoryService::PERMANENTLY_EXCLUDED_FIELDS))
+        ) {
             return;
         }
 

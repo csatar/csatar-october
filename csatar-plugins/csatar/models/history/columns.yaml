@@ -7,41 +7,45 @@ columns:
     frontendUser:
         label: 'csatar.csatar::lang.plugin.admin.history.frontendUser'
         type: number
+        searchable: true
+        sortable: true
         relation: frontendUser
-        valueFrom: name
+        select: IFNULL((SELECT CONCAT(IFNULL(family_name, ''), ' ', IFNULL(given_name, ''), ' - ', IFNULL(ecset_code, '')) as name FROM csatar_csatar_scouts WHERE user_id = fe_user_id), (SELECT CONCAT(IFNULL(name, ''), ' ', IFNULL(surname, ''), ' - ', IFNULL(email, '')) as name FROM users WHERE id = fe_user_id))
     backendUser:
         label: 'csatar.csatar::lang.plugin.admin.history.backendUser'
         type: number
+        searchable: true
+        sortable: true
         relation: backendUser
-        valueFrom: name
+        select: CONCAT(IFNULL(first_name, ''), ' ', IFNULL(last_name, ''), ' - ', IFNULL(id, ''))
     created_at:
         label: 'csatar.csatar::lang.plugin.admin.general.createdAt'
         type: datetime
-    model_class:
+    model_class_user_friendly:
         label: 'csatar.csatar::lang.plugin.admin.history.modelClass'
         type: text
-        searchable: true
-        sortable: true
+        searchable: false
+        sortable: false
     model_id:
         label: 'csatar.csatar::lang.plugin.admin.history.modelId'
         type: number
         searchable: true
         sortable: true
-    related_model_class:
+    related_model_class_user_friendly:
         label: 'csatar.csatar::lang.plugin.admin.history.relatedModelClass'
         type: text
-        searchable: true
-        sortable: true
+        searchable: false
+        sortable: false
     related_model_id:
         label: 'csatar.csatar::lang.plugin.admin.history.relatedModelId'
         type: number
         searchable: true
         sortable: true
-    attribute:
+    translated_attribute_label:
         label: 'csatar.csatar::lang.plugin.admin.history.attribute'
         type: text
-        searchable: true
-        sortable: true
+        searchable: false
+        sortable: false
     cast:
         label: 'csatar.csatar::lang.plugin.admin.history.cast'
         type: text
