@@ -285,7 +285,7 @@ navigation:
         permissions:
             - csatar.manage.data
     main-menu-item-history:
-        label: 'csatar.csatar::lang.plugin.admin.history.history'
+        label: 'csatar.csatar::lang.plugin.admin.history.histories'
         url: csatar/csatar/history
         icon: icon-life-ring
 permissions:
