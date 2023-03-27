@@ -1,0 +1,69 @@
+columns:
+    id:
+        label: 'csatar.csatar::lang.plugin.admin.general.id'
+        type: number
+        searchable: true
+        sortable: true
+    frontendUser:
+        label: 'csatar.csatar::lang.plugin.admin.history.frontendUser'
+        type: number
+        relation: frontendUser
+        valueFrom: name
+    backendUser:
+        label: 'csatar.csatar::lang.plugin.admin.history.backendUser'
+        type: number
+        relation: backendUser
+        valueFrom: name
+    created_at:
+        label: 'csatar.csatar::lang.plugin.admin.general.createdAt'
+        type: datetime
+    model_class:
+        label: 'csatar.csatar::lang.plugin.admin.history.modelClass'
+        type: text
+        searchable: true
+        sortable: true
+    model_id:
+        label: 'csatar.csatar::lang.plugin.admin.history.modelId'
+        type: number
+        searchable: true
+        sortable: true
+    related_model_class:
+        label: 'csatar.csatar::lang.plugin.admin.history.relatedModelClass'
+        type: text
+        searchable: true
+        sortable: true
+    related_model_id:
+        label: 'csatar.csatar::lang.plugin.admin.history.relatedModelId'
+        type: number
+        searchable: true
+        sortable: true
+    attribute:
+        label: 'csatar.csatar::lang.plugin.admin.history.attribute'
+        type: text
+        searchable: true
+        sortable: true
+    cast:
+        label: 'csatar.csatar::lang.plugin.admin.history.cast'
+        type: text
+        searchable: true
+        sortable: true
+    description:
+        label: 'csatar.csatar::lang.plugin.admin.history.description'
+        type: text
+        searchable: true
+        sortable: true
+    old_value:
+        label: 'csatar.csatar::lang.plugin.admin.history.oldValue'
+        type: text
+        searchable: true
+        sortable: true
+    new_value:
+        label: 'csatar.csatar::lang.plugin.admin.history.newValue'
+        type: text
+        searchable: true
+        sortable: true
+    ip_address:
+        label: 'csatar.csatar::lang.plugin.admin.history.ipAddress'
+        type: text
+        searchable: true
+        sortable: true

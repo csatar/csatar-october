@@ -8,7 +8,10 @@ use Model;
 class MethodologyType extends Model
 {
     use \October\Rain\Database\Traits\Validation;
+
     use \October\Rain\Database\Traits\Sortable;
+
+    use \Csatar\Csatar\Traits\History;
 
     /*
      * Disable timestamps by default.
@@ -40,6 +43,13 @@ class MethodologyType extends Model
 
     public $belongsToMany = [
         'methodologies' => '\Csatar\Csatar\Models\Methodology'
+    ];
+
+    public $morphMany = [
+        'history' => [
+            \Csatar\Csatar\Models\History::class,
+            'name' => 'history',
+        ],
     ];
 
     public function beforeSave()

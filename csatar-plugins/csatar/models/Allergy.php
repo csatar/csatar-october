@@ -11,6 +11,8 @@ class Allergy extends Model
     
     use \October\Rain\Database\Traits\SoftDelete;
 
+    use \Csatar\Csatar\Traits\History;
+
     protected $dates = ['deleted_at'];
 
 
@@ -44,5 +46,12 @@ class Allergy extends Model
             'pivot' => ['comment'],
             'pivotModel' => '\Csatar\Csatar\Models\ScoutAllergyPivot',
         ]
+    ];
+
+    public $morphMany = [
+        'history' => [
+            \Csatar\Csatar\Models\History::class,
+            'name' => 'history',
+        ],
     ];
 }

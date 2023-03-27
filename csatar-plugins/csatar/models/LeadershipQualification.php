@@ -11,6 +11,8 @@ class LeadershipQualification extends Model
 
     use \October\Rain\Database\Traits\SoftDelete;
 
+    use \Csatar\Csatar\Traits\History;
+
     protected $dates = ['deleted_at'];
 
 
@@ -46,6 +48,13 @@ class LeadershipQualification extends Model
             'pivot' => ['date', 'location', 'qualification_certificate_number', 'training_id', 'qualification_leader'],
             'pivotModel' => '\Csatar\Csatar\Models\ScoutLeadershipQualificationPivot',
         ]
+    ];
+
+    public $morphMany = [
+        'history' => [
+            \Csatar\Csatar\Models\History::class,
+            'name' => 'history',
+        ],
     ];
 
     public function getTrainingIdOptions(){

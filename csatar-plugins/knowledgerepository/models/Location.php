@@ -13,6 +13,8 @@ class Location extends Model
 
     use \October\Rain\Database\Traits\SoftDelete;
 
+    use \Csatar\Csatar\Traits\History;
+
     protected $dates = ['deleted_at'];
 
 
@@ -47,6 +49,13 @@ class Location extends Model
             'pivotModel' => '\Csatar\KnowledgeRepository\Models\LocationMethodologyPivot',
             'label' => 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.methodologies'
         ]
+    ];
+
+    public $morphMany = [
+        'history' => [
+            \Csatar\Csatar\Models\History::class,
+            'name' => 'history',
+        ],
     ];
 
     public function beforeSave()

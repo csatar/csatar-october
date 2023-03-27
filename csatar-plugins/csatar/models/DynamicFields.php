@@ -15,6 +15,8 @@ class DynamicFields extends Model
 
     use \October\Rain\Database\Traits\SoftDelete;
 
+    use \Csatar\Csatar\Traits\History;
+
     protected $dates = ['deleted_at'];
 
 
@@ -51,6 +53,13 @@ class DynamicFields extends Model
      */
     public $belongsTo = [
         'association' => '\Csatar\Csatar\Models\Association',
+    ];
+
+    public $morphMany = [
+        'history' => [
+            \Csatar\Csatar\Models\History::class,
+            'name' => 'history',
+        ],
     ];
     
     /**

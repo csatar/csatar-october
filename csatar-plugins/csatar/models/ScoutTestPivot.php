@@ -3,14 +3,16 @@
 use DateTime;
 use Lang;
 use ValidationException;
-use October\Rain\Database\Pivot;
+use Csatar\Csatar\Classes\CsatarPivot;
 
 /**
  * Pivot Model
  */
-class ScoutTestPivot extends Pivot
+class ScoutTestPivot extends CsatarPivot
 {
     use \October\Rain\Database\Traits\Validation;
+
+    use \Csatar\Csatar\Traits\History;
 
     /**
      * @var string The database table used by the model.
@@ -48,5 +50,12 @@ class ScoutTestPivot extends Pivot
     public $fillable = [
         'date',
         'location',
+    ];
+
+    public $morphMany = [
+        'history' => [
+            \Csatar\Csatar\Models\History::class,
+            'name' => 'history'
+        ],
     ];
 }

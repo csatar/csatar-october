@@ -9,6 +9,8 @@ class Locations extends Model
 {
     use \October\Rain\Database\Traits\Validation;
 
+    use \Csatar\Csatar\Traits\History;
+
     /*
      * Disable timestamps by default.
      * Remove this line if timestamps are defined in the database table.
@@ -35,5 +37,12 @@ class Locations extends Model
      * @var array Validation rules
      */
     public $rules = [
+    ];
+
+    public $morphMany = [
+        'history' => [
+            \Csatar\Csatar\Models\History::class,
+            'name' => 'history',
+        ],
     ];
 }

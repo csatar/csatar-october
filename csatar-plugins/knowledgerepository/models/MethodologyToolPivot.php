@@ -8,7 +8,9 @@ use Model;
 class MethodologyToolPivot extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-    
+
+    use \Csatar\Csatar\Traits\History;
+
     /*
      * Disable timestamps by default.
      * Remove this line if timestamps are defined in the database table.

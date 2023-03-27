@@ -17,6 +17,8 @@ class AccidentLogRecord extends Model
 
     use \October\Rain\Database\Traits\Nullable;
 
+    use \Csatar\Csatar\Traits\History;
+
     protected $dates = ['deleted_at'];
 
     /**
@@ -71,6 +73,13 @@ class AccidentLogRecord extends Model
         'user' => [
             '\Rainlab\User\Models\User',
             'label' => 'csatar.csatar::lang.plugin.admin.scout.user',
+        ],
+    ];
+
+    public $morphMany = [
+        'history' => [
+            \Csatar\Csatar\Models\History::class,
+            'name' => 'history',
         ],
     ];
 

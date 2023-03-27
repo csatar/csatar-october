@@ -1,0 +1,11 @@
+list: $/csatar/csatar/models/history/columns.yaml
+modelClass: Csatar\Csatar\Models\History
+title: 'csatar.csatar::lang.plugin.admin.history.history'
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: false
+recordsPerPage: 20
+toolbar:
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'csatar/csatar/history/update/:id'

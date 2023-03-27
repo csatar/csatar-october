@@ -16,6 +16,8 @@ class Game extends PermissionBasedAccess
 
     use \October\Rain\Database\Traits\SoftDelete;
 
+    use \Csatar\Csatar\Traits\History;
+
     /**
      * @var string The database table used by the model.
      */
@@ -130,6 +132,13 @@ class Game extends PermissionBasedAccess
 
     public $attachMany = [
         'attachements' => ['System\Models\File'],
+    ];
+
+    public $morphMany = [
+        'history' => [
+            \Csatar\Csatar\Models\History::class,
+            'name' => 'history',
+        ],
     ];
 
     public static function filterAgeGroupByAssociation($query, $related)

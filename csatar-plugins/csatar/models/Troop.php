@@ -11,6 +11,8 @@ use Csatar\Csatar\Models\OrganizationBase;
  */
 class Troop extends OrganizationBase
 {
+    use \Csatar\Csatar\Traits\History;
+
     /**
      * @var string The database table used by the model.
      */
@@ -110,6 +112,13 @@ class Troop extends OrganizationBase
         ],
     ];
 
+    public $morphMany = [
+        'history' => [
+            \Csatar\Csatar\Models\History::class,
+            'name' => 'history',
+        ],
+    ];
+
     public static function getEagerLoadSettings(string $useCase = null): array
     {
         $eagerLoadSettings = parent::getEagerLoadSettings($useCase);
@@ -178,7 +187,16 @@ class Troop extends OrganizationBase
     public function updateCache(): void
     {
         if ($this->wasRecentlyCreated && $this->status == Status::ACTIVE) {
-            StructureTree::updateAssociationTree($this->association_id);
+            $structureTree = Cache::pull('structureTree');
+            if (empty($structureTree)) {
+                StructureTree::getStructureTree();
+                return;
+            }
+            $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->id]['id'] = $this->id;
+            $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->id]['name'] = $this->name;
+            $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->id]['extended_name'] = $this->extended_name;
+            $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->id]['team_id'] = $this->team_id;
+            Cache::forever('structureTree', $structureTree);
         }
 
         if (empty($this->original)) {

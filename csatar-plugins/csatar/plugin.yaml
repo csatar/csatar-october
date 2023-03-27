@@ -266,27 +266,28 @@ navigation:
                 icon: icon-sitemap
                 permissions:
                     - csatar.admin
-
             side-menu-location-data:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.location'
                 url: csatar/csatar/seederdata/location
                 icon: icon-database
                 permissions:
                     - csatar.admin
-
             side-menu-knowledgerepository-data:
                 label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.knowledgeRepositoryParameters'
                 url: csatar/knowledgerepository/seederdata/seeder/
                 icon: icon-database
                 permissions:
                     - csatar.admin
-
     main-menu-item-accident-log:
         label: 'csatar.csatar::lang.plugin.component.accidentLog.accidentLog'
         url: csatar/csatar/accidentlogrecords
         icon: icon-life-ring
         permissions:
             - csatar.manage.data
+    main-menu-item-history:
+        label: 'csatar.csatar::lang.plugin.admin.history.history'
+        url: csatar/csatar/history
+        icon: icon-life-ring
 permissions:
     csatar.manage.data:
         tab: 'csatar.csatar::lang.plugin.name'

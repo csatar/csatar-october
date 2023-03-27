@@ -1,0 +1,10 @@
+name: 'csatar.csatar::lang.plugin.admin.history.history'
+form: $/csatar/csatar/models/history/fields.yaml
+modelClass: Csatar\Csatar\Models\History
+defaultRedirect: csatar/csatar/history
+create:
+    redirect: 'csatar/csatar/history/update/:id'
+    redirectClose: csatar/csatar/history
+update:
+    redirect: csatar/csatar/history
+    redirectClose: csatar/csatar/history

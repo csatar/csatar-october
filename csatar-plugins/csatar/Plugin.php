@@ -3,6 +3,7 @@
 use App;
 use Backend;
 use Csatar\Csatar\Classes\Exceptions\OauthException;
+use Csatar\Csatar\Classes\HistoryService;
 use Csatar\Csatar\Models\Association;
 use Csatar\Csatar\Models\MandateType;
 use Csatar\Csatar\Models\Scout;
@@ -76,6 +77,40 @@ class Plugin extends PluginBase
      */
     public function boot()
     {
+        HistoryService::init([
+            '\RainLab\User\Models\User' => [
+                'extraEventListeners' => [
+                    'rainlab.user.login' => 'historyRecordEvent',
+                    'rainlab.user.register' => 'historyRecordEvent',
+                    'rainlab.user.activate' => 'historyRecordEvent',
+                    'rainlab.user.deactivate' => 'historyRecordEvent',
+                    'rainlab.user.reactivate' => 'historyRecordEvent',
+                ],
+                'extraEvents' => [
+                    'model.auth.beforeImpersonate' => 'historyRecordEvent',
+                    'model.auth.afterImpersonate' => 'historyRecordEvent',
+                ],
+            ],
+            '\RainLab\User\Models\UserGroup' => null,
+            '\Backend\Models\User' => [
+                'extraEventListeners' => [
+                    'backend.user.login' => 'historyRecordEvent',
+                ],
+            ],
+            '\Backend\Models\UserGroup' => null,
+            '\Backend\Models\UserRole' => null,
+            '\PolloZen\SimpleGallery\Models\Gallery' => null,
+            '\Csatar\Csatar\Models\MandatePermission' => [
+                'basicEvents' => false,
+                'relationEvents' => false,
+                'addDefaultHistoryRelation' => false,
+                'extraEventListeners' => [
+                    'mandatePermission.afterSave' => 'historyAfterSave',
+                    'mandatePermission.afterDelete' => 'historyAfterDelete',
+                ],
+            ],
+        ]);
+
         if(!Schema::hasTable('system_plugin_versions') || intval(str_replace('.', '', \System\Models\PluginVersion::getVersion('Csatar.Csatar'))) < 1070) {
             // if Csatar.Csatar version is lower than a specific version the below code should not run
             return;
@@ -273,8 +308,31 @@ class Plugin extends PluginBase
                 'password_confirmation' => Lang::get('csatar.csatar::lang.plugin.admin.general.password_confirmation'),
             ];
 
+            $model->bindEvent('rainlab.user.login', function ($model)  {
+                HistoryService::historyRecordEvent($model, 'rainlab.user.login');
+            });
         });
     }
+
+//    protected function extendClassesWithHistoryRelation($classes) {
+//        foreach ($classes as $class) {
+//            $class::extend(function($model) {
+//                HistoryService::bindEventsToModel($model, true, false);
+////                $model->morphMany['history'] = [
+////                    \Csatar\Csatar\Models\History::class,
+////                    'name' => 'history'
+////                ];
+//
+////                $model->bindEvent('model.afterSave', function () use ($model){
+////                    HistoryService::historyAfterSave($model);
+////                });
+////
+////                $model->bindEvent('model.afterDelete', function () use ($model){
+////                    HistoryService::historyAfterDelete($model);
+////                });
+//            });
+//        }
+//    }
 
     public function saveGuestMandateTypeIdsForEveryAssociationToSession(){
 
@@ -309,12 +367,14 @@ class Plugin extends PluginBase
     public function registerSchedule($schedule)
     {
         $schedule->call(function () {
-            Db::select(
-                "UPDATE csatar_csatar_scouts
-                SET family_name = '" . Scout::NAME_DELETED_INACTIVITY . "', given_name = ''
-                WHERE inactivated_at < DATE_SUB(NOW(), INTERVAL 5 YEAR) AND family_name <> '" . Scout::NAME_DELETED_INACTIVITY . "';"
-            );
+            $scouts = Scout::where('inactivated_at', '<', Carbon::now()->subYears(5))->where('family_name', '!=', Scout::NAME_DELETED_INACTIVITY)->get();
+            foreach ($scouts as $scout) {
+                $scout->family_name = Scout::NAME_DELETED_INACTIVITY;
+                $scout->given_name = '';
+                $scout->ignoreValidation = true;
+                $scout->forceSave();
+            }
         })
-            ->daily();
+            ->dailyAt('00:15');
     }
 }

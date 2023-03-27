@@ -11,6 +11,8 @@ class SpecialTest extends Model
     
     use \October\Rain\Database\Traits\SoftDelete;
 
+    use \Csatar\Csatar\Traits\History;
+
     protected $dates = ['deleted_at'];
 
 
@@ -46,5 +48,12 @@ class SpecialTest extends Model
             'pivot' => ['date', 'location'],
             'pivotModel' => '\Csatar\Csatar\Models\ScoutSpecialTestPivot',
         ]
+    ];
+
+    public $morphMany = [
+        'history' => [
+            \Csatar\Csatar\Models\History::class,
+            'name' => 'history',
+        ],
     ];
 }

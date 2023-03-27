@@ -32,6 +32,8 @@ class Scout extends OrganizationBase
 
     use \October\Rain\Database\Traits\Nullable;
 
+    use \Csatar\Csatar\Traits\History;
+
     public const NAME_DELETED_INACTIVITY = 'Inaktivítás miatt törölt név';
 
     protected $dates = ['deleted_at'];
@@ -642,6 +644,13 @@ class Scout extends OrganizationBase
     public $attachOne = [
         'profile_image' => 'System\Models\File',
         'registration_form' => 'System\Models\File',
+    ];
+
+    public $morphMany = [
+        'history' => [
+            \Csatar\Csatar\Models\History::class,
+            'name' => 'history'
+        ],
     ];
 
     public static function getEagerLoadSettings(string $useCase = null): array

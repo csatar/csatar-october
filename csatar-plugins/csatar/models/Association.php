@@ -12,6 +12,8 @@ use ValidationException;
  */
 class Association extends OrganizationBase
 {
+    use \Csatar\Csatar\Traits\History;
+
     /**
      * @var string The database table used by the model.
      */
@@ -109,6 +111,13 @@ class Association extends OrganizationBase
             'key' => 'mandate_model_id',
             'scope' => 'inactiveMandatesInOrganization',
             'ignoreInPermissionsMatrix' => true,
+        ],
+    ];
+
+    public $morphMany = [
+        'history' => [
+            \Csatar\Csatar\Models\History::class,
+            'name' => 'history',
         ],
     ];
 

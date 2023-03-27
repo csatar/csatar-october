@@ -11,6 +11,8 @@ class SpecialQualification extends Model
     
     use \October\Rain\Database\Traits\SoftDelete;
 
+    use \Csatar\Csatar\Traits\History;
+
     protected $dates = ['deleted_at'];
 
 
@@ -45,5 +47,12 @@ class SpecialQualification extends Model
             'pivot' => ['date', 'location'],
             'pivotModel' => '\Csatar\Csatar\Models\ScoutSpecialQualificationPivot',
         ]
+    ];
+
+    public $morphMany = [
+        'history' => [
+            \Csatar\Csatar\Models\History::class,
+            'name' => 'history',
+        ],
     ];
 }

@@ -11,6 +11,8 @@ class Promise extends Model
     
     use \October\Rain\Database\Traits\SoftDelete;
 
+    use \Csatar\Csatar\Traits\History;
+
     protected $dates = ['deleted_at'];
 
 
@@ -44,5 +46,12 @@ class Promise extends Model
             'pivot' => ['date', 'location'],
             'pivotModel' => '\Csatar\Csatar\Models\ScoutPromisePivot',
         ]
+    ];
+
+    public $morphMany = [
+        'history' => [
+            \Csatar\Csatar\Models\History::class,
+            'name' => 'history',
+        ],
     ];
 }

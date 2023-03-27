@@ -1,0 +1,74 @@
+fields:
+    frontendUser:
+        label: 'csatar.csatar::lang.plugin.admin.history.frontendUser'
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        readOnly: 1
+        type: relation
+    backendUser:
+        label: 'csatar.csatar::lang.plugin.admin.history.backendUser'
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        readOnly: 1
+        type: relation
+    created_at:
+        label: 'csatar.csatar::lang.plugin.admin.general.createdAt'
+        mode: datetime
+        span: auto
+        readOnly: 1
+        type: datepicker
+    ip_address:
+        label: 'csatar.csatar::lang.plugin.admin.history.ipAddress'
+        span: auto
+        type: text
+        readOnly: 1
+    _ruler1:
+        type: ruler
+    model_class:
+        label: 'csatar.csatar::lang.plugin.admin.history.modelClass'
+        span: auto
+        type: text
+        readOnly: 1
+    model_id:
+        label: 'csatar.csatar::lang.plugin.admin.history.modelId'
+        span: auto
+        type: number
+        readOnly: 1
+    related_model_class:
+        label: 'csatar.csatar::lang.plugin.admin.history.relatedModelClass'
+        span: auto
+        type: text
+        readOnly: 1
+    related_model_id:
+        label: 'csatar.csatar::lang.plugin.admin.history.relatedModelId'
+        span: auto
+        type: number
+        readOnly: 1
+    attribute:
+        label: 'csatar.csatar::lang.plugin.admin.history.attribute'
+        span: auto
+        type: text
+        readOnly: 1
+    cast:
+        label: 'csatar.csatar::lang.plugin.admin.history.cast'
+        span: auto
+        type: text
+        readOnly: 1
+    old_value:
+        label: 'csatar.csatar::lang.plugin.admin.history.oldValue'
+        span: auto
+        type: textarea
+        readOnly: 1
+    new_value:
+        label: 'csatar.csatar::lang.plugin.admin.history.newValue'
+        span: auto
+        type: textarea
+        readOnly: 1
+    description:
+        label: 'csatar.csatar::lang.plugin.admin.history.description'
+        span: full
+        type: textarea
+        readOnly: 1
+

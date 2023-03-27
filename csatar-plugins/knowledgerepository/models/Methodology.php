@@ -12,8 +12,12 @@ use Lang;
 class Methodology extends PermissionBasedAccess
 {
     use \October\Rain\Database\Traits\Validation;
+
     use \October\Rain\Database\Traits\SoftDelete;
+
     use \October\Rain\Database\Traits\Nullable;
+
+    use \Csatar\Csatar\Traits\History;
 
     /**
      * @var string The database table used by the model.
@@ -128,6 +132,13 @@ class Methodology extends PermissionBasedAccess
 
     public $attachMany = [
         'attachements' => ['System\Models\File'],
+    ];
+
+    public $morphMany = [
+        'history' => [
+            \Csatar\Csatar\Models\History::class,
+            'name' => 'history',
+        ],
     ];
 
     public function beforeCreate()

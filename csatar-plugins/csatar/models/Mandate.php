@@ -18,6 +18,8 @@ class Mandate extends Model
 
     use \October\Rain\Database\Traits\SoftDelete;
 
+    use \Csatar\Csatar\Traits\History;
+
     protected $dates = ['deleted_at'];
 
     protected $touches = ['scout'];
@@ -416,4 +418,11 @@ class Mandate extends Model
             ->where('mandate_model_id', $organization->id)
             ->update(['end_date' => date('Y-m-d')]);
     }
+
+    public $morphMany = [
+        'history' => [
+            \Csatar\Csatar\Models\History::class,
+            'name' => 'history',
+        ],
+    ];
 }
