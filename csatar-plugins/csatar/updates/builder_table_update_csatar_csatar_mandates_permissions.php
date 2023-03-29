@@ -11,7 +11,6 @@ class BuilderTableUpdateCsatarCsatarMandatesPermissions extends Migration
         {
             $table->increments('id')->first()->unsigned();
             $table->timestamp('created_at')->nullable();
-;
             $table->dropColumn('2fa');
         });
     }
