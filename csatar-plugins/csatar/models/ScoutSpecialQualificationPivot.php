@@ -59,4 +59,3 @@ class ScoutSpecialQualificationPivot extends CsatarPivot
         ],
     ];
 }
-
