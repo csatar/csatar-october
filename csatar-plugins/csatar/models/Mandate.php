@@ -38,17 +38,7 @@ class Mandate extends Model
         ]);
 
         // on the BE, when clicking the Mandate Create button: modify the mandate_model relation type, in order to the mandate_model relation to be set when creating a new mandate
-        $this->belongsTo['mandate_model'] = Input::get('Association') !== null ?
-            Association::getModelName() :
-            (Input::get('District') !== null ?
-                District::getModelName() :
-                (Input::get('Team') !== null ?
-                   Team::getModelName() :
-                    (Input::get('Troop') !== null ?
-                       Troop::getModelName() :
-                        (Input::get('Patrol') !== null ?
-                            Patrol::getModelName() :
-                            OrganizationBase::getModelName()))));
+        $this->belongsTo['mandate_model'] = Input::get('Association') !== null ? Association::getModelName() : (Input::get('District') !== null ? District::getModelName() : (Input::get('Team') !== null ? Team::getModelName() : (Input::get('Troop') !== null ? Troop::getModelName() : (Input::get('Patrol') !== null ? Patrol::getModelName() : OrganizationBase::getModelName()))));
 
         // on the BE, when changing the Mandate Type on the form, which is shown after the Mandate Create button has been clicked: modify the mandate_model relation type, in order to the mandate_model relation to be set
         if ($this->belongsTo['mandate_model'] == OrganizationBase::getModelName()) {
@@ -302,26 +292,22 @@ class Mandate extends Model
     public function scopeMandateModelType($query, $model = null)
     {
         $currentDate = (new DateTime())->format('Y-m-d');
-        return $model
-            ? $query->where('mandate_model_type', $model::getModelName())
+        return $model ? $query->where('mandate_model_type', $model::getModelName())
                 ->where('start_date', '<=', $currentDate)
                 ->where(function ($query) use ($currentDate) {
                     return $query->whereNull('end_date')->orWhere('end_date', '>=', $currentDate);
-                })
-            : $query->whereNull('id');
+                }) : $query->whereNull('id');
     }
 
     public function scopeInactiveMandatesInOrganization($query, $model)
     {
         $currentDate = (new DateTime())->format('Y-m-d');
-        return $model
-            ? $query->where('mandate_model_type', $model::getModelName())
+        return $model ? $query->where('mandate_model_type', $model::getModelName())
                 ->where(function ($query) use ($currentDate) {
                     return $query->where('start_date', '>', $currentDate)
                         ->orWhere('end_date', '<', $currentDate);
                 })
-                ->orderBy('end_date', 'desc')
-            : $query->whereNull('id');
+                ->orderBy('end_date', 'desc') : $query->whereNull('id');
     }
 
     public function getMandateTeamAttribute(): string

@@ -173,8 +173,6 @@ class DynamicFields extends Model
 
     function getOrganizationTypeModelNameUserFriendlyAttribute()
     {
-        return $this->attributes['model']
-            ? ($this->attributes['model'])::getOrganizationTypeModelNameUserFriendly()
-                : '';
+        return $this->attributes['model'] ? ($this->attributes['model'])::getOrganizationTypeModelNameUserFriendly() : '';
     }
 }

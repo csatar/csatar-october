@@ -152,8 +152,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
         $this->addJs('/modules/backend/behaviors/importexportcontroller/assets/js/october.import.js', 'core');
         $this->addCss('/modules/backend/behaviors/importexportcontroller/assets/css/import.css', 'core');
 
-        $this->controller->pageTitle = $this->controller->pageTitle
-            ?: Lang::get($this->getConfig('import[title]', 'Import records'));
+        $this->controller->pageTitle = $this->controller->pageTitle ?: Lang::get($this->getConfig('import[title]', 'Import records'));
 
         $this->prepareImportVars();
     }
@@ -171,16 +170,14 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
         $this->addJs('/modules/backend/behaviors/importexportcontroller/assets/js/october.export.js', 'core');
         $this->addCss('/modules/backend/behaviors/importexportcontroller/assets/css/export.css', 'core');
 
-        $this->controller->pageTitle = $this->controller->pageTitle
-            ?: Lang::get($this->getConfig('export[title]', 'Export records'));
+        $this->controller->pageTitle = $this->controller->pageTitle ?: Lang::get($this->getConfig('export[title]', 'Export records'));
 
         $this->prepareExportVars();
     }
 
     public function download($name, $outputName = null)
     {
-        $this->controller->pageTitle = $this->controller->pageTitle
-            ?: Lang::get($this->getConfig('export[title]', 'Export records'));
+        $this->controller->pageTitle = $this->controller->pageTitle ?: Lang::get($this->getConfig('export[title]', 'Export records'));
 
         return $this->exportGetModel()->download($name, $outputName);
     }
@@ -633,9 +630,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
         /*
          * Add records
          */
-        $getter = $this->getConfig('export[useList][raw]', false)
-            ? 'getColumnValueRaw'
-            : 'getColumnValue';
+        $getter = $this->getConfig('export[useList][raw]', false) ? 'getColumnValueRaw' : 'getColumnValue';
 
         $query = $widget->prepareQuery();
         $results = $query->get();

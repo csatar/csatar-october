@@ -31,7 +31,7 @@ class ContentPageSearchProvider extends ResultsProvider
             $result->relevance = 1;
             $result->title     = $match->title;
             $result->text      = $match->content;
-            $result->url       = $controller->pageUrl($model, [ 'id'=> $match->model_id ] );
+            $result->url       = $controller->pageUrl($model, [ 'id' => $match->model_id ] );
             $result->thumb     = $match->image;
 
             // Add the results to the results collection

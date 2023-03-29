@@ -315,21 +315,13 @@ trait ManagesUploads {
         $cssDimensions = '';
 
         if ($mode == 'block') {
-            $cssDimensions .= ($this->imageWidth)
-                ? 'width: '.$this->imageWidth.'px;'
-                : 'width: '.$this->imageHeight.'px;';
+            $cssDimensions .= ($this->imageWidth) ? 'width: '.$this->imageWidth.'px;' : 'width: '.$this->imageHeight.'px;';
 
-            $cssDimensions .= ($this->imageHeight)
-                ? 'height: '.$this->imageHeight.'px;'
-                : 'height: auto;';
+            $cssDimensions .= ($this->imageHeight) ? 'height: '.$this->imageHeight.'px;' : 'height: auto;';
         } else {
-            $cssDimensions .= ($this->imageWidth)
-                ? 'width: '.$this->imageWidth.'px;'
-                : 'width: auto;';
+            $cssDimensions .= ($this->imageWidth) ? 'width: '.$this->imageWidth.'px;' : 'width: auto;';
 
-            $cssDimensions .= ($this->imageHeight)
-                ? 'height: '.$this->imageHeight.'px;'
-                : 'height: auto;';
+            $cssDimensions .= ($this->imageHeight) ? 'height: '.$this->imageHeight.'px;' : 'height: auto;';
         }
 
         return $cssDimensions;

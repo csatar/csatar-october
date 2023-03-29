@@ -350,7 +350,7 @@ class RecordList extends RainRecordList {
 
         if (
             isset($config['recordList']['filterConfig']['type']) &&
-            $config['recordList']['filterConfig']['type']== 'freeText'
+            $config['recordList']['filterConfig']['type'] == 'freeText'
         ) {
             return [];
         }

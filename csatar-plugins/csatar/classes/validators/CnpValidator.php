@@ -59,9 +59,7 @@ class CnpValidator
             return $year + 1800;
         }
 
-        return in_array((int) $this->cnp[0], [5, 6])
-            ? $year + 2000
-            : $this->y2K($year);
+        return in_array((int) $this->cnp[0], [5, 6]) ? $year + 2000 : $this->y2K($year);
     }
 
     private function y2k($year)

@@ -84,8 +84,7 @@ class StructureTree
             $array = $value instanceof Arrayable ? $value->attributesToArray() : $value;
             if (!empty($value->getRelations())) {
                 foreach ($value->getRelations() as $relationName => $relationItems) {
-                    $array[$relationName] =
-                        $relationItems instanceof Collection ? self::toKeyedByIdArray($relationItems) : ($relationItems instanceof Arrayable ? $relationItems->toArray() : $relationItems);
+                    $array[$relationName] = $relationItems instanceof Collection ? self::toKeyedByIdArray($relationItems) : ($relationItems instanceof Arrayable ? $relationItems->toArray() : $relationItems);
                 }
             }
             return $array;
