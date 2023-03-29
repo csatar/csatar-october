@@ -44,8 +44,6 @@
     <rule ref="Squiz.Commenting.LongConditionClosingComment"/>
     <rule ref="Squiz.Commenting.PostStatementComment"/>
     <rule ref="Squiz.Scope.MethodScope"/>
-    <rule ref="Squiz.WhiteSpace.ControlStructureSpacing"/>
-    <rule ref="Squiz.WhiteSpace.MemberVarSpacing"/>
     <rule ref="Squiz.WhiteSpace.OperatorSpacing"/>
     <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace"/>
     <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
@@ -105,6 +103,8 @@
         <exclude-pattern>tests/Core/Tokenizer/StableCommentWhitespaceWinTest\.php</exclude-pattern>
     </rule>
 
-
+    <rule ref="Generic">
+        <exclude name="Generic.Files.LineLength"/>
+    </rule>
 
 </ruleset>
