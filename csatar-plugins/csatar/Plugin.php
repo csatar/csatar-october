@@ -311,31 +311,8 @@ class Plugin extends PluginBase
                 'password_confirmation' => Lang::get('csatar.csatar::lang.plugin.admin.general.password_confirmation'),
             ];
 
-            $model->bindEvent('rainlab.user.login', function ($model)  {
-                HistoryService::historyRecordEvent($model, 'rainlab.user.login');
-            });
         });
     }
-
-//    protected function extendClassesWithHistoryRelation($classes) {
-//        foreach ($classes as $class) {
-//            $class::extend(function($model) {
-//                HistoryService::bindEventsToModel($model, true, false);
-////                $model->morphMany['history'] = [
-////                    \Csatar\Csatar\Models\History::class,
-////                    'name' => 'history'
-////                ];
-//
-////                $model->bindEvent('model.afterSave', function () use ($model){
-////                    HistoryService::historyAfterSave($model);
-////                });
-////
-////                $model->bindEvent('model.afterDelete', function () use ($model){
-////                    HistoryService::historyAfterDelete($model);
-////                });
-//            });
-//        }
-//    }
 
     public function saveGuestMandateTypeIdsForEveryAssociationToSession(){
 

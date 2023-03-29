@@ -188,7 +188,7 @@ class PermissionsMatrix extends Controller
         }
 
         if ($formData['action'] === 'delete') {
-            $ids = MandatePermission::where('mandate_type_id', $formData['fromMandateType'])->get()->pluck('id'); //TODO: history record
+            $ids = MandatePermission::where('mandate_type_id', $formData['fromMandateType'])->get()->pluck('id');
             MandatePermission::destroy($ids);
             \Flash::success(e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.deleteSuccess')));
             if (Input::get('close')) {
