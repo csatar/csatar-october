@@ -54,13 +54,11 @@ class BackendExtensions
                 $message .= Lang::get('csatar.csatar::lang.plugin.admin.general.bulkDeleteError');
                 $message .= $errorMessages;
                 Flash::error($message);
-            }
-            else if ($deletedRecords > 0) {
+            } else if ($deletedRecords > 0) {
                 Flash::success(Lang::get('backend::lang.list.delete_selected_success'));
             }
 
-        }
-        else {
+        } else {
             Flash::error(Lang::get('backend::lang.list.delete_selected_empty'));
         }
 

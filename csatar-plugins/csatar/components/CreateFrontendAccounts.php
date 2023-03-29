@@ -139,15 +139,15 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
         $ecsetCode = $data['ecset_code'];
 
         try {
-            if(!empty($ecsetCode)){
+            if (!empty($ecsetCode)) {
                 $scout = Scout::where('ecset_code', $ecsetCode)->first();
             }
 
-            if(empty($scout) || !is_object($scout)){
+            if (empty($scout) || !is_object($scout)) {
                 throw new ValidationException(['ecset_code' => Lang::get('csatar.csatar::lang.plugin.component.createFrontendAccounts.validationExceptions.invalidEcsetCode')]);
             }
 
-            if(!empty($scout) && $scout->email != $data['email']){
+            if (!empty($scout) && $scout->email != $data['email']) {
                 throw new ValidationException(['ecset_code' => Lang::get('csatar.csatar::lang.plugin.component.createFrontendAccounts.validationExceptions.emailEcsetCodeMissMatch')]);
             }
 
@@ -191,8 +191,7 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
             }
 
             return Redirect::to('/tag/' . $ecsetCode);
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             if (Request::ajax()) throw $ex;
             else Flash::error($ex->getMessage());
         }
@@ -202,7 +201,7 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
 
         $scoutIds = Input::get('scouts');
 
-        if(empty($scoutIds)){
+        if (empty($scoutIds)) {
             throw new ValidationException(['scouts' => Lang::get('csatar.csatar::lang.plugin.component.createFrontendAccounts.validationExceptions.noScoutIsSelected')]);
         }
 
@@ -210,17 +209,17 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
 
         foreach ($scouts as $scout) {
 
-            if(!empty($scout->user_id)){
+            if (!empty($scout->user_id)) {
                 $this->messages['errors'][$scout->id] =
                     Lang::get('csatar.csatar::lang.plugin.component.createFrontendAccounts.messages.scoutAlreadyHasUserAccount',
                         ['name' => $scout->getFullName() ], 'hu');
             }
 
-            if(!empty($scout->email) && empty($scout->user_id)){
+            if (!empty($scout->email) && empty($scout->user_id)) {
                 $this->register($scout);
             }
 
-            if(empty($scout->email)){
+            if (empty($scout->email)) {
                 $this->messages['errors'][$scout->id] =
                     Lang::get('csatar.csatar::lang.plugin.component.createFrontendAccounts.messages.scoutHasNoEmail',
                         ['name' => $scout->getFullName() ]);
@@ -300,8 +299,7 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
             $this->messages['success'][$scout->id] = Lang::get('csatar.csatar::lang.plugin.component.createFrontendAccounts.messages.userAccountCreated',
                 ['name' => $scout->getFullName() ]);
 
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             if (Request::ajax()) throw $ex;
             else Flash::error($ex->getMessage());
         }
@@ -315,8 +313,7 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
 
         if ($pageName = $this->property('resetPage')) {
             $url = $this->pageUrl($pageName, $params);
-        }
-        else {
+        } else {
             $url = $this->currentPageUrl($params);
         }
 

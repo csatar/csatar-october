@@ -64,7 +64,7 @@ class Form extends Model
     public function getModelName()
     {
         $modelName = $this->model;
-        if(substr( $modelName, 0, 1 ) !== "\\"){
+        if (substr( $modelName, 0, 1 ) !== "\\") {
             $modelName = '\\' . $modelName;
         }
 
