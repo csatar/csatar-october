@@ -508,7 +508,7 @@ trait AjaxControllerSimple {
 
         $model = $edit ? $relatedModelName::find($relationId) : $this->getPivotModelIfSet($relationName);
 
-        if (isset(Input::get($relationName)['pivot'])) {
+        if (isset(Input::get($relationName)['pivot']) && $edit) {
             $pivotData = Input::get($relationName)['pivot'];
             $rules = $record->{$relationName}->find($relationId)->pivot->rules ?? [];
         } else {
@@ -838,20 +838,12 @@ trait AjaxControllerSimple {
     public function renderValidationTags($model, $forPivot = false, $relationName = false)
     {
         if (!empty($model->rules)) {
-            $html = "<div class='validationTags'>";
             $rules = $this->addRequiredRuleBasedOnUserRights($model->rules, $this->currentUserRights);
-            foreach ($rules as $fieldName => $rule) {
-                if (!$forPivot && !$relationName) {
-                    $positionData = $fieldName;
-                } else if (!$forPivot) {
-                    $positionData = $relationName . '[' . $fieldName . ']';
-                } else {
-                    $positionData = $relationName . '[pivot][' . $fieldName . ']';
-                }
-                $html .= "<span class='errormsg' data-validate-for='" . $fieldName . "' data-position-for='" . $positionData . "'></span>";
-            }
-            $html .= "</div>";
-            return $html;
+            return $this->renderPartial('@partials/validationTags.htm', [
+                'rules' => $rules,
+                'forPivot' => $forPivot,
+                'relationName' => $relationName
+            ]);
         }
         return '';
     }
