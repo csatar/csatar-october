@@ -209,6 +209,8 @@
                 'inactivationWarning' => 'Please note that if you change status from active to inactive, scout\'s all mandates will expire!',
                 'bulkDeletePartialSuccess' => ':deletedCount deleted from :totalCount. ',
                 'bulkDeleteError' => 'The following errors occurred: ',
+                'deleteWithPersonalData' => 'Delete with personal data',
+                'deleteWithPersonalDataConfirmation' => 'Are you sure you want to delete this scout and his personal data (name, email, phone, address?',
             ],
             'admin' => [
                 'menu' => [
