@@ -1,0 +1,37 @@
+<div class="col-12 mb-4">
+    <div class="field-section toolbar-item toolbar-primary mb-2">
+        <h4 style="display:inline;">{{ relationLabel }}</h4>
+
+        {% if not readOnly and canUpdate %}
+            <div class="add-remove-button-container">
+                <button
+                    class="btn btn-xs rounded btn-primary me-2"
+                    data-request="onListAttachOptions"
+                    data-request-data="relationName: '{{ relationName }}'"
+                >
+                    <i class="bi bi-plus-square"></i>
+                </button>
+            </div>
+            <div id="add-edit-{{ relationName }}"></div>
+        {% elseif not readOnly and not canUpdate and fieldsThatRequire2FA[relationName] is defined %}
+            <div class="add-remove-button-container">
+                <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-placement=top
+                    title="{{ 'csatar.forms::lang.components.basicForm.2FANeeded'|trans }}">
+                    <button class="btn btn-xs rounded btn-primary me-2" disabled>
+                        <i class="csat-key-out-wh-sm"></i>
+                    </button>
+                </span>
+            </div>
+            <div id="add-edit-{{ relationName }}"></div>
+        {% else %}
+            <div id="add-edit-{{ relationName }}"></div>
+        {% endif %}
+
+        {% if pivotTableHeader and pivotTableRows %}
+            <div class="table csat-grid">
+                {{ pivotTableHeader|raw }}
+                {{ pivotTableRows|raw }}
+            </div>
+        {% endif %}
+    </div>
+</div>

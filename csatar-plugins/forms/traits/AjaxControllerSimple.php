@@ -1059,36 +1059,24 @@ trait AjaxControllerSimple {
 
     public function generatePivotSection($record, $relationName, $definition, $attributesToDisplay) {
         $relationLabel = array_key_exists('label', $definition) ? Lang::get($definition['label']) : $relationName;
-        $html = '<div class="col-12 mb-4">';
-        $html .= '<div class="field-section toolbar-item toolbar-primary mb-2"><h4 style="display:inline;">' . $relationLabel . '</h4>';
-
-        if (!$this->readOnly && $this->canUpdate($relationName)) {
-            $html .= '<div class="add-remove-button-container"><button class="btn btn-xs rounded btn-primary me-2"
-                data-request="onListAttachOptions"
-                data-request-data="relationName: \'' . $relationName . '\'"><i class="bi bi-plus-square"></i></button></div></div>';
-            $html .= '<div id="add-edit-' . $relationName . '"></div>';
-        } else if (!$this->readOnly && !$this->canUpdate($relationName) && isset($this->fieldsThatRequire2FA[$relationName])) {
-            $html .= '<div class="add-remove-button-container">';
-            $html .= '<span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-placement=top ';
-            $html .= 'title="' . Lang::get('csatar.forms::lang.components.basicForm.2FANeeded') . '">';
-            $html .= '<button class="btn btn-xs rounded btn-primary me-2"
-                 disabled><i class="csat-key-out-wh-sm"></i></button></div></div>';
-            $html .= '<div id="add-edit-' . $relationName . '"></div>';
-        } else {
-            $html .= '</div>';
-        }
 
         if (count($record->$relationName)>0 ||
             (!$record->id && count($record->{$relationName}()->withDeferred($this->sessionKey)->get())>0)) {
-            $html .= '<div class="table csat-grid">';
-            $html .= $this->generatePivotTableHeader($attributesToDisplay);
-            $html .= $this->generatePivotTableRows($record, $relationName, $attributesToDisplay);
-            $html .= '</div>';
+            $pivotTableHeader = $this->generatePivotTableHeader($attributesToDisplay);
+            $pivotTableRows = $this->generatePivotTableRows($record, $relationName, $attributesToDisplay);
         }
 
-        $html .= '</div>';
-
-        return $html;
+        return $this->renderPartial('@partials/pivotSection.htm', [
+            'relationName' => $relationName,
+            'relationLabel' => $relationLabel,
+            'record' => $record,
+            'attributesToDisplay' => $attributesToDisplay,
+            'readOnly' => $this->readOnly,
+            'canUpdate' => $this->canUpdate($relationName),
+            'fieldsThatRequire2FA' => $this->fieldsThatRequire2FA,
+            'pivotTableHeader' => $pivotTableHeader ?? null,
+            'pivotTableRows' => $pivotTableRows ?? null,
+        ]);
     }
 
     public function onDeletePivotRelation(){
