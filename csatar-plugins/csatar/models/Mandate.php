@@ -374,7 +374,6 @@ class Mandate extends Model
             })
             ->pluck('name', 'id')
             ->toArray();
-;
     }
 
     public function getTeamOptionsForPatrolAndTroopMandates($scopes = null): array
