@@ -373,7 +373,8 @@ class Mandate extends Model
                 return [ 'name' => $item->mandate_model->extendedName, 'id' => $item->mandate_model->id . $item->mandate_model->getModelName()];
             })
             ->pluck('name', 'id')
-            ->toArray();;
+            ->toArray();
+;
     }
 
     public function getTeamOptionsForPatrolAndTroopMandates($scopes = null): array

@@ -69,7 +69,8 @@ class PermissionImport extends \Backend\Models\ImportModel
                     "own" => $data["own"],
                     "model" => $data["model"],
                     "field" => $data["field"],
-                ]);;
+                ]);
+;
                 $mandatePermission->update([
                     "obligatory" => $data["obligatory"] != "" ? $data["obligatory"] : null,
                     "create" => $data["create"] != "" ? $data["create"] : null,

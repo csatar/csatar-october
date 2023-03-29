@@ -141,12 +141,14 @@ class AccidentLogRecord extends Model
 
     public function getInjuredPersonGenderListAttribute($value)
     {
-        return Gender::getOptionsWithLabels()[$value] ?? null;;
+        return Gender::getOptionsWithLabels()[$value] ?? null;
+;
     }
 
     public function getInjurySeverityListAttribute($value)
     {
-        return InjurySeverity::getOptionsWithLabels()[$value] ?? null;;
+        return InjurySeverity::getOptionsWithLabels()[$value] ?? null;
+;
     }
 
     public function getCreatedByAttribute($value)
