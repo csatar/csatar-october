@@ -1,0 +1,28 @@
+url = "/letoltes/:extension/:file"
+layout = "default"
+title = "Letöltés"
+==
+<?php
+function onStart()
+{
+    if ($this->param('extension') == 'csv') {
+        $filePath = temp_path() . '/' . $this->param('file');
+        $headers = [
+            'Content-Type' => 'text/csv',
+            'charset' => 'UTF-8',
+        ];
+    }
+
+    if ($this->param('extension') == 'xlsx') {
+        $filePath = storage_path() . '/app/' . $this->param('file');
+        $headers = [
+            'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'charset' => 'UTF-8',
+        ];
+    }
+
+    $fileName = $this->param('file');
+    return Response::download($filePath, $fileName, $headers)->deleteFileAfterSend(true);
+}
+?>
+==

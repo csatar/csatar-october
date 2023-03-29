@@ -4,20 +4,23 @@ use Auth;
 use Carbon\Carbon;
 use Cms\Classes\ComponentBase;
 use Csatar\Csatar\Classes\CsvCreator;
-use Csatar\Csatar\Classes\Mappers\CountryMapper;
-use Csatar\Csatar\Classes\StructureTree;
 use Csatar\Csatar\Classes\Enums\Gender;
 use Csatar\Csatar\Classes\Enums\Status;
+use Csatar\Csatar\Classes\Mappers\CountryMapper;
 use Csatar\Csatar\Classes\Mappers\LegalRelationshipMapper;
 use Csatar\Csatar\Classes\Mappers\ReligionMapper;
 use Csatar\Csatar\Classes\Mappers\TShirtSizeMapper;
+use Csatar\Csatar\Classes\StructureTree;
+use Csatar\Csatar\Classes\Xlsx\ScoutXlsxExport;
+use Csatar\Csatar\Classes\Xlsx\ScoutXlsxImport;
 use Csatar\Csatar\Models\GalleryModelPivot;
-use Csatar\Csatar\Models\Team;
 use Csatar\Csatar\Models\Scout;
+use Csatar\Csatar\Models\Team;
 use Db;
 use Input;
 use Lang;
 use Redirect;
+use Vdomah\Excel\Classes\Excel;
 
 class OrganizationUnitFrontend extends ComponentBase
 {
@@ -156,6 +159,32 @@ class OrganizationUnitFrontend extends ComponentBase
         $fileName = $team->team_number . '_csapat_' . Carbon::today()->toDateString() . '.csv';
         $csvPath = temp_path() . '/' . $fileName;
 
+        $data = $this->prepareScoutsDownloadData($teamId);
+
+        CsvCreator::writeCsvFile($csvPath, $data);
+
+        return Redirect::to('letoltes/csv/' . $fileName);
+    }
+
+    public function onExportScoutsToXlsx()
+    {
+        $teamId = Input::get('teamId');
+        $team = Team::find($teamId);
+        if (empty($teamId) || empty($team->team_number)) {
+            return;
+        }
+
+        $fileName = $team->team_number . '_csapat_' . Carbon::today()->toDateString() . '.xlsx';
+
+        $data = $this->prepareScoutsDownloadData($teamId);
+
+        Excel::store(new ScoutXlsxExport(2, $data), $fileName);
+
+        return Redirect::to('letoltes/xlsx/' . $fileName);
+
+    }
+
+    private function prepareScoutsDownloadData($teamId) {
         $scouts = Scout::where('team_id', $teamId)->get();
         $model = Scout::getModelName();
         $attributesWithLabels = Scout::getTranslatedAttributeNames($model);
@@ -264,9 +293,7 @@ class OrganizationUnitFrontend extends ComponentBase
             $data[] = $dataRow;
         }
 
-        CsvCreator::writeCsvFile($csvPath, $data);
-
-        return Redirect::to('csv-letoltes/' . $fileName);
+        return $data;
     }
 
     public function onRenderUploadForm(){
@@ -279,15 +306,23 @@ class OrganizationUnitFrontend extends ComponentBase
         }
 
         return [
-            '#uploadCsv' => $this->renderPartial('@csvUploadForm')
+            '#uploadCsv' => $this->renderPartial('@csvXlsxUploadForm.htm')
         ];
     }
 
-    public function onImportScoutsFromCsv(){
-        $file = Input::file('csvFile');
+    public function onImportScoutsFromCsvXlsx(){
+        $file = Input::file('csvXlsxFile');
         $teamId = Input::get('teamId');
 
-        if (empty($file) || !$file->isValid() || ($file->getMimeType() != 'text/csv' && $file->getMimeType() != 'application/vnd.ms-excel' && $file->getMimeType() != 'text/plain')) {
+        if (
+            empty($file)
+            || !$file->isValid()
+            || ($file->getMimeType() != 'text/csv'
+                && $file->getMimeType() != 'application/vnd.ms-excel'
+                && $file->getMimeType() != 'text/plain'
+                && $file->getMimeType() != 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                )
+            ){
             \Flash::error(Lang::get('csatar.csatar::lang.plugin.component.organizationUnitFrontend.csv.fileMissingOrInvalid'));
             return;
         }
@@ -297,19 +332,24 @@ class OrganizationUnitFrontend extends ComponentBase
             return;
         }
 
+        $data = [];
         $file = $file->move(temp_path(), $file->getClientOriginalName());
 
-        $csvData = [];
-        if (($handle = fopen($file, "r")) !== FALSE) {
-            while (($data = fgetcsv($handle)) !== FALSE) {
-                $csvData[] = $data;
+        if ($file->getExtension() == 'xlsx' or $file->getExtension() == 'xls') {
+            $data = $this->getDataFromXlsx($file);
+        }
+
+        if ($file->getExtension() == 'csv' && ($handle = fopen($file, "r")) !== FALSE) {
+            while (($csvData = fgetcsv($handle)) !== FALSE) {
+                $data[] = $csvData;
             }
         }
 
-        $attributes = $csvData[0];
+
+        $attributes = $data[0];
         $log = [];
 
-        foreach ($csvData as $rowNumber => $rowData) {
+        foreach ($data as $rowNumber => $rowData) {
             if ($rowNumber == 0 || $rowNumber == 1) {
                 continue;
             }
@@ -340,15 +380,25 @@ class OrganizationUnitFrontend extends ComponentBase
 
         }
 
-        $this->page['csvImportLog'] = $log;
+        $this->page['csvXlsxImportLog'] = $log;
         StructureTree::updateTeamTree($teamId);
         return [
-            '#csvImportLog' => $this->renderPartial('@csvImportLog', ['log' => $log])
+            '#csvXlsxImportLog' => $this->renderPartial('@csvXlsxImportLog', ['log' => $log])
         ];
+    }
+
+    public function getDataFromXlsx($file){
+        $importClass = new ScoutXlsxImport();
+        Excel::excel()->import($importClass, $file);
+
+        return $importClass->data;
     }
 
     private function convertCsvRowToScout($teamId, $attributes, $rowData): Scout
     {
+        if ($attributes instanceof \Illuminate\Support\Collection) {
+            $attributes = $attributes->toArray();
+        }
         $legalRelationshipsMap = (new LegalRelationshipMapper)->namesToIds;
         $religionsMap = (new ReligionMapper)->namesToIds;
         $tShirtSizesMap = (new TShirtSizeMapper)->namesToIds;
