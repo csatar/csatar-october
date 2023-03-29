@@ -588,6 +588,7 @@ trait AjaxControllerSimple {
 
     /**
      * Edits a relation
+     *
      * @return boolean
      */
     public function onEditRelated()
@@ -1280,7 +1281,7 @@ trait AjaxControllerSimple {
     }
 
     /**
-     * @param $record
+     * @param  $record
      * @return void
      * Presets new record with required values that are not selectable from the from
      * and should be set before form rendering
@@ -1307,7 +1308,7 @@ trait AjaxControllerSimple {
     }
 
     /**
-     * @param $record
+     * @param  $record
      * @return void
      * Presets new record with required values that are not selectable from the from
      * and should be set before form rendering

@@ -67,6 +67,7 @@ class FrontendFileUpload extends FormWidgetBase
 
     /**
      * Render mode
+     *
      * @var boolean
      */
     public $previewMode = false;

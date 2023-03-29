@@ -7,6 +7,7 @@ class Plugin extends PluginBase
 {
     /**
      * Component details
+     *
      * @return array
      */
     public function componentDetails()
@@ -20,6 +21,7 @@ class Plugin extends PluginBase
 
     /**
      * Registers components
+     *
      * @return array
      */
     public function registerComponents()

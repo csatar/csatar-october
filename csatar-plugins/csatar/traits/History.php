@@ -22,6 +22,7 @@ trait History
 
     /**
      * initializeHistory trait for a model.
+     *
      * @return void
      */
     public function initializeHistory()

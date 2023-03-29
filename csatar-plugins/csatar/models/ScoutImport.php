@@ -239,6 +239,7 @@ class ScoutImport extends \Backend\Models\ImportModel
 
     /**
      * Returns an attached imported file local path, if available.
+     *
      * @return string
      */
     public function getImportFilePath($sessionKey = null)

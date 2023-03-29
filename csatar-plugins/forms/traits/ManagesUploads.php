@@ -60,6 +60,7 @@ trait ManagesUploads {
      * Returns the specified accepted file types, or the default
      * based on the mode. Image mode will return:
      * - jpg,jpeg,bmp,png,gif,svg
+     *
      * @return string
      */
     protected function processFileTypes($includeDot = false)
@@ -140,6 +141,7 @@ trait ManagesUploads {
 
     /**
      * Process uploaded files
+     *
      * @return mixed
      */
     protected function processUploads() {
@@ -265,6 +267,7 @@ trait ManagesUploads {
      * Adds the bespoke attributes used internally by this widget.
      * - thumbUrl
      * - pathUrl
+     *
      * @return System\Models\File
      */
     protected function decorateFileAttributes($file)
@@ -303,7 +306,8 @@ trait ManagesUploads {
     /**
      * Returns the CSS dimensions for the uploaded image,
      * uses auto where no dimension is provided.
-     * @param string $mode
+     *
+     * @param  string $mode
      * @return string
      */
     public function getCssDimensions($mode = null)

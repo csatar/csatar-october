@@ -32,7 +32,7 @@ use Exception;
  * or directly as a PHP array.
  *
  * @package october\backend
- * @author Alexey Bobkov, Samuel Georges
+ * @author  Alexey Bobkov, Samuel Georges
  */
 class ImportExportControllerForScoutImport extends ControllerBehavior
 {
@@ -98,6 +98,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
 
     /**
      * Behavior constructor
+     *
      * @param Backend\Classes\Controller $controller
      */
     public function __construct($controller)
@@ -275,6 +276,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
 
     /**
      * Prepares the view data.
+     *
      * @return void
      */
     public function prepareImportVars()
@@ -342,7 +344,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
     /**
      * Get the index offset to add to the reported row number in status messages
      *
-     * @param bool $firstRowTitles Whether or not the first row contains column titles
+     * @param  bool $firstRowTitles Whether or not the first row contains column titles
      * @return int $offset
      */
     protected function getImportSourceIndexOffset($firstRowTitles)
@@ -471,6 +473,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
 
     /**
      * Prepares the view data.
+     *
      * @return void
      */
     public function prepareExportVars()
@@ -586,8 +589,9 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
 
     /**
      * Outputs the list results as a CSV export.
-     * @param string $definition
-     * @param array $options
+     *
+     * @param  string $definition
+     * @param  array $options
      * @return void
      */
     public function exportFromList($definition = null, $options = [])
@@ -674,8 +678,9 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
 
     /**
      * Controller accessor for making partials within this behavior.
-     * @param string $partial
-     * @param array $params
+     *
+     * @param  string $partial
+     * @param  array $params
      * @return string Partial contents
      */
     public function importExportMakePartial($partial, $params = [])
@@ -692,6 +697,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
     /**
      * Checks to see if the import/export is controlled by permissions
      * and if the logged in user has permissions.
+     *
      * @return \View
      */
     protected function checkPermissionsForType($type)
@@ -773,6 +779,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
 
     /**
      * Create a new CSV reader with options selected by the user
+     *
      * @param string $path
      *
      * @return CsvReader
@@ -812,6 +819,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
     /**
      * Returns the file format options from postback. This method
      * can be used to define presets.
+     *
      * @return array
      */
     protected function getFormatOptionsFromPost()

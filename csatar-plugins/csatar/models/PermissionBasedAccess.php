@@ -15,7 +15,7 @@ class PermissionBasedAccess extends Model
     protected static $translatedAttributeNames = null;
 
     /**
-     * @param $scout
+     * @param  $scout
      * @return bool
      * If scout has mandates for the specific record is considered own
      */

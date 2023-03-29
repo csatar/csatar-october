@@ -27,6 +27,7 @@ trait HasStringStore
 
     /**
      * getCustomSeparators returns character(s) to use for separating keywords.
+     *
      * @return mixed
      */
     protected function getCustomSeparators()

@@ -21,7 +21,6 @@ use Csatar\Csatar\Models\Scout;
 
 /**
  * Creates a Frontend user account for an existing Scout
- *
  */
 
 class CreateFrontendAccounts extends \RainLab\User\Components\Account

@@ -21,7 +21,7 @@ class HistoryService
     public const PERMANENTLY_EXCLUDED_FIELDS = ['updated_at', 'persist_code', ];
 
     /**
-     * @param array $models example: ['\RainLab\User\Models\User' => ['basicEvents' => true, 'relationEvents' => true, 'addDefaultHistoryRelation' => true, 'extraEvents' => [], 'extraEventListeners' => []]]
+     * @param  array $models example: ['\RainLab\User\Models\User' => ['basicEvents' => true, 'relationEvents' => true, 'addDefaultHistoryRelation' => true, 'extraEvents' => [], 'extraEventListeners' => []]]
      * the extraEvents and extraEventListeners arrays should contain the event name as key and the method name of this class as value, example: ['model.afterSave' => 'historyAfterSave']
      * @return void
      */

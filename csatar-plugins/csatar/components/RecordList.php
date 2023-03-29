@@ -17,54 +17,63 @@ class RecordList extends RainRecordList {
 
     /**
      * The model class name
+     *
      * @var string
      */
     public $modelClassName;
 
     /**
      * The configuration array of the model columns
+     *
      * @var collection
      */
     public $columnsConfig;
 
     /**
      * The configuration array for the table header
+     *
      * @var array
      */
     public array $tableHeaderConfig;
 
     /**
      * The configuration array for the table row
+     *
      * @var array
      */
     public array $tableRowConfig;
 
     /**
      * Sort column
+     *
      * @var string
      */
     public string $sortColumn;
 
     /**
      * Sort direction
+     *
      * @var string
      */
     public string $sortDirection;
 
     /**
      * Filters config
+     *
      * @var array
      */
     public array $filtersConfig;
 
     /**
      * Active filters applied by user
+     *
      * @var mixed
      */
     public array $activeFilters;
 
     /**
      *  Records for filter options
+     *
      * @var mixed
      */
     public $recordsForFilterOptions;

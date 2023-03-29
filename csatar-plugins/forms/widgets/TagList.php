@@ -173,6 +173,7 @@ class TagList extends FormWidgetBase
 
     /**
      * Returns defined field options, or from the relation if available.
+     *
      * @return array
      */
     public function getFieldOptions()

@@ -14,7 +14,7 @@ use Backend\Models\EditorSetting;
  * Renders a rich content editor field.
  *
  * @package october\backend
- * @author Alexey Bobkov, Samuel Georges
+ * @author  Alexey Bobkov, Samuel Georges
  */
 class RichEditor extends FormWidgetBase
 {
@@ -146,6 +146,7 @@ class RichEditor extends FormWidgetBase
 
     /**
      * Determine the toolbar buttons to use based on config.
+     *
      * @return string
      */
     protected function evalToolbarButtons()
@@ -184,6 +185,7 @@ class RichEditor extends FormWidgetBase
 
     /**
      * Returns a valid language code for Redactor.
+     *
      * @return string|mixed
      */
     protected function getValidEditorLang()
@@ -204,6 +206,7 @@ class RichEditor extends FormWidgetBase
     /**
      * Returns a list of registered page link types.
      * This is reserved functionality for separating the links by type.
+     *
      * @return array Returns an array of registered page link types
      */
     protected function getPageLinkTypes()
@@ -249,6 +252,7 @@ class RichEditor extends FormWidgetBase
      * Returns a single collection of available page links.
      * This implementation has room to place links under
      * different groups based on the link type.
+     *
      * @return array
      */
     protected function getPageLinksArray()
