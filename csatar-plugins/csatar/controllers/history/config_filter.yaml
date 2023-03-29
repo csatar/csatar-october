@@ -1,0 +1,43 @@
+scopes:
+
+    frontend_user:
+        label: 'csatar.csatar::lang.plugin.admin.history.frontendUser'
+        modelClass: Csatar\Csatar\Models\History
+        conditions: csatar_csatar_history.fe_user_id in (:filtered)
+        options: getFrontendUserOptions
+
+    backend_user:
+        label: 'csatar.csatar::lang.plugin.admin.history.backendUser'
+        modelClass: Csatar\Csatar\Models\History
+        conditions: csatar_csatar_history.be_user_id in (:filtered)
+        options: getBackendUserOptions
+
+    model_class:
+        label: 'csatar.csatar::lang.plugin.admin.history.modelClass'
+        modelClass: Csatar\Csatar\Models\History
+        conditions: csatar_csatar_history.model_class in (:filtered)
+        options: getModelOptions
+
+    related_model_class:
+        label: 'csatar.csatar::lang.plugin.admin.history.relatedModelClass'
+        modelClass: Csatar\Csatar\Models\History
+        conditions: csatar_csatar_history.related_model_class in (:filtered)
+        options: getRelatedModelOptions
+
+    attribute:
+        label: 'csatar.csatar::lang.plugin.admin.history.attribute'
+        modelClass: Csatar\Csatar\Models\History
+        conditions: csatar_csatar_history.attribute in (:filtered)
+        options: getAttributeOptions
+
+#    field:
+#        label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.field'
+#        modelClass: Csatar\Csatar\Models\MandatePermission
+#        conditions: csatar_csatar_mandates_permissions.field in (:filtered)
+#        nameFrom: organization_type_model_name
+#        options: getFieldOptions
+#        dependsOn: model
+
+#    clear:
+#        label: Clear Filters
+#        type: clear

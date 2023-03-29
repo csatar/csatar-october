@@ -1,18 +1,14 @@
 fields:
-    frontendUser:
+    frontend_user:
         label: 'csatar.csatar::lang.plugin.admin.history.frontendUser'
-        nameFrom: name
-        descriptionFrom: description
         span: auto
         readOnly: 1
-        type: relation
-    backendUser:
+        type: text
+    backend_user:
         label: 'csatar.csatar::lang.plugin.admin.history.backendUser'
-        nameFrom: name
-        descriptionFrom: description
         span: auto
         readOnly: 1
-        type: relation
+        type: text
     created_at:
         label: 'csatar.csatar::lang.plugin.admin.general.createdAt'
         mode: datetime
@@ -26,7 +22,7 @@ fields:
         readOnly: 1
     _ruler1:
         type: ruler
-    model_class:
+    model_class_user_friendly:
         label: 'csatar.csatar::lang.plugin.admin.history.modelClass'
         span: auto
         type: text
@@ -36,7 +32,7 @@ fields:
         span: auto
         type: number
         readOnly: 1
-    related_model_class:
+    related_model_class_user_friendly:
         label: 'csatar.csatar::lang.plugin.admin.history.relatedModelClass'
         span: auto
         type: text
@@ -46,7 +42,7 @@ fields:
         span: auto
         type: number
         readOnly: 1
-    attribute:
+    translated_attribute_label:
         label: 'csatar.csatar::lang.plugin.admin.history.attribute'
         span: auto
         type: text
