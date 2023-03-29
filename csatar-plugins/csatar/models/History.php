@@ -2,6 +2,8 @@
 
 use Model;
 use Db;
+use RainLab\Builder\Classes\ComponentHelper;
+
 /**
  * Model
  */
@@ -82,5 +84,64 @@ class History extends Model
     public function getTranslatedAttributeLabelAttribute(): string
     {
         return $this->getTranslatedLabelForFiled($this->attribute, $this->model_class);
+    }
+
+    public function getModelOptions(){
+        $modelOptions = self::distinct()->orderBy('model_class', 'asc')->lists('model_class', 'model_class');
+        array_walk($modelOptions, function (&$item) {
+            if (class_exists($item) && method_exists($item, 'getOrganizationTypeModelNameUserFriendly')) {
+                $item = ($item)::getOrganizationTypeModelNameUserFriendly();
+            }
+        });
+        return $modelOptions;
+    }
+
+    public function getRelatedModelOptions(){
+        $modelOptions = self::distinct()->orderBy('related_model_class', 'asc')->lists('related_model_class', 'related_model_class');
+        array_walk($modelOptions, function (&$item) {
+            if (class_exists($item) && method_exists($item, 'getOrganizationTypeModelNameUserFriendly')) {
+                $item = ($item)::getOrganizationTypeModelNameUserFriendly();
+            }
+            if (empty($item)) {
+                $item = 'N/A';
+            }
+        });
+        return $modelOptions;
+    }
+
+    public function getAttributeOptions(){
+        $attributeOptions = self::distinct()->orderBy('attribute', 'asc')->select('attribute', 'model_class')->get()->toArray();
+        $options = [];
+        foreach ($attributeOptions as $attributeOption) {
+            $options[$attributeOption['attribute']] = $attributeOption['attribute'];
+            if (class_exists($attributeOption['model_class']) && method_exists($attributeOption['model_class'], 'getTranslatedAttributeNames')) {
+                $translatedLabelsForFields = ($attributeOption['model_class'])::getTranslatedAttributeNames('\\' . $attributeOption['model_class']);
+                $options[$attributeOption['attribute']] = $translatedLabelsForFields[$attributeOption['attribute']] ?? $attributeOption['attribute'];
+            }
+        }
+
+        return $options;
+    }
+
+    public function getFrontendUserOptions() {
+        $frontendUserOptions = Db::select(
+            "SELECT IFNULL((SELECT CONCAT(IFNULL(family_name, ''), ' ', IFNULL(given_name, ''), ' - ', IFNULL(ecset_code, '')) as name FROM csatar_csatar_scouts WHERE user_id = fe_user_id), (SELECT CONCAT(IFNULL(name, ''), ' ', IFNULL(surname, ''), ' - ', IFNULL(email, '')) as name FROM users WHERE id = fe_user_id)) as name, fe_user_id as id FROM csatar_csatar_history WHERE fe_user_id IS NOT NULL GROUP BY fe_user_id ORDER BY name ASC"
+        );
+        $options = [];
+        foreach ($frontendUserOptions as $frontendUserOption) {
+            $options[$frontendUserOption->id] = $frontendUserOption->name;
+        }
+        return $options;
+    }
+
+    public function getBackendUserOptions() {
+        $backendUserOptions = Db::select(
+            "SELECT (SELECT CONCAT(IFNULL(first_name, ''), ' ', IFNULL(last_name, ''), ' - ', IFNULL(id, '')) as name FROM backend_users WHERE id = be_user_id) as name, be_user_id as id FROM csatar_csatar_history WHERE be_user_id IS NOT NULL GROUP BY be_user_id ORDER BY name ASC"
+        );
+        $options = [];
+        foreach ($backendUserOptions as $backendUserOption) {
+            $options[$backendUserOption->id] = $backendUserOption->name;
+        }
+        return $options;
     }
 }
