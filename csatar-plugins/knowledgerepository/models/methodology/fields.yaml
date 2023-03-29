@@ -31,16 +31,6 @@ fields:
         descriptionFrom: description
         span: auto
         type: relation
-    attachements:
-        label: 'csatar.knowledgerepository::lang.plugin.admin.game.attachements'
-        mode: file
-        useCaption: true
-        thumbOptions:
-            mode: crop
-            extension: auto
-        maxFiles: '5'
-        span: auto
-        type: fileupload
     description:
         label: 'csatar.knowledgerepository::lang.plugin.admin.general.description'
         size: large
@@ -79,18 +69,30 @@ fields:
         useKey: true
         customTags: false
         nameFrom: description
+    trial_systems:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystems'
+        span: auto
+        type: taglist
+        mode: relation
+        useKey: true
+        customTags: false
+        nameFrom: name
+    _ruler1:
+        type: ruler
+        formBuilder:
+            ignoreUserRights: 1
     uploader_csatar_code:
-      label: 'csatar.knowledgerepository::lang.plugin.admin.game.uploader'
-      span: auto
-      path: $/csatar/knowledgerepository/models/methodology/uploaderscout.htm
-      readOnly: 0
-      type: partial
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.uploader'
+        span: auto
+        path: $/csatar/knowledgerepository/models/methodology/uploaderscout.htm
+        readOnly: 0
+        type: partial
     approver_csatar_code:
-      label: 'csatar.knowledgerepository::lang.plugin.admin.game.approver'
-      span: auto
-      path: $/csatar/knowledgerepository/models/methodology/approverscout.htm
-      readOnly: 0
-      type: partial
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.approver'
+        span: auto
+        path: $/csatar/knowledgerepository/models/methodology/approverscout.htm
+        readOnly: 0
+        type: partial
     created_at:
         label: 'csatar.knowledgerepository::lang.plugin.admin.game.uploadedAt'
         mode: date
@@ -103,6 +105,10 @@ fields:
         span: auto
         type: datepicker
         disabled: true
+    _ruler2:
+        type: ruler
+        formBuilder:
+            ignoreUserRights: 1
     note:
         label: 'csatar.knowledgerepository::lang.plugin.admin.general.note'
         span: auto
@@ -112,3 +118,13 @@ fields:
         mode: date
         span: auto
         type: datepicker
+    attachements:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.attachements'
+        mode: file
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        maxFiles: '5'
+        span: auto
+        type: fileupload

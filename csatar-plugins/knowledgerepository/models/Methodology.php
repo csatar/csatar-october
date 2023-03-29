@@ -128,6 +128,11 @@ class Methodology extends PermissionBasedAccess
             'pivotModel' => '\Csatar\KnowledgeRepository\Models\LocationMethodologyPivot',
             'label' => 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.locations'
         ],
+        'trial_systems' => [
+            '\Csatar\KnowledgeRepository\Models\TrialSystem',
+            'table' => 'csatar_methodology_trial_system',
+            'label' => 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystems',
+        ],
     ];
 
     public $attachMany = [
