@@ -86,7 +86,7 @@ class PermissionsMatrix extends Controller
             'value' => Input::get($key),
             'initialValue' => Input::get('initialValue')
         ];
-        if(Input::get($key) == Input::get('initialValue')) {
+        if (Input::get($key) == Input::get('initialValue')) {
             unset($sessionValues[$key]);
         }
         Session::put('permissionValueChanges', $sessionValues);
@@ -102,7 +102,7 @@ class PermissionsMatrix extends Controller
 
     public function onSave(){
         $sessionValuesGroupedByAction = (collect($this->getSessionValues()))->groupBy('action');
-        if($sessionValuesGroupedByAction->count() === 0) {
+        if ($sessionValuesGroupedByAction->count() === 0) {
             \Flash::warning(e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.noPermissionChanged')));
             return;
         }
@@ -202,7 +202,7 @@ class PermissionsMatrix extends Controller
         $permissionBasedModels = PermissionBasedAccess::getAllChildClasses();
         $mandateTypes = MandateType::all();
 
-        if(empty($permissionBasedModels) || empty($mandateTypes)) return;
+        if (empty($permissionBasedModels) || empty($mandateTypes)) return;
 
         $tempMandatePermissionsMap = [];
         try {

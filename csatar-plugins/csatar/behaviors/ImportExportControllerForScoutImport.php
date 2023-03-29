@@ -207,14 +207,12 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
 
             $this->vars['importResults'] = $model->getResultStats();
             $this->vars['returnUrl'] = $this->getRedirectUrlForType('import');
-        }
-        catch (MassAssignmentException $ex) {
+        } catch (MassAssignmentException $ex) {
             $this->controller->handleError(new ApplicationException(Lang::get(
                 'backend::lang.model.mass_assignment_failed',
                 ['attribute' => $ex->getMessage()]
             )));
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             $this->controller->handleError($ex);
         }
 
@@ -227,8 +225,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
     {
         try {
             $this->checkRequiredImportColumns();
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             $this->controller->handleError($ex);
         }
 
@@ -451,14 +448,12 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
 
             $this->vars['fileUrl'] = $fileUrl;
             $this->vars['returnUrl'] = $this->getRedirectUrlForType('export');
-        }
-        catch (MassAssignmentException $ex) {
+        } catch (MassAssignmentException $ex) {
             $this->controller->handleError(new ApplicationException(Lang::get(
                 'backend::lang.model.mass_assignment_failed',
                 ['attribute' => $ex->getMessage()]
             )));
-        }
-        catch (Exception $ex) {
+        } catch (Exception $ex) {
             $this->controller->handleError($ex);
         }
 
@@ -582,8 +577,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
 
         if (is_array($useList)) {
             $listDefinition = array_get($useList, 'definition');
-        }
-        else {
+        } else {
             $listDefinition = $useList;
         }
 
@@ -758,8 +752,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
         foreach ($config->columns as $attribute => $column) {
             if (is_array($column)) {
                 $result[$attribute] = array_get($column, 'label', $attribute);
-            }
-            else {
+            } else {
                 $result[$attribute] = $column ?: $attribute;
             }
         }

@@ -66,14 +66,13 @@ class CsatarGallery extends Gallery
     private function prepareMarkup()
     {
         $this->galleryMarkup = $this->property('markup');
-        if($this->property('markup')=='plugin'){
+        if ($this->property('markup')=='plugin') {
             $this->addCss('/plugins/pollozen/simplegallery/assets/css/owl.carousel.min.css');
             $this->addCss('/plugins/pollozen/simplegallery/assets/css/owl.theme.default.min.css');
             $this->addJs('/plugins/pollozen/simplegallery/assets/js/owl.awesome.carousel.min.js');
             $this->addJs('/plugins/pollozen/simplegallery/assets/js/pz.js');
         }
-        if($this->property('markup')=='masonry')
-        {
+        if ($this->property('markup')=='masonry') {
             $this->addCss('/plugins/pollozen/simplegallery/assets/css/galleries.css');
             $this->addJs('/plugins/pollozen/simplegallery/assets/js/imagesloaded.pkgd.min.js');
             $this->addJs('/plugins/pollozen/simplegallery/assets/js/isotope.pkgd.min.js');
@@ -420,8 +419,7 @@ class CsatarGallery extends Gallery
             && isset(Auth::user()->scout->$getModel()->id)
             && isset($this->model)
             && Auth::user()->scout->$getModel()->id == $this->model->id
-        )
-        {
+        ) {
             return true;
         }
         return false;
