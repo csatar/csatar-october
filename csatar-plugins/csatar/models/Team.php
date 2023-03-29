@@ -349,7 +349,7 @@ class Team extends OrganizationBase
     public $morphMany = [
         'change_history' => [
             \Csatar\Csatar\Models\History::class,
-            'name' => 'history' // TODO: check why this is needed
+            'name' => 'history'
         ],
     ];
 

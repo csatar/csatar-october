@@ -50,6 +50,7 @@ columns:
         sortable: true
         relation: trialSystemSubTopic
         valueFrom: name
+        recordList: true
     age_group_id:
         label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.ageGroup'
         type: number
@@ -73,6 +74,7 @@ columns:
         sortable: true
         relation: trialSystemType
         valueFrom: name
+        recordList: true
     trial_system_trial_type_id:
         label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystemTrialType'
         type: number
@@ -93,20 +95,24 @@ columns:
         type: text
         searchable: false
         sortable: true
+        recordList: true
     individuals:
         label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.individual'
         type: text
         sortable: true
+        recordList: true
     task:
-        label: tas
+        label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.task'
         type: text
         sortable: true
     obligatory:
         label: 'csatar.knowledgerepository::lang.plugin.admin.general.obligatory'
         type: text
         sortable: true
+        recordList: true
     note:
         label: 'csatar.knowledgerepository::lang.plugin.admin.general.note'
         type: text
         searchable: true
         sortable: true
+        recordList: true
