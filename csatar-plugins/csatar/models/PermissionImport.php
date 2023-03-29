@@ -85,8 +85,7 @@ class PermissionImport extends \Backend\Models\ImportModel
                     $this->logUpdated();
                 }
 
-            }
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 $this->logError($row, $ex->getMessage());
             }
 

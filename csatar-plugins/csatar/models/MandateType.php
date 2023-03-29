@@ -188,23 +188,19 @@ class MandateType extends Model
             $mandate_type_id = $model->mandate_type_id;
             if ($mandate_model_id) {
                 $association_id = $mandate_model_type && $mandate_model_id ? ($mandate_model_type)::find($mandate_model_id)->getAssociationId() : null;
-            }
-            else if ($mandate_type_id) {
+            } else if ($mandate_type_id) {
                 $mandate_type = MandateType::find($mandate_type_id);
                 $association_id = $mandate_type ? $mandate_type->association_id : null;
             }
-        }
-        else {
+        } else {
             $inputData = Input::get('data');
             if ($inputData && array_key_exists('association', $inputData) && !empty($inputData['association'])) {
                 $mandate_model_type = District::getModelName();
                 $association_id = $inputData['association'];
-            }
-            else if ($inputData && array_key_exists('district', $inputData) && !empty($inputData['district'])) {
+            } else if ($inputData && array_key_exists('district', $inputData) && !empty($inputData['district'])) {
                 $mandate_model_type = Team::getModelName();
                 $association_id = District::find($inputData['district'])->getAssociationId();
-            }
-            else if ($inputData && array_key_exists('team', $inputData) && !empty($inputData['team'])) {
+            } else if ($inputData && array_key_exists('team', $inputData) && !empty($inputData['team'])) {
                 $mandate_model_type = array_key_exists('troop', $inputData) ? Patrol::getModelName() : Troop::getModelName();
                 $association_id = Team::find($inputData['team'])->getAssociationId();
             }
@@ -230,11 +226,11 @@ class MandateType extends Model
     {
         $sessionRecord = Session::get('guest.mandateTypeIds');
 
-        if(!empty($sessionRecord) && $sessionRecordForAssociation = $sessionRecord->where('associationId', $associationId)->first()) {
+        if (!empty($sessionRecord) && $sessionRecordForAssociation = $sessionRecord->where('associationId', $associationId)->first()) {
             return $sessionRecordForAssociation['guestMandateTypeId'];
         }
 
-        if(empty($sessionRecord)){
+        if (empty($sessionRecord)) {
             $sessionRecord = new Collection([]);
         }
 
@@ -258,8 +254,7 @@ class MandateType extends Model
             return MandateType::whereIn('association_id', array_keys($scopes['association']->value))
                 ->lists('name', 'id')
                 ;
-        }
-        else {
+        } else {
             return MandateType::orderBy('name', 'asc')->lists('association_id', 'id');
         }
     }
@@ -269,8 +264,7 @@ class MandateType extends Model
             return MandateType::whereIn('association_id', array_keys($scopes['association']->value))
                               ->lists('name', 'id')
                 ;
-        }
-        else {
+        } else {
             return MandateType::orderBy('name', 'asc')
                 ->select(Db::raw("concat(association_id, ' - ', name) as name, id"))
                 ->lists('name', 'id');

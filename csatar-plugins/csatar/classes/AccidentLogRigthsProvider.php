@@ -61,7 +61,7 @@ class AccidentLogRigthsProvider
         $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'attachMany', 'hasOne', 'morphTo', 'morphOne',
                            'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'];
 
-        foreach ($relationArrays as $relationArray){
+        foreach ($relationArrays as $relationArray) {
             $fields = array_merge($fields, array_keys($record->$relationArray));
         }
 

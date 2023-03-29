@@ -38,8 +38,7 @@ function parse_size($size) {
     if ($unit) {
         // Find the position of the unit in the ordered string which is the power of magnitude to multiply a kilobyte by.
         return round($size * pow(1024, stripos('bkmgtpezy', $unit[0])));
-    }
-    else {
+    } else {
         return round($size);
     }
 }
@@ -96,7 +95,7 @@ trait ManagesUploads {
 
         if (isset($this->record->rules[$model_field . '.*'])) {
             $validationRules = $this->record->rules[$model_field . '.*'];
-            if(isset($this->record->rules[$model_field])) {
+            if (isset($this->record->rules[$model_field])) {
                 $arrayRule = $this->record->rules[$model_field];
                 // check if there is validation rule for $attachMany attachments and search for rule regarding max number of files
                 if ((preg_match('/max:(.*?)\|/', $arrayRule, $match) == 1
@@ -110,8 +109,7 @@ trait ManagesUploads {
                         ]);
                     }
             }
-        }
-        elseif (isset($this->record->rules[$model_field])) {
+        } elseif (isset($this->record->rules[$model_field])) {
             $validationRules = $this->record->rules[$model_field];
         } else {
             $validationRules = ['max:' . (string) file_upload_max_size()];
@@ -192,7 +190,7 @@ trait ManagesUploads {
                 }
             }
 
-            if($isNew){
+            if ($isNew) {
                 $this->record->{$model_field}()->add($file, $this->sessionKey);
             } else {
                 $this->record->{$model_field}()->add($file);
@@ -211,8 +209,7 @@ trait ManagesUploads {
             }
 
             return Response::json($result, 200);
-        }
-        catch (\Exception $ex) {
+        } catch (\Exception $ex) {
             return Response::json($ex->getMessage(), 400);
         }
     }
@@ -225,7 +222,7 @@ trait ManagesUploads {
         $model_field = post('field');
         $file_id = post('file_id');
 
-        if(!empty($model_field)){
+        if (!empty($model_field)) {
             $fileModel = $this->record->getRelationDefinition($model_field)[0];
         }
 
@@ -234,7 +231,7 @@ trait ManagesUploads {
         }
 
         $isNew = Input::get('recordKeyValue') == 'new' ? true : false;
-        if($isNew && !empty($file)){
+        if ($isNew && !empty($file)) {
             $this->record->{$model_field}()->remove($file, $this->sessionKey);
         }
 
@@ -277,8 +274,7 @@ trait ManagesUploads {
         if ($this->mode == 'image' || $file->isImage()) {
             if (!empty($this->imageWidth) || !empty($this->imageHeight)) {
                 $thumb = $file->getThumb($this->imageWidth, $this->imageHeight, $this->thumbOptions);
-            }
-            else {
+            } else {
                 $thumb = $file->getThumb(63, 63, $this->thumbOptions);
             }
         }
@@ -326,8 +322,7 @@ trait ManagesUploads {
             $cssDimensions .= ($this->imageHeight)
                 ? 'height: '.$this->imageHeight.'px;'
                 : 'height: auto;';
-        }
-        else {
+        } else {
             $cssDimensions .= ($this->imageWidth)
                 ? 'width: '.$this->imageWidth.'px;'
                 : 'width: auto;';

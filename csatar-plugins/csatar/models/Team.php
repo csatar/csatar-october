@@ -72,7 +72,7 @@ class Team extends OrganizationBase
         $teams = $this::select('id', 'team_number')->whereIn('district_id', $districts_ids)->get();
 
         // iterate through the teams and if there is another team with the same team number, then throw an exception
-        foreach($teams as $team) {
+        foreach ($teams as $team) {
             if ($team->id != $this->id && $team->team_number == $this->team_number) {
                 throw new \ValidationException(['team_number' => Lang::get('csatar.csatar::lang.plugin.admin.team.teamNumberTakenError', ['teamNumber' => $this->team_number])]);
             }

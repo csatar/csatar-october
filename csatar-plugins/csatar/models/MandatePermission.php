@@ -144,7 +144,7 @@ class MandatePermission extends Model
 
     public function getFromMandateTypeOptions(){
         $mandateTypes = [];
-        if($this->fromAssociation) {
+        if ($this->fromAssociation) {
             $mandateTypes = Db::table('csatar_csatar_mandate_types')->whereNull('deleted_at')->where('association_id', $this->fromAssociation)->lists('name', 'id');
         }
 
@@ -153,7 +153,7 @@ class MandatePermission extends Model
 
     public function getToMandateTypesOptions(){
         $mandateTypes = [];
-        if($this->toAssociation) {
+        if ($this->toAssociation) {
             $mandateTypes = Db::table('csatar_csatar_mandate_types')->whereNull('deleted_at')->where('association_id', $this->toAssociation)->lists('name', 'id');
         }
 

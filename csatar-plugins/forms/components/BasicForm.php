@@ -273,7 +273,7 @@ class BasicForm extends ComponentBase  {
         $this->addJs('/plugins/csatar/forms/assets/js/positionValidationTags.js');
         $this->addJs('/plugins/csatar/forms/assets/js/addCheckboxClass.js');
 
-        if($this->readOnly){
+        if ($this->readOnly) {
             //check if user has permissions to view record
             if (!$this->canRead('MODEL_GENERAL')) {
                 \App::abort(403, 'Access denied!');
@@ -281,7 +281,7 @@ class BasicForm extends ComponentBase  {
             $this->renderedComponent = $this->createForm(true);
         }
 
-        if($this->recordKeyValue === $this->createRecordKeyword && !$this->readOnly) {
+        if ($this->recordKeyValue === $this->createRecordKeyword && !$this->readOnly) {
             //check if user has permissions to create record
             if (!$this->canCreate('MODEL_GENERAL')) {
                 \App::abort(403, 'Access denied!');
@@ -289,7 +289,7 @@ class BasicForm extends ComponentBase  {
             $this->renderedComponent = $this->createForm();
         }
 
-        if($this->recordKeyValue !== $this->createRecordKeyword && !$this->readOnly && $this->recordActionParam) {
+        if ($this->recordKeyValue !== $this->createRecordKeyword && !$this->readOnly && $this->recordActionParam) {
             $action = $this->properties['action'] ?? $this->param($this->recordActionParam) ?? null;
             switch ($action) {
                 case $this->actionUpdateKeyword:
@@ -297,7 +297,7 @@ class BasicForm extends ComponentBase  {
                     if (!$this->canUpdate('MODEL_GENERAL')) {
                         \App::abort(403, 'Access denied!');
                     }
-                    if(!Auth::check()){
+                    if (!Auth::check()) {
                         return Redirect::to('/bejelentkezes');
                     }
                     $this->renderedComponent = $this->createForm();
@@ -409,7 +409,7 @@ class BasicForm extends ComponentBase  {
         $this->recordKeyParam   = $this->property('recordKeyParam');
         $this->readOnly         = $this->property('readOnly');
 
-        if(!$this->readOnly){
+        if (!$this->readOnly) {
             $this->createRecordKeyword  = $this->property('createRecordKeyword');
             $this->recordActionParam    = $this->property('recordActionParam');
             $this->actionUpdateKeyword  = $this->property('actionUpdateKeyword');
@@ -430,7 +430,7 @@ class BasicForm extends ComponentBase  {
 
     private function getRights($record, $ignoreCache = false)
     {
-        if(!$record) {
+        if (!$record) {
             throw new NotFoundException();
         }
 
