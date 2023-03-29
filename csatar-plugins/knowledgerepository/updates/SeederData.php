@@ -136,7 +136,7 @@ class SeederData extends Seeder
             [
                 'name' => 'Cserkésznyakkendő',
                 'approved' => true,
-            ]
+            ],
         ],
         'headCounts' => [
             [

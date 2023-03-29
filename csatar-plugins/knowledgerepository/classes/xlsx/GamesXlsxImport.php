@@ -160,9 +160,11 @@ class GamesXlsxImport implements ToModel, WithHeadingRow, WithValidation, SkipsO
             foreach ($unmatched as $unmatchedItem) {
                 $model = new $modelName();
                 $model->$columnName = $unmatchedItem;
+
                 if ($secondaryColumnName) {
                     $model->$secondaryColumnName = $secondaryColumnValue;
                 }
+
                 $model->save();
                 $ids->push($model);
             }
@@ -173,8 +175,7 @@ class GamesXlsxImport implements ToModel, WithHeadingRow, WithValidation, SkipsO
 
     public function rules(): array
     {
-        return [
-        ];
+        return [];
     }
 
     public function withValidator($validator)

@@ -53,7 +53,7 @@ class Games extends Controller
             'results' => $results,
             'pagination' => [
                 'more' => true
-            ]
+            ],
         ];
     }
 
@@ -82,7 +82,8 @@ class Games extends Controller
         $xlsxFile = Input::file('xlsx_file');
 
         if (empty($xlsxFile) || !$xlsxFile->isValid() || ($xlsxFile->getMimeType() != 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')) {
-            return; //TODO exception here
+            Flash::error(Lang::get('csatar.csatar::lang.plugin.component.organizationUnitFrontend.csv.fileMissingOrInvalid'));
+            return;
         }
 
         $xlsxFile = $xlsxFile->move(temp_path(), $xlsxFile->getClientOriginalName());
