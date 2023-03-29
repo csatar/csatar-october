@@ -167,9 +167,7 @@ class MandateType extends Model
     function getOrganizationTypeModelNameUserFriendlyAttribute()
     {
         return $this->attributes['organization_type_model_name']
-            && $this->attributes['organization_type_model_name'] != self::MODEL_NAME_GUEST
-            ? ($this->attributes['organization_type_model_name'])::getOrganizationTypeModelNameUserFriendly()
-                : '';
+            && $this->attributes['organization_type_model_name'] != self::MODEL_NAME_GUEST ? ($this->attributes['organization_type_model_name'])::getOrganizationTypeModelNameUserFriendly() : '';
     }
 
     /**
@@ -241,7 +239,7 @@ class MandateType extends Model
         $sessionRecord = $sessionRecord->replace([ $associationId => [
             'associationId' => $associationId,
             'savedToSession' => date('Y-m-d H:i'),
-            'guestMandateTypeId'=> $guestMandateType ? $guestMandateType->id : null,
+            'guestMandateTypeId' => $guestMandateType ? $guestMandateType->id : null,
         ]]);
 
         Session::put('guest.mandateTypeIds', $sessionRecord);

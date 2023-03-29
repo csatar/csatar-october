@@ -210,8 +210,7 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
         foreach ($scouts as $scout) {
 
             if (!empty($scout->user_id)) {
-                $this->messages['errors'][$scout->id] =
-                    Lang::get('csatar.csatar::lang.plugin.component.createFrontendAccounts.messages.scoutAlreadyHasUserAccount',
+                $this->messages['errors'][$scout->id] = Lang::get('csatar.csatar::lang.plugin.component.createFrontendAccounts.messages.scoutAlreadyHasUserAccount',
                         ['name' => $scout->getFullName() ], 'hu');
             }
 
@@ -220,8 +219,7 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
             }
 
             if (empty($scout->email)) {
-                $this->messages['errors'][$scout->id] =
-                    Lang::get('csatar.csatar::lang.plugin.component.createFrontendAccounts.messages.scoutHasNoEmail',
+                $this->messages['errors'][$scout->id] = Lang::get('csatar.csatar::lang.plugin.component.createFrontendAccounts.messages.scoutHasNoEmail',
                         ['name' => $scout->getFullName() ]);
             }
         }

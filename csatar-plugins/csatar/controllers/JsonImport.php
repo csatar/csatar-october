@@ -679,9 +679,7 @@ class JsonImport extends Controller
             $scout->personal_identification_number = !empty($fields->jellemzok->id_12) ? substr($fields->jellemzok->id_12, 0, 20) : null;
             $scout->gender                         = $this->genderMap[$fields->nem] ?? null;
             $scout->is_active                      = $this->statusMap[$fields->statusz] ?? null;
-            $scout->legal_relationship_id          = isset($fields->jogviszony[0]) ?
-                ($this->legalRelationshipMap[$fields->jogviszony[0]] ?? $this->legalRelationshipMap['ervenytelen'])
-                : $this->legalRelationshipMap['ervenytelen'];
+            $scout->legal_relationship_id          = isset($fields->jogviszony[0]) ? ($this->legalRelationshipMap[$fields->jogviszony[0]] ?? $this->legalRelationshipMap['ervenytelen']) : $this->legalRelationshipMap['ervenytelen'];
             $scout->religion_id                    = isset($fields->felekezet[0]) ? ($this->religionMap[$fields->felekezet[0]] ?? $this->religionMap['mas']) : $this->religionMap['mas'];
             $scout->nationality                    = $fields->jellemzok->id_13 ?? null;
             $scout->birthdate                      = $fields->szuletesi_datum ?? null;
@@ -880,7 +878,7 @@ class JsonImport extends Controller
             $mandateType = $mandateTypesMap->get($data->megbizatas[1]);
 
             $organizationMap = $organizationsArraysMap[$mandateType->organization_type_model_name];
-            $model = $organizationMap[$mandateType->is_vk ? 'rmcssz': $data->egyseg[0]];
+            $model = $organizationMap[$mandateType->is_vk ? 'rmcssz' : $data->egyseg[0]];
             $mandate = Mandate::firstOrNew([
                 'scout_id' => $scoutsMap[$data->tag[0]],
                 'mandate_type_id' => $mandateType->id,

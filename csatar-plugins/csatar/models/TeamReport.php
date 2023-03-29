@@ -196,7 +196,7 @@ class TeamReport extends PermissionBasedAccess
 
         foreach ($ageGroups as $ageGroup) {
             $count = Patrol::active()->where('team_id', $this->team_id)->where('age_group_id', $ageGroup->id)->count();
-            if ($count>0) {
+            if ($count > 0) {
                 $ageGroupsToSync[$ageGroup->id] = ['number_of_patrols_in_age_group' => $count];
             }
         }

@@ -981,7 +981,7 @@ class Scout extends OrganizationBase
         $sessionRecord = $sessionRecord->replace([ $associationId => [
             'associationId' => $associationId,
             'savedToSession' => date('Y-m-d H:i'),
-            'mandates'=> ($scoutMandates)->toArray(),
+            'mandates' => ($scoutMandates)->toArray(),
         ]]);
 
         Session::put('scout.mandates', $sessionRecord);
@@ -1009,7 +1009,7 @@ class Scout extends OrganizationBase
         $sessionRecord = $sessionRecord->replace([ $associationId => [
             'associationId' => $associationId,
             'savedToSession' => date('Y-m-d H:i'),
-            'mandateTypeIds'=> $scoutMandateTypeIds,
+            'mandateTypeIds' => $scoutMandateTypeIds,
         ]]);
 
         Session::put('scout.mandateTypeIds', $sessionRecord);
@@ -1168,8 +1168,7 @@ class Scout extends OrganizationBase
         $messages = [];
 
         if (!$this->isPersonalDataAccepted()) {
-            $messages['warning']['personalDataNotAccepted'] =
-                [
+            $messages['warning']['personalDataNotAccepted'] = [
                     'message' => Lang::get('csatar.csatar::lang.plugin.admin.scout.staticMessages.personalDataNotAccepted'),
                     'actionUrl' => 'tag/' . $this->ecset_code,
                 ];
@@ -1255,7 +1254,7 @@ class Scout extends OrganizationBase
                 $array[$savedCounty] = $savedCounty;
             }
             if ($this->address_county != $savedCounty) {
-                $array[$this->address_county]= $this->address_county;
+                $array[$this->address_county] = $this->address_county;
             }
         } else {
             $field->value = array_values($array)[0];
@@ -1277,7 +1276,7 @@ class Scout extends OrganizationBase
                 $array[$savedLocation] = $savedLocation;
             }
             if ($this->address_location != $savedLocation) {
-                $array[$this->address_location]= $this->address_location;
+                $array[$this->address_location] = $this->address_location;
             }
         } else {
             $field->value = array_values($array)[0];
@@ -1305,7 +1304,7 @@ class Scout extends OrganizationBase
                 $array[$savedStreet] = $savedStreet;
             }
             if ($this->address_street != $savedStreet) {
-                $array[$this->address_street]= $this->address_street;
+                $array[$this->address_street] = $this->address_street;
             }
         } else {
             $field->value = array_values($array)[0];
