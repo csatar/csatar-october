@@ -23,15 +23,12 @@
                 </span>
             </div>
             <div id="add-edit-{{ relationName }}"></div>
-        {% else %}
-            <div id="add-edit-{{ relationName }}"></div>
         {% endif %}
-
+    </div>
         {% if pivotTableHeader and pivotTableRows %}
             <div class="table csat-grid">
                 {{ pivotTableHeader|raw }}
                 {{ pivotTableRows|raw }}
             </div>
         {% endif %}
-    </div>
 </div>
