@@ -50,13 +50,6 @@ class LeadershipQualification extends Model
         ]
     ];
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history',
-            'ignoreInPermissionsMatrix' => true,
-        ],
-    ];
 
     public function getTrainingIdOptions(){
         return Training::lists('name', 'id');

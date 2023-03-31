@@ -16,20 +16,20 @@ trait History
      */
 
     /**
-     * @var bool historyEnabled flag for arbitrarily disabling history.
+     * @var bool historyDisabled flag for arbitrarily disabling history.
      */
-    public $historyEnabled = true;
 
     /**
-     * initializeHistory trait for a model.
+     * initializeHistory trait for a model.pp
      * @return void
      */
     public function initializeHistory()
     {
-        if (!$this->historyEnabled) {
+        if (HistoryService::isHistoryDisabled($this)) {
             return;
         }
 
+        HistoryService::addHistoryRelationToModel($this);
         HistoryService::bindEventsToModel($this);
     }
 }

@@ -416,11 +416,4 @@ class Mandate extends Model
             ->update(['end_date' => date('Y-m-d')]);
     }
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history',
-            'ignoreInPermissionsMatrix' => true,
-        ],
-    ];
 }

@@ -134,13 +134,6 @@ class Game extends PermissionBasedAccess
         'attachements' => ['System\Models\File'],
     ];
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history',
-            'ignoreInPermissionsMatrix' => true,
-        ],
-    ];
 
     public static function filterAgeGroupByAssociation($query, $related)
     {

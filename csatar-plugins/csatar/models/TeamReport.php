@@ -113,13 +113,6 @@ class TeamReport extends PermissionBasedAccess
         ],
     ];
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history',
-            'ignoreInPermissionsMatrix' => true,
-        ],
-    ];
 
     /**
      * Handle the team-currency dependency

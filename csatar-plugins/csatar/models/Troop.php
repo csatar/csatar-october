@@ -112,13 +112,6 @@ class Troop extends OrganizationBase
         ],
     ];
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history',
-            'ignoreInPermissionsMatrix' => true,
-        ],
-    ];
 
     public static function getEagerLoadSettings(string $useCase = null): array
     {

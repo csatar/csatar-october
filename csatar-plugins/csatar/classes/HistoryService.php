@@ -35,19 +35,23 @@ class HistoryService
                 return;
             }
 
+            if (HistoryService::isHistoryDisabled($model)) {
+                return;
+            }
+
             // set up bindings for the model
 
             $model::extend(function($model) use ($params) {
                 $basicEvents = $params['basicEvents'] ?? true;
                 $relationEvents = $params['relationEvents'] ?? true;
-                $addDefaultHistoryRelation = $params['addDefaultHistoryRelation'] ?? true;
+                $addHistoryRelation = $params['addHistoryRelation'] ?? true;
+                $customHistoryRelationName = $params['customHistoryRelationName'] ?? null;
 
-                if ($addDefaultHistoryRelation) {
-                    $model->morphMany['history'] = [
-                        \Csatar\Csatar\Models\History::class,
-                        'name' => 'history'
-                    ];
+                if ($params['addHistoryRelation'] ?? true) {
+                    HistoryService::addHistoryRelationToModel($model, $customHistoryRelationName);
                 }
+
+                HistoryService::addHistoryRelationToModel($model, $customHistoryRelationName);
 
                 HistoryService::bindEventsToModel($model, $basicEvents, $relationEvents);
                 $extraEvents = $params['extraEvents'] ?? [];
@@ -187,6 +191,11 @@ class HistoryService
     {
         $class = get_class($model);
         return defined("$class::HISTORY_RELATION_NAME") ? $model::HISTORY_RELATION_NAME : 'history';
+    }
+
+    public static function isHistoryDisabled($model)
+    {
+        return isset($model->historyDisabled) && $model->historyDisabled;
     }
 
     public static function historyAfterSave($model)
@@ -422,5 +431,19 @@ class HistoryService
         ];
 
         Db::table($historyModel ? $historyModel->getTable() : HistoryModelDefault::getTable())->insert($toSave);
+    }
+
+    /**
+     * @param $model
+     * @return void
+     */
+    public static function addHistoryRelationToModel($model, $customHistoryRelationName = null): void
+    {
+        $historyRelationName = $customHistoryRelationName ?? self::getHistoryRelationName($model);
+        $model->morphMany[$historyRelationName] = [
+            \Csatar\Csatar\Models\History::class,
+            'name'                      => HistoryService::getHistoryRelationName($model),
+            'ignoreInPermissionsMatrix' => true,
+        ];
     }
 }

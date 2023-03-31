@@ -346,14 +346,6 @@ class Team extends OrganizationBase
         ]
     ];
 
-    public $morphMany = [
-        'change_history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history',
-            'ignoreInPermissionsMatrix' => true,
-        ],
-    ];
-
     /**
      * Scope a query to only include teams with a given district id.
      */

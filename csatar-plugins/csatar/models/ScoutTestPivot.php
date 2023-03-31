@@ -52,10 +52,4 @@ class ScoutTestPivot extends CsatarPivot
         'location',
     ];
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history'
-        ],
-    ];
 }
