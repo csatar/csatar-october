@@ -440,7 +440,7 @@ class HistoryService
         $historyRelationName = $customHistoryRelationName ?? self::getHistoryRelationName($model);
         $model->morphMany[$historyRelationName] = [
             \Csatar\Csatar\Models\History::class,
-            'name'                      => HistoryService::getHistoryRelationName($model),
+            'name'                      => $historyRelationName,
             'ignoreInPermissionsMatrix' => true,
         ];
     }
