@@ -43,13 +43,6 @@ class Religion extends Model
         'team_reports' => '\Csatar\Csatar\Models\TeamReport',
     ];
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history',
-            'ignoreInPermissionsMatrix' => true,
-        ],
-    ];
 
     public static function getOtherReligionId()
     {

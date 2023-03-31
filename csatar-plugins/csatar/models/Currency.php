@@ -39,10 +39,4 @@ class Currency extends Model
         'teamReports' => '\Csatar\Csatar\Models\TeamReport',
     ];
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history'
-        ],
-    ];
 }

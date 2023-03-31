@@ -284,13 +284,6 @@ class Patrol extends OrganizationBase
         ],
     ];
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history',
-            'ignoreInPermissionsMatrix' => true,
-        ],
-    ];
 
     /**
      * Scope a query to only include patrols with a given team id.

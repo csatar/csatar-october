@@ -40,13 +40,6 @@ class AccidentRiskLevel extends Model
         'sort_order'
     ];
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history',
-            'ignoreInPermissionsMatrix' => true,
-        ],
-    ];
 
     public function beforeSave()
     {

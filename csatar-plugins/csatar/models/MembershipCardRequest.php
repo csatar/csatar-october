@@ -44,11 +44,4 @@ class MembershipCardRequest extends Model
         'leadership_qualification' => '\Csatar\Csatar\Models\LeadershipQualification',
     ];
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history',
-            'ignoreInPermissionsMatrix' => true,
-        ],
-    ];
 }

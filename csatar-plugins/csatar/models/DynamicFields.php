@@ -55,13 +55,6 @@ class DynamicFields extends Model
         'association' => '\Csatar\Csatar\Models\Association',
     ];
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history',
-            'ignoreInPermissionsMatrix' => true,
-        ],
-    ];
     
     /**
      * Add custom validation
