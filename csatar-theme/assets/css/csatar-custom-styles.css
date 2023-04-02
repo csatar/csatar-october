@@ -1459,7 +1459,7 @@ div.table.csat-grid > div.tr > div.card.csat-resp-gdtable > div.row > * > p.td {
     margin-bottom: 0px !important;
 }
 
-div.card.csat-resp-gdtable > div.row > div.col {
+div.card.csat-resp-gdtable > div.row > div.col, div.col-6, div.col-md-4, div.col-lg {
     padding: 2px;
 }
 
@@ -1489,6 +1489,10 @@ div.card.csat-resp-gdtable > div.row > div.col {
     div.table.csat-grid> div.tr {
         margin-top: 10px;
     }
+}
+
+#tableRows > a > div > div > div > div > p {
+    margin-bottom: 0px;
 }
 
 /* Data cards */
@@ -1603,6 +1607,10 @@ th, td, .th, .td, .th-grid {
     border-radius: 12px;
     padding: 4px;
     min-height: 35px;
+}
+
+#tableRows .td {
+    min-height: 0px;
 }
 
 th, .th {
@@ -2048,6 +2056,18 @@ input:-webkit-autofill:active {
     .w-md-50 {
        width:50% !important;
     }
+}
+
+@media (max-width: 992px) {
+    .w-sm-100 {
+       width:100% !important;
+    }
+}
+
+/* custom padding size */
+
+.p-2px {
+    padding: 2px !important;
 }
   
 /* pagination customization */
