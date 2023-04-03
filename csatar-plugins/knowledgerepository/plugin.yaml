@@ -9,6 +9,7 @@ navigation:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepository.knowledgeRepository'
         url: /
         icon: icon-book
+        order: 910
         permissions:
             - csatar.manage.data
         sideMenu:
@@ -51,6 +52,7 @@ navigation:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.knowledgeRepositoryParameters'
         url: /csatar/knowledgerepository/knowledgeRepositoryparameters
         icon: icon-pencil
+        order: 911
         permissions:
             - csatar.manage.data
             - csatar.manage.knowledgerepository
