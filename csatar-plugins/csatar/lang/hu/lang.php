@@ -607,6 +607,8 @@
             'backendUserRoles' => [
                 'backendUserRoles' => 'Admin felület szerepkörök',
                 'rmcsszOffice' => 'RMCSSZ iroda',
+                'rmcsszKnowledgeRepository' => 'RMCSSZ Tudástáras',
+                'rmcsszInventory' => 'RMCSSZ Leltáros',
             ],
             'membershipCard' => [
                 'membershipCard' => 'Tagkártya',

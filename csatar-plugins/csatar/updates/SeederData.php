@@ -416,7 +416,9 @@ class SeederData extends Seeder
             ['Accident log admin', 'admin']
         ],
         'backendUserRoles'          => [
-            ['RMCSSZ office', 'rmcsszOffice'],
+            ['RMCSSZ', 'rmcsszOffice'],
+            ['RMCSSZ', 'rmcsszKnowledgeRepository'],
+            ['RMCSSZ', 'rmcsszInventory'],
         ],
         'countryNamesHungarianTranslations'      => [
             "Afghanistan" => "Afganisztán",
@@ -955,6 +957,28 @@ class SeederData extends Seeder
                 [
                     'name' => 'RMCSSZ Iroda',
                     'permissions' => '{"rainlab.users.access_users":"1","rainlab.users.access_groups":"1","rainlab.users.impersonate_user":"1","pollozen.simplegallery.manage_galleries":"1","csatar.manage.data":"1","janvince.smallcontactform.access_messages":"1","janvince.smallcontactform.delete_messages":"1","janvince.smallcontactform.export_messages":"1"}'
+                ],
+            );
+
+        // seed RMCSSZ Tudástáras backend role
+
+        Db::table('backend_user_roles')
+            ->updateOrInsert(
+                ['code' => 'rmcssz-tudastaras'],
+                [
+                    'name' => 'RMCSSZ Tudástáras',
+                    'permissions' => '{"csatar.manage.knowledgerepository":"1"}'
+                ],
+            );
+
+        // seed RMCSSZ Leltáros backend role
+
+        Db::table('backend_user_roles')
+            ->updateOrInsert(
+                ['code' => 'rmcssz-leltaros'],
+                [
+                    'name' => 'RMCSSZ Leltáros',
+                    'permissions' => '{"csatar.manage.inventory":"1"}'
                 ],
             );
 
