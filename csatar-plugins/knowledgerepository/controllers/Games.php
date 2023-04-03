@@ -14,7 +14,8 @@ class Games extends Controller
     public $formConfig = 'config_form.yaml';
 
     public $requiredPermissions = [
-        'csatar.manage.data'
+        'csatar.manage.data',
+        'csatar.manage.knowledgerepository',
     ];
 
     public function __construct()

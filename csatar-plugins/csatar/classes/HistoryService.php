@@ -44,12 +44,9 @@ class HistoryService
             $model::extend(function($model) use ($params) {
                 $basicEvents = $params['basicEvents'] ?? true;
                 $relationEvents = $params['relationEvents'] ?? true;
-                $addHistoryRelation = $params['addHistoryRelation'] ?? true;
                 $customHistoryRelationName = $params['customHistoryRelationName'] ?? null;
 
-                if ($addHistoryRelation) {
-                    HistoryService::addHistoryRelationToModel($model, $customHistoryRelationName);
-                }
+                HistoryService::addHistoryRelationToModel($model, $customHistoryRelationName);
 
                 HistoryService::bindEventsToModel($model, $basicEvents, $relationEvents);
                 $extraEvents = $params['extraEvents'] ?? [];

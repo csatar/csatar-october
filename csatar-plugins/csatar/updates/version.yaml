@@ -243,3 +243,6 @@
 1.0.84:
     - 'Created table csatar_csatar_history'
     - builder_table_create_csatar_csatar_history.php
+1.0.85:
+    - 'Updated table csatar_csatar_scouts'
+    - builder_table_update_csatar_csatar_scouts_8.php
