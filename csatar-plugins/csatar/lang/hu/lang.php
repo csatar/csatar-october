@@ -756,7 +756,7 @@
                 'name' => 'Szervezeti Egység Frontend',
                 'description' => 'Megyjeleníti egy szerevezeti egység frontend oldalát.',
                 'csv' => [
-                    'fileMissingOrInvalid' => 'A .csv fájl hiányzik vagy érvénytelen.',
+                    'fileMissingOrInvalid' => 'A fájl hiányzik vagy érvénytelen.',
                     'teamIdMissing' => 'Hiányzik a csapat azonosítója.',
                     'personalIdentificationNumberMissing' => 'Hiányzó személyi szám.',
                 ],
