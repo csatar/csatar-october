@@ -421,7 +421,6 @@ trait AjaxControllerSimple {
         $this->loadBackendFormWidgets();
 
         $html = $widget->render();
-        $html .= '<div class="mt-0 mb-2 errormsg" data-validate-for="' . $relationName . '" data-position-for="' . $relationName . '"></div>';
 
         return [
             '#add-edit-' . $relationName => $this->renderPartial('@partials/relationOptions', [ 'html' => $html, 'relationName' => $relationName ])
