@@ -21,10 +21,4 @@ class ScoutAllergyPivot extends CsatarPivot
         'comment',
     ];
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history'
-        ],
-    ];
 }

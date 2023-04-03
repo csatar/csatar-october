@@ -67,18 +67,9 @@ class TrialSystem extends PermissionBasedAccess
         ],
         'association' => [
             '\Csatar\Csatar\Models\Association',
-//            'formBuilder' => [
-//                'requiredBeforeRender' => true,
-//            ],
         ]
     ];
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history',
-        ],
-    ];
 
     public static function getOrganizationTypeModelNameUserFriendly()
     {

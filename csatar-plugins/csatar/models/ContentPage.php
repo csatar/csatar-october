@@ -39,10 +39,4 @@ class ContentPage extends PermissionBasedAccess
         'model' => []
     ];
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history',
-        ],
-    ];
 }

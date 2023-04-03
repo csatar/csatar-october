@@ -40,12 +40,6 @@ class GameDevelopmentGoal extends Model
         'sort_order',
     ];
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history',
-        ],
-    ];
 
     public function beforeSave()
     {

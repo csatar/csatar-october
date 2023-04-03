@@ -39,10 +39,4 @@ class Locations extends Model
     public $rules = [
     ];
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history',
-        ],
-    ];
 }

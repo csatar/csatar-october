@@ -609,6 +609,8 @@
             'backendUserRoles' => [
                 'backendUserRoles' => 'Backend User Roles',
                 'rmcsszOffice' => 'RMCSSZ office',
+                'rmcsszKnowledgeRepository' => 'RMCSSZ Knowledge Repository',
+                'rmcsszInventory' => 'RMCSSZ Inventory',
             ],
             'membershipCard' => [
                 'membershipCard' => 'Membership Card',

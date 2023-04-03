@@ -168,12 +168,6 @@ class MandatePermission extends Model
         return $modelOptions;
     }
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history',
-        ],
-    ];
 
     public function historyRecordBulkAction($dataArray, $error = null) {
 

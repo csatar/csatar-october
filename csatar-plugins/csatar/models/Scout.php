@@ -643,12 +643,6 @@ class Scout extends OrganizationBase
         'registration_form' => 'System\Models\File',
     ];
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history'
-        ],
-    ];
 
     public static function getEagerLoadSettings(string $useCase = null): array
     {
