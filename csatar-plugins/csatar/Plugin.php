@@ -106,7 +106,6 @@ class Plugin extends PluginBase
             '\Csatar\Csatar\Models\MandatePermission' => [
                 'basicEvents' => false,
                 'relationEvents' => false,
-                'addHistoryRelation' => false,
                 'extraEventListeners' => [
                     'mandatePermission.afterSave' => 'historyAfterSave',
                     'mandatePermission.afterDelete' => 'historyAfterDelete',
