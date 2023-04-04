@@ -44,4 +44,14 @@ public function onAcceptPersonalData(){
 
     {% component 'basicForm' %}
 
+    {% if scout.getTeamChangeHistory()|length > 0 %}
+    <div class="field-section toolbar-item toolbar-primary mb-2">
+        <h4 style="display:inline;">{{ 'Előzmények' | _ }}</h4>
+    </div>
+
+            {% for teamChange in scout.getTeamChangeHistory() %}
+                <div class="td my-1 p-2">{{ teamChange|raw }}</div>
+            {% endfor %}
+
+    {% endif %}
 </div>

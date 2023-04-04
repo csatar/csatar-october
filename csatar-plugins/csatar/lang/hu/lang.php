@@ -208,6 +208,7 @@
                 'activeMandateDeleteError' => 'A(z) %name nevű Tagnak létezik aktív Megbízatása, így ez a Tag nem törölhető.',
                 'scoutTeam' => 'Tag csapata',
                 'inactivationWarning' => 'Figyelem! Ha a státusz aktívról inaktívra változik, a cserkész összes megbízatása lejár!',
+                'teamChangeHistoryMessage' => ':date átigazolt a(z) :oldTeam cserkészcsapatból a :newTeam cserkészcsapatba.',
             ],
             'admin' => [
                 'menu' => [

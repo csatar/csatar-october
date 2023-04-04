@@ -1319,4 +1319,25 @@ class Scout extends OrganizationBase
 
         return $savedCountry ?? $team->district->association->country;
     }
+
+    public function getTeamChangeHistory()
+    {
+        $teamChangeHistory = $this->history()->where('attribute', 'team_id')->get();
+        $historyArray = [];
+        if (empty($teamChangeHistory)) {
+            return [];
+        }
+
+        foreach ($teamChangeHistory as $history) {
+            $date = $history->created_at;
+            $oldTeam = Team::find($history->old_value);
+            $newTeam = Team::find($history->new_value);
+
+            $oldTeam = "<a href='/csapat/$oldTeam->id'>$oldTeam->extended_name</a>";
+            $newTeam = "<a href='/csapat/$newTeam->id'>$newTeam->extended_name</a>";
+            $historyArray[] = Lang::get('csatar.csatar::lang.plugin.admin.scout.teamChangeHistoryMessage', ['date' => $date, 'oldTeam' => $oldTeam, 'newTeam' => $newTeam]);
+        }
+
+        return $historyArray;
+    }
 }
