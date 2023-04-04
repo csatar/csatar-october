@@ -32,11 +32,11 @@ class Games extends Controller
     {
         parent::__construct();
         BackendMenu::setContext('Csatar.KnowledgeRepository', 'main-menu-knowledge-repository', 'side-menu-games');
-        $this->pageTitle = Lang::get('csatar.knowledgerepository::lang.plugin.admin.general.import');
     }
 
     public function import()
     {
+        $this->pageTitle = Lang::get('csatar.knowledgerepository::lang.plugin.admin.general.import');
     }
 
     public function onGetScoutOptions() {
@@ -104,18 +104,6 @@ class Games extends Controller
     }
 
     public function onGetAssociationOptions() {
-        $associations = Association::all()->lists('name', 'id');
-        $results = [];
-        foreach ($associations as $id => $name) {
-            $results[] = [
-                'id' => $id,
-                'text' => $name,
-                'selected' => $name == 'Romániai Magyar Cserkészszövetség' ? true : false,
-            ];
-        }
-
-        return [
-            'results' => $results,
-        ];
+        return Association::getAssociationOptionsForSelect();
     }
 }

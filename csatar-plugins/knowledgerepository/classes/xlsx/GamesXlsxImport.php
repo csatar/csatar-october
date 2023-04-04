@@ -119,7 +119,7 @@ class GamesXlsxImport implements ToModel, WithHeadingRow, WithValidation, SkipsO
             return;
         }
 
-        $game->update([
+        $game->fill([
             'description' => $row['leiras'] ?? null,
             'link' => $row['link'] ?? null,
             'uploader_csatar_code' => $this->uploaderCsatarCode,
