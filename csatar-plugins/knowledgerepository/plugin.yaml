@@ -12,6 +12,7 @@ navigation:
         order: 910
         permissions:
             - csatar.manage.data
+            - csatar.manage.knowledgerepository
         sideMenu:
             side-menu-games:
                 label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepository.games'
@@ -149,3 +150,7 @@ navigation:
                 permissions:
                     - csatar.manage.data
                     - csatar.manage.knowledgerepository
+permissions:
+    csatar.manage.knowledgerepository:
+        tab: 'csatar.knowledgerepository::lang.plugin.name'
+        label: 'csatar.knowledgerepository::lang.plugin.permissions.manageKnowledgeRepository'

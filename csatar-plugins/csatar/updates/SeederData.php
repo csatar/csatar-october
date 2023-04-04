@@ -967,7 +967,7 @@ class SeederData extends Seeder
                 ['code' => 'rmcssz-tudastaras'],
                 [
                     'name' => 'RMCSSZ Tudástáras',
-                    'permissions' => '{"csatar.manage.knowledgerepository":"1"}'
+                    'permissions' => '{"backend.access_dashboard":"1","csatar.manage.knowledgerepository":"1"}'
                 ],
             );
 
@@ -978,7 +978,7 @@ class SeederData extends Seeder
                 ['code' => 'rmcssz-leltaros'],
                 [
                     'name' => 'RMCSSZ Leltáros',
-                    'permissions' => '{"csatar.manage.inventory":"1"}'
+                    'permissions' => '{"backend.access_dashboard":"1","csatar.manage.inventory":"1"}'
                 ],
             );
 

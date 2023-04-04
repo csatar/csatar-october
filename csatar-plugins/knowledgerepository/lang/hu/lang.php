@@ -2,6 +2,9 @@
     'plugin' => [
         'name' => 'Tudástár',
         'description' => 'Tudástár plugin az RMCSSZ CSATÁR alkalmazás számára',
+        'permissions' => [
+            'manageKnowledgeRepository' => 'Tudástár kezelése',
+        ],
         'admin' => [
             'menu' => [
                 'knowledgeRepository' => [

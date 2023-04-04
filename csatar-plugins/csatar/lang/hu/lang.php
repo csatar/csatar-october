@@ -9,6 +9,7 @@
         'permissions' => [
             'manageData' => 'RMCSSZ adminisztráció',
             'admin' => 'Csatár rendszergazda',
+            'manageInventory' => 'Leltár adminisztráció',
         ],
         'admin' => [
             'general' => [

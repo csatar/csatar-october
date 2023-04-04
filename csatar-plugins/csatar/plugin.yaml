@@ -301,3 +301,6 @@ permissions:
     csatar.admin:
         tab: 'csatar.csatar::lang.plugin.name'
         label: 'csatar.csatar::lang.plugin.permissions.admin'
+    csatar.manage.inventory:
+        tab: 'csatar.csatar::lang.plugin.name'
+        label: 'csatar.knowledgerepository::lang.plugin.permissions.manageInventory'

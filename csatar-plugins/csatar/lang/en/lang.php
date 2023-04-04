@@ -8,7 +8,8 @@
         'author' => 'CSATÁR team',
         'permissions' => [
             'manageData' => 'Manage Data',
-            'admin' => 'Csatár admin'
+            'admin' => 'Csatár admin',
+            'manageInventory' => 'Manage inventory',
         ],
         'admin' => [
             'general' => [
