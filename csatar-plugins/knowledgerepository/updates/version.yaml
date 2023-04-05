@@ -105,3 +105,6 @@
 1.0.36:
     - 'Updated table csatar_knowledgerepository_song_type'
     - builder_table_update_csatar_knowledgerepository_song_type.php
+1.0.37:
+    - 'Created table csatar_knowledgerepository_folk_song_type'
+    - builder_table_create_csatar_knowledgerepository_folk_song_type.php

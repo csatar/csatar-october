@@ -14,7 +14,8 @@
                     'songs' => 'Songs',
                     'workPlans' => 'Work Plans',
                     'methodologies' => 'Methodologies',
-                    'songTypes' => 'Song types'
+                    'songTypes' => 'Song types',
+                    'folkSongTypes' => 'Folk song types'
                 ],
                 'knowledgeRepositoryParameters' => [
                     'knowledgeRepositoryParameters' => 'Knowledge Repository Parameters',
@@ -37,7 +38,8 @@
                     'methodologyName' => 'Methodology name',
                     'methodology' => 'Methodology',
                     'ageGroup' => 'Age group',
-                    'songType' => 'Song type'
+                    'songType' => 'Song type',
+                    'folkSongType' => 'Folk song type'
                 ],
             ],
             'general' => [
