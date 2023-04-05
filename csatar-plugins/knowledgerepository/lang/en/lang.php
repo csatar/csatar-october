@@ -16,7 +16,8 @@
                     'methodologies' => 'Methodologies',
                     'songTypes' => 'Song types',
                     'folkSongTypes' => 'Folk song types',
-                    'regions' => 'Regions'
+                    'regions' => 'Regions',
+                    'folkSongRhythms' => 'Folk song rhythms'
                 ],
                 'knowledgeRepositoryParameters' => [
                     'knowledgeRepositoryParameters' => 'Knowledge Repository Parameters',
@@ -45,6 +46,7 @@
                     'bigRegion' => 'Big Region',
                     'midRegion' => 'Mid Region',
                     'smallRegion' => 'Small Region',
+                    'folkSongRhythm' => 'Folk song rhythm'
                 ],
             ],
             'general' => [

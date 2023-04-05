@@ -16,7 +16,8 @@
                     'methodologies' => 'Módszertan',
                     'songTypes' => 'Dal típusok',
                     'folkSongTypes' => 'Népdal típusok',
-                    'regions' => 'Tájegységek'
+                    'regions' => 'Tájegységek',
+                    'folkSongRhythms' => 'Népdal ritmusok'
                 ],
                 'knowledgeRepositoryParameters' => [
                     'knowledgeRepositoryParameters' => 'Tudástár Paraméterek',
@@ -45,6 +46,7 @@
                     'bigRegion' => 'Nagy tájegység',
                     'midRegion' => 'Közepes tájegység',
                     'smallRegion' => 'Kicsi tájegység',
+                    'folkSongRhythm' => 'Népdal ritmus'
                 ],
             ],
             'general' => [

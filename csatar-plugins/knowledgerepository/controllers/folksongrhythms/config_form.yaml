@@ -1,0 +1,10 @@
+name: FolkSongRhythms
+form: $/csatar/knowledgerepository/models/folksongrhythm/fields.yaml
+modelClass: Csatar\KnowledgeRepository\Models\FolkSongRhythm
+defaultRedirect: csatar/knowledgerepository/folksongrhythms
+create:
+    redirect: 'csatar/knowledgerepository/folksongrhythms/update/:id'
+    redirectClose: csatar/knowledgerepository/folksongrhythms
+update:
+    redirect: csatar/knowledgerepository/folksongrhythms
+    redirectClose: csatar/knowledgerepository/folksongrhythms
