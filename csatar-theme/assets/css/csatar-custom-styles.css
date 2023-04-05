@@ -1464,8 +1464,8 @@ div.card.csat-resp-gdtable > div.row > div.col, div.col-6, div.col-md-4, div.col
 }
 
 @media (min-width: 992px) {
-    div.card.csat-border-lg-none {
-        border-width: 0px;
+    .csat-border-lg-none {
+        border-width: 0px !important;
     }
 
     div.table.csat-grid > div:nth-child(odd) > div > div .td {
@@ -1493,6 +1493,27 @@ div.card.csat-resp-gdtable > div.row > div.col, div.col-6, div.col-md-4, div.col
 
 #tableRows > a > div > div > div > div > p {
     margin-bottom: 0px;
+    line-height: 1.2;
+}
+
+@media (min-width: 991px) {
+
+    .grid-ellipsis {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .grid-ellipsis:hover {
+        text-overflow: clip;
+        white-space: normal;
+        word-break: normal;
+        overflow: visible;
+    }
+}
+
+.csat-grid-container-width {
+    max-width: 90% !important;
 }
 
 /* Data cards */
@@ -2076,4 +2097,13 @@ input:-webkit-autofill:active {
     text-decoration: underline;
     text-decoration-color: #B08B04;
     text-underline-offset: 4px;
+}
+
+ul.pagination {
+    display: flex;  
+    flex-wrap: wrap;
+}
+
+ul.pagination > li {
+    padding: 0px 10px;
 }
