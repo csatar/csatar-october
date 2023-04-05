@@ -79,7 +79,7 @@ class Structure extends ComponentBase
         }
 
         $model = $modelName::find($this->property('model_id'));
-        if(isset(Auth::user()->scout)) {
+        if (isset(Auth::user()->scout)) {
             $this->permissions = Auth::user()->scout->getRightsForModel($model);
         }
 

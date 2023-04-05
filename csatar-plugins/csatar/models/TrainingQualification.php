@@ -11,6 +11,8 @@ class TrainingQualification extends Model
 
     use \October\Rain\Database\Traits\SoftDelete;
 
+    use \Csatar\Csatar\Traits\History;
+
     protected $dates = ['deleted_at'];
 
 
@@ -46,6 +48,7 @@ class TrainingQualification extends Model
             'pivotModel' => '\Csatar\Csatar\Models\ScoutTrainingQualificationPivot',
         ]
     ];
+
 
     public function getTrainingIdOptions(){
         return Training::lists('name', 'id');

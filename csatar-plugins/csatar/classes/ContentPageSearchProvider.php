@@ -15,7 +15,7 @@ class ContentPageSearchProvider extends ResultsProvider
             ->orWhere('content', 'like', "%{$this->query}%")
             ->get();
 
-        if($matching->count() == 0) {
+        if ($matching->count() == 0) {
             $queryHtmlEndcoded = htmlentities($this->query);
             $matching = ContentPage::where('title', 'like', "%{$queryHtmlEndcoded}%")
                 ->orWhere('content', 'like', "%{$queryHtmlEndcoded}%")

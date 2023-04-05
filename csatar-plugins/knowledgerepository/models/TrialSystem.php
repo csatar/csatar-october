@@ -13,6 +13,8 @@ class TrialSystem extends PermissionBasedAccess
     
     use \October\Rain\Database\Traits\SoftDelete;
 
+    use \Csatar\Csatar\Traits\History;
+
     protected $dates = ['deleted_at'];
 
 
@@ -65,11 +67,9 @@ class TrialSystem extends PermissionBasedAccess
         ],
         'association' => [
             '\Csatar\Csatar\Models\Association',
-//            'formBuilder' => [
-//                'requiredBeforeRender' => true,
-//            ],
         ]
     ];
+
 
     public static function getOrganizationTypeModelNameUserFriendly()
     {

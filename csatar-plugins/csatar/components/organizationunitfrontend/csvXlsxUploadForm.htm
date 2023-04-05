@@ -1,14 +1,14 @@
 {% if showUploadForm %}
     <div class="info2 p-4 mb-3 rounded text-white">
         <p>
-            {{ 'A feltöltendő .csv fájl első 2 sora meg kell egyezzen a fentebb letölthető .csv fájl első két sorával.' | _ }} </br>
+            {{ 'A feltöltendő .csv, .xlsx fájl első 2 sora meg kell egyezzen a fentebb letölthető .csv, .xlsx fájl első két sorával.' | _ }} </br>
             {{ 'Az "Állampolgárság" oszlop értékei kétbetűs, hivatalos országnév rövidítések lehetnek, nagy betűvel, például Magyaraország esetén: "HU", Románia esetén: "RO".'| _ }} </br>
             {{ 'A "Jogviszony" és "Vallás" oszlopok értékeinél számít az ékezet és a kicsi/nagy betű.' | _ }} </br>
             {{ 'A "Dátum" oszlop értékeinek helyes formátuma: év-hónap-nap, pl. 2023-01-01' | _ }} </br>
         </p>
     </div>
     <form
-        data-request = "onImportScoutsFromCsv"
+        data-request = "onImportScoutsFromCsvXlsx"
         data-request-loading
         data-request-files
         data-request-ajax-global = "true"
@@ -16,7 +16,7 @@
     >
         <div class="form-group">
             <input type="hidden" name="teamId" value="{{ teamId }}" />
-            <input type="file" name="csvFile" id="csvFile" class="form-control" />
+            <input type="file" name="csvXlsxFile" id="csvXlsxFile" class="form-control" />
         </div>
         {% partial '@formButton'
             permissionValue = permissionValue
@@ -35,15 +35,15 @@
             btnLabel = 'Mégse'|_
         %}
     </form>
-    <div id="csvImportLog"></div>
+    <div id="csvXlsxImportLog"></div>
 {% else %}
     {% partial "@dataRequestButton"
         permissionValue = permissionValue
         dataRequest = 'onRenderUploadForm'
         dataRequestData = 'teamId: ' ~ teamId ~ ', permissionValue: ' ~ permissionValue
         btnExtraClasses = 'btn-sm btn-primary'
-        btnValue = 'Tag lista feltöltése csv-ben' |_
+        btnValue = 'Tag lista feltöltése' |_
         btnIconClass = 'csat-upload-fill-wh-sm'
-        btnLabel = 'Tag lista feltöltése csv-ben' |_
+        btnLabel = 'Tag lista feltöltése' |_
     %}
 {% endif %}

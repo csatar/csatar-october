@@ -8,9 +8,12 @@ use Model;
 class AccidentRiskLevel extends Model
 {
     use \October\Rain\Database\Traits\Validation;
+
     use \October\Rain\Database\Traits\Sortable;
 
     use \October\Rain\Database\Traits\SoftDelete;
+
+    use \Csatar\Csatar\Traits\History;
 
     protected $dates = ['deleted_at'];
 
@@ -37,10 +40,10 @@ class AccidentRiskLevel extends Model
         'sort_order'
     ];
 
+
     public function beforeSave()
     {
-        if (empty($this->sort_order))
-        {
+        if (empty($this->sort_order)) {
             $this->sort_order = static::max('sort_order') + 1;
         }
     }

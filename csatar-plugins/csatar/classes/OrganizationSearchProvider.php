@@ -32,7 +32,7 @@ class OrganizationSearchProvider extends ResultsProvider
                 $result->relevance = 1;
                 $result->title      = $match->extendedName != '' ?  $match->extendedName : $match->name;
                 $result->url       = $controller->pageUrl($model, [ 'id'=> $match->id ] );
-                if( $childClass == '\\Csatar\Csatar\Models\Scout' ) {
+                if ( $childClass == '\\Csatar\Csatar\Models\Scout' ) {
                     $result->url       = $controller->pageUrl('tag', [ 'ecset_code'=> $match->ecset_code ] );
                     $result->text     = $childClass::getOrganizationTypeModelNameUserFriendly();
                 }

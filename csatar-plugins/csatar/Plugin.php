@@ -3,6 +3,7 @@
 use App;
 use Backend;
 use Csatar\Csatar\Classes\Exceptions\OauthException;
+use Csatar\Csatar\Classes\HistoryService;
 use Csatar\Csatar\Models\Association;
 use Csatar\Csatar\Models\MandateType;
 use Csatar\Csatar\Models\Scout;
@@ -76,7 +77,43 @@ class Plugin extends PluginBase
      */
     public function boot()
     {
-        if(!Schema::hasTable('system_plugin_versions') || intval(str_replace('.', '', \System\Models\PluginVersion::getVersion('Csatar.Csatar'))) < 1070) {
+        HistoryService::init([
+            '\RainLab\User\Models\User' => [
+                'extraEventListeners' => [
+                    'rainlab.user.login' => 'historyRecordEvent',
+                    'rainlab.user.register' => 'historyRecordEvent',
+                    'rainlab.user.activate' => 'historyRecordEvent',
+                    'rainlab.user.deactivate' => 'historyRecordEvent',
+                    'rainlab.user.reactivate' => 'historyRecordEvent',
+                    'csatar.twoFA.authenticated' => 'historyRecordEvent',
+                    'csatar.oauthRegistration' => 'historyRecordEvent',
+                    'csatar.oauthLogin' => 'historyRecordEvent',
+                ],
+                'extraEvents' => [
+                    'model.auth.beforeImpersonate' => 'historyRecordEvent',
+                    'model.auth.afterImpersonate' => 'historyRecordEvent',
+                ],
+            ],
+            '\RainLab\User\Models\UserGroup' => null,
+            '\Backend\Models\User' => [
+                'extraEventListeners' => [
+                    'backend.user.login' => 'historyRecordEvent',
+                ],
+            ],
+            '\Backend\Models\UserGroup' => null,
+            '\Backend\Models\UserRole' => null,
+            '\PolloZen\SimpleGallery\Models\Gallery' => null,
+            '\Csatar\Csatar\Models\MandatePermission' => [
+                'basicEvents' => false,
+                'relationEvents' => false,
+                'extraEventListeners' => [
+                    'mandatePermission.afterSave' => 'historyAfterSave',
+                    'mandatePermission.afterDelete' => 'historyAfterDelete',
+                ],
+            ],
+        ]);
+
+        if (!Schema::hasTable('system_plugin_versions') || intval(str_replace('.', '', \System\Models\PluginVersion::getVersion('Csatar.Csatar'))) < 1070) {
             // if Csatar.Csatar version is lower than a specific version the below code should not run
             return;
         }
@@ -92,14 +129,14 @@ class Plugin extends PluginBase
         App::error(function(
             \Symfony\Component\HttpKernel\Exception\HttpException $exception) {
 
-            if($exception->getStatusCode() == 403) {
+            if ($exception->getStatusCode() == 403) {
                 Session::put('urlBefore403Redirect', Session::get('_previous.url'));
                 return Redirect::to('/403');
             }
         });
 
         App::error(function (OauthException $exception) {
-            if($exception->getCode() == 1) {
+            if ($exception->getCode() == 1) {
                 \Flash::warning($exception->getMessage());
                 return Redirect::to('/felhasznaloi-fiok-letrehozasa');
             }
@@ -110,52 +147,52 @@ class Plugin extends PluginBase
 
         Event::listen('flynsarmy.sociallogin.registerUser', function ($provider_details, $user_details) {
 
-            if(empty($user_details->email)) {
+            if (empty($user_details->email)) {
                 throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.canNotRegisterLoginWithoutEmail'), 2);
             }
 
             $scout = Scout::where('email', $user_details->email)->first();
 
-            if(empty($scout)) {
+            if (empty($scout)) {
                 throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.canNotFindScoutWithEmail'), 3);
             }
 
-            if(empty($scout->user_id)) {
+            if (empty($scout->user_id)) {
                 throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.onlyExistingUsersCanLogin'), 1);
             }
 
-            if(!empty($scout->user_id)) {
-                throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.onlyExistingUsersCanLogin'), 4);
-            }
+            Event::fire('csatar.oauthRegistration', [$scout]);
 
         });
 
         Event::listen('flynsarmy.sociallogin.handleLogin', function (array $provider_details, array $user_details, User $user) {
 
-            if(empty($user_details['profile']->email)) {
+            if (empty($user_details['profile']->email)) {
                 throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.canNotRegisterLoginWithoutEmail'), 2);
             }
 
             $scout = Scout::where('email', $user_details['profile']->email)->first();
 
-            if(empty($scout)) {
+            if (empty($scout)) {
                 throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.canNotFindScoutWithEmail'), 3);
             }
 
-            if(empty($user)) {
+            if (empty($user)) {
                 throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.canNotFindUser'), 5);
             }
 
             //check if scout already has a user_id and if that matches or not the returned user's id
-            if(!empty($scout->user_id) && $scout->user_id != $user->id) {
+            if (!empty($scout->user_id) && $scout->user_id != $user->id) {
                 throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.userIdAndScoutUserIdMismatch'), 6);
             }
 
             //if scout doesn't have a user_id, set the returned user's id as user_id
-            if(empty($scout->user_id)) {
+            if (empty($scout->user_id)) {
                 $scout->user_id = $user->id;
                 $scout->save();
             }
+
+            Event::fire('csatar.oauthLogin', [$scout]);
 
         });
 
@@ -181,7 +218,7 @@ class Plugin extends PluginBase
         }
 
         Event::listen('rainlab.user.login', function($user) {
-            if(!empty($user->scout)){
+            if (!empty($user->scout)) {
                 $user->scout->saveMandateTypeIdsForEveryAssociationToSession();
             }
         });
@@ -278,14 +315,14 @@ class Plugin extends PluginBase
 
     public function saveGuestMandateTypeIdsForEveryAssociationToSession(){
 
-        if(empty(Session::get('guest.mandateTypeIds'))) {
+        if (empty(Session::get('guest.mandateTypeIds'))) {
             $associationIds = Association::all()->pluck('id');
 
-            if(empty($associationIds)){
+            if (empty($associationIds)) {
                 return;
             }
 
-            foreach($associationIds as $associationId){
+            foreach ($associationIds as $associationId) {
                 MandateType::getGuestMandateTypeIdInAssociation($associationId);
             }
         }
@@ -309,12 +346,14 @@ class Plugin extends PluginBase
     public function registerSchedule($schedule)
     {
         $schedule->call(function () {
-            Db::select(
-                "UPDATE csatar_csatar_scouts
-                SET family_name = '" . Scout::NAME_DELETED_INACTIVITY . "', given_name = ''
-                WHERE inactivated_at < DATE_SUB(NOW(), INTERVAL 5 YEAR) AND family_name <> '" . Scout::NAME_DELETED_INACTIVITY . "';"
-            );
+            $scouts = Scout::where('inactivated_at', '<', Carbon::now()->subYears(5))->where('family_name', '!=', Scout::NAME_DELETED_INACTIVITY)->get();
+            foreach ($scouts as $scout) {
+                $scout->family_name = Scout::NAME_DELETED_INACTIVITY;
+                $scout->given_name = '';
+                $scout->ignoreValidation = true;
+                $scout->forceSave();
+            }
         })
-            ->daily();
+            ->dailyAt('00:15');
     }
 }

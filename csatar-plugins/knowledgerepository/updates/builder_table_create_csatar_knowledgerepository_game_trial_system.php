@@ -14,7 +14,7 @@ class BuilderTableCreateCsatarKnowledgerepositoryGameTrialSystem extends Migrati
             $table->integer('trial_system_id')->unsigned();
             
             $table->foreign('game_id', 'trial_system_game_id_foreign')->references('id')->on('csatar_knowledgerepository_games');
-            $table->foreign('trial_system_id', 'game_trial_system_id_foreign')->references('id')->on('csatar_knowledgerepository_durations');
+            $table->foreign('trial_system_id', 'game_trial_system_id_foreign')->references('id')->on('csatar_knowledgerepository_trial_systems');
         });
     }
     

@@ -17,6 +17,8 @@ class AccidentLogRecord extends Model
 
     use \October\Rain\Database\Traits\Nullable;
 
+    use \Csatar\Csatar\Traits\History;
+
     protected $dates = ['deleted_at'];
 
     /**
@@ -73,6 +75,7 @@ class AccidentLogRecord extends Model
             'label' => 'csatar.csatar::lang.plugin.admin.scout.user',
         ],
     ];
+
 
     public static function getModelName()
     {
@@ -132,12 +135,12 @@ class AccidentLogRecord extends Model
 
     public function getInjuredPersonGenderListAttribute($value)
     {
-        return Gender::getOptionsWithLabels()[$value] ?? null;;
+        return Gender::getOptionsWithLabels()[$value] ?? null;
     }
 
     public function getInjurySeverityListAttribute($value)
     {
-        return InjurySeverity::getOptionsWithLabels()[$value] ?? null;;
+        return InjurySeverity::getOptionsWithLabels()[$value] ?? null;
     }
 
     public function getCreatedByAttribute($value)

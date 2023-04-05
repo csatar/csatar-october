@@ -2,6 +2,9 @@
     'plugin' => [
         'name' => 'Knowledge Repository',
         'description' => 'Plugin for Knowledge Repository in the RMCSSZ\'s CSATÁR project',
+        'permissions' => [
+            'manageKnowledgeRepository' => 'Manage Knowledge Repository',
+        ],
         'admin' => [
             'menu' => [
                 'knowledgeRepository' => [
@@ -68,15 +71,15 @@
                 'trialSystems' => 'Trial Systems',
                 'idString' => 'Id string',
                 'ageGroup' => 'Age group',
-                'trialSystemCategory' => 'Trial system category',
+                'trialSystemCategory' => 'Category',
                 'trialSystemCategories' => 'Trial system categories',
-                'trialSystemTopic' => 'Trial system topic',
+                'trialSystemTopic' => 'Topic',
                 'trialSystemTopics' => 'Trial system topics',
-                'trialSystemSubTopic' => 'Trial system subtopic',
+                'trialSystemSubTopic' => 'Subtopic',
                 'trialSystemSubTopics' => 'Trial system subtopics',
-                'trialSystemType' => 'Trial system type',
+                'trialSystemType' => 'Type',
                 'trialSystemTypes' => 'Trial system types',
-                'trialSystemTrialType' => 'Trial system trial type',
+                'trialSystemTrialType' => 'Trial type',
                 'trialSystemTrialTypes' => 'Trial system trial types',
                 'forPatrols' => 'For patrols',
                 'individual' => 'Individual',

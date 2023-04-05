@@ -82,7 +82,7 @@ class StructureTree
     {
         return $collection->map(function ($value) {
             $array = $value instanceof Arrayable ? $value->attributesToArray() : $value;
-            if(!empty($value->getRelations())){
+            if (!empty($value->getRelations())) {
                 foreach ($value->getRelations() as $relationName => $relationItems) {
                     $array[$relationName] =
                         $relationItems instanceof Collection ? self::toKeyedByIdArray($relationItems) : ($relationItems instanceof Arrayable ? $relationItems->toArray() : $relationItems);
@@ -232,7 +232,7 @@ class StructureTree
         $refreshedAssociation = self::toKeyedByIdArray($query->get()); //dd($refreshedAssociation);
         $refreshedAssociation = array_merge([], ...$refreshedAssociation);
 
-        if(empty($refreshedAssociation)) {
+        if (empty($refreshedAssociation)) {
             return;
         }
 
@@ -289,7 +289,7 @@ class StructureTree
         ]);
         $refreshedDistrict = self::toKeyedByIdArray(self::selectFromDistricts($query)->get());
         $refreshedDistrict = array_merge([], ...$refreshedDistrict);
-        if(empty($refreshedDistrict)) {
+        if (empty($refreshedDistrict)) {
            return;
         }
         // get old tree from cache and empty cache
@@ -348,7 +348,7 @@ class StructureTree
         ]);
         $refreshedTeam = self::toKeyedByIdArray(self::selectFromTeams($query)->get());
         $refreshedTeam = array_merge([], ...$refreshedTeam);
-        if(empty($refreshedTeam)) {
+        if (empty($refreshedTeam)) {
             return;
         }
         // get old tree from cache and empty cache

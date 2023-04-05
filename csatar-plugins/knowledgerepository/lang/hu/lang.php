@@ -2,6 +2,9 @@
     'plugin' => [
         'name' => 'Tudástár',
         'description' => 'Tudástár plugin az RMCSSZ CSATÁR alkalmazás számára',
+        'permissions' => [
+            'manageKnowledgeRepository' => 'Tudástár kezelése',
+        ],
         'admin' => [
             'menu' => [
                 'knowledgeRepository' => [
@@ -69,15 +72,15 @@
                 'trialSystems' => 'Próbarendszerek',
                 'idString' => 'Azonosító',
                 'ageGroup' => 'Korosztály',
-                'trialSystemCategory' => 'Próbarendszer kategória',
+                'trialSystemCategory' => 'Kategória',
                 'trialSystemCategories' => 'Próbarendszer kategóriák',
-                'trialSystemTopic' => 'Próbarendszer téma',
+                'trialSystemTopic' => 'Téma',
                 'trialSystemTopics' => 'Próbarendszer témák',
-                'trialSystemSubTopic' => 'Próbarendszer altéma',
+                'trialSystemSubTopic' => 'Altéma',
                 'trialSystemSubTopics' => 'Próbarendszer altémák',
-                'trialSystemType' => 'Próbarendszer típus',
+                'trialSystemType' => 'Típus',
                 'trialSystemTypes' => 'Próbarendszer típusok',
-                'trialSystemTrialType' => 'Próbarendszer próba típus',
+                'trialSystemTrialType' => 'Próba típus',
                 'trialSystemTrialTypes' => 'Próbarendszer próba típusok',
                 'forPatrols' => 'Őrsi',
                 'individual' => 'Egyéni',

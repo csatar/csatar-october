@@ -1,14 +1,16 @@
 <?php namespace Csatar\Csatar\Models;
 
 use Lang;
-use October\Rain\Database\Pivot;
+use Csatar\Csatar\Classes\CsatarPivot;
 
 /**
  * Pivot Model
  */
-class AssociationLegalRelationshipPivot extends Pivot
+class AssociationLegalRelationshipPivot extends CsatarPivot
 {
     use \October\Rain\Database\Traits\Validation;
+
+    use \Csatar\Csatar\Traits\History;
 
     /**
      * @var string The database table used by the model.
@@ -36,4 +38,5 @@ class AssociationLegalRelationshipPivot extends Pivot
             'membership_fee' => Lang::get('csatar.csatar::lang.plugin.admin.association.membershipFee'),
         ]);
     }
+
 }

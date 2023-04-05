@@ -12,6 +12,8 @@ use ValidationException;
  */
 class Association extends OrganizationBase
 {
+    use \Csatar\Csatar\Traits\History;
+
     /**
      * @var string The database table used by the model.
      */
@@ -111,6 +113,7 @@ class Association extends OrganizationBase
             'ignoreInPermissionsMatrix' => true,
         ],
     ];
+
 
     public static function getEagerLoadSettings(string $useCase = null): array
     {

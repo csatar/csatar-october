@@ -11,6 +11,8 @@ class TrialSystemTopic extends Model
 
     use \October\Rain\Database\Traits\Validation;
 
+    use \Csatar\Csatar\Traits\History;
+
     protected $dates = ['deleted_at'];
     
     /**
@@ -28,4 +30,5 @@ class TrialSystemTopic extends Model
     public $fillable = [
         'name',
     ];
+
 }

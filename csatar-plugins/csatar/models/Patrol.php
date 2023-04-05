@@ -15,6 +15,9 @@ use Csatar\Csatar\Models\OrganizationBase;
 class Patrol extends OrganizationBase
 {
     use \October\Rain\Database\Traits\Nullable;
+
+    use \Csatar\Csatar\Traits\History;
+
     /**
      * @var string The database table used by the model.
      */
@@ -222,7 +225,7 @@ class Patrol extends OrganizationBase
     public function updateCache(): void
     {
         if ($this->wasRecentlyCreated && $this->status == Status::ACTIVE) {
-            StructureTree::updateAssociationTree($this->association_id);
+            StructureTree::updateTeamTree($this->team_id);
         }
 
         if (empty($this->original) ) {
@@ -281,6 +284,7 @@ class Patrol extends OrganizationBase
         ],
     ];
 
+
     /**
      * Scope a query to only include patrols with a given team id.
      */
@@ -298,7 +302,7 @@ class Patrol extends OrganizationBase
     }
 
     public function getAgeGroupOptions(){
-        if($this->team_id){
+        if ($this->team_id) {
             $team = $this->team;
             return AgeGroup::select(
                 DB::raw("CONCAT(NAME, IF(note, CONCAT(' (',note, ')'), '')) AS name"),'id')

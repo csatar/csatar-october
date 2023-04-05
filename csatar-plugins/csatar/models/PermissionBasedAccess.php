@@ -114,8 +114,7 @@ class PermissionBasedAccess extends Model
 
         if (!empty($sessionRecordForModel)
             && $sessionRecordForModel['savedToSession'] >= RightsMatrix::getRightsMatrixLastUpdateTime()
-            && $sessionRecordForModel['rights']->count() != 0)
-        {
+            && $sessionRecordForModel['rights']->count() != 0) {
             return $sessionRecordForModel['rights'];
         }
 
@@ -140,7 +139,7 @@ class PermissionBasedAccess extends Model
 
     public static function getTranslatedAttributeNames(string $organizationTypeModelName = null): array
     {
-        if($organizationTypeModelName == '\Csatar\Csatar\Models\OrganizationBase'){
+        if ($organizationTypeModelName == '\Csatar\Csatar\Models\OrganizationBase') {
             return [];
         }
 
@@ -198,7 +197,7 @@ class PermissionBasedAccess extends Model
                 $pluginModelsNamespace = $pluginCodeObj->toPluginNamespace() . '\\Models\\';
                 foreach ($models as $model) {
                     $fullClassName = $pluginModelsNamespace . $model->className;
-                    if(!is_subclass_of($fullClassName, self::getModelName())){
+                    if (!is_subclass_of($fullClassName, self::getModelName())) {
                         continue;
                     };
                     $result[$fullClassName] = '\\' . $fullClassName;

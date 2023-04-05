@@ -1,5 +1,17 @@
 formBuilder_card_design: true
 fields:
+    district:
+        label: 'csatar.csatar::lang.plugin.admin.team.district'
+        nameFrom: extendedName
+        descriptionFrom: description
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        span: auto
+        type: relation
+        formBuilder:
+            type: field
+            card: teamData
+            position: subtitle
+            readOnlyIfPreselected: true
     teamData:
         span: full
         type: section
@@ -25,6 +37,7 @@ fields:
         span: auto
         type: dropdown
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        required: 1
         formBuilder:
             type: field
             card: teamData
@@ -324,15 +337,3 @@ fields:
             card: teamData
             position: image
             default: 'assets/images/groupimg_placeholder.webp'
-    district:
-        label: 'csatar.csatar::lang.plugin.admin.team.district'
-        nameFrom: extendedName
-        descriptionFrom: description
-        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
-        span: auto
-        type: relation
-        formBuilder:
-            type: field
-            card: teamData
-            position: subtitle
-            readOnlyIfPreselected: true

@@ -9,51 +9,54 @@ navigation:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepository.knowledgeRepository'
         url: /
         icon: icon-book
+        order: 910
         permissions:
             - csatar.manage.data
+            - csatar.manage.knowledgerepository
         sideMenu:
-            side-menu-test-system:
-                label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepository.testSystem'
-                url: csatar/knowledgerepository/testsystem
-                icon: icon-microchip
-                permissions:
-                    - csatar.manage.data
             side-menu-games:
                 label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepository.games'
                 url: /csatar/knowledgerepository/games
                 icon: icon-child
                 permissions:
                     - csatar.manage.data
+                    - csatar.manage.knowledgerepository
             side-menu-songs:
                 label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepository.songs'
                 url: csatar/knowledgerepository/songs
                 icon: icon-music
                 permissions:
                     - csatar.manage.data
+                    - csatar.manage.knowledgerepository
             side-menu-work-plans:
                 label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepository.workPlans'
                 url: csatar/knowledgerepository/workplans
                 icon: icon-list
                 permissions:
                     - csatar.manage.data
+                    - csatar.manage.knowledgerepository
             side-menu-methodologies:
                 label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepository.methodologies'
                 url: csatar/knowledgerepository/methodologies
                 icon: icon-paint-brush
                 permissions:
                     - csatar.manage.data
+                    - csatar.manage.knowledgerepository
             side-menu-trialsystem:
                 label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystems'
                 url: csatar/knowledgerepository/trialsystems
-                icon: icon-paint-brush
+                icon: icon-cubes
                 permissions:
                     - csatar.manage.data
+                    - csatar.manage.knowledgerepository
     main-menu-knowledge-repository-parameters:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.knowledgeRepositoryParameters'
         url: /csatar/knowledgerepository/knowledgeRepositoryparameters
         icon: icon-pencil
+        order: 911
         permissions:
             - csatar.manage.data
+            - csatar.manage.knowledgerepository
         sideMenu:
             side-menu-item:
                 label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.gameDevelopmentGoals'
@@ -61,6 +64,7 @@ navigation:
                 icon: icon-sliders
                 permissions:
                     - csatar.manage.data
+                    - csatar.manage.knowledgerepository
             side-menu-item2:
                 label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.accidentRiskLevels'
                 url: csatar/knowledgerepository/accidentrisklevel
@@ -68,67 +72,85 @@ navigation:
                 iconSvg: ''
                 permissions:
                     - csatar.manage.data
+                    - csatar.manage.knowledgerepository
             side-menu-tools:
                 label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.tools'
                 url: csatar/knowledgerepository/tools
                 icon: icon-bullhorn
                 permissions:
                     - csatar.manage.data
+                    - csatar.manage.knowledgerepository
             side-menu-headcount:
                 label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.headCounts'
                 url: csatar/knowledgerepository/headcounts
                 icon: icon-group
                 permissions:
                     - csatar.manage.data
+                    - csatar.manage.knowledgerepository
             side-menu-duration:
                 label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.durations'
                 url: csatar/knowledgerepository/durations
                 icon: icon-clock-o
                 permissions:
                     - csatar.manage.data
+                    - csatar.manage.knowledgerepository
             side-menu-location:
                 label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.locations'
                 url: csatar/knowledgerepository/locations
                 icon: icon-map-marker
                 permissions:
                     - csatar.manage.data
+                    - csatar.manage.knowledgerepository
             side-menu-gametype:
                 label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.gameTypes'
                 url: csatar/knowledgerepository/gametypes
                 icon: icon-gamepad
                 permissions:
                     - csatar.manage.data
+                    - csatar.manage.knowledgerepository
             side-menu-methodology-type:
                 label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.methodologyType'
                 url: csatar/knowledgerepository/methodologytypes
                 icon: icon-tag
+                permissions:
+                    - csatar.manage.data
+                    - csatar.manage.knowledgerepository
             side-menu-trialsystemcategory:
                 label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystemCategories'
                 url: csatar/knowledgerepository/trialsystemcategories
                 icon: icon-cubes
                 permissions:
                     - csatar.manage.data
+                    - csatar.manage.knowledgerepository
             side-menu-trialsystemtopics:
                 label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystemTopics'
                 url: csatar/knowledgerepository/trialsystemtopics
                 icon: icon-cubes
                 permissions:
                     - csatar.manage.data
+                    - csatar.manage.knowledgerepository
             side-menu-trialsystemsubtopics:
                 label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystemSubTopics'
                 url: csatar/knowledgerepository/trialsystemsubtopics
                 icon: icon-cubes
                 permissions:
                     - csatar.manage.data
+                    - csatar.manage.knowledgerepository
             side-menu-trialsystemtypes:
                 label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystemTypes'
                 url: csatar/knowledgerepository/trialsystemtypes
                 icon: icon-cubes
                 permissions:
                     - csatar.manage.data
+                    - csatar.manage.knowledgerepository
             side-menu-trialsystemtrialtypes:
                 label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystemTrialTypes'
                 url: csatar/knowledgerepository/trialsystemtrialtypes
                 icon: icon-cubes
                 permissions:
                     - csatar.manage.data
+                    - csatar.manage.knowledgerepository
+permissions:
+    csatar.manage.knowledgerepository:
+        tab: 'csatar.knowledgerepository::lang.plugin.name'
+        label: 'csatar.knowledgerepository::lang.plugin.permissions.manageKnowledgeRepository'

@@ -1,12 +1,13 @@
 <?php namespace Csatar\Csatar\Models;
 
-use October\Rain\Database\Pivot;
+use Csatar\Csatar\Classes\CsatarPivot;
 
 /**
  * Pivot Model
  */
-class ScoutFoodSensitivityPivot extends Pivot
+class ScoutFoodSensitivityPivot extends CsatarPivot
 {
+    use \Csatar\Csatar\Traits\History;
     /**
      * @var string The database table used by the model.
      */
@@ -18,4 +19,5 @@ class ScoutFoodSensitivityPivot extends Pivot
     public $fillable = [
         'comment',
     ];
+
 }

@@ -2,6 +2,10 @@
 
 use Model;
 use Db;
+use Event;
+use Request;
+use DateTime;
+use Csatar\Csatar\Classes\HistoryService;
 
 /**
  * Model
@@ -47,6 +51,14 @@ class MandatePermission extends Model
         'delete',
         'updated_at'
     ];
+
+    public function afterSave() {
+        Event::fire('mandatePermission.afterSave', [$this]);
+    }
+
+    public function afterDelete() {
+        Event::fire('mandatePermission.afterDelete', [$this]);
+    }
 
     public function getFieldOptions($scopes = null){
 
@@ -132,7 +144,7 @@ class MandatePermission extends Model
 
     public function getFromMandateTypeOptions(){
         $mandateTypes = [];
-        if($this->fromAssociation) {
+        if ($this->fromAssociation) {
             $mandateTypes = Db::table('csatar_csatar_mandate_types')->whereNull('deleted_at')->where('association_id', $this->fromAssociation)->lists('name', 'id');
         }
 
@@ -141,7 +153,7 @@ class MandatePermission extends Model
 
     public function getToMandateTypesOptions(){
         $mandateTypes = [];
-        if($this->toAssociation) {
+        if ($this->toAssociation) {
             $mandateTypes = Db::table('csatar_csatar_mandate_types')->whereNull('deleted_at')->where('association_id', $this->toAssociation)->lists('name', 'id');
         }
 
@@ -154,5 +166,77 @@ class MandatePermission extends Model
             $item = ($item)::getOrganizationTypeModelNameUserFriendly();
         });
         return $modelOptions;
+    }
+
+
+    public function historyRecordBulkAction($dataArray, $error = null) {
+
+        $historyRelationName = HistoryService::getHistoryRelationName($this);
+        $historyRelationObject = $this->{$historyRelationName}();
+        $historyModel = $historyRelationObject->getRelated();
+
+        $modelClass = $historyRelationObject->getMorphClass();
+
+        $toSave = [];
+        if (empty($dataArray)) {
+            return;
+        }
+
+        foreach ($dataArray as $data) {
+
+            $toSave[] = [
+                'fe_user_id' => HistoryService::historyGetUser(),
+                'be_user_id' => HistoryService::historyGetBackendUser(),
+                'model_type' => $modelClass,
+                'model_id' => $data['id'] ?? null,
+                'attribute' => $data['action'] ?? null,
+                'old_value' => $data['initialValue'] ?? null,
+                'new_value' => $data['value'] ?? null,
+                'description' => $error ?? null,
+                'ip_address' => Request::ip(),
+                'created_at' => new DateTime,
+                'updated_at' => new DateTime
+            ];
+        }
+
+        // Nothing to do
+        if (!count($toSave)) {
+            return;
+        }
+
+        Db::table($historyModel->getTable())->insert($toSave);
+    }
+
+    public function historyRecordMatrixSynchronization($dataArray) {
+        $historyRelationName = HistoryService::getHistoryRelationName($this);
+        $historyRelationObject = $this->{$historyRelationName}();
+        $historyModel = $historyRelationObject->getRelated();
+
+        $modelClass = $historyRelationObject->getMorphClass();
+
+        $toSave = [];
+        if (empty($dataArray)) {
+            return;
+        }
+
+        foreach ($dataArray as $data) {
+            foreach ($data as $key => $value) {
+                $toSave[] = [
+                    'fe_user_id' => HistoryService::historyGetUser(),
+                    'be_user_id' => HistoryService::historyGetBackendUser(),
+                    'model_type' => $modelClass,
+                    'model_id' => null,
+                    'attribute' => $key,
+                    'old_value' => null,
+                    'new_value' => $value,
+                    'description' => null,
+                    'ip_address' => Request::ip(),
+                    'created_at' => new DateTime,
+                    'updated_at' => new DateTime
+                ];
+            }
+        }
+
+        Db::table($historyModel->getTable())->insert($toSave);
     }
 }

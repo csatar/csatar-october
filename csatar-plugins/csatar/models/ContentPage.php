@@ -1,6 +1,7 @@
 <?php namespace Csatar\Csatar\Models;
 
 use Model;
+use Lang;
 
 /**
  * Model
@@ -10,6 +11,8 @@ class ContentPage extends PermissionBasedAccess
     use \October\Rain\Database\Traits\Validation;
 
     use \October\Rain\Database\Traits\SoftDelete;
+
+    use \Csatar\Csatar\Traits\History;
 
     protected $dates = ['deleted_at'];
 
@@ -36,4 +39,9 @@ class ContentPage extends PermissionBasedAccess
     public $morphTo = [
         'model' => []
     ];
+
+    public static function getOrganizationTypeModelNameUserFriendly()
+    {
+        return Lang::get('csatar.csatar::lang.plugin.admin.general.contentPage');
+    }
 }

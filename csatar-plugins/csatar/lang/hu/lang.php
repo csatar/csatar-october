@@ -9,6 +9,7 @@
         'permissions' => [
             'manageData' => 'RMCSSZ adminisztráció',
             'admin' => 'Csatár rendszergazda',
+            'manageInventory' => 'Leltár adminisztráció',
         ],
         'admin' => [
             'general' => [
@@ -53,6 +54,23 @@
                 'bulkDeletePartialSuccess' => ':deletedCount elem törlése sikerült a :totalCount-ból/ből. ',
                 'bulkDeleteError' => 'A következő hibák merültek fel a törlés során: ',
                 'activeMembersCount' => 'Aktív tagok száma',
+                'clearFilters' => 'Szűrők törlése',
+            ],
+            'history' => [
+                'histories' => 'Előzmények',
+                'history' => 'Előzmény',
+                'frontendUser' => 'Frontend felhasználó',
+                'backendUser' => 'Backend felhasználó',
+                'modelClass' => 'Modell osztály',
+                'modelId' => 'Model azonosító',
+                'relatedModelClass' => 'Kapcsolódó modell osztály',
+                'relatedModelId' => 'Kapcsolódó model azonosító',
+                'attribute' => 'Attribútum',
+                'cast' => 'Típus',
+                'oldValue' => 'Régi érték',
+                'newValue' => 'Új érték',
+                'description' => 'Leírás',
+                'ipAddress' => 'Ip cím',
             ],
             'ageGroups' => [
                 'ageGroups' => 'Korosztályok',
@@ -191,6 +209,7 @@
                 'activeMandateDeleteError' => 'A(z) %name nevű Tagnak létezik aktív Megbízatása, így ez a Tag nem törölhető.',
                 'scoutTeam' => 'Tag csapata',
                 'inactivationWarning' => 'Figyelem! Ha a státusz aktívról inaktívra változik, a cserkész összes megbízatása lejár!',
+                'teamChangeHistoryMessage' => ':date átigazolt a(z) :oldTeam cserkészcsapatból a :newTeam cserkészcsapatba.',
             ],
             'admin' => [
                 'menu' => [
@@ -591,6 +610,8 @@
             'backendUserRoles' => [
                 'backendUserRoles' => 'Admin felület szerepkörök',
                 'rmcsszOffice' => 'RMCSSZ iroda',
+                'rmcsszKnowledgeRepository' => 'RMCSSZ Tudástáras',
+                'rmcsszInventory' => 'RMCSSZ Leltáros',
             ],
             'membershipCard' => [
                 'membershipCard' => 'Tagkártya',
@@ -618,7 +639,7 @@
             'contentPageForm' => [
                 'name' => 'Tartalom oldal űrlap',
                 'description' => 'Tartalom oldal űrlap komponens',
-                'parentModelClass' => 'Szülő model osztály',
+                'parentModelClass' => 'Szülő modell osztály',
                 'parentRecordKeyParam' => 'Szülő rekord kulcs paraméter',
                 'parentRecordKeyParamDescription' => 'A szülő moldel kulcs paraméter neve.',
             ],
@@ -665,6 +686,7 @@
                     'harghitaCountyCouncil' => 'Hargita Megye Tanácsa',
                     'communitasFoundation' => 'Communitas Alapítvány',
                     'toyota' => 'Toyota',
+                    'erasmus' => 'Erasmus+'
                 ],
                 'discounts' => [
                     'title' => 'Kedvezményeket kínáló cégek',
@@ -739,7 +761,7 @@
                 'name' => 'Szervezeti Egység Frontend',
                 'description' => 'Megyjeleníti egy szerevezeti egység frontend oldalát.',
                 'csv' => [
-                    'fileMissingOrInvalid' => 'A .csv fájl hiányzik vagy érvénytelen.',
+                    'fileMissingOrInvalid' => 'A fájl hiányzik vagy érvénytelen.',
                     'teamIdMissing' => 'Hiányzik a csapat azonosítója.',
                     'personalIdentificationNumberMissing' => 'Hiányzó személyi szám.',
                 ],
