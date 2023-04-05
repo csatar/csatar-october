@@ -224,7 +224,7 @@ class Plugin extends PluginBase
         });
 
         Event::listen('offline.sitesearch.extend', function () {
-            return [ new ContentPageSearchProvider(), new OrganizationSearchProvider() ];
+            return [ new OrganizationSearchProvider(), new ContentPageSearchProvider() ];
         });
 
         $this->saveGuestMandateTypeIdsForEveryAssociationToSession();
