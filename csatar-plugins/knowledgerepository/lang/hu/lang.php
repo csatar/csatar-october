@@ -14,6 +14,7 @@
                     'songs' => 'Énekek',
                     'workPlans' => 'Munkatervek',
                     'methodologies' => 'Módszertan',
+                    'songTypes' => 'Dal típusok'
                 ],
                 'knowledgeRepositoryParameters' => [
                     'knowledgeRepositoryParameters' => 'Tudástár Paraméterek',
@@ -36,6 +37,7 @@
                     'methodologyName' => 'Módszer neve',
                     'methodology' => 'Módszertan',
                     'ageGroup' => 'Korosztály',
+                    'songType' => 'Dal típus'
                 ],
             ],
             'general' => [

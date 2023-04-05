@@ -3,6 +3,7 @@
 use Csatar\KnowledgeRepository\Models\AccidentRiskLevel;
 use Csatar\KnowledgeRepository\Models\GameDevelopmentGoal;
 use Csatar\KnowledgeRepository\Models\MethodologyType;
+use Csatar\KnowledgeRepository\Models\SongType;
 use Csatar\KnowledgeRepository\Models\Tool;
 use Csatar\KnowledgeRepository\Models\Headcount;
 use Csatar\KnowledgeRepository\Models\Duration;
@@ -433,6 +434,11 @@ class SeederData extends Seeder
                 'name' => 'Mindkettő',
                 'sort_order' => 3
             ],
+        ],
+        'songTypes' => [
+            'Népdal',
+            'Ifidal',
+            'Cserkészdal',
         ]
     ];
 
@@ -558,6 +564,14 @@ class SeederData extends Seeder
                 'name' => $trialSystemCategoryData,
             ]);
             $trialSystemCategory->save();
+        }
+
+        // Song Type
+        foreach ($this::DATA['songTypes'] as $songTypeData) {
+            $songType = SongType::firstOrNew([
+                'name' => $songTypeData
+            ]);
+            $songType->save();
         }
     }
 }

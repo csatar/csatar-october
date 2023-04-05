@@ -150,6 +150,10 @@ navigation:
                 permissions:
                     - csatar.manage.data
                     - csatar.manage.knowledgerepository
+            side-menu-songtype:
+                label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepository.songTypes'
+                url: /csatar/knowledgerepository/songtypes
+                icon: icon-music
 permissions:
     csatar.manage.knowledgerepository:
         tab: 'csatar.knowledgerepository::lang.plugin.name'

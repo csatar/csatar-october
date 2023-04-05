@@ -1,0 +1,4 @@
+title: SongTypes
+modelClass: Csatar\KnowledgeRepository\Models\SongType
+toolbar:
+    buttons: reorder_toolbar
