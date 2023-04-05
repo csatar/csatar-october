@@ -54,6 +54,7 @@
                 'bulkDeletePartialSuccess' => ':deletedCount items deleted from :totalCount. ',
                 'bulkDeleteError' => 'The following error occurred during the delete process: ',
                 'activeMembersCount' => 'Active members count',
+                'clearFilters' => 'Clear filters',
             ],
             'history' => [
                 'histories' => 'History',

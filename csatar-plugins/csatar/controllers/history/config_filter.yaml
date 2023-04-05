@@ -30,14 +30,6 @@ scopes:
         conditions: csatar_csatar_history.attribute in (:filtered)
         options: getAttributeOptions
 
-#    field:
-#        label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.field'
-#        modelClass: Csatar\Csatar\Models\MandatePermission
-#        conditions: csatar_csatar_mandates_permissions.field in (:filtered)
-#        nameFrom: organization_type_model_name
-#        options: getFieldOptions
-#        dependsOn: model
-
-#    clear:
-#        label: Clear Filters
-#        type: clear
+    clear:
+        label: 'csatar.csatar::lang.plugin.admin.general.clearFilters'
+        type: clear

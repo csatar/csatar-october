@@ -54,6 +54,7 @@
                 'bulkDeletePartialSuccess' => ':deletedCount elem törlése sikerült a :totalCount-ból/ből. ',
                 'bulkDeleteError' => 'A következő hibák merültek fel a törlés során: ',
                 'activeMembersCount' => 'Aktív tagok száma',
+                'clearFilters' => 'Szűrők törlése',
             ],
             'history' => [
                 'histories' => 'Előzmények',
