@@ -21,6 +21,7 @@
 - CS-517 - Created Folk song type model
 - CS-518 - Created Region model
 - CS-519 - Created Folk song rhythm model
+- CS-508 - Created Song model
 
 ## 1.10.0
 ### 2023-03-17
