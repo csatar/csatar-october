@@ -55,6 +55,7 @@
                 'bulkDeleteError' => 'A következő hibák merültek fel a törlés során: ',
                 'activeMembersCount' => 'Aktív tagok száma',
                 'clearFilters' => 'Szűrők törlése',
+                'googleCalendarId' => 'Google naptár azonosító',
             ],
             'history' => [
                 'histories' => 'Előzmények',

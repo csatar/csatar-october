@@ -8,6 +8,16 @@
                 if ($key == 'countryNamesHungarianTranslations') {
                     echo e(trans('csatar.csatar::lang.plugin.admin.' . $key . '.explanation'));;
                 }
+                else if (is_array($value) && $key == 'googleCalendarParams') {
+                    echo '<ul>';
+                    foreach ($value as $params) {
+                        echo '<li>';
+                        echo $params['modelName'];
+                        echo $params['model'] == 'District' ? (' ' . e(trans('csatar.csatar::lang.plugin.admin.district.nameSuffix'))) : '';
+                        echo '</li>';
+                    }
+                    echo '</ul>';
+                }
                 else if (is_array($value) && $key == 'sitesearchSettings') {
                     foreach ($value as $setting) {
                         echo e(trans('csatar.csatar::lang.plugin.admin.' . $key . '.' . $setting));

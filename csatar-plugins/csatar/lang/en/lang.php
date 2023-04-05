@@ -55,6 +55,7 @@
                 'bulkDeleteError' => 'The following error occurred during the delete process: ',
                 'activeMembersCount' => 'Active members count',
                 'clearFilters' => 'Clear filters',
+                'googleCalendarId' => 'Google Calendar ID',
             ],
             'history' => [
                 'histories' => 'History',
@@ -71,6 +72,9 @@
                 'newValue' => 'New value',
                 'description' => 'Description',
                 'ipAddress' => 'Ip address',
+            ],
+            'googleCalendarParams' => [
+                'googleCalendarParams' => 'Google Calendar Params for',
             ],
             'ageGroups' => [
                 'ageGroups' => 'Age Groups',
