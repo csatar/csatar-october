@@ -60,7 +60,7 @@ class History extends Model
         )[0]->name ?? null;
     }
 
-    public function getModelClassUserFriendlyAttribute()
+    public function getmodelTypeUserFriendlyAttribute()
     {
         if (class_exists($this->model_type) && method_exists($this->model_type, 'getOrganizationTypeModelNameUserFriendly')) {
             return ($this->model_type)::getOrganizationTypeModelNameUserFriendly();
@@ -68,7 +68,7 @@ class History extends Model
         return $this->model_type;
     }
 
-    public function getRelatedModelClassUserFriendlyAttribute()
+    public function getRelatedmodelTypeUserFriendlyAttribute()
     {
         if (class_exists($this->related_model_type) && method_exists($this->related_model_type, 'getOrganizationTypeModelNameUserFriendly')) {
             return ($this->related_model_type)::getOrganizationTypeModelNameUserFriendly();
