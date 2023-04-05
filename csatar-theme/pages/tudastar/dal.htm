@@ -1,0 +1,19 @@
+url = "/tudastar/dal/:id/:action?"
+layout = "default"
+title = "Dal"
+
+[songForm]
+==
+{% set song = this.controller.vars.basicForm.record %}
+
+<div class="container">
+    {% if user.scout.getRightsForModel(song)['MODEL_GENERAL']['create'] > 0
+    and this.param.action == false
+    and this.param[this.controller.vars.basicForm.recordKeyParam] != this.controller.vars.basicForm.createRecordKeyword %}
+    <form action="/tudastar/dal/{{ song[basicForm.recordKeyParam] }}/{{ basicForm.actionUpdateKeyword }}" method="post">
+        <button type="submit" class="btn btn-sm rounded btn-primary" value="{{ 'Dal módosítása' | _ }}"><i class="csat-add-fill-wh-sm"></i> {{ 'Dal módosítása' | _ }}</button>
+    </form>
+    {% endif %}
+
+    {% component 'songForm' %}
+</div>

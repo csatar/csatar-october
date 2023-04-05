@@ -46,7 +46,8 @@
                     'bigRegion' => 'Big Region',
                     'midRegion' => 'Mid Region',
                     'smallRegion' => 'Small Region',
-                    'folkSongRhythm' => 'Folk song rhythm'
+                    'folkSongRhythm' => 'Folk song rhythm',
+                    'song' => 'Song'
                 ],
             ],
             'general' => [
@@ -97,12 +98,22 @@
                 'individual' => 'Individual',
                 'task' => 'Task',
             ],
+            'song' => [
+                'songTitle' => 'Dal cím',
+                'author' => 'Szerző',
+                'text' => 'Szöveg',
+
+            ]
         ],
         'components' => [
             'gameForm' => [
                 'name' => 'Game Form',
                 'description' => 'Game Form component',
             ],
+            'songForm' => [
+                'name' => 'Dal űrlap',
+                'description' => 'Dal űrlap komponens'
+            ]
         ],
     ],
 ];

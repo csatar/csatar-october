@@ -1,0 +1,150 @@
+columns:
+    song_type_id:
+      label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.songType'
+      type: text
+      searchable: true
+      sortable: true
+      select: name
+      relation: songtype
+      recordList:
+        sortable: true
+        filterable: true
+        filterConfig:
+          type: relation
+          relationName: songtype
+          keyFrom: id
+          labelFrom: name
+    title:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.song.songTitle'
+        type: text
+        searchable: true
+        sortable: true
+        recordList:
+          sortable:
+            default: asc
+          filterable: true
+    author:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.song.author'
+        type: text
+        searchable: true
+        sortable: true
+        recordList:
+          sortable:
+            default: asc
+          filterable: true
+    text:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.song.text'
+        type: text
+        searchable: true
+        sortable: true
+    folk_song_type_id:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.folkSongType'
+        type: text
+        searchable: true
+        sortable: true
+        select: name
+        relation: folksongtype
+        recordList:
+          sortable: true
+          filterable: true
+          filterConfig:
+            type: relation
+            relationName: folksongtype
+            keyFrom: id
+            labelFrom: name
+    region_id:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.region'
+        type: text
+        searchable: true
+        sortable: true
+        select: name
+        relation: region
+        recordList:
+          sortable: true
+          filterable: true
+          filterConfig:
+            type: relation
+            relationName: region
+            keyFrom: id
+            labelFrom: name
+    rhythm_id:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.folkSongRhythm'
+        type: text
+        searchable: true
+        sortable: true
+        select: name
+        relation: rhythm
+        recordList:
+          sortable: true
+          filterable: true
+          filterConfig:
+            type: relation
+            relationName: rhythm
+            keyFrom: id
+            labelFrom: name
+    age_group_id:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.ageGroup'
+        type: text
+        select: name
+        relation: agegroups
+        recordList:
+          sortable: true
+          filterable: true
+          filterConfig:
+            type: relation
+            relationName: agegroups
+            keyFrom: id
+            labelFrom: name
+    trial_system_id:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystems'
+        type: text
+        select: name
+        relation: trialsystems
+        recordList:
+          sortable: true
+          filterable: true
+          filterConfig:
+            type: relation
+            relationName: trialsystems
+            keyFrom: id
+            labelFrom: name
+    link:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.link'
+        type: text
+        searchable: true
+        sortable: true
+    attachment_id:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.attachements'
+        type: text
+        select: file_name
+        relation: attachements
+    uploader_csatar_code:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.proposerCsatarCode'
+        type: text
+        searchable: true
+        sortable: true
+    approver_csatar_code:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.approverCsatarCode'
+        type: text
+        searchable: true
+        sortable: true
+    created_at:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.created_at'
+        type: datetime
+        searchable: true
+        sortable: true
+    approved_at:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.approvedAt'
+        type: datetime
+        searchable: true
+        sortable: true
+    note:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.note'
+        type: text
+        searchable: true
+        sortable: true
+    version:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.version'
+        type: datetime
+        searchable: true
+        sortable: true

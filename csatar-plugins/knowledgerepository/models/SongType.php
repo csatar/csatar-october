@@ -30,4 +30,8 @@ class SongType extends Model
      */
     public $rules = [
     ];
+
+    public $belongsToMany = [
+        'songs' => '\Csatar\Csatar\Models\Song'
+    ];
 }

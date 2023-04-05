@@ -1327,7 +1327,7 @@ class Scout extends OrganizationBase
         if (empty($teamChangeHistory)) {
             return [];
         }
-
+        return [];
         foreach ($teamChangeHistory as $history) {
             $date = $history->created_at;
             $oldTeam = Team::find($history->old_value);

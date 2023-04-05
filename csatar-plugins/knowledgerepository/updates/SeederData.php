@@ -284,6 +284,10 @@ class SeederData extends Seeder
                 'title' => 'Próbarendszer',
                 'model' => 'Csatar\KnowledgeRepository\Models\TrialSystem',
             ],
+            [
+                'title' => 'Dal',
+                'model' => 'Csatar\KnowledgeRepository\Models\Song',
+            ],
         ],
         'trialSystemTopics' => [
             'A cserkészet története',

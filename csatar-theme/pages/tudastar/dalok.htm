@@ -1,0 +1,48 @@
+url = "/tudastar/dalok"
+layout = "default"
+title = "Dalok"
+
+[recordList]
+modelClass = "Csatar\KnowledgeRepository\Models\Song"
+scope = "scopeApproved"
+scopeValue = "{{ :scope }}"
+columnsConfigFile = "columns.yaml"
+noRecordsMessage = "backend::lang.list.no_records"
+detailsPage = "tudastar/dal"
+detailsKeyColumn = "id"
+detailsUrlParameter = "id"
+recordsPerPage = 15
+pageNumber = "{{ :page }}"
+
+[partials]
+==
+<?php
+use Csatar\KnowledgeRepository\Models\Song;
+
+public function onStart(){
+    $user = Auth::user();
+    if (!empty($user->scout)) {
+        $this['association_id'] = $user->scout->getAssociationId();
+        $this['song'] = new Song();
+        $this['song']->association_id = $this['association_id'];
+    }
+}
+?>
+==
+
+<div class="container">
+    {% if user.scout.getRightsForModel(song)['MODEL_GENERAL']['create'] > 0 %}
+    <form action="/tudastar/dal/letrehozas" method="post">
+        <input type="hidden" name="association" value="{{ association_id }}">
+        <input type="hidden" name="uploaderscout" value="{{ user.scout.ecset_code }}">
+        {% partial "@formButton"
+        permissionValue = user.scout.getRightsForModel(song)['MODEL_GENERAL']['create']
+        btnExtraClasses = 'btn btn-sm rounded btn-primary mb-2'
+        btnIconClass = 'csat-add-fill-wh-sm'
+        btnLabel = 'Dal hozzáadása' |_
+        %}
+    </form>
+    {% endif %}
+
+    {% component 'recordList' %}
+</div>

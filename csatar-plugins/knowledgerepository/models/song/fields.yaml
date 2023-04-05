@@ -1,0 +1,150 @@
+fields:
+    association:
+        label: 'csatar.csatar::lang.plugin.admin.association.association'
+        span: auto
+        type: relation
+        nameFrom: name
+        formBuilder:
+            readOnlyIfPreselected: true
+    songtype:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.songType'
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+    title:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.song.songTitle'
+        span: auto
+        type: text
+    author:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.song.author'
+        span: auto
+        type: text
+    text:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.song.text'
+        size: huge
+        span: full
+        type: richeditor
+        toolbarButtons:
+          - paragraphFormat
+          - paragraphStyle
+          - bold
+          - italic
+          - underline
+          - strikeThrough
+          - align
+          - formatOL
+          - formatUL
+          - outdent
+          - indent
+          - quote,
+          - -
+          - undo
+          - redo
+          - insertLink
+          - insertImage
+          - insertFile
+          - insertTable
+          - insertHR
+          - clearFormatting
+          - html
+        formBuilder:
+          type: field
+          card: textData
+          position: details
+    folksongtype:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.folkSongType'
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+    region:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.region'
+        nameFrom: extendedName
+        descriptionFrom: description
+        span: auto
+        type: relation
+    rhythm:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.folkSongRhythm'
+        nameFrom: name
+        descriptionFrom: description
+        span: auto
+        type: relation
+    agegroups:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.ageGroup'
+        span: auto
+        type: taglist
+        mode: relation
+        useKey: true
+        customTags: false
+        dependsOn: association
+        nameFrom: name
+    trialsystems:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystems'
+        span: auto
+        type: taglist
+        mode: relation
+        useKey: true
+        customTags: false
+        dependsOn: association
+        nameFrom: name
+    link:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.link'
+        span: auto
+        type: text
+    attachements:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.attachements'
+        mode: file
+        useCaption: true
+        thumbOptions:
+            mode: crop
+            extension: auto
+        maxFiles: '5'
+        span: auto
+        type: fileupload
+    _ruler1:
+        type: ruler
+        formBuilder:
+            ignoreUserRights: 1
+    uploader_csatar_code:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.uploader'
+        span: auto
+        path: $/csatar/knowledgerepository/models/methodology/uploaderscout.htm
+        readOnly: 0
+        type: partial
+    approver_csatar_code:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.approver'
+        span: auto
+        path: $/csatar/knowledgerepository/models/methodology/approverscout.htm
+        readOnly: 0
+        type: partial
+    created_at:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.uploadedAt'
+        mode: date
+        span: auto
+        type: datepicker
+        disabled: true
+    approved_at:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.approvedAt'
+        mode: date
+        span: auto
+        type: datepicker
+        disabled: true
+    _ruler2:
+        type: ruler
+        formBuilder:
+            ignoreUserRights: 1
+    note:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.note'
+        span: auto
+        type: text
+    version:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.version'
+        mode: date
+        span: auto
+        type: datepicker
+
+
+
+
+
