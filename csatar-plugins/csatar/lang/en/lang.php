@@ -54,6 +54,7 @@
                 'bulkDeletePartialSuccess' => ':deletedCount items deleted from :totalCount. ',
                 'bulkDeleteError' => 'The following error occurred during the delete process: ',
                 'activeMembersCount' => 'Active members count',
+                'clearFilters' => 'Clear filters',
             ],
             'history' => [
                 'histories' => 'History',
@@ -208,8 +209,7 @@
                 'activeMandateDeleteError' => 'The Scout having the %name name has active Mandates, thus this Scout cannot be deleted.',
                 'scoutTeam' => 'Scout\'s team',
                 'inactivationWarning' => 'Please note that if you change status from active to inactive, scout\'s all mandates will expire!',
-                'bulkDeletePartialSuccess' => ':deletedCount deleted from :totalCount. ',
-                'bulkDeleteError' => 'The following errors occurred: ',
+                'teamChangeHistoryMessage' => 'On :date changed team from :oldTeam to :newTeam',
             ],
             'admin' => [
                 'menu' => [
