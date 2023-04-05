@@ -158,6 +158,10 @@ navigation:
                 label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepository.folkSongTypes'
                 url: /csatar/knowledgerepository/folksongtypes
                 icon: icon-music
+            side-menu-region:
+                label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepository.regions'
+                url: /csatar/knowledgerepository/regions
+                icon: icon-map-marker
 permissions:
     csatar.manage.knowledgerepository:
         tab: 'csatar.knowledgerepository::lang.plugin.name'

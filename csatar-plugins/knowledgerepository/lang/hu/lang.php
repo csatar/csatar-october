@@ -15,7 +15,8 @@
                     'workPlans' => 'Munkatervek',
                     'methodologies' => 'Módszertan',
                     'songTypes' => 'Dal típusok',
-                    'folkSongTypes' => 'Népdal típusok'
+                    'folkSongTypes' => 'Népdal típusok',
+                    'regions' => 'Tájegységek'
                 ],
                 'knowledgeRepositoryParameters' => [
                     'knowledgeRepositoryParameters' => 'Tudástár Paraméterek',
@@ -39,7 +40,11 @@
                     'methodology' => 'Módszertan',
                     'ageGroup' => 'Korosztály',
                     'songType' => 'Dal típus',
-                    'folkSongType' => 'Népdal típus'
+                    'folkSongType' => 'Népdal típus',
+                    'region' => 'Tájegység',
+                    'bigRegion' => 'Nagy tájegység',
+                    'midRegion' => 'Közepes tájegység',
+                    'smallRegion' => 'Kicsi tájegység',
                 ],
             ],
             'general' => [
@@ -58,6 +63,7 @@
                 'created_at' => 'Feltöltés Dátuma',
                 'forms' => 'Űrlapok',
                 'obligatory' => 'Kötelező',
+                'select' => 'Válassz...'
             ],
             'game' => [
                 'game' => 'Játék',

@@ -1,0 +1,27 @@
+columns:
+    name:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.name'
+        type: text
+        searchable: true
+        sortable: true
+    big_parent_id:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.bigRegion'
+        type: text
+        searchable: true
+        sortable: true
+        select: name
+        relation: big_parent
+    mid_parent_id:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.midRegion'
+        type: text
+        searchable: true
+        sortable: true
+        select: name
+        relation: big_parent
+    small_parent_id:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.smallRegion'
+        type: text
+        searchable: true
+        sortable: true
+        select: name
+        relation: big_parent

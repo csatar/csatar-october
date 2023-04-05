@@ -15,7 +15,8 @@
                     'workPlans' => 'Work Plans',
                     'methodologies' => 'Methodologies',
                     'songTypes' => 'Song types',
-                    'folkSongTypes' => 'Folk song types'
+                    'folkSongTypes' => 'Folk song types',
+                    'regions' => 'Regions'
                 ],
                 'knowledgeRepositoryParameters' => [
                     'knowledgeRepositoryParameters' => 'Knowledge Repository Parameters',
@@ -39,7 +40,11 @@
                     'methodology' => 'Methodology',
                     'ageGroup' => 'Age group',
                     'songType' => 'Song type',
-                    'folkSongType' => 'Folk song type'
+                    'folkSongType' => 'Folk song type',
+                    'region' => 'Region',
+                    'bigRegion' => 'Big Region',
+                    'midRegion' => 'Mid Region',
+                    'smallRegion' => 'Small Region',
                 ],
             ],
             'general' => [
@@ -57,6 +62,7 @@
                 'version' => 'Version',
                 'created_at' => 'Created at',
                 'forms' => 'Forms',
+                'select' => 'Select...'
             ],
             'game' => [
                 'game' => 'Game',
