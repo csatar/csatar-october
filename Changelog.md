@@ -17,6 +17,9 @@
 - CS-318 - Changed Team leadership_presentation, history and description to richtext
 - CS-318 - Updated formbuilder to support subforms, created ContentPageForm component using formbuilder subform capability
 - CS-318 - Changed TinyMCE modules to ContentPageForm component
+- CS-516 - Created Song type model
+- CS-517 - Created Folk song type model
+- CS-518 - Created Region model
 
 ## 1.10.0
 ### 2023-03-17

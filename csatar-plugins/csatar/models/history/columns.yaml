@@ -21,7 +21,7 @@ columns:
     created_at:
         label: 'csatar.csatar::lang.plugin.admin.general.createdAt'
         type: datetime
-    model_class_user_friendly:
+    model_type_user_friendly:
         label: 'csatar.csatar::lang.plugin.admin.history.modelClass'
         type: text
         searchable: false
@@ -31,7 +31,7 @@ columns:
         type: number
         searchable: true
         sortable: true
-    related_model_class_user_friendly:
+    related_model_type_user_friendly:
         label: 'csatar.csatar::lang.plugin.admin.history.relatedModelClass'
         type: text
         searchable: false
