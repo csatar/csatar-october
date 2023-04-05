@@ -1,6 +1,6 @@
 list: $/csatar/knowledgerepository/models/songtype/columns.yaml
 modelClass: Csatar\KnowledgeRepository\Models\SongType
-title: SongTypes
+title: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.songType'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: true

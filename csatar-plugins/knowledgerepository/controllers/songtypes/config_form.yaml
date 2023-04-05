@@ -1,4 +1,4 @@
-name: SongTypes
+name: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.songType'
 form: $/csatar/knowledgerepository/models/songtype/fields.yaml
 modelClass: Csatar\KnowledgeRepository\Models\SongType
 defaultRedirect: csatar/knowledgerepository/songtypes
