@@ -73,6 +73,9 @@
                 'description' => 'Leírás',
                 'ipAddress' => 'Ip cím',
             ],
+            'googleCalendarParams' => [
+                'googleCalendarParams' => 'Google naptár paraméterek a következő szervezeti egységekhez',
+            ],
             'ageGroups' => [
                 'ageGroups' => 'Korosztályok',
                 'numberOfPatrolsInAgeGroup' => 'Őrsök száma a korosztályban',

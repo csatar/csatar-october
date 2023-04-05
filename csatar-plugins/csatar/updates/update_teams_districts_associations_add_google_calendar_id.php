@@ -29,5 +29,15 @@ class UpdateTeamsDistrictsAssociationsAddGoogleCalendarId extends Migration
         {
             $table->dropColumn('google_calendar_id');
         });
+
+        Schema::table('csatar_csatar_districts', function($table)
+        {
+            $table->dropColumn('google_calendar_id');
+        });
+
+        Schema::table('csatar_csatar_associations', function($table)
+        {
+            $table->dropColumn('google_calendar_id');
+        });
     }
 }
