@@ -23,7 +23,7 @@ class LocationData extends Seeder
                     'street_type' => $data[3],
                 ]);
 
-                $location->street = preg_replace('/\s+nr\..*/i', '', $location->street);
+                $location->street = preg_replace('/\s+nr\..*/i', '', $data[4]);
                 $location->save();
             }
         }
