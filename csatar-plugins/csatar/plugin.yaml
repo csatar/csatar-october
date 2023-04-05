@@ -294,6 +294,8 @@ navigation:
         url: csatar/csatar/history
         icon: icon-life-ring
         order: 913
+        permissions:
+            - csatar.manage.data
 permissions:
     csatar.manage.data:
         tab: 'csatar.csatar::lang.plugin.name'
@@ -301,3 +303,6 @@ permissions:
     csatar.admin:
         tab: 'csatar.csatar::lang.plugin.name'
         label: 'csatar.csatar::lang.plugin.permissions.admin'
+    csatar.manage.inventory:
+        tab: 'csatar.csatar::lang.plugin.name'
+        label: 'csatar.knowledgerepository::lang.plugin.permissions.manageInventory'
