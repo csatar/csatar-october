@@ -294,6 +294,8 @@ navigation:
         url: csatar/csatar/history
         icon: icon-life-ring
         order: 913
+        permissions:
+            - csatar.manage.data
 permissions:
     csatar.manage.data:
         tab: 'csatar.csatar::lang.plugin.name'

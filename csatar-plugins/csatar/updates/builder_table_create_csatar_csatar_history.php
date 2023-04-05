@@ -15,9 +15,9 @@ class BuilderTableCreateCsatarCsatarHistory extends Migration
             $table->timestamp('updated_at')->nullable();
             $table->integer('fe_user_id')->nullable()->unsigned();
             $table->integer('be_user_id')->nullable()->unsigned();
-            $table->string('model_class');
+            $table->string('model_type');
             $table->integer('model_id')->nullable()->unsigned();
-            $table->string('related_model_class')->nullable();
+            $table->string('related_model_type')->nullable();
             $table->integer('related_model_id')->nullable()->unsigned();
             $table->string('attribute')->nullable()->index();
             $table->string('cast')->nullable();
@@ -29,8 +29,8 @@ class BuilderTableCreateCsatarCsatarHistory extends Migration
             $table->foreign('fe_user_id')->references('id')->on('users');
             $table->foreign('be_user_id')->references('id')->on('backend_users');
             
-            $table->index(['model_class', 'model_id'], 'model_index');
-            $table->index(['related_model_class', 'related_model_id'], 'related_model_index');
+            $table->index(['model_type', 'model_id'], 'model_index');
+            $table->index(['related_model_type', 'related_model_id'], 'related_model_index');
         });
     }
     

@@ -34,6 +34,10 @@ class History extends Model
         ],
     ];
 
+    public $morphTo = [
+        'model' => []
+    ];
+
     public function getFrontendUserAttribute()
     {
         if (empty($this->fe_user_id)) {
@@ -58,18 +62,18 @@ class History extends Model
 
     public function getModelClassUserFriendlyAttribute()
     {
-        if (class_exists($this->model_class) && method_exists($this->model_class, 'getOrganizationTypeModelNameUserFriendly')) {
-            return ($this->model_class)::getOrganizationTypeModelNameUserFriendly();
+        if (class_exists($this->model_type) && method_exists($this->model_type, 'getOrganizationTypeModelNameUserFriendly')) {
+            return ($this->model_type)::getOrganizationTypeModelNameUserFriendly();
         }
-        return $this->model_class;
+        return $this->model_type;
     }
 
     public function getRelatedModelClassUserFriendlyAttribute()
     {
-        if (class_exists($this->related_model_class) && method_exists($this->related_model_class, 'getOrganizationTypeModelNameUserFriendly')) {
-            return ($this->related_model_class)::getOrganizationTypeModelNameUserFriendly();
+        if (class_exists($this->related_model_type) && method_exists($this->related_model_type, 'getOrganizationTypeModelNameUserFriendly')) {
+            return ($this->related_model_type)::getOrganizationTypeModelNameUserFriendly();
         }
-        return $this->related_model_class;
+        return $this->related_model_type;
     }
 
     public function getTranslatedLabelForFiled(string $attribute, string $model): string
@@ -83,21 +87,24 @@ class History extends Model
 
     public function getTranslatedAttributeLabelAttribute(): string
     {
-        return $this->getTranslatedLabelForFiled($this->attribute, $this->model_class);
+        return $this->getTranslatedLabelForFiled($this->attribute, $this->model_type);
     }
 
     public function getModelOptions(){
-        $modelOptions = self::distinct()->orderBy('model_class', 'asc')->lists('model_class', 'model_class');
+        $modelOptions = self::distinct()->orderBy('model_type', 'asc')->lists('model_type', 'model_type');
         array_walk($modelOptions, function (&$item) {
             if (class_exists($item) && method_exists($item, 'getOrganizationTypeModelNameUserFriendly')) {
                 $item = ($item)::getOrganizationTypeModelNameUserFriendly();
+            }
+            if (empty($item)) {
+                $item = 'N/A';
             }
         });
         return $modelOptions;
     }
 
     public function getRelatedModelOptions(){
-        $modelOptions = self::distinct()->orderBy('related_model_class', 'asc')->lists('related_model_class', 'related_model_class');
+        $modelOptions = self::distinct()->orderBy('related_model_type', 'asc')->lists('related_model_type', 'related_model_type');
         array_walk($modelOptions, function (&$item) {
             if (class_exists($item) && method_exists($item, 'getOrganizationTypeModelNameUserFriendly')) {
                 $item = ($item)::getOrganizationTypeModelNameUserFriendly();
@@ -110,12 +117,12 @@ class History extends Model
     }
 
     public function getAttributeOptions(){
-        $attributeOptions = self::distinct()->orderBy('attribute', 'asc')->select('attribute', 'model_class')->get()->toArray();
+        $attributeOptions = self::distinct()->orderBy('attribute', 'asc')->select('attribute', 'model_type')->get()->toArray();
         $options = [];
         foreach ($attributeOptions as $attributeOption) {
             $options[$attributeOption['attribute']] = $attributeOption['attribute'];
-            if (class_exists($attributeOption['model_class']) && method_exists($attributeOption['model_class'], 'getTranslatedAttributeNames')) {
-                $translatedLabelsForFields = ($attributeOption['model_class'])::getTranslatedAttributeNames('\\' . $attributeOption['model_class']);
+            if (class_exists($attributeOption['model_type']) && method_exists($attributeOption['model_type'], 'getTranslatedAttributeNames')) {
+                $translatedLabelsForFields = ($attributeOption['model_type'])::getTranslatedAttributeNames('\\' . $attributeOption['model_type']);
                 $options[$attributeOption['attribute']] = $translatedLabelsForFields[$attributeOption['attribute']] ?? $attributeOption['attribute'];
             }
         }
