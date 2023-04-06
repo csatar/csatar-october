@@ -1320,6 +1320,22 @@ class Scout extends OrganizationBase
         return $savedCountry ?? $team->district->association->country;
     }
 
+    public function deletePersonalInformation() {
+        $this->family_name = null;
+        $this->given_name = null;
+        $this->email = null;
+        $this->phone = null;
+
+        $this->address_country = null;
+        $this->address_county = null;
+        $this->address_zipcode = null;
+        $this->address_location = null;
+        $this->address_street = null;
+        $this->address_number = null;
+
+        $this->ignoreValidation = true;
+        $this->forceSave();
+
     public function getTeamChangeHistory()
     {
         $teamChangeHistory = $this->history()->where('attribute', 'team_id')->get();

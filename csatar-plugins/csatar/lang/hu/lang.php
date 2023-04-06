@@ -209,6 +209,8 @@
                 'activeMandateDeleteError' => 'A(z) %name nevű Tagnak létezik aktív Megbízatása, így ez a Tag nem törölhető.',
                 'scoutTeam' => 'Tag csapata',
                 'inactivationWarning' => 'Figyelem! Ha a státusz aktívról inaktívra változik, a cserkész összes megbízatása lejár!',
+                'deleteWithPersonalData' => 'Törlés személyes adatokkal',
+                'deleteWithPersonalDataConfirmation' => 'Valóban szeretnéd törölni a cserkészt a személyes adataival (név, email cím, telefonszám, postacím) együtt?',
                 'teamChangeHistoryMessage' => ':date átigazolt a(z) :oldTeam cserkészcsapatból a :newTeam cserkészcsapatba.',
             ],
             'admin' => [
