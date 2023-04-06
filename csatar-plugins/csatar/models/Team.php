@@ -114,6 +114,7 @@ class Team extends OrganizationBase
         'district_id',
         'logo',
         'slug',
+        'google_calendar_id',
     ];
 
     protected $nullable = [

@@ -216,6 +216,10 @@ fields:
             card: districtData
             position: details
             order: 9
+    google_calendar_id:
+        label: 'csatar.csatar::lang.plugin.admin.general.googleCalendarId'
+        span: auto
+        type: text
     logo:
         label: 'csatar.csatar::lang.plugin.admin.general.logo'
         mode: image

@@ -338,12 +338,11 @@ class OrganizationUnitFrontend extends ComponentBase
             $data = $this->getDataFromXlsx($file);
         }
 
-        if ($file->getExtension() == 'csv' && ($handle = fopen($file, "r")) !== FALSE) {
-            while (($csvData = fgetcsv($handle)) !== FALSE) {
+        if ($file->getExtension() == 'csv' && ($handle = fopen($file, "r")) !== false) {
+            while (($csvData = fgetcsv($handle)) !== false) {
                 $data[] = $csvData;
             }
         }
-
 
         $attributes = $data[0];
         $log = [];

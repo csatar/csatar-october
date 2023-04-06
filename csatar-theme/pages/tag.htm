@@ -50,9 +50,67 @@ public function onAcceptPersonalData(){
         <h4 style="display:inline;">{{ 'Előzmények' | _ }}</h4>
     </div>
 
-            {% for teamChange in teamChangeHistory %}
-                <div class="td my-1 p-2">{{ teamChange|raw }}</div>
-            {% endfor %}
+        {% for teamChange in teamChangeHistory %}
+            <div class="td my-1 p-2">{{ teamChange|raw }}</div>
+        {% endfor %}
 
+    {% endif %}
+
+    {% set mandatesInactive = scout.mandatesInactive %}
+    {% if mandatesInactive|length > 0 %}
+    <div class="field-section toolbar-item toolbar-primary mb-2">
+        <h4 style="display:inline;">{{ 'Inaktív megbízatások' | _ }}</h4>
+    </div>
+    <div class="table csat-grid">
+        <div class="tr d-none d-lg-block">
+            <div class="card csat-resp-gdtable csat-border-lg-none">
+                <div class="row">
+                    <div class="col-6 col-lg">
+                        <div class="th-grid">{{ 'Megbízatás neve'|_ }}</div>
+                    </div>
+                    <div class="col-6 col-lg">
+                        <div class="th-grid">{{ 'Szervezeti egység'|_ }}</div>
+                    </div>
+                    <div class="col-6 col-lg">
+                        <div class="th-grid">{{ 'Megbízatás kezdete'|_ }}</div>
+                    </div>
+                    <div class="col-6 col-lg">
+                        <div class="th-grid">{{ 'Megbízatás vége'|_ }}</div>
+                    </div>
+                    <div class="col-6 col-lg">
+                        <div class="th-grid">{{ 'Megjegyzés'|_ }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% for mandate in mandatesInactive %}
+        <div class="tr">
+            <div class="card csat-resp-gdtable csat-border-lg-none pt-lg-0 pt-3">
+                <div class="row">
+                    <div class="col-6 col-lg">
+                        <p class="td label d-block d-lg-none">{{ 'Megbízatás neve'|_ }}</p>
+                        <p class="td">{{ mandate.mandate_type.name }}</p>
+                    </div>
+                    <div class="col-6 col-lg">
+                        <p class="td label d-block d-lg-none">{{ 'Szervezeti egység'|_ }}</p>
+                        <p class="td">{{ mandate.mandate_model_name }}</p>
+                    </div>
+                    <div class="col-6 col-lg">
+                        <p class="td label d-block d-lg-none">{{ 'Megbízatás kezdete'|_ }}</p>
+                        <p class="td">{{ mandate.start_date }}</p>
+                    </div>
+                    <div class="col-6 col-lg">
+                        <p class="td label d-block d-lg-none">{{ 'Megbízatás vége'|_ }}</p>
+                        <p class="td">{{ mandate.end_date }}</p>
+                    </div>
+                    <div class="col-6 col-lg">
+                        <p class="td label d-block d-lg-none">{{ 'Megjegyzés'|_ }}</p>
+                        <p class="td">{{ mandate.comment }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
     {% endif %}
 </div>

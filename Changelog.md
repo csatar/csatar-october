@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- CS-555 - Added google calendar tab to Association, District and Team
+- CS-475 - Added option to backend scout list to (soft)delete scout with personal data
 - CS-520 - Modification and optimization of grid display and the design of the filtering
 - CS-491 - Added scout xlsx import/export to teams page
 - CS-331 - Added `manifest.json` file and updated readme with instructions on how to add PWA support
