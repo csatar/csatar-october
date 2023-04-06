@@ -181,8 +181,7 @@ class TagList extends FormWidgetBase
 
         if ($this->formField->hasOptions()) {
             $options = $this->formField->options();
-        }
-        elseif ($this->mode === static::MODE_RELATION) {
+        } elseif ($this->mode === static::MODE_RELATION) {
             $options = $this->getFieldOptionsForRelation();
         }
 

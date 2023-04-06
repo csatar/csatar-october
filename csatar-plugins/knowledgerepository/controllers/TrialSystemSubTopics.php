@@ -15,4 +15,9 @@ class TrialSystemSubTopics extends Controller
         parent::__construct();
         BackendMenu::setContext('Csatar.KnowledgeRepository', 'main-menu-knowledge-repository-parameters', 'side-menu-trialsystemsubtopics');
     }
+
+    public $requiredPermissions = [
+        'csatar.manage.data',
+        'csatar.manage.knowledgerepository',
+    ];
 }

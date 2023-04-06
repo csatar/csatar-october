@@ -144,7 +144,7 @@ class MandatePermission extends Model
 
     public function getFromMandateTypeOptions(){
         $mandateTypes = [];
-        if($this->fromAssociation) {
+        if ($this->fromAssociation) {
             $mandateTypes = Db::table('csatar_csatar_mandate_types')->whereNull('deleted_at')->where('association_id', $this->fromAssociation)->lists('name', 'id');
         }
 
@@ -153,7 +153,7 @@ class MandatePermission extends Model
 
     public function getToMandateTypesOptions(){
         $mandateTypes = [];
-        if($this->toAssociation) {
+        if ($this->toAssociation) {
             $mandateTypes = Db::table('csatar_csatar_mandate_types')->whereNull('deleted_at')->where('association_id', $this->toAssociation)->lists('name', 'id');
         }
 
@@ -168,12 +168,6 @@ class MandatePermission extends Model
         return $modelOptions;
     }
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history',
-        ],
-    ];
 
     public function historyRecordBulkAction($dataArray, $error = null) {
 
@@ -193,7 +187,7 @@ class MandatePermission extends Model
             $toSave[] = [
                 'fe_user_id' => HistoryService::historyGetUser(),
                 'be_user_id' => HistoryService::historyGetBackendUser(),
-                'model_class' => $modelClass,
+                'model_type' => $modelClass,
                 'model_id' => $data['id'] ?? null,
                 'attribute' => $data['action'] ?? null,
                 'old_value' => $data['initialValue'] ?? null,
@@ -230,7 +224,7 @@ class MandatePermission extends Model
                 $toSave[] = [
                     'fe_user_id' => HistoryService::historyGetUser(),
                     'be_user_id' => HistoryService::historyGetBackendUser(),
-                    'model_class' => $modelClass,
+                    'model_type' => $modelClass,
                     'model_id' => null,
                     'attribute' => $key,
                     'old_value' => null,

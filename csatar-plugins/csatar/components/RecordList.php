@@ -282,8 +282,7 @@ class RecordList extends RainRecordList {
 
             if (isset($config['label'])) {
                 $headerConfig[$column]['label'] = Lang::get($config['label']);
-            }
-            else {
+            } else {
                 $headerConfig[$column]['label'] = ucfirst($column);
             }
 
@@ -310,8 +309,7 @@ class RecordList extends RainRecordList {
 
             if (isset($config['label'])) {
                 $sortConfig[$column]['label'] = Lang::get($config['label']);
-            }
-            else {
+            } else {
                 $sortConfig[$column]['label'] = ucfirst($column);
             }
 
@@ -334,8 +332,7 @@ class RecordList extends RainRecordList {
 
             if (isset($config['label'])) {
                 $filterConfig[$column]['label'] = Lang::get($config['label']);
-            }
-            else {
+            } else {
                 $filterConfig[$column]['label'] = ucfirst($column);
             }
 
@@ -469,6 +466,12 @@ class RecordList extends RainRecordList {
             }
             $rowConfig[$column]['attribute'] = $column;
             $rowConfig[$column]['type'] = $config['type'];
+
+            if (isset($config['label'])) {
+                $rowConfig[$column]['label'] = Lang::get($config['label']);
+            } else {
+                $rowConfig[$column]['label'] = ucfirst($column);
+            }
 
             if (isset($config['relation'])) {
                 $rowConfig[$column]['relationName'] = $config['relation'];

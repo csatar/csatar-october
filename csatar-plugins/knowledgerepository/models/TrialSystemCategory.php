@@ -32,10 +32,4 @@ class TrialSystemCategory extends Model
         'name',
     ];
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history',
-        ],
-    ];
 }

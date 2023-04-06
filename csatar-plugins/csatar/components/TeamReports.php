@@ -23,7 +23,7 @@ class TeamReports extends ComponentBase
     }
 
     public function onRun() {
-        if(!Auth::user()->scout) {
+        if (!Auth::user()->scout) {
             \App::abort(403, 'Access denied!');
         }
 
@@ -65,8 +65,7 @@ class TeamReports extends ComponentBase
                 }
                 $this->permissions[$teamReport->id] = Auth::user()->scout->getRightsForModel($teamReport)['MODEL_GENERAL'] ?? null;
             }
-        }
-        elseif ($this->id == null) {
+        } elseif ($this->id == null) {
             $this->listingAll = true;
             $associationId = Auth::user()->scout->getAssociation()->id;
             $teamIds = Team::activeInAssociation($associationId)->get()->pluck('id')->toArray();
@@ -95,8 +94,7 @@ class TeamReports extends ComponentBase
             $this->teamReportData = $this->teamReportData->sortBy(function ($teamReport) {
                 return -$teamReport['year'] * 1000000 + $teamReport['team_number'];
             });
-        }
-        else {
+        } else {
             $this->waitingForApprovalMode = false;
 
             // retrieve the team

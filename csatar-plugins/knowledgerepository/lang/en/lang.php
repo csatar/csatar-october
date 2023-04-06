@@ -2,6 +2,9 @@
     'plugin' => [
         'name' => 'Knowledge Repository',
         'description' => 'Plugin for Knowledge Repository in the RMCSSZ\'s CSATÁR project',
+        'permissions' => [
+            'manageKnowledgeRepository' => 'Manage Knowledge Repository',
+        ],
         'admin' => [
             'menu' => [
                 'knowledgeRepository' => [
@@ -86,6 +89,7 @@
                 'trialSystemTrialTypes' => 'Trial system trial types',
                 'forPatrols' => 'For patrols',
                 'individual' => 'Individual',
+                'details' => 'Details',
                 'task' => 'Task',
             ],
             'messages' => [

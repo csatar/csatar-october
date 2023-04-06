@@ -34,10 +34,4 @@ class TeamReportAgeGroupPivot extends CsatarPivot
         'number_of_patrols_in_age_group',
     ];
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history'
-        ],
-    ];
 }

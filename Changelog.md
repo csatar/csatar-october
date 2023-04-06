@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-520 - Modification and optimization of grid display and the design of the filtering
 - CS-491 - Added scout xlsx import/export to teams page
 - CS-331 - Added `manifest.json` file and updated readme with instructions on how to add PWA support
 - CS-549 - Fixed exception caused by missing getEagerLoadSettings method on AccidentLogRecord model
@@ -17,6 +18,7 @@
 - CS-318 - Changed Team leadership_presentation, history and description to richtext
 - CS-318 - Updated formbuilder to support subforms, created ContentPageForm component using formbuilder subform capability
 - CS-318 - Changed TinyMCE modules to ContentPageForm component
+- CS-492 - Fixed street field in the locations table
 
 ## 1.10.0
 ### 2023-03-17

@@ -69,11 +69,10 @@ class OrganizationUnitFrontend extends ComponentBase
 
             $this->inactiveMandates = $this->model->mandatesInactive->toArray();
 
-            if(isset(Auth::user()->scout)) {
+            if (isset(Auth::user()->scout)) {
                 $this->permissions = Auth::user()->scout->getRightsForModel($this->model);
             }
-            if (empty($this->model->content_page))
-            {
+            if (empty($this->model->content_page)) {
                 $this->content_page = $this->model->content_page()->create([
                     'title' => '',
                     'content' => ''
@@ -357,7 +356,7 @@ class OrganizationUnitFrontend extends ComponentBase
 
             try {
                 $scout->skipCacheRefresh = true; //important, otherwise cache will be refreshed for each scout
-                if (empty($scout->personal_identification_number)){
+                if (empty($scout->personal_identification_number)) {
                     $log['errors'][] = $rowNumber . ' | ' . Lang::get('csatar.csatar::lang.plugin.component.organizationUnitFrontend.csv.personalIdentificationNumberMissing');
                     continue;
                 }

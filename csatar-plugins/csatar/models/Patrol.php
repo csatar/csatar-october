@@ -284,12 +284,6 @@ class Patrol extends OrganizationBase
         ],
     ];
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history',
-        ],
-    ];
 
     /**
      * Scope a query to only include patrols with a given team id.
@@ -308,7 +302,7 @@ class Patrol extends OrganizationBase
     }
 
     public function getAgeGroupOptions(){
-        if($this->team_id){
+        if ($this->team_id) {
             $team = $this->team;
             return AgeGroup::select(
                 DB::raw("CONCAT(NAME, IF(note, CONCAT(' (',note, ')'), '')) AS name"),'id')

@@ -63,8 +63,7 @@ class TeamReport extends ComponentBase
                 if (isset($this->teamReport->submitted_at)) {
                     // view mode
                     return Redirect::to('/csapatjelentes/' . $this->teamReport->id);
-                }
-                else {
+                } else {
                     // edit mode
                     return Redirect::to('/csapatjelentes/' . $this->teamReport->id . '/modositas');
                 }
@@ -83,11 +82,10 @@ class TeamReport extends ComponentBase
             $this->getScouts($this->teamId);
             $this->basicForm->specialValidationExceptions = $this->errors ?? [];
             unset($this->basicForm->record->belongsToMany['ageGroups']);
-        }
-        else {
+        } else {
             // edit and view modes - retrieve the team report
             $this->teamReport = \Csatar\Csatar\Models\TeamReport::find($this->id);
-            if(isset(Auth::user()->scout)) {
+            if (isset(Auth::user()->scout)) {
                 $this->permissions = Auth::user()->scout->getRightsForModel($this->teamReport);
             }
             if (!isset($this->teamReport)) {
@@ -153,7 +151,7 @@ class TeamReport extends ComponentBase
     {
         $this->id = Input::get('id');
         $this->teamReport = \Csatar\Csatar\Models\TeamReport::find($this->id);
-        if(isset(Auth::user()->scout)) {
+        if (isset(Auth::user()->scout)) {
             $this->permissions = Auth::user()->scout->getRightsForModel($this->teamReport, true);
         }
         if ($this->permissions['approved_at']['update'] < 1) {
@@ -221,7 +219,7 @@ class TeamReport extends ComponentBase
 
         foreach ($scouts as $scout) {
             $legalRelationShip = $this->team->district->association->legal_relationships->where('id', $scout->legal_relationship_id)->first();
-            if(!empty($legalRelationShip)) {
+            if (!empty($legalRelationShip)) {
                 $membership_fee = $this->team->district->association->legal_relationships->where('id', $scout->legal_relationship_id)->first()->pivot->membership_fee;
             } else {
                 $membership_fee = 0;

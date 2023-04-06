@@ -66,10 +66,4 @@ class LegalRelationship extends Model
         return isset($data) ? $data->id : null;
     }
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history',
-        ],
-    ];
 }

@@ -45,17 +45,10 @@ class MethodologyType extends Model
         'methodologies' => '\Csatar\Csatar\Models\Methodology'
     ];
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history',
-        ],
-    ];
 
     public function beforeSave()
     {
-        if (empty($this->sort_order))
-        {
+        if (empty($this->sort_order)) {
             $this->sort_order = static::max('sort_order') + 1;
         }
     }

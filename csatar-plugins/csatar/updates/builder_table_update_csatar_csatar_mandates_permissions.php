@@ -10,7 +10,7 @@ class BuilderTableUpdateCsatarCsatarMandatesPermissions extends Migration
         Schema::table('csatar_csatar_mandates_permissions', function($table)
         {
             $table->increments('id')->first()->unsigned();
-            $table->timestamp('created_at')->nullable();;
+            $table->timestamp('created_at')->nullable();
             $table->dropColumn('2fa');
         });
     }

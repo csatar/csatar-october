@@ -46,8 +46,7 @@ class CheckScoutStatus extends ComponentBase
         $this->scoutCode = $this->property('scoutCode');
         $this->json = false;
 
-        if (Input::get('json') === 'true' || Input::get('json') === '1')
-        {
+        if (Input::get('json') === 'true' || Input::get('json') === '1') {
             $this->json = true;
         }
 

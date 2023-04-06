@@ -113,12 +113,6 @@ class TeamReport extends PermissionBasedAccess
         ],
     ];
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history',
-        ],
-    ];
 
     /**
      * Handle the team-currency dependency
@@ -171,7 +165,7 @@ class TeamReport extends PermissionBasedAccess
                 return $item['pivot']['date'];
             })->values()->first();
 
-            if($legalRelationShip = $this->team->district->association->legal_relationships->where('id', $scout->legal_relationship_id)->first()) {
+            if ($legalRelationShip = $this->team->district->association->legal_relationships->where('id', $scout->legal_relationship_id)->first()) {
                 $membership_fee = $legalRelationShip->pivot->membership_fee;
             } else {
                 $membership_fee = 0;
@@ -196,7 +190,7 @@ class TeamReport extends PermissionBasedAccess
 
         foreach ($ageGroups as $ageGroup) {
             $count = Patrol::active()->where('team_id', $this->team_id)->where('age_group_id', $ageGroup->id)->count();
-            if($count>0) {
+            if ($count>0) {
                 $ageGroupsToSync[$ageGroup->id] = ['number_of_patrols_in_age_group' => $count];
             }
         }
@@ -213,11 +207,9 @@ class TeamReport extends PermissionBasedAccess
     {
         if (isset($this->approved_at)) {
             return Lang::get('csatar.csatar::lang.plugin.admin.teamReport.statuses.approved');
-        }
-        else if (isset($this->submitted_at)) {
+        } else if (isset($this->submitted_at)) {
             return Lang::get('csatar.csatar::lang.plugin.admin.teamReport.statuses.submitted');
-        }
-        else {
+        } else {
             return Lang::get('csatar.csatar::lang.plugin.admin.teamReport.statuses.created');
         }
     }
@@ -225,11 +217,11 @@ class TeamReport extends PermissionBasedAccess
     public function getAgeGroupsOptions(){
         $team_id = $this->team_id ?? \Input::get('data.team');
         $attachedIds = [];
-        if(!empty($this->team_id)) {
+        if (!empty($this->team_id)) {
             $attachedIds = $this->ageGroups->pluck('id');
         }
         $team = Team::find($team_id);
-        if(!empty($team_id)){
+        if (!empty($team_id)) {
             $ageGroups = AgeGroup::select(
                 \DB::raw("CONCAT(NAME, IF(note, CONCAT(' (',note, ')'), '')) AS name"),'id')
                 ->where('association_id', $team->district->association->id)
@@ -263,7 +255,7 @@ class TeamReport extends PermissionBasedAccess
     public static function getScoutsWithoutRegistrationForm($scouts): array
     {
         foreach ($scouts as $scout) {
-            if(!$scout->registration_form) {
+            if (!$scout->registration_form) {
                 $scoutsWithoutRegistrationForm[] = [
                     'name' => $scout->name,
                     'ecset_code' => $scout->ecset_code,

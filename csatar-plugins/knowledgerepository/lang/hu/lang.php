@@ -2,6 +2,9 @@
     'plugin' => [
         'name' => 'Tudástár',
         'description' => 'Tudástár plugin az RMCSSZ CSATÁR alkalmazás számára',
+        'permissions' => [
+            'manageKnowledgeRepository' => 'Tudástár kezelése',
+        ],
         'admin' => [
             'menu' => [
                 'knowledgeRepository' => [
@@ -87,6 +90,7 @@
                 'trialSystemTrialTypes' => 'Próbarendszer próba típusok',
                 'forPatrols' => 'Őrsi',
                 'individual' => 'Egyéni',
+                'details' => 'Részletek',
                 'task' => 'Foglalkozás',
             ],
             'messages' => [

@@ -15,4 +15,9 @@ class TrialSystems extends Controller
         parent::__construct();
         BackendMenu::setContext('Csatar.KnowledgeRepository', 'main-menu-knowledge-repository', 'side-menu-trialsystem');
     }
+
+    public $requiredPermissions = [
+        'csatar.manage.data',
+        'csatar.manage.knowledgerepository',
+    ];
 }
