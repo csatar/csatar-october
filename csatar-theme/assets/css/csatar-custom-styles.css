@@ -1503,13 +1503,6 @@ div.card.csat-resp-gdtable > div.row > div.col, div.col-6, div.col-md-4, div.col
         overflow: hidden;
         text-overflow: ellipsis;
     }
-
-    .grid-ellipsis:hover {
-        text-overflow: clip;
-        white-space: normal;
-        word-break: normal;
-        overflow: visible;
-    }
 }
 
 .csat-grid-container-width {

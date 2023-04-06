@@ -5,21 +5,24 @@
     <div class="card csat-resp-gdtable csat-border-lg-none">
         <div class="row p-3 py-lg-0 px-lg-3">
             {% for column in tableRowConfig %}
-                <div class="col-6 col-md-4 col-lg mb-2 mb-lg-0 overflow-hidden">
-                    <p class="td label d-block d-lg-none">{{ column['label'] }}</p>
-                    {% if column['relationName'] %}
-                        {% if column['relationType'] == 'belongsToMany' %}
-                            <p class="td grid-ellipsis">
-                                {% for item in record[column['relationName']] %}
-                                    {{ item[column['valueFrom']] }}{% if not loop.last %}, {% endif %}
-                                {% endfor %}
-                            </p>
-                        {% else %}
-                            <p class="td grid-ellipsis">{{ record[column['relationName']][column['valueFrom']] }}</p>
-                        {% endif %}
+                {% if column['relationName'] %}
+                    {% if column['relationType'] == 'belongsToMany' %}
+                        {% set value = '' %}
+                        {% for item in record[column['relationName']] %}
+                            {% set value = value ~ item[column['valueFrom']] %}
+                            {% if not loop.last %}
+                                {% set value = value ~ ', ' %}
+                            {% endif %}
+                        {% endfor %}
                     {% else %}
-                        <p class="td grid-ellipsis">{{ record[column['attribute']] }}</p>
+                        {% set value = record[column['relationName']][column['valueFrom']] %}
                     {% endif %}
+                {% else %}
+                    {% set value = record[column['attribute']] %}
+                {% endif %}
+                <div class="col-6 col-md-4 col-lg mb-2 mb-lg-0 overflow-hidden" data-bs-toggle="tooltip" title="{{ value }}">
+                    <p class="td label d-block d-lg-none">{{ column['label'] }}</p>
+                    <p class="td grid-ellipsis">{{ value }}</p>
                 </div>
             {% endfor %}
         </div>

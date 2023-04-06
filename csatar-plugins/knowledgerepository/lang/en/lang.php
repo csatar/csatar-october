@@ -83,6 +83,7 @@
                 'trialSystemTrialTypes' => 'Trial system trial types',
                 'forPatrols' => 'For patrols',
                 'individual' => 'Individual',
+                'details' => 'Details',
                 'task' => 'Task',
             ],
         ],
