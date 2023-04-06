@@ -794,7 +794,8 @@ body>p.flash-message.success, body>p.flash-message.info, body>p.flash-message.wa
 }
 
 a:link, a:visited, a:hover, a:active, a.badge {
-     text-decoration: none;
+    text-decoration: none;
+    cursor: default;
 }
 
 a.nav:link, a.nav:visited, a.nav:active, a.nav-link:link, a.nav-link:visited, a.nav-link:active {
@@ -1659,7 +1660,7 @@ th, .th {
 td, .td {
     border: 1px solid #DDDDDD;
     font-weight: 300;
-    font-size: calc(0.9rem + 0.2vw);
+    font-size: calc(0.8rem + 0.2vw);
     text-align: left;
     vertical-align: top;
 }
@@ -1763,7 +1764,7 @@ textarea:not(.select2-search__field) {
 }
 
 .form-check-input:disabled {
-    background-color: #DDDDDD;
+    background-color: #78863F;
     border-color: #939393;
 }
 
