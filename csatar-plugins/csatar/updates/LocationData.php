@@ -15,14 +15,16 @@ class LocationData extends Seeder
 
         if (($handle = fopen(base_path() . "/plugins/csatar/csatar/updates/locations_ro.csv", "r")) !== FALSE) {
             while (($data = fgetcsv($handle)) !== FALSE) {
-                Locations::firstOrCreate(                        [
+                $location = Locations::firstOrCreate(                        [
                     'country'     => 'Romania',
                     'code'        => $data[0],
                     'county'      => $data[1],
                     'city'        => $data[2],
                     'street_type' => $data[3],
-                    'street'      => $data[4],
                 ]);
+
+                $location->street = preg_replace('/\s+nr\..*/i', '', $data[4]);
+                $location->save();
             }
         }
     }

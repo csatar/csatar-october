@@ -213,6 +213,10 @@
                 'activeMandateDeleteError' => 'The Scout having the %name name has active Mandates, thus this Scout cannot be deleted.',
                 'scoutTeam' => 'Scout\'s team',
                 'inactivationWarning' => 'Please note that if you change status from active to inactive, scout\'s all mandates will expire!',
+                'bulkDeletePartialSuccess' => ':deletedCount deleted from :totalCount. ',
+                'bulkDeleteError' => 'The following errors occurred: ',
+                'deleteWithPersonalData' => 'Delete with personal data',
+                'deleteWithPersonalDataConfirmation' => 'Are you sure you want to delete this scout and his personal data (name, email, phone, address?',
                 'teamChangeHistoryMessage' => 'On :date changed team from :oldTeam to :newTeam',
             ],
             'admin' => [

@@ -1,0 +1,16 @@
+<div class="tr d-none d-lg-block">
+    <div class="card csat-resp-gdtable csat-border-lg-none">
+        <div class="row">
+            {% for data in attributesToDisplay %}
+                {% set label = data.label|trans %}
+                <div class="col-6 col-lg">
+                    <div class="th-grid">{{ label }}</div>
+                </div>
+            {% endfor %}
+            {% if not readOnly %}
+                {# these are the button column headers #}
+                <div class="col-6 col-lg-1"></div>
+            {% endif %}
+        </div>
+    </div>
+</div>

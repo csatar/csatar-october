@@ -1,0 +1,12 @@
+<div class='validationTags'>
+    {% for fieldName, rule in rules %}
+        {% if not forPivot and not relationName %}
+            {% set positionData = fieldName %}
+        {% elseif not forPivot %}
+            {% set positionData = relationName ~ '[' ~ fieldName ~ ']' %}
+        {% else %}
+            {% set positionData = relationName ~ '[pivot][' ~ fieldName ~ ']' %}
+        {% endif %}
+        <span class='errormsg' data-validate-for='{{ fieldName }}' data-position-for='{{ positionData }}'></span>
+    {% endfor %}
+</div>
