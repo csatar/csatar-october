@@ -13,6 +13,8 @@ columns:
             sortable:
                 default: asc
             filterable: true
+            filterConfig:
+                type: freeText
     trial_system_category_id:
         label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystemCategory'
         type: number
@@ -90,23 +92,8 @@ columns:
                 relationName: trialSystemTrialType
                 keyFrom: id
                 labelFrom: name
-    for_patrols:
-        label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.forPatrols'
-        type: text
-        searchable: false
-        sortable: true
-        recordList: true
-    individuals:
-        label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.individual'
-        type: text
-        sortable: true
-        recordList: true
-    task:
-        label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.task'
-        type: text
-        sortable: true
-    obligatory:
-        label: 'csatar.knowledgerepository::lang.plugin.admin.general.obligatory'
+    o_e_f_k:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.details'
         type: text
         sortable: true
         recordList: true

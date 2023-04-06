@@ -84,6 +84,7 @@
                 'trialSystemTrialTypes' => 'Próbarendszer próba típusok',
                 'forPatrols' => 'Őrsi',
                 'individual' => 'Egyéni',
+                'details' => 'Részletek',
                 'task' => 'Foglalkozás',
             ],
         ],

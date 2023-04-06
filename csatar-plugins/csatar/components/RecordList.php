@@ -467,6 +467,12 @@ class RecordList extends RainRecordList {
             $rowConfig[$column]['attribute'] = $column;
             $rowConfig[$column]['type'] = $config['type'];
 
+            if (isset($config['label'])) {
+                $rowConfig[$column]['label'] = Lang::get($config['label']);
+            } else {
+                $rowConfig[$column]['label'] = ucfirst($column);
+            }
+
             if (isset($config['relation'])) {
                 $rowConfig[$column]['relationName'] = $config['relation'];
                 $rowConfig[$column]['relationType'] = $this->getRelationType($config['relation']);

@@ -10,7 +10,7 @@
             <div class="table csat-grid">
                 <div class="tr d-none d-lg-block">
                     <div class="card csat-resp-gdtable csat-border-lg-none">
-                        <div class="row">
+                        <div class="row p-3 py-lg-0 px-lg-3">
                             {% for inactiveMandatesColumn in __SELF__.inactiveMandatesColumns %}
                             <div class="col-6 col-lg">
                                 <div class="th-grid">
@@ -25,7 +25,7 @@
                 {% for inactiveMandate in __SELF__.inactiveMandates %}
                     <div class="tr">
                     <div class="card csat-resp-gdtable csat-border-lg-none">
-                        <div class="row">
+                        <div class="row p-3 py-lg-0 px-lg-3">
                             {% for key, inactiveMandatesColumn in __SELF__.inactiveMandatesColumns %}
                             <div class="col-6 col-lg">
                                 <p class="td label d-block d-lg-none">{{ label }}</p>

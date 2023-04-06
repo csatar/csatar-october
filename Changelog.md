@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-520 - Modification and optimization of grid display and the design of the filtering
 - CS-491 - Added scout xlsx import/export to teams page
 - CS-331 - Added `manifest.json` file and updated readme with instructions on how to add PWA support
 - CS-549 - Fixed exception caused by missing getEagerLoadSettings method on AccidentLogRecord model
