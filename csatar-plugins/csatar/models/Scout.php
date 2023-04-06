@@ -1341,6 +1341,7 @@ class Scout extends OrganizationBase
 
         $this->ignoreValidation = true;
         $this->forceSave();
+    }
 
     public function getTeamChangeHistory()
     {
