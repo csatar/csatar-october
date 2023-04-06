@@ -42,4 +42,8 @@ class Scouts extends Controller
     public function onDelete(){
         return BackendExtensions::onDelete($this);
     }
+
+    public function onDeleteWithPersonalData(){
+        return BackendExtensions::onDelete($this, 'deletePersonalInformation');
+    }
 }

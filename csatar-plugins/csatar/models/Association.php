@@ -65,6 +65,7 @@ class Association extends OrganizationBase
         'personal_identification_number_validator',
         'team_report_submit_start_date',
         'team_report_submit_end_date',
+        'google_calendar_id',
     ];
 
     /**

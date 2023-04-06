@@ -635,6 +635,12 @@ class Scout extends OrganizationBase
             'table' => 'csatar_csatar_mandates',
             'label' => 'csatar.csatar::lang.plugin.admin.mandate.mandates',
         ],
+        'mandatesInactive' => [
+            '\Csatar\Csatar\Models\Mandate',
+            'scope' => 'inactive',
+            'table' => 'csatar_csatar_mandates',
+            'label' => 'csatar.csatar::lang.plugin.admin.mandate.mandates',
+        ],
         'membership_cards' => \Csatar\Csatar\Models\MembershipCard::class
     ];
 
@@ -1318,5 +1324,43 @@ class Scout extends OrganizationBase
         }
 
         return $savedCountry ?? $team->district->association->country;
+    }
+
+    public function deletePersonalInformation() {
+        $this->family_name = null;
+        $this->given_name = null;
+        $this->email = null;
+        $this->phone = null;
+
+        $this->address_country = null;
+        $this->address_county = null;
+        $this->address_zipcode = null;
+        $this->address_location = null;
+        $this->address_street = null;
+        $this->address_number = null;
+
+        $this->ignoreValidation = true;
+        $this->forceSave();
+    }
+
+    public function getTeamChangeHistory()
+    {
+        $teamChangeHistory = $this->history()->where('attribute', 'team_id')->get();
+        $historyArray = [];
+        if (empty($teamChangeHistory)) {
+            return [];
+        }
+
+        foreach ($teamChangeHistory as $history) {
+            $date = $history->created_at;
+            $oldTeam = Team::find($history->old_value);
+            $newTeam = Team::find($history->new_value);
+
+            $oldTeam = "<a href='/csapat/$oldTeam->id'>$oldTeam->name</a>";
+            $newTeam = "<a href='/csapat/$newTeam->id'>$newTeam->name</a>";
+            $historyArray[] = Lang::get('csatar.csatar::lang.plugin.admin.scout.teamChangeHistoryMessage', ['date' => $date, 'oldTeam' => $oldTeam, 'newTeam' => $newTeam]);
+        }
+
+        return $historyArray;
     }
 }

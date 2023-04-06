@@ -1,6 +1,7 @@
 <?php namespace Csatar\Csatar\Models;
 
 use Model;
+use Lang;
 
 /**
  * Model
@@ -39,4 +40,8 @@ class ContentPage extends PermissionBasedAccess
         'model' => []
     ];
 
+    public static function getOrganizationTypeModelNameUserFriendly()
+    {
+        return Lang::get('csatar.csatar::lang.plugin.admin.general.contentPage');
+    }
 }

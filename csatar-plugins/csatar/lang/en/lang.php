@@ -54,6 +54,8 @@
                 'bulkDeletePartialSuccess' => ':deletedCount items deleted from :totalCount. ',
                 'bulkDeleteError' => 'The following error occurred during the delete process: ',
                 'activeMembersCount' => 'Active members count',
+                'clearFilters' => 'Clear filters',
+                'googleCalendarId' => 'Google Calendar ID',
             ],
             'history' => [
                 'histories' => 'History',
@@ -70,6 +72,9 @@
                 'newValue' => 'New value',
                 'description' => 'Description',
                 'ipAddress' => 'Ip address',
+            ],
+            'googleCalendarParams' => [
+                'googleCalendarParams' => 'Google Calendar Params for',
             ],
             'ageGroups' => [
                 'ageGroups' => 'Age Groups',
@@ -210,6 +215,9 @@
                 'inactivationWarning' => 'Please note that if you change status from active to inactive, scout\'s all mandates will expire!',
                 'bulkDeletePartialSuccess' => ':deletedCount deleted from :totalCount. ',
                 'bulkDeleteError' => 'The following errors occurred: ',
+                'deleteWithPersonalData' => 'Delete with personal data',
+                'deleteWithPersonalDataConfirmation' => 'Are you sure you want to delete this scout and his personal data (name, email, phone, address?',
+                'teamChangeHistoryMessage' => 'On :date changed team from :oldTeam to :newTeam',
             ],
             'admin' => [
                 'menu' => [
