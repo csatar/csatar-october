@@ -42,12 +42,6 @@ class SpecialDiet extends Model
         'scouts' => '\Csatar\Csatar\Models\Scouts'
     ];
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history',
-        ],
-    ];
 
     public static function getNoneId()
     {

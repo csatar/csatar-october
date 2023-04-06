@@ -53,7 +53,7 @@ class OrganizationBase extends PermissionBasedAccess
 
     public function validateRequiredMandates($data)
     {
-        if ($this->ignoreValidation) {
+        if ($this->ignoreValidation || $this->status != Status::ACTIVE) {
             return;
         }
 

@@ -33,10 +33,4 @@ class GalleryModelPivot extends Model
         'model_type',
     ];
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history',
-        ],
-    ];
 }

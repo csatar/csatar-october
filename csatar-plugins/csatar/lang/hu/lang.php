@@ -9,6 +9,7 @@
         'permissions' => [
             'manageData' => 'RMCSSZ adminisztráció',
             'admin' => 'Csatár rendszergazda',
+            'manageInventory' => 'Leltár adminisztráció',
         ],
         'admin' => [
             'general' => [
@@ -53,6 +54,7 @@
                 'bulkDeletePartialSuccess' => ':deletedCount elem törlése sikerült a :totalCount-ból/ből. ',
                 'bulkDeleteError' => 'A következő hibák merültek fel a törlés során: ',
                 'activeMembersCount' => 'Aktív tagok száma',
+                'clearFilters' => 'Szűrők törlése',
             ],
             'history' => [
                 'histories' => 'Előzmények',
@@ -209,6 +211,7 @@
                 'inactivationWarning' => 'Figyelem! Ha a státusz aktívról inaktívra változik, a cserkész összes megbízatása lejár!',
                 'deleteWithPersonalData' => 'Törlés személyes adatokkal',
                 'deleteWithPersonalDataConfirmation' => 'Valóban szeretnéd törölni a cserkészt a személyes adataival (név, email cím, telefonszám, postacím) együtt?',
+                'teamChangeHistoryMessage' => ':date átigazolt a(z) :oldTeam cserkészcsapatból a :newTeam cserkészcsapatba.',
             ],
             'admin' => [
                 'menu' => [
@@ -609,6 +612,8 @@
             'backendUserRoles' => [
                 'backendUserRoles' => 'Admin felület szerepkörök',
                 'rmcsszOffice' => 'RMCSSZ iroda',
+                'rmcsszKnowledgeRepository' => 'RMCSSZ Tudástáras',
+                'rmcsszInventory' => 'RMCSSZ Leltáros',
             ],
             'membershipCard' => [
                 'membershipCard' => 'Tagkártya',
@@ -758,7 +763,7 @@
                 'name' => 'Szervezeti Egység Frontend',
                 'description' => 'Megyjeleníti egy szerevezeti egység frontend oldalát.',
                 'csv' => [
-                    'fileMissingOrInvalid' => 'A .csv fájl hiányzik vagy érvénytelen.',
+                    'fileMissingOrInvalid' => 'A fájl hiányzik vagy érvénytelen.',
                     'teamIdMissing' => 'Hiányzik a csapat azonosítója.',
                     'personalIdentificationNumberMissing' => 'Hiányzó személyi szám.',
                 ],

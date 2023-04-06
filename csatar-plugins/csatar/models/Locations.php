@@ -33,16 +33,12 @@ class Locations extends Model
         'code',
     ];
 
+    protected $primaryKey = 'code';
+
     /**
      * @var array Validation rules
      */
     public $rules = [
     ];
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history',
-        ],
-    ];
 }

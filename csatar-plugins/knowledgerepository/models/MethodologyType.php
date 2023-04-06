@@ -45,12 +45,6 @@ class MethodologyType extends Model
         'methodologies' => '\Csatar\Csatar\Models\Methodology'
     ];
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history',
-        ],
-    ];
 
     public function beforeSave()
     {

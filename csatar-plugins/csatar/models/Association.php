@@ -114,12 +114,6 @@ class Association extends OrganizationBase
         ],
     ];
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history',
-        ],
-    ];
 
     public static function getEagerLoadSettings(string $useCase = null): array
     {

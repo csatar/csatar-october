@@ -139,12 +139,6 @@ class Methodology extends PermissionBasedAccess
         'attachements' => ['System\Models\File'],
     ];
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history',
-        ],
-    ];
 
     public function beforeCreate()
     {

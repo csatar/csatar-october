@@ -35,10 +35,4 @@ class ContactSettings extends Model
 
     protected $jsonable = ['offices'];
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history',
-        ],
-    ];
 }

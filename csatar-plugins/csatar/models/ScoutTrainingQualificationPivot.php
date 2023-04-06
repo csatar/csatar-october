@@ -72,10 +72,4 @@ class ScoutTrainingQualificationPivot extends CsatarPivot
         }
     }
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history'
-        ],
-    ];
 }

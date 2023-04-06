@@ -67,18 +67,9 @@ class TrialSystem extends PermissionBasedAccess
         ],
         'association' => [
             '\Csatar\Csatar\Models\Association',
-//            'formBuilder' => [
-//                'requiredBeforeRender' => true,
-//            ],
         ]
     ];
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history',
-        ],
-    ];
 
     public static function getOrganizationTypeModelNameUserFriendly()
     {
@@ -101,5 +92,23 @@ class TrialSystem extends PermissionBasedAccess
             return $query->where('id', 0);
         }
         return $query->where('association_id', $related->association_id);
+    }
+
+    public function getOEFKAttribute()
+    {
+        $ofek = [];
+        if ($this->for_patrols) {
+            $ofek[] = 'Ő';
+        }
+        if ($this->individual) {
+            $ofek[] = 'E';
+        }
+        if ($this->task) {
+            $ofek[] = 'F';
+        }
+        if ($this->obligatory) {
+            $ofek[] = 'K';
+        }
+        return implode('-', $ofek);
     }
 }

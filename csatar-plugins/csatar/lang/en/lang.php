@@ -8,7 +8,8 @@
         'author' => 'CSATÁR team',
         'permissions' => [
             'manageData' => 'Manage Data',
-            'admin' => 'Csatár admin'
+            'admin' => 'Csatár admin',
+            'manageInventory' => 'Manage inventory',
         ],
         'admin' => [
             'general' => [
@@ -53,6 +54,7 @@
                 'bulkDeletePartialSuccess' => ':deletedCount items deleted from :totalCount. ',
                 'bulkDeleteError' => 'The following error occurred during the delete process: ',
                 'activeMembersCount' => 'Active members count',
+                'clearFilters' => 'Clear filters',
             ],
             'history' => [
                 'histories' => 'History',
@@ -211,6 +213,7 @@
                 'bulkDeleteError' => 'The following errors occurred: ',
                 'deleteWithPersonalData' => 'Delete with personal data',
                 'deleteWithPersonalDataConfirmation' => 'Are you sure you want to delete this scout and his personal data (name, email, phone, address?',
+                'teamChangeHistoryMessage' => 'On :date changed team from :oldTeam to :newTeam',
             ],
             'admin' => [
                 'menu' => [
@@ -611,6 +614,8 @@
             'backendUserRoles' => [
                 'backendUserRoles' => 'Backend User Roles',
                 'rmcsszOffice' => 'RMCSSZ office',
+                'rmcsszKnowledgeRepository' => 'RMCSSZ Knowledge Repository',
+                'rmcsszInventory' => 'RMCSSZ Inventory',
             ],
             'membershipCard' => [
                 'membershipCard' => 'Membership Card',

@@ -643,12 +643,6 @@ class Scout extends OrganizationBase
         'registration_form' => 'System\Models\File',
     ];
 
-    public $morphMany = [
-        'history' => [
-            \Csatar\Csatar\Models\History::class,
-            'name' => 'history'
-        ],
-    ];
 
     public static function getEagerLoadSettings(string $useCase = null): array
     {
@@ -1341,5 +1335,25 @@ class Scout extends OrganizationBase
 
         $this->ignoreValidation = true;
         $this->forceSave();
+
+    public function getTeamChangeHistory()
+    {
+        $teamChangeHistory = $this->history()->where('attribute', 'team_id')->get();
+        $historyArray = [];
+        if (empty($teamChangeHistory)) {
+            return [];
+        }
+
+        foreach ($teamChangeHistory as $history) {
+            $date = $history->created_at;
+            $oldTeam = Team::find($history->old_value);
+            $newTeam = Team::find($history->new_value);
+
+            $oldTeam = "<a href='/csapat/$oldTeam->id'>$oldTeam->name</a>";
+            $newTeam = "<a href='/csapat/$newTeam->id'>$newTeam->name</a>";
+            $historyArray[] = Lang::get('csatar.csatar::lang.plugin.admin.scout.teamChangeHistoryMessage', ['date' => $date, 'oldTeam' => $oldTeam, 'newTeam' => $newTeam]);
+        }
+
+        return $historyArray;
     }
 }

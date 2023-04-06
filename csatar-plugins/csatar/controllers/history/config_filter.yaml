@@ -12,16 +12,16 @@ scopes:
         conditions: csatar_csatar_history.be_user_id in (:filtered)
         options: getBackendUserOptions
 
-    model_class:
+    model_type:
         label: 'csatar.csatar::lang.plugin.admin.history.modelClass'
         modelClass: Csatar\Csatar\Models\History
-        conditions: csatar_csatar_history.model_class in (:filtered)
+        conditions: csatar_csatar_history.model_type in (:filtered)
         options: getModelOptions
 
-    related_model_class:
+    related_model_type:
         label: 'csatar.csatar::lang.plugin.admin.history.relatedModelClass'
         modelClass: Csatar\Csatar\Models\History
-        conditions: csatar_csatar_history.related_model_class in (:filtered)
+        conditions: csatar_csatar_history.related_model_type in (:filtered)
         options: getRelatedModelOptions
 
     attribute:
@@ -30,14 +30,6 @@ scopes:
         conditions: csatar_csatar_history.attribute in (:filtered)
         options: getAttributeOptions
 
-#    field:
-#        label: 'csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.field'
-#        modelClass: Csatar\Csatar\Models\MandatePermission
-#        conditions: csatar_csatar_mandates_permissions.field in (:filtered)
-#        nameFrom: organization_type_model_name
-#        options: getFieldOptions
-#        dependsOn: model
-
-#    clear:
-#        label: Clear Filters
-#        type: clear
+    clear:
+        label: 'csatar.csatar::lang.plugin.admin.general.clearFilters'
+        type: clear

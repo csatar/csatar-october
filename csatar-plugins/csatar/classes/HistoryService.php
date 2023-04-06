@@ -35,19 +35,18 @@ class HistoryService
                 return;
             }
 
+            if (HistoryService::isHistoryDisabled($model)) {
+                return;
+            }
+
             // set up bindings for the model
 
             $model::extend(function($model) use ($params) {
                 $basicEvents = $params['basicEvents'] ?? true;
                 $relationEvents = $params['relationEvents'] ?? true;
-                $addDefaultHistoryRelation = $params['addDefaultHistoryRelation'] ?? true;
+                $customHistoryRelationName = $params['customHistoryRelationName'] ?? null;
 
-                if ($addDefaultHistoryRelation) {
-                    $model->morphMany['history'] = [
-                        \Csatar\Csatar\Models\History::class,
-                        'name' => 'history'
-                    ];
-                }
+                HistoryService::addHistoryRelationToModel($model, $customHistoryRelationName);
 
                 HistoryService::bindEventsToModel($model, $basicEvents, $relationEvents);
                 $extraEvents = $params['extraEvents'] ?? [];
@@ -189,6 +188,11 @@ class HistoryService
         return defined("$class::HISTORY_RELATION_NAME") ? $model::HISTORY_RELATION_NAME : 'history';
     }
 
+    public static function isHistoryDisabled($model)
+    {
+        return isset($model->historyDisabled) && $model->historyDisabled;
+    }
+
     public static function historyAfterSave($model)
     {
         $historyRelationName = self::getHistoryRelationName($model);
@@ -230,9 +234,9 @@ class HistoryService
             $toSave[] = [
                 'fe_user_id' => self::historyGetUser(),
                 'be_user_id' => self::historyGetBackendUser(),
-                'model_class' => $modelClass,
+                'model_type' => $modelClass,
                 'model_id' => $modelId,
-                'related_model_class' => $relatedModelClass,
+                'related_model_type' => $relatedModelClass,
                 'related_model_id' => $relatedModelId,
                 'attribute' => $attribute,
                 'cast' => self::historyGetCastType($model, $attribute),
@@ -274,7 +278,7 @@ class HistoryService
         $toSave[] = [
             'fe_user_id' => self::historyGetUser(),
             'be_user_id' => self::historyGetBackendUser(),
-            'model_class' => $historyRelationObject->getMorphClass(),
+            'model_type' => $historyRelationObject->getMorphClass(),
             'model_id' => $model->getKey(),
             'attribute' => $softDeletes ? 'deleted_at' : 'HARD_DELETE',
             'old_value' => null,
@@ -296,9 +300,9 @@ class HistoryService
         $toSave[] = [
             'fe_user_id' => self::historyGetUser(),
             'be_user_id' => self::historyGetBackendUser(),
-            'model_class' => $historyRelationObject->getMorphClass(),
+            'model_type' => $historyRelationObject->getMorphClass(),
             'model_id' => $model->getKey(),
-            'related_model_class' => get_class($relatedModel),
+            'related_model_type' => get_class($relatedModel),
             'related_model_id' => $relatedModel->getKey(),
             'attribute' => $relationName,
             'description' => 'Relation added',
@@ -320,9 +324,9 @@ class HistoryService
         $toSave[] = [
             'fe_user_id' => self::historyGetUser(),
             'be_user_id' => self::historyGetBackendUser(),
-            'model_class' => $historyRelationObject->getMorphClass(),
+            'model_type' => $historyRelationObject->getMorphClass(),
             'model_id' => $model->getKey(),
-            'related_model_class' => $relatedModel->getMorphClass(),
+            'related_model_type' => $relatedModel->getMorphClass(),
             'related_model_id' => $relatedModel->getKey(),
             'attribute' => $relationName,
             'description' => 'Relation removed',
@@ -349,9 +353,9 @@ class HistoryService
             $toSave[] = [
                 'fe_user_id' => self::historyGetUser(),
                 'be_user_id' => self::historyGetBackendUser(),
-                'model_class' => $historyRelationObject->getMorphClass(),
+                'model_type' => $historyRelationObject->getMorphClass(),
                 'model_id' => $model->getKey(),
-                'related_model_class' => get_class($relatedModel),
+                'related_model_type' => get_class($relatedModel),
                 'related_model_id' => $id,
                 'attribute' => $relationName,
                 'description' => 'Relation attached',
@@ -382,9 +386,9 @@ class HistoryService
             $toSave[] = [
                 'fe_user_id' => self::historyGetUser(),
                 'be_user_id' => self::historyGetBackendUser(),
-                'model_class' => $historyRelationObject->getMorphClass(),
+                'model_type' => $historyRelationObject->getMorphClass(),
                 'model_id' => $model->getKey(),
-                'related_model_class' => get_class($relatedModel),
+                'related_model_type' => get_class($relatedModel),
                 'related_model_id' => $id,
                 'attribute' => $relationName,
                 'description' => 'Relation detached',
@@ -410,7 +414,7 @@ class HistoryService
         $toSave[] = [
             'fe_user_id' => self::historyGetUser(),
             'be_user_id' => self::historyGetBackendUser(),
-            'model_class' => $model ? get_class($model) : null,
+            'model_type' => $model ? get_class($model) : null,
             'model_id' => $model ? $model->getKey() : null,
             'attribute' => 'event',
             'description' => $event ?? 'Event',
@@ -422,5 +426,19 @@ class HistoryService
         ];
 
         Db::table($historyModel ? $historyModel->getTable() : HistoryModelDefault::getTable())->insert($toSave);
+    }
+
+    /**
+     * @param $model
+     * @return void
+     */
+    public static function addHistoryRelationToModel($model, $customHistoryRelationName = null): void
+    {
+        $historyRelationName = $customHistoryRelationName ?? self::getHistoryRelationName($model);
+        $model->morphMany[$historyRelationName] = [
+            \Csatar\Csatar\Models\History::class,
+            'name'                      => 'model',
+            'ignoreInPermissionsMatrix' => true,
+        ];
     }
 }
