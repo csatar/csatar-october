@@ -10,11 +10,11 @@ class Duration extends Model
 {
     use \October\Rain\Database\Traits\Validation;
 
-    /*
-     * Disable timestamps by default.
-     * Remove this line if timestamps are defined in the database table.
-     */
-    public $timestamps = false;
+    use \October\Rain\Database\Traits\SoftDelete;
+
+    use \Csatar\Csatar\Traits\History;
+
+    protected $dates = ['deleted_at'];
 
 
     /**
@@ -45,6 +45,7 @@ class Duration extends Model
     public $belongsToMany = [
         'methodologies' => '\Csatar\Csatar\Models\Methodology'
     ];
+
 
     public function beforeSave()
     {

@@ -1083,7 +1083,7 @@ class JsonImport extends Controller
                 $relationModel = null;
             }
 
-            if($itemsToAdd > $itemsAdded) {
+            if ($itemsToAdd > $itemsAdded) {
                 Log::warning("Could add only $itemsAdded of $itemsToAdd promises and qualifications to scout: $scoutCode;");
             }
 

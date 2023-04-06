@@ -12,6 +12,8 @@ use ValidationException;
  */
 class Association extends OrganizationBase
 {
+    use \Csatar\Csatar\Traits\History;
+
     /**
      * @var string The database table used by the model.
      */
@@ -112,6 +114,7 @@ class Association extends OrganizationBase
         ],
     ];
 
+
     public static function getEagerLoadSettings(string $useCase = null): array
     {
         $eagerLoadSettings = parent::getEagerLoadSettings($useCase);
@@ -130,6 +133,13 @@ class Association extends OrganizationBase
 
     public $attachOne = [
         'logo' => 'System\Models\File'
+    ];
+
+    public $attachMany = [
+        'richTextUploads' => [
+            'System\Models\File',
+            'ignoreInPermissionsMatrix' => true,
+        ],
     ];
 
     public $morphOne = [

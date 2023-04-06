@@ -18,6 +18,8 @@ class Mandate extends Model
 
     use \October\Rain\Database\Traits\SoftDelete;
 
+    use \Csatar\Csatar\Traits\History;
+
     protected $dates = ['deleted_at'];
 
     protected $touches = ['scout'];
@@ -227,14 +229,12 @@ class Mandate extends Model
                 default:
                     break;
             }
-        }
-        else {
+        } else {
             // we are on an edit form
             if ($this->mandate_model_type == Troop::getModelName() || $this->mandate_model_type == Patrol::getModelName()) {
                 $mandate_model_id = $this->mandate_model ? $this->mandate_model->team_id : null;
                 $mandate_model_type = Team::getModelName();
-            }
-            else {
+            } else {
                 $mandate_model_id = $this->mandate_model_id;
                 $mandate_model_type = $this->mandate_model_type;
             }
@@ -365,8 +365,7 @@ class Mandate extends Model
     {
         if (!empty($scopes['association']->value)) {
             $options = self::associations(array_keys($scopes['association']->value))->get();
-        }
-        else {
+        } else {
             $options = self::all();
         }
 
@@ -374,7 +373,7 @@ class Mandate extends Model
                 return [ 'name' => $item->mandate_model->extendedName, 'id' => $item->mandate_model->id . $item->mandate_model->getModelName()];
             })
             ->pluck('name', 'id')
-            ->toArray();;
+            ->toArray();
     }
 
     public function getTeamOptionsForPatrolAndTroopMandates($scopes = null): array
@@ -416,4 +415,5 @@ class Mandate extends Model
             ->where('mandate_model_id', $organization->id)
             ->update(['end_date' => date('Y-m-d')]);
     }
+
 }

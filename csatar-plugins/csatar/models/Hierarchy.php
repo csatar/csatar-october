@@ -12,7 +12,9 @@ class Hierarchy extends Model
     use \October\Rain\Database\Traits\Sortable;
 
     use \October\Rain\Database\Traits\NestedTree;
-    
+
+    use \Csatar\Csatar\Traits\History;
+
     /*
      * Disable timestamps by default.
      * Remove this line if timestamps are defined in the database table.
@@ -64,4 +66,5 @@ class Hierarchy extends Model
             'count' => true,
         ],
     ];
+
 }

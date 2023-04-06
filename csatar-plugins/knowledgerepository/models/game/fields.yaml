@@ -18,6 +18,10 @@ fields:
         label: Link
         span: auto
         type: text
+    _ruler1:
+        type: ruler
+        formBuilder:
+            ignoreUserRights: 1
     uploader:
         label: 'csatar.knowledgerepository::lang.plugin.admin.game.uploader'
         path: $/csatar/knowledgerepository/models/game/uploaderscout.htm
@@ -40,6 +44,10 @@ fields:
         span: auto
         type: datepicker
         disabled: true
+    _ruler2:
+        type: ruler
+        formBuilder:
+            ignoreUserRights: 1
     note:
         label: 'csatar.knowledgerepository::lang.plugin.admin.general.note'
         span: auto
@@ -105,6 +113,14 @@ fields:
         nameFrom: name
     game_types:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.gameTypes'
+        span: auto
+        type: taglist
+        mode: relation
+        useKey: true
+        customTags: false
+        nameFrom: name
+    trial_systems:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystems'
         span: auto
         type: taglist
         mode: relation

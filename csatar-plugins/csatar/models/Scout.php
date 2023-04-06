@@ -32,6 +32,8 @@ class Scout extends OrganizationBase
 
     use \October\Rain\Database\Traits\Nullable;
 
+    use \Csatar\Csatar\Traits\History;
+
     public const NAME_DELETED_INACTIVITY = 'Inaktivítás miatt törölt név';
 
     protected $dates = ['deleted_at'];
@@ -352,8 +354,7 @@ class Scout extends OrganizationBase
             ($this->getOriginalValue('team_id') != $this->team_id)
             || ($this->getOriginalValue('troop_id') != $this->troop_id)
             || ($this->getOriginalValue('patrol_id') != $this->patrol_id)
-        )
-        {
+        ) {
             StructureTree::updateTeamTree($this->team_id);
             if (!empty($this->original['team_id'])) {
                 StructureTree::updateTeamTree($this->original['team_id']);
@@ -365,8 +366,7 @@ class Scout extends OrganizationBase
             || ($this->getOriginalValue('given_name') != $this->given_name)
             || ($this->getOriginalValue('ecset_code') != $this->ecset_code)
             || ($this->getOriginalValue('legal_relationship_id') != $this->legal_relationship_id)
-        )
-        {
+        ) {
             $structureTree = Cache::pull('structureTree');
             if (empty($structureTree)) {
                 StructureTree::getStructureTree();
@@ -478,8 +478,7 @@ class Scout extends OrganizationBase
                 foreach (\Csatar\Csatar\Models\Patrol::troopId($troop_id)->get() as $patrol) {
                     $fields->patrol->options += [$patrol['id'] => $patrol['extendedName']];
                 }
-            }
-            else if ($team_id) {
+            } else if ($team_id) {
                 foreach (\Csatar\Csatar\Models\Patrol::teamId($team_id)->get() as $patrol) {
                     $fields->patrol->options += [$patrol['id'] => $patrol['extendedName']];
                 }
@@ -644,6 +643,7 @@ class Scout extends OrganizationBase
         'registration_form' => 'System\Models\File',
     ];
 
+
     public static function getEagerLoadSettings(string $useCase = null): array
     {
         $eagerLoadSettings = parent::getEagerLoadSettings($useCase);
@@ -738,7 +738,7 @@ class Scout extends OrganizationBase
     {
         $team = Team::find($this->team_id);
 
-        if(empty($team)){
+        if (empty($team)) {
             throw new \ValidationException(['team_id' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.noTeamSelected')]);
         }
 
@@ -747,11 +747,11 @@ class Scout extends OrganizationBase
         $uid = uniqid();
         $ecset_code = strtoupper(substr($uid, 0, 6) . '-' . $sufix);
 
-        if($this->ecsetCodeExists($ecset_code)){
+        if ($this->ecsetCodeExists($ecset_code)) {
             $ecset_code = strtoupper(substr($uid, 6, 6) . '-' . $sufix);
         }
 
-        if($this->ecsetCodeExists($ecset_code)){
+        if ($this->ecsetCodeExists($ecset_code)) {
             return $this->generateEcsetCode();
         }
 
@@ -948,8 +948,8 @@ class Scout extends OrganizationBase
     {
         $sessionRecord = Session::get('scout.mandates');
 
-        if(!empty($sessionRecord) && $sessionRecordForAssociation = $sessionRecord->where('associationId', $associationId)->first()) {
-            if($sessionRecordForAssociation['savedToSession'] >= $savedAfterDate) {
+        if (!empty($sessionRecord) && $sessionRecordForAssociation = $sessionRecord->where('associationId', $associationId)->first()) {
+            if ($sessionRecordForAssociation['savedToSession'] >= $savedAfterDate) {
                 //TODO: implement touch scout when mandate is added or removed CS-288
                 return new Collection($sessionRecordForAssociation['mandates']);
             }
@@ -968,7 +968,7 @@ class Scout extends OrganizationBase
             })
             ->get();
 
-        if(empty($sessionRecord)){
+        if (empty($sessionRecord)) {
             $sessionRecord = new Collection([]);
         }
 
@@ -987,14 +987,14 @@ class Scout extends OrganizationBase
     {
         $sessionRecord = $ignoreCache ? null : Session::get('scout.mandateTypeIds');
 
-        if(!empty($sessionRecord) && $sessionRecordForAssociation = $sessionRecord->where('associationId', $associationId)->first()) {
-            if($sessionRecordForAssociation['savedToSession'] >= $savedAfterDate) {
+        if (!empty($sessionRecord) && $sessionRecordForAssociation = $sessionRecord->where('associationId', $associationId)->first()) {
+            if ($sessionRecordForAssociation['savedToSession'] >= $savedAfterDate) {
                 //TODO: implement touch scout when mandate is added or removed CS-288
                 return $sessionRecordForAssociation['mandateTypeIds'];
             }
         }
 
-        if(empty($sessionRecord)){
+        if (empty($sessionRecord)) {
             $sessionRecord = new Collection([]);
         }
 
@@ -1072,18 +1072,18 @@ class Scout extends OrganizationBase
     public function saveMandateTypeIdsForEveryAssociationToSession(){
         $associationIds = Association::all()->pluck('id');
 
-        if(empty($associationIds)){
+        if (empty($associationIds)) {
             return;
         }
 
-        foreach($associationIds as $associationId){
+        foreach ($associationIds as $associationId) {
             $this->getMandateTypeIdsInAssociation($associationId, false, true);
         }
     }
 
     public function is2FA(): bool
     {
-        if(Auth::user() && Session::get('scout.twoFA', false)){
+        if (Auth::user() && Session::get('scout.twoFA', false)) {
             return true;
         }
 
@@ -1099,7 +1099,7 @@ class Scout extends OrganizationBase
         $this->load('mandates', 'mandates.mandate_type');
 
         $isOwn = false;
-        if(Auth::user() && !empty(Auth::user()->scout)){
+        if (Auth::user() && !empty(Auth::user()->scout)) {
             $isOwn = $model->isOwnModel(Auth::user()->scout);
         }
 
@@ -1124,8 +1124,7 @@ class Scout extends OrganizationBase
             return self::associations(array_keys($scopes['association']->value))
                 ->select(DB::raw("CONCAT(ifnull(family_name, ''), ' ', ifnull(given_name, '')) AS fullname, id"))
                 ->lists('fullname', 'id');
-        }
-        else {
+        } else {
             return self::select(DB::raw("CONCAT(ifnull(family_name, ''), ' ', ifnull(given_name, '')) AS fullname, id"))
                 ->lists('fullname', 'id');
         }
@@ -1144,8 +1143,7 @@ class Scout extends OrganizationBase
                     return [ 'name' => $item->team->extended_Name, 'id' => $item->team->id ];
                 })
                 ->pluck('name', 'id')->toArray();
-        }
-        else {
+        } else {
             return self::all()
                 ->filter(function ($item) {
                     if (!empty($item->team)) {
@@ -1163,7 +1161,7 @@ class Scout extends OrganizationBase
     {
         $messages = [];
 
-        if(!$this->isPersonalDataAccepted()){
+        if (!$this->isPersonalDataAccepted()) {
             $messages['warning']['personalDataNotAccepted'] =
                 [
                     'message' => Lang::get('csatar.csatar::lang.plugin.admin.scout.staticMessages.personalDataNotAccepted'),
@@ -1320,5 +1318,26 @@ class Scout extends OrganizationBase
         }
 
         return $savedCountry ?? $team->district->association->country;
+    }
+
+    public function getTeamChangeHistory()
+    {
+        $teamChangeHistory = $this->history()->where('attribute', 'team_id')->get();
+        $historyArray = [];
+        if (empty($teamChangeHistory)) {
+            return [];
+        }
+
+        foreach ($teamChangeHistory as $history) {
+            $date = $history->created_at;
+            $oldTeam = Team::find($history->old_value);
+            $newTeam = Team::find($history->new_value);
+
+            $oldTeam = "<a href='/csapat/$oldTeam->id'>$oldTeam->name</a>";
+            $newTeam = "<a href='/csapat/$newTeam->id'>$newTeam->name</a>";
+            $historyArray[] = Lang::get('csatar.csatar::lang.plugin.admin.scout.teamChangeHistoryMessage', ['date' => $date, 'oldTeam' => $oldTeam, 'newTeam' => $newTeam]);
+        }
+
+        return $historyArray;
     }
 }

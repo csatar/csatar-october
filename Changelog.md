@@ -2,7 +2,23 @@
 
 ## Unreleased
 
+- CS-520 - Modification and optimization of grid display and the design of the filtering
+- CS-491 - Added scout xlsx import/export to teams page
+- CS-331 - Added `manifest.json` file and updated readme with instructions on how to add PWA support
 - CS-549 - Fixed exception caused by missing getEagerLoadSettings method on AccidentLogRecord model
+- CS-514 - Fixed design for TrialSystem related models
+- CS-514 - Created TrialSystem model, backend and frontend form and list
+- CS-514 - Created TrialSystem related models, backend forms and lists
+- CS-514 - Added TrialSystems relation to Game model
+- CS-509 - Created TrialSystemCategory model, seeder, backend form and list
+- CS-520 - Created RecordList component
+- CS-318 - Added richtext editor to FromBuilder
+- CS-318 - Changed Assocation leadership_presentation field to richt text
+- CS-318 - Changed District leadership_presentation, description to rich text
+- CS-318 - Changed Team leadership_presentation, history and description to richtext
+- CS-318 - Updated formbuilder to support subforms, created ContentPageForm component using formbuilder subform capability
+- CS-318 - Changed TinyMCE modules to ContentPageForm component
+- CS-492 - Fixed street field in the locations table
 
 ## 1.10.0
 ### 2023-03-17
@@ -44,10 +60,12 @@
 - CS-385 - Created GameDevelopmentGoal model, seeder controller, backend list and form
 - CS-385 - Changed migrations, renamed "order" columns to "sort_order"
 - CS-363 - Fixed success/error message issue on back list bulk delete
+- CS-454 - Remove the Team column from the Mandates tables
 - CS-455 - Sort the teams in the menu
 - CS-370 - Create Knowledge Repository and Knowledge Repository Parameters menus on backend
 - CS-451 - Membership card cannot be activated if the assigned scout is inactive
 - CS-460 - Added frontend scout csv import-export
+- CS-452 - Mandate Types must have different names
 - CS-460 - Fixed getBirthDateFromCNP method
 - CS-460 - Fixed typo in getOptionsWithLabels method name
 - CS-462 - Added warning to team report if any scout doesn't have registration form uploaded

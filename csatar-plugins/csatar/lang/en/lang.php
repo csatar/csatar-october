@@ -8,7 +8,8 @@
         'author' => 'CSATÁR team',
         'permissions' => [
             'manageData' => 'Manage Data',
-            'admin' => 'Csatár admin'
+            'admin' => 'Csatár admin',
+            'manageInventory' => 'Manage inventory',
         ],
         'admin' => [
             'general' => [
@@ -53,10 +54,31 @@
                 'bulkDeletePartialSuccess' => ':deletedCount items deleted from :totalCount. ',
                 'bulkDeleteError' => 'The following error occurred during the delete process: ',
                 'activeMembersCount' => 'Active members count',
+                'clearFilters' => 'Clear filters',
+            ],
+            'history' => [
+                'histories' => 'History',
+                'history' => 'History',
+                'frontendUser' => 'Frontend user',
+                'backendUser' => 'Backend user',
+                'modelClass' => 'Model class',
+                'modelId' => 'Model id',
+                'relatedModelClass' => 'Related model class',
+                'relatedModelId' => 'Related model id',
+                'attribute' => 'Attribute',
+                'cast' => 'Cast',
+                'oldValue' => 'Old value',
+                'newValue' => 'New value',
+                'description' => 'Description',
+                'ipAddress' => 'Ip address',
             ],
             'ageGroups' => [
                 'ageGroups' => 'Age Groups',
                 'numberOfPatrolsInAgeGroup' => 'Number of patrols in age group',
+            ],
+            'contentPage' => [
+                'title' => 'Title',
+                'content' => 'Content',
             ],
             'scout' => [
                 'scout' => 'Scout',
@@ -187,8 +209,7 @@
                 'activeMandateDeleteError' => 'The Scout having the %name name has active Mandates, thus this Scout cannot be deleted.',
                 'scoutTeam' => 'Scout\'s team',
                 'inactivationWarning' => 'Please note that if you change status from active to inactive, scout\'s all mandates will expire!',
-                'bulkDeletePartialSuccess' => ':deletedCount deleted from :totalCount. ',
-                'bulkDeleteError' => 'The following errors occurred: ',
+                'teamChangeHistoryMessage' => 'On :date changed team from :oldTeam to :newTeam',
             ],
             'admin' => [
                 'menu' => [
@@ -589,6 +610,8 @@
             'backendUserRoles' => [
                 'backendUserRoles' => 'Backend User Roles',
                 'rmcsszOffice' => 'RMCSSZ office',
+                'rmcsszKnowledgeRepository' => 'RMCSSZ Knowledge Repository',
+                'rmcsszInventory' => 'RMCSSZ Inventory',
             ],
             'membershipCard' => [
                 'membershipCard' => 'Membership Card',
@@ -614,6 +637,13 @@
             'code' => 'Zip code',
         ],
         'component' => [
+            'contentPageForm' => [
+                'name' => 'Content Page Form',
+                'description' => 'Displays a form for creating and editing content pages.',
+                'parentModelClass' => 'Parent model class',
+                'parentRecordKeyParam' => 'Parent record key parameter',
+                'parentRecordKeyParamDescription' => 'The key of the parent model class.',
+            ],
             'general' => [
                 'validationExceptions' => [
                     'emailAlreadyAssigned' => 'The e-mail address is already assgined to a user account.',
@@ -781,6 +811,15 @@
                 'name' => 'Partials Component',
                 'description' => 'Component to share partials between plugins'
             ],
+            'recordList' => [
+                'name' => 'List Component',
+                'description' => 'List component with filter and sort options',
+                'columnsConfigFile' => [
+                    'columnsConfigFile' => 'Columns config file',
+                    'columnsConfigFileDescription' => 'File name with path to the columns config file, relative to the selected model',
+                    'columnsConfigFileMissing' => 'The columns config file is missing',
+                ],
+            ]
         ],
         'oauth' => [
             'onlyExistingUsersCanLogin'         => 'At the moment, only existing users are allowed to log in with oAuth!',

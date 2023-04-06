@@ -2,6 +2,9 @@
     'plugin' => [
         'name' => 'Tudástár',
         'description' => 'Tudástár plugin az RMCSSZ CSATÁR alkalmazás számára',
+        'permissions' => [
+            'manageKnowledgeRepository' => 'Tudástár kezelése',
+        ],
         'admin' => [
             'menu' => [
                 'knowledgeRepository' => [
@@ -50,6 +53,7 @@
                 'version' => 'Verzió',
                 'created_at' => 'Feltöltés Dátuma',
                 'forms' => 'Űrlapok',
+                'obligatory' => 'Kötelező',
             ],
             'game' => [
                 'game' => 'Játék',
@@ -62,8 +66,28 @@
                 'approvedAt' => 'Jóváhagyás dátuma',
                 'version' => 'Verzió',
                 'ageGroupsComment' => 'A korosztályok csak a szövetség kiválasztása után választhatók ki.',
+            ],
+            'trialSystem' => [
+                'trialSystem' => 'Próbarendszer',
+                'trialSystems' => 'Próbarendszerek',
+                'idString' => 'Azonosító',
+                'ageGroup' => 'Korosztály',
+                'trialSystemCategory' => 'Kategória',
+                'trialSystemCategories' => 'Próbarendszer kategóriák',
+                'trialSystemTopic' => 'Téma',
+                'trialSystemTopics' => 'Próbarendszer témák',
+                'trialSystemSubTopic' => 'Altéma',
+                'trialSystemSubTopics' => 'Próbarendszer altémák',
+                'trialSystemType' => 'Típus',
+                'trialSystemTypes' => 'Próbarendszer típusok',
+                'trialSystemTrialType' => 'Próba típus',
+                'trialSystemTrialTypes' => 'Próbarendszer próba típusok',
+                'forPatrols' => 'Őrsi',
+                'individual' => 'Egyéni',
+                'details' => 'Részletek',
+                'task' => 'Foglalkozás',
+            ],
         ],
-    ],
         'components' => [
             'gameForm' => [
                 'name' => 'Játék űrlap',

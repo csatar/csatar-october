@@ -5,7 +5,9 @@ use Input;
 use Lang;
 use October\Rain\Database\Models\DeferredBinding;
 use Request;
+use Resizer;
 use Response;
+use System\Models\File as StandAloneFile;
 use Validator;
 
 // Returns a file size limit in bytes based on the PHP upload_max_filesize
@@ -36,8 +38,7 @@ function parse_size($size) {
     if ($unit) {
         // Find the position of the unit in the ordered string which is the power of magnitude to multiply a kilobyte by.
         return round($size * pow(1024, stripos('bkmgtpezy', $unit[0])));
-    }
-    else {
+    } else {
         return round($size);
     }
 }
@@ -94,7 +95,7 @@ trait ManagesUploads {
 
         if (isset($this->record->rules[$model_field . '.*'])) {
             $validationRules = $this->record->rules[$model_field . '.*'];
-            if(isset($this->record->rules[$model_field])) {
+            if (isset($this->record->rules[$model_field])) {
                 $arrayRule = $this->record->rules[$model_field];
                 // check if there is validation rule for $attachMany attachments and search for rule regarding max number of files
                 if ((preg_match('/max:(.*?)\|/', $arrayRule, $match) == 1
@@ -108,8 +109,7 @@ trait ManagesUploads {
                         ]);
                     }
             }
-        }
-        elseif (isset($this->record->rules[$model_field])) {
+        } elseif (isset($this->record->rules[$model_field])) {
             $validationRules = $this->record->rules[$model_field];
         } else {
             $validationRules = ['max:' . (string) file_upload_max_size()];
@@ -143,7 +143,7 @@ trait ManagesUploads {
      * @return mixed
      */
     protected function processUploads() {
-        if (! Request::header('X-OCTOBER-FILEUPLOAD')) {
+        if (!Request::header('X-OCTOBER-FILEUPLOAD') && !post('X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD')) {
             return false;
         }
 
@@ -160,7 +160,11 @@ trait ManagesUploads {
                 throw new \Exception(sprintf(Lang::get('csatar.forms::lang.widgets.frontendFileUploadException.fileIsNotValid'), $uploadedFile->getClientOriginalName()));
             }
 
-            $model_field = Request::header('X-OCTOBER-FILEUPLOAD');
+            if (post('X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD')) {
+                $model_field = 'richTextUploads';
+            } else {
+                $model_field = Request::header('X-OCTOBER-FILEUPLOAD');
+            }
 
             if (! $this->record->hasRelation($model_field)) {
                 throw new \Exception(Lang::get('csatar.forms::lang.widgets.frontendFileUploadException.invalidField'));
@@ -174,7 +178,19 @@ trait ManagesUploads {
             $file->data = $uploadedFile;
             $file->is_public = true;
             $file->save();
-            if($isNew){
+
+            if (strpos($uploadedFile->getMimeType(), 'image') !== false) {
+                list($width, $height) = getimagesize($file->getLocalPath());
+
+                if ($width > 1920) {
+                    $resizer = new Resizer();
+                    $resizer::open($file->getLocalPath())
+                        ->resize(1920, null, ['mode' => 'auto'])
+                        ->save($file->getLocalPath());
+                }
+            }
+
+            if ($isNew) {
                 $this->record->{$model_field}()->add($file, $this->sessionKey);
             } else {
                 $this->record->{$model_field}()->add($file);
@@ -188,9 +204,12 @@ trait ManagesUploads {
                 //'path' => $file->pathUrl
             ];
 
+            if (post('X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD')) {
+                return Response::json([ 'link' => $file->getPath() ], 200);
+            }
+
             return Response::json($result, 200);
-        }
-        catch (\Exception $ex) {
+        } catch (\Exception $ex) {
             return Response::json($ex->getMessage(), 400);
         }
     }
@@ -203,7 +222,7 @@ trait ManagesUploads {
         $model_field = post('field');
         $file_id = post('file_id');
 
-        if(!empty($model_field)){
+        if (!empty($model_field)) {
             $fileModel = $this->record->getRelationDefinition($model_field)[0];
         }
 
@@ -212,7 +231,7 @@ trait ManagesUploads {
         }
 
         $isNew = Input::get('recordKeyValue') == 'new' ? true : false;
-        if($isNew && !empty($file)){
+        if ($isNew && !empty($file)) {
             $this->record->{$model_field}()->remove($file, $this->sessionKey);
         }
 
@@ -255,8 +274,7 @@ trait ManagesUploads {
         if ($this->mode == 'image' || $file->isImage()) {
             if (!empty($this->imageWidth) || !empty($this->imageHeight)) {
                 $thumb = $file->getThumb($this->imageWidth, $this->imageHeight, $this->thumbOptions);
-            }
-            else {
+            } else {
                 $thumb = $file->getThumb(63, 63, $this->thumbOptions);
             }
         }
@@ -304,8 +322,7 @@ trait ManagesUploads {
             $cssDimensions .= ($this->imageHeight)
                 ? 'height: '.$this->imageHeight.'px;'
                 : 'height: auto;';
-        }
-        else {
+        } else {
             $cssDimensions .= ($this->imageWidth)
                 ? 'width: '.$this->imageWidth.'px;'
                 : 'width: auto;';
@@ -322,6 +339,30 @@ trait ManagesUploads {
         return DeferredBinding::where('master_field', $relationName)
                        ->where('session_key', $sessionKey)
                        ->count();
+    }
+
+    public function manageRichTextEditorUpload($uploadedFile) {
+
+        $data = [ 'file' => $uploadedFile ];
+        $rules = ['file' => 'image|max:5000'];
+
+        $validation = Validator::make(
+            $data,
+            $rules
+        );
+
+        if ($validation->fails()) {
+            throw new ValidationException($validation);
+        }
+
+        $file = new StandAloneFile();
+        $file->data = $uploadedFile;
+        $file->attachment_id = $this->record->id ?? null;
+        $file->attachment_type = get_class($this->record) ?? null;
+        $file->is_public = true;
+        $file->save();
+
+        return Response::json([ 'link' => $file->getPath() ], 200);
     }
 
 }

@@ -398,7 +398,7 @@ class TestData extends Seeder
     public function getFirstAgeGroupInAssociation($team_id) {
         $team = Team::find($team_id);
 
-        if(!empty($team)){
+        if (!empty($team)) {
             return $team->district->association->ageGroups[0]->id ?? 0;
         }
 
@@ -408,7 +408,7 @@ class TestData extends Seeder
     public function addAllPermissionsToScouts() {
         $associationId = Association::where('name_abbreviation', 'RMCSSZ')->first()->id ?? null;
 
-        if(empty($associationId)) return;
+        if (empty($associationId)) return;
 
         $permissionBasedModels = PermissionBasedAccess::getAllChildClasses(); //get every model that needs permissions
         $scoutMandateTypeId = Db::table('csatar_csatar_mandate_types')->select('id')
@@ -417,17 +417,17 @@ class TestData extends Seeder
             ->whereNull('deleted_at')
             ->first()->id; //get scout mandate type id
 
-        if(empty($permissionBasedModels) || empty($scoutMandateTypeId)) return;
+        if (empty($permissionBasedModels) || empty($scoutMandateTypeId)) return;
 
         foreach ($permissionBasedModels as $permissionBasedModel) {
-            if($permissionBasedModel == MandateType::MODEL_NAME_GUEST) return;
+            if ($permissionBasedModel == MandateType::MODEL_NAME_GUEST) return;
 
             $model = new $permissionBasedModel();
             $fields = $model->fillable ?? [];
             $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'hasOne', 'morphTo', 'morphOne',
                                'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'];
 
-            foreach ($relationArrays as $relationArray){
+            foreach ($relationArrays as $relationArray) {
                 $fields = array_merge($fields, array_keys($model->$relationArray));
             }
 
@@ -499,7 +499,7 @@ class TestData extends Seeder
                 ->whereNull('deleted_at')
                 ->first()->id; //get guest mandate type id
 
-            if(empty($permissionBasedModels) || empty($guestMandateTypeId)) return;
+            if (empty($permissionBasedModels) || empty($guestMandateTypeId)) return;
 
             foreach ($permissionBasedModels as $permissionBasedModel) {
 
@@ -508,7 +508,7 @@ class TestData extends Seeder
                 $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'hasOne', 'morphTo', 'morphOne',
                                    'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'];
 
-                foreach ($relationArrays as $relationArray){
+                foreach ($relationArrays as $relationArray) {
                     $fields = array_merge($fields, array_keys($model->$relationArray));
                 }
 

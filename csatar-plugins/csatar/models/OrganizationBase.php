@@ -53,7 +53,7 @@ class OrganizationBase extends PermissionBasedAccess
 
     public function validateRequiredMandates($data)
     {
-        if ($this->ignoreValidation) {
+        if ($this->ignoreValidation || $this->status != Status::ACTIVE) {
             return;
         }
 
@@ -187,7 +187,7 @@ class OrganizationBase extends PermissionBasedAccess
         $filterWords = array_map('trim',$filterWords);
         $nameExploded = explode(' ', $name);
         $nameFiltered = array_map(function($word) use ($filterWords){
-            if(in_array(mb_strtolower($word), $filterWords)){
+            if (in_array(mb_strtolower($word), $filterWords)) {
                 return '';
             }
 

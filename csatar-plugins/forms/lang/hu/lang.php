@@ -27,6 +27,10 @@
                     'title'             => 'Űrlap',
                     'description'       => 'Űrlapválasztás',
                 ],
+                'subForm' => [
+                    'title'             => 'Al űrlap',
+                    'description'       => 'Ha ez az opció be van pipálva, akkor a CRUD paraméterek nem lesznek figyelembe véve.',
+                ],
                 'groupCRUD' => [
                     'groupName'                 => 'CRUD paraméterek',
                     'recordKeyParam'            => 'Record key link param. name',

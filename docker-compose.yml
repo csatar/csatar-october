@@ -26,6 +26,7 @@ services:
       - ./csatar-theme:/var/www/html/themes/csatar:delegated
     environment:
     - PHP_IDE_CONFIG=serverName=Docker
+    - DB_TYPE=mysql
     - DB_HOST=db #DB_HOST should match the service name of the database container
     - DB_DATABASE=csatar
     - DB_USERNAME=root

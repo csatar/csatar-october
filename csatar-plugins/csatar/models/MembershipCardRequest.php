@@ -9,6 +9,8 @@ class MembershipCardRequest extends Model
 {
     use \October\Rain\Database\Traits\Validation;
 
+    use \Csatar\Csatar\Traits\History;
+
     /**
      * @var string The database table used by the model.
      */
@@ -41,4 +43,5 @@ class MembershipCardRequest extends Model
         'legal_relationship' => '\Csatar\Csatar\Models\LegalRelationship',
         'leadership_qualification' => '\Csatar\Csatar\Models\LeadershipQualification',
     ];
+
 }

@@ -8,7 +8,10 @@ use Model;
 class MethodologyType extends Model
 {
     use \October\Rain\Database\Traits\Validation;
+
     use \October\Rain\Database\Traits\Sortable;
+
+    use \Csatar\Csatar\Traits\History;
 
     /*
      * Disable timestamps by default.
@@ -42,10 +45,10 @@ class MethodologyType extends Model
         'methodologies' => '\Csatar\Csatar\Models\Methodology'
     ];
 
+
     public function beforeSave()
     {
-        if (empty($this->sort_order))
-        {
+        if (empty($this->sort_order)) {
             $this->sort_order = static::max('sort_order') + 1;
         }
     }

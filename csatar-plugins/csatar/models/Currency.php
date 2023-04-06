@@ -8,7 +8,8 @@ use Model;
 class Currency extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-    
+
+    use \Csatar\Csatar\Traits\History;
 
     /**
      * @var string The database table used by the model.
@@ -37,4 +38,5 @@ class Currency extends Model
         'associations' => '\Csatar\Csatar\Models\Association',
         'teamReports' => '\Csatar\Csatar\Models\TeamReport',
     ];
+
 }

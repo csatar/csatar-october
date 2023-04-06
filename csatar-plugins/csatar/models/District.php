@@ -11,6 +11,8 @@ use Csatar\Csatar\Models\OrganizationBase;
  */
 class District extends OrganizationBase
 {
+    use \Csatar\Csatar\Traits\History;
+
     /**
      * @var string The database table used by the model.
      */
@@ -30,6 +32,7 @@ class District extends OrganizationBase
      */
     public $rules = [
         'name' => 'required',
+        'status' => 'required',
         'phone' => 'nullable|regex:(^[0-9+-.()]{10,}$)',
         'email' => 'email|nullable',
         'website' => 'url|nullable',
@@ -62,6 +65,23 @@ class District extends OrganizationBase
         'logo',
         'slug',
         'status',
+    ];
+
+    public $nullable = [
+        'phone',
+        'email',
+        'website',
+        'facebook_page',
+        'coordinates',
+        'contact_name',
+        'contact_email',
+        'address',
+        'leadership_presentation',
+        'description',
+        'bank_account',
+        'association_id',
+        'logo',
+        'slug',
     ];
 
     /**
@@ -107,6 +127,13 @@ class District extends OrganizationBase
         'logo' => 'System\Models\File',
     ];
 
+    public $attachMany = [
+        'richTextUploads' => [
+            'System\Models\File',
+            'ignoreInPermissionsMatrix' => true,
+        ],
+    ];
+
     public $morphOne = [
         'content_page' => [
             '\Csatar\Csatar\Models\ContentPage',
@@ -114,6 +141,8 @@ class District extends OrganizationBase
             'label' => 'csatar.csatar::lang.plugin.admin.general.contentPage',
         ],
     ];
+
+
 
     /**
      * Override the getExtendedNameAttribute function
@@ -147,7 +176,17 @@ class District extends OrganizationBase
     public function updateCache(): void
     {
         if ($this->wasRecentlyCreated && $this->status == Status::ACTIVE) {
-            StructureTree::updateAssociationTree($this->association_id);
+            $structureTree = Cache::pull('structureTree');
+            if (empty($structureTree)) {
+                StructureTree::getStructureTree();
+                return;
+            }
+            $structureTree[$this->association_id]['districtsActive'][$this->id]['id'] = $this->id;
+            $structureTree[$this->association_id]['districtsActive'][$this->id]['name'] = $this->name;
+            $structureTree[$this->association_id]['districtsActive'][$this->id]['extended_name'] = $this->extended_name;
+            $structureTree[$this->association_id]['districtsActive'][$this->id]['status'] = $this->status;
+            $structureTree[$this->association_id]['districtsActive'][$this->id]['association_id'] = $this->association_id;
+            Cache::forever('structureTree', $structureTree);
         }
 
         if (empty($this->original)) {

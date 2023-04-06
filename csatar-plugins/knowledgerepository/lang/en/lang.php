@@ -2,6 +2,9 @@
     'plugin' => [
         'name' => 'Knowledge Repository',
         'description' => 'Plugin for Knowledge Repository in the RMCSSZ\'s CSATÁR project',
+        'permissions' => [
+            'manageKnowledgeRepository' => 'Manage Knowledge Repository',
+        ],
         'admin' => [
             'menu' => [
                 'knowledgeRepository' => [
@@ -62,8 +65,28 @@
                 'approvedAt' => 'Approval date',
                 'version' => 'Version',
                 'ageGroupsComment' => 'Age groups can be selected only after association is selected.',
+            ],
+            'trialSystem' => [
+                'trialSystem' => 'Trial System',
+                'trialSystems' => 'Trial Systems',
+                'idString' => 'Id string',
+                'ageGroup' => 'Age group',
+                'trialSystemCategory' => 'Category',
+                'trialSystemCategories' => 'Trial system categories',
+                'trialSystemTopic' => 'Topic',
+                'trialSystemTopics' => 'Trial system topics',
+                'trialSystemSubTopic' => 'Subtopic',
+                'trialSystemSubTopics' => 'Trial system subtopics',
+                'trialSystemType' => 'Type',
+                'trialSystemTypes' => 'Trial system types',
+                'trialSystemTrialType' => 'Trial type',
+                'trialSystemTrialTypes' => 'Trial system trial types',
+                'forPatrols' => 'For patrols',
+                'individual' => 'Individual',
+                'details' => 'Details',
+                'task' => 'Task',
+            ],
         ],
-    ],
         'components' => [
             'gameForm' => [
                 'name' => 'Game Form',

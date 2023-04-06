@@ -13,6 +13,8 @@ class LegalRelationship extends Model
 
     use \October\Rain\Database\Traits\Sortable;
 
+    use \Csatar\Csatar\Traits\History;
+
     protected $dates = ['deleted_at'];
 
 
@@ -63,4 +65,5 @@ class LegalRelationship extends Model
         $data = self::where('name', 'Érvénytelen adat')->first();
         return isset($data) ? $data->id : null;
     }
+
 }

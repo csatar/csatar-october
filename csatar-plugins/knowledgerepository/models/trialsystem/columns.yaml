@@ -1,0 +1,105 @@
+columns:
+    id_string:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.idString'
+        type: text
+        searchable: true
+        sortable: true
+    name:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.name'
+        type: text
+        searchable: true
+        sortable: true
+        recordList:
+            sortable:
+                default: asc
+            filterable: true
+            filterConfig:
+                type: freeText
+    trial_system_category_id:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystemCategory'
+        type: number
+        searchable: true
+        sortable: true
+        relation: trialSystemCategory
+        valueFrom: name
+        recordList:
+            sortable: true
+            filterable: true
+            filterConfig:
+                type: relation
+                relationName: trialSystemCategory
+                keyFrom: id
+                labelFrom: name
+    trial_system_topic_id:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystemTopic'
+        type: number
+        searchable: true
+        sortable: true
+        relation: trialSystemTopic
+        valueFrom: name
+        recordList:
+            sortable: true
+            filterable: true
+            filterConfig:
+                type: relation
+                relationName: trialSystemTopic
+                keyFrom: id
+                labelFrom: name
+    trial_system_sub_topic_id:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystemSubTopic'
+        type: number
+        searchable: true
+        sortable: true
+        relation: trialSystemSubTopic
+        valueFrom: name
+        recordList: true
+    age_group_id:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.ageGroup'
+        type: number
+        searchable: true
+        sortable: true
+        relation: ageGroup
+        valueFrom: name
+        recordList:
+            sortable: true
+            filterable: true
+            filterConfig:
+                type: relation
+                relationName: ageGroup
+                keyFrom: id
+                labelFrom: name
+
+    trial_system_type_id:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystemType'
+        type: number
+        searchable: true
+        sortable: true
+        relation: trialSystemType
+        valueFrom: name
+        recordList: true
+    trial_system_trial_type_id:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystemTrialType'
+        type: number
+        searchable: true
+        sortable: true
+        relation: trialSystemTrialType
+        valueFrom: name
+        recordList:
+            sortable: true
+            filterable: true
+            filterConfig:
+                type: relation
+                relationName: trialSystemTrialType
+                keyFrom: id
+                labelFrom: name
+    o_e_f_k:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.details'
+        type: text
+        sortable: true
+        recordList: true
+    note:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.note'
+        type: text
+        searchable: true
+        sortable: true
+        recordList: true

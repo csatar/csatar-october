@@ -3,14 +3,16 @@
 use DateTime;
 use Lang;
 use ValidationException;
-use October\Rain\Database\Pivot;
+use Csatar\Csatar\Classes\CsatarPivot;
 
 /**
  * Pivot Model
  */
-class ScoutProfessionalQualificationPivot extends Pivot
+class ScoutProfessionalQualificationPivot extends CsatarPivot
 {
     use \October\Rain\Database\Traits\Validation;
+
+    use \Csatar\Csatar\Traits\History;
 
     /**
      * @var string The database table used by the model.
@@ -49,4 +51,5 @@ class ScoutProfessionalQualificationPivot extends Pivot
         'date',
         'location',
     ];
+
 }

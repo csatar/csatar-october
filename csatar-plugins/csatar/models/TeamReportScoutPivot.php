@@ -1,13 +1,15 @@
 <?php namespace Csatar\Csatar\Models;
 
-use October\Rain\Database\Pivot;
+use Csatar\Csatar\Classes\CsatarPivot;
 
 /**
  * Pivot Model
  */
-class TeamReportScoutPivot extends Pivot
+class TeamReportScoutPivot extends CsatarPivot
 {
     use \October\Rain\Database\Traits\Validation;
+
+    use \Csatar\Csatar\Traits\History;
 
     /**
      * @var string The database table used by the model.
@@ -41,4 +43,5 @@ class TeamReportScoutPivot extends Pivot
         'legal_relationship' => '\Csatar\Csatar\Models\LegalRelationship',
         'leadership_qualification' => '\Csatar\Csatar\Models\LeadershipQualification',
     ];
+
 }

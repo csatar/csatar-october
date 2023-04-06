@@ -5,10 +5,18 @@ plugin:
     icon: icon-leaf
     homepage: ''
 navigation:
+    main-menu-scout-data:
+        label: 'csatar.csatar::lang.plugin.admin.admin.menu.scout'
+        url: /csatar/csatar/scouts
+        icon: icon-bell
+        order: 902
+        permissions:
+            - csatar.manage.data
     main-menu-item-organization-system-data:
         label: 'csatar.csatar::lang.plugin.admin.admin.menu.organizationSystemData.organizationSystemData'
         url: /
         icon: icon-sitemap
+        order: 904
         permissions:
             - csatar.manage.data
         sideMenu:
@@ -100,6 +108,7 @@ navigation:
         label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.scoutSystemData'
         url: /
         icon: icon-sitemap
+        order: 903
         permissions:
             - csatar.manage.data
         sideMenu:
@@ -193,16 +202,11 @@ navigation:
                 icon: icon-sitemap
                 permissions:
                     - csatar.manage.data
-    main-menu-scout-data:
-        label: 'csatar.csatar::lang.plugin.admin.admin.menu.scout'
-        url: /csatar/csatar/scouts
-        icon: icon-bell
-        permissions:
-            - csatar.manage.data
     main-menu-item-seeder-data:
         label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.data'
         url: /
         icon: icon-database
+        order: 900
         permissions:
             - csatar.admin
         sideMenu:
@@ -266,25 +270,30 @@ navigation:
                 icon: icon-sitemap
                 permissions:
                     - csatar.admin
-
             side-menu-location-data:
                 label: 'csatar.csatar::lang.plugin.admin.admin.menu.seederData.location'
                 url: csatar/csatar/seederdata/location
                 icon: icon-database
                 permissions:
                     - csatar.admin
-
             side-menu-knowledgerepository-data:
                 label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.knowledgeRepositoryParameters'
                 url: csatar/knowledgerepository/seederdata/seeder/
                 icon: icon-database
                 permissions:
                     - csatar.admin
-
     main-menu-item-accident-log:
         label: 'csatar.csatar::lang.plugin.component.accidentLog.accidentLog'
         url: csatar/csatar/accidentlogrecords
         icon: icon-life-ring
+        order: 901
+        permissions:
+            - csatar.manage.data
+    main-menu-item-history:
+        label: 'csatar.csatar::lang.plugin.admin.history.histories'
+        url: csatar/csatar/history
+        icon: icon-life-ring
+        order: 913
         permissions:
             - csatar.manage.data
 permissions:
@@ -294,3 +303,6 @@ permissions:
     csatar.admin:
         tab: 'csatar.csatar::lang.plugin.name'
         label: 'csatar.csatar::lang.plugin.permissions.admin'
+    csatar.manage.inventory:
+        tab: 'csatar.csatar::lang.plugin.name'
+        label: 'csatar.knowledgerepository::lang.plugin.permissions.manageInventory'

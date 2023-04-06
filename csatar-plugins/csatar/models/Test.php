@@ -11,6 +11,8 @@ class Test extends Model
     
     use \October\Rain\Database\Traits\SoftDelete;
 
+    use \Csatar\Csatar\Traits\History;
+
     protected $dates = ['deleted_at'];
 
 
@@ -47,4 +49,5 @@ class Test extends Model
             'pivotModel' => '\Csatar\Csatar\Models\ScoutTestPivot',
         ]
     ];
+
 }

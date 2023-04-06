@@ -20,6 +20,7 @@ class Durations extends Controller
     }
 
     public $requiredPermissions = [
-        'csatar.manage.data'
+        'csatar.manage.data',
+        'csatar.manage.knowledgerepository',
     ];
 }

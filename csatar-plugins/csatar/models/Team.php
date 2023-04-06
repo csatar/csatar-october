@@ -15,6 +15,10 @@ class Team extends OrganizationBase
 {
     use \October\Rain\Database\Traits\Nullable;
 
+    use \Csatar\Csatar\Traits\History;
+
+    const HISTORY_RELATION_NAME = 'change_history';
+
     /**
      * @var string The database table used by the model.
      */
@@ -68,7 +72,7 @@ class Team extends OrganizationBase
         $teams = $this::select('id', 'team_number')->whereIn('district_id', $districts_ids)->get();
 
         // iterate through the teams and if there is another team with the same team number, then throw an exception
-        foreach($teams as $team) {
+        foreach ($teams as $team) {
             if ($team->id != $this->id && $team->team_number == $this->team_number) {
                 throw new \ValidationException(['team_number' => Lang::get('csatar.csatar::lang.plugin.admin.team.teamNumberTakenError', ['teamNumber' => $this->team_number])]);
             }
@@ -210,6 +214,13 @@ class Team extends OrganizationBase
         'logo' => 'System\Models\File'
     ];
 
+    public $attachMany = [
+        'richTextUploads' => [
+            'System\Models\File',
+            'ignoreInPermissionsMatrix' => true,
+        ],
+    ];
+
     public function beforeSave()
     {
         $filterWords = explode(',', Lang::get('csatar.csatar::lang.plugin.admin.team.filterOrganizationUnitNameForWords'));
@@ -251,7 +262,18 @@ class Team extends OrganizationBase
     public function updateCache(): void
     {
         if ($this->wasRecentlyCreated && $this->status == Status::ACTIVE) {
-            StructureTree::updateAssociationTree($this->association_id);
+            $structureTree = Cache::pull('structureTree');
+            if (empty($structureTree)) {
+                StructureTree::getStructureTree();
+                return;
+            }
+            $structureTree[$this->district->association_id]['districtsActive'][$this->district_id]['teamsActive'][$this->id]['id'] = $this->name;
+            $structureTree[$this->district->association_id]['districtsActive'][$this->district_id]['teamsActive'][$this->id]['name'] = $this->name;
+            $structureTree[$this->district->association_id]['districtsActive'][$this->district_id]['teamsActive'][$this->id]['extended_name'] = $this->extended_name;
+            $structureTree[$this->district->association_id]['districtsActive'][$this->district_id]['teamsActive'][$this->id]['team_number'] = $this->team_number;
+            $structureTree[$this->district->association_id]['districtsActive'][$this->district_id]['teamsActive'][$this->id]['district_id'] = $this->district_id;
+            $structureTree[$this->district->association_id]['districtsActive'][$this->district_id]['teamsActive'][$this->id]['status'] = $this->status;
+            Cache::forever('structureTree', $structureTree);
         }
 
         if (empty($this->original)) {

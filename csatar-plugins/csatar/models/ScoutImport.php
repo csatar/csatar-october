@@ -42,11 +42,9 @@ class ScoutImport extends \Backend\Models\ImportModel
                 // manipulate fields - gender
                 if ($data['gender'] == $this::GENDER_MALE) {
                     $data['gender'] = Gender::MALE;
-                }
-                else if ($data['gender'] == $this::GENDER_FEMALE) {
+                } else if ($data['gender'] == $this::GENDER_FEMALE) {
                     $data['gender'] = Gender::FEMALE;
-                }
-                else {
+                } else {
                     $data['comment'] = (!empty($data['comment']) ? $data['comment'] . ' ' : '') . Lang::get('csatar.csatar::lang.plugin.admin.scout.gender.gender') . ': ' . $data['gender'] . '.';
                     $data['gender'] = '';
                 }
@@ -64,11 +62,9 @@ class ScoutImport extends \Backend\Models\ImportModel
                 // manipulate fields - is active
                 if ($data['is_active'] == $this::ISACTIVE_ACTIVE) {
                     $data['is_active'] = 1;
-                }
-                else if ($data['is_active'] == $this::ISACTIVE_INACTIVE) {
+                } else if ($data['is_active'] == $this::ISACTIVE_INACTIVE) {
                     $data['is_active'] = 0;
-                }
-                else {
+                } else {
                     $data['comment'] = (!empty($data['comment']) ? $data['comment'] . ' ' : '') . Lang::get('csatar.csatar::lang.plugin.admin.scout.isActive') . ': ' . $data['is_active'] . '.';
                     $data['is_active'] = '';
                 }
@@ -77,8 +73,7 @@ class ScoutImport extends \Backend\Models\ImportModel
                 $legalRelationship = LegalRelationship::where('name', $data['legal_relationship_id'])->first();
                 if (isset($legalRelationship)) {
                     $data['legal_relationship_id'] = $legalRelationship->id;
-                }
-                else {
+                } else {
                     $data['comment'] = (!empty($data['comment']) ? $data['comment'] . ' ' : '') . Lang::get('csatar.csatar::lang.plugin.admin.scout.legalRelationship') . ': ' . $data['legal_relationship_id'] . '.';
                     $data['legal_relationship_id'] = '';
                 }
@@ -87,8 +82,7 @@ class ScoutImport extends \Backend\Models\ImportModel
                 $religion = Religion::where('name', $data['religion_id'])->first();
                 if (isset($religion)) {
                     $data['religion_id'] = $religion->id;
-                }
-                else {
+                } else {
                     $data['comment'] = (!empty($data['comment']) ? $data['comment'] . ' ' : '') . Lang::get('csatar.csatar::lang.plugin.admin.scout.religion') . ': ' . $data['religion_id'] . '.';
                     $data['religion_id'] = '';
                 }
@@ -138,7 +132,7 @@ class ScoutImport extends \Backend\Models\ImportModel
                     $config = $this->makeConfig($config);
                     foreach ($config->columns as $column => $columnData) {
                         if (isset($columnData['required']) && $columnData['required'] == 1 && empty($data[$column])) {
-                            switch($column) {
+                            switch ($column) {
                                 case 'religion_id':
                                     $data[$column] = $religionOtherId;
                                     break;
@@ -184,12 +178,10 @@ class ScoutImport extends \Backend\Models\ImportModel
                 // count the action
                 if ($scout->wasRecentlyCreated) {
                     $this->logCreated();
-                }
-                else {
+                } else {
                     $this->logUpdated();
                 }
-            }
-            catch (\Exception $ex) {
+            } catch (\Exception $ex) {
                 $this->logError($row, $ex->getMessage());
             }
         }
@@ -204,8 +196,7 @@ class ScoutImport extends \Backend\Models\ImportModel
                 if ($scout->{$attributeName}->where('id', $data->id)->first() == null) {
                     $scout->{$attributeName}()->attach($data, ['comment' => $comment]);
                 }
-            }
-            else {
+            } else {
                 $comment = $comment . (!empty($comment) ? ', ' : '') . $dataItemString;
             }
         }

@@ -12,8 +12,12 @@ use Lang;
 class Methodology extends PermissionBasedAccess
 {
     use \October\Rain\Database\Traits\Validation;
+
     use \October\Rain\Database\Traits\SoftDelete;
+
     use \October\Rain\Database\Traits\Nullable;
+
+    use \Csatar\Csatar\Traits\History;
 
     /**
      * @var string The database table used by the model.
@@ -124,11 +128,17 @@ class Methodology extends PermissionBasedAccess
             'pivotModel' => '\Csatar\KnowledgeRepository\Models\LocationMethodologyPivot',
             'label' => 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.locations'
         ],
+        'trial_systems' => [
+            '\Csatar\KnowledgeRepository\Models\TrialSystem',
+            'table' => 'csatar_methodology_trial_system',
+            'label' => 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystems',
+        ],
     ];
 
     public $attachMany = [
         'attachements' => ['System\Models\File'],
     ];
+
 
     public function beforeCreate()
     {

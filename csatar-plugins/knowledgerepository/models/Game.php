@@ -11,8 +11,12 @@ use Lang;
 class Game extends PermissionBasedAccess
 {
     use \October\Rain\Database\Traits\Validation;
+
     use \October\Rain\Database\Traits\Nullable;
 
+    use \October\Rain\Database\Traits\SoftDelete;
+
+    use \Csatar\Csatar\Traits\History;
 
     /**
      * @var string The database table used by the model.
@@ -28,6 +32,7 @@ class Game extends PermissionBasedAccess
     protected $dates = [
         'created_at',
         'updated_at',
+        'deleted_at',
     ];
 
     public $fillable = [
@@ -118,11 +123,17 @@ class Game extends PermissionBasedAccess
             'table' => 'csatar_knowledgerepository_game_game_type',
             'label' => 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.gameTypes',
         ],
+        'trial_systems' => [
+            '\Csatar\KnowledgeRepository\Models\TrialSystem',
+            'table' => 'csatar_knowledgerepository_game_trial_system',
+            'label' => 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystems',
+        ],
     ];
 
     public $attachMany = [
         'attachements' => ['System\Models\File'],
     ];
+
 
     public static function filterAgeGroupByAssociation($query, $related)
     {

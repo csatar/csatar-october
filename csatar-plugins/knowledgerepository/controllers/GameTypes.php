@@ -16,7 +16,8 @@ class GameTypes extends Controller
     public $reorderConfig = 'config_reorder.yaml';
 
     public $requiredPermissions = [
-        'csatar.manage.data'
+        'csatar.manage.data',
+        'csatar.manage.knowledgerepository',
     ];
 
     public function __construct()

@@ -1,5 +1,6 @@
 <meta charset="utf-8">
 <title>{{ placeholder('pageTitle') ?: (this.page.meta_title ?: this.page.title) }} - {{ 'CSATÁR'|_ }}</title>
+<link rel="manifest" href="/manifest.json">
 <meta name="description" content="{{ this.page.meta_description }}">
 <meta name="title" content="{{ this.page.meta_title }}">
 <meta name="author" content="{{ 'CSATÁR'|_ }}">
@@ -19,6 +20,5 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.4.2/jquery.fancybox.min.js"></script>
 {% framework extras %}
 {% scripts %}
-<script src="//cdnjs.cloudflare.com/ajax/libs/tinymce/4.5.1/tinymce.min.js"></script>
 <script src="{{ 'assets/csat-jquery/csat-data-card.js'|theme }}"></script>
 <script src="{{ 'assets/csat-jquery/csat-menu.js'|theme }}"></script>
