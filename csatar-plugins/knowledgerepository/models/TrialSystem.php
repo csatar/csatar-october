@@ -96,19 +96,20 @@ class TrialSystem extends PermissionBasedAccess
 
     public function getOEFKAttribute()
     {
-        $ofek = [];
+        $oefk = [];
         if ($this->for_patrols) {
-            $ofek[] = 'Ő';
+            $oefk[] = 'Ő';
         }
         if ($this->individual) {
-            $ofek[] = 'E';
+            $oefk[] = 'E';
         }
         if ($this->task) {
-            $ofek[] = 'F';
+            $oefk[] = 'F';
         }
         if ($this->obligatory) {
-            $ofek[] = 'K';
+            $oefk[] = 'K';
         }
-        return implode('-', $ofek);
+        
+        return implode('-', $oefk);
     }
 }
