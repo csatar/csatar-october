@@ -93,6 +93,7 @@
                 'task' => 'Task',
                 'effectiveKnowledge' => 'Effective knowledge',
                 'effectiveKnowledgeOnly' => 'Import only effective knowledge column. (Trial system with the same id must exist!)',
+                'effectiveKnowledgeColumn' => 'The effective knowledge column is imported only if the column name is "Effektív tudás"!',
                 'trialSystemAlreadyExists' => 'Trial System already exists with the id: :id!',
                 'trialSystemDoesntExist' => 'Trial System doesn\'t exist with the id: :id!',
                 'overwriteExistingTrialSystems' => 'Please note that existing trial systems with the same id will be overwritten with the imported one!',

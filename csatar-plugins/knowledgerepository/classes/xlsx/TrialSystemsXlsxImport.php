@@ -10,8 +10,6 @@ use Csatar\KnowledgeRepository\Models\TrialSystemTopic;
 use Csatar\KnowledgeRepository\Models\TrialSystemTrialType;
 use Csatar\KnowledgeRepository\Models\TrialSystemType;
 use Db;
-use Illuminate\Support\Collection;
-use Illuminate\Validation\Validator;
 use Lang;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\RemembersRowNumber;
@@ -19,20 +17,16 @@ use Maatwebsite\Excel\Concerns\SkipsEmptyRows;
 use Maatwebsite\Excel\Concerns\SkipsFailures;
 use Maatwebsite\Excel\Concerns\SkipsOnFailure;
 use Maatwebsite\Excel\Concerns\SkipsUnknownSheets;
-use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Row;
 use Maatwebsite\Excel\Concerns\OnEachRow;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithGroupedHeadingRow;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 use Maatwebsite\Excel\Concerns\WithValidation;
-use Maatwebsite\Excel\Concerns\WithCustomValueBinder;
-use PhpOffice\PhpSpreadsheet\Cell\Cell;
-use PhpOffice\PhpSpreadsheet\Cell\DataType;
-use PhpOffice\PhpSpreadsheet\Cell\DefaultValueBinder;
+use PhpOffice\PhpSpreadsheet\IOFactory;
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-
-class TrialSystemsXlsxImport implements ToModel, WithHeadingRow, WithGroupedHeadingRow, WithValidation, SkipsOnFailure, WithMultipleSheets, SkipsUnknownSheets
+class TrialSystemsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHeadingRow, WithValidation, SkipsOnFailure, WithMultipleSheets, SkipsUnknownSheets
 {
     use Importable, RemembersRowNumber, SkipsFailures;
 
@@ -44,11 +38,14 @@ class TrialSystemsXlsxImport implements ToModel, WithHeadingRow, WithGroupedHead
 
     public $errors = [];
 
-    public function __construct($associationId, $overwrite = true, $effectiveKnowledgeOnly = false)
+    private $worksheetRaw;
+
+    public function __construct($associationId, $overwrite = true, $effectiveKnowledgeOnly = false, $worksheetRaw)
     {
         $this->associationId = $associationId;
         $this->overwrite = $overwrite;
         $this->effectiveKnowledgeOnly = $effectiveKnowledgeOnly;
+        $this->worksheetRaw = $worksheetRaw;
     }
 
     public function sheets(): array
@@ -64,39 +61,31 @@ class TrialSystemsXlsxImport implements ToModel, WithHeadingRow, WithGroupedHead
         info("Sheet {$sheetName} was skipped");
     }
 
-//    public function bindValue(Cell $cell, $value)
-//    {
-//        if (is_numeric($value)) {
-//            $cell->setValueExplicit($value, DataType::TYPE_NUMERIC);
-//
-//            return true;
-//        }
-//
-//        // else return default behavior
-//        return parent::bindValue($cell, $value);
-//    }
-
-//    public function onRow(Row $row)
-//    {
-//        $cellsArray = $row->toArray();
-//        foreach ($row->getCellIterator() as $cell) {
-//            $styles = $cell->getStyle();
-//            $value = $cell->getValue();
-//            $header = $cell->getCoordinate();
-//            $combined = [
-//                'value' => $value,
-//                'styles' => $styles,
-//            ];
-//        }
-//    }
-
-//    public function getCellStyles($cell)
-//    {
-//        $getStyle = $cell->getStyle();
-//    }
-
-    public function model(array $row)
+    public function onRow(Row $row)
     {
+        $cellsArray = $row->toArray();
+        $counter = 0;
+        $effectiveKnowledgeColumnNumber = array_search('effektiv_tudas', array_keys($cellsArray));
+        foreach ($row->getCellIterator() as $cell) {
+            if ($counter !== $effectiveKnowledgeColumnNumber) {
+                $counter++;
+                continue;
+            }
+            $coordinates = $cell->getCoordinate();
+            $worksheet = $this->worksheetRaw->getActiveSheet();
+            $cellRaw = $this->worksheetRaw->getActiveSheet()->getCell($coordinates);
+
+            // Create a new spreadsheet object
+            $newSpreadsheet = new Spreadsheet();
+
+            // Convert to HTML
+            $html = (new XlxsHtml($newSpreadsheet))->generateHtmlFromCell($worksheet, $cellRaw);
+            $cellsArray['effektiv_tudas'] = $html;
+            $counter++;
+        }
+
+        $row = $cellsArray;
+
         if (!isset($row['id']) || (!isset($row['megnevezes']) && !$this->effectiveKnowledgeOnly) ) {
             return null;
         }
@@ -111,7 +100,7 @@ class TrialSystemsXlsxImport implements ToModel, WithHeadingRow, WithGroupedHead
         }
 
         if (!empty($trialSystem) && $this->effectiveKnowledgeOnly) {
-            $trialSystem->effective_knowledge = $row['effektiv_tudas'] ? $this->replaceNewLineWithBr($row['effektiv_tudas']) : null;
+            $trialSystem->effective_knowledge = $row['effektiv_tudas'] ?? null;
             $trialSystem->save();
             return;
         }
@@ -162,7 +151,7 @@ class TrialSystemsXlsxImport implements ToModel, WithHeadingRow, WithGroupedHead
             'task' => $row['foglalkozas'] == 'x' ? 1 : null,
             'obligatory' => $row['kotelezo'] == 'x' ? 1 : null,
             'note' => $row['megjegyzes'] ?? null,
-            'effective_knowledge' => $row['effektiv_tudas'] ? $this->replaceNewLineWithBr($row['effektiv_tudas']) : null,
+            'effective_knowledge' => $row['effektiv_tudas'] ?? null,
         ]);
 
         $trialSystem->save();
@@ -221,10 +210,5 @@ class TrialSystemsXlsxImport implements ToModel, WithHeadingRow, WithGroupedHead
                 $validator->errors()->add($this->getRowNumber(), $this->errors[$this->getRowNumber()]);
             }
         });
-    }
-
-    public function replaceNewLineWithBr($string)
-    {
-        return str_replace("\n", "<br>", $string);
     }
 }

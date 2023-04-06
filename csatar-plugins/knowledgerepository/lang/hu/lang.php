@@ -94,6 +94,7 @@
                 'task' => 'Foglalkozás',
                 'effectiveKnowledge' => 'Effektív tudás',
                 'effectiveKnowledgeOnly' => 'Csak az effektív tudás oszlop importálása. (A megfelelő azonosítóval rendelkező próbarendszernek léteznie kell!)',
+                'effectiveKnowledgeColumn' => 'Az effektív tudás oszlop csak akkor importálódik formázottan, ha az oszlop neve "Effektív tudás"!',
                 'trialSystemAlreadyExists' => 'Már létezik játékrendszer a következő azonosítóval: :id!',
                 'trialSystemDoesntExist' => 'Nem létezik játékrendszer a következő azonosítóval: :id!',
                 'overwriteExistingTrialSystems' => 'Figyelem! A feltöltött próbarendszerek felülírják a már létező, azonos azonosítójú próbarendszereket!',

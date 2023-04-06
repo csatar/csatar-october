@@ -4,11 +4,13 @@ use BackendMenu;
 use Backend\Classes\Controller;
 use Csatar\Csatar\Models\Association;
 use Csatar\KnowledgeRepository\Classes\Xlsx\TrialSystemsXlsxImport;
+use Csatar\KnowledgeRepository\Classes\Xlsx\TrialSystemsXlsxImport2;
 use Vdomah\Excel\Classes\Excel;
 use Flash;
 use Input;
 use Lang;
 use Validator;
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
 class TrialSystems extends Controller
 {
@@ -16,7 +18,7 @@ class TrialSystems extends Controller
         'Backend\Behaviors\ListController',
         'Backend\Behaviors\FormController'
     ];
-    
+
     public $listConfig = 'config_list.yaml';
     public $formConfig = 'config_form.yaml';
 
@@ -57,7 +59,6 @@ class TrialSystems extends Controller
         }
 
         $associationId = Input::get('association_id');
-//        $owerwriteExistingData = Input::get('overwrite_existing_data');
         $effectiveKnowledgeOnly = Input::get('effective_knowledge_only');
         $xlsxFile = Input::file('xlsx_file');
 
@@ -68,8 +69,9 @@ class TrialSystems extends Controller
 
         $xlsxFile = $xlsxFile->move(temp_path(), $xlsxFile->getClientOriginalName());
 
-        $import = new TrialSystemsXlsxImport($associationId, true, $effectiveKnowledgeOnly);
-        $import->import($xlsxFile);
+        $worksheetRaw = IOFactory::load($xlsxFile);
+
+        $import = new TrialSystemsXlsxImport($associationId, true, $effectiveKnowledgeOnly, $worksheetRaw);
 
         Excel::import($import, $xlsxFile);
 
