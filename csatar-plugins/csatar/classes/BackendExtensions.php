@@ -9,7 +9,7 @@ use Session;
 
 class BackendExtensions
 {
-    public static function onDelete($controller)
+    public static function onDelete($controller, $methodToRunAfterDelete = null)
     {
         /*
          * Validate checked identifiers
@@ -42,6 +42,9 @@ class BackendExtensions
                 }
                 if ($record->delete()) {
                     $deletedRecords++;
+                    if ($methodToRunAfterDelete !== null) {
+                        self::runAfterDelete($record, $methodToRunAfterDelete);
+                    }
                 } else {
                     $sessionKey = $record::getModelName() . $record->id;
                     $errors[] = Session::pull($sessionKey, 'N/A');
@@ -63,5 +66,11 @@ class BackendExtensions
         }
 
         return $controller->listRefresh();
+    }
+
+    private static function runAfterDelete($record, $methodToRunAfterDelete){
+        if (method_exists($record, $methodToRunAfterDelete)) {
+            $record->$methodToRunAfterDelete();
+        }
     }
 }

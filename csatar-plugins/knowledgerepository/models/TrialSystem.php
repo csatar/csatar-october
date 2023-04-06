@@ -93,4 +93,23 @@ class TrialSystem extends PermissionBasedAccess
         }
         return $query->where('association_id', $related->association_id);
     }
+
+    public function getOEFKAttribute()
+    {
+        $oefk = [];
+        if ($this->for_patrols) {
+            $oefk[] = 'Ő';
+        }
+        if ($this->individual) {
+            $oefk[] = 'E';
+        }
+        if ($this->task) {
+            $oefk[] = 'F';
+        }
+        if ($this->obligatory) {
+            $oefk[] = 'K';
+        }
+        
+        return implode('-', $oefk);
+    }
 }

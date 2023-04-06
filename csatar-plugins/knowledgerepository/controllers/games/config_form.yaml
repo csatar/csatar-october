@@ -1,4 +1,4 @@
-name: Games
+name: 'csatar.knowledgerepository::lang.plugin.admin.game.game'
 form: $/csatar/knowledgerepository/models/game/fields.yaml
 modelClass: Csatar\KnowledgeRepository\Models\Game
 defaultRedirect: csatar/knowledgerepository/games
