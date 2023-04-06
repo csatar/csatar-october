@@ -635,6 +635,12 @@ class Scout extends OrganizationBase
             'table' => 'csatar_csatar_mandates',
             'label' => 'csatar.csatar::lang.plugin.admin.mandate.mandates',
         ],
+        'mandatesInactive' => [
+            '\Csatar\Csatar\Models\Mandate',
+            'scope' => 'inactive',
+            'table' => 'csatar_csatar_mandates',
+            'label' => 'csatar.csatar::lang.plugin.admin.mandate.mandates',
+        ],
         'membership_cards' => \Csatar\Csatar\Models\MembershipCard::class
     ];
 
