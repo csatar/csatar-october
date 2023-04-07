@@ -64,80 +64,61 @@ class TrialSystemsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHe
     public function onRow(Row $row)
     {
         $cellsArray = $row->toArray();
-        $counter = 0;
-        $effectiveKnowledgeColumnNumber = array_search('effektiv_tudas', array_keys($cellsArray));
-        foreach ($row->getCellIterator() as $cell) {
-            if ($counter !== $effectiveKnowledgeColumnNumber) {
-                $counter++;
-                continue;
-            }
-            $coordinates = $cell->getCoordinate();
-            $worksheet = $this->worksheetRaw->getActiveSheet();
-            $cellRaw = $this->worksheetRaw->getActiveSheet()->getCell($coordinates);
 
-            // Create a new spreadsheet object
-            $newSpreadsheet = new Spreadsheet();
-
-            // Convert to HTML
-            $html = (new XlxsHtml($newSpreadsheet))->generateHtmlFromCell($worksheet, $cellRaw);
-            $cellsArray['effektiv_tudas'] = $html;
-            $counter++;
-        }
-
-        $row = $cellsArray;
-
-        if (!isset($row['id']) || (!isset($row['megnevezes']) && !$this->effectiveKnowledgeOnly) ) {
+        if (!isset($cellsArray['id']) || (!isset($cellsArray['megnevezes']) && !$this->effectiveKnowledgeOnly) ) {
             return null;
         }
 
         $trialSystem = TrialSystem::where('association_id', $this->associationId)
-            ->where('id_string', $row['id'])
+            ->where('id_string', $cellsArray['id'])
             ->first();
 
         if (!$this->overwrite && !empty($trialSystem)) {
-            $this->errors[$this->getRowNumber()][] = Lang::get('csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystemAlreadyExists', ['id' => $row['id']]);
+            $this->errors[$this->getRowNumber()][] = Lang::get('csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystemAlreadyExists', ['id' => $cellsArray['id']]);
             return;
         }
 
+        $this->convertEffectiveKnowledgeCellToHtml($cellsArray, $row);
+
         if (!empty($trialSystem) && $this->effectiveKnowledgeOnly) {
-            $trialSystem->effective_knowledge = $row['effektiv_tudas'] ?? null;
+            $trialSystem->effective_knowledge = $cellsArray['effektiv_tudas'] ?? null;
             $trialSystem->save();
             return;
         }
 
         if (empty($trialSystem) && $this->effectiveKnowledgeOnly) {
-            $this->errors[$this->getRowNumber()][] = Lang::get('csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystemDoesntExist', ['id' => $row['id']]);
+            $this->errors[$this->getRowNumber()][] = Lang::get('csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystemDoesntExist', ['id' => $cellsArray['id']]);
             return;
         }
 
         if (empty($trialSystem)) {
             $trialSystem = new TrialSystem();
             $trialSystem->association_id = $this->associationId;
-            $trialSystem->id_string = $row['id'];
+            $trialSystem->id_string = $cellsArray['id'];
         }
 
-        if (isset($row['kategoria'])) {
-            $trialSystem->trial_system_category_id = $this->getModelIds($row['kategoria'], TrialSystemCategory::class, 'name', null, null, true)[0] ?? null;
+        if (isset($cellsArray['kategoria'])) {
+            $trialSystem->trial_system_category_id = $this->getModelIds($cellsArray['kategoria'], TrialSystemCategory::class, 'name', null, null, true)[0] ?? null;
         }
 
-        if (isset($row['tema'])) {
-            $trialSystem->trial_system_topic_id = $this->getModelIds($row['tema'], TrialSystemTopic::class, 'name', null, null, true)[0]  ?? null;
+        if (isset($cellsArray['tema'])) {
+            $trialSystem->trial_system_topic_id = $this->getModelIds($cellsArray['tema'], TrialSystemTopic::class, 'name', null, null, true)[0]  ?? null;
         }
 
-        if (isset($row['subtopic'])) {
-            $trialSystem->trial_system_sub_topic_id = $this->getModelIds($row['altema'], TrialSystemSubTopic::class, 'name', null, null, true)[0] ?? null;
+        if (isset($cellsArray['subtopic'])) {
+            $trialSystem->trial_system_sub_topic_id = $this->getModelIds($cellsArray['altema'], TrialSystemSubTopic::class, 'name', null, null, true)[0] ?? null;
         }
 
-        if (isset($row['korosztaly'])) {
-            $trialSystem->age_group_id = $this->getModelIds($row['korosztaly'], AgeGroup::class, 'name', 'association_id', $this->associationId)[0] ?? null;
+        if (isset($cellsArray['korosztaly'])) {
+            $trialSystem->age_group_id = $this->getModelIds($cellsArray['korosztaly'], AgeGroup::class, 'name', 'association_id', $this->associationId)[0] ?? null;
         }
 
-        if (isset($row['tipus'])) {
-            $trialSystem->trial_system_type_id = $this->getModelIds($row['tipus'], TrialSystemType::class, 'name', null, null, true)[0] ?? null;
+        if (isset($cellsArray['tipus'])) {
+            $trialSystem->trial_system_type_id = $this->getModelIds($cellsArray['tipus'], TrialSystemType::class, 'name', null, null, true)[0] ?? null;
         }
 
-        if (isset($row['proba'])) {
-            $trialSystem->trial_system_trial_type_id = $this->getModelIds($row['proba'], TrialSystemTrialType::class, 'name', null, null, true)[0] ?? null;
+        if (isset($cellsArray['proba'])) {
+            $trialSystem->trial_system_trial_type_id = $this->getModelIds($cellsArray['proba'], TrialSystemTrialType::class, 'name', null, null, true)[0] ?? null;
         }
 
         if (!empty($this->errors[$this->getRowNumber()])) {
@@ -145,13 +126,13 @@ class TrialSystemsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHe
         }
 
         $trialSystem->fill([
-            'name' => $row['megnevezes'] ?? null,
-            'for_patrols' => $row['orsi'] == 'x' ? 1 : null,
-            'individual' => $row['egyeni'] == 'x' ? 1 : null,
-            'task' => $row['foglalkozas'] == 'x' ? 1 : null,
-            'obligatory' => $row['kotelezo'] == 'x' ? 1 : null,
-            'note' => $row['megjegyzes'] ?? null,
-            'effective_knowledge' => $row['effektiv_tudas'] ?? null,
+            'name' => $cellsArray['megnevezes'] ?? null,
+            'for_patrols' => $cellsArray['orsi'] == 'x' ? 1 : null,
+            'individual' => $cellsArray['egyeni'] == 'x' ? 1 : null,
+            'task' => $cellsArray['foglalkozas'] == 'x' ? 1 : null,
+            'obligatory' => $cellsArray['kotelezo'] == 'x' ? 1 : null,
+            'note' => $cellsArray['megjegyzes'] ?? null,
+            'effective_knowledge' => $cellsArray['effektiv_tudas'] ?? null,
         ]);
 
         $trialSystem->save();
@@ -210,5 +191,37 @@ class TrialSystemsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHe
                 $validator->errors()->add($this->getRowNumber(), $this->errors[$this->getRowNumber()]);
             }
         });
+    }
+
+    /**
+     * @param $cellsArray
+     * @param Row $row
+     */
+    public function convertEffectiveKnowledgeCellToHtml(&$cellsArray, Row $row)
+    {
+        $counter                        = 0;
+        $effectiveKnowledgeColumnNumber = array_search('effektiv_tudas', array_keys($cellsArray));
+
+        if ($effectiveKnowledgeColumnNumber === false) {
+            return;
+        }
+
+        foreach ($row->getCellIterator() as $cell) {
+            if ($counter !== $effectiveKnowledgeColumnNumber) {
+                $counter++;
+                continue;
+            }
+            $coordinates = $cell->getCoordinate();
+            $worksheet   = $this->worksheetRaw->getActiveSheet();
+            $cellRaw     = $this->worksheetRaw->getActiveSheet()->getCell($coordinates);
+
+            // Create a new spreadsheet object
+            $newSpreadsheet = new Spreadsheet();
+
+            // Convert to HTML
+            $html                         = (new XlxsHtml($newSpreadsheet))->generateHtmlFromCell($worksheet, $cellRaw);
+            $cellsArray['effektiv_tudas'] = $html;
+            $counter++;
+        }
     }
 }
