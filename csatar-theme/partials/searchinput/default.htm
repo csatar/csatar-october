@@ -1,0 +1,63 @@
+<form action="{{ __SELF__.searchPage | page }}?q={{ query | url_encode(true) }}" method="get">
+    <div class="search-container">
+        <div class="input-group rounded bg-light">
+            <input type="text" oninput="search()" id="search-input"
+                   name="q"
+                   autocomplete="off"
+                   value="{{ __SELF__.query }}"
+                   autofocus
+                   class="form-control rounded bg-light border-0"
+                   placeholder="{{ 'Keresés' | _ }}"
+                   aria-label="Search"
+                   aria-describedby="search-addon"
+            />
+            <div class="popup mt-2">
+                <div class="ss-search-form__results rounded text-dark" id="autocomplete-results"></div>
+            </div>
+            <span>
+                <button class="search-btn" type="submit">
+                <i class="csat-magnif-fill-sm"></i>
+                </button>
+            </span>
+        </div>
+
+    </div>
+</form>
+
+<script>
+    window.ajaxInProgress = false
+    function search() {
+        let query = $('#search-input').val();
+        if (query.length < 3 || window.ajaxInProgress) {
+            document.getElementById('autocomplete-results').classList.remove('ss-search-form__results--visible')
+            console.log('in progress, return')
+            return
+        }
+
+        setTimeout(function() {
+            sendRequest(query)
+        }, 1000)
+    }
+
+    function sendRequest(query) {
+        $.request('{{ __SELF__ }}::onType', {
+            data: {
+                q: query
+            },
+            beforeUpdate: function() {
+                window.ajaxInProgress = true
+                document.getElementById('autocomplete-results').classList.add('ss-search-form__results--visible')
+            },
+            update: {
+                '{{ __SELF__ }}::autocomplete': '#autocomplete-results'
+            },
+            complete: function() {
+                window.ajaxInProgress = false
+            },
+            error: function() {
+                window.ajaxInProgress = false
+            }
+
+        })
+    }
+</script>

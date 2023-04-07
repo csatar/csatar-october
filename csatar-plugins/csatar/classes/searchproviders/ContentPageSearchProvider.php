@@ -1,4 +1,4 @@
-<?php namespace Csatar\Csatar\Classes;
+<?php namespace Csatar\Csatar\Classes\SearchProviders;
 
 use Csatar\Csatar\Models\ContentPage;
 use OFFLINE\SiteSearch\Classes\Providers\ResultsProvider;
@@ -26,12 +26,13 @@ class ContentPageSearchProvider extends ResultsProvider
         // Create a new Result for every match
         foreach ($matching as $match) {
             $result            = $this->newResult();
-            $model = str_slug(('\\'.$match->model_type)::getOrganizationTypeModelNameUserFriendly());
+            $modelNameUserFriendly = str_slug(('\\'.$match->model_type)::getOrganizationTypeModelNameUserFriendly());
 
             $result->relevance = 1;
-            $result->title     = $match->title;
-            $result->text      = $match->content;
-            $result->url       = $controller->pageUrl($model, [ 'id'=> $match->model_id ] );
+            $processedText     = SearchResultsHelper::getMatchForQuery($this->query, $match->title ,$match->content);
+            $result->title     = (string) $processedText;
+            $result->text      = $match->model->extended_name . ' ' . ($match->model->getParentTree() ?? '') ;
+            $result->url       = $controller->pageUrl($modelNameUserFriendly, [ 'id'=> $match->model_id ] );
             $result->thumb     = $match->image;
 
             // Add the results to the results collection

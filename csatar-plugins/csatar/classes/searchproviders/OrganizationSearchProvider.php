@@ -1,7 +1,9 @@
-<?php namespace Csatar\Csatar\Classes;
+<?php namespace Csatar\Csatar\Classes\SearchProviders;
 
+use Carbon\Carbon;
 use Csatar\Csatar\Models\OrganizationBase;
 use Db;
+use Lang;
 use OFFLINE\SiteSearch\Classes\Providers\ResultsProvider;
 
 class OrganizationSearchProvider extends ResultsProvider
@@ -29,12 +31,19 @@ class OrganizationSearchProvider extends ResultsProvider
             // Get your matching models
             $matching = null;
             $searchableColumns = $childClass::getSearchableColumns();
-            $matching = $childClass::when(in_array('family_name', $searchableColumns), function ($query) { //dd('family_name', $this->query, $query->toSql());
-                                return $query->where('family_name', 'like', "%{$this->query}%");
-                            })->when(in_array('given_name', $searchableColumns), function ($query) { //dd('given_name', $this->query, $query->toSql());
-                                return $query->orWhere('given_name', 'like', "%{$this->query}%");
-                            })->when(in_array('family_name', $searchableColumns) && in_array('given_name', $searchableColumns), function ($query) {
-                                return $query->orWhere(Db::raw("CONCAT(`family_name`, ' ', `given_name`)"), 'like', "%{$this->query}%");
+            $matching = $childClass::where(function ($query) use ($searchableColumns) {
+                                return $query->when(in_array('family_name', $searchableColumns), function ($query) { //dd('family_name', $this->query, $query->toSql());
+                                    return $query->where('family_name', 'like', "%{$this->query}%");
+                                })->when(in_array('given_name', $searchableColumns), function ($query) { //dd('given_name', $this->query, $query->toSql());
+                                    return $query->orWhere('given_name', 'like', "%{$this->query}%");
+                                })->when(in_array('family_name', $searchableColumns) && in_array('given_name', $searchableColumns), function ($query) {
+                                    return $query->orWhere(Db::raw("CONCAT(`family_name`, ' ', `given_name`)"), 'like', "%{$this->query}%");
+                                });
+                            })->when($childClass == '\\Csatar\Csatar\Models\Scout', function ($query){
+                                return $query->where(function ($query){
+                                    return $query->where('inactivated_at', '>', Carbon::now()->subYears(5))
+                                        ->orWhereNull('inactivated_at');
+                                });
                             })->when(in_array('name', $searchableColumns), function ($query) use($searchableColumns) { //dd('name', $this->query, $query);
                                 return $query->orWhere('name', 'like', "%{$this->query}%");
                             })->get();
@@ -48,8 +57,13 @@ class OrganizationSearchProvider extends ResultsProvider
                 $result->title      = $match->extendedName != '' ?  $match->extendedName : $match->name;
                 $result->url       = $controller->pageUrl($model, [ 'id'=> $match->id ] );
                 if ( $childClass == '\\Csatar\Csatar\Models\Scout' ) {
-                    $result->url       = $controller->pageUrl('tag', [ 'ecset_code'=> $match->ecset_code ] );
-                    $result->text     = $childClass::getOrganizationTypeModelNameUserFriendly();
+                    $result->url      = $controller->pageUrl('tag', [ 'ecset_code'=> $match->ecset_code ] );
+                    $result->text     = $match->inactivated_at === null ?
+                        Lang::get('csatar.csatar::lang.plugin.admin.scout.activeMember') :
+                        Lang::get('csatar.csatar::lang.plugin.admin.scout.inactiveMember');
+                    $result->text     .= ' ' . $match->getParentTree();
+                } else {
+                    $result->text     = $match->getParentTree();
                 }
                 $result->thumb     = $match->image;
 

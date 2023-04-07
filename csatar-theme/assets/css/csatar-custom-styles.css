@@ -2101,3 +2101,10 @@ ul.pagination {
 ul.pagination > li {
     padding: 0px 10px;
 }
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #78863F !important;
+    border-color: #78863F !important;
+}

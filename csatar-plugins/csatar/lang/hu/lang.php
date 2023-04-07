@@ -216,6 +216,8 @@
                 'deleteWithPersonalData' => 'Törlés személyes adatokkal',
                 'deleteWithPersonalDataConfirmation' => 'Valóban szeretnéd törölni a cserkészt a személyes adataival (név, email cím, telefonszám, postacím) együtt?',
                 'teamChangeHistoryMessage' => ':date átigazolt a(z) :oldTeam cserkészcsapatból a :newTeam cserkészcsapatba.',
+                'activeMember' => 'aktív tag',
+                'inactiveMember' => 'inaktív tag',
             ],
             'admin' => [
                 'menu' => [

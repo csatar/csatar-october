@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- CS-532 - Added ajax search result popup to search input field
+- CS-532 - Modified search results display, added hierarchy tree to result
+- CS-532 - Created GallerySearchProvider, added gallery relation to model that has gallery
 - CS-533 - Modified search results to display results starting with Scouts to Association and last results from Content page
 - CS-555 - Added google calendar tab to Association, District and Team
 - CS-475 - Added option to backend scout list to (soft)delete scout with personal data

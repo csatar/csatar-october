@@ -1363,4 +1363,22 @@ class Scout extends OrganizationBase
 
         return $historyArray;
     }
+
+    public function getParentTree() {
+        $tree = [
+            $this->team->district->association->name_abbreviation,
+            $this->team->district->extended_name,
+            $this->team->extended_name,
+        ];
+
+        if (isset($this->troop_id)) {
+            $tree[] = $this->troop->extended_name;
+        }
+
+        if (isset($this->patrol_id)) {
+            $tree[] = $this->patrol->extended_name;
+        }
+
+        return '(' . implode(' - ', $tree) . ')';
+    }
 }

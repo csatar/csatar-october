@@ -148,6 +148,14 @@ class Team extends OrganizationBase
      * Relations
      */
 
+    public $morphOne = [
+        'content_page' => [
+            '\Csatar\Csatar\Models\ContentPage',
+            'name' => 'model',
+            'label' => 'csatar.csatar::lang.plugin.admin.general.contentPage',
+        ],
+    ];
+
     public $belongsTo = [
         'district' => [
             '\Csatar\Csatar\Models\District',
@@ -155,6 +163,14 @@ class Team extends OrganizationBase
                 'requiredBeforeRender' => true,
             ],
             'label' => 'csatar.csatar::lang.plugin.admin.district.district',
+        ],
+    ];
+
+    public $morphMany = [
+        'galleryPivot' => [
+            \Csatar\Csatar\Models\GalleryModelPivot::class,
+            'table' => 'csatar_csatar_gallery_model',
+            'name' => 'model',
         ],
     ];
 
@@ -339,14 +355,6 @@ class Team extends OrganizationBase
         return Team::find($id);
     }
 
-    public $morphOne = [
-        'content_page' => [
-            '\Csatar\Csatar\Models\ContentPage',
-            'name' => 'model',
-            'label' => 'csatar.csatar::lang.plugin.admin.general.contentPage',
-        ]
-    ];
-
     /**
      * Scope a query to only include teams with a given district id.
      */
@@ -457,5 +465,14 @@ class Team extends OrganizationBase
 
     public function getActiveMembersCountAttribute() {
         return StructureTree::getTeamScoutsCount($this->id);
+    }
+
+    public function getParentTree() {
+        $tree = [
+            $this->district->association->name_abbreviation,
+            $this->district->extended_name,
+        ];
+
+        return '(' . implode(' - ', $tree) . ')';
     }
 }

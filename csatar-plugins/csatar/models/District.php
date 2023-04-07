@@ -143,7 +143,13 @@ class District extends OrganizationBase
         ],
     ];
 
-
+    public $morphMany = [
+        'galleryPivot' => [
+            \Csatar\Csatar\Models\GalleryModelPivot::class,
+            'table' => 'csatar_csatar_gallery_model',
+            'name' => 'model',
+        ],
+    ];
 
     /**
      * Override the getExtendedNameAttribute function
@@ -285,5 +291,9 @@ class District extends OrganizationBase
 
     public function getActiveMembersCountAttribute() {
         return StructureTree::getDistrictScoutsCount($this->id);
+    }
+
+    public function getParentTree() {
+        return '(' . $this->association->name_abbreviation . ')';
     }
 }

@@ -218,6 +218,8 @@
                 'deleteWithPersonalData' => 'Delete with personal data',
                 'deleteWithPersonalDataConfirmation' => 'Are you sure you want to delete this scout and his personal data (name, email, phone, address?',
                 'teamChangeHistoryMessage' => 'On :date changed team from :oldTeam to :newTeam',
+                'activeMember' => 'active member',
+                'inactiveMember' => 'inactive member',
             ],
             'admin' => [
                 'menu' => [

@@ -112,6 +112,13 @@ class Troop extends OrganizationBase
         ],
     ];
 
+    public $morphMany = [
+        'galleryPivot' => [
+            \Csatar\Csatar\Models\GalleryModelPivot::class,
+            'table' => 'csatar_csatar_gallery_model',
+            'name' => 'model',
+        ],
+    ];
 
     public static function getEagerLoadSettings(string $useCase = null): array
     {
@@ -324,5 +331,15 @@ class Troop extends OrganizationBase
 
     public function getActiveMembersCountAttribute() {
         return StructureTree::getTroopScoutsCount($this->id);
+    }
+
+    public function getParentTree() {
+        $tree = [
+            $this->team->district->association->name_abbreviation,
+            $this->team->district->extended_name,
+            $this->team->extended_name,
+        ];
+
+        return '(' . implode(' - ', $tree) . ')';
     }
 }

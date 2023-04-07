@@ -33,20 +33,7 @@ function onStart()
                 {# search #}
                 <div class="col-12 col-md-6 col-lg-3 ms-auto order-4 order-md-3 py-2 py-md-1 py-lg-0 pb-md-3 text-light">
                     <div class="ms-auto px-2 px-md-5 px-lg-3">
-                        <form action="{{ 'kereses-erdmenyek' | page }}" method="get">
-                            <div class="input-group rounded bg-light">
-                            <input type="search" name="q"
-                                class="form-control rounded bg-light border-0"
-                                placeholder="{{ 'Keresés' | _ }}"
-                                aria-label="Search"
-                                aria-describedby="search-addon" />
-                            <span>
-                                <button class="search-btn" type="submit">
-                                <i class="csat-magnif-fill-sm"></i>
-                                </button>
-                            </span>
-                            </div>
-                        </form>
+                        {% component 'searchInput' %}
                     </div>
                 </div>
 

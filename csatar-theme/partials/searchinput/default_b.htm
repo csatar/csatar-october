@@ -1,0 +1,29 @@
+<form action="{{ __SELF__.searchPage | page }}?q={{ query | url_encode(true) }}" method="get">
+    <div class="ss-search-form">
+        <div class="input-group rounded bg-light">
+            <input type="search"
+                   name="q"
+                   value="{{ __SELF__.query }}"
+                   autocomplete="off"
+                   autofocus
+                   class="form-control rounded bg-light border-0"
+                   placeholder="{{ 'Keresés' | _ }}"
+                   aria-label="Search"
+                   aria-describedby="search-addon"
+                   {% if __SELF__.useAutoComplete %}
+                       data-track-input
+                       data-request="{{ __SELF__ }}::onType"
+                       data-request-before-update="document.getElementById('autocomplete-results').classList.add('ss-search-form__results--visible')"
+                       data-request-update="'{{ __SELF__ }}::autocomplete': '#autocomplete-results'"
+                   {% endif %}
+            />
+            <span>
+                <button class="search-btn" type="submit">
+                <i class="csat-magnif-fill-sm"></i>
+                </button>
+            </span>
+        </div>
+        <div class="ss-search-form__results" id="autocomplete-results"></div>
+
+    </div>
+</form>

@@ -1,0 +1,32 @@
+.search-container {
+    position: relative;
+}
+
+.popup {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 50vw;
+
+    z-index: 9999;
+}
+
+.ss-search-form__results {
+    background-color: white;
+}
+
+.popup ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.popup ul li {
+    padding: 10px;
+    cursor: pointer;
+}
+
+input[type="text"]:focus + .popup {
+    display: block;
+}
