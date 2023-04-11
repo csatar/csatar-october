@@ -56,6 +56,7 @@
                 'activeMembersCount' => 'Active members count',
                 'clearFilters' => 'Clear filters',
                 'googleCalendarId' => 'Google Calendar ID',
+                'back' => 'Back',
             ],
             'history' => [
                 'histories' => 'History',
@@ -87,6 +88,7 @@
             'scout' => [
                 'scout' => 'Scout',
                 'scouts' => 'Scouts',
+                'deletedScouts' => 'Deleted scouts',
                 'scoutData' => 'Scout data',
                 'userId' => 'User Id',
                 'user' => 'User Account',
@@ -216,6 +218,11 @@
                 'bulkDeletePartialSuccess' => ':deletedCount deleted from :totalCount. ',
                 'bulkDeleteError' => 'The following errors occurred: ',
                 'deleteWithPersonalData' => 'Delete with personal data',
+                'deletedScouts' => 'Deleted scouts',
+                'restoreDeletedScouts' => 'Restore deleted scout(s)',
+                'restoreDeletedScoutsConfirmation' => 'Are you sure you want to restore the selected scout(s)?',
+                'restoreSuccess' => 'Scout(s) successfully restored.',
+                'noScoutsSelected' => 'No scout(s) selected.',
                 'deleteWithPersonalDataConfirmation' => 'Are you sure you want to delete this scout and his personal data (name, email, phone, address?',
                 'teamChangeHistoryMessage' => 'On :date changed team from :oldTeam to :newTeam',
             ],

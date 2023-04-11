@@ -56,6 +56,7 @@
                 'activeMembersCount' => 'Aktív tagok száma',
                 'clearFilters' => 'Szűrők törlése',
                 'googleCalendarId' => 'Google naptár azonosító',
+                'back' => 'Vissza',
             ],
             'history' => [
                 'histories' => 'Előzmények',
@@ -87,6 +88,7 @@
             'scout' => [
                 'scout' => 'Cserkész',
                 'scouts' => 'Cserkészek',
+                'deletedScouts' => 'Törölt cserkészek',
                 'scoutData' => 'Cserkész adatai',
                 'userId' => 'Felhasználó azonosítója',
                 'user' => 'Felhasználói fiók',
@@ -214,6 +216,11 @@
                 'scoutTeam' => 'Tag csapata',
                 'inactivationWarning' => 'Figyelem! Ha a státusz aktívról inaktívra változik, a cserkész összes megbízatása lejár!',
                 'deleteWithPersonalData' => 'Törlés személyes adatokkal',
+                'deletedScouts' => 'Törölt cserkészek',
+                'restoreDeletedScouts' => 'Cserkész(ek) visszaállítása',
+                'restoreDeletedScoutsConfirmation' => 'Valóban szeretnéd visszaállítani a kijelölt cserkész(eke)t?',
+                'restoreSuccess' => 'A kijelölt cserkész(ek) visszaállítása sikeresen megtörtént.',
+                'noScoutsSelected' => 'Nincs kijelölt cserkész!',
                 'deleteWithPersonalDataConfirmation' => 'Valóban szeretnéd törölni a cserkészt a személyes adataival (név, email cím, telefonszám, postacím) együtt?',
                 'teamChangeHistoryMessage' => ':date átigazolt a(z) :oldTeam cserkészcsapatból a :newTeam cserkészcsapatba.',
             ],

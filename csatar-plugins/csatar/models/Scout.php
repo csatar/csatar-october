@@ -328,6 +328,10 @@ class Scout extends OrganizationBase
     }
 
     public function afterDelete() {
+        $this->inactivated_at = date('Y-m-d H:i:s');
+        $this->ignoreValidation = true;
+        $this->forceSave();
+
         if ($this->skipCacheRefresh) {
             return;
         }
