@@ -9,7 +9,13 @@
 </ul>
 <?php Block::endPut() ?>
 
-<?= Form::ajax('onImportGames', ['files' => true, 'class' => 'layout', 'data-request-flash', 'data-request-validate']) ?>
+<form data-request="onImportGames"
+      data-request-files
+      data-request-loading
+      data-request-validate
+      data-request-flash
+      data-request-complete="$.oc.stripeLoadIndicator.hide();"
+      class='layout'>
 
 <div class="form-group span-full is-required">
     <label>
@@ -57,7 +63,7 @@
 
 <div class="form-buttons">
     <button
-        onclick="$('#errors').empty();"
+        onclick="$('#errors').empty(); $.oc.stripeLoadIndicator.show();"
         data-keyboard="false"
         class="btn btn-primary">
         <?= e(trans('csatar.knowledgerepository::lang.plugin.admin.general.import')) ?>
@@ -73,5 +79,5 @@
 
 <div id="errors"></div>
 
-<?= Form::close() ?>
+</form>
 

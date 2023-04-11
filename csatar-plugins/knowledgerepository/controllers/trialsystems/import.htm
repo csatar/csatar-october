@@ -1,0 +1,70 @@
+<?php Block::put('breadcrumb') ?>
+<ul>
+    <li>
+        <a href="<?= Backend::url('csatar/knowledgerepository/trialsystems') ?>">
+            <?= e(trans('csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystems')) ?>
+        </a>
+    </li>
+    <li><?= e($this->pageTitle) ?></li>
+</ul>
+<?php Block::endPut() ?>
+
+<form data-request="onImportTrialSystems"
+      data-request-files
+      data-request-loading
+      data-request-validate
+      data-request-flash
+      data-request-complete="$.oc.stripeLoadIndicator.hide();"
+      class='layout'>
+
+<div class="form-group span-full is-required">
+    <label>
+        <?= e(trans('csatar.csatar::lang.plugin.admin.association.association')) ?>
+    </label>
+    <select
+            name="association_id"
+            class="form-control custom-select"
+            data-handler="onGetAssociationOptions"
+    ></select>
+</div>
+
+<div class="form-group span-full is-required">
+    <label>
+        <?= e(trans('csatar.knowledgerepository::lang.plugin.admin.general.file')) ?>
+    </label>
+    <input type="file" name="xlsx_file">
+</div>
+
+<div class="form-buttons">
+    <button
+        onclick="$('#errors').empty(); $.oc.stripeLoadIndicator.show();"
+        data-keyboard="false"
+        class="btn btn-primary">
+        <?= e(trans('csatar.knowledgerepository::lang.plugin.admin.general.import')) ?>
+    </button>
+</div>
+
+<div class="checkbox custom-checkbox">
+    <input name="effective_knowledge_only" value="1" type="checkbox" id="effective_knowledge_only" />
+    <label for="effective_knowledge_only" class="storm-icon-pseudo">
+        <?= e(trans('csatar.knowledgerepository::lang.plugin.admin.trialSystem.effectiveKnowledgeOnly')) ?>
+    </label>
+</div>
+
+<div class="callout fade in callout-warning">
+    <div class="header">
+        <i class="icon-warning"></i>
+        <h3><?= e(trans('csatar.knowledgerepository::lang.plugin.admin.trialSystem.effectiveKnowledgeColumn')) ?></h3>
+    </div>
+</div>
+
+<div class="callout fade in callout-warning">
+    <div class="header">
+        <i class="icon-warning"></i>
+        <h3><?= e(trans('csatar.knowledgerepository::lang.plugin.admin.trialSystem.overwriteExistingTrialSystems')) ?></h3>
+    </div>
+</div>
+
+<div id="errors"></div>
+
+</form>

@@ -233,4 +233,19 @@ class Association extends OrganizationBase
     public function getActiveMembersCountAttribute() {
         return StructureTree::getAssociationScoutsCount($this->id);
     }
+
+    public static function getAssociationOptionsForSelect() {
+        $associations = self::all()->lists('name', 'id');
+        $results = [];
+        foreach ($associations as $id => $name) {
+            $results[] = [
+                'id' => $id,
+                'text' => $name,
+            ];
+        }
+
+        return [
+            'results' => $results,
+        ];
+    }
 }

@@ -37,6 +37,7 @@ class TrialSystem extends PermissionBasedAccess
         'task',
         'obligatory',
         'note',
+        'effective_knowledge',
     ];
 
     public $belongsTo = [
