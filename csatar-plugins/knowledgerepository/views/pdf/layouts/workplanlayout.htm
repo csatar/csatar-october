@@ -1,0 +1,62 @@
+name = "Work Plan layout"
+==
+
+
+==
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Document</title>
+    <style type="text/css" media="screen">
+        {{ css|raw }}
+    </style>
+</head>
+<body>
+    <header>
+        <img class="logo" src="{{ 'assets/images/android-chrome-192x192.png' | theme }}" >
+        <div>{{ workPlan.name }}</div>
+    </header>
+    <footer>
+        <p class="page_number"></p>
+    </footer>
+    <div class="title">
+        <h3>{{ workPlan.name }}</h3>
+    </div>
+
+    <table class="no-border">
+        <tr>
+            <th>{{ 'Csapat felépítése:'|_ }}</th>
+        </tr>
+        <tr>
+            <td>{{ 'Csapatvezető'|_ }}: {{ workPlan.team_leader }}</td>
+        </tr>
+        <tr>
+            <td>{{ 'Csapatvezető helyettes(ek)'|_ }}: {{ workPlan.deputy_team_leaders }}</td>
+        </tr>
+        <tr>
+            <td>{{ 'Csapatszám'|_ }}: {{ workPlan.team.team_number }}</td>
+        </tr>
+        <tr>
+            <td>{{ 'Csapatnév'|_ }}: {{ workPlan.team.name }}</td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <h3>{{ 'Működő rajok'|_ }}:</h3>
+    {{ workPlan.troops|raw }}
+
+    <h3>{{ 'Őrsök listája'|_ }}:</h3>
+    {{ workPlan.patrols|raw }}
+
+    <h3>{{ 'Éves keretmese'|_ }}:</h3>
+    {{ workPlan.frame_story|raw }}
+
+    <h3>{{ 'A csapat megjegyzései erre az évre'|_ }}:</h3>
+    {{ workPlan.team_notes|raw }}
+
+    <h3>{{ 'A csapat céljai'|_ }}:</h3>
+    {{ workPlan.team_goals|raw }}
+</body>
+</html>
