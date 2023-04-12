@@ -1,0 +1,25 @@
+url = "/munkaterv/:id/:action?"
+layout = "default"
+title = "Munkaterv"
+
+[basicForm]
+formSlug = "munkaterv"
+recordKeyParam = "id"
+recordActionParam = "action"
+createRecordKeyword = "letrehozas"
+actionUpdateKeyword = "modositas"
+actionDeleteKeyword = "torles"
+
+[partials]
+==
+{% set workPlanId = this.controller.param('id') %}
+<div class="container">
+    {% partial "@simpleATagButton"
+        permissionValue = this.controller.vars.basicForm.currentUserRights['MODEL_GENERAL']['update']
+        targetUrl = '/munkaterv/'~workPlanId~'/modositas'
+        btnExtraClasses = 'btn-sm btn-primary'
+        btnIconClass = 'csat-edit-fill-wh-sm'
+        btnLabel = 'Munkaterv szerkesztése' |_
+    %}
+    {% component 'basicForm' %}
+</div>

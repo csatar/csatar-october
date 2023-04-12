@@ -1,0 +1,17 @@
+title = "munkatervek"
+layout = "default"
+url = "/munkatervek"
+
+[recordList]
+modelClass = "Csatar\KnowledgeRepository\Models\WorkPlan"
+scope = "-"
+scopeValue = "{{ :scope }}"
+columnsConfigFile = "columns.yaml"
+noRecordsMessage = "No records found"
+detailsPage = "tudastar/munkaterv"
+detailsKeyColumn = "id"
+detailsUrlParameter = "id"
+recordsPerPage = 15
+pageNumber = "{{ :page }}"
+==
+{% component 'recordList' %}

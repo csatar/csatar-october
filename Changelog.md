@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+- CS-559 - Created WorkPlan model for team, backend form and list
+- CS-559 - Created work plans tab on frontend team page, with list and new work plan button
+- CS-559 - Created frontend work plan create/edit page
 - CS-500 - Added restore deleted scouts option on backend, added inactivation on scout soft deleted
 - CS-554 - Extended TrialSystem model with effective knowledge attribute and create backend import page
 - CS-555 - Added google calendar tab to Association, District and Team
