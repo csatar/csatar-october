@@ -86,6 +86,7 @@
                 'individual' => 'Egyéni',
                 'details' => 'Részletek',
                 'task' => 'Foglalkozás',
+                'obligatory' => 'Obligatory'
             ],
         ],
         'components' => [

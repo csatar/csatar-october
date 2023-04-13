@@ -85,6 +85,7 @@
                 'individual' => 'Individual',
                 'details' => 'Details',
                 'task' => 'Task',
+                'obligatory' => 'Obligatory',
             ],
         ],
         'components' => [
