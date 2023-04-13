@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+## 1.11.0
+### 2023-04-13
+
 - CS-520 - Modification and optimization of grid display and the design of the filtering
 - CS-491 - Added scout xlsx import/export to teams page
 - CS-331 - Added `manifest.json` file and updated readme with instructions on how to add PWA support
