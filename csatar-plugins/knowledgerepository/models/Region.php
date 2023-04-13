@@ -29,6 +29,9 @@ class Region extends Model
 
     public $fillable = [
         'name',
+        'big_parent_id',
+        'mid_parent_id',
+        'small_parent_id'
     ];
 
     public $belongsTo = [

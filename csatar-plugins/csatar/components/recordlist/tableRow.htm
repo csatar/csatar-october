@@ -15,7 +15,11 @@
                                 {% endfor %}
                             </p>
                         {% else %}
-                            <p class="td">{{ record[column['relationName']][column['valueFrom']] }}</p>
+                            {% if column['type'] == 'regionExtendedName' %}
+                                <p class="td">{{ record[column['relationName']].getExtendedNameAttribute }}</p>
+                            {% else %}
+                                <p class="td">{{ record[column['relationName']][column['valueFrom']] }}</p>
+                            {% endif %}
                         {% endif %}
                     {% else %}
                         <p class="td">{{ record[column['attribute']] }}</p>

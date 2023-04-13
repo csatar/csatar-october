@@ -1,4 +1,0 @@
-title: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.song'
-modelClass: Csatar\KnowledgeRepository\Models\Song
-toolbar:
-    buttons: reorder_toolbar

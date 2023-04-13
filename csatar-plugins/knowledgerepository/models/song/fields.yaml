@@ -26,32 +26,32 @@ fields:
         span: full
         type: richeditor
         toolbarButtons:
-          - paragraphFormat
-          - paragraphStyle
-          - bold
-          - italic
-          - underline
-          - strikeThrough
-          - align
-          - formatOL
-          - formatUL
-          - outdent
-          - indent
-          - quote,
-          - -
-          - undo
-          - redo
-          - insertLink
-          - insertImage
-          - insertFile
-          - insertTable
-          - insertHR
-          - clearFormatting
-          - html
+            - paragraphFormat
+            - paragraphStyle
+            - bold
+            - italic
+            - underline
+            - strikeThrough
+            - align
+            - formatOL
+            - formatUL
+            - outdent
+            - indent
+            - 'quote,'
+            - '-'
+            - undo
+            - redo
+            - insertLink
+            - insertImage
+            - insertFile
+            - insertTable
+            - insertHR
+            - clearFormatting
+            - html
         formBuilder:
-          type: field
-          card: textData
-          position: details
+            type: field
+            card: textData
+            position: details
     folksongtype:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.folkSongType'
         nameFrom: name
@@ -100,7 +100,7 @@ fields:
             mode: crop
             extension: auto
         maxFiles: '5'
-        span: auto
+        span: full
         type: fileupload
     _ruler1:
         type: ruler
@@ -143,8 +143,3 @@ fields:
         mode: date
         span: auto
         type: datepicker
-
-
-
-
-

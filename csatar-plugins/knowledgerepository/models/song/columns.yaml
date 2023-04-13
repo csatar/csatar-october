@@ -54,10 +54,11 @@ columns:
             labelFrom: name
     region_id:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.region'
-        type: text
+        type: regionExtendedName
         searchable: true
         sortable: true
         select: name
+        listColumn: region.id
         relation: region
         recordList:
           sortable: true
@@ -66,7 +67,10 @@ columns:
             type: relation
             relationName: region
             keyFrom: id
-            labelFrom: name
+            additionalKeyFrom1: big_parent_id
+            additionalKeyFrom2: mid_parent_id
+            additionalKeyFrom3: small_parent_id
+            extendedLabel: true
     rhythm_id:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.folkSongRhythm'
         type: text
@@ -74,14 +78,6 @@ columns:
         sortable: true
         select: name
         relation: rhythm
-        recordList:
-          sortable: true
-          filterable: true
-          filterConfig:
-            type: relation
-            relationName: rhythm
-            keyFrom: id
-            labelFrom: name
     age_group_id:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.ageGroup'
         type: text
@@ -100,14 +96,6 @@ columns:
         type: text
         select: name
         relation: trialsystems
-        recordList:
-          sortable: true
-          filterable: true
-          filterConfig:
-            type: relation
-            relationName: trialsystems
-            keyFrom: id
-            labelFrom: name
     link:
         label: 'csatar.knowledgerepository::lang.plugin.admin.general.link'
         type: text

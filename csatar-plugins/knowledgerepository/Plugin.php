@@ -1,5 +1,6 @@
 <?php namespace Csatar\KnowledgeRepository;
 
+use Csatar\KnowledgeRepository\Models\Region;
 use System\Classes\PluginBase;
 
 class Plugin extends PluginBase
@@ -17,5 +18,18 @@ class Plugin extends PluginBase
 
     public function registerSettings()
     {
+    }
+
+    public function registerListColumnTypes()
+    {
+        return [
+            'regionExtendedName' => [$this, 'getRegionExtendedName'],
+        ];
+    }
+
+    public function getRegionExtendedName($value, $column, $record)
+    {
+        $region = Region::where('name', $value)->first();
+        return $region->getExtendedNameAttribute();
     }
 }
