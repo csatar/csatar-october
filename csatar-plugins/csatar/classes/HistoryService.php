@@ -16,7 +16,7 @@ use Csatar\Csatar\Models\History as HistoryModelDefault;
 
 class HistoryService
 {
-    public const SENSITIVE_FIELDS = ['password', 'google_two_fa_secret_key'];
+    public const SENSITIVE_FIELDS = ['password', 'password_confirmation', 'google_two_fa_secret_key'];
 
     public const PERMANENTLY_EXCLUDED_FIELDS = ['updated_at', 'persist_code', ];
 
