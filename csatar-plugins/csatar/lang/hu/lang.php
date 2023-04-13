@@ -223,6 +223,9 @@
                 'noScoutsSelected' => 'Nincs kijelölt cserkész!',
                 'deleteWithPersonalDataConfirmation' => 'Valóban szeretnéd törölni a cserkészt a személyes adataival (név, email cím, telefonszám, postacím) együtt?',
                 'teamChangeHistoryMessage' => ':date átigazolt a(z) :oldTeam cserkészcsapatból a :newTeam cserkészcsapatba.',
+                'import' => [
+                    'invalidDateTimeFormat' => 'Érvénytelen dátum formátum. A helyes formátum: év-hónap-nap, pl. 2023-01-01',
+                ],
             ],
             'admin' => [
                 'menu' => [

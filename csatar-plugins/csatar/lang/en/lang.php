@@ -225,6 +225,9 @@
                 'noScoutsSelected' => 'No scout(s) selected.',
                 'deleteWithPersonalDataConfirmation' => 'Are you sure you want to delete this scout and his personal data (name, email, phone, address?',
                 'teamChangeHistoryMessage' => 'On :date changed team from :oldTeam to :newTeam',
+                'import' => [
+                    'invalidDateTimeFormat' => 'Invalid date time format. The correct format is year-month-day, for example 2023-01-01',
+                ],
             ],
             'admin' => [
                 'menu' => [
