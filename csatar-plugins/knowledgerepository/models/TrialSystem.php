@@ -113,4 +113,22 @@ class TrialSystem extends PermissionBasedAccess
         
         return implode('-', $oefk);
     }
+
+    public function getOEFKTooltipAttribute() {
+        $oefk = [];
+        if ($this->for_patrols) {
+            $oefk[] = Lang::get('csatar.knowledgerepository::lang.plugin.admin.trialSystem.forPatrols');
+        }
+        if ($this->individual) {
+            $oefk[] = Lang::get('csatar.knowledgerepository::lang.plugin.admin.trialSystem.individual');
+        }
+        if ($this->task) {
+            $oefk[] = Lang::get('csatar.knowledgerepository::lang.plugin.admin.trialSystem.task');
+        }
+        if ($this->obligatory) {
+            $oefk[] = Lang::get('csatar.knowledgerepository::lang.plugin.admin.trialSystem.obligatory');
+        }
+
+        return implode('-', $oefk);
+    }
 }
