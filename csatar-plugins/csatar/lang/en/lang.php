@@ -210,6 +210,9 @@
                 'scoutTeam' => 'Scout\'s team',
                 'inactivationWarning' => 'Please note that if you change status from active to inactive, scout\'s all mandates will expire!',
                 'teamChangeHistoryMessage' => 'On :date changed team from :oldTeam to :newTeam',
+                'import' => [
+                    'invalidDateTimeFormat' => 'Invalid date time format. The correct format is year-month-day, for example 2023-01-01',
+                ],
             ],
             'admin' => [
                 'menu' => [
