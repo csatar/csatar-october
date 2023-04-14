@@ -116,6 +116,19 @@
                 'errorsOccurred' => 'Errors occurred during import: ',
                 'importSuccessful' => 'Import successful!',
             ],
+            'workPlan' => [
+                'workPlan' => 'Work Plan',
+                'workPlans' => 'Work Plans',
+                'workPlanAlreadyExistsForYear' => 'Work plan already exists for year: :year!',
+                'year' => 'Year',
+                'troops' => 'Active troops',
+                'patrols' => 'Patrols list',
+                'frameStory' => 'Frame story',
+                'teamNotes' => 'Team notes',
+                'teamGoals' => 'Team goals',
+                'teamLeader' => 'Team leader',
+                'deputyTeamLeaders' => 'Deputy team leader(s)',
+            ],
         ],
         'components' => [
             'gameForm' => [

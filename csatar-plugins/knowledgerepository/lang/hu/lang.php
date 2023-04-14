@@ -117,6 +117,19 @@
                 'errorsOccurred' => 'Az importálás során a következő hibák léptek fel: ',
                 'importSuccessful' => 'Az importálás sikeresen megtörtént!',
             ],
+            'workPlan' => [
+                'workPlan' => 'Munkaterv',
+                'workPlans' => 'Munkatervek',
+                'workPlanAlreadyExistsForYear' => ':year-ra(re) már létezik munkaterv!',
+                'year' => 'Évszám',
+                'troops' => 'Működő rajok',
+                'patrols' => 'Őrsök listája',
+                'frameStory' => 'Éves keretmese',
+                'teamNotes' => 'A csapat megjegyzései erre az évre',
+                'teamGoals' => 'A csapat céljai',
+                'teamLeader' => 'Csapatvezető',
+                'deputyTeamLeaders' => 'Csapatvezető helyettes(ek)',
+            ],
         ],
         'components' => [
             'gameForm' => [

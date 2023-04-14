@@ -209,6 +209,10 @@ class Team extends OrganizationBase
             'scope' => 'inactiveMandatesInOrganization',
             'ignoreInPermissionsMatrix' => true,
         ],
+        'workPlans' => [
+            '\Csatar\Csatar\KnowledgeRepository\WorkPlan',
+            'label' => 'csatar.knowledgerepository::lang.plugin.admin.workPlan.workPlans',
+        ],
     ];
 
     public $attachOne = [

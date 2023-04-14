@@ -1,0 +1,25 @@
+columns:
+    name:
+        label: 'csatar.csatar::lang.plugin.admin.general.name'
+        type: text
+        searchable: false
+        sortable: false
+        recordList: true
+    year:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.workPlan.year'
+        type: number
+        recordList: true
+    team_leader:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.workPlan.teamLeader'
+        type: text
+        recordList: true
+    deputy_team_leaders:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.workPlan.deputyTeamLeaders'
+        type: text
+        recordList: true
+    created_at:
+        label: 'csatar.csatar::lang.plugin.admin.general.createdAt'
+        type: datetime
+    updated_at:
+        label: 'csatar.csatar::lang.plugin.admin.general.updatedAt'
+        type: datetime

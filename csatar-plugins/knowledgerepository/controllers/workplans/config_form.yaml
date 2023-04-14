@@ -1,0 +1,10 @@
+name: 'csatar.knowledgerepository::lang.plugin.admin.workPlan.workPlan'
+form: $/csatar/knowledgerepository/models/workplan/fields.yaml
+modelClass: Csatar\KnowledgeRepository\Models\WorkPlan
+defaultRedirect: csatar/knowledgerepository/workplans
+create:
+    redirect: 'csatar/knowledgerepository/workplans/update/:id'
+    redirectClose: csatar/knowledgerepository/workplans
+update:
+    redirect: csatar/knowledgerepository/workplans
+    redirectClose: csatar/knowledgerepository/workplans

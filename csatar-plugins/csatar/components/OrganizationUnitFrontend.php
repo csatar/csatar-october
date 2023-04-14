@@ -3,6 +3,7 @@
 use Auth;
 use Carbon\Carbon;
 use Cms\Classes\ComponentBase;
+use Csatar\Csatar\Components\RecordList;
 use Csatar\Csatar\Classes\CsvCreator;
 use Csatar\Csatar\Classes\Enums\Gender;
 use Csatar\Csatar\Classes\Enums\Status;
@@ -26,6 +27,7 @@ class OrganizationUnitFrontend extends ComponentBase
 {
     public $model;
     public $content_page;
+
     public $permissions;
     public $gallery_id;
     public $inactiveMandates;
