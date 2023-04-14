@@ -90,12 +90,8 @@ class OrganizationUnitFrontend extends ComponentBase
 
     public function onEditContent()
     {
-        $modelName = "Csatar\Csatar\Models\\" . $this->property('model_name');
-        $model = $modelName::find($this->property('model_id'));
-
-        $content = $model->content_page;
         return [
-            '#contentPage' => $this->renderPartial('@editor', ['content_page' => $content])
+            '#contentPage' => $this->renderPartial('@editor')
         ];
     }
 
