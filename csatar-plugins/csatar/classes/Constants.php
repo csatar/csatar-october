@@ -19,4 +19,7 @@ class Constants
         'hasManyThrough',
         'hasOneThrough'
     ];
+
+    public const MANDATE_TYPE_TEAM_LEADER = 'Csapatvezető';
+    public const MANDATE_TYPE_DEPUTY_TEAM_LEADER = 'Csapatvezető helyettes';
 }

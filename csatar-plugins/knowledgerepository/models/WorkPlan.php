@@ -1,5 +1,6 @@
 <?php namespace Csatar\KnowledgeRepository\Models;
 
+use Csatar\Csatar\Classes\Constants;
 use Csatar\Csatar\Models\PermissionBasedAccess;
 use Csatar\Csatar\Models\Troop;
 use Csatar\Csatar\Models\Patrol;
@@ -86,7 +87,7 @@ class WorkPlan extends PermissionBasedAccess
     }
 
     public function getTeamLeaderAttribute() {
-        $teamLeaderMandateTypeId = MandateType::where('name', 'Csapatvezető')
+        $teamLeaderMandateTypeId = MandateType::where('name', Constants::MANDATE_TYPE_TEAM_LEADER)
             ->where('association_id', $this->getAssociation()->id)
             ->first()->id;
 
@@ -94,7 +95,7 @@ class WorkPlan extends PermissionBasedAccess
     }
 
     public function getDeputyTeamLeadersAttribute() {
-        $deputyTeamLeaderMandateTypeId = MandateType::where('name', 'Csapatvezető helyettes')
+        $deputyTeamLeaderMandateTypeId = MandateType::where('name', Constants::MANDATE_TYPE_DEPUTY_TEAM_LEADER)
             ->where('association_id', $this->getAssociation()->id)
             ->first()->id;
 
