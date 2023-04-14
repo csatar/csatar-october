@@ -91,6 +91,7 @@
                 'individual' => 'Individual',
                 'details' => 'Details',
                 'task' => 'Task',
+                'obligatory' => 'Obligatory',
                 'effectiveKnowledge' => 'Effective knowledge',
                 'effectiveKnowledgeOnly' => 'Import only effective knowledge column. (Trial system with the same id must exist!)',
                 'effectiveKnowledgeColumn' => 'The effective knowledge column is imported only if the column name is "Effektív tudás"!',

@@ -92,12 +92,8 @@ class OrganizationUnitFrontend extends ComponentBase
 
     public function onEditContent()
     {
-        $modelName = "Csatar\Csatar\Models\\" . $this->property('model_name');
-        $model = $modelName::find($this->property('model_id'));
-
-        $content = $model->content_page;
         return [
-            '#contentPage' => $this->renderPartial('@editor', ['content_page' => $content])
+            '#contentPage' => $this->renderPartial('@editor')
         ];
     }
 
@@ -375,7 +371,12 @@ class OrganizationUnitFrontend extends ComponentBase
                     $log['updated'][] = $rowNumber . ' - ' . $scout->ecset_code;
                 }
             } catch (\Exception $e) {
-                $log['errors'][] = $rowNumber . ' | ' . $scout->name . ' - ' . $scout->ecset_code . ' | ' . $e->getMessage();
+                if (strpos($e->getMessage(), 'DateTime::__construct()') !== false) {
+                    $log['errors'][] = $rowNumber . ' | ' . $scout->name . ' - ' . $scout->ecset_code . ' | ' . Lang::get('csatar.csatar::lang.plugin.admin.scout.import.invalidDateTimeFormat');
+                } else {
+                    $log['errors'][] = $rowNumber . ' | ' . $scout->name . ' - ' . $scout->ecset_code . ' | ' . $e->getMessage();
+                }
+
             }
 
         }

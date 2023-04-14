@@ -473,6 +473,10 @@ class RecordList extends RainRecordList {
                 $rowConfig[$column]['label'] = ucfirst($column);
             }
 
+            if (isset($config['recordList']['tooltipFrom'])) {
+                $rowConfig[$column]['tooltipFrom'] = $config['recordList']['tooltipFrom'];
+            }
+
             if (isset($config['relation'])) {
                 $rowConfig[$column]['relationName'] = $config['relation'];
                 $rowConfig[$column]['relationType'] = $this->getRelationType($config['relation']);

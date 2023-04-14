@@ -92,6 +92,7 @@
                 'individual' => 'Egyéni',
                 'details' => 'Részletek',
                 'task' => 'Foglalkozás',
+                'obligatory' => 'Obligatory',
                 'effectiveKnowledge' => 'Effektív tudás',
                 'effectiveKnowledgeOnly' => 'Csak az effektív tudás oszlop importálása. (A megfelelő azonosítóval rendelkező próbarendszernek léteznie kell!)',
                 'effectiveKnowledgeColumn' => 'Az effektív tudás oszlop csak akkor importálódik formázottan, ha az oszlop neve "Effektív tudás"!',
