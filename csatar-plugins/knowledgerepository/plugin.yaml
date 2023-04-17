@@ -150,6 +150,14 @@ navigation:
                 permissions:
                     - csatar.manage.data
                     - csatar.manage.knowledgerepository
+            side-menu-songtype:
+                label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepository.songTypes'
+                url: /csatar/knowledgerepository/songtypes
+                icon: icon-music
+            side-menu-folk-song-type:
+                label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepository.folkSongTypes'
+                url: /csatar/knowledgerepository/folksongtypes
+                icon: icon-music
 permissions:
     csatar.manage.knowledgerepository:
         tab: 'csatar.knowledgerepository::lang.plugin.name'
