@@ -1,0 +1,12 @@
+list: $/csatar/knowledgerepository/models/songtype/columns.yaml
+modelClass: Csatar\KnowledgeRepository\Models\SongType
+title: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.songType'
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'csatar/knowledgerepository/songtypes/update/:id'

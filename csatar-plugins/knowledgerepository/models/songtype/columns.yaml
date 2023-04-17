@@ -1,0 +1,6 @@
+columns:
+    name:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.songType'
+        type: text
+        searchable: true
+        sortable: true
