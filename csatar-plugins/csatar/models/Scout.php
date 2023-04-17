@@ -1333,6 +1333,9 @@ class Scout extends OrganizationBase
             $oldTeam = Team::find($history->old_value);
             $newTeam = Team::find($history->new_value);
 
+            if (empty($oldTeam) || empty($newTeam)) {
+                continue;
+            }
             $oldTeam = "<a href='/csapat/$oldTeam->id'>$oldTeam->name</a>";
             $newTeam = "<a href='/csapat/$newTeam->id'>$newTeam->name</a>";
             $historyArray[] = Lang::get('csatar.csatar::lang.plugin.admin.scout.teamChangeHistoryMessage', ['date' => $date, 'oldTeam' => $oldTeam, 'newTeam' => $newTeam]);
