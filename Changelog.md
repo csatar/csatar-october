@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- CS-563 - Added Trial System Trial Type to patrol
+- CS-563 - Extended team Work Plan patrols field to include information about patrol's Trial System Trial Type
 - CS-559 - Created WorkPlan model for team, backend form and list
 - CS-559 - Created work plans tab on frontend team page, with list and new work plan button
 - CS-559 - Created frontend work plan create/edit page
