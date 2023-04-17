@@ -9,6 +9,10 @@ columns:
         label: 'csatar.knowledgerepository::lang.plugin.admin.workPlan.year'
         type: number
         recordList: true
+    team_name:
+        label: 'csatar.csatar::lang.plugin.admin.team.teams'
+        type: text
+        select: (SELECT CONCAT(team_number, ' - ', name) from csatar_csatar_teams where `csatar_csatar_teams`.`id` = team_id)
     team_leader:
         label: 'csatar.knowledgerepository::lang.plugin.admin.workPlan.teamLeader'
         type: text

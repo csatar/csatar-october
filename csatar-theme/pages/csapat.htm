@@ -34,7 +34,8 @@ parentRecordKeyParam = "id"
 
 [recordList]
 modelClass = "Csatar\KnowledgeRepository\Models\WorkPlan"
-scope = "-"
+scope = "scopeForTeam"
+scopeValue = "{{ :id }}"
 columnsConfigFile = "columns.yaml"
 noRecordsMessage = "backend::lang.list.no_records"
 detailsPage = "tudastar/munkaterv"
