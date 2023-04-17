@@ -121,6 +121,7 @@ class Patrol extends OrganizationBase
         ],
         'troop' => '\Csatar\Csatar\Models\Troop',
         'age_group' => '\Csatar\Csatar\Models\AgeGroup',
+        'trial_system_trial_type' => '\Csatar\KnowledgeRepository\Models\TrialSystemTrialType',
     ];
 
     public $hasMany = [

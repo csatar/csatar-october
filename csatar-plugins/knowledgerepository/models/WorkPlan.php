@@ -167,7 +167,7 @@ class WorkPlan extends PermissionBasedAccess
             $patrolsHtml .= '<li>';
             $patrolsHtml .= $patrol->extended_name;
             $patrolsHtml .= $patrol->age_group ? ' - ' . $patrol->age_group->name : '';
-            //TODO: add trial system name here with CS-563 task
+            $patrolsHtml .= $patrol->trial_system_trial_type ? ' - ' . $patrol->trial_system_trial_type->name : '';
             $patrolsHtml .= '</li>';
         }
 
