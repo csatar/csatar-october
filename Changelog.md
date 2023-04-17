@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-538 - Added functionality to update scout's troop id when scout is added to patrol, when patrol's troop is changed
 - CS-563 - Added Trial System Trial Type to patrol
 - CS-563 - Extended team Work Plan patrols field to include information about patrol's Trial System Trial Type
 - CS-559 - Created WorkPlan model for team, backend form and list

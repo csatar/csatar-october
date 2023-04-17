@@ -220,6 +220,8 @@ class Patrol extends OrganizationBase
             Mandate::setAllMandatesExpiredInOrganization($this);
         }
 
+        $this->updateScoutsTroopId(); //this should be called before updateCache()
+
         $this->updateCache();
     }
 
@@ -237,7 +239,7 @@ class Patrol extends OrganizationBase
             StructureTree::updateTeamTree($this->team_id);
         }
 
-        if ($this->getOriginalValue('team_id') != $this->team_id) {
+        if ($this->getOriginalValue('team_id') != $this->team_id || $this->getOriginalValue('troop_id') != $this->troop_id) {
             StructureTree::updateTeamTree($this->team_id);
             if (!empty($this->original['team_id'])) {
                 StructureTree::updateTeamTree($this->original['team_id']);
@@ -258,6 +260,17 @@ class Patrol extends OrganizationBase
                 $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->id]['extended_name'] = $this->extended_name;
             }
             Cache::forever('structureTree', $structureTree);
+        }
+    }
+
+    public function updateScoutsTroopId() {
+        if ($this->getOriginalValue('troop_id') != $this->troop_id) {
+            foreach ($this->scouts as $scout) {
+                $scout->troop_id         = $this->troop_id;
+                $scout->ignoreValidation = true;
+                $scout->skipCacheRefresh = true;
+                $scout->forceSave();
+            }
         }
     }
 
