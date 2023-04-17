@@ -33,6 +33,7 @@
         <?= e(trans('csatar.knowledgerepository::lang.plugin.admin.general.file')) ?>
     </label>
     <input type="file" name="xlsx_file">
+    <p class="help-block"><?= e(trans('csatar.knowledgerepository::lang.plugin.admin.trialSystem.onlyFirstSheetNote')) ?></p>
 </div>
 
 <div class="form-buttons">
@@ -42,6 +43,13 @@
         class="btn btn-primary">
         <?= e(trans('csatar.knowledgerepository::lang.plugin.admin.general.import')) ?>
     </button>
+</div>
+
+<div class="callout fade in callout-warning">
+    <div class="header">
+        <i class="icon-warning"></i>
+        <h3><?= e(trans('csatar.knowledgerepository::lang.plugin.admin.trialSystem.overwriteExistingTrialSystems')) ?></h3>
+    </div>
 </div>
 
 <div class="checkbox custom-checkbox">
@@ -55,13 +63,6 @@
     <div class="header">
         <i class="icon-warning"></i>
         <h3><?= e(trans('csatar.knowledgerepository::lang.plugin.admin.trialSystem.effectiveKnowledgeColumn')) ?></h3>
-    </div>
-</div>
-
-<div class="callout fade in callout-warning">
-    <div class="header">
-        <i class="icon-warning"></i>
-        <h3><?= e(trans('csatar.knowledgerepository::lang.plugin.admin.trialSystem.overwriteExistingTrialSystems')) ?></h3>
     </div>
 </div>
 

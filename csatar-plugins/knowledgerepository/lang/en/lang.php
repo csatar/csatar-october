@@ -98,6 +98,7 @@
                 'trialSystemAlreadyExists' => 'Trial System already exists with the id: :id!',
                 'trialSystemDoesntExist' => 'Trial System doesn\'t exist with the id: :id!',
                 'overwriteExistingTrialSystems' => 'Please note that existing trial systems with the same id will be overwritten with the imported one!',
+                'onlyFirstSheetNote' => 'Please note that only the first sheet will be imported!',
             ],
             'messages' => [
                 'cannotFindHeadcount' => 'Cannot find headcount(s): ',

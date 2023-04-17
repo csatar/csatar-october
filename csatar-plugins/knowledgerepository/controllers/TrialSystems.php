@@ -83,6 +83,14 @@ class TrialSystems extends Controller
             ];
         }
 
+        if (!empty($import->errors) && count($import->errors) > 0) {
+            $this->vars['errors'] = $import->errors;
+
+            return [
+                '#errors' => $this->makePartial('import_errors'),
+            ];
+        }
+
         Flash::success(Lang::get('csatar.knowledgerepository::lang.plugin.admin.messages.importSuccessful'));
     }
 }

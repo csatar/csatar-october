@@ -2,10 +2,10 @@
     <div class="header">
         <h3><?= e(trans('csatar.knowledgerepository::lang.plugin.admin.messages.errorsOccurred')) ?></h3>
         <ul>
-            <?php foreach ($errors as $rowErrors): ?>
+            <?php foreach ($errors as $rowNumber => $rowErrors): ?>
             <li>
-                <?= $rowErrors->row() ?>. <?= e(trans('csatar.knowledgerepository::lang.plugin.admin.general.row')) ?>:<br>
-                <?php foreach ($rowErrors->errors()[0] as $error): ?>
+                <?= $rowNumber ?>. <?= e(trans('csatar.knowledgerepository::lang.plugin.admin.general.row')) ?>:<br>
+                <?php foreach ($rowErrors as $error): ?>
                     <?= e($error) ?><br>
                 <?php endforeach; ?>
             </li>

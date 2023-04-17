@@ -74,7 +74,7 @@ class TrialSystemsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHe
             ->first();
 
         if (!$this->overwrite && !empty($trialSystem)) {
-            $this->errors[$this->getRowNumber()][] = Lang::get('csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystemAlreadyExists', ['id' => $cellsArray['id']]);
+            $this->errors[$row->getRowIndex()][] = Lang::get('csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystemAlreadyExists', ['id' => $cellsArray['id']]);
             return;
         }
 
@@ -87,7 +87,7 @@ class TrialSystemsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHe
         }
 
         if (empty($trialSystem) && $this->effectiveKnowledgeOnly) {
-            $this->errors[$this->getRowNumber()][] = Lang::get('csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystemDoesntExist', ['id' => $cellsArray['id']]);
+            $this->errors[$row->getRowIndex()][] = Lang::get('csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystemDoesntExist', ['id' => $cellsArray['id']]);
             return;
         }
 

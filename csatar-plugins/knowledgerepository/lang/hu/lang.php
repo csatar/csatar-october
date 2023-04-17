@@ -99,6 +99,7 @@
                 'trialSystemAlreadyExists' => 'Már létezik játékrendszer a következő azonosítóval: :id!',
                 'trialSystemDoesntExist' => 'Nem létezik játékrendszer a következő azonosítóval: :id!',
                 'overwriteExistingTrialSystems' => 'Figyelem! A feltöltött próbarendszerek felülírják a már létező, azonos azonosítójú próbarendszereket!',
+                'onlyFirstSheetNote' => 'Figyelem! Csak az első munkalap importálódik!',
             ],
             'messages' => [
                 'cannotFindHeadcount' => 'A következő létszám paraméter(ek) nem található(k): ',
