@@ -140,7 +140,7 @@ class SeederData extends Seeder
             [
                 'name' => 'Cserkésznyakkendő',
                 'approved' => true,
-            ],
+        ],
         ],
         'headCounts' => [
             [
@@ -170,7 +170,7 @@ class SeederData extends Seeder
                 'max' => 100,
                 'note' => '(csapatlétszámhoz)',
                 'sort_order' => 4,
-            ],
+        ],
             [
                 'description' => 'Bármekkora létszámmal játszható',
                 'min' => 0,
@@ -302,6 +302,10 @@ class SeederData extends Seeder
             [
                 'title' => 'Munkaterv',
                 'model' => 'Csatar\KnowledgeRepository\Models\WorkPlan',
+			],
+            [
+                'title' => 'Dal',
+                'model' => 'Csatar\KnowledgeRepository\Models\Song',
             ],
         ],
         'trialSystemTopics' => [
@@ -465,7 +469,7 @@ class SeederData extends Seeder
         'folkSongTypes' => [
             [
                 'name' => 'Ráolvasások és imák',
-                'description' => 'Ezek az énekek ősi praktikákból táplálkoznak, a magyar néphit és ősi népi vallásosságára világítanak rá. '
+                'description' => 'ezek az énekek ősi praktikákból táplálkoznak, a magyar néphit és ősi népi vallásosságára világítanak rá. '
             ],
             [
                 'name' => 'Ünnepi dalok, rítusénekek, köszöntők és rigmusok',
@@ -481,7 +485,7 @@ class SeederData extends Seeder
             ],
             [
                 'name' => 'Párosítók',
-                'description' => 'A párosítók szövegei sablonosak, ebbe egyszerűen belehelyezik az illető leány és legény nevét.'
+                'description' => 'a párosítók szövegei sablonosak, ebbe egyszerűen belehelyezik az illető leány és legény nevét.'
             ],
             [
                 'name' => 'Szerelmi dalok',
@@ -489,7 +493,7 @@ class SeederData extends Seeder
             ],
             [
                 'name' => 'Lakodalmi énekek, dalok és vőfélyrigmusok',
-                'description' => 'A parasztlakodalom középpontjában a menyasszony és a termékenység áll.'
+                'description' => 'a parasztlakodalom középpontjában a menyasszony és a termékenység áll.'
             ],
             [
                 'name' => 'Táncdalok és dudanóták',
@@ -756,7 +760,7 @@ class SeederData extends Seeder
                 'mid_parent' => 'Székelyföld',
             ],
             [
-                'name' => 'Nem alkalmazható',
+                'name' => 'nem alkalmazható',
             ],
         ],
         'folkSongRhythms' => [

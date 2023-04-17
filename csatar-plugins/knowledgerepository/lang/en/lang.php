@@ -46,7 +46,8 @@
                     'bigRegion' => 'Big Region',
                     'midRegion' => 'Mid Region',
                     'smallRegion' => 'Small Region',
-                    'folkSongRhythm' => 'Folk song rhythm'
+                    'folkSongRhythm' => 'Folk song rhythm',
+                    'song' => 'Song'
                 ],
             ],
             'general' => [
@@ -142,12 +143,22 @@
                 'teamLeader' => 'Team leader',
                 'deputyTeamLeaders' => 'Deputy team leader(s)',
             ],
+            'song' => [
+                'songTitle' => 'Song Title',
+                'author' => 'Author',
+                'text' => 'Text',
+
+            ]
         ],
         'components' => [
             'gameForm' => [
                 'name' => 'Game Form',
                 'description' => 'Game Form component',
             ],
+            'songForm' => [
+                'name' => 'Song Form',
+                'description' => 'Song Form component'
+            ]
         ],
     ],
 ];

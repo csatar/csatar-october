@@ -11,7 +11,7 @@
                     'knowledgeRepository' => 'Tudástár',
                     'testSystem' => 'Próbarendszer',
                     'games' => 'Játékok',
-                    'songs' => 'Énekek',
+                    'songs' => 'Dalok',
                     'workPlans' => 'Munkatervek',
                     'methodologies' => 'Módszertan',
                     'songTypes' => 'Dal típusok',
@@ -46,7 +46,8 @@
                     'bigRegion' => 'Nagy tájegység',
                     'midRegion' => 'Közepes tájegység',
                     'smallRegion' => 'Kicsi tájegység',
-                    'folkSongRhythm' => 'Népdal ritmus'
+                    'folkSongRhythm' => 'Népdal ritmus',
+                    'song' => 'Dal'
                 ],
             ],
             'general' => [
@@ -143,6 +144,12 @@
                 'teamLeader' => 'Csapatvezető',
                 'deputyTeamLeaders' => 'Csapatvezető helyettes(ek)',
             ],
+            'song' => [
+                'songTitle' => 'Dal cím',
+                'author' => 'Szerző',
+                'text' => 'Szöveg',
+
+            ]
         ],
         'components' => [
             'gameForm' => [
@@ -152,6 +159,10 @@
             'methodologyForm' => [
                 'name' => 'Módszertan űrlap',
                 'description' => 'Módszertan űrlap komponens'
+            ],
+            'songForm' => [
+                'name' => 'Dal űrlap',
+                'description' => 'Dal űrlap komponens'
             ]
         ],
     ],

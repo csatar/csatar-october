@@ -410,10 +410,17 @@ class RecordList extends RainRecordList {
 
             return $relationModelClassName::all()->map(function ($item) use ($config) {
                 $keyFrom = $config['recordList']['filterConfig']['keyFrom'] ?? 'id';
-                $labelFrom = $config['recordList']['filterConfig']['labelFrom'] ?? 'name';
+
+                if (isset($config['recordList']['filterConfig']['extendedLabel'])) {
+                    $label = $item->getExtendedNameAttribute();
+                } else {
+                    $labelFrom = $config['recordList']['filterConfig']['labelFrom'] ?? 'name';
+                    $label = $item->$labelFrom;
+                }
+
                 return [
                     'id' => $item->$keyFrom,
-                    'label' => $item->$labelFrom,
+                    'label' => $label,
                 ];
             });
         }
@@ -443,9 +450,12 @@ class RecordList extends RainRecordList {
 
                 if ($filtersConfig[$column]['filterConfig']['type'] == 'relation') {
                     $key = $filtersConfig[$column]['filterConfig']['keyFrom'] ?? 'id';
+                    $addKey1 = $filtersConfig[$column]['filterConfig']['additionalKeyFrom1'] ?? 'id';
+                    $addKey2 = $filtersConfig[$column]['filterConfig']['additionalKeyFrom2'] ?? 'id';
+                    $addKey3 = $filtersConfig[$column]['filterConfig']['additionalKeyFrom3'] ?? 'id';
                     $relationName = $filtersConfig[$column]['filterConfig']['relationName'] ?? $column;
-                    $query = $query->whereHas($relationName, function ($query) use ($values, $key){
-                        $query->whereIn($key, $values);
+                    $query = $query->whereHas($relationName, function ($query) use ($values, $key, $addKey1, $addKey2, $addKey3){
+                        $query->whereIn($key, $values)->orWhereIn($addKey1, $values)->orWhereIn($addKey2, $values)->orWhereIn($addKey3, $values);
                     });
                     continue;
                 }

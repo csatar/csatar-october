@@ -1,0 +1,10 @@
+name: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.song'
+form: $/csatar/knowledgerepository/models/song/fields.yaml
+modelClass: Csatar\KnowledgeRepository\Models\Song
+defaultRedirect: csatar/knowledgerepository/songs
+create:
+    redirect: 'csatar/knowledgerepository/songs/update/:id'
+    redirectClose: csatar/knowledgerepository/songs
+update:
+    redirect: csatar/knowledgerepository/songs
+    redirectClose: csatar/knowledgerepository/songs
