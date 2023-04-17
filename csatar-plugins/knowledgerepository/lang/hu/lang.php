@@ -15,7 +15,8 @@
                     'workPlans' => 'Munkatervek',
                     'methodologies' => 'Módszertan',
                     'songTypes' => 'Dal típusok',
-                    'folkSongTypes' => 'Népdal típusok'
+                    'folkSongTypes' => 'Népdal típusok',
+                    'regions' => 'Tájegységek'
                 ],
                 'knowledgeRepositoryParameters' => [
                     'knowledgeRepositoryParameters' => 'Tudástár Paraméterek',
@@ -39,7 +40,11 @@
                     'methodology' => 'Módszertan',
                     'ageGroup' => 'Korosztály',
                     'songType' => 'Dal típus',
-                    'folkSongType' => 'Népdal típus'
+                    'folkSongType' => 'Népdal típus',
+                    'region' => 'Tájegység',
+                    'bigRegion' => 'Nagy tájegység',
+                    'midRegion' => 'Közepes tájegység',
+                    'smallRegion' => 'Kicsi tájegység',
                 ],
             ],
             'general' => [
@@ -61,6 +66,7 @@
                 'import' => 'Importálás',
                 'row' => 'sor',
                 'file' => 'Fájl',
+                'select' => 'Válassz...'
             ],
             'game' => [
                 'game' => 'Játék',
@@ -121,7 +127,7 @@
                 'cannotFindTrialSystemTrialType' => 'A következő próbarendszer próba kategória(ák) nem található(k): ',
                 'errorsOccurred' => 'Az importálás során a következő hibák léptek fel: ',
                 'importSuccessful' => 'Az importálás sikeresen megtörtént!',
-            ],
+        ],
             'workPlan' => [
                 'workPlan' => 'Munkaterv',
                 'workPlans' => 'Munkatervek',
