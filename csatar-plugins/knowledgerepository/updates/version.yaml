@@ -114,3 +114,30 @@
 1.0.39:
     - 'Created table csatar_knowledgerepository_folk_song_type'
     - builder_table_create_csatar_knowledgerepository_folk_song_type.php
+1.0.40:
+    - 'Created table csatar_knowledgerepository_region'
+    - builder_table_create_csatar_knowledgerepository_region.php
+1.0.41:
+    - 'Updated table csatar_knowledgerepository_region'
+    - builder_table_update_csatar_knowledgerepository_region.php
+1.0.42:
+    - 'Created table csatar_knowledgerepository_folk_song_rhythm'
+    - builder_table_create_csatar_knowledgerepository_folk_song_rhythm.php
+1.0.43:
+    - 'Created table csatar_knowledgerepository_songs'
+    - builder_table_create_csatar_knowledgerepository_songs.php
+1.0.44:
+    - 'Updated table csatar_knowledgerepository_songs'
+    - builder_table_update_csatar_knowledgerepository_songs.php
+1.0.45:
+    - 'Updated table csatar_knowledgerepository_songs'
+    - builder_table_update_csatar_knowledgerepository_songs_2.php
+1.0.46:
+    - 'Updated table csatar_knowledgerepository_songs'
+    - builder_table_update_csatar_knowledgerepository_songs_3.php
+1.0.47:
+    - 'Created table csatar_knowledgerepository_age_group_song'
+    - builder_table_create_csatar_knowledgerepository_age_group_song.php
+1.0.48:
+    - 'Created table csatar_knowledgerepository_song_trial_system'
+    - builder_table_create_csatar_knowledgerepository_song_trial_system.php

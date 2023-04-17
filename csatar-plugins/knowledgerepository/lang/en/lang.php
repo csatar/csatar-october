@@ -15,7 +15,9 @@
                     'workPlans' => 'Work Plans',
                     'methodologies' => 'Methodologies',
                     'songTypes' => 'Song types',
-                    'folkSongTypes' => 'Folk song types'
+                    'folkSongTypes' => 'Folk song types',
+                    'regions' => 'Regions',
+                    'folkSongRhythms' => 'Folk song rhythms'
                 ],
                 'knowledgeRepositoryParameters' => [
                     'knowledgeRepositoryParameters' => 'Knowledge Repository Parameters',
@@ -39,7 +41,13 @@
                     'methodology' => 'Methodology',
                     'ageGroup' => 'Age group',
                     'songType' => 'Song type',
-                    'folkSongType' => 'Folk song type'
+                    'folkSongType' => 'Folk song type',
+                    'region' => 'Region',
+                    'bigRegion' => 'Big Region',
+                    'midRegion' => 'Mid Region',
+                    'smallRegion' => 'Small Region',
+                    'folkSongRhythm' => 'Folk song rhythm',
+                    'song' => 'Song'
                 ],
             ],
             'general' => [
@@ -60,6 +68,7 @@
                 'import' => 'Import',
                 'row' => 'row',
                 'file' => 'File',
+                'select' => 'Select...'
             ],
             'game' => [
                 'game' => 'Game',
@@ -120,7 +129,7 @@
                 'cannotFindTrialSystemTrialType' => 'Cannot find trial system trial type(s): ',
                 'errorsOccurred' => 'Errors occurred during import: ',
                 'importSuccessful' => 'Import successful!',
-            ],
+        ],
             'workPlan' => [
                 'workPlan' => 'Work Plan',
                 'workPlans' => 'Work Plans',
@@ -134,12 +143,22 @@
                 'teamLeader' => 'Team leader',
                 'deputyTeamLeaders' => 'Deputy team leader(s)',
             ],
+            'song' => [
+                'songTitle' => 'Song Title',
+                'author' => 'Author',
+                'text' => 'Text',
+
+            ]
         ],
         'components' => [
             'gameForm' => [
                 'name' => 'Game Form',
                 'description' => 'Game Form component',
             ],
+            'songForm' => [
+                'name' => 'Song Form',
+                'description' => 'Song Form component'
+            ]
         ],
     ],
 ];

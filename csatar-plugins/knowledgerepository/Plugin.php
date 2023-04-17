@@ -1,5 +1,6 @@
 <?php namespace Csatar\KnowledgeRepository;
 
+use Csatar\KnowledgeRepository\Models\Region;
 use System\Classes\PluginBase;
 
 class Plugin extends PluginBase
@@ -11,6 +12,7 @@ class Plugin extends PluginBase
         return [
             \Csatar\KnowledgeRepository\Components\GameForm::class => 'gameForm',
             \Csatar\KnowledgeRepository\Components\MethodologyForm::class => 'methodologyForm',
+            \Csatar\KnowledgeRepository\Components\SongForm::class => 'songForm',
         ];
     }
 
@@ -30,5 +32,18 @@ class Plugin extends PluginBase
         return [
             'csatar.knowledgerepository::pdf.workplantemplate',
         ];
+    }
+
+    public function registerListColumnTypes()
+    {
+        return [
+            'regionExtendedName' => [$this, 'getRegionExtendedName'],
+        ];
+    }
+
+    public function getRegionExtendedName($value, $column, $record)
+    {
+        $region = Region::where('name', $value)->first() ?? null;
+        return $region ? $region->getExtendedNameAttribute() : '';
     }
 }

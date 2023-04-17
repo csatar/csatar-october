@@ -15,6 +15,9 @@
 - CS-475 - Added option to backend scout list to (soft)delete scout with personal data
 - CS-516 - Created Song type model
 - CS-517 - Created Folk song type model
+- CS-518 - Created Region model
+- CS-519 - Created Folk song rhythm model
+- CS-508 - Created Song model
 
 ## 1.11.0
 ### 2023-04-13

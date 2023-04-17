@@ -5,7 +5,7 @@ use Model;
 /**
  * Model
  */
-class SongType extends Model
+class FolkSongRhythm extends Model
 {
     use \October\Rain\Database\Traits\Validation;
 
@@ -19,11 +19,7 @@ class SongType extends Model
     /**
      * @var string The database table used by the model.
      */
-    public $table = 'csatar_knowledgerepository_song_type';
-
-    public $fillable = [
-        'name'
-    ];
+    public $table = 'csatar_knowledgerepository_folk_song_rhythm';
 
     /**
      * @var array Validation rules
@@ -31,7 +27,8 @@ class SongType extends Model
     public $rules = [
     ];
 
-    public $belongsToMany = [
-        'songs' => '\Csatar\Csatar\Models\Song'
+    public $fillable = [
+        'name',
+        'description'
     ];
 }

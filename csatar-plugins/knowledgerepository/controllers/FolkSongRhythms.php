@@ -3,10 +3,10 @@
 use Backend\Classes\Controller;
 use BackendMenu;
 
-class FolkSongTypes extends Controller
+class FolkSongRhythms extends Controller
 {
     public $implement = [        'Backend\Behaviors\ListController',        'Backend\Behaviors\FormController'    ];
-
+    
     public $listConfig = 'config_list.yaml';
     public $formConfig = 'config_form.yaml';
 

@@ -15,7 +15,11 @@
                             {% endif %}
                         {% endfor %}
                     {% else %}
-                        {% set value = record[column['relationName']][column['valueFrom']] %}
+                        {% if column['type'] == 'regionExtendedName' %}
+                            {% set value = record[column['relationName']].getExtendedNameAttribute %}
+                        {% else %}
+                            {% set value = record[column['relationName']][column['valueFrom']] %}
+                        {% endif %}
                     {% endif %}
                 {% else %}
                     {% set value = record[column['attribute']] %}

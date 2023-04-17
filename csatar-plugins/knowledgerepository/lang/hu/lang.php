@@ -11,11 +11,13 @@
                     'knowledgeRepository' => 'Tudástár',
                     'testSystem' => 'Próbarendszer',
                     'games' => 'Játékok',
-                    'songs' => 'Énekek',
+                    'songs' => 'Dalok',
                     'workPlans' => 'Munkatervek',
                     'methodologies' => 'Módszertan',
                     'songTypes' => 'Dal típusok',
-                    'folkSongTypes' => 'Népdal típusok'
+                    'folkSongTypes' => 'Népdal típusok',
+                    'regions' => 'Tájegységek',
+                    'folkSongRhythms' => 'Népdal ritmusok'
                 ],
                 'knowledgeRepositoryParameters' => [
                     'knowledgeRepositoryParameters' => 'Tudástár Paraméterek',
@@ -39,7 +41,13 @@
                     'methodology' => 'Módszertan',
                     'ageGroup' => 'Korosztály',
                     'songType' => 'Dal típus',
-                    'folkSongType' => 'Népdal típus'
+                    'folkSongType' => 'Népdal típus',
+                    'region' => 'Tájegység',
+                    'bigRegion' => 'Nagy tájegység',
+                    'midRegion' => 'Közepes tájegység',
+                    'smallRegion' => 'Kicsi tájegység',
+                    'folkSongRhythm' => 'Népdal ritmus',
+                    'song' => 'Dal'
                 ],
             ],
             'general' => [
@@ -61,6 +69,7 @@
                 'import' => 'Importálás',
                 'row' => 'sor',
                 'file' => 'Fájl',
+                'select' => 'Válassz...'
             ],
             'game' => [
                 'game' => 'Játék',
@@ -121,7 +130,7 @@
                 'cannotFindTrialSystemTrialType' => 'A következő próbarendszer próba kategória(ák) nem található(k): ',
                 'errorsOccurred' => 'Az importálás során a következő hibák léptek fel: ',
                 'importSuccessful' => 'Az importálás sikeresen megtörtént!',
-            ],
+        ],
             'workPlan' => [
                 'workPlan' => 'Munkaterv',
                 'workPlans' => 'Munkatervek',
@@ -135,6 +144,12 @@
                 'teamLeader' => 'Csapatvezető',
                 'deputyTeamLeaders' => 'Csapatvezető helyettes(ek)',
             ],
+            'song' => [
+                'songTitle' => 'Dal cím',
+                'author' => 'Szerző',
+                'text' => 'Szöveg',
+
+            ]
         ],
         'components' => [
             'gameForm' => [
@@ -144,6 +159,10 @@
             'methodologyForm' => [
                 'name' => 'Módszertan űrlap',
                 'description' => 'Módszertan űrlap komponens'
+            ],
+            'songForm' => [
+                'name' => 'Dal űrlap',
+                'description' => 'Dal űrlap komponens'
             ]
         ],
     ],

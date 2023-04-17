@@ -1,9 +1,11 @@
 <?php namespace Csatar\KnowledgeRepository\Updates;
 
 use Csatar\KnowledgeRepository\Models\AccidentRiskLevel;
+use Csatar\KnowledgeRepository\Models\FolkSongRhythm;
 use Csatar\KnowledgeRepository\Models\FolkSongType;
 use Csatar\KnowledgeRepository\Models\GameDevelopmentGoal;
 use Csatar\KnowledgeRepository\Models\MethodologyType;
+use Csatar\KnowledgeRepository\Models\Region;
 use Csatar\KnowledgeRepository\Models\SongType;
 use Csatar\KnowledgeRepository\Models\Tool;
 use Csatar\KnowledgeRepository\Models\Headcount;
@@ -138,7 +140,7 @@ class SeederData extends Seeder
             [
                 'name' => 'Cserkésznyakkendő',
                 'approved' => true,
-            ],
+        ],
         ],
         'headCounts' => [
             [
@@ -168,7 +170,7 @@ class SeederData extends Seeder
                 'max' => 100,
                 'note' => '(csapatlétszámhoz)',
                 'sort_order' => 4,
-            ],
+        ],
             [
                 'description' => 'Bármekkora létszámmal játszható',
                 'min' => 0,
@@ -300,6 +302,10 @@ class SeederData extends Seeder
             [
                 'title' => 'Munkaterv',
                 'model' => 'Csatar\KnowledgeRepository\Models\WorkPlan',
+			],
+            [
+                'title' => 'Dal',
+                'model' => 'Csatar\KnowledgeRepository\Models\Song',
             ],
         ],
         'trialSystemTopics' => [
@@ -463,7 +469,7 @@ class SeederData extends Seeder
         'folkSongTypes' => [
             [
                 'name' => 'Ráolvasások és imák',
-                'description' => 'Ezek az énekek ősi praktikákból táplálkoznak, a magyar néphit és ősi népi vallásosságára világítanak rá. '
+                'description' => 'ezek az énekek ősi praktikákból táplálkoznak, a magyar néphit és ősi népi vallásosságára világítanak rá. '
             ],
             [
                 'name' => 'Ünnepi dalok, rítusénekek, köszöntők és rigmusok',
@@ -479,7 +485,7 @@ class SeederData extends Seeder
             ],
             [
                 'name' => 'Párosítók',
-                'description' => 'A párosítók szövegei sablonosak, ebbe egyszerűen belehelyezik az illető leány és legény nevét.'
+                'description' => 'a párosítók szövegei sablonosak, ebbe egyszerűen belehelyezik az illető leány és legény nevét.'
             ],
             [
                 'name' => 'Szerelmi dalok',
@@ -487,7 +493,7 @@ class SeederData extends Seeder
             ],
             [
                 'name' => 'Lakodalmi énekek, dalok és vőfélyrigmusok',
-                'description' => 'A parasztlakodalom középpontjában a menyasszony és a termékenység áll.'
+                'description' => 'a parasztlakodalom középpontjában a menyasszony és a termékenység áll.'
             ],
             [
                 'name' => 'Táncdalok és dudanóták',
@@ -525,6 +531,247 @@ class SeederData extends Seeder
                 'name' => 'Arató- és summásdalok',
                 'description' => 'a mezei munkásság dalai'
             ],
+        ],
+        'regions' => [
+            [
+                'name' => 'Alföld'
+            ],
+            [
+                'name' => 'Bácska',
+                'big_parent' => 'Alföld'
+            ],
+            [
+                'name' => 'Kis- és Nagykunság',
+                'big_parent' => 'Alföld'
+            ],
+            [
+                'name' => 'Jászság',
+                'big_parent' => 'Alföld'
+            ],
+            [
+                'name' => 'Hajdúság',
+                'big_parent' => 'Alföld'
+            ],
+            [
+                'name' => 'Nyírség',
+                'big_parent' => 'Alföld'
+            ],
+            [
+                'name' => 'Érmellék',
+                'big_parent' => 'Alföld'
+            ],
+            [
+                'name' => 'Szamoshát',
+                'big_parent' => 'Alföld'
+            ],
+            [
+                'name' => 'Tiszahát',
+                'big_parent' => 'Alföld'
+            ],
+            [
+                'name' => 'Dunántúl'
+            ],
+            [
+                'name' => 'Ormánság',
+                'big_parent' => 'Dunántúl'
+            ],
+            [
+                'name' => 'Drávaszög',
+                'big_parent' => 'Dunántúl'
+            ],
+            [
+                'name' => 'Szlavóniai magyarság',
+                'big_parent' => 'Dunántúl'
+            ],
+            [
+                'name' => 'Őrség',
+                'big_parent' => 'Dunántúl'
+            ],
+            [
+                'name' => 'Göcsej',
+                'big_parent' => 'Dunántúl'
+            ],
+            [
+                'name' => 'Bakony erdeje',
+                'big_parent' => 'Dunántúl'
+            ],
+            [
+                'name' => 'Balatonfelvidék',
+                'big_parent' => 'Dunántúl'
+            ],
+            [
+                'name' => 'Kisalföld',
+                'big_parent' => 'Dunántúl'
+            ],
+            [
+                'name' => 'Csallóköz',
+                'big_parent' => 'Dunántúl'
+            ],
+            [
+                'name' => 'Felföld/Felvidék',
+            ],
+            [
+                'name' => 'Palócföld',
+                'big_parent' => 'Felföld/Felvidék'
+            ],
+            [
+                'name' => 'Zobor vidéke',
+                'big_parent' => 'Felföld/Felvidék'
+            ],
+            [
+                'name' => 'Garam mente',
+                'big_parent' => 'Felföld/Felvidék'
+            ],
+            [
+                'name' => 'Hegyalja',
+                'big_parent' => 'Felföld/Felvidék'
+            ],
+            [
+                'name' => 'Erdély',
+            ],
+            [
+                'name' => 'Partium',
+                'big_parent' => 'Erdély'
+            ],
+            [
+                'name' => 'Máramarosi',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Partium',
+            ],
+            [
+                'name' => 'Szilágysági',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Partium',
+            ],
+            [
+                'name' => 'Szatmári',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Partium',
+            ],
+            [
+                'name' => 'Bihari',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Partium',
+            ],
+            [
+                'name' => 'Érmelléki',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Partium',
+            ],
+            [
+                'name' => 'Kalotaszeg',
+                'big_parent' => 'Erdély'
+            ],
+            [
+                'name' => 'Torockó',
+                'big_parent' => 'Erdély'
+            ],
+            [
+                'name' => 'Mezőség',
+                'big_parent' => 'Erdély'
+            ],
+            [
+                'name' => 'Székelyföld',
+                'big_parent' => 'Erdély'
+            ],
+            [
+                'name' => 'Aranyosszék',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Székelyföld',
+            ],
+            [
+                'name' => 'Marosszék',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Székelyföld',
+            ],
+            [
+                'name' => 'Udvarhelyszék',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Székelyföld',
+            ],
+            [
+                'name' => 'Háromszék',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Székelyföld',
+            ],
+            [
+                'name' => 'Kézdiszék',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Székelyföld',
+                'small_parent' => 'Háromszék',
+            ],
+            [
+                'name' => 'Orbaiszék',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Székelyföld',
+                'small_parent' => 'Háromszék',
+            ],
+            [
+                'name' => 'Sepsiszék',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Székelyföld',
+                'small_parent' => 'Háromszék',
+            ],
+            [
+                'name' => 'Csíkszék',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Székelyföld',
+            ],
+            [
+                'name' => 'Alcsík',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Székelyföld',
+                'small_parent' => 'Csíkszék',
+            ],
+            [
+                'name' => 'Felcsík',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Székelyföld',
+                'small_parent' => 'Csíkszék',
+            ],
+            [
+                'name' => 'Gyergyószék',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Székelyföld',
+            ],
+            [
+                'name' => 'Kászon',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Székelyföld',
+            ],
+            [
+                'name' => 'Barcaság',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Székelyföld',
+            ],
+            [
+                'name' => 'Gyímes',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Székelyföld',
+            ],
+            [
+                'name' => 'Moldva',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Székelyföld',
+            ],
+            [
+                'name' => 'Bukovina',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Székelyföld',
+            ],
+            [
+                'name' => 'nem alkalmazható',
+            ],
+        ],
+        'folkSongRhythms' => [
+            [
+                'name' => 'gyors',
+                'description' => 'gyors tempójú népdalok (csárdás, ugrós) - lehet rá menetelni'
+            ],
+            [
+                'name' => 'lassú',
+                'description' => 'lassú tempójú népdalok (keserves, sirató) - nem lehet rá menetelni'
+            ]
         ]
     ];
 
@@ -667,6 +914,39 @@ class SeederData extends Seeder
             ]);
             $folkSongType->description = $folkSongTypeData['description'];
             $folkSongType->save();
+        }
+
+        // Region type
+        foreach ($this::DATA['regions'] as $regionData) {
+            $region = Region::firstOrNew([
+                'name' => $regionData['name']
+            ]);
+
+            if (isset($regionData['big_parent'])) {
+                $parent = Region::where('name', $regionData['big_parent'])->first() ?? null;
+                $region->big_parent_id = $parent->id;
+            }
+
+            if (isset($regionData['mid_parent'])) {
+                $parent = Region::where('name', $regionData['mid_parent'])->first() ?? null;
+                $region->mid_parent_id = $parent->id;
+            }
+
+            if (isset($regionData['small_parent'])) {
+                $parent = Region::where('name', $regionData['small_parent'])->first() ?? null;
+                $region->small_parent_id = $parent->id;
+            }
+
+            $region->save();
+        }
+
+        // Folk song rhythms
+        foreach ($this::DATA['folkSongRhythms'] as $folkSongRhythmData) {
+            $folkSongRhythm = FolkSongRhythm::firstOrNew([
+                'name' => $folkSongRhythmData['name'],
+            ]);
+            $folkSongRhythm->description = $folkSongRhythmData['description'];
+            $folkSongRhythm->save();
         }
     }
 }

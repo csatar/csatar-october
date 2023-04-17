@@ -1,4 +1,0 @@
-title: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.folkSongType'
-modelClass: Csatar\KnowledgeRepository\Models\FolkSongType
-toolbar:
-    buttons: reorder_toolbar

@@ -3,7 +3,7 @@
 use Backend\Classes\Controller;
 use BackendMenu;
 
-class FolkSongTypes extends Controller
+class Songs extends Controller
 {
     public $implement = [        'Backend\Behaviors\ListController',        'Backend\Behaviors\FormController'    ];
 
@@ -13,5 +13,6 @@ class FolkSongTypes extends Controller
     public function __construct()
     {
         parent::__construct();
+        BackendMenu::setContext('Csatar.KnowledgeRepository', 'main-menu-knowledge-repository', 'side-menu-songs');
     }
 }
