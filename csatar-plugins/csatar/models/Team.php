@@ -114,6 +114,7 @@ class Team extends OrganizationBase
         'district_id',
         'logo',
         'slug',
+        'google_calendar_id',
     ];
 
     protected $nullable = [
@@ -207,6 +208,10 @@ class Team extends OrganizationBase
             'key' => 'mandate_model_id',
             'scope' => 'inactiveMandatesInOrganization',
             'ignoreInPermissionsMatrix' => true,
+        ],
+        'workPlans' => [
+            '\Csatar\Csatar\KnowledgeRepository\WorkPlan',
+            'label' => 'csatar.knowledgerepository::lang.plugin.admin.workPlan.workPlans',
         ],
     ];
 

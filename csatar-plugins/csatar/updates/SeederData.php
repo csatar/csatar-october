@@ -670,7 +670,51 @@ class SeederData extends Seeder
             "Zambia" => "Zambia",
             "Zimbabwe" => "Zimbabwe",
         ],
+        'googleCalendarParams' => [
+            [
+                'model' => 'Association',
+                'modelName' => 'Romániai Magyar Cserkészszövetség',
+                'params' => 'src=rmcssz%40gmail.com&ctz=Europe%2FBucharest&hl=hu'
+            ],
+            [
+                'model' => 'District',
+                'modelName' => 'Csík',
+                'params' => 'src=uga7ch24mbb4ckfpqo3ruf912k%40group.calendar.google.com&ctz=Europe%2FBucharest&hl=hu'
+            ],
+            [
+                'model' => 'District',
+                'modelName' => 'Gyergyó',
+                'params' => 'src=qq1b0l0i4unvuj4qdul780h8o8%40group.calendar.google.com&ctz=Europe%2FBucharest&hl=hu'
+            ],
+            [
+                'model' => 'District',
+                'modelName' => 'Háromszék',
+                'params' => 'src=8onq5ut3tetqldh682alu37mt4%40group.calendar.google.com&ctz=Europe%2FBucharest&hl=hu'
+            ],
+            [
+                'model' => 'District',
+                'modelName' => 'Kolozsvár',
+                'params' => 'src=694ek0k60e0era4vmf8bbui5vs%40group.calendar.google.com&ctz=Europe%2FBucharest&hl=hu'
+            ],
+            [
+                'model' => 'District',
+                'modelName' => 'Maros',
+                'params' => 'src=fbrs4olb1skmbvsbaoov7hga8k%40group.calendar.google.com&ctz=Europe%2FBucharest&hl=hu'
+            ],
+            [
+                'model' => 'District',
+                'modelName' => 'Nagyenyed',
+                'params' => 'src=btivjhutht8ucmecvcjik1lh64%40group.calendar.google.com&ctz=Europe%2FBucharest&hl=hu'
+            ],
+            [
+                'model' => 'District',
+                'modelName' => 'Udvarhely',
+                'params' => 'src=cfovub3qe4jg3celfsp7ivr3ds%40group.calendar.google.com&ctz=Europe%2FBucharest&hl=hu'
+            ],
+        ]
     ];
+
+
 
     public function run()
     {
@@ -988,6 +1032,16 @@ class SeederData extends Seeder
                 $country->setAttributeTranslated('name', $enCountryName, 'en');
                 $country->setAttributeTranslated('name', $huCountryName, 'hu');
                 $country->save();
+            }
+        }
+
+        foreach ($this::DATA['googleCalendarParams'] as $params) {
+            $class = '\Csatar\Csatar\Models\\' . $params['model'];
+            $model = $class::where('name', $params['modelName'])->first();
+
+            if ($model) {
+                $model->google_calendar_id = $params['params'];
+                $model->forceSave();
             }
         }
     }

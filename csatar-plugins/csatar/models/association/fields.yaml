@@ -196,3 +196,7 @@ fields:
         label: 'csatar.csatar::lang.plugin.locations.country'
         span: auto
         type: text
+    google_calendar_id:
+        label: 'csatar.csatar::lang.plugin.admin.general.googleCalendarId'
+        span: auto
+        type: text

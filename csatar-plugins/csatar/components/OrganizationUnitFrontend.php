@@ -3,6 +3,7 @@
 use Auth;
 use Carbon\Carbon;
 use Cms\Classes\ComponentBase;
+use Csatar\Csatar\Components\RecordList;
 use Csatar\Csatar\Classes\CsvCreator;
 use Csatar\Csatar\Classes\Enums\Gender;
 use Csatar\Csatar\Classes\Enums\Status;
@@ -26,6 +27,7 @@ class OrganizationUnitFrontend extends ComponentBase
 {
     public $model;
     public $content_page;
+
     public $permissions;
     public $gallery_id;
     public $inactiveMandates;
@@ -90,12 +92,8 @@ class OrganizationUnitFrontend extends ComponentBase
 
     public function onEditContent()
     {
-        $modelName = "Csatar\Csatar\Models\\" . $this->property('model_name');
-        $model = $modelName::find($this->property('model_id'));
-
-        $content = $model->content_page;
         return [
-            '#contentPage' => $this->renderPartial('@editor', ['content_page' => $content])
+            '#contentPage' => $this->renderPartial('@editor')
         ];
     }
 
@@ -338,12 +336,11 @@ class OrganizationUnitFrontend extends ComponentBase
             $data = $this->getDataFromXlsx($file);
         }
 
-        if ($file->getExtension() == 'csv' && ($handle = fopen($file, "r")) !== FALSE) {
-            while (($csvData = fgetcsv($handle)) !== FALSE) {
+        if ($file->getExtension() == 'csv' && ($handle = fopen($file, "r")) !== false) {
+            while (($csvData = fgetcsv($handle)) !== false) {
                 $data[] = $csvData;
             }
         }
-
 
         $attributes = $data[0];
         $log = [];
@@ -374,7 +371,12 @@ class OrganizationUnitFrontend extends ComponentBase
                     $log['updated'][] = $rowNumber . ' - ' . $scout->ecset_code;
                 }
             } catch (\Exception $e) {
-                $log['errors'][] = $rowNumber . ' | ' . $scout->name . ' - ' . $scout->ecset_code . ' | ' . $e->getMessage();
+                if (strpos($e->getMessage(), 'DateTime::__construct()') !== false) {
+                    $log['errors'][] = $rowNumber . ' | ' . $scout->name . ' - ' . $scout->ecset_code . ' | ' . Lang::get('csatar.csatar::lang.plugin.admin.scout.import.invalidDateTimeFormat');
+                } else {
+                    $log['errors'][] = $rowNumber . ' | ' . $scout->name . ' - ' . $scout->ecset_code . ' | ' . $e->getMessage();
+                }
+
             }
 
         }

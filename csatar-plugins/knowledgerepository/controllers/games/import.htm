@@ -1,0 +1,83 @@
+<?php Block::put('breadcrumb') ?>
+<ul>
+    <li>
+        <a href="<?= Backend::url('csatar/knowledgerepository/games') ?>">
+            <?= e(trans('csatar.knowledgerepository::lang.plugin.admin.game.games')) ?>
+        </a>
+    </li>
+    <li><?= e($this->pageTitle) ?></li>
+</ul>
+<?php Block::endPut() ?>
+
+<form data-request="onImportGames"
+      data-request-files
+      data-request-loading
+      data-request-validate
+      data-request-flash
+      data-request-complete="$.oc.stripeLoadIndicator.hide();"
+      class='layout'>
+
+<div class="form-group span-full is-required">
+    <label>
+        <?= e(trans('csatar.csatar::lang.plugin.admin.association.association')) ?>
+    </label>
+    <select
+            name="association_id"
+            class="form-control custom-select"
+            data-handler="onGetAssociationOptions"
+    ></select>
+</div>
+
+<div class="form-group span-full is-required">
+    <label>
+        <?= e(trans('csatar.knowledgerepository::lang.plugin.admin.general.file')) ?>
+    </label>
+    <input type="file" name="xlsx_file">
+</div>
+
+<div class="form-group span-left is-required">
+    <label>
+        <?= e(trans('csatar.knowledgerepository::lang.plugin.admin.game.uploader')) ?>
+    </label>
+    <select
+            name="uploader_csatar_code"
+            class="form-control custom-select"
+            data-handler="onGetScoutOptions"
+            data-minimum-input-length="2"
+            data-ajax--delay="300"
+    ></select>
+</div>
+
+<div class="form-group span-right">
+    <label>
+        <?= e(trans('csatar.knowledgerepository::lang.plugin.admin.game.approver')) ?>
+    </label>
+    <select
+            name="approver_csatar_code"
+            class="form-control custom-select"
+            data-handler="onGetScoutOptions"
+            data-minimum-input-length="2"
+            data-ajax--delay="300"
+    ></select>
+</div>
+
+<div class="form-buttons">
+    <button
+        onclick="$('#errors').empty(); $.oc.stripeLoadIndicator.show();"
+        data-keyboard="false"
+        class="btn btn-primary">
+        <?= e(trans('csatar.knowledgerepository::lang.plugin.admin.general.import')) ?>
+    </button>
+</div>
+
+<div class="checkbox custom-checkbox">
+    <input name="overwrite_existing_data" value="1" type="checkbox" id="owerwriteExistingData" />
+    <label for="owerwriteExistingData" class="storm-icon-pseudo">
+        <?= e(trans('csatar.knowledgerepository::lang.plugin.admin.game.overwriteExistingGames')) ?>
+    </label>
+</div>
+
+<div id="errors"></div>
+
+</form>
+

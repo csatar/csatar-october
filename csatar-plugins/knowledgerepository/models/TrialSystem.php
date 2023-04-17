@@ -37,6 +37,7 @@ class TrialSystem extends PermissionBasedAccess
         'task',
         'obligatory',
         'note',
+        'effective_knowledge',
     ];
 
     public $belongsTo = [
@@ -92,5 +93,42 @@ class TrialSystem extends PermissionBasedAccess
             return $query->where('id', 0);
         }
         return $query->where('association_id', $related->association_id);
+    }
+
+    public function getOEFKAttribute()
+    {
+        $oefk = [];
+        if ($this->for_patrols) {
+            $oefk[] = 'Ő';
+        }
+        if ($this->individual) {
+            $oefk[] = 'E';
+        }
+        if ($this->task) {
+            $oefk[] = 'F';
+        }
+        if ($this->obligatory) {
+            $oefk[] = 'K';
+        }
+        
+        return implode('-', $oefk);
+    }
+
+    public function getOEFKTooltipAttribute() {
+        $oefk = [];
+        if ($this->for_patrols) {
+            $oefk[] = Lang::get('csatar.knowledgerepository::lang.plugin.admin.trialSystem.forPatrols');
+        }
+        if ($this->individual) {
+            $oefk[] = Lang::get('csatar.knowledgerepository::lang.plugin.admin.trialSystem.individual');
+        }
+        if ($this->task) {
+            $oefk[] = Lang::get('csatar.knowledgerepository::lang.plugin.admin.trialSystem.task');
+        }
+        if ($this->obligatory) {
+            $oefk[] = Lang::get('csatar.knowledgerepository::lang.plugin.admin.trialSystem.obligatory');
+        }
+
+        return implode('-', $oefk);
     }
 }

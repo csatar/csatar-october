@@ -1,0 +1,31 @@
+<div class="col-6 col-lg-1">
+    {% if canUpdate %}
+        <button
+                class="btn btn-xs rounded btn-primary m-1" data-request-flash
+                data-request="onModifyPivotRelation"
+                data-request-data="relationName: '{{ relationName }}', relationId: '{{ relationId }}'"
+        >
+            <i class="bi bi-pencil"></i>
+        </button>
+    {% elseif fieldsThatRequire2FA[relationName] is defined %}
+        <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-placement=top
+              title="{{ 'csatar.forms::lang.components.basicForm.2FANeeded'|trans }}">
+            <button class="btn btn-xs rounded btn-primary m-1" disabled><i class="csat-key-out-wh-sm"></i></button>
+        </span>
+    {% endif %}
+
+    {% if canDelete %}
+        <button
+                class="btn btn-xs rounded btn-danger m-1" data-request-flash
+                data-request="onDeletePivotRelation"
+                data-request-data="relationName: '{{ relationName }}', relationId: '{{ relationId }}'"
+        >
+            <i class="bi bi-trash"></i>
+        </button>
+    {% elseif fieldsThatRequire2FA[relationName] is defined %}
+        <span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-placement=top
+              title="{{ 'csatar.forms::lang.components.basicForm.2FANeeded'|trans }}">
+            <button class="btn btn-xs rounded btn-danger m-1" disabled><i class="csat-key-out-wh-sm"></i></button>
+        </span>
+    {% endif %}
+</div>

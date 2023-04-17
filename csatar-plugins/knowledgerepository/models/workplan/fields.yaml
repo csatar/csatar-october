@@ -1,0 +1,179 @@
+fields:
+    team:
+        label: 'csatar.csatar::lang.plugin.admin.team.team'
+        nameFrom: extendedName
+        descriptionFrom: description
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        span: auto
+        required: 1
+        type: relation
+        formBuilder:
+            readOnlyIfPreselected: true
+    year:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.workPlan.year'
+        span: auto
+        type: number
+    name:
+        type: text
+        span: auto
+        label: 'csatar.csatar::lang.plugin.admin.general.name'
+        disabled: true
+        formBuilder:
+            ignoreUserRights: 1
+    _ruler1:
+        type: ruler
+        formBuilder:
+            ignoreUserRights: 1
+    team_leader:
+        type: text
+        span: auto
+        label: 'csatar.knowledgerepository::lang.plugin.admin.workPlan.teamLeader'
+        disabled: true
+        formBuilder:
+            ignoreUserRights: 1
+    deputy_team_leaders:
+        type: text
+        span: auto
+        label: 'csatar.knowledgerepository::lang.plugin.admin.workPlan.deputyTeamLeaders'
+        disabled: true
+        formBuilder:
+            ignoreUserRights: 1
+    _ruler2:
+        type: ruler
+        formBuilder:
+            ignoreUserRights: 1
+    troops:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.workPlan.troops'
+        span: auto
+        type: richeditor
+        toolbarButtons:
+            - paragraphFormat
+            - paragraphStyle
+            - bold
+            - italic
+            - underline
+            - strikeThrough
+            - align
+            - formatOL
+            - formatUL
+            - outdent
+            - indent
+            - quote,
+            - -
+            - undo
+            - redo
+            - insertLink
+            - insertImage
+            - insertFile
+            - insertTable
+            - insertHR
+            - clearFormatting
+            - html
+    patrols:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.workPlan.patrols'
+        span: auto
+        type: richeditor
+        toolbarButtons:
+            - paragraphFormat
+            - paragraphStyle
+            - bold
+            - italic
+            - underline
+            - strikeThrough
+            - align
+            - formatOL
+            - formatUL
+            - outdent
+            - indent
+            - quote,
+            - -
+            - undo
+            - redo
+            - insertLink
+            - insertImage
+            - insertFile
+            - insertTable
+            - insertHR
+            - clearFormatting
+            - html
+    frame_story:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.workPlan.frameStory'
+        span: auto
+        type: richeditor
+        toolbarButtons:
+            - paragraphFormat
+            - paragraphStyle
+            - bold
+            - italic
+            - underline
+            - strikeThrough
+            - align
+            - formatOL
+            - formatUL
+            - outdent
+            - indent
+            - quote,
+            - -
+            - undo
+            - redo
+            - insertLink
+            - insertImage
+            - insertFile
+            - insertTable
+            - insertHR
+            - clearFormatting
+            - html
+    team_goals:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.workPlan.teamGoals'
+        span: auto
+        type: richeditor
+        toolbarButtons:
+            - paragraphFormat
+            - paragraphStyle
+            - bold
+            - italic
+            - underline
+            - strikeThrough
+            - align
+            - formatOL
+            - formatUL
+            - outdent
+            - indent
+            - quote,
+            - -
+            - undo
+            - redo
+            - insertLink
+            - insertImage
+            - insertFile
+            - insertTable
+            - insertHR
+            - clearFormatting
+            - html
+    team_notes:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.workPlan.teamNotes'
+        span: auto
+        type: richeditor
+        toolbarButtons:
+            - paragraphFormat
+            - paragraphStyle
+            - bold
+            - italic
+            - underline
+            - strikeThrough
+            - align
+            - formatOL
+            - formatUL
+            - outdent
+            - indent
+            - quote,
+            - -
+            - undo
+            - redo
+            - insertLink
+            - insertImage
+            - insertFile
+            - insertTable
+            - insertHR
+            - clearFormatting
+            - html
