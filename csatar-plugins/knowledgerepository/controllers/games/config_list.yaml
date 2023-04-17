@@ -1,6 +1,6 @@
 list: $/csatar/knowledgerepository/models/game/columns.yaml
 modelClass: Csatar\KnowledgeRepository\Models\Game
-title: Games
+title: 'csatar.knowledgerepository::lang.plugin.admin.game.games'
 noRecordsMessage: 'backend::lang.list.no_records'
 showSetup: true
 showCheckboxes: true

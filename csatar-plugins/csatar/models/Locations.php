@@ -33,6 +33,8 @@ class Locations extends Model
         'code',
     ];
 
+    protected $primaryKey = 'code';
+
     /**
      * @var array Validation rules
      */

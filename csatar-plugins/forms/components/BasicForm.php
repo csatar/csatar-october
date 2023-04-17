@@ -147,6 +147,9 @@ class BasicForm extends ComponentBase  {
         $this->setOrGetFormUniqueId();
         if ($this->properties['subForm']) {
             $this->record = $this->getRecordFromParent();
+            if (empty($this->record)) {
+                return;
+            }
             $this->readOnly = $this->properties['readOnly'] ?? false;
         } else {
             $this->getComponentSettings();
@@ -273,6 +276,10 @@ class BasicForm extends ComponentBase  {
         $this->addJs('/plugins/csatar/forms/assets/js/positionValidationTags.js');
         $this->addJs('/plugins/csatar/forms/assets/js/addCheckboxClass.js');
 
+        if ($this->properties['subForm'] && empty($this->record->id)) {
+            return;
+        }
+
         if ($this->readOnly) {
             //check if user has permissions to view record
             if (!$this->canRead('MODEL_GENERAL')) {
@@ -373,6 +380,10 @@ class BasicForm extends ComponentBase  {
 
         $relationName = $this->properties['getRecordFromParent'] ?? null;
         $parent = $this->getParent();
+
+        if (empty($parent) || empty($relationName)) {
+            return;
+        }
 
         $this->getRightsFromParent($parent, $relationName);
 
