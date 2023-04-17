@@ -246,3 +246,9 @@
 1.0.85:
     - 'Updated table csatar_csatar_scouts'
     - builder_table_update_csatar_csatar_scouts_8.php
+1.0.86:
+    - 'Updated table csatar_csatar_teams'
+    - update_teams_districts_associations_add_google_calendar_id.php
+1.0.87:
+    - 'Updated table csatar_csatar_patrols'
+    - builder_table_update_csatar_csatar_patrols_3.php

@@ -23,11 +23,19 @@ fields:
         comment: 'csatar.csatar::lang.plugin.admin.general.inactivationWarning'
         span: auto
         type: dropdown
+        required: 1
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
     gender:
         label: 'csatar.csatar::lang.plugin.admin.scout.gender.gender'
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        span: auto
         type: dropdown
+    trial_system_trial_type:
+        label: 'csatar.csatar::lang.plugin.admin.patrol.trialSystemTrialType'
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        span: auto
+        type: relation
+        nameFrom: name
     email:
         label: 'csatar.csatar::lang.plugin.admin.general.email'
         span: auto

@@ -1,0 +1,70 @@
+url = "/munkaterv/:id/:action?"
+layout = "default"
+title = "Munkaterv"
+
+[basicForm]
+formSlug = "munkaterv"
+recordKeyParam = "id"
+recordActionParam = "action"
+createRecordKeyword = "letrehozas"
+actionUpdateKeyword = "modositas"
+actionDeleteKeyword = "torles"
+
+[partials]
+==
+<?php
+use Renatio\DynamicPDF\Classes\PDF;
+
+public function onDownloadPdf(){
+
+    if (!$id = Input::get('id')) {
+        return;
+    }
+
+    $fileName = $this->generatePdf($id);
+
+    return Redirect::to("/letoltes/pdf/$fileName");
+}
+
+public function generatePdf(int $workPlanId) {
+    $templateCode = 'csatar.knowledgerepository::pdf.workplantemplate';
+
+    $workPlan = \Csatar\KnowledgeRepository\Models\WorkPlan::find($workPlanId);
+
+    $data = [
+        'css' => \File::get(plugins_path('csatar/knowledgerepository/assets/css/workPlan.css')),
+        'workPlan' => $workPlan,
+    ];
+
+    $fileName = $workPlan->name . '.pdf';
+    PDF::loadTemplate($templateCode, $data)
+        ->setOption(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])
+        ->save(temp_path($fileName));
+
+    return $fileName;
+}
+?>
+==
+{% set workPlanId = this.controller.param('id') %}
+<div class="container">
+    {% partial "@simpleATagButton"
+        permissionValue = this.controller.vars.basicForm.currentUserRights['MODEL_GENERAL']['update']
+        targetUrl = '/munkaterv/'~workPlanId~'/modositas'
+        btnExtraClasses = 'btn-sm btn-primary'
+        btnIconClass = 'csat-edit-fill-wh-sm'
+        btnLabel = 'Munkaterv szerkesztése' |_
+    %}
+    {% component 'basicForm' %}
+
+    {% if user.scout and this.controller.vars.basicForm.record.created_at is not null %}
+        {% partial '@dataRequestButton'
+            permissionValue = 1
+            dataRequest = 'onDownloadPdf'
+            dataRequestData = 'id: ' ~ this.controller.vars.basicForm.record.id
+            dataRequestLoading = '#fs-saving-loader'
+            btnExtraClasses = 'btn-sm btn-primary'
+            btnIconClass = 'csat-arrowdown-fill-wh-sm'
+            btnLabel = 'Munkaterv letöltése' |_
+        %}
+    {% endif %}
+</div>

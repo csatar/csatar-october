@@ -69,6 +69,10 @@ class SeederData extends Seeder
                 'name' => 'Konfliktus kezelő',
                 'sort_order' => 11,
             ],
+            [
+                'name' => 'Tudásfejlesző vagy gyakorló játék',
+                'sort_order' => 12,
+            ]
         ],
         'accidentRiskLevels' => [
             [
@@ -133,6 +137,10 @@ class SeederData extends Seeder
                 'name' => 'Egyéb',
                 'approved' => true,
             ],
+            [
+                'name' => 'Cserkésznyakkendő',
+                'approved' => true,
+            ],
         ],
         'headCounts' => [
             [
@@ -162,7 +170,14 @@ class SeederData extends Seeder
                 'max' => 100,
                 'note' => '(csapatlétszámhoz)',
                 'sort_order' => 4,
-            ]
+            ],
+            [
+                'description' => 'Bármekkora létszámmal játszható',
+                'min' => 0,
+                'max' => 0,
+                'note' => '',
+                'sort_order' => 5,
+            ],
         ],
         'durations' => [
             [
@@ -283,6 +298,10 @@ class SeederData extends Seeder
             [
                 'title' => 'Próbarendszer',
                 'model' => 'Csatar\KnowledgeRepository\Models\TrialSystem',
+            ],
+            [
+                'title' => 'Munkaterv',
+                'model' => 'Csatar\KnowledgeRepository\Models\WorkPlan',
             ],
         ],
         'trialSystemTopics' => [
@@ -900,17 +919,17 @@ class SeederData extends Seeder
             ]);
 
             if (isset($regionData['big_parent'])) {
-                $parent = Region::where('name', $regionData['big_parent'])->first();
+                $parent = Region::where('name', $regionData['big_parent'])->first() ?? null;
                 $region->big_parent_id = $parent->id;
             }
 
             if (isset($regionData['mid_parent'])) {
-                $parent = Region::where('name', $regionData['mid_parent'])->first();
+                $parent = Region::where('name', $regionData['mid_parent'])->first() ?? null;
                 $region->mid_parent_id = $parent->id;
             }
 
             if (isset($regionData['small_parent'])) {
-                $parent = Region::where('name', $regionData['small_parent'])->first();
+                $parent = Region::where('name', $regionData['small_parent'])->first() ?? null;
                 $region->small_parent_id = $parent->id;
             }
 

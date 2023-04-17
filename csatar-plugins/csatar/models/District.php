@@ -65,6 +65,7 @@ class District extends OrganizationBase
         'logo',
         'slug',
         'status',
+        'google_calendar_id',
     ];
 
     public $nullable = [

@@ -16,7 +16,7 @@ navigation:
         label: 'csatar.csatar::lang.plugin.admin.admin.menu.organizationSystemData.organizationSystemData'
         url: /
         icon: icon-sitemap
-        order: 903
+        order: 904
         permissions:
             - csatar.manage.data
         sideMenu:
@@ -108,7 +108,7 @@ navigation:
         label: 'csatar.csatar::lang.plugin.admin.admin.menu.scoutSystemData.scoutSystemData'
         url: /
         icon: icon-sitemap
-        order: 904
+        order: 903
         permissions:
             - csatar.manage.data
         sideMenu:
