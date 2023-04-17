@@ -162,6 +162,10 @@ navigation:
                 label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepository.regions'
                 url: /csatar/knowledgerepository/regions
                 icon: icon-map-marker
+            side-menu-folk-song-rhythms:
+                label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepository.folkSongRhythms'
+                url: /csatar/knowledgerepository/folksongrhythms
+                icon: icon-music
 permissions:
     csatar.manage.knowledgerepository:
         tab: 'csatar.knowledgerepository::lang.plugin.name'

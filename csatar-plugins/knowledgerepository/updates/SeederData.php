@@ -1,6 +1,7 @@
 <?php namespace Csatar\KnowledgeRepository\Updates;
 
 use Csatar\KnowledgeRepository\Models\AccidentRiskLevel;
+use Csatar\KnowledgeRepository\Models\FolkSongRhythm;
 use Csatar\KnowledgeRepository\Models\FolkSongType;
 use Csatar\KnowledgeRepository\Models\GameDevelopmentGoal;
 use Csatar\KnowledgeRepository\Models\MethodologyType;
@@ -757,6 +758,16 @@ class SeederData extends Seeder
             [
                 'name' => 'Nem alkalmazható',
             ],
+        ],
+        'folkSongRhythms' => [
+            [
+                'name' => 'gyors',
+                'description' => 'gyors tempójú népdalok (csárdás, ugrós) - lehet rá menetelni'
+            ],
+            [
+                'name' => 'lassú',
+                'description' => 'lassú tempójú népdalok (keserves, sirató) - nem lehet rá menetelni'
+            ]
         ]
     ];
 
@@ -923,6 +934,15 @@ class SeederData extends Seeder
             }
 
             $region->save();
+        }
+
+        // Folk song rhythms
+        foreach ($this::DATA['folkSongRhythms'] as $folkSongRhythmData) {
+            $folkSongRhythm = FolkSongRhythm::firstOrNew([
+                'name' => $folkSongRhythmData['name'],
+            ]);
+            $folkSongRhythm->description = $folkSongRhythmData['description'];
+            $folkSongRhythm->save();
         }
     }
 }

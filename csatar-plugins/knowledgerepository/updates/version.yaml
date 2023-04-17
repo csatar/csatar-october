@@ -120,3 +120,6 @@
 1.0.41:
     - 'Updated table csatar_knowledgerepository_region'
     - builder_table_update_csatar_knowledgerepository_region.php
+1.0.42:
+    - 'Created table csatar_knowledgerepository_folk_song_rhythm'
+    - builder_table_create_csatar_knowledgerepository_folk_song_rhythm.php
