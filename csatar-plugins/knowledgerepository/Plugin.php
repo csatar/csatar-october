@@ -43,7 +43,7 @@ class Plugin extends PluginBase
 
     public function getRegionExtendedName($value, $column, $record)
     {
-        $region = Region::where('name', $value)->first();
-        return $region->getExtendedNameAttribute();
+        $region = Region::where('name', $value)->first() ?? null;
+        return $region ? $region->getExtendedNameAttribute() : '';
     }
 }

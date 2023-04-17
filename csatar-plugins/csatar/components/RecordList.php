@@ -418,7 +418,6 @@ class RecordList extends RainRecordList {
                     $label = $item->$labelFrom;
                 }
 
-                $labelFrom = $config['recordList']['filterConfig']['labelFrom'] ?? 'name';
                 return [
                     'id' => $item->$keyFrom,
                     'label' => $label,

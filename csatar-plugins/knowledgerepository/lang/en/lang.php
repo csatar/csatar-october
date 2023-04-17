@@ -144,9 +144,9 @@
                 'deputyTeamLeaders' => 'Deputy team leader(s)',
             ],
             'song' => [
-                'songTitle' => 'Dal cím',
-                'author' => 'Szerző',
-                'text' => 'Szöveg',
+                'songTitle' => 'Song Title',
+                'author' => 'Author',
+                'text' => 'Text',
 
             ]
         ],
@@ -156,8 +156,8 @@
                 'description' => 'Game Form component',
             ],
             'songForm' => [
-                'name' => 'Dal űrlap',
-                'description' => 'Dal űrlap komponens'
+                'name' => 'Song Form',
+                'description' => 'Song Form component'
             ]
         ],
     ],
