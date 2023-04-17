@@ -90,7 +90,7 @@ class TrialSystem extends PermissionBasedAccess
     public static function filterAgeGroupByAssociation($query, $related)
     {
         if (!isset($related->association_id)) {
-            return $query->where('id', 0);
+            return $query;
         }
         return $query->where('association_id', $related->association_id);
     }
