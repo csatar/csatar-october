@@ -908,17 +908,17 @@ class SeederData extends Seeder
             ]);
 
             if (isset($regionData['big_parent'])) {
-                $parent = Region::where('name', $regionData['big_parent'])->first();
+                $parent = Region::where('name', $regionData['big_parent'])->first() ?? null;
                 $region->big_parent_id = $parent->id;
             }
 
             if (isset($regionData['mid_parent'])) {
-                $parent = Region::where('name', $regionData['mid_parent'])->first();
+                $parent = Region::where('name', $regionData['mid_parent'])->first() ?? null;
                 $region->mid_parent_id = $parent->id;
             }
 
             if (isset($regionData['small_parent'])) {
-                $parent = Region::where('name', $regionData['small_parent'])->first();
+                $parent = Region::where('name', $regionData['small_parent'])->first() ?? null;
                 $region->small_parent_id = $parent->id;
             }
 
