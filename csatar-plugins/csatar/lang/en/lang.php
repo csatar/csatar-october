@@ -524,6 +524,7 @@
                 'gender' => [
                     'mixed' => 'Mixed',
                 ],
+                'trialSystemTrialType' => 'Trial type preparing for',
             ],
             'currency' => [
                 'currency' => 'Currency',

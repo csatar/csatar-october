@@ -522,6 +522,7 @@
                 'gender' => [
                     'mixed' => 'Vegyes',
                 ],
+                'trialSystemTrialType' => 'Próba amelyre készül',
             ],
             'currency' => [
                 'currency' => 'Pénznem',
