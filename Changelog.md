@@ -11,6 +11,7 @@
 - CS-555 - Added google calendar tab to Association, District and Team
 - CS-475 - Added option to backend scout list to (soft)delete scout with personal data
 - CS-516 - Created Song type model
+- CS-517 - Created Folk song type model
 
 ## 1.11.0
 ### 2023-04-13

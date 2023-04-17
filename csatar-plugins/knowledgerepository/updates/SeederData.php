@@ -1,6 +1,7 @@
 <?php namespace Csatar\KnowledgeRepository\Updates;
 
 use Csatar\KnowledgeRepository\Models\AccidentRiskLevel;
+use Csatar\KnowledgeRepository\Models\FolkSongType;
 use Csatar\KnowledgeRepository\Models\GameDevelopmentGoal;
 use Csatar\KnowledgeRepository\Models\MethodologyType;
 use Csatar\KnowledgeRepository\Models\SongType;
@@ -458,6 +459,72 @@ class SeederData extends Seeder
             'Népdal',
             'Ifidal',
             'Cserkészdal',
+        ],
+        'folkSongTypes' => [
+            [
+                'name' => 'Ráolvasások és imák',
+                'description' => 'Ezek az énekek ősi praktikákból táplálkoznak, a magyar néphit és ősi népi vallásosságára világítanak rá. '
+            ],
+            [
+                'name' => 'Ünnepi dalok, rítusénekek, köszöntők és rigmusok',
+                'description' => 'a naptári év jeles napjait, a szertartásokat éneklik meg.. Az ünnepi énekek, jókívánságok jelentős része a termékenységvarázslás, amelyet összekapcsolnak a betegség- és bajelhárítással.'
+            ],
+            [
+                'name' => 'Munkadalok',
+                'description' => 'létezéséről a Szent Gellért legenda tudósít.'
+            ],
+            [
+                'name' => 'Siratóénekek',
+                'description' => 'a legősibb ősmagyar műfaj képviselői. A halállal, a gyásszal, a magáramaradottsággal szembenéző ember érzelmi megnyilvánulása. '
+            ],
+            [
+                'name' => 'Párosítók',
+                'description' => 'A párosítók szövegei sablonosak, ebbe egyszerűen belehelyezik az illető leány és legény nevét.'
+            ],
+            [
+                'name' => 'Szerelmi dalok',
+                'description' => 'a magyar népdalok legnépesebb csoportja, amely a legrégiesebb, legszebb költői alkotások és dalok gyűjteménye. Előadásuk nem kötődik meghatározott alkalmakhoz.'
+            ],
+            [
+                'name' => 'Lakodalmi énekek, dalok és vőfélyrigmusok',
+                'description' => 'A parasztlakodalom középpontjában a menyasszony és a termékenység áll.'
+            ],
+            [
+                'name' => 'Táncdalok és dudanóták',
+                'description' => 'a XX. század elejéig elmaradhatatlan kellékei voltak a táncos mulatságoknak. A dudanóták tréfásak, teli vannak kétértelmű utalásokkal és trágárságokkal.'
+            ],
+            [
+                'name' => 'Bordalok és mulatónóták',
+                'description' => 'témája általában a bor, a mámor és az ivás dicsérete. Ezeket a dalokat falun szinte kizárólag a férfiak énekelték.'
+            ],
+            [
+                'name' => 'Tréfás és csúfoló dalok, mondókák',
+                'description' => 'társas összejöveteleken elhangzó ironikus versek és rigmusok.'
+            ],
+            [
+                'name' => 'Parasztdalok és keservek',
+                'description' => 'szerelmi csalódásokat, foglalkozással járó panaszokat, sérelmeket, általában az emberi élet keserveit fogalmazzák meg.'
+            ],
+            [
+                'name' => 'Bujdosóénekek, vándordalokban',
+                'description' => 'a szülőföldhöz való ragaszkodás és a honvágy jelenik meg.'
+            ],
+            [
+                'name' => 'Történeti énekek és katonadalok',
+                'description' => 'a magyar népdalok három legnagyobb tematikus csoportjának egyike. Témájuk szerint lehetnek toborzók, sorozási nóták, katonakísérők- és siratók, kaszárnyadalok, menetdalok, csatadalok, leszerelő dalok és hadifogolynóták.'
+            ],
+            [
+                'name' => 'Pásztordalok',
+                'description' => 'sokat elárulnak a pusztai emberek élet- és gondolkozásmódjáról, érzelemvilágából.'
+            ],
+            [
+                'name' => 'Szolga- és béres dalok',
+                'description' => 'hangjuk panaszos, gúnyos, olykor lázadó.'
+            ],
+            [
+                'name' => 'Arató- és summásdalok',
+                'description' => 'a mezei munkásság dalai'
+            ],
         ]
     ];
 
@@ -591,6 +658,15 @@ class SeederData extends Seeder
                 'name' => $songTypeData
             ]);
             $songType->save();
+        }
+
+        // Folk Song type
+        foreach ($this::DATA['folkSongTypes'] as $folkSongTypeData) {
+            $folkSongType = FolkSongType::firstOrNew([
+                'name' => $folkSongTypeData['name'],
+            ]);
+            $folkSongType->description = $folkSongTypeData['description'];
+            $folkSongType->save();
         }
     }
 }
