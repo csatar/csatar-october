@@ -324,6 +324,15 @@ class Mandate extends Model
             : $query->whereNull('id');
     }
 
+    public function scopeInactive($query)
+    {
+        $currentDate = (new DateTime())->format('Y-m-d');
+        return $query->where(function ($query) use ($currentDate) {
+            return $query->where('start_date', '>', $currentDate)
+                ->orWhere('end_date', '<', $currentDate);
+        });
+    }
+
     public function getMandateTeamAttribute(): string
     {
         if ($this->mandate_model_type == '\Csatar\Csatar\Models\Patrol') {

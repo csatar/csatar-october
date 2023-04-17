@@ -17,11 +17,11 @@ columns:
         searchable: true
         sortable: true
         select: name
-        relation: big_parent
+        relation: mid_parent
     small_parent_id:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.smallRegion'
         type: text
         searchable: true
         sortable: true
         select: name
-        relation: big_parent
+        relation: small_parent

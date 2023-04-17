@@ -224,7 +224,7 @@ class Plugin extends PluginBase
         });
 
         Event::listen('offline.sitesearch.extend', function () {
-            return [ new ContentPageSearchProvider(), new OrganizationSearchProvider() ];
+            return [ new OrganizationSearchProvider(), new ContentPageSearchProvider() ];
         });
 
         $this->saveGuestMandateTypeIdsForEveryAssociationToSession();
@@ -346,7 +346,7 @@ class Plugin extends PluginBase
     public function registerSchedule($schedule)
     {
         $schedule->call(function () {
-            $scouts = Scout::where('inactivated_at', '<', Carbon::now()->subYears(5))->where('family_name', '!=', Scout::NAME_DELETED_INACTIVITY)->get();
+            $scouts = Scout::where('inactivated_at', '<', Carbon::now()->subYears(5))->where('family_name', '!=', Scout::NAME_DELETED_INACTIVITY)->withTrashed()->get();
             foreach ($scouts as $scout) {
                 $scout->family_name = Scout::NAME_DELETED_INACTIVITY;
                 $scout->given_name = '';

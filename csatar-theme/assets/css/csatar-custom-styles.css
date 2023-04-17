@@ -794,7 +794,8 @@ body>p.flash-message.success, body>p.flash-message.info, body>p.flash-message.wa
 }
 
 a:link, a:visited, a:hover, a:active, a.badge {
-     text-decoration: none;
+    text-decoration: none;
+    cursor: pointer;
 }
 
 a.nav:link, a.nav:visited, a.nav:active, a.nav-link:link, a.nav-link:visited, a.nav-link:active {
@@ -1459,13 +1460,13 @@ div.table.csat-grid > div.tr > div.card.csat-resp-gdtable > div.row > * > p.td {
     margin-bottom: 0px !important;
 }
 
-div.card.csat-resp-gdtable > div.row > div.col {
+div.card.csat-resp-gdtable > div.row > div.col, div.col-6, div.col-md-4, div.col-lg {
     padding: 2px;
 }
 
 @media (min-width: 992px) {
-    div.card.csat-border-lg-none {
-        border-width: 0px;
+    .csat-border-lg-none {
+        border-width: 0px !important;
     }
 
     div.table.csat-grid > div:nth-child(odd) > div > div .td {
@@ -1489,6 +1490,24 @@ div.card.csat-resp-gdtable > div.row > div.col {
     div.table.csat-grid> div.tr {
         margin-top: 10px;
     }
+}
+
+#tableRows > a > div > div > div > div > p {
+    margin-bottom: 0px;
+    line-height: 1.2;
+}
+
+@media (min-width: 991px) {
+
+    .grid-ellipsis {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+.csat-grid-container-width {
+    max-width: 90% !important;
 }
 
 /* Data cards */
@@ -1605,6 +1624,10 @@ th, td, .th, .td, .th-grid {
     min-height: 35px;
 }
 
+#tableRows .td {
+    min-height: 0px;
+}
+
 th, .th {
     border: 1px solid #78863F;
     background-color: #78863F !important;
@@ -1637,7 +1660,7 @@ th, .th {
 td, .td {
     border: 1px solid #DDDDDD;
     font-weight: 300;
-    font-size: calc(0.9rem + 0.2vw);
+    font-size: calc(0.8rem + 0.2vw);
     text-align: left;
     vertical-align: top;
 }
@@ -1741,7 +1764,7 @@ textarea:not(.select2-search__field) {
 }
 
 .form-check-input:disabled {
-    background-color: #DDDDDD;
+    background-color: #78863F;
     border-color: #939393;
 }
 
@@ -2049,6 +2072,18 @@ input:-webkit-autofill:active {
        width:50% !important;
     }
 }
+
+@media (max-width: 992px) {
+    .w-sm-100 {
+       width:100% !important;
+    }
+}
+
+/* custom padding size */
+
+.p-2px {
+    padding: 2px !important;
+}
   
 /* pagination customization */
 
@@ -2056,4 +2091,13 @@ input:-webkit-autofill:active {
     text-decoration: underline;
     text-decoration-color: #B08B04;
     text-underline-offset: 4px;
+}
+
+ul.pagination {
+    display: flex;  
+    flex-wrap: wrap;
+}
+
+ul.pagination > li {
+    padding: 0px 10px;
 }

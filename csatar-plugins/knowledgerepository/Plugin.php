@@ -20,6 +20,20 @@ class Plugin extends PluginBase
     {
     }
 
+    public function registerPDFLayouts()
+    {
+        return [
+            'csatar.knowledgerepository::pdf.layouts.workplanlayout',
+        ];
+    }
+
+    public function registerPDFTemplates()
+    {
+        return [
+            'csatar.knowledgerepository::pdf.workplantemplate',
+        ];
+    }
+
     public function registerListColumnTypes()
     {
         return [

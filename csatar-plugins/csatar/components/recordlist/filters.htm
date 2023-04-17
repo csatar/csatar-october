@@ -2,7 +2,7 @@
 
 <div class="card filter-card border-0 bg-light rounded mb-2">
     <div class="row mx-2">
-        <div class="col-12 col-sm-4 my-auto">
+        <div class="col-12 col-sm-8 col-lg-9 my-auto">
             <a href="#filters"
                 class="collapsed"
                 role="button"
@@ -12,10 +12,17 @@
                 aria-controls="filters">{{ 'Aktív szűrők'|_ }}:
                 <span class="ps-0" id="activeFiltersNumber">0</span>
             </a>
+            <span class="text-primary text-nowrap">|</span>
+            <a onClick="removeAllFilters();"
+               data-bs-toggle="collapse"
+               data-bs-target="#filters"
+               aria-controls="filters"
+               class="code-red text-decoration-none mt-2">{{ 'Szűrők törlése'|_ }}
+            </a>
         </div>
-        <div class="col-12 col-sm-8 text-sm-end pe-0">
+        <div class="col-12 col-sm-4 col-lg-3 text-sm-end px-0 pe-lg-0">
         {% if sortConfig|length > 0 %}
-            <select id="sort" class="w-100 w-md-50">
+            <select id="sort" class="w-100">
                 {% for column, config in sortConfig %}
                     <option
                         data-column="{{ column }}"
@@ -38,14 +45,14 @@
     </div>
     
     <div class="row mx-2">
-        <div class="collapse filter-card-body bg-light pt-0" id="filters">
+        <div class="collapse filter-card-body bg-light py-0" id="filters">
             {% partial __SELF__ ~ '::filtersActive' %}
             <div class="tr">
-                <div class="card csat-resp-gdtable bg-light csat-border-lg-none mb-2">
+                <div class="card csat-resp-gdtable bg-light border-0 mb-0">
                     <div class="row my-1">
                         {% for column, config in filtersConfig %}
-                        <div class="col-12 col-lg p-1">
-                            <div class="td td-h-no100 bg-white mx-3 mx-lg-0">
+                        <div class="col-12 col-lg p-2px">
+                            <div class="td td-h-no100 bg-white mx-0 mx-lg-0">
                                 {% partial __SELF__ ~ '::filter' column = column config=config %}
                             </div>
                         </div>
@@ -53,12 +60,6 @@
                     </div>
                 </div>
             </div>
-            <a onClick="removeAllFilters();"
-               data-bs-toggle="collapse"
-               data-bs-target="#filters"
-               aria-controls="filters"
-               class="code-red text-decoration-none mt-2">{{ 'Szűrők törlése'|_ }}
-            </a>
         </div>
     </div>
 </div>

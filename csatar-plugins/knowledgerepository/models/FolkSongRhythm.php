@@ -29,5 +29,6 @@ class FolkSongRhythm extends Model
 
     public $fillable = [
         'name',
+        'description'
     ];
 }

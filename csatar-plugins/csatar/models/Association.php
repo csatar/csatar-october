@@ -65,6 +65,7 @@ class Association extends OrganizationBase
         'personal_identification_number_validator',
         'team_report_submit_start_date',
         'team_report_submit_end_date',
+        'google_calendar_id',
     ];
 
     /**
@@ -231,5 +232,20 @@ class Association extends OrganizationBase
 
     public function getActiveMembersCountAttribute() {
         return StructureTree::getAssociationScoutsCount($this->id);
+    }
+
+    public static function getAssociationOptionsForSelect() {
+        $associations = self::all()->lists('name', 'id');
+        $results = [];
+        foreach ($associations as $id => $name) {
+            $results[] = [
+                'id' => $id,
+                'text' => $name,
+            ];
+        }
+
+        return [
+            'results' => $results,
+        ];
     }
 }
