@@ -13,7 +13,7 @@ class CnpValidator
 
     public function validate($attribute, $value, $params): bool
     {
-        $this->cnp = $value;
+        $this->cnp = (string) $value;
         return $this->isNumeric() && $this->validLength()
             && $this->validDate() && $this->validHash();
     }

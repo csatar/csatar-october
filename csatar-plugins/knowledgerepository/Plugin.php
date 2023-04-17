@@ -17,4 +17,18 @@ class Plugin extends PluginBase
     public function registerSettings()
     {
     }
+
+    public function registerPDFLayouts()
+    {
+        return [
+            'csatar.knowledgerepository::pdf.layouts.workplanlayout',
+        ];
+    }
+
+    public function registerPDFTemplates()
+    {
+        return [
+            'csatar.knowledgerepository::pdf.workplantemplate',
+        ];
+    }
 }

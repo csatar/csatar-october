@@ -100,9 +100,15 @@
     - 'Created table methodology_trial_system_id_foreign'
     - builder_table_create_csatar_methodology_trial_system.php
 1.0.35:
+    - 'Updated table csatar_knowledgerepository_trial_systems'
+    - builder_table_update_csatar_knowledgerepository_trial_systems.php
+1.0.36:
+    - 'Created table csatar_knowledgerepository_work_plans'
+    - builder_table_create_csatar_knowledgerepository_work_plans.php
+1.0.37:
     - 'Created table csatar_knowledgerepository_song_type'
     - builder_table_create_csatar_knowledgerepository_song_type.php
-1.0.36:
+1.0.38:
     - 'Updated table csatar_knowledgerepository_song_type'
     - builder_table_update_csatar_knowledgerepository_song_type.php
 1.0.37:

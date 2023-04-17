@@ -421,7 +421,6 @@ trait AjaxControllerSimple {
         $this->loadBackendFormWidgets();
 
         $html = $widget->render();
-        $html .= '<div class="mt-0 mb-2 errormsg" data-validate-for="' . $relationName . '" data-position-for="' . $relationName . '"></div>';
 
         return [
             '#add-edit-' . $relationName => $this->renderPartial('@partials/relationOptions', [ 'html' => $html, 'relationName' => $relationName ])
@@ -508,7 +507,7 @@ trait AjaxControllerSimple {
 
         $model = $edit ? $relatedModelName::find($relationId) : $this->getPivotModelIfSet($relationName);
 
-        if (isset(Input::get($relationName)['pivot'])) {
+        if (isset(Input::get($relationName)['pivot']) && $edit) {
             $pivotData = Input::get($relationName)['pivot'];
             $rules = $record->{$relationName}->find($relationId)->pivot->rules ?? [];
         } else {
@@ -838,20 +837,12 @@ trait AjaxControllerSimple {
     public function renderValidationTags($model, $forPivot = false, $relationName = false)
     {
         if (!empty($model->rules)) {
-            $html = "<div class='validationTags'>";
             $rules = $this->addRequiredRuleBasedOnUserRights($model->rules, $this->currentUserRights);
-            foreach ($rules as $fieldName => $rule) {
-                if (!$forPivot && !$relationName) {
-                    $positionData = $fieldName;
-                } else if (!$forPivot) {
-                    $positionData = $relationName . '[' . $fieldName . ']';
-                } else {
-                    $positionData = $relationName . '[pivot][' . $fieldName . ']';
-                }
-                $html .= "<span class='errormsg' data-validate-for='" . $fieldName . "' data-position-for='" . $positionData . "'></span>";
-            }
-            $html .= "</div>";
-            return $html;
+            return $this->renderPartial('@partials/validationTags.htm', [
+                'rules' => $rules,
+                'forPivot' => $forPivot,
+                'relationName' => $relationName
+            ]);
         }
         return '';
     }
@@ -1067,36 +1058,24 @@ trait AjaxControllerSimple {
 
     public function generatePivotSection($record, $relationName, $definition, $attributesToDisplay) {
         $relationLabel = array_key_exists('label', $definition) ? Lang::get($definition['label']) : $relationName;
-        $html = '<div class="col-12 mb-4">';
-        $html .= '<div class="field-section toolbar-item toolbar-primary mb-2"><h4 style="display:inline;">' . $relationLabel . '</h4>';
-
-        if (!$this->readOnly && $this->canUpdate($relationName)) {
-            $html .= '<div class="add-remove-button-container"><button class="btn btn-xs rounded btn-primary me-2"
-                data-request="onListAttachOptions"
-                data-request-data="relationName: \'' . $relationName . '\'"><i class="bi bi-plus-square"></i></button></div></div>';
-            $html .= '<div id="add-edit-' . $relationName . '"></div>';
-        } else if (!$this->readOnly && !$this->canUpdate($relationName) && isset($this->fieldsThatRequire2FA[$relationName])) {
-            $html .= '<div class="add-remove-button-container">';
-            $html .= '<span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-placement=top ';
-            $html .= 'title="' . Lang::get('csatar.forms::lang.components.basicForm.2FANeeded') . '">';
-            $html .= '<button class="btn btn-xs rounded btn-primary me-2"
-                 disabled><i class="csat-key-out-wh-sm"></i></button></div></div>';
-            $html .= '<div id="add-edit-' . $relationName . '"></div>';
-        } else {
-            $html .= '</div>';
-        }
 
         if (count($record->$relationName)>0 ||
             (!$record->id && count($record->{$relationName}()->withDeferred($this->sessionKey)->get())>0)) {
-            $html .= '<div class="table csat-grid">';
-            $html .= $this->generatePivotTableHeader($attributesToDisplay);
-            $html .= $this->generatePivotTableRows($record, $relationName, $attributesToDisplay);
-            $html .= '</div>';
+            $pivotTableHeader = $this->generatePivotTableHeader($attributesToDisplay);
+            $pivotTableRows = $this->generatePivotTableRows($record, $relationName, $attributesToDisplay);
         }
 
-        $html .= '</div>';
-
-        return $html;
+        return $this->renderPartial('@partials/pivotSection.htm', [
+            'relationName' => $relationName,
+            'relationLabel' => $relationLabel,
+            'record' => $record,
+            'attributesToDisplay' => $attributesToDisplay,
+            'readOnly' => $this->readOnly,
+            'canUpdate' => $this->canUpdate($relationName),
+            'fieldsThatRequire2FA' => $this->fieldsThatRequire2FA,
+            'pivotTableHeader' => $pivotTableHeader ?? null,
+            'pivotTableRows' => $pivotTableRows ?? null,
+        ]);
     }
 
     public function onDeletePivotRelation(){
@@ -1138,33 +1117,15 @@ trait AjaxControllerSimple {
         ];
     }
 
-    public function generatePivotTableHeader($attributesToDisplay){
-        $tableHeaderRow = '<div class="tr d-none d-lg-block">';
-        $tableHeaderRow .= '<div class="card csat-resp-gdtable csat-border-lg-none">';
-        $tableHeaderRow .= '<div class="row">';
-        foreach ($attributesToDisplay as $data) {
-            // generate table header
-            $label = Lang::get($data['label']);
-            $tableHeaderRow .=
-                '
-                <div class="col-6 col-lg">
-                    <div class="th-grid">' . $label . '</div>
-                </div>
-                ';
-        }
-        if (!$this->readOnly) { //these are the button column headers
-            $tableHeaderRow .=
-                '
-                <div class="col-6 col-lg-1"></div>
-                ';
-        }
-        $tableHeaderRow .= '</div></div></div>';
-
-        return $tableHeaderRow;
+    public function generatePivotTableHeader($attributesToDisplay) {
+        return $this->renderPartial('@partials/pivotTableHeader.htm', [
+            'attributesToDisplay' => $attributesToDisplay,
+            'readOnly' => $this->readOnly,
+        ]);
     }
 
     public function generatePivotTableRows($record, $relationName, $attributesToDisplay) {
-        $tableRows = '';
+
         $records = $record->{$relationName};
         $isHasManyRelation = array_key_exists($relationName, $record->hasMany);
         $defRecords = null;
@@ -1183,6 +1144,7 @@ trait AjaxControllerSimple {
             }
         }
 
+        $tableRows = '';
         foreach ($records as $key => $relatedRecord) {
             if ($relatedRecord->is_hidden_frontend) {
                 continue;
@@ -1200,15 +1162,12 @@ trait AjaxControllerSimple {
                     }
                 }
             }
-            $tableRows .= '<div class="tr">';
-            $tableRows .= '<div class="card csat-resp-gdtable csat-border-lg-none">';
-            $tableRows .= '<div class="row">';
 
+            $cols = '';
+            $colButtons = '';
             foreach ($attributesToDisplay as $key => $data) {
                 $label = Lang::get($data['label']);
-                $tableRows .= '<div class="col-6 col-lg">';
-                $tableRows .= '<p class="td label d-block d-lg-none">' . $label . '</p> ';
-                $tableRows .= '<p class="td">';
+
                 if (array_key_exists('isPivot', $data)) {
                     $value = $relatedRecord->pivot->{$key} ?? '';
                 } else {
@@ -1217,32 +1176,26 @@ trait AjaxControllerSimple {
                         $relatedRecord->{$key}->{$attribute} :
                         $relatedRecord->{$key});
                 }
-                $tableRows .= $value;
-                $tableRows .= '</p></div>';
+
+                $cols .= $this->renderPartial('@partials/pivotTableRowCol.htm', [
+                    'label' => $label,
+                    'value' => $value,
+                ]);
             }
 
             if (!$this->readOnly) {
-                $tableRows .= '<div class="col-6 col-lg-1">';
-                if ($this->canUpdate($relationName)) {
-                    $tableRows .= '<button class="btn btn-xs rounded btn-primary m-1" data-request-flash
-                    data-request="onModifyPivotRelation" data-request-data="relationName: \'' . $relationName . '\', relationId: \'' . $relatedRecord->id . '\'"><i class="bi bi-pencil"></i></button>';
-                } else if (!$this->canUpdate($relationName) && isset($this->fieldsThatRequire2FA[$relationName])) {
-                    $tableRows .= '<span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-placement=top ';
-                    $tableRows .= 'title="' . Lang::get('csatar.forms::lang.components.basicForm.2FANeeded') . '">';
-                    $tableRows .= '<button class="btn btn-xs rounded btn-primary m-1" disabled><i class="csat-key-out-wh-sm"></i></button></span>';
-                }
-                if ($this->canDelete($relationName)) {
-                    $tableRows .= '<button class="btn btn-xs rounded btn-danger m-1" data-request-flash
-                    data-request="onDeletePivotRelation" data-request-data="relationName: \'' . $relationName . '\', relationId: \'' . $relatedRecord->id . '\'"><i class="bi bi-trash"></i></button>';
-                } else if (!$this->canDelete($relationName) && isset($this->fieldsThatRequire2FA[$relationName])) {
-                    $tableRows .= '<span class="d-inline-block" tabindex="0" data-bs-toggle="tooltip" data-placement=top ';
-                    $tableRows .= 'title="' . Lang::get('csatar.forms::lang.components.basicForm.2FANeeded') . '">';
-                    $tableRows .= '<button class="btn btn-xs rounded btn-danger m-1" disabled><i class="csat-key-out-wh-sm"></i></button><span>';
-                }
-
-                $tableRows .= '</div>';
+                $colButtons .= $this->renderPartial('@partials/pivotTableRowColButtons.htm', [
+                    'canUpdate' => $this->canUpdate($relationName),
+                    'canDelete' => $this->canDelete($relationName),
+                    'relationName' => $relationName,
+                    'relationId' => $relatedRecord->id,
+                    'fieldsThatRequire2FA' => $this->fieldsThatRequire2FA,
+                ]);
             }
-            $tableRows .= '</div></div></div>';
+            $tableRows .= $this->renderPartial('@partials/pivotTableRow', [
+                'cols' => $cols,
+                'colButtons' => $colButtons,
+            ]);
         }
 
         return $tableRows;
