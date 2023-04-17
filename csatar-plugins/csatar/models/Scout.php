@@ -714,6 +714,14 @@ class Scout extends OrganizationBase
         $this->nameday = $this->nameday != '' ? $this->nameday : null;
         $this->troop_id = $this->troop_id != 0 ? $this->troop_id : null;
         $this->patrol_id = $this->patrol_id != 0 ? $this->patrol_id : null;
+
+        // when patrol is changed, troop should be changed to the troop of the patrol
+        if ($this->getOriginalValue('patrol_id') != $this->patrol_id) {
+            $patrol = Patrol::find($this->patrol_id);
+            $this->troop_id = $patrol ? $patrol->troop_id : null;
+        }
+
+        // when troop is changed, and patrol is not selected patrol will be set to null, because currently both on frontend and backend patrol field is updated based on selected troop, but this doesn't apply to import
     }
 
     public function beforeDelete()
