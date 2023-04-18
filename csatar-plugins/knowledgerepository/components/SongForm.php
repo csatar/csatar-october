@@ -56,4 +56,11 @@ class SongForm extends ComponentBase
         $this->onRender();
         return Redirect::refresh();
     }
+
+    public function onDelete()
+    {
+        $this->basicForm->record->delete();
+
+        return Redirect::to('/tudastar/dalok');
+    }
 }

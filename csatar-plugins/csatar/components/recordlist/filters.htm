@@ -1,22 +1,26 @@
 {% set sortConfig = __SELF__.sortConfig %}
+{% set filtersElementId = 'filters-' ~ __SELF__.alias %}
+{% set alias = __SELF__.alias %}
 
 <div class="card filter-card border-0 bg-light rounded mb-2">
     <div class="row mx-2">
         <div class="col-12 col-sm-8 col-lg-9 my-auto">
-            <a href="#filters"
+            <a href="#{{ filtersElementId }}"
                 class="collapsed"
                 role="button"
                 data-bs-toggle="collapse"
-                data-bs-target="#filters"
+                data-bs-target="#{{ filtersElementId }}"
+                data-alias="{{ alias }}"
                 aria-expanded="false"
-                aria-controls="filters">{{ 'Aktív szűrők'|_ }}:
-                <span class="ps-0" id="activeFiltersNumber">0</span>
+                aria-controls="{{ filtersElementId }}">{{ 'Aktív szűrők'|_ }}:
+                <span class="ps-0" id="activeFiltersNumber-{{ __SELF__.alias }}">0</span>
             </a>
             <span class="text-primary text-nowrap">|</span>
-            <a onClick="removeAllFilters();"
+            <a onClick="removeAllFilters('{{ __SELF__.alias }}');"
                data-bs-toggle="collapse"
-               data-bs-target="#filters"
-               aria-controls="filters"
+               data-bs-target="#{{ filtersElementId }}"
+               data-alias="{{ alias }}"
+               aria-controls="{{ filtersElementId }}"
                class="code-red text-decoration-none mt-2">{{ 'Szűrők törlése'|_ }}
             </a>
         </div>
@@ -27,6 +31,7 @@
                     <option
                         data-column="{{ column }}"
                         data-direction="asc"
+                        data-alias="{{ alias }}"
                         {% if config.default == 'asc' %} selected {% endif %}
                     >
                         ↑ {{ config.label }}
@@ -34,6 +39,7 @@
                     <option
                         data-column="{{ column }}"
                         data-direction="desc"
+                        data-alias="{{ alias }}"
                         {% if config.default == 'desc' %} selected {% endif %}
                     >
                         ↓ {{ config.label }}
@@ -45,7 +51,7 @@
     </div>
     
     <div class="row mx-2">
-        <div class="collapse filter-card-body bg-light py-0" id="filters">
+        <div class="collapse filter-card-body bg-light py-0" id="{{ filtersElementId }}">
             {% partial __SELF__ ~ '::filtersActive' %}
             <div class="tr">
                 <div class="card csat-resp-gdtable bg-light border-0 mb-0">

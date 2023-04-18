@@ -23,6 +23,8 @@ columns:
           sortable:
             default: asc
           filterable: true
+          filterConfig:
+              type: freeText
     author:
         label: 'csatar.knowledgerepository::lang.plugin.admin.song.author'
         type: text

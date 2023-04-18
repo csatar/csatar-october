@@ -92,7 +92,8 @@ class Methodology extends PermissionBasedAccess
             '\Csatar\Csatar\Models\Scout',
             'key' => 'approver_csatar_code',
             'otherKey' => 'ecset_code',
-            'label' => 'csatar.knowledgerepository::lang.plugin.admin.general.approverCsatarCode'
+            'label' => 'csatar.knowledgerepository::lang.plugin.admin.general.approverCsatarCode',
+            'ignoreInPermissionsMatrix' => true,
         ],
         'association' => [
             '\Csatar\Csatar\Models\Association',
@@ -152,7 +153,7 @@ class Methodology extends PermissionBasedAccess
     public static function filterAgeGroupByAssociation($query, $related)
     {
         if (!isset($related->association_id)) {
-            return $query->where('id', 0);
+            return $query;
         }
         return $query->where('association_id', $related->association_id);
     }
@@ -175,6 +176,11 @@ class Methodology extends PermissionBasedAccess
     public function scopeApproved($query)
     {
         return $query->whereNotNull('approved_at');
+    }
+
+    public function scopeWaitingForApproval($query)
+    {
+        return $query->whereNull('approved_at');
     }
 
     public function getUploaderScout() {
