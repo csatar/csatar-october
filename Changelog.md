@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-530 - Added xlsx import for Songs, fixed error handling on TrialSystems xlsx import, fixed missing approved_at date on Games xlsx import.
 - CS-551 - Created Waiting For Approval accordions on Games, Methodologies and Songs page
 - CS-551 - Modified Record List component so that multiple instances are usable without conflicts on the same page
 - CS-551 - Added Delete button to Game, Methodology and Song page

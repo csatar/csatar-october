@@ -57,6 +57,7 @@
                 'description' => 'Description',
                 'approverCsatarCode' => 'Approver',
                 'proposerCsatarCode' => 'Proposer',
+                'uploaderCsatarCode' => 'Uploader',
                 'isApproved' => 'Approved',
                 'minute' => 'minute',
                 'link' => 'Link',
@@ -68,7 +69,10 @@
                 'import' => 'Import',
                 'row' => 'row',
                 'file' => 'File',
-                'select' => 'Select...'
+                'select' => 'Select...',
+                'richTextColumns' => 'Richtext columns',
+                'richTextColumnsNote' => 'Please fill the name of the columns (separated by comma) that should be imported as rich text. Please make sure you use the same column names as in the xlsx document.',
+                'richTextColumnsNotFound' => 'The following rich text columns are not found in the xlsx document: ":columns"! Accented letters and capital letters does not matter in this case!',
             ],
             'game' => [
                 'game' => 'Game',
@@ -127,6 +131,10 @@
                 'cannotFindTrialSystemSubTopic' => 'Cannot find trial system sub topic(s): ',
                 'cannotFindTrialSystemType' => 'Cannot find trial system type(s): ',
                 'cannotFindTrialSystemTrialType' => 'Cannot find trial system trial type(s): ',
+                'cannotFindFolkSongRhythm' => 'Cannot find folk song rhythm type(s): ',
+                'cannotFindFolkSongType' => 'Cannot find folk song type(s): ',
+                'cannotFindRegion' => 'Cannot find folk region(s): ',
+                'cannotFindSongType' => 'Cannot find song type(s): ',
                 'errorsOccurred' => 'Errors occurred during import: ',
                 'importSuccessful' => 'Import successful!',
         ],
@@ -147,7 +155,8 @@
                 'songTitle' => 'Song Title',
                 'author' => 'Author',
                 'text' => 'Text',
-
+                'songAlreadyExists' => 'Song already exists with the title: :title!',
+                'overwriteExistingSongs' => 'Overwrite existing songs. If checked, the existing songs with the same title will be overwritten with the imported one!',
             ]
         ],
         'components' => [

@@ -124,6 +124,7 @@ class GamesXlsxImport implements ToModel, WithHeadingRow, WithValidation, SkipsO
             'link' => $row['link'] ?? null,
             'uploader_csatar_code' => $this->uploaderCsatarCode,
             'approver_csatar_code' => $this->approverCsatarCode,
+            'approved_at' => $this->approverCsatarCode ? date('Y-m-d H:i:s') : null,
             'note' => $row['megjegyzes'],
         ]);
 
