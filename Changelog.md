@@ -3,6 +3,10 @@
 ## Unreleased
 
 - CS-530 - Added xlsx import for Songs, fixed error handling on TrialSystems xlsx import, fixed missing approved_at date on Games xlsx import.
+- CS-551 - Created Waiting For Approval accordions on Games, Methodologies and Songs page
+- CS-551 - Modified Record List component so that multiple instances are usable without conflicts on the same page
+- CS-551 - Added Delete button to Game, Methodology and Song page
+- CS-551 - Fixed filterAgeGroupByAssociation methods to return query without modification when 'association_id' is not available
 - CS-538 - Added functionality to update scout's troop id when scout is added to patrol, when patrol's troop is changed
 - CS-563 - Added Trial System Trial Type to patrol
 - CS-563 - Extended team Work Plan patrols field to include information about patrol's Trial System Trial Type

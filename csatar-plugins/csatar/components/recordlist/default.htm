@@ -3,13 +3,19 @@
 {% set detailsUrlParameter = __SELF__.detailsUrlParameter %}
 {% set filtersConfig = __SELF__.filtersConfig %}
 
-<div id="records-table" class="table csat-grid">
+<div id="records-table-{{ __SELF__.alias }}" class="table csat-grid">
     {% if filtersConfig|length > 0 %}
         {% partial __SELF__~'::filters' filtersConfig = filtersConfig %}
     {% endif %}
     {% partial __SELF__~'::tableHeader' %}
-    <div id="tableRows" class="table_top_no_border">
+    <div id="tableRows-{{ __SELF__.alias }}" class="table_top_no_border">
         {% partial __SELF__~'::tableRows' %}
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        filterSortPaginate('{{ __SELF__.alias }}');
+    });
+</script>
 

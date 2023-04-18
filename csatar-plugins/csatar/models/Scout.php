@@ -277,6 +277,12 @@ class Scout extends OrganizationBase
                 throw new \ValidationException(['troop' => Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.troopNotInTheTeam')]);
             }
 
+            // if troop_id is 0, it should be set to null and $this->troop should be set to null as well
+            if ($this->troop_id === 0 || $this->troop_id === '0') {
+                $this->troop_id = null;
+                $this->troop = null;
+            }
+
             // if the selected patrol does not belong to the selected team or to the selected troop, then throw and exception
             if ($this->patrol &&                                             // a Patrol is set
                 ($this->patrol->team->id != $this->team_id ||               // the Patrol does not belong to the selected Team
@@ -715,13 +721,19 @@ class Scout extends OrganizationBase
         $this->troop_id = $this->troop_id != 0 ? $this->troop_id : null;
         $this->patrol_id = $this->patrol_id != 0 ? $this->patrol_id : null;
 
+        // if troop is set to null and patrol is not changed, patrol should be set to null, but if patrols is changed as well, we keep the new patrol setting and change troop accordingly
+
+        if ($this->getOriginalValue('troop_id') != $this->troop_id && empty($this->troop_id)) {
+            if ($this->getOriginalValue('patrol_id') == $this->patrol_id) {
+                $this->patrol_id = null;
+            }
+        }
+
         // when patrol is changed, troop should be changed to the troop of the patrol
         if ($this->getOriginalValue('patrol_id') != $this->patrol_id) {
             $patrol = Patrol::find($this->patrol_id);
             $this->troop_id = $patrol ? $patrol->troop_id : null;
         }
-
-        // when troop is changed, and patrol is not selected patrol will be set to null, because currently both on frontend and backend patrol field is updated based on selected troop, but this doesn't apply to import
     }
 
     public function beforeDelete()

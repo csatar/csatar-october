@@ -1,7 +1,8 @@
-{% set filterInputId = 'filter-' ~ column ~ '-input' %}
-{% set filterCheckboxContainerId = 'filter-' ~ column ~ '-checkbox-list' %}
-{% set collapsableAreaId = 'filter-' ~ column ~ '-collapse' %}
-{% set filterNameArrayName = 'filter' ~column %}
+{% set filterInputId = 'filter-' ~ column ~ '-input' ~ '-' ~ __SELF__.alias %}
+{% set filterCheckboxContainerId = 'filter-' ~ column ~ '-checkbox-list' ~ '-' ~ __SELF__.alias %}
+{% set collapsableAreaId = 'filter-' ~ column ~ '-collapse' ~ '-' ~ __SELF__.alias %}
+{% set filterNameArrayName = 'filter' ~column ~ '-' ~ __SELF__.alias %}
+{% set alias = __SELF__.alias %}
 
 <div class="card {{ column }}-filter-card csat-border-lg-none rounded p-0">
     {% if config['filterConfig']['type'] == 'freeText' %}
@@ -10,12 +11,14 @@
                     class="form-control border-0 bg-white {{ config['filterConfig']['type'] }}"
                     type="search"
                     data-column="{{ column }}"
+                    data-alias="{{ alias }}"
                     placeholder="{{ config.label }}"
                     id="{{ filterInputId }}"
             <span class="input-group-append my-auto me-1">
                 <button
                         class="btn border-0 rounded-0 searchButton"
                         type="button"
+                        data-alias="{{ alias }}"
                         data-input-id="{{ filterInputId }}"
                 >
                     <i class="csat-magnif-fill-sm"></i>
@@ -40,9 +43,10 @@
                                 value="{{ option.id }}"
                                 name="{{ filterNameArrayName }}[]"
                                 id="{{ filterNameArrayName }}-{{ option['id'] }}"
-                                onchange="filterSortPaginate()"
+                                onchange="filterSortPaginate('{{ alias }}')"
                                 data-column="{{ column }}"
                                 data-column-label="{{ config['label'] }}"
+                                data-alias="{{ alias }}"
                         >
                         <label class="form-check-label" for="{{ filterNameArrayName }}-{{ option['id'] }}">
                             {{ option['label'] }}
