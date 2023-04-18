@@ -191,14 +191,15 @@ class TrialSystemsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHe
             return;
         }
 
+        $worksheet   = $this->worksheetRaw->getActiveSheet();
+
         foreach ($row->getCellIterator() as $cell) {
             if ($counter !== $effectiveKnowledgeColumnNumber) {
                 $counter++;
                 continue;
             }
             $coordinates = $cell->getCoordinate();
-            $worksheet   = $this->worksheetRaw->getActiveSheet();
-            $cellRaw     = $this->worksheetRaw->getActiveSheet()->getCell($coordinates);
+            $cellRaw     = $worksheet->getCell($coordinates);
 
             // Create a new spreadsheet object
             $newSpreadsheet = new Spreadsheet();

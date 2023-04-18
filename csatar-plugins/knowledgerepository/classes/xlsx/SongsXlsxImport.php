@@ -38,8 +38,6 @@ class SongsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHeadingRo
 
     private $overwrite = false;
 
-    private $effectiveKnowledgeOnly = false;
-
     public $errors = [];
 
     private $worksheetRaw;
@@ -93,31 +91,19 @@ class SongsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHeadingRo
             $song->title = $cellsArray['dal_cim'];
         }
 
-        if (isset($cellsArray['dal_tipusa'])) {
-            $song->song_type_id = $this->getModelIds($row, $cellsArray['dal_tipusa'], SongType::class, 'name', null, null, true)[0] ?? null;
-        }
+        $song->song_type_id = $this->getModelIds($row, $cellsArray['dal_tipusa'] ?? '', SongType::class, 'name', null, null, true)[0] ?? null;
 
-        if (isset($cellsArray['tajegyseg'])) {
-            $song->region_id = $this->getModelIds($row, $cellsArray['tajegyseg'], Region::class, 'name', null, null, true)[0] ?? null;
-        }
+        $song->region_id = $this->getModelIds($row, $cellsArray['tajegyseg'] ?? '', Region::class, 'name', null, null, true)[0] ?? null;
 
-        if (isset($cellsArray['tipus'])) {
-            $song->folk_song_type_id = $this->getModelIds($row, $cellsArray['tipus'], FolkSongType::class, 'name', null, null, true)[0] ?? null;
-        }
+        $song->folk_song_type_id = $this->getModelIds($row, $cellsArray['tipus'] ?? '', FolkSongType::class, 'name', null, null, true)[0] ?? null;
 
-        if (isset($cellsArray['ritmus'])) {
-            $song->rhythm_id = $this->getModelIds($row, $cellsArray['ritmus'], FolkSongRhythm::class, 'name', null, null, true)[0] ?? null;
-        }
+        $song->rhythm_id = $this->getModelIds($row, $cellsArray['ritmus'] ?? '', FolkSongRhythm::class, 'name', null, null, true)[0] ?? null;
 
         $pivotRelationIds = [];
 
-        if (isset($cellsArray['korosztaly'])) {
-            $pivotRelationIds['agegroups'] = $this->getModelIds($row, $cellsArray['korosztaly'], AgeGroup::class, 'name', 'association_id', $this->associationId) ?? null;
-        }
+        $pivotRelationIds['agegroups'] = $this->getModelIds($row, $cellsArray['korosztaly'] ?? '', AgeGroup::class, 'name', 'association_id', $this->associationId) ?? null;
 
-        if (isset($cellsArray['probarendszer'])) {
-            $pivotRelationIds['trialsystems'] = $this->getModelIds($row, $cellsArray['tipus'], TrialSystem::class, 'name', null, null) ?? null;
-        }
+        $pivotRelationIds['trialsystems'] = $this->getModelIds($row, $cellsArray['probarendszer'] ?? '', TrialSystem::class, 'name', null, null) ?? null;
 
         if (!empty($this->errors[$row->getRowIndex()])) {
             return;
@@ -152,6 +138,9 @@ class SongsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHeadingRo
 
     public function getModelIds($row, string $searchFor, string $modelName, string $columnName, string $secondaryColumnName = null, $secondaryColumnValue = null, bool $createIfNotFound = false): array
     {
+        if (empty($searchFor)) {
+            return [];
+        }
         $searchFor = array_map('trim', explode('|', $searchFor));
         $searchFor = array_map('strtolower', $searchFor);
         $ids = $modelName::whereIn(DB::raw('LOWER(' . $columnName . ')'), $searchFor)->when($secondaryColumnName, function ($query) use ($secondaryColumnName, $secondaryColumnValue) {
@@ -203,14 +192,15 @@ class SongsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHeadingRo
             return Flash::error(Lang::get('csatar.knowledgerepository::lang.plugin.admin.general.richTextColumnsNotFound', ['columns' => $columnsNotFound]));
         }
 
+        $worksheet = $this->worksheetRaw->getActiveSheet();
+
         foreach ($row->getCellIterator() as $cell) {
             if (!in_array($counter, $richTextColumnsNumbers)) {
                 $counter++;
                 continue;
             }
             $coordinates = $cell->getCoordinate();
-            $worksheet   = $this->worksheetRaw->getActiveSheet();
-            $cellRaw     = $this->worksheetRaw->getActiveSheet()->getCell($coordinates);
+            $cellRaw     = $worksheet->getCell($coordinates);
 
             // Create a new spreadsheet object
             $newSpreadsheet = new Spreadsheet();
