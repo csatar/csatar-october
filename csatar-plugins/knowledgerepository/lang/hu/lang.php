@@ -57,6 +57,7 @@
                 'description' => 'Leírás',
                 'approverCsatarCode' => 'Jóváhagyó - igazolványszám',
                 'proposerCsatarCode' => 'Felterjesztő - igazolványszám',
+                'uploaderCsatarCode' => 'Feltöltő - igazolványszám',
                 'isApproved' => 'Jóváhagyva',
                 'minute' => 'perc',
                 'link' => 'Link',
@@ -69,7 +70,10 @@
                 'import' => 'Importálás',
                 'row' => 'sor',
                 'file' => 'Fájl',
-                'select' => 'Válassz...'
+                'select' => 'Válassz...',
+                'richTextColumns' => 'Richtext típusú oszlopok',
+                'richTextColumnsNote' => 'Azon oszlopok nevei (vesszővel elválasztva), amelyeket richtext formátumban kell importálni. Az oszlopneveknek meg kell egyezniük xlsx dokumentumban használt oszlopnevekkel.',
+                'richTextColumnsNotFound' => 'A következő rich text oszlopok nem találhatók az xlsx dokumentumban: ":columns"! Az ékezetek és a nagybetűk ebben az esteben nem számítanak.',
             ],
             'game' => [
                 'game' => 'Játék',
@@ -128,6 +132,10 @@
                 'cannotFindTrialSystemSubTopic' => 'A következő próbarendszer altéma(ák) nem található(k): ',
                 'cannotFindTrialSystemType' => 'A következő próbarendszer típus(ok) nem található(k): ',
                 'cannotFindTrialSystemTrialType' => 'A következő próbarendszer próba kategória(ák) nem található(k): ',
+                'cannotFindFolkSongRhythm' => 'A következő népdal ritmus típus(ok) nem található(k): ',
+                'cannotFindFolkSongType' => 'A következő népdal típus(ok) nem található(k): ',
+                'cannotFindRegion' => 'A következő régió(k) nem található(k): ',
+                'cannotFindSongType' => 'A következő dal típus(ok) nem található(k): ',
                 'errorsOccurred' => 'Az importálás során a következő hibák léptek fel: ',
                 'importSuccessful' => 'Az importálás sikeresen megtörtént!',
         ],
@@ -148,7 +156,8 @@
                 'songTitle' => 'Dal cím',
                 'author' => 'Szerző',
                 'text' => 'Szöveg',
-
+                'songAlreadyExists' => 'Már létezik dal a következő címmel: :title!',
+                'overwriteExistingSongs' => 'Figyelem! Ha be van jelölve, feltöltött dalok felülírják a már létező, azonos című dalokat!',
             ]
         ],
         'components' => [

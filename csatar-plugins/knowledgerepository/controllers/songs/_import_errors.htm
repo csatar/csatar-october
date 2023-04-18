@@ -1,0 +1,15 @@
+<div class="callout fade in callout-danger no-icon">
+    <div class="header">
+        <h3><?= e(trans('csatar.knowledgerepository::lang.plugin.admin.messages.errorsOccurred')) ?></h3>
+        <ul>
+            <?php foreach ($errors as $rowNumber => $rowErrors): ?>
+            <li>
+                <?= $rowNumber ?>. <?= e(trans('csatar.knowledgerepository::lang.plugin.admin.general.row')) ?>:<br>
+                <?php foreach ($rowErrors as $error): ?>
+                    <?= e($error) ?><br>
+                <?php endforeach; ?>
+            </li>
+            <?php endforeach; ?>
+        </ul>
+    </div>
+</div>

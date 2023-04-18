@@ -75,14 +75,6 @@ class TrialSystems extends Controller
 
         Excel::import($import, $xlsxFile);
 
-        if (!empty($import->failures()) && count($import->failures()) > 0) {
-            $this->vars['errors'] = $import->failures();
-
-            return [
-                '#errors' => $this->makePartial('import_errors'),
-            ];
-        }
-
         if (!empty($import->errors) && count($import->errors) > 0) {
             $this->vars['errors'] = $import->errors;
 

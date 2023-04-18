@@ -32,7 +32,6 @@ class Games extends Controller
     {
         parent::__construct();
         BackendMenu::setContext('Csatar.KnowledgeRepository', 'main-menu-knowledge-repository', 'side-menu-games');
-        $this->pageTitle = Lang::get('csatar.knowledgerepository::lang.plugin.admin.general.import');
     }
 
     public function import()
