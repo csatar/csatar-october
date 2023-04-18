@@ -44,7 +44,7 @@ function addKeywordCheckbox(element){
     let filterLabel = element.attr('placeholder');
     let column = element.data('column');
     let alias = element.data('alias');
-    console.log(alias)
+
     element.val('');
     let html = '<div id="hiddenCheckbox_' + Date.now() + '">'
     html += '<input class="form-check-input" type="checkbox" value="' + keyword
@@ -60,8 +60,6 @@ function filterSortPaginate(componentAlias, page = 1, sortColumn = '', sortDirec
     let selected = {};
     selected[componentAlias] = [];
     let activeFilters = {};
-
-    console.log(componentAlias);
 
     $("input:checkbox:checked, input:radio:checked").each(function() {
         let filterColumn = $(this).data('column');
