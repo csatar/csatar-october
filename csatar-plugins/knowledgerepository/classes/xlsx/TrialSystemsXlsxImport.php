@@ -22,11 +22,10 @@ use Maatwebsite\Excel\Concerns\OnEachRow;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithGroupedHeadingRow;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
-use Maatwebsite\Excel\Concerns\WithValidation;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
-class TrialSystemsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHeadingRow, WithValidation, SkipsOnFailure, WithMultipleSheets, SkipsUnknownSheets
+class TrialSystemsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHeadingRow, SkipsOnFailure, WithMultipleSheets, SkipsUnknownSheets
 {
     use Importable, RemembersRowNumber, SkipsFailures;
 
@@ -98,39 +97,39 @@ class TrialSystemsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHe
         }
 
         if (isset($cellsArray['kategoria'])) {
-            $trialSystem->trial_system_category_id = $this->getModelIds($cellsArray['kategoria'], TrialSystemCategory::class, 'name', null, null, true)[0] ?? null;
+            $trialSystem->trial_system_category_id = $this->getModelIds($row, $cellsArray['kategoria'], TrialSystemCategory::class, 'name', null, null, true)[0] ?? null;
         }
 
         if (isset($cellsArray['tema'])) {
-            $trialSystem->trial_system_topic_id = $this->getModelIds($cellsArray['tema'], TrialSystemTopic::class, 'name', null, null, true)[0] ?? null;
+            $trialSystem->trial_system_topic_id = $this->getModelIds($row, $cellsArray['tema'], TrialSystemTopic::class, 'name', null, null, true)[0] ?? null;
         }
 
         if (isset($cellsArray['subtopic'])) {
-            $trialSystem->trial_system_sub_topic_id = $this->getModelIds($cellsArray['altema'], TrialSystemSubTopic::class, 'name', null, null, true)[0] ?? null;
+            $trialSystem->trial_system_sub_topic_id = $this->getModelIds($row, $cellsArray['altema'], TrialSystemSubTopic::class, 'name', null, null, true)[0] ?? null;
         }
 
         if (isset($cellsArray['korosztaly'])) {
-            $trialSystem->age_group_id = $this->getModelIds($cellsArray['korosztaly'], AgeGroup::class, 'name', 'association_id', $this->associationId)[0] ?? null;
+            $trialSystem->age_group_id = $this->getModelIds($row, $cellsArray['korosztaly'], AgeGroup::class, 'name', 'association_id', $this->associationId)[0] ?? null;
         }
 
         if (isset($cellsArray['tipus'])) {
-            $trialSystem->trial_system_type_id = $this->getModelIds($cellsArray['tipus'], TrialSystemType::class, 'name', null, null, true)[0] ?? null;
+            $trialSystem->trial_system_type_id = $this->getModelIds($row, $cellsArray['tipus'], TrialSystemType::class, 'name', null, null, true)[0] ?? null;
         }
 
         if (isset($cellsArray['proba'])) {
-            $trialSystem->trial_system_trial_type_id = $this->getModelIds($cellsArray['proba'], TrialSystemTrialType::class, 'name', null, null, true)[0] ?? null;
+            $trialSystem->trial_system_trial_type_id = $this->getModelIds($row, $cellsArray['proba'], TrialSystemTrialType::class, 'name', null, null, true)[0] ?? null;
         }
 
-        if (!empty($this->errors[$this->getRowNumber()])) {
+        if (!empty($this->errors[$row->getRowIndex()])) {
             return;
         }
 
         $trialSystem->fill([
             'name' => $cellsArray['megnevezes'] ?? null,
-            'for_patrols' => $cellsArray['orsi'] == 'x' ? 1 : null,
-            'individual' => $cellsArray['egyeni'] == 'x' ? 1 : null,
-            'task' => $cellsArray['foglalkozas'] == 'x' ? 1 : null,
-            'obligatory' => $cellsArray['kotelezo'] == 'x' ? 1 : null,
+            'for_patrols' => isset($cellsArray['orsi']) ? ($cellsArray['orsi'] == 'x' ? 1 : null) : null,
+            'individual' => isset($cellsArray['egyeni']) ? ($cellsArray['egyeni'] == 'x' ? 1 : null) : null,
+            'task' => isset($cellsArray['foglalkozas']) ? ($cellsArray['foglalkozas'] == 'x' ? 1 : null) : null,
+            'obligatory' => isset($cellsArray['kotelezo']) ? ($cellsArray['kotelezo'] == 'x' ? 1 : null) : null,
             'note' => $cellsArray['megjegyzes'] ?? null,
             'effective_knowledge' => $cellsArray['effektiv_tudas'] ?? null,
         ]);
@@ -150,7 +149,7 @@ class TrialSystemsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHe
         }
     }
 
-    public function getModelIds(string $searchFor, string $modelName, string $columnName, string $secondaryColumnName = null, $secondaryColumnValue = null, bool $createIfNotFound = false): array
+    public function getModelIds($row, string $searchFor, string $modelName, string $columnName, string $secondaryColumnName = null, $secondaryColumnValue = null, bool $createIfNotFound = false): array
     {
         $searchFor = array_map('trim', explode('|', $searchFor));
         $searchFor = array_map('strtolower', $searchFor);
@@ -160,7 +159,7 @@ class TrialSystemsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHe
         $unmatched = array_diff($searchFor, array_map('strtolower', $ids->pluck($columnName)->toArray()));
         if (!empty($unmatched) && !$createIfNotFound) {
             $modelNameForLangKey = (new \ReflectionClass($modelName))->getShortName();
-            $this->errors[$this->getRowNumber()][] = Lang::get('csatar.knowledgerepository::lang.plugin.admin.messages.cannotFind' . $modelNameForLangKey) . implode(', ', $unmatched);
+            $this->errors[$row->getRowIndex()][] = Lang::get('csatar.knowledgerepository::lang.plugin.admin.messages.cannotFind' . $modelNameForLangKey) . implode(', ', $unmatched);
         }
         if ($createIfNotFound && !empty($unmatched)) {
             foreach ($unmatched as $unmatchedItem) {
@@ -177,20 +176,6 @@ class TrialSystemsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHe
         }
 
         return $ids->pluck('id')->toArray();
-    }
-
-    public function rules(): array
-    {
-        return [];
-    }
-
-    public function withValidator($validator)
-    {
-        $validator->after(function ($validator) {
-            if (!empty($this->errors) && isset($this->errors[$this->getRowNumber()])) {
-                $validator->errors()->add($this->getRowNumber(), $this->errors[$this->getRowNumber()]);
-            }
-        });
     }
 
     /**
