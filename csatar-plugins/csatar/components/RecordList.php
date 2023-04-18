@@ -513,6 +513,7 @@ class RecordList extends RainRecordList {
     public function onFilterSortPaginate() {
 
         $filters = json_decode(Input::get('activeFilters'), true);
+        $componentAlias = Input::get('componentAlias');
         $pageNumber = Input::get('page');
         $sortColumn = Input::get('sortColumn');
         $sortDirection = Input::get('sortDirection');
@@ -533,7 +534,7 @@ class RecordList extends RainRecordList {
 
         $this->records = $this->page['records'] = $this->listRecords();
         return [
-            '#tableRows' => $this->renderPartial('@tableRows')
+            '#tableRows-' . $componentAlias => $this->renderPartial('@tableRows')
         ];
     }
 

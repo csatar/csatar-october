@@ -1,8 +1,6 @@
 // on document load
 $(document).ready(function() {
 
-    filterSortPaginate();
-
     $('.freeText').on("keydown", function (event) {
         if (event.keyCode === 13 ) {//|| e.keyCode === 188
             addKeywordCheckbox($(this));
@@ -17,8 +15,9 @@ $(document).ready(function() {
         let selectedOption = $(this).find('option:selected');
         let sortColumn = selectedOption.data('column');
         let sortDirection = selectedOption.data('direction');
+        let alias = selectedOption.data('alias');
 
-        filterSortPaginate(1, sortColumn, sortDirection);
+        filterSortPaginate(alias,1, sortColumn, sortDirection);
     });
 
     $('.filter-input').keyup(function(event) {
@@ -44,18 +43,25 @@ function addKeywordCheckbox(element){
     }
     let filterLabel = element.attr('placeholder');
     let column = element.data('column');
+    let alias = element.data('alias');
+    console.log(alias)
     element.val('');
     let html = '<div id="hiddenCheckbox_' + Date.now() + '">'
-    html += '<input class="form-check-input" type="checkbox" value="' + keyword + '" data-column="' + column + '" data-column-label="' + filterLabel + '" id="keyword_' + Date.now()
+    html += '<input class="form-check-input" type="checkbox" value="' + keyword
+        + '" data-alias="' + alias
+        + '" data-column="' + column + '" data-column-label="' + filterLabel + '" id="keyword_' + Date.now()
         + '" onchange="filterSortPaginate()" checked><label class="form-check-label" for="keyword_' + Date.now()
         + '">' + keyword + '</label></div>';
-    $('#hiddenCheckboxes').append(html);
-    filterSortPaginate();
+    $('#hiddenCheckboxes-' + alias).append(html);
+    filterSortPaginate(alias);
 }
 
-function filterSortPaginate(page = 1, sortColumn = '', sortDirection = '') {
-    let selected = [];
+function filterSortPaginate(componentAlias, page = 1, sortColumn = '', sortDirection = '') {
+    let selected = {};
+    selected[componentAlias] = [];
     let activeFilters = {};
+
+    console.log(componentAlias);
 
     $("input:checkbox:checked, input:radio:checked").each(function() {
         let filterColumn = $(this).data('column');
@@ -63,31 +69,34 @@ function filterSortPaginate(page = 1, sortColumn = '', sortDirection = '') {
         if(!activeFilters[filterColumn]){
             activeFilters[filterColumn] = [];
         }
-        activeFilters[filterColumn].push($(this).val());
-        selected.push([ $(this), '']);
+        if ($(this).data('alias') == componentAlias) {
+            activeFilters[filterColumn].push($(this).val());
+            selected[componentAlias].push([ $(this), '']);
+        }
     });
 
-    $('#activeFiltersNumber').text(selected.length);
+    $('#activeFiltersNumber-' + componentAlias).text(selected[componentAlias].length);
 
-    if(selected.length>0){
+    if(selected[componentAlias].length>0){
 
-        $( "#activeFiltersCard" ).removeClass('d-none');
-        $( "#activeFiltersList" ).empty();
+        $( "#activeFiltersCard-" + componentAlias ).removeClass('d-none');
+        $( "#activeFiltersList-" + componentAlias  ).empty();
 
-        selected.forEach(function(item){
+        selected[componentAlias].forEach(function(item){
             let columnLabel = $(item[0][0]).attr('data-column-label');
             let label = columnLabel + ': ' + $(item[0][0].parentElement).children("label").text() + item[1];
             let html = '<div class="filter-tag badge d-flex bg-gray text-subtitle text-wrap text-start w-sm-100 m-1"><span class="my-auto">' + label + '  </span><a class="badge badge-dark text-subtitle ms-auto my-auto pe-0"';
-            html += 'onClick="removeFilter(\x27' + item[0][0].id + '\x27);">x</a></span>';
-            $( "#activeFiltersList" ).append( html );
+            html += 'onClick="removeFilter(\x27' + item[0][0].id + '\x27, \x27' + componentAlias + '\x27);">x</a></div>';
+            $( "#activeFiltersList-" + componentAlias ).append( html );
         });
     } else {
-        $( "#activeFiltersCard" ).addClass('d-none');
+        $( "#activeFiltersCard-" + componentAlias ).addClass('d-none');
     }
 
     activeFilters = JSON.stringify(activeFilters);
-    $.request('onFilterSortPaginate', {
+    $.request(componentAlias + '::onFilterSortPaginate', {
         data: {
+            componentAlias: componentAlias,
             activeFilters: activeFilters,
             page: page,
             sortColumn: sortColumn,
@@ -97,16 +106,16 @@ function filterSortPaginate(page = 1, sortColumn = '', sortDirection = '') {
 
 }
 
-function removeFilter(elementId){
+function removeFilter(elementId, componentAlias){
     $('#' + elementId).prop( "checked", false );
-    filterSortPaginate();
+    filterSortPaginate(componentAlias);
 }
 
-function removeAllFilters(){
+function removeAllFilters(componentAlias){
     $("input:checkbox:checked, input:radio:checked").each(function() {
         $(this).prop( "checked", false );
     });
-    filterSortPaginate();
+    filterSortPaginate(componentAlias);
 }
 
 function collapseOtherFilters(currentFilterId){

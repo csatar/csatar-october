@@ -5,14 +5,20 @@ title = "Dal"
 [songForm]
 ==
 {% set song = this.controller.vars.basicForm.record %}
+{% set userRights = user.scout.getRightsForModel(song) %}
 
 <div class="container">
-    {% if user.scout.getRightsForModel(song)['MODEL_GENERAL']['create'] > 0
+    {% if userRights['MODEL_GENERAL']['create'] > 0
     and this.param.action == false
     and this.param[this.controller.vars.basicForm.recordKeyParam] != this.controller.vars.basicForm.createRecordKeyword %}
-    <form action="/tudastar/dal/{{ song[basicForm.recordKeyParam] }}/{{ basicForm.actionUpdateKeyword }}" method="post">
-        <button type="submit" class="btn btn-sm rounded btn-primary" value="{{ 'Dal módosítása' | _ }}"><i class="csat-add-fill-wh-sm"></i> {{ 'Dal módosítása' | _ }}</button>
-    </form>
+        {% partial "@simpleATagButton"
+            permissionValue = userRights['MODEL_GENERAL']['update']
+            targetUrl = '/tudastar/dal/' ~ song[basicForm.recordKeyParam] ~ '/' ~ basicForm.actionUpdateKeyword
+            btnExtraClasses = 'btn-sm btn-primary'
+            btnValue = 'Dal módosítása' |_
+            btnIconClass = 'csat-edit-fill-wh-sm'
+            btnLabel = 'Dal módosítása' |_
+        %}
     {% endif %}
 
     {% component 'songForm' %}

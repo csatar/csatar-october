@@ -1,13 +1,25 @@
 {% if basicForm.record.approved_at is null and basicForm.record.created_at is not null %}
-{% partial "partials::dataRequestButton"
-permissionValue = basicForm.currentUserRights['approved_at']['update']
-dataRequest = 'onApproveMethodology'
-dataRequestUpdate = "'" ~ __SELF__ ~ "::default': '#main'"
-btnExtraClasses = 'btn-sm rounded btn-primary mb-2'
-btnValue = 'Módszertan jóváhagyása' |_
-btnIconClass = 'csat-check-fill-wh-sm'
-btnLabel = 'Módszertan jóváhagyása' |_
-tooltip = 'Módszertan jóváhagyása' |_
-%}
+    {% partial "partials::dataRequestButton"
+        permissionValue = basicForm.currentUserRights['approved_at']['update']
+        dataRequest = 'onApproveMethodology'
+        dataRequestUpdate = "'" ~ __SELF__ ~ "::default': '#main'"
+        btnExtraClasses = 'btn-sm rounded btn-primary mb-2'
+        btnValue = 'Módszertan jóváhagyása' |_
+        btnIconClass = 'csat-check-fill-wh-sm'
+        btnLabel = 'Módszertan jóváhagyása' |_
+        tooltip = 'Módszertan jóváhagyása' |_
+    %}
+{% endif %}
+
+{% if basicForm.record.id is not null %}
+    {% partial "partials::dataRequestButton"
+        permissionValue = basicForm.currentUserRights['MODEL_GENERAL']['delete']
+        dataRequest = 'onDelete'
+        dataRequestConfirm = 'Biztosan törölni akarod ezt a módszertant?' |_
+        btnExtraClasses = 'btn-sm btn-danger'
+        btnValue = 'Módszertan törlése' |_
+        btnIconClass = 'bi bi-trash'
+        btnLabel = 'Módszertan törlése' |_
+    %}
 {% endif %}
 
