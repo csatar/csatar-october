@@ -387,18 +387,22 @@ class BasicForm extends ComponentBase  {
 
         $this->getRightsFromParent($parent, $relationName);
 
-        $hasCreateRights = $this->currentUserRights['MODEL_GENERAL']['create'] ?? false;
-        $hasUpdateRights = $this->currentUserRights['MODEL_GENERAL']['update'] ?? false;
+        $hasCreateRights = $this->currentUserRights['MODEL_GENERAL']['create'] ?? -1;
+        $hasUpdateRights = $this->currentUserRights['MODEL_GENERAL']['update'] ?? -1;
+        $hasReadRights   = $this->currentUserRights['MODEL_GENERAL']['read'] ?? -1;
 
 
-        if ($parent->$relationName && $hasUpdateRights) {
+        if ($parent->$relationName && $hasUpdateRights > 0) {
             $record = $parent->$relationName;
             $this->properties['action'] = 'update';
-        } elseif ($hasCreateRights) {
+        } elseif ($hasCreateRights > 0) {
             $form       = $this->form ?? Form::find($this->formId ?? Input::get('formId'));
             $modelName  = $form->getModelName();
             $record = new $modelName();
             $this->properties['action'] = 'create';
+        } elseif ($hasReadRights > 0) {
+            $record = $parent->$relationName;
+            $this->properties['action'] = 'read';
         }
 
         return $record;
@@ -412,6 +416,7 @@ class BasicForm extends ComponentBase  {
         $userRightsForParent = $this->getRights($parent, $ignoreCache);
         $this->currentUserRights['MODEL_GENERAL']['create'] = $userRightsForParent[$relationName]['create'];
         $this->currentUserRights['MODEL_GENERAL']['update'] = $userRightsForParent[$relationName]['update'];
+        $this->currentUserRights['MODEL_GENERAL']['read']   = $userRightsForParent[$relationName]['read'];
 
         $this->currentUserRights = collect($this->currentUserRights);
     }
