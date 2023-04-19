@@ -9,6 +9,7 @@ use Csatar\Csatar\Models\PermissionBasedAccess;
 
 class UserRigthsProvider
 {
+
     public static function getUserRigths(Model $record, bool $ignoreCache)
     {
         if (Auth::user()) {
@@ -27,4 +28,5 @@ class UserRigthsProvider
 
         return null;
     }
+
 }

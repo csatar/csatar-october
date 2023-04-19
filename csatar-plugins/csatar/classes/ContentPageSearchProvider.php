@@ -6,6 +6,7 @@ use OFFLINE\SiteSearch\Classes\Providers\ResultsProvider;
 
 class ContentPageSearchProvider extends ResultsProvider
 {
+
     public function search()
     {
         // The controller is used to generate page URLs.
@@ -51,4 +52,5 @@ class ContentPageSearchProvider extends ResultsProvider
     {
         return e(trans('csatar.csatar::lang.plugin.admin.general.contentPage'));
     }
+
 }

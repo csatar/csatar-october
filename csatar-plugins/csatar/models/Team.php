@@ -469,4 +469,5 @@ class Team extends OrganizationBase
     public function getActiveMembersCountAttribute() {
         return StructureTree::getTeamScoutsCount($this->id);
     }
+
 }

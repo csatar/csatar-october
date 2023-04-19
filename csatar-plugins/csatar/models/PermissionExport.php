@@ -92,4 +92,5 @@ class PermissionExport extends \Backend\Models\ExportModel
 
         return $mandateTypes;
     }
+
 }

@@ -20,4 +20,5 @@ class CountryMapper
             $this->countryCodeToId[$country->code] = $country->id;
         }
     }
+
 }

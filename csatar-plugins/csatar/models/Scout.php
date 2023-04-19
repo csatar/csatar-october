@@ -661,7 +661,6 @@ class Scout extends OrganizationBase
         'registration_form' => 'System\Models\File',
     ];
 
-
     public static function getEagerLoadSettings(string $useCase = null): array
     {
         $eagerLoadSettings = parent::getEagerLoadSettings($useCase);
@@ -1411,4 +1410,5 @@ class Scout extends OrganizationBase
 
         return $historyArray;
     }
+
 }

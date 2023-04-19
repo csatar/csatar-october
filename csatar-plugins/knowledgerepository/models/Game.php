@@ -136,7 +136,6 @@ class Game extends PermissionBasedAccess
         'attachements' => ['System\Models\File'],
     ];
 
-
     public static function filterAgeGroupByAssociation($query, $related)
     {
         if (!isset($related->association_id)) {
@@ -187,4 +186,5 @@ class Game extends PermissionBasedAccess
     public function getApproverScout() {
         return $this->approver_csatar_code ? $this->approver : null;
     }
+
 }

@@ -116,7 +116,6 @@ class Association extends OrganizationBase
         ],
     ];
 
-
     public static function getEagerLoadSettings(string $useCase = null): array
     {
         $eagerLoadSettings = parent::getEagerLoadSettings($useCase);
@@ -249,4 +248,5 @@ class Association extends OrganizationBase
             'results' => $results,
         ];
     }
+
 }

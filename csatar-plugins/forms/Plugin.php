@@ -6,6 +6,7 @@ use System\Classes\PluginBase;
 
 class Plugin extends PluginBase
 {
+
     /**
      * Component details
      * @return array

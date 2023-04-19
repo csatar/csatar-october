@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarCsatarCurrencies extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_csatar_currencies', function($table)
@@ -22,4 +23,5 @@ class BuilderTableCreateCsatarCsatarCurrencies extends Migration
     {
         Schema::dropIfExists('csatar_csatar_currencies');
     }
+
 }

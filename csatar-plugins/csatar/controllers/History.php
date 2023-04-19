@@ -21,4 +21,5 @@ class History extends Controller
         parent::__construct();
         BackendMenu::setContext('Csatar.Csatar', 'main-menu-item-history');
     }
+
 }

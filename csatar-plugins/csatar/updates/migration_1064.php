@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class Migration1064 extends Migration
 {
+
     public function up()
     {
         Schema::table('csatar_csatar_associations', function($table)
@@ -150,4 +151,5 @@ class Migration1064 extends Migration
         });
 
     }
+
 }

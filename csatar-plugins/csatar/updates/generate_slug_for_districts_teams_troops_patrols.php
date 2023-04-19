@@ -9,6 +9,7 @@ use Csatar\Csatar\Models\Patrol;
 
 class Seeder1068 extends Seeder
 {
+
     public function run()
     {
         $organizations = District::all() ?? [];
@@ -43,4 +44,5 @@ class Seeder1068 extends Seeder
             $organization->forceSave();
         }
     }
+
 }

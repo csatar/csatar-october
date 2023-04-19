@@ -35,4 +35,5 @@ class SeederData extends Controller
         $seederData->run();
         Flash::success(Lang::get('csatar.csatar::lang.plugin.admin.admin.seederData.updateDataSuccess'));
     }
+
 }

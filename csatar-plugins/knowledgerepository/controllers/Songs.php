@@ -108,4 +108,5 @@ class Songs extends Controller
     public function onGetAssociationOptions() {
         return Association::getAssociationOptionsForSelect();
     }
+
 }

@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarCsatarLegalRelationships extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_csatar_legal_relationships', function($table)
@@ -24,4 +25,5 @@ class BuilderTableCreateCsatarCsatarLegalRelationships extends Migration
     {
         Schema::dropIfExists('csatar_csatar_legal_relationships');
     }
+
 }

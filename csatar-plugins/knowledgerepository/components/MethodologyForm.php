@@ -62,4 +62,5 @@ class MethodologyForm extends ComponentBase
 
         return Redirect::to('/tudastar/modszertanok');
     }
+
 }

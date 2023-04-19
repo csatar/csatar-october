@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableUpdateCsatarCsatarPatrols extends Migration
 {
+
     public function up()
     {
         Schema::table('csatar_csatar_patrols', function($table)
@@ -27,4 +28,5 @@ class BuilderTableUpdateCsatarCsatarPatrols extends Migration
             $table->string('age_group', 255);
         });
     }
+
 }

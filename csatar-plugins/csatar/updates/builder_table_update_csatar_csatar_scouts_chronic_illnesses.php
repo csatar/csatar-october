@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableUpdateCsatarCsatarScoutsChronicIllnesses extends Migration
 {
+
     public function up()
     {
         Schema::table('csatar_csatar_scouts_chronic_illnesses', function($table)
@@ -21,4 +22,5 @@ class BuilderTableUpdateCsatarCsatarScoutsChronicIllnesses extends Migration
             $table->dropColumn('comment');
         });
     }
+
 }

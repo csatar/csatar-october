@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarKnowledgerepositorySongType extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_knowledgerepository_song_type', function($table)
@@ -20,4 +21,5 @@ class BuilderTableCreateCsatarKnowledgerepositorySongType extends Migration
     {
         Schema::dropIfExists('csatar_knowledgerepository_song_type');
     }
+
 }

@@ -9,6 +9,7 @@ use October\Rain\Database\Relations\Relation as RelationBase;
  */
 trait HasRelationStore
 {
+
     /**
      * getLoadValueFromRelation
      */
@@ -111,4 +112,5 @@ trait HasRelationStore
 
         return $query;
     }
+
 }

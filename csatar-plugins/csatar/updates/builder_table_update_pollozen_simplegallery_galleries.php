@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class Migration1063 extends Migration
 {
+
     public function up()
     {
          Schema::table('pollozen_simplegallery_galleries', function($table)
@@ -21,4 +22,5 @@ class Migration1063 extends Migration
              $table->dropColumn('is_public');
          });
     }
+
 }

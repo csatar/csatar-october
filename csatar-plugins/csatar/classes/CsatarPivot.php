@@ -6,6 +6,7 @@ use October\Rain\Database\Pivot;
 
 class CsatarPivot extends Pivot
 {
+
     public function getParentClass()
     {
         return get_class($this->parent);
@@ -20,4 +21,5 @@ class CsatarPivot extends Pivot
     {
         return $this->otherKey;
     }
+
 }

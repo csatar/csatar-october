@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableUpdateCsatarCsatarTeamReports extends Migration
 {
+
     public function up()
     {
         Schema::table('csatar_csatar_team_reports', function($table)
@@ -21,4 +22,5 @@ class BuilderTableUpdateCsatarCsatarTeamReports extends Migration
             $table->dropColumn('extra_fields');
         });
     }
+
 }

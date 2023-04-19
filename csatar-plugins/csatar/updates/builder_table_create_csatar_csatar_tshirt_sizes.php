@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarCsatarTshirtSizes extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_csatar_tshirt_sizes', function($table)
@@ -23,4 +24,5 @@ class BuilderTableCreateCsatarCsatarTshirtSizes extends Migration
     {
         Schema::dropIfExists('csatar_csatar_tshirt_sizes');
     }
+
 }

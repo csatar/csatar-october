@@ -15,4 +15,5 @@ class SongTypes extends Controller
     {
         parent::__construct();
     }
+
 }

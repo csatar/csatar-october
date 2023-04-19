@@ -1604,4 +1604,5 @@ trait AjaxControllerSimple {
     {
         $this->messages[$messageType][$message] = $message;
     }
+
 }

@@ -53,7 +53,6 @@ function human_filesize($bytes, $dec = 2)
     return sprintf("%.{$dec}f", $bytes / pow(1024, $factor)) . @$size[$factor];
 }
 
-
 trait ManagesUploads {
 
     public $fileList = false;
@@ -294,7 +293,6 @@ trait ManagesUploads {
 
         return $this->fileList->count() > 0;
     }
-
 
     public function getCssBlockDimensions()
     {

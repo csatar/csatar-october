@@ -20,4 +20,5 @@ class TShirtSizeMapper
             $this->namesToIds[$tShirtSize->name] = $tShirtSize->id;
         }
     }
+
 }

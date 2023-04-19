@@ -240,4 +240,5 @@ class PermissionBasedAccess extends Model
     public function getPatrol() {
         return null;
     }
+
 }

@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableUpdateCsatarKnowledgerepositorySongType extends Migration
 {
+
     public function up()
     {
         Schema::table('csatar_knowledgerepository_song_type', function($table)
@@ -25,4 +26,5 @@ class BuilderTableUpdateCsatarKnowledgerepositorySongType extends Migration
             $table->dropColumn('deleted_at');
         });
     }
+
 }

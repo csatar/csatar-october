@@ -85,4 +85,5 @@ class TwoFactorAuthentication extends ComponentBase
     {
         return Session::get('scout.twoFA', false);
     }
+
 }

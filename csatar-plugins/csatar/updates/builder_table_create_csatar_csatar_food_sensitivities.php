@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarCsatarFoodSensitivities extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_csatar_food_sensitivities', function($table)
@@ -23,4 +24,5 @@ class BuilderTableCreateCsatarCsatarFoodSensitivities extends Migration
     {
         Schema::dropIfExists('csatar_csatar_food_sensitivities');
     }
+
 }

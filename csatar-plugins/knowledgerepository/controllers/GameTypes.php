@@ -26,4 +26,5 @@ class GameTypes extends Controller
         parent::__construct();
         BackendMenu::setContext('Csatar.KnowledgeRepository', 'main-menu-knowledge-repository-parameters', 'side-menu-gametype');
     }
+
 }

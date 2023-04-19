@@ -20,4 +20,5 @@ class WorkPlans extends Controller
         parent::__construct();
         BackendMenu::setContext('Csatar.KnowledgeRepository', 'main-menu-knowledge-repository', 'side-menu-work-plans');
     }
+
 }

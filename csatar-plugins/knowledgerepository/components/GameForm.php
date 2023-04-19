@@ -63,4 +63,5 @@ class GameForm extends ComponentBase
 
         return Redirect::to('/tudastar/jatekok');
     }
+
 }

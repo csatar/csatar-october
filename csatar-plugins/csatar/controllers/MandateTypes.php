@@ -29,4 +29,5 @@ class MandateTypes extends Controller
     public function onDelete(){
         return BackendExtensions::onDelete($this);
     }
+
 }

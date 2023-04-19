@@ -14,6 +14,7 @@ use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 use PhpOffice\PhpSpreadsheet\Writer\Html;
 class XlxsHtml extends Html
 {
+
     public function generateHtmlFromCell(Worksheet $worksheet, Cell $cell, $cssClass = '', $cellType = 'td')
     {
         return $this->generateRowCellData($worksheet, $cell, $cssClass, $cellType);
@@ -138,4 +139,5 @@ class XlxsHtml extends Html
 
         return $css;
     }
+
 }

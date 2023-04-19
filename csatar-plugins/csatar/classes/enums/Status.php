@@ -17,4 +17,5 @@ class Status
             self::INACTIVE => e(trans('csatar.csatar::lang.plugin.admin.general.inactive')),
         ];
     }
+
 }

@@ -101,4 +101,5 @@ class CheckScoutStatus extends ComponentBase
 
         return Redirect::to('/tag-lekerdezes/'. $data['ecsk_code']);
     }
+
 }

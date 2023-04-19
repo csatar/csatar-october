@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarCsatarSpecialDiets extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_csatar_special_diets', function($table)
@@ -23,4 +24,5 @@ class BuilderTableCreateCsatarCsatarSpecialDiets extends Migration
     {
         Schema::dropIfExists('csatar_csatar_special_diets');
     }
+
 }

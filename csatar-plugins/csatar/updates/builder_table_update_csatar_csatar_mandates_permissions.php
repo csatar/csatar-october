@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableUpdateCsatarCsatarMandatesPermissions extends Migration
 {
+
     public function up()
     {
         Schema::table('csatar_csatar_mandates_permissions', function($table)
@@ -26,4 +27,5 @@ class BuilderTableUpdateCsatarCsatarMandatesPermissions extends Migration
 
         });
     }
+
 }

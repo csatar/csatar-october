@@ -20,4 +20,5 @@ class ReligionMapper
             $this->namesToIds[$religion->name] = $religion->id;
         }
     }
+
 }

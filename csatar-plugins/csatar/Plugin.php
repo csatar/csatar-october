@@ -268,7 +268,6 @@ class Plugin extends PluginBase
         ];
     }
 
-
     public function registerSettings()
     {
         return [
@@ -358,4 +357,5 @@ class Plugin extends PluginBase
         })
             ->dailyAt('00:15');
     }
+
 }

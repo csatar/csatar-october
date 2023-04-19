@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarCsatarMandateTypes extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_csatar_mandate_types', function($table)
@@ -31,4 +32,5 @@ class BuilderTableCreateCsatarCsatarMandateTypes extends Migration
     {
         Schema::dropIfExists('csatar_csatar_mandate_types');
     }
+
 }

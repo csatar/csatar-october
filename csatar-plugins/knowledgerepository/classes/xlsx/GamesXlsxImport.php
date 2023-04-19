@@ -188,4 +188,5 @@ class GamesXlsxImport implements ToModel, WithHeadingRow, WithValidation, SkipsO
             }
         });
     }
+
 }

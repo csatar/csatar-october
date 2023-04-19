@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarCsatarDynamicFields extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_csatar_dynamic_fields', function($table)
@@ -30,4 +31,5 @@ class BuilderTableCreateCsatarCsatarDynamicFields extends Migration
     {
         Schema::dropIfExists('csatar_csatar_dynamic_fields');
     }
+
 }

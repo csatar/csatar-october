@@ -15,4 +15,5 @@ class Regions extends Controller
     {
         parent::__construct();
     }
+
 }

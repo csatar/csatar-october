@@ -86,4 +86,5 @@ class TrialSystems extends Controller
 
         Flash::success(Lang::get('csatar.knowledgerepository::lang.plugin.admin.messages.importSuccessful'));
     }
+
 }

@@ -51,8 +51,8 @@ class LeadershipQualification extends Model
         ]
     ];
 
-
     public function getTrainingIdOptions(){
         return Training::lists('name', 'id');
     }
+
 }

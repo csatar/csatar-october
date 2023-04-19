@@ -79,4 +79,5 @@ final class GoogleTwoFactorAuthentication
 
         return new Color($red, $green, $blue);
     }
+
 }

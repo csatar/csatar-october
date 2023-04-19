@@ -89,4 +89,5 @@ class Scouts extends Controller
         Flash::success(Lang::get('csatar.csatar::lang.plugin.admin.scout.restoreSuccess'));
         return Redirect::refresh();
     }
+
 }

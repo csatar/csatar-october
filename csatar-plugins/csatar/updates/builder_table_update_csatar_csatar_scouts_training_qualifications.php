@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableUpdateCsatarCsatarScoutsTrainingQualifications extends Migration
 {
+
     public function up()
     {
         Schema::table('csatar_csatar_scouts_training_qualifications', function($table)
@@ -25,4 +26,5 @@ class BuilderTableUpdateCsatarCsatarScoutsTrainingQualifications extends Migrati
             $table->string('qualification', 255)->nullable();
         });
     }
+
 }

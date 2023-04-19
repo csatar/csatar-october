@@ -465,4 +465,5 @@ class OrganizationUnitFrontend extends ComponentBase
 
         return $scout;
     }
+
 }

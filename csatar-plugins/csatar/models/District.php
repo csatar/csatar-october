@@ -144,8 +144,6 @@ class District extends OrganizationBase
         ],
     ];
 
-
-
     /**
      * Override the getExtendedNameAttribute function
      */
@@ -289,4 +287,5 @@ class District extends OrganizationBase
     public function getActiveMembersCountAttribute() {
         return StructureTree::getDistrictScoutsCount($this->id);
     }
+
 }

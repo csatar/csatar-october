@@ -153,4 +153,5 @@ class Breadcrumb extends ComponentBase
             'url'       => $isLastDescendant ? '' : $url,
         ];
     }
+
 }

@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarCsatarReligions extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_csatar_religions', function($table)
@@ -23,4 +24,5 @@ class BuilderTableCreateCsatarCsatarReligions extends Migration
     {
         Schema::dropIfExists('csatar_csatar_religions');
     }
+
 }

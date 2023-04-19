@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarCsatarTeamReportsScouts extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_csatar_team_reports_scouts', function($table)
@@ -26,4 +27,5 @@ class BuilderTableCreateCsatarCsatarTeamReportsScouts extends Migration
     {
         Schema::dropIfExists('csatar_csatar_team_reports_scouts');
     }
+
 }
