@@ -225,7 +225,7 @@ class ScoutImport extends \Backend\Models\ImportModel
             Zip::extract($file->getLocalPath(), $dir);
         }
 
-        $files     = array_diff(scandir($dir), array('.', '..'));
+        $files     = array_diff(scandir($dir), ['.', '..']);
         $fileArray = [];
         foreach ($files as $file) {
             $fileArray[$this->stripFileExtension($file)] = $dir . '/' . $file;

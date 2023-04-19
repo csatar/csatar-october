@@ -8,7 +8,7 @@ class Seeder1040 extends Seeder
 {
     public function run()
     {
-        $contactFormSettings = array(
+        $contactFormSettings = [
             'validation_type' => 'required',
             'validation_error' => 'Az üzenet kitöltése kötelező',
             'validation_custom_type' => '',
@@ -26,14 +26,14 @@ class Seeder1040 extends Seeder
             'label_css' => '',
             'field_css' => '',
             'field_validation' => '1',
-            'validation' => array(
-                array(
+            'validation' => [
+                [
                     'validation_type' => 'required',
                     'validation_error' => 'Az üzenet kitöltése kötelező',
                     'validation_custom_type' => '',
                     'validation_custom_pattern' => '',
-                ),
-            ),
+                ],
+            ],
             'form_css_class' => '',
             'form_success_msg' => 'Üzenet elküldve!',
             'form_error_msg' => 'Hiba történt, kérjük ellenőrízze a pirossal kijelölt mezőket!',
@@ -53,8 +53,8 @@ class Seeder1040 extends Seeder
             'allow_redirect' => '0',
             'redirect_url' => '/',
             'redirect_url_external' => '0',
-            'form_fields' => array(
-                array(
+            'form_fields' => [
+                [
                     'name' => 'name',
                     'type' => 'text',
                     'label' => 'Név',
@@ -68,16 +68,16 @@ class Seeder1040 extends Seeder
                     'label_css' => '',
                     'field_css' => '',
                     'field_validation' => '1',
-                    'validation' => array(
-                        array(
+                    'validation' => [
+                        [
                             'validation_type' => 'required',
                             'validation_error' => 'A név megadása kötelző',
                             'validation_custom_type' => '',
                             'validation_custom_pattern' => '',
-                        ),
-                    ),
-                ),
-                array(
+                        ],
+                    ],
+                ],
+                [
                     'name' => 'email',
                     'type' => 'email',
                     'label' => 'E-mail cím',
@@ -91,21 +91,21 @@ class Seeder1040 extends Seeder
                     'label_css' => '',
                     'field_css' => '',
                     'field_validation' => '1',
-                    'validation' => array(
-                        array(
+                    'validation' => [
+                        [
                             'validation_type' => 'email',
                             'validation_error' => 'Adjon meg érvényes e-mail címet',
                             'validation_custom_type' => '',
                             'validation_custom_pattern' => '',
-                        ),
-                        array('validation_type' => 'required',
+                        ],
+                        ['validation_type' => 'required',
                             'validation_error' => 'Az e-mail cím megadása kötelező',
                             'validation_custom_type' => '',
                             'validation_custom_pattern' => '',
-                        ),
-                    ),
-                ),
-                array(
+                        ],
+                    ],
+                ],
+                [
                     'name' => 'message',
                     'type' => 'textarea',
                     'label' => 'Üzenet',
@@ -119,16 +119,16 @@ class Seeder1040 extends Seeder
                     'label_css' => '',
                     'field_css' => '',
                     'field_validation' => '1',
-                    'validation' => array(
-                        array(
+                    'validation' => [
+                        [
                             'validation_type' => 'required',
                             'validation_error' => 'Az üzenet kitöltése kötelező',
                             'validation_custom_type' => '',
                             'validation_custom_pattern' => '',
-                        ),
-                    ),
-                ),
-            ),
+                        ],
+                    ],
+                ],
+            ],
             'autoreply_email_field' => 'email',
             'autoreply_name_field' => 'name',
             'autoreply_message_field' => 'message',
@@ -165,7 +165,7 @@ class Seeder1040 extends Seeder
             'ga_success_event_action' => '',
             'ga_success_event_label' => '',
             'privacy_disable_messages_saving' => '0',
-        );
+        ];
 
         Db::table('system_settings')
             ->updateOrInsert(
