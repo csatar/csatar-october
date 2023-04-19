@@ -187,6 +187,11 @@ class SeederData extends Seeder
                 'max' => 5,
             ],
             [
+                'name' => '1-10 perc',
+                'min' => 1,
+                'max' => 10,
+            ],
+            [
                 'name' => '6-10 perc',
                 'min' => 6,
                 'max' => 10,
@@ -194,6 +199,16 @@ class SeederData extends Seeder
             [
                 'name' => '7-15 perc',
                 'min' => 7,
+                'max' => 15,
+            ],
+            [
+                'name' => '10-30 perc',
+                'min' => 10,
+                'max' => 30,
+            ],
+            [
+                'name' => '11-15 perc',
+                'min' => 11,
                 'max' => 15,
             ],
             [
@@ -205,11 +220,6 @@ class SeederData extends Seeder
                 'name' => '21-25 perc',
                 'min' => 21,
                 'max' => 25,
-            ],
-            [
-                'name' => '26-35 perc',
-                'min' => 26,
-                'max' => 35,
             ],
             [
                 'name' => '36-50 perc',
