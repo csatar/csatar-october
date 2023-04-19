@@ -133,7 +133,6 @@ class HistoryService
             // 1. tested with belongsTo, it is not working as expected, for example when changing currency of an association, the event it is not triggered AND when creating new mandateType for an association, the event it is not triggered - we ignore this for now because these actions are recorded with the updated event
             // 2. can not test with morphTo, currently we don't have any morphTo relation adding implemented that should be tracked
 
-
             // for detach belongsTo, morphTo relations, params: [$model->relationName, $model]
 //        $model->bindEvent('model.relation.dissociate', function ($relationName) {
 //        });
@@ -141,7 +140,6 @@ class HistoryService
             // 1. tested with belongsTo, it is not working as expected, for example when changing currency of an association, the event it is not triggered AND when deleting mandateType for an association, the event it is not triggered - we ignore this for now because these actions are recorded with the updated event
             // 2. can not test with morphTo, currently we don't have any morphTo relation removing implemented that should be tracked
             // when creating new mandateType for an association, the event it IS triggered for "parent" relation
-
 
             // for attach belongsToMany relations
             $model->bindEvent('model.relation.attach', function ($relationName, $parsedIds, $attributes) use ($model) {
@@ -286,7 +284,6 @@ class HistoryService
             'created_at' => new DateTime,
             'updated_at' => new DateTime
         ];
-
 
         Db::table($historyModel->getTable())->insert($toSave);
     }

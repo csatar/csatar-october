@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Components;
 
 use Cms\Classes\ComponentBase;

@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\KnowledgeRepository\Updates;
 
 use Schema;
@@ -18,7 +18,7 @@ class BuilderTableCreateCsatarKnowledgerepositoryRegion extends Migration
             $table->integer('small_parent_id')->nullable();
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_knowledgerepository_region');

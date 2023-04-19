@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Models;
 
 use Csatar\Csatar\Classes\Enums\Gender;
@@ -213,7 +213,7 @@ class ScoutImport extends \Backend\Models\ImportModel
         }
     }
 
-    private function stripFileExtension($file) 
+    private function stripFileExtension($file)
     {
         return substr($file, 0, strlen($file) - 4);
     }
@@ -221,7 +221,7 @@ class ScoutImport extends \Backend\Models\ImportModel
     private function unzip($file)
     {
         $dir = $this->stripFileExtension($file->getLocalPath()) . '/' . $this->stripFileExtension($file->file_name);
-        if (!file_exists($dir)) {     
+        if (!file_exists($dir)) {
             Zip::extract($file->getLocalPath(), $dir);
         }
 

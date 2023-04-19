@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -17,7 +17,7 @@ class BuilderTableCreateCsatarCsatarCurrencies extends Migration
             $table->string('code', 3);
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_currencies');

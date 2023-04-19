@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -13,7 +13,7 @@ class BuilderTableUpdateCsatarCsatarAssociations2 extends Migration
             $table->string('name_abbreviation')->after('name')->nullable();
         });
     }
-    
+
     public function down()
     {
         Schema::table('csatar_csatar_associations', function($table)

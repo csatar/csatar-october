@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\KnowledgeRepository\Updates;
 
 use Schema;
@@ -26,11 +26,11 @@ class BuilderTableCreateCsatarKnowledgerepositoryTrialSystems extends Migration
             $table->boolean('task')->nullable();
             $table->boolean('obligatory')->nullable();
             $table->text('note')->nullable();
-            
+
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
             $table->timestamp('deleted_at')->nullable();
-    
+
             $table->foreign('association_id', 'association_foreign')->references('id')->on('csatar_csatar_associations');
             $table->foreign('trial_system_category_id', 'trial_system_category_foreign')->references('id')->on('csatar_knowledgerepository_trial_system_categories');
             $table->foreign('trial_system_topic_id', 'trial_system_topic_foreign')->references('id')->on('csatar_knowledgerepository_trial_system_topics');
@@ -40,7 +40,7 @@ class BuilderTableCreateCsatarKnowledgerepositoryTrialSystems extends Migration
             $table->foreign('trial_system_trial_type_id', 'trial_system_trial_type_foreign')->references('id')->on('csatar_knowledgerepository_trial_system_trial_types');
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_knowledgerepository_trial_systems');

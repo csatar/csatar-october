@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -13,7 +13,7 @@ class BuilderTableUpdateCsatarCsatarTeams extends Migration
             $table->smallInteger('status')->nullable()->default(1);
         });
     }
-    
+
     public function down()
     {
         Schema::table('csatar_csatar_teams', function($table)

@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\KnowledgeRepository\Updates;
 
 use Csatar\KnowledgeRepository\Models\AccidentRiskLevel;

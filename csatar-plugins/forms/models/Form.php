@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Forms\Models;
 
 use Cache;

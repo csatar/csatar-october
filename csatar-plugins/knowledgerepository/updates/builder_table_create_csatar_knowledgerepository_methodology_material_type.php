@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\KnowledgeRepository\Updates;
 
 use Schema;
@@ -15,7 +15,7 @@ class BuilderTableCreateCsatarKnowledgerepositoryMethodologyMaterialType extends
             $table->string('name')->nullable();
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_knowledgerepository_methodology_material_types');

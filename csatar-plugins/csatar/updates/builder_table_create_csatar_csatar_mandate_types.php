@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -26,7 +26,7 @@ class BuilderTableCreateCsatarCsatarMandateTypes extends Migration
             $table->smallInteger('nest_depth')->nullable()->unsigned();
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_mandate_types');

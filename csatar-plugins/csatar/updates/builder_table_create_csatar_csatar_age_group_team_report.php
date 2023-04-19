@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -16,7 +16,7 @@ class BuilderTableCreateCsatarCsatarAgeGroupTeamReport extends Migration
             $table->integer('number_of_patrols_in_age_group')->unsigned();
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_age_group_team_report');

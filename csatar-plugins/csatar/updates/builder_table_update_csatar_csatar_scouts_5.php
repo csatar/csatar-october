@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -13,7 +13,7 @@ class BuilderTableUpdateCsatarCsatarScouts5 extends Migration
             $table->boolean('is_active')->default(0)->change();
         });
     }
-    
+
     public function down()
     {
         Schema::table('csatar_csatar_scouts', function($table)

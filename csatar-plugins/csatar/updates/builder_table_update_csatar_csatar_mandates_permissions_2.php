@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -13,7 +13,7 @@ class BuilderTableUpdateCsatarCsatarMandatesPermissions2 extends Migration
             $table->timestamp('deleted_at')->nullable();
         });
     }
-    
+
     public function down()
     {
         Schema::table('csatar_csatar_mandates_permissions', function($table)

@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Traits;
 
 use Csatar\Csatar\Classes\HistoryService;

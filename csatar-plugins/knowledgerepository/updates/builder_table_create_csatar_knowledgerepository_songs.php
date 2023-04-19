@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\KnowledgeRepository\Updates;
 
 use Schema;
@@ -29,7 +29,7 @@ class BuilderTableCreateCsatarKnowledgerepositorySongs extends Migration
             $table->dateTime('version')->nullable();
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_knowledgerepository_songs');

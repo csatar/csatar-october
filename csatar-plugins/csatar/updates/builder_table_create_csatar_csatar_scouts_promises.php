@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -18,7 +18,7 @@ class BuilderTableCreateCsatarCsatarScoutsPromises extends Migration
             $table->primary(['scout_id','promise_id'], 'csatar_csatar_scout_id_promise_id_primary');
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_scouts_promises');

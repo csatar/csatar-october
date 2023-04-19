@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -21,7 +21,7 @@ class BuilderTableCreateCsatarCsatarTeamReportsScouts extends Migration
             $table->primary(['team_report_id','scout_id'], 'csatar_csatar_team_report_id_scout_id_primary');
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_team_reports_scouts');

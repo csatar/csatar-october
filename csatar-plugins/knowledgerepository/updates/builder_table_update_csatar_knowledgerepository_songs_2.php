@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\KnowledgeRepository\Updates;
 
 use Schema;
@@ -20,7 +20,7 @@ class BuilderTableUpdateCsatarKnowledgerepositorySongs2 extends Migration
             $table->dropColumn('rhythm');
         });
     }
-    
+
     public function down()
     {
         Schema::table('csatar_knowledgerepository_songs', function($table)

@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\KnowledgeRepository\Updates;
 
 use Schema;
@@ -14,7 +14,7 @@ class BuilderTableUpdateCsatarKnowledgerepositoryGames extends Migration
             $table->foreign('association_id', 'game_association_foreign')->references('id')->on('csatar_csatar_associations');
         });
     }
-    
+
     public function down()
     {
         Schema::table('csatar_knowledgerepository_games', function($table)

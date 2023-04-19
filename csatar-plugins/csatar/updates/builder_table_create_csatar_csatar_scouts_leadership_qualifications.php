@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -21,7 +21,7 @@ class BuilderTableCreateCsatarCsatarScoutsLeadershipQualifications extends Migra
             $table->primary(['scout_id','leadership_qualification_id'], 'csatar_csatar_scout_id_leadership_qualification_id_primary');
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_scouts_leadership_qualifications');

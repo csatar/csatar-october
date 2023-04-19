@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\KnowledgeRepository\Models;
 
 use Csatar\Csatar\Models\Association;
@@ -11,7 +11,7 @@ use Lang;
 class TrialSystem extends PermissionBasedAccess
 {
     use \October\Rain\Database\Traits\Validation;
-    
+
     use \October\Rain\Database\Traits\SoftDelete;
 
     use \Csatar\Csatar\Traits\History;
@@ -115,7 +115,7 @@ class TrialSystem extends PermissionBasedAccess
         if ($this->obligatory) {
             $oefk[] = 'K';
         }
-        
+
         return implode('-', $oefk);
     }
 

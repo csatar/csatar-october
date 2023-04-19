@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\KnowledgeRepository\Updates;
 
 use Schema;
@@ -13,7 +13,7 @@ class BuilderTableUpdateCsatarKnowledgerepositorySongs3 extends Migration
             $table->integer('association_id')->nullable();
         });
     }
-    
+
     public function down()
     {
         Schema::table('csatar_knowledgerepository_songs', function($table)

@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Forms\Controllers;
 
 use Backend\Classes\Controller;

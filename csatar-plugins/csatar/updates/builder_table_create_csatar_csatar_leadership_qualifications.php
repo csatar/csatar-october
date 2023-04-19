@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -19,7 +19,7 @@ class BuilderTableCreateCsatarCsatarLeadershipQualifications extends Migration
             $table->text('comment')->nullable();
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_leadership_qualifications');

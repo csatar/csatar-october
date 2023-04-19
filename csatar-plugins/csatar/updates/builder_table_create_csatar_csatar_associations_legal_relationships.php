@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -17,7 +17,7 @@ class BuilderTableCreateCsatarCsatarAssociationsLegalRelationships extends Migra
             $table->primary(['association_id','legal_relationship_id'], 'csatar_csatar_association_id_legal_relationship_id_primary');
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_associations_legal_relationships');

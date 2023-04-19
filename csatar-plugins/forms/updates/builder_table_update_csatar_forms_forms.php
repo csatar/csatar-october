@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Forms\Updates;
 
 use Schema;
@@ -13,7 +13,7 @@ class BuilderTableUpdateCsatarFormsForms extends Migration
             $table->string('slug')->after('title');
         });
     }
-    
+
     public function down()
     {
         Schema::table('csatar_forms_forms', function($table)

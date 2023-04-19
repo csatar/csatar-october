@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -18,7 +18,7 @@ class BuilderTableCreateCsatarCsatarAgeGroups extends Migration
             $table->integer('sort_order')->unsigned()->default(0);
             $table->integer('association_id')->unsigned();
             $table->timestamp('deleted_at')->nullable();
-            
+
             $table->foreign('association_id')->references('id')->on('csatar_csatar_associations');
         });
     }

@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -15,7 +15,7 @@ class BuilderTableUpdateCsatarCsatarMandatesPermissions extends Migration
             $table->dropColumn('2fa');
         });
     }
-    
+
     public function down()
     {
         Schema::table('csatar_csatar_mandates_permissions', function($table)

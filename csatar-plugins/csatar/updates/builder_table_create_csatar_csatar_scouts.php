@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -63,10 +63,10 @@ class BuilderTableCreateCsatarCsatarScouts extends Migration
             $table->string('occupation', 255)->nullable();
             $table->string('workplace', 255)->nullable();
             $table->text('comment')->nullable();
-            $table->date('nameday')->nullable();            
+            $table->date('nameday')->nullable();
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_scouts');

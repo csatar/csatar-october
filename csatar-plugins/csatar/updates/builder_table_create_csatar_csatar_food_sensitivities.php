@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -18,7 +18,7 @@ class BuilderTableCreateCsatarCsatarFoodSensitivities extends Migration
             $table->string('name', 255);
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_food_sensitivities');

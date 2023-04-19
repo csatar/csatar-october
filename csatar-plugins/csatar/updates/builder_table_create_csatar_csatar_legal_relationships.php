@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -19,7 +19,7 @@ class BuilderTableCreateCsatarCsatarLegalRelationships extends Migration
             $table->smallInteger('sort_order')->unsigned()->default(1);
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_legal_relationships');

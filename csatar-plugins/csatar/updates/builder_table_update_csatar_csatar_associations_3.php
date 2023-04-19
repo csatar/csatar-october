@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -13,7 +13,7 @@ class BuilderTableUpdateCsatarCsatarAssociations3 extends Migration
             $table->string('personal_identification_number_validator')->nullable();
         });
     }
-    
+
     public function down()
     {
         Schema::table('csatar_csatar_associations', function($table)

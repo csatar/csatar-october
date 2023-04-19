@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -20,7 +20,7 @@ class BuilderTableCreateCsatarCsatarSpecialTests extends Migration
             $table->smallInteger('sort_order')->unsigned()->default(1);
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_special_tests');

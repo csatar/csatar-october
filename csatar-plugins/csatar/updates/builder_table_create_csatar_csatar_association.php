@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -25,7 +25,7 @@ class BuilderTableCreateCsatarCsatarAssociation extends Migration
             $table->string('ecset_code_suffix', 2)->nullable()->unique();
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_associations');

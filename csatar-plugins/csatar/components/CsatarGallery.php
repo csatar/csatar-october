@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Components;
 
 use Auth;
@@ -194,7 +194,6 @@ class CsatarGallery extends Gallery
         $pivot->parent_id = post('parent_id') ?: null;
 
         $pivot->save();
-
 
         return $this->onOpenGallery($gallery->id);
     }

@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Components;
 
 use Auth;
@@ -427,7 +427,6 @@ class RecordList extends RainRecordList {
                 ];
             });
         }
-
 
         return $options;
     }

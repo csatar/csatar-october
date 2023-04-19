@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -14,7 +14,7 @@ class BuilderTableUpdateCsatarCsatarPatrols3 extends Migration
             $table->foreign('trial_system_trial_type_id', 'patrol_trial_system_trial_type_foreign')->references('id')->on('csatar_knowledgerepository_trial_systems');
         });
     }
-    
+
     public function down()
     {
         Schema::table('csatar_csatar_patrols', function($table)

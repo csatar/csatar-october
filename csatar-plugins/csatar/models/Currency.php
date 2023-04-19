@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Models;
 
 use Model;
@@ -30,7 +30,7 @@ class Currency extends Model
     public $fillable = [
         'code',
     ];
-    
+
     /**
      * Relations
      */

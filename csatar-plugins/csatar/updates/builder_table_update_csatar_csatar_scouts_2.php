@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -13,7 +13,7 @@ class BuilderTableUpdateCsatarCsatarScouts2 extends Migration
             $table->string('google_two_fa_secret_key', 255)->nullable();
         });
     }
-    
+
     public function down()
     {
         Schema::table('csatar_csatar_scouts', function($table)

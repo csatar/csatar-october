@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -13,7 +13,7 @@ class BuilderTableUpdateCsatarCsatarScouts extends Migration
             $table->dateTime('accepted_at')->nullable();
         });
     }
-    
+
     public function down()
     {
         Schema::table('csatar_csatar_scouts', function($table)
