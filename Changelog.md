@@ -23,6 +23,7 @@
 - CS-518 - Created Region model
 - CS-519 - Created Folk song rhythm model
 - CS-508 - Created Song model
+- CS-561 - Fixed auto fill for the adress street scout field on frontend
 
 ## 1.11.0
 ### 2023-04-13
