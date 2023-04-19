@@ -852,7 +852,6 @@ class SeederData extends Seeder
         }
 
         // Methodology Types
-
         foreach ($this::DATA['methodologyTypes'] as $methodologyTypeData) {
             $methodologyType = MethodologyType::firstOrNew([
                 'name' => $methodologyTypeData['name'],

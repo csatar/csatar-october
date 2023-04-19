@@ -45,7 +45,7 @@ trait AjaxControllerSimple {
                 'label' => 'Date picker',
                 'code'  => 'datepicker'
             ],
-//            'Backend\FormWidgets\RichEditor' => [
+// 'Backend\FormWidgets\RichEditor' => [
             'Csatar\Forms\Widgets\RichEditor' => [
                 'label' => 'Rich editor',
                 'code'  => 'richeditor'
@@ -104,7 +104,7 @@ trait AjaxControllerSimple {
         $record->fill($data = Input::get('data') ?? []);
 
         $config = $this->makeConfig($form->getFieldsConfig());
-        //update field list and config based on currentUserRights
+        // update field list and config based on currentUserRights
         $config->fields        = $this->markFieldsThatRequire2FA($config->fields, $preview, empty($record->id));
         $messageAbout2faFields = $this->generate2FAFieldsMessage($config->fields, $preview, empty($record->id));
         $config->fields        = $this->applyUserRightsToForm($config->fields, $preview, empty($record->id));
@@ -628,7 +628,7 @@ trait AjaxControllerSimple {
             throw new ApplicationException($error);
         }
 
-        //until this point record was displayed based on rights cached in session
+        // until this point record was displayed based on rights cached in session
         $this->currentUserRights = $this->getRights($record, true); // now we get rights from database and ignore session
 
         if ($this->properties['subForm']) {
@@ -700,7 +700,7 @@ trait AjaxControllerSimple {
             $specialValidationExceptions = unserialize($specialValidationExceptions);
         }
 
-        //validate for conditional rules
+        // validate for conditional rules
         if (isset($record->conditionalRules)) {
             foreach ($record->conditionalRules as $conditionalRule) {
                 $validation->sometimes($conditionalRule['fields'], $conditionalRule['rules'], function ($input) use ($record, $conditionalRule) {
@@ -748,7 +748,7 @@ trait AjaxControllerSimple {
                 $data[$key] = (int) $data[$name];
             }
 
-//            unset($data[$name]);
+// unset($data[$name]);
         }
 
         // Resolve belongsToMany relations
@@ -842,8 +842,8 @@ trait AjaxControllerSimple {
     }
 
     public function onCloseForm(){
-        DeferredBinding::cleanUp(1); //Destroys all bindings that have not been committed and are older than 1 day
-        $this->record->cancelDeferred($this->sessionKey); //Destroys current form's bindings
+        DeferredBinding::cleanUp(1); // Destroys all bindings that have not been committed and are older than 1 day
+        $this->record->cancelDeferred($this->sessionKey); // Destroys current form's bindings
         return Redirect::to(Input::get('redirectOnClose') ?? '/');
     }
 
@@ -1056,7 +1056,7 @@ trait AjaxControllerSimple {
         foreach ($record->hasMany as $relationName => $definition) {
             if ($this->canRead($relationName)
                 && is_array($definition)
-                && (array_key_exists('renderableOnCreateForm', $definition) || array_key_exists('renderableOnUpdateForm', $definition)) //this is needed to avoid looping though relations that renderable and eager loaded
+                && (array_key_exists('renderableOnCreateForm', $definition) || array_key_exists('renderableOnUpdateForm', $definition)) // this is needed to avoid looping though relations that renderable and eager loaded
                 && (count($record->{$relationName}) > 0 || $showEmpty)
                 && ((!$record->id
                     && array_key_exists('renderableOnCreateForm', $definition)
@@ -1331,9 +1331,7 @@ trait AjaxControllerSimple {
         // In create mode, we do not care about read/update/delete rights.
         // In update mode, we do not care about read/create rights.
         // This function is called in every mode.
-
         // NOTE: in create mode, we do not care about update/delete
-
         foreach ($attributesArray as $attribute => $settings) {
             if (isset($settings['type']) && ($settings['type'] == 'custom' || $settings['type'] == 'section')) {
                 continue;
@@ -1522,14 +1520,12 @@ trait AjaxControllerSimple {
     {
         // This function is needed because at the time of rendering the form user rights are loaded from session,
         // but before save we confirm the rights from database, and if there were changes, not-allowed data should not be saved.
-
         // NOTE:
         // In readOnly mode we do not care about create/update/delete rights.
         // In create mode, we do not care about read/update/delete rights.
         // In update mode, we do not care about read/create rights.
         // This function is called only in create/update mode.
-
-        if ($isNewRecord) { //if it's a new record, we care only about create right
+        if ($isNewRecord) { // if it's a new record, we care only about create right
             foreach ($data as $attribute => $value) {
                 if ($this->shouldIgnoreUserRights($attribute, $fieldsConfig)) {
                     continue;
@@ -1541,20 +1537,20 @@ trait AjaxControllerSimple {
             }
         }
 
-        if (!$isNewRecord) { //if updating an existing record we don't care about create right
+        if (!$isNewRecord) { // if updating an existing record we don't care about create right
             foreach ($data as $attribute => $value) {
                 if ($this->shouldIgnoreUserRights($attribute, $fieldsConfig)) {
                     continue;
                 }
 
-                //if user can delete attribute, but he is not allowed to update it, accept only empty value for the attribute
+                // if user can delete attribute, but he is not allowed to update it, accept only empty value for the attribute
                 if ($this->canDelete($attribute) && !$this->canUpdate($attribute)) {
                     if (!empty($value) && $value != $this->record->{$attribute}) {
                         $this->storeMessage('warning', e(trans('csatar.forms::lang.failed.noPermissionForSomeFields')));
                         unset($data[$attribute]);
                     }
 
-                    //if user can delete attribute, but he is not allowed to update it and value is empty for the attribute, continue
+                    // if user can delete attribute, but he is not allowed to update it and value is empty for the attribute, continue
                     continue;
                 }
 
@@ -1563,7 +1559,7 @@ trait AjaxControllerSimple {
                     unset($data[$attribute]);
                 }
 
-                //if user can't update the attribute, and the above conditions doesn't apply, unset attribute before save
+                // if user can't update the attribute, and the above conditions doesn't apply, unset attribute before save
                 if (!$this->canUpdate($attribute) && $value != $this->record->{$attribute}) {
                     $this->storeMessage('warning', e(trans('csatar.forms::lang.failed.noPermissionForSomeFields')));
                     unset($data[$attribute]);
@@ -1584,11 +1580,10 @@ trait AjaxControllerSimple {
         // In create mode, we do not care about read/update/delete rights.
         // In update mode, we do not care about read/create rights.
         // This function is called only in create/update mode.
-
         foreach ($rights as $attribute => $right) {
             if ($this->isObligatory($attribute)) {
-                //add required rule if is obligatory for user to fill the attribute
-                //BUT this should not remove required rule IF, it's required by model settings
+                // add required rule if is obligatory for user to fill the attribute
+                // BUT this should not remove required rule IF, it's required by model settings
                 if (!array_key_exists($attribute, $rules)) {
                     // if there are no rules for the attribute
                     $rules[$attribute] = 'required';

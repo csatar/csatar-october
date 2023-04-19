@@ -99,7 +99,6 @@ class FrontendFileUpload extends FormWidgetBase
 
     public function render() {
         // @todo: preview mode
-
         $this->vars['id']          = $this->getId();
         $this->vars['name']        = $this->getFieldName();
         $this->vars['fieldName']   = $this->fieldName;

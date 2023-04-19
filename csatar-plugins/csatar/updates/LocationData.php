@@ -11,7 +11,6 @@ class LocationData extends Seeder
     public function run()
     {
         // seed romanian locations
-
         set_time_limit(100000);
 
         if (($handle = fopen(base_path() . "/plugins/csatar/csatar/updates/locations_ro.csv", "r")) !== false) {

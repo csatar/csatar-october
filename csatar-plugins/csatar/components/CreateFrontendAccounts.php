@@ -49,7 +49,7 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
         return [
             'paramCode' => [
                 'title'       => 'rainlab.user::lang.reset_password.code_param',
-                'description' => 'rainlab.user::lang.reset_password.code_param_desc', //The page URL parameter used for the reset code
+                'description' => 'rainlab.user::lang.reset_password.code_param_desc', // The page URL parameter used for the reset code
                 'type'        => 'string',
                 'default'     => 'code'
             ],
@@ -102,7 +102,6 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
 
 
      // Self register with email and ID number
-
     public function onRegister(){
 
         $data = post();
@@ -233,7 +232,6 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
 
 
      // Register the user
-
     public function register($scout)
     {
         try {

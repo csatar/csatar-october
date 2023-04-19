@@ -230,7 +230,7 @@ class StructureTree
             ->with(self::getAssociationsQueryWithArray())
             ->select('id', 'name', 'name_abbreviation');
 
-        $refreshedAssociation = self::toKeyedByIdArray($query->get()); //dd($refreshedAssociation);
+        $refreshedAssociation = self::toKeyedByIdArray($query->get()); // dd($refreshedAssociation);
         $refreshedAssociation = array_merge([], ...$refreshedAssociation);
 
         if (empty($refreshedAssociation)) {

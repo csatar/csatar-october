@@ -143,7 +143,6 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
     //
     // Controller actions
     //
-
     public function import()
     {
         if ($response = $this->checkPermissionsForType('import')) {
@@ -189,7 +188,6 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
     //
     // Importing AJAX
     //
-
     public function onImport()
     {
         try {
@@ -427,7 +425,6 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
     //
     // Exporting AJAX
     //
-
     public function onExport()
     {
         try {
@@ -565,7 +562,6 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
     //
     // ListController integration
     //
-
     protected function checkUseListExportMode()
     {
         if (!$useList = $this->getConfig('export[useList]')) {

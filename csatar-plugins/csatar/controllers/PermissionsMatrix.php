@@ -153,7 +153,6 @@ class PermissionsMatrix extends Controller
     }
 
     // permissions manage page
-
     public function manage() {
         $this->pageTitle = e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.managePermissions'));
         $this->initForm(new MandatePermission());
@@ -233,15 +232,15 @@ class PermissionsMatrix extends Controller
                     $this->filterFieldsForRealtionKeys($fields);
                     $fields = array_unique($fields);
 
-                    //add permission for the model in general
+                    // add permission for the model in general
                     $tempMandatePermissionsMap[] = [ 'mandate_type_id' => $mandateType->id, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 0];
 
                     if ($mandateType->organization_type_model_name == MandateType::MODEL_NAME_SCOUT && $permissionBasedModel == MandateType::MODEL_NAME_SCOUT) {
-                        //add permission for the model in general for own
+                        // add permission for the model in general for own
                         $tempMandatePermissionsMap[] = [ 'mandate_type_id' => $mandateType->id, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 1];
                     }
 
-                    //add permission for each attribute for general, own
+                    // add permission for each attribute for general, own
                     foreach ($fields as $field) {
                         $tempMandatePermissionsMap[] = [ 'mandate_type_id' => $mandateType->id, 'model' => $permissionBasedModel, 'field' => $field, 'own' => 0];
 

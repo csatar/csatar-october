@@ -12,7 +12,7 @@ class PermissionImport extends \Backend\Models\ImportModel
      * @var array The rules to be applied to the data.
      */
     public $rules = [];
-    private $mandateTypeAssociationMap = []; //[$associationName][$mandateName] = $mandateId;
+    private $mandateTypeAssociationMap = []; // [$associationName][$mandateName] = $mandateId;
 
     public function importData($results, $sessionKey = null)
     {

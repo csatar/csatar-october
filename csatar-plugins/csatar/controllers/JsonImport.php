@@ -391,7 +391,7 @@ class JsonImport extends Controller
 
         $data = $data->groupBy('model');
 
-        //import districts
+        // import districts
         foreach ($data['szervezet.korzet'] as $org) {
             $fields = $org->fields;
 
@@ -441,7 +441,7 @@ class JsonImport extends Controller
             $district = null;
         }
 
-        //import teams
+        // import teams
         foreach ($data['szervezet.csapat'] as $org) {
             $fields = $org->fields;
             if (empty($fields->korzet)) {
@@ -509,7 +509,7 @@ class JsonImport extends Controller
             $team        = null;
         }
 
-        //import troops
+        // import troops
         foreach ($data['szervezet.raj'] as $org) {
             $fields = $org->fields;
             if (empty($fields->csapat)) {
@@ -559,7 +559,7 @@ class JsonImport extends Controller
             $team_id = null;
         }
 
-        //import patrols
+        // import patrols
         foreach ($data['szervezet.ors'] as $org) {
             $fields = $org->fields;
             if (empty($fields->csapat) && empty($fields->raj)) {
@@ -641,7 +641,7 @@ class JsonImport extends Controller
         $this->prepareScoutRelatedMappings();
 
         foreach ($scoutsData as $scout) {
-            $fields = $scout->fields; //dd($fields);
+            $fields = $scout->fields; // dd($fields);
 
             if (empty($fields->csapat)) {
                 Log::warning("Can not import scout: $fields->ecsk name: $fields->nev $fields->keresztnev; 'csapat' is empty");
@@ -666,7 +666,7 @@ class JsonImport extends Controller
 
             $scout = Scout::withTrashed()->firstOrNew (
                 [
-                    'ecset_code'        => $fields->ecsk, //TODO check
+                    'ecset_code'        => $fields->ecsk, // TODO check
                     'team_id'           => $team_id,
                 ]
             );
@@ -720,7 +720,7 @@ class JsonImport extends Controller
             $scout->ignoreValidation = true;
             $scout->forceSave();
 
-            //allergies
+            // allergies
             if (!empty($fields->jellemzok->id_19) && !empty($this->allergiesMap[$fields->jellemzok->id_19])) {
                 $allergy = $this->allergiesMap[$fields->jellemzok->id_19];
                 if (!$scout->allergies->contains($allergy)) {
@@ -731,7 +731,7 @@ class JsonImport extends Controller
                 }
             }
 
-            //chronic_illnesses
+            // chronic_illnesses
             if (!empty($fields->jellemzok->id_17) && !empty($this->chronicIllnesMap[$fields->jellemzok->id_17])) {
                 $chronic_illnesses = $this->chronicIllnesMap[$fields->jellemzok->id_17];
                 if (!$scout->chronic_illnesses->contains($chronic_illnesses)) {
@@ -742,7 +742,7 @@ class JsonImport extends Controller
                 }
             }
 
-            //foodsensitivites
+            // foodsensitivites
             if (!empty($fields->jellemzok->id_20) && !empty($this->foodSensitivitiesMap[$fields->jellemzok->id_20])) {
                 $foodSensitivity = $this->foodSensitivitiesMap[$fields->jellemzok->id_20];
                 if (!$scout->food_sensitivities->contains($foodSensitivity)) {
@@ -961,7 +961,7 @@ class JsonImport extends Controller
 
         $leadershipQualificationsMap = [
             "segedorsvezeto" => "Segédőrsvezető képzés",
-            "orsvezeto" => "Őrsvezető képzés", //kivéve ahol a tovabbi_adatok.kepzes tartalmazza az "FŐVK"-t. ott a "Felnőtt őrsvezető képzés"-t kell hozzárendelni
+            "orsvezeto" => "Őrsvezető képzés", // kivéve ahol a tovabbi_adatok.kepzes tartalmazza az "FŐVK"-t. ott a "Felnőtt őrsvezető képzés"-t kell hozzárendelni
             "fovk-orsvezeto" => "Felnőtt őrsvezető képzés",
             "segedtiszt" => "Segédvezető képzés",
             "cserkesztiszt" => "Cserkész vezető",

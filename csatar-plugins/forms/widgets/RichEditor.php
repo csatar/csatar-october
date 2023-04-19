@@ -197,7 +197,7 @@ class RichEditor extends FormWidgetBase
         }
 
         $locale = str_replace('-', '_', strtolower($locale));
-//        $path = base_path('modules/backend/formwidgets/richeditor/assets/vendor/froala/js/languages/'.$locale.'.js');
+// $path = base_path('modules/backend/formwidgets/richeditor/assets/vendor/froala/js/languages/'.$locale.'.js');
         $path = base_path('modules/backend/formwidgets/codeeditor/assets/vendor/froala/js/languages/'.$locale.'.js');
         return File::exists($path) ? $locale : false;
     }

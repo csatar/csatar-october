@@ -728,7 +728,6 @@ class Scout extends OrganizationBase
         $this->patrol_id = $this->patrol_id != 0 ? $this->patrol_id : null;
 
         // if troop is set to null and patrol is not changed, patrol should be set to null, but if patrols is changed as well, we keep the new patrol setting and change troop accordingly
-
         if ($this->getOriginalValue('troop_id') != $this->troop_id && empty($this->troop_id)) {
             if ($this->getOriginalValue('patrol_id') == $this->patrol_id) {
                 $this->patrol_id = null;
@@ -992,15 +991,15 @@ class Scout extends OrganizationBase
 
         if (!empty($sessionRecord) && $sessionRecordForAssociation = $sessionRecord->where('associationId', $associationId)->first()) {
             if ($sessionRecordForAssociation['savedToSession'] >= $savedAfterDate) {
-                //TODO: implement touch scout when mandate is added or removed CS-288
+                // TODO: implement touch scout when mandate is added or removed CS-288
                 return new Collection($sessionRecordForAssociation['mandates']);
             }
         }
 
-        //get all mandate type ids from association
+        // get all mandate type ids from association
         $mandateTypeIdsInAssociation = MandateType::getAllMandateTypeIdsInAssociation($associationId);
 
-        //get scout's mandates with the above mandate types and pluck mandate_type_ids
+        // get scout's mandates with the above mandate types and pluck mandate_type_ids
         $scoutMandates = $this->mandates()
             ->whereIn('mandate_type_id', $mandateTypeIdsInAssociation)
             ->where('start_date', '<=', date('Y-m-d H:i'))
@@ -1032,7 +1031,7 @@ class Scout extends OrganizationBase
 
         if (!empty($sessionRecord) && $sessionRecordForAssociation = $sessionRecord->where('associationId', $associationId)->first()) {
             if ($sessionRecordForAssociation['savedToSession'] >= $savedAfterDate) {
-                //TODO: implement touch scout when mandate is added or removed CS-288
+                // TODO: implement touch scout when mandate is added or removed CS-288
                 return $sessionRecordForAssociation['mandateTypeIds'];
             }
         }

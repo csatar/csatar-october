@@ -74,7 +74,7 @@ class AccidentLogRigthsProvider
         }
 
         foreach ($fields as $field) {
-            //add rights for the record->field
+            // add rights for the record->field
             $rights[$field] = [
                 "obligatory" => 0,
                 'create' => 2,

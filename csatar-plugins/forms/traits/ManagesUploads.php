@@ -198,12 +198,11 @@ trait ManagesUploads {
                 $this->record->{$model_field}()->add($file);
             }
 
-            //$file = $this->decorateFileAttributes($file);
-
+            // $file = $this->decorateFileAttributes($file);
             $result = [
                 'id' => $file->id,
-                //'thumb' => $file->thumbUrl,
-                //'path' => $file->pathUrl
+                // 'thumb' => $file->thumbUrl,
+                // 'path' => $file->pathUrl
             ];
 
             if (post('X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD')) {

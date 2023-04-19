@@ -224,7 +224,7 @@ class Patrol extends OrganizationBase
             Mandate::setAllMandatesExpiredInOrganization($this);
         }
 
-        $this->updateScoutsTroopId(); //this should be called before updateCache()
+        $this->updateScoutsTroopId(); // this should be called before updateCache()
 
         $this->updateCache();
     }

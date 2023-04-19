@@ -383,7 +383,6 @@ class TestData extends Seeder
         }
 
         // seed contact form settings - temp solution
-
         $contactFormSettings = '{"validation_type":"required","validation_error":"Az \u00fczenet kit\u00f6lt\u00e9se k\u00f6telez\u0151","validation_custom_type":"","validation_custom_pattern":"","name":"message","type":"textarea","label":"\u00dczenet","field_values":null,"field_custom_code":"","field_custom_code_twig":"0","field_custom_content":"","field_styling":"0","autofocus":"0","wrapper_css":"","label_css":"","field_css":"","field_validation":"1","validation":[{"validation_type":"required","validation_error":"Az \u00fczenet kit\u00f6lt\u00e9se k\u00f6telez\u0151","validation_custom_type":"","validation_custom_pattern":""}],"form_css_class":"","form_success_msg":"","form_error_msg":"","form_hide_after_success":"1","form_use_placeholders":"0","form_disable_browser_validation":"1","form_allow_ajax":"1","form_allow_confirm_msg":"0","form_send_confirm_msg":"","add_assets":"1","add_css_assets":"1","add_js_assets":"1","form_notes":"","send_btn_wrapper_css":"","send_btn_css_class":"","send_btn_text":"K\u00fcld\u00e9s","allow_redirect":"0","redirect_url":"\/","redirect_url_external":"0","form_fields":[{"name":"name","type":"text","label":"N\u00e9v","field_values":null,"field_custom_code":"","field_custom_code_twig":"0","field_custom_content":"","field_styling":"0","autofocus":"1","wrapper_css":"","label_css":"","field_css":"","field_validation":"1","validation":[{"validation_type":"required","validation_error":"A n\u00e9v megad\u00e1sa k\u00f6telz\u0151","validation_custom_type":"","validation_custom_pattern":""}]},{"name":"email","type":"email","label":"E-mail c\u00edm","field_values":null,"field_custom_code":"","field_custom_code_twig":"0","field_custom_content":"","field_styling":"0","autofocus":"0","wrapper_css":"","label_css":"","field_css":"","field_validation":"1","validation":[{"validation_type":"email","validation_error":"Adjon meg \u00e9rv\u00e9nyes e-mail c\u00edmet","validation_custom_type":"","validation_custom_pattern":""},{"validation_type":"required","validation_error":"Az e-mail c\u00edm megad\u00e1sa k\u00f6telez\u0151","validation_custom_type":"","validation_custom_pattern":""}]},{"name":"message","type":"textarea","label":"\u00dczenet","field_values":null,"field_custom_code":"","field_custom_code_twig":"0","field_custom_content":"","field_styling":"0","autofocus":"0","wrapper_css":"","label_css":"","field_css":"","field_validation":"1","validation":[{"validation_type":"required","validation_error":"Az \u00fczenet kit\u00f6lt\u00e9se k\u00f6telez\u0151","validation_custom_type":"","validation_custom_pattern":""}]}],"autoreply_email_field":"email","autoreply_name_field":"name","autoreply_message_field":"message","add_google_recaptcha":"1","google_recaptcha_version":"v2checkbox","google_recaptcha_site_key":"","google_recaptcha_secret_key":"","google_recaptcha_error_msg":"","google_recaptcha_wrapper_css":"","google_recaptcha_scripts_allow":"1","google_recaptcha_locale_allow":"1","add_antispam":"0","antispam_delay":null,"antispam_delay_error_msg":"","antispam_label":"","antispam_error_msg":"","add_ip_protection":"0","add_ip_protection_count":null,"add_ip_protection_error_too_many_submits":"","allow_email_queue":"0","allow_autoreply":"0","email_address_from":"","email_address_from_name":"","email_address_replyto":"","email_subject":"","email_template":"","allow_notifications":"0","notification_address_from_form":"0","notification_address_to":"","notification_template":"","ga_success_event_allow":"0","ga_success_event_gtag":"","ga_success_event_category":"","ga_success_event_action":"","ga_success_event_label":"","privacy_disable_messages_saving":"0"}';
 
         Db::table('system_settings')
@@ -393,11 +392,9 @@ class TestData extends Seeder
             );
 
         // add all permissions to scout mandate
-
         $this->addAllPermissionsToScouts();
 
         // add read permissions to guest mandate
-
         $this->addReadPermissionsToGuests();
     }
 
@@ -416,12 +413,12 @@ class TestData extends Seeder
 
         if (empty($associationId)) return;
 
-        $permissionBasedModels = PermissionBasedAccess::getAllChildClasses(); //get every model that needs permissions
+        $permissionBasedModels = PermissionBasedAccess::getAllChildClasses(); // get every model that needs permissions
         $scoutMandateTypeId    = Db::table('csatar_csatar_mandate_types')->select('id')
             ->where('association_id', $associationId)
             ->where('organization_type_model_name', '\Csatar\Csatar\Models\Scout')
             ->whereNull('deleted_at')
-            ->first()->id; //get scout mandate type id
+            ->first()->id; // get scout mandate type id
 
         if (empty($permissionBasedModels) || empty($scoutMandateTypeId)) return;
 
@@ -439,7 +436,7 @@ class TestData extends Seeder
             }
 
             $this->filterFieldsForRealtionKeys($fields);
-            //add permission for the model in general
+            // add permission for the model in general
             Db::table('csatar_csatar_mandates_permissions')
                 ->updateOrInsert(
                     [ 'mandate_type_id' => $scoutMandateTypeId, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 0],
@@ -451,7 +448,7 @@ class TestData extends Seeder
                     ]
                 );
 
-            //add permission for the model in general for own
+            // add permission for the model in general for own
             Db::table('csatar_csatar_mandates_permissions')
                 ->updateOrInsert(
                     [ 'mandate_type_id' => $scoutMandateTypeId, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 1],
@@ -463,10 +460,9 @@ class TestData extends Seeder
                     ]
                 );
 
-            //add permission for each attribute for general, own
-
+            // add permission for each attribute for general, own
             foreach ($fields as $field) {
-                //add permission for the model->field
+                // add permission for the model->field
                 Db::table('csatar_csatar_mandates_permissions')
                     ->updateOrInsert(
                         [ 'mandate_type_id' => $scoutMandateTypeId, 'model' => $permissionBasedModel, 'field' => $field, 'own' => 0],
@@ -478,7 +474,7 @@ class TestData extends Seeder
                         ]
                     );
 
-                //add permission for the model->field for own
+                // add permission for the model->field for own
                 Db::table('csatar_csatar_mandates_permissions')
                     ->updateOrInsert(
                         [ 'mandate_type_id' => $scoutMandateTypeId, 'model' => $permissionBasedModel, 'field' => $field, 'own' => 1],
@@ -496,14 +492,14 @@ class TestData extends Seeder
 
     public function addReadPermissionsToGuests() {
         $associationIds        = Association::all()->pluck('id')->toArray();
-        $permissionBasedModels = PermissionBasedAccess::getAllChildClasses(); //get every model that needs permissions
+        $permissionBasedModels = PermissionBasedAccess::getAllChildClasses(); // get every model that needs permissions
 
         foreach ($associationIds as $associationId) {
             $guestMandateTypeId = Db::table('csatar_csatar_mandate_types')->select('id')
                 ->where('association_id', $associationId)
                 ->where('organization_type_model_name', 'GUEST')
                 ->whereNull('deleted_at')
-                ->first()->id; //get guest mandate type id
+                ->first()->id; // get guest mandate type id
 
             if (empty($permissionBasedModels) || empty($guestMandateTypeId)) return;
 
@@ -520,7 +516,7 @@ class TestData extends Seeder
 
                 $this->filterFieldsForRealtionKeys($fields);
 
-                //add permission for the model in general
+                // add permission for the model in general
                 Db::table('csatar_csatar_mandates_permissions')
                     ->updateOrInsert(
                         [ 'mandate_type_id' => $guestMandateTypeId, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 0],
@@ -529,10 +525,9 @@ class TestData extends Seeder
                         ]
                     );
 
-                //add permission for each attribute
-
+                // add permission for each attribute
                 foreach ($fields as $field) {
-                    //add permission for the model->field
+                    // add permission for the model->field
                     Db::table('csatar_csatar_mandates_permissions')
                         ->updateOrInsert(
                             [ 'mandate_type_id' => $guestMandateTypeId, 'model' => $permissionBasedModel, 'field' => $field, 'own' => 0],

@@ -337,7 +337,7 @@ class RecordList extends RainRecordList {
                 $filterConfig[$column]['label'] = ucfirst($column);
             }
 
-            $filterConfig[$column]['type'] = $config['type']; //maybe this should be ignored and only the filterConfig type should be used
+            $filterConfig[$column]['type'] = $config['type']; // maybe this should be ignored and only the filterConfig type should be used
             if (!$withoutOptions) {
                 $filterConfig[$column]['options'] = $this->getFilterOptions($column, $config);
             }
@@ -503,7 +503,7 @@ class RecordList extends RainRecordList {
     public function getRelationType(string $relationName) {
         $model = new $this->modelClassName();
         $availableRelationTypes = Constants::AVAILABLE_RELATION_TYPES;
-        //check relation type based on availableRelationTypes
+        // check relation type based on availableRelationTypes
         foreach ($availableRelationTypes as $relationType) {
             if (isset($model->$relationType[$relationName])) {
                 return $relationType;
