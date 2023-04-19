@@ -23,11 +23,11 @@ class BuilderTableCreateCsatarCsatarAccidentLogRecords extends Migration
             $table->string('location')->nullable();
             $table->text('activity')->nullable();
             $table->text('reason')->nullable();
-            $table->smallInteger('injured_person_age')->default(NULL)->nullable();
-            $table->smallInteger('injured_person_gender')->default(NULL)->nullable();
+            $table->smallInteger('injured_person_age')->default(null)->nullable();
+            $table->smallInteger('injured_person_gender')->default(null)->nullable();
             $table->string('injured_person_name')->nullable();
             $table->text('injury')->nullable();
-            $table->smallInteger('injury_severity')->default(NULL)->nullable();
+            $table->smallInteger('injury_severity')->default(null)->nullable();
             $table->string('skipped_days_number')->nullable();
             $table->string('tools_used')->nullable();
             $table->string('transport_to_doctor')->nullable();
