@@ -32,7 +32,7 @@ class ContentPageSearchProvider extends ResultsProvider
             $processedText     = SearchResultsHelper::getMatchForQuery($this->query, $match->title ,$match->content);
             $result->title     = (string) $processedText;
             $result->text      = $match->model->extended_name . ' ' . ($match->model->getParentTree() ?? '') ;
-            $result->url       = $controller->pageUrl($modelNameUserFriendly, [ 'id'=> $match->model_id ] );
+            $result->url       = $controller->pageUrl($modelNameUserFriendly, [ 'id' => $match->model_id ] );
             $result->thumb     = $match->image;
 
             // Add the results to the results collection
