@@ -527,6 +527,26 @@ body>p.flash-message.error {
     background: #DDDDDD;
 }
 
+@media (max-width: 991px) {
+    div.ss-search-form__results::-webkit-scrollbar-track {
+        background: #DDDDDD;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+}
+    
+    /* Up button */
+
+div.ss-search-form__results::-webkit-scrollbar-button:single-button:vertical:decrement {
+    border-top-right-radius: 10px;
+}
+
+    /* Down button */
+
+div.ss-search-form__results::-webkit-scrollbar-button:single-button:vertical:increment {
+    border-bottom-right-radius: 10px;
+}
+
 ::-webkit-scrollbar-thumb {
     background: #99A56B;
     border-radius: 12px;
@@ -795,7 +815,7 @@ body>p.flash-message.success, body>p.flash-message.info, body>p.flash-message.wa
 
 a:link, a:visited, a:hover, a:active, a.badge {
     text-decoration: none;
-    cursor: default;
+    cursor: pointer;
 }
 
 a.nav:link, a.nav:visited, a.nav:active, a.nav-link:link, a.nav-link:visited, a.nav-link:active {

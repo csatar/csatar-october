@@ -6,6 +6,7 @@
         {% endfor %}
 
         {% if __SELF__.searchPage %}
+        <hr>
             <p class="ss-show-all-results">
                 <a href="{{ __SELF__.searchPage | page }}?q={{ query | url_encode(true) }}">
                     {{ 'Minden találat'|_ }} &raquo;
