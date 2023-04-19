@@ -237,7 +237,8 @@ class MandateType extends Model
             'associationId' => $associationId,
             'savedToSession' => date('Y-m-d H:i'),
             'guestMandateTypeId'=> $guestMandateType ? $guestMandateType->id : null,
-        ]]);
+        ]
+        ]);
 
         Session::put('guest.mandateTypeIds', $sessionRecord);
 

@@ -202,9 +202,9 @@ class Plugin extends PluginBase
                 if ($form->arrayName === 'Gallery[images]') {
                     $form->addFields([
                         'is_public' => [
-                                'label' => 'Public',
-                                'type'  => 'checkbox',
-                                'default'   => false
+                            'label' => 'Public',
+                            'type'  => 'checkbox',
+                            'default'   => false
                         ]
                     ]);
                 }

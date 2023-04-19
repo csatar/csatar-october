@@ -138,7 +138,7 @@ return [
                 'cannotFindSongType' => 'Cannot find song type(s): ',
                 'errorsOccurred' => 'Errors occurred during import: ',
                 'importSuccessful' => 'Import successful!',
-        ],
+            ],
             'workPlan' => [
                 'workPlan' => 'Work Plan',
                 'workPlans' => 'Work Plans',

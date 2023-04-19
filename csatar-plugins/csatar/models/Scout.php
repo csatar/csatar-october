@@ -554,7 +554,7 @@ class Scout extends OrganizationBase
             '\Rainlab\Location\Models\Country',
             'label' => 'csatar.csatar::lang.plugin.admin.scout.citizenship_country',
             'key' => 'citizenship_country_id',
-            ],
+        ],
     ];
 
     public $belongsToMany = [
@@ -1018,7 +1018,8 @@ class Scout extends OrganizationBase
             'associationId' => $associationId,
             'savedToSession' => date('Y-m-d H:i'),
             'mandates'=> ($scoutMandates)->toArray(),
-        ]]);
+        ]
+        ]);
 
         Session::put('scout.mandates', $sessionRecord);
 
@@ -1046,7 +1047,8 @@ class Scout extends OrganizationBase
             'associationId' => $associationId,
             'savedToSession' => date('Y-m-d H:i'),
             'mandateTypeIds'=> $scoutMandateTypeIds,
-        ]]);
+        ]
+        ]);
 
         Session::put('scout.mandateTypeIds', $sessionRecord);
         return $scoutMandateTypeIds;
@@ -1236,7 +1238,8 @@ class Scout extends OrganizationBase
 
         if (!(new CnpValidator())->validate(null, $cnp, null)) {
             throw new ValidationException([
-                'personal_identification_number' => e(trans('csatar.csatar::lang.plugin.admin.scout.validationExceptions.invalidPersonalIdentificationNumber'))]
+                'personal_identification_number' => e(trans('csatar.csatar::lang.plugin.admin.scout.validationExceptions.invalidPersonalIdentificationNumber'))
+            ]
             );
         }
 

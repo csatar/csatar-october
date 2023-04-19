@@ -18,7 +18,7 @@ class AccidentLogRigthsProvider
             "read" => 1,
             "update" => 1,
             "delete" => 1,
-            ],
+        ],
     ];
 
     public const ENTRY_RIGHTS = [
@@ -59,7 +59,8 @@ class AccidentLogRigthsProvider
         $rights         = $recordGeneralRights;
         $fields         = $record->fillable ?? [];
         $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'attachMany', 'hasOne', 'morphTo', 'morphOne',
-                           'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'];
+            'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'
+        ];
 
         foreach ($relationArrays as $relationArray) {
             $fields = array_merge($fields, array_keys($record->$relationArray));

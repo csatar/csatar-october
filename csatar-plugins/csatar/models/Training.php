@@ -36,8 +36,8 @@ class Training extends Model
     ];
 
     public $fillable = [
-      'name',
-      'comment',
+        'name',
+        'comment',
     ];
 
 }

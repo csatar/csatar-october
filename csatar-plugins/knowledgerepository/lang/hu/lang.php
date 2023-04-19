@@ -139,7 +139,7 @@ return [
                 'cannotFindSongType' => 'A következő dal típus(ok) nem található(k): ',
                 'errorsOccurred' => 'Az importálás során a következő hibák léptek fel: ',
                 'importSuccessful' => 'Az importálás sikeresen megtörtént!',
-        ],
+            ],
             'workPlan' => [
                 'workPlan' => 'Munkaterv',
                 'workPlans' => 'Munkatervek',
