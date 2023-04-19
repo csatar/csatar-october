@@ -96,8 +96,8 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
     public function getResetPageOptions()
     {
         return [
-                '' => Lang::get('csatar.csatar::lang.plugin.component.createFrontendAccounts.currentPage'),
-            ] + Page::sortBy('baseFileName')->lists('baseFileName', 'baseFileName');
+            '' => Lang::get('csatar.csatar::lang.plugin.component.createFrontendAccounts.currentPage'),
+        ] + Page::sortBy('baseFileName')->lists('baseFileName', 'baseFileName');
     }
 
 

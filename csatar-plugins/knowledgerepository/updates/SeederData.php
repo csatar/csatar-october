@@ -141,7 +141,7 @@ class SeederData extends Seeder
             [
                 'name' => 'Cserkésznyakkendő',
                 'approved' => true,
-        ],
+            ],
         ],
         'headCounts' => [
             [
@@ -171,7 +171,7 @@ class SeederData extends Seeder
                 'max' => 100,
                 'note' => '(csapatlétszámhoz)',
                 'sort_order' => 4,
-        ],
+            ],
             [
                 'description' => 'Bármekkora létszámmal játszható',
                 'min' => 0,
@@ -303,7 +303,7 @@ class SeederData extends Seeder
             [
                 'title' => 'Munkaterv',
                 'model' => 'Csatar\KnowledgeRepository\Models\WorkPlan',
-			],
+            ],
             [
                 'title' => 'Dal',
                 'model' => 'Csatar\KnowledgeRepository\Models\Song',

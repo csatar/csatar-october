@@ -129,7 +129,7 @@ trait ManagesUploads {
         $validation = Validator::make(
             Request::all(),
             [
-            'file_data' => $validationRules
+                'file_data' => $validationRules
             ],
             $customMessages,
             $attributeNames,

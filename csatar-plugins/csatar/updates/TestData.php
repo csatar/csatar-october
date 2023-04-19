@@ -431,7 +431,8 @@ class TestData extends Seeder
             $model          = new $permissionBasedModel();
             $fields         = $model->fillable ?? [];
             $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'hasOne', 'morphTo', 'morphOne',
-                               'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'];
+                'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'
+            ];
 
             foreach ($relationArrays as $relationArray) {
                 $fields = array_merge($fields, array_keys($model->$relationArray));
@@ -510,7 +511,8 @@ class TestData extends Seeder
                 $model          = new $permissionBasedModel();
                 $fields         = $model->fillable ?? [];
                 $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'hasOne', 'morphTo', 'morphOne',
-                                   'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'];
+                    'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'
+                ];
 
                 foreach ($relationArrays as $relationArray) {
                     $fields = array_merge($fields, array_keys($model->$relationArray));
