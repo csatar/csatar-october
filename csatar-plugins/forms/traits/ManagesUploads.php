@@ -1,4 +1,5 @@
-<?php namespace Csatar\Forms\Traits;
+<?php 
+namespace Csatar\Forms\Traits;
 
 use File;
 use Input;

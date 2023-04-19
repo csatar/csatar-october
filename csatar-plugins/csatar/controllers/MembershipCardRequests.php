@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Controllers;
+<?php 
+namespace Csatar\Csatar\Controllers;
 
 use Backend;
 use BackendMenu;

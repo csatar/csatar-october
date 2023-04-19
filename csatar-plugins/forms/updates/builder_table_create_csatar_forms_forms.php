@@ -1,4 +1,5 @@
-<?php namespace Csatar\Forms\Updates;
+<?php 
+namespace Csatar\Forms\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;

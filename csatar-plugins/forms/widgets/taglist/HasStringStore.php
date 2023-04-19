@@ -1,4 +1,5 @@
-<?php namespace Csatar\Forms\Widgets\TagList;
+<?php 
+namespace Csatar\Forms\Widgets\TagList;
 
 /**
  * HasStringStore contains logic for related tag items

@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Updates;
+<?php 
+namespace Csatar\Csatar\Updates;
 
 use Db;
 use Schema;

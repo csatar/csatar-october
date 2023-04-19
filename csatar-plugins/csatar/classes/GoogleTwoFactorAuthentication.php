@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Classes;
+<?php 
+namespace Csatar\Csatar\Classes;
 
 use Endroid\QrCode\Color\Color;
 use Endroid\QrCode\Color\ColorInterface;

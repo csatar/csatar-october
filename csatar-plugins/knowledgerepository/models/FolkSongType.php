@@ -1,4 +1,5 @@
-<?php namespace Csatar\KnowledgeRepository\Models;
+<?php 
+namespace Csatar\KnowledgeRepository\Models;
 
 use Model;
 

@@ -1,4 +1,5 @@
-<?php namespace Csatar\Forms;
+<?php 
+namespace Csatar\Forms;
 
 use System\Classes\PluginBase;
 

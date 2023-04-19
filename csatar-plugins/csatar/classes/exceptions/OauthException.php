@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Classes\Exceptions;
+<?php 
+namespace Csatar\Csatar\Classes\Exceptions;
 
 /**
  * OauthException is used to handle exceptions during oauth login/register process.

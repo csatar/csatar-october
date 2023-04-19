@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Behaviors;
+<?php 
+namespace Csatar\Csatar\Behaviors;
 
 use Str;
 use Lang;

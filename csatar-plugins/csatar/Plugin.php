@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar;
+<?php 
+namespace Csatar\Csatar;
 
 use App;
 use Backend;

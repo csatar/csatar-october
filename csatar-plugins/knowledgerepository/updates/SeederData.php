@@ -1,4 +1,5 @@
-<?php namespace Csatar\KnowledgeRepository\Updates;
+<?php 
+namespace Csatar\KnowledgeRepository\Updates;
 
 use Csatar\KnowledgeRepository\Models\AccidentRiskLevel;
 use Csatar\KnowledgeRepository\Models\FolkSongRhythm;
