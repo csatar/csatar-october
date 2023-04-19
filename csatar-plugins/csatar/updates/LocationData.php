@@ -14,8 +14,8 @@ class LocationData extends Seeder
 
         set_time_limit(100000);
 
-        if (($handle = fopen(base_path() . "/plugins/csatar/csatar/updates/locations_ro.csv", "r")) !== FALSE) {
-            while (($data = fgetcsv($handle)) !== FALSE) {
+        if (($handle = fopen(base_path() . "/plugins/csatar/csatar/updates/locations_ro.csv", "r")) !== false) {
+            while (($data = fgetcsv($handle)) !== false) {
                 $location = Locations::firstOrCreate(                        [
                     'country'     => 'Romania',
                     'code'        => $data[0],
