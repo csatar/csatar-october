@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- CS-561 - Fixed auto fill for the adress street scout field on frontend
+
 ## 1.11.0
 ### 2023-04-13
 

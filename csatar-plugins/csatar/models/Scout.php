@@ -1275,6 +1275,7 @@ class Scout extends OrganizationBase
             }
         } else {
             $field->value = array_values($array)[0];
+            $this->address_location = array_values($array)[0];
         }
 
         $field->options = $array;
