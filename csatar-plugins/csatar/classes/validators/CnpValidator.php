@@ -4,8 +4,7 @@ namespace Csatar\Csatar\Classes\Validators;
 
 use Rainlab\Location\Models\Country;
 
-//based on https://github.com/laravel-enso/cnp-validator
-
+// based on https://github.com/laravel-enso/cnp-validator
 class CnpValidator
 {
     private const HashTable = [2, 7, 9, 1, 4, 6, 3, 5, 8, 2, 7, 9];

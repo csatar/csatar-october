@@ -40,7 +40,6 @@ class HistoryService
             }
 
             // set up bindings for the model
-
             $model::extend(function($model) use ($params) {
                 $basicEvents    = $params['basicEvents'] ?? true;
                 $relationEvents = $params['relationEvents'] ?? true;
@@ -105,7 +104,6 @@ class HistoryService
 
         if ($relationEvents) {
             // RELATIONS EVENTS
-
             // for attach one or many files, hasOne or hasMany, morphOne or morphMany relations
             $model->bindEvent('model.relation.add', function ($relationName, $relatedModel) use ($model) {
                 // CONCLUSION:
@@ -127,20 +125,18 @@ class HistoryService
             });
 
             // for attach belongsTo, morphTo relations
-//        $model->bindEvent('model.relation.associate', function ($relationName, $model) {
-//        });
+// $model->bindEvent('model.relation.associate', function ($relationName, $model) {
+// });
             // CONCLUSION:
             // 1. tested with belongsTo, it is not working as expected, for example when changing currency of an association, the event it is not triggered AND when creating new mandateType for an association, the event it is not triggered - we ignore this for now because these actions are recorded with the updated event
             // 2. can not test with morphTo, currently we don't have any morphTo relation adding implemented that should be tracked
-
             // for detach belongsTo, morphTo relations, params: [$model->relationName, $model]
-//        $model->bindEvent('model.relation.dissociate', function ($relationName) {
-//        });
+// $model->bindEvent('model.relation.dissociate', function ($relationName) {
+// });
             // CONCLUSION:
             // 1. tested with belongsTo, it is not working as expected, for example when changing currency of an association, the event it is not triggered AND when deleting mandateType for an association, the event it is not triggered - we ignore this for now because these actions are recorded with the updated event
             // 2. can not test with morphTo, currently we don't have any morphTo relation removing implemented that should be tracked
             // when creating new mandateType for an association, the event it IS triggered for "parent" relation
-
             // for attach belongsToMany relations
             $model->bindEvent('model.relation.attach', function ($relationName, $parsedIds, $attributes) use ($model) {
                 // CONCLUSION: works as expected

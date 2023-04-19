@@ -270,7 +270,7 @@ class BasicForm extends ComponentBase  {
         $this->getComponentSettings();
 
         // Render frontend
-//        $this->addCss('/modules/system/assets/ui/storm.css');
+// $this->addCss('/modules/system/assets/ui/storm.css');
         $this->addCss('/plugins/csatar/forms/assets/css/storm-select2.css');
         $this->addCss('/plugins/csatar/forms/assets/css/storm.css');
         $this->addJs('/modules/system/assets/ui/storm-min.js');
@@ -284,7 +284,7 @@ class BasicForm extends ComponentBase  {
         }
 
         if ($this->readOnly) {
-            //check if user has permissions to view record
+            // check if user has permissions to view record
             if (!$this->canRead('MODEL_GENERAL')) {
                 \App::abort(403, 'Access denied!');
             }
@@ -293,7 +293,7 @@ class BasicForm extends ComponentBase  {
         }
 
         if ($this->recordKeyValue === $this->createRecordKeyword && !$this->readOnly) {
-            //check if user has permissions to create record
+            // check if user has permissions to create record
             if (!$this->canCreate('MODEL_GENERAL')) {
                 \App::abort(403, 'Access denied!');
             }
@@ -305,7 +305,7 @@ class BasicForm extends ComponentBase  {
             $action = $this->properties['action'] ?? $this->param($this->recordActionParam) ?? null;
             switch ($action) {
                 case $this->actionUpdateKeyword:
-                    //check if user has permissions to update record
+                    // check if user has permissions to update record
                     if (!$this->canUpdate('MODEL_GENERAL')) {
                         \App::abort(403, 'Access denied!');
                     }
@@ -317,7 +317,7 @@ class BasicForm extends ComponentBase  {
                     $this->renderedComponent = $this->createForm();
                     break;
                 case $this->actionDeleteKeyword:
-                    $this->currentUserRights = $this->getRights($this->record, true); //getting user rights from database before delete
+                    $this->currentUserRights = $this->getRights($this->record, true); // getting user rights from database before delete
                     if (!$this->canDelete('MODEL_GENERAL')) {
                         \App::abort(403, 'Access denied!');
                     }
@@ -372,7 +372,7 @@ class BasicForm extends ComponentBase  {
         }
 
         if (!$record) {
-            //TODO handle trashed records
+            // TODO handle trashed records
             return null;
         }
 

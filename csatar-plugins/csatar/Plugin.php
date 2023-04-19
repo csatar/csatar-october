@@ -182,12 +182,12 @@ class Plugin extends PluginBase
                 throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.canNotFindUser'), 5);
             }
 
-            //check if scout already has a user_id and if that matches or not the returned user's id
+            // check if scout already has a user_id and if that matches or not the returned user's id
             if (!empty($scout->user_id) && $scout->user_id != $user->id) {
                 throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.userIdAndScoutUserIdMismatch'), 6);
             }
 
-            //if scout doesn't have a user_id, set the returned user's id as user_id
+            // if scout doesn't have a user_id, set the returned user's id as user_id
             if (empty($scout->user_id)) {
                 $scout->user_id = $user->id;
                 $scout->save();

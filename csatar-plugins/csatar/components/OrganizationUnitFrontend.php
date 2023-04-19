@@ -68,7 +68,7 @@ class OrganizationUnitFrontend extends ComponentBase
             $eagerLoadUseCase  = $eagerLoadUseCase . ($this->property('model_name') == 'Patrol' ? 'Patrol' : '');
             $eagerLoadUseCase  = $eagerLoadUseCase . ($this->property('model_name') == 'Troop' ? 'Troop' : '');
             $eagerLoadSettings = $modelName::getEagerLoadSettings($eagerLoadUseCase);
-            $this->model       = $modelName::where('id', $this->property('model_id'))->with($eagerLoadSettings)->first(); //5 queries
+            $this->model       = $modelName::where('id', $this->property('model_id'))->with($eagerLoadSettings)->first(); // 5 queries
 
             $this->inactiveMandates = $this->model->mandatesInactive->toArray();
 
@@ -359,7 +359,7 @@ class OrganizationUnitFrontend extends ComponentBase
             $scout = $this->convertCsvRowToScout($teamId, $attributes, $rowData);
 
             try {
-                $scout->skipCacheRefresh = true; //important, otherwise cache will be refreshed for each scout
+                $scout->skipCacheRefresh = true; // important, otherwise cache will be refreshed for each scout
                 if (empty($scout->personal_identification_number)) {
                     $log['errors'][] = $rowNumber . ' | ' . Lang::get('csatar.csatar::lang.plugin.component.organizationUnitFrontend.csv.personalIdentificationNumberMissing');
                     continue;

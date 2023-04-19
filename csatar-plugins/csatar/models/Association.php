@@ -122,13 +122,13 @@ class Association extends OrganizationBase
         $eagerLoadSettings = parent::getEagerLoadSettings($useCase);
         if ($useCase === 'formBuilder') {
             // Important to extend the eager load settings, not to overwrite them!
-//            $eagerLoadSettings['currency'] = function($query) {
-//                return $query->select(
-//                    'csatar_csatar_currencies.id',
-//                    'csatar_csatar_currencies.code',
-//                );
-//            };
-//            $eagerLoadSettings[] = 'logo';
+// $eagerLoadSettings['currency'] = function($query) {
+// return $query->select(
+// 'csatar_csatar_currencies.id',
+// 'csatar_csatar_currencies.code',
+// );
+// };
+// $eagerLoadSettings[] = 'logo';
         }
 
         return $eagerLoadSettings;
