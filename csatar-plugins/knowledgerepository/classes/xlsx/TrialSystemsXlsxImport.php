@@ -42,9 +42,9 @@ class TrialSystemsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHe
     public function __construct($associationId, $overwrite = true, $effectiveKnowledgeOnly = false, $worksheetRaw)
     {
         $this->associationId = $associationId;
-        $this->overwrite = $overwrite;
+        $this->overwrite     = $overwrite;
         $this->effectiveKnowledgeOnly = $effectiveKnowledgeOnly;
-        $this->worksheetRaw = $worksheetRaw;
+        $this->worksheetRaw           = $worksheetRaw;
     }
 
     public function sheets(): array
@@ -93,7 +93,7 @@ class TrialSystemsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHe
         if (empty($trialSystem)) {
             $trialSystem = new TrialSystem();
             $trialSystem->association_id = $this->associationId;
-            $trialSystem->id_string = $cellsArray['id'];
+            $trialSystem->id_string      = $cellsArray['id'];
         }
 
         if (isset($cellsArray['kategoria'])) {
@@ -153,7 +153,7 @@ class TrialSystemsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHe
     {
         $searchFor = array_map('trim', explode('|', $searchFor));
         $searchFor = array_map('strtolower', $searchFor);
-        $ids = $modelName::whereIn(DB::raw('LOWER(' . $columnName . ')'), $searchFor)->when($secondaryColumnName, function ($query) use ($secondaryColumnName, $secondaryColumnValue) {
+        $ids       = $modelName::whereIn(DB::raw('LOWER(' . $columnName . ')'), $searchFor)->when($secondaryColumnName, function ($query) use ($secondaryColumnName, $secondaryColumnValue) {
             $query->where($secondaryColumnName, $secondaryColumnValue);
         })->get();
         $unmatched = array_diff($searchFor, array_map('strtolower', $ids->pluck($columnName)->toArray()));
@@ -184,14 +184,14 @@ class TrialSystemsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHe
      */
     public function convertEffectiveKnowledgeCellToHtml(&$cellsArray, Row $row)
     {
-        $counter                        = 0;
+        $counter = 0;
         $effectiveKnowledgeColumnNumber = array_search('effektiv_tudas', array_keys($cellsArray));
 
         if ($effectiveKnowledgeColumnNumber === false) {
             return;
         }
 
-        $worksheet   = $this->worksheetRaw->getActiveSheet();
+        $worksheet = $this->worksheetRaw->getActiveSheet();
 
         foreach ($row->getCellIterator() as $cell) {
             if ($counter !== $effectiveKnowledgeColumnNumber) {
@@ -205,7 +205,7 @@ class TrialSystemsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHe
             $newSpreadsheet = new Spreadsheet();
 
             // Convert to HTML
-            $html                         = (new XlxsHtml($newSpreadsheet))->generateHtmlFromCell($worksheet, $cellRaw);
+            $html = (new XlxsHtml($newSpreadsheet))->generateHtmlFromCell($worksheet, $cellRaw);
             $cellsArray['effektiv_tudas'] = $html;
             $counter++;
         }

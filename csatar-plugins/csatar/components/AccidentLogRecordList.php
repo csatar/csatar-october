@@ -29,14 +29,14 @@ class AccidentLogRecordList extends ComponentBase
     }
 
     public function prepareVars() {
-        $this->recordList = AccidentLogRecord::all();
+        $this->recordList           = AccidentLogRecord::all();
         $this->attributesWithLabels = AccidentLogRecord::getAttributesWithLabels();
-        $this->columnsToDisplay = AccidentLogRecord::getAttributesWithLabels(true);
+        $this->columnsToDisplay     = AccidentLogRecord::getAttributesWithLabels(true);
     }
 
     public function onExportToCsv(){
         $fileName = Carbon::today()->toDateString() . '.csv';
-        $csvPath = temp_path() . '/' . $fileName;
+        $csvPath  = temp_path() . '/' . $fileName;
         $this->prepareVars();
 
         $data = [

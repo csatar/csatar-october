@@ -4,10 +4,10 @@ namespace Csatar\Csatar\Classes\Enums;
 
 class Status
 {
-    public const INACTIVE = 0;
-    public const ACTIVE = 1;
+    public const INACTIVE  = 0;
+    public const ACTIVE    = 1;
     public const SUSPENDED = 2;
-    public const FORMING = 3;
+    public const FORMING   = 3;
 
     public static array $optionsWithLabels = [];
 

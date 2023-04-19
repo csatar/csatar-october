@@ -153,8 +153,8 @@ class BasicForm extends ComponentBase  {
             $this->readOnly = $this->properties['readOnly'] ?? false;
         } else {
             $this->getComponentSettings();
-            $this->recordKeyValue = $this->param($this->recordKeyParam);
-            $this->record = $this->getRecord();
+            $this->recordKeyValue    = $this->param($this->recordKeyParam);
+            $this->record            = $this->getRecord();
             $this->currentUserRights = $this->getRights($this->record);
         }
         $this->setOrGetSessionKey();
@@ -320,7 +320,7 @@ class BasicForm extends ComponentBase  {
                     if (!$this->canRead('MODEL_GENERAL')) {
                         \App::abort(403, 'Access denied!');
                     }
-                    $this->readOnly = true;
+                    $this->readOnly          = true;
                     $this->renderedComponent = $this->createForm(true);
             }
         }
@@ -329,7 +329,7 @@ class BasicForm extends ComponentBase  {
     private function getForm() {
         $form = Form::where('slug', $this->property('formSlug'))->first();
         if (!empty($form)) {
-            $this->form = $form;
+            $this->form   = $form;
             $this->formId = $form->id;
             return $form;
         } else {
@@ -342,10 +342,10 @@ class BasicForm extends ComponentBase  {
         if (!empty($this->record)) {
             return $this->record;
         }
-        $form       = $this->form ?? Form::find($this->formId ?? Input::get('formId'));
-        $modelName  = $form->getModelName();
-        $key        = $this->recordKeyParam ?? Input::get('recordKeyParam');
-        $value      = $this->recordKeyValue ?? Input::get('recordKeyValue');
+        $form      = $this->form ?? Form::find($this->formId ?? Input::get('formId'));
+        $modelName = $form->getModelName();
+        $key       = $this->recordKeyParam ?? Input::get('recordKeyParam');
+        $value     = $this->recordKeyValue ?? Input::get('recordKeyValue');
 
         $record = null;
         if (!empty($key) && !empty($value)) {
@@ -370,7 +370,7 @@ class BasicForm extends ComponentBase  {
     }
 
     private function getParent() {
-        $parentClass = $this->properties['parentModel']['class'] ?? null;
+        $parentClass    = $this->properties['parentModel']['class'] ?? null;
         $recordKeyParam = $this->properties['parentModel']['recordKeyParam'] ?? null;
         $recordKeyValue = $this->properties['parentModel']['recordKeyValue'] ?? null;
 
@@ -379,7 +379,7 @@ class BasicForm extends ComponentBase  {
     private function getRecordFromParent() {
 
         $relationName = $this->properties['getRecordFromParent'] ?? null;
-        $parent = $this->getParent();
+        $parent       = $this->getParent();
 
         if (empty($parent) || empty($relationName)) {
             return;
@@ -396,9 +396,9 @@ class BasicForm extends ComponentBase  {
             $record = $parent->$relationName;
             $this->properties['action'] = 'update';
         } elseif ($hasCreateRights > 0) {
-            $form       = $this->form ?? Form::find($this->formId ?? Input::get('formId'));
-            $modelName  = $form->getModelName();
-            $record = new $modelName();
+            $form      = $this->form ?? Form::find($this->formId ?? Input::get('formId'));
+            $modelName = $form->getModelName();
+            $record    = new $modelName();
             $this->properties['action'] = 'create';
         } elseif ($hasReadRights > 0) {
             $record = $parent->$relationName;
@@ -422,14 +422,14 @@ class BasicForm extends ComponentBase  {
     }
 
     private function getComponentSettings() {
-        $this->recordKeyParam   = $this->property('recordKeyParam');
-        $this->readOnly         = $this->property('readOnly');
+        $this->recordKeyParam = $this->property('recordKeyParam');
+        $this->readOnly       = $this->property('readOnly');
 
         if (!$this->readOnly) {
-            $this->createRecordKeyword  = $this->property('createRecordKeyword');
-            $this->recordActionParam    = $this->property('recordActionParam');
-            $this->actionUpdateKeyword  = $this->property('actionUpdateKeyword');
-            $this->actionDeleteKeyword  = $this->property('actionDeleteKeyword');
+            $this->createRecordKeyword = $this->property('createRecordKeyword');
+            $this->recordActionParam   = $this->property('recordActionParam');
+            $this->actionUpdateKeyword = $this->property('actionUpdateKeyword');
+            $this->actionDeleteKeyword = $this->property('actionDeleteKeyword');
         }
     }
 
@@ -438,8 +438,8 @@ class BasicForm extends ComponentBase  {
     }
 
     public function setOrGetSessionKey(){
-        $prefix = $this->formUniqueId . '_form_key_';
-        $sessionKey = Session::get($this->formUniqueId) ?? uniqid($prefix, true);
+        $prefix           = $this->formUniqueId . '_form_key_';
+        $sessionKey       = Session::get($this->formUniqueId) ?? uniqid($prefix, true);
         $this->sessionKey = $sessionKey;
         Session::put($this->formUniqueId, $sessionKey);
     }

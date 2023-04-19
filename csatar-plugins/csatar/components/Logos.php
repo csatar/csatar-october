@@ -24,7 +24,7 @@ class Logos extends ComponentBase
 
     public function onRender()
     {
-        $this->mode = $this->property('mode');
+        $this->mode          = $this->property('mode');
         $this->hideSeparator = $this->property('hideSeparator');
 
         switch ($this->mode) {

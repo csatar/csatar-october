@@ -117,8 +117,8 @@ class MembershipCardRequests extends Controller
 
     public function download() {
         $fileName = Carbon::today()->toDateString() . '.csv';
-        $csvPath = temp_path() . '/' . $fileName;
-        $headers = [
+        $csvPath  = temp_path() . '/' . $fileName;
+        $headers  = [
             'Content-Type' => 'text/csv',
             'charset' => 'UTF-8',
         ];

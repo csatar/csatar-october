@@ -28,9 +28,9 @@ class OrganizationSearchProvider extends ResultsProvider
 
         foreach ($organizationBaseChildClasses as $childClass) {
             // Get your matching models
-            $matching = null;
+            $matching          = null;
             $searchableColumns = $childClass::getSearchableColumns();
-            $matching = $childClass::when($childClass == '\\Csatar\Csatar\Models\Scout', function ($query) use($searchableColumns) {
+            $matching          = $childClass::when($childClass == '\\Csatar\Csatar\Models\Scout', function ($query) use($searchableColumns) {
                             $query->where(function ($query) use($searchableColumns){
                                 return $query->when(in_array('family_name', $searchableColumns) && in_array('given_name', $searchableColumns), function ($query) {
                                     return $query->orWhere(Db::raw("CONCAT(`family_name`, ' ', `given_name`)"), 'like', "%{$this->query}%");
@@ -51,17 +51,17 @@ class OrganizationSearchProvider extends ResultsProvider
 
             // Create a new Result for every match
             foreach ($matching as $key => $match) {
-                $result            = $this->newResult();
-                $model = str_slug($childClass::getOrganizationTypeModelNameUserFriendly());
+                $result = $this->newResult();
+                $model  = str_slug($childClass::getOrganizationTypeModelNameUserFriendly());
 
                 $result->relevance = $this->calculateRelevance($childClass, $key);
-                $result->title      = $match->extendedName != '' ?  $match->extendedName : $match->name;
+                $result->title     = $match->extendedName != '' ?  $match->extendedName : $match->name;
                 $result->url       = $controller->pageUrl($model, [ 'id'=> $match->id ] );
                 if ( $childClass == '\\Csatar\Csatar\Models\Scout' ) {
-                    $result->url       = $controller->pageUrl('tag', [ 'ecset_code'=> $match->ecset_code ] );
-                    $result->text     = $childClass::getOrganizationTypeModelNameUserFriendly();
+                    $result->url  = $controller->pageUrl('tag', [ 'ecset_code'=> $match->ecset_code ] );
+                    $result->text = $childClass::getOrganizationTypeModelNameUserFriendly();
                 }
-                $result->thumb     = $match->image;
+                $result->thumb = $match->image;
 
                 // Add the results to the results collection
                 $this->addResult($result);

@@ -180,15 +180,15 @@ class RecordList extends RainRecordList {
 
     protected function prepareVars()
     {
-        $this->modelClassName = $this->validateModelClassName();
+        $this->modelClassName   = $this->validateModelClassName();
         $this->noRecordsMessage = $this->page['noRecordsMessage'] = Lang::get($this->property('noRecordsMessage'));
 
-        $this->columnsConfig = $this->page['columnsConfig'] = $this->makeConfig($this->getColumnsConfigFile());
+        $this->columnsConfig     = $this->page['columnsConfig'] = $this->makeConfig($this->getColumnsConfigFile());
         $this->tableHeaderConfig = $this->page['tableHeaderConfig'] = $this->getTableHeaderConfig();
-        $this->tableRowConfig = $this->page['tableRowConfig'] = $this->getTableRowConfig();
-        $this->sortConfig = $this->page['sortConfig'] = $this->getSortConfig();
+        $this->tableRowConfig    = $this->page['tableRowConfig'] = $this->getTableRowConfig();
+        $this->sortConfig        = $this->page['sortConfig'] = $this->getSortConfig();
 
-        $this->detailsKeyColumn = $this->page['detailsKeyColumn'] = $this->property('detailsKeyColumn');
+        $this->detailsKeyColumn    = $this->page['detailsKeyColumn'] = $this->property('detailsKeyColumn');
         $this->detailsUrlParameter = $this->page['detailsUrlParameter'] = $this->property('detailsUrlParameter');
 
         $detailsPage = $this->property('detailsPage');
@@ -211,8 +211,8 @@ class RecordList extends RainRecordList {
 
     protected function listRecords()
     {
-        $model = new $this->modelClassName();
-        $scope = $this->getScopeName($model);
+        $model      = new $this->modelClassName();
+        $scope      = $this->getScopeName($model);
         $scopeValue = $this->property('scopeValue');
 
         if ($scope !== null) {
@@ -224,7 +224,7 @@ class RecordList extends RainRecordList {
         if (!empty($this->activeFilters)) {
             $model = $this->applyFilters($model);
         }
-        $model = $this->sort($model);
+        $model   = $this->sort($model);
         $records = $this->paginate($model);
 
         return $records;
@@ -268,7 +268,7 @@ class RecordList extends RainRecordList {
 
     public function getColumnsConfigFile()
     {
-        $modelClass = $this->property('modelClass');
+        $modelClass        = $this->property('modelClass');
         $columnsConfigFile = $this->property('columnsConfigFile');
         return '$/' . str_replace('\\', '/', strtolower($modelClass)) . '/' . $columnsConfigFile;
     }
@@ -287,9 +287,9 @@ class RecordList extends RainRecordList {
             }
 
             if (isset($config['recordList']['sortable']) && is_array($config['recordList']['sortable'])) {
-                $headerConfig[$column]['sortable'] = true;
+                $headerConfig[$column]['sortable']        = true;
                 $headerConfig[$column]['sortableDefault'] = $config['recordList']['sortable']['default'] ?? false;
-                $this->sortColumn = $config['recordList']['sortable']['default'] ? $column : null;
+                $this->sortColumn    = $config['recordList']['sortable']['default'] ? $column : null;
                 $this->sortDirection = $config['recordList']['sortable']['default'] ?? 'asc';
             } else {
                 $headerConfig[$column]['sortable'] = $config['recordList']['sortable'] ?? false;
@@ -400,8 +400,8 @@ class RecordList extends RainRecordList {
     }
 
     protected function getFilterOptionsForRelation($column, $config) {
-        $options = [];
-        $model = new $this->modelClassName();
+        $options      = [];
+        $model        = new $this->modelClassName();
         $relationName = $config['recordList']['filterConfig']['relationName'] ?? $column;
         $relationType = $this->rowConfig[$column]['relationName'] ?? $this->getRelationType($relationName);
         if (isset($model->$relationType[$relationName])) {
@@ -415,7 +415,7 @@ class RecordList extends RainRecordList {
                     $label = $item->getExtendedNameAttribute();
                 } else {
                     $labelFrom = $config['recordList']['filterConfig']['labelFrom'] ?? 'name';
-                    $label = $item->$labelFrom;
+                    $label     = $item->$labelFrom;
                 }
 
                 return [
@@ -449,12 +449,12 @@ class RecordList extends RainRecordList {
                 }
 
                 if ($filtersConfig[$column]['filterConfig']['type'] == 'relation') {
-                    $key = $filtersConfig[$column]['filterConfig']['keyFrom'] ?? 'id';
-                    $addKey1 = $filtersConfig[$column]['filterConfig']['additionalKeyFrom1'] ?? 'id';
-                    $addKey2 = $filtersConfig[$column]['filterConfig']['additionalKeyFrom2'] ?? 'id';
-                    $addKey3 = $filtersConfig[$column]['filterConfig']['additionalKeyFrom3'] ?? 'id';
+                    $key          = $filtersConfig[$column]['filterConfig']['keyFrom'] ?? 'id';
+                    $addKey1      = $filtersConfig[$column]['filterConfig']['additionalKeyFrom1'] ?? 'id';
+                    $addKey2      = $filtersConfig[$column]['filterConfig']['additionalKeyFrom2'] ?? 'id';
+                    $addKey3      = $filtersConfig[$column]['filterConfig']['additionalKeyFrom3'] ?? 'id';
                     $relationName = $filtersConfig[$column]['filterConfig']['relationName'] ?? $column;
-                    $query = $query->whereHas($relationName, function ($query) use ($values, $key, $addKey1, $addKey2, $addKey3){
+                    $query        = $query->whereHas($relationName, function ($query) use ($values, $key, $addKey1, $addKey2, $addKey3){
                         $query->whereIn($key, $values)->orWhereIn($addKey1, $values)->orWhereIn($addKey2, $values)->orWhereIn($addKey3, $values);
                     });
                     continue;
@@ -475,7 +475,7 @@ class RecordList extends RainRecordList {
                 continue;
             }
             $rowConfig[$column]['attribute'] = $column;
-            $rowConfig[$column]['type'] = $config['type'];
+            $rowConfig[$column]['type']      = $config['type'];
 
             if (isset($config['label'])) {
                 $rowConfig[$column]['label'] = Lang::get($config['label']);
@@ -490,8 +490,8 @@ class RecordList extends RainRecordList {
             if (isset($config['relation'])) {
                 $rowConfig[$column]['relationName'] = $config['relation'];
                 $rowConfig[$column]['relationType'] = $this->getRelationType($config['relation']);
-                $rowConfig[$column]['attribute']  = $config['relation'];
-                $rowConfig[$column]['valueFrom']  = $config['valueFrom'] ?? 'name';
+                $rowConfig[$column]['attribute']    = $config['relation'];
+                $rowConfig[$column]['valueFrom']    = $config['valueFrom'] ?? 'name';
             }
         }
 
@@ -512,11 +512,11 @@ class RecordList extends RainRecordList {
 
     public function onFilterSortPaginate() {
 
-        $filters = json_decode(Input::get('activeFilters'), true);
+        $filters        = json_decode(Input::get('activeFilters'), true);
         $componentAlias = Input::get('componentAlias');
-        $pageNumber = Input::get('page');
-        $sortColumn = Input::get('sortColumn');
-        $sortDirection = Input::get('sortDirection');
+        $pageNumber     = Input::get('page');
+        $sortColumn     = Input::get('sortColumn');
+        $sortDirection  = Input::get('sortDirection');
         $this->prepareVars();
 
         if (!empty($filters)) {
@@ -528,7 +528,7 @@ class RecordList extends RainRecordList {
         }
 
         if (!empty($sortColumn) && !empty($sortDirection)) {
-            $this->sortColumn = $sortColumn;
+            $this->sortColumn    = $sortColumn;
             $this->sortDirection = $sortDirection;
         }
 

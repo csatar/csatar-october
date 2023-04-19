@@ -17,16 +17,16 @@ class ContentPageSearchProvider extends ResultsProvider
 
         if ($matching->count() == 0) {
             $queryHtmlEndcoded = htmlentities($this->query);
-            $matching = ContentPage::where('title', 'like', "%{$queryHtmlEndcoded}%")
+            $matching          = ContentPage::where('title', 'like', "%{$queryHtmlEndcoded}%")
                 ->orWhere('content', 'like', "%{$queryHtmlEndcoded}%")
                 ->get();
-            $this->query = $queryHtmlEndcoded;
+            $this->query       = $queryHtmlEndcoded;
         }
 
         // Create a new Result for every match
         foreach ($matching as $match) {
-            $result            = $this->newResult();
-            $model = str_slug(('\\'.$match->model_type)::getOrganizationTypeModelNameUserFriendly());
+            $result = $this->newResult();
+            $model  = str_slug(('\\'.$match->model_type)::getOrganizationTypeModelNameUserFriendly());
 
             $result->relevance = 1;
             $result->title     = $match->title;

@@ -187,7 +187,7 @@ class Association extends OrganizationBase
 
             $structureTree[$this->id]['name'] = $this->name;
             $structureTree[$this->id]['name_abbreviation'] = $this->name_abbreviation;
-            $structureTree[$this->id]['extended_name'] = $this->extended_name;
+            $structureTree[$this->id]['extended_name']     = $this->extended_name;
             Cache::forever('structureTree', $structureTree);
         }
     }
@@ -236,7 +236,7 @@ class Association extends OrganizationBase
 
     public static function getAssociationOptionsForSelect() {
         $associations = self::all()->lists('name', 'id');
-        $results = [];
+        $results      = [];
         foreach ($associations as $id => $name) {
             $results[] = [
                 'id' => $id,

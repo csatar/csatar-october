@@ -149,7 +149,7 @@ trait ManagesUploads {
 
         try {
             $uploadedFile = Input::file('file_data');
-            $isNew = Input::get('recordKeyValue') == 'new' ? true : false;
+            $isNew        = Input::get('recordKeyValue') == 'new' ? true : false;
 
             if ( ! Input::hasFile('file_data')) {
                 $max_upload = human_filesize(file_upload_max_size(), 1);
@@ -174,8 +174,8 @@ trait ManagesUploads {
 
             $fileModel = $this->record->getRelationDefinition($model_field)[0];
 
-            $file = new $fileModel();
-            $file->data = $uploadedFile;
+            $file            = new $fileModel();
+            $file->data      = $uploadedFile;
             $file->is_public = true;
             $file->save();
 
@@ -220,7 +220,7 @@ trait ManagesUploads {
     public function onRemoveAttachment()
     {
         $model_field = post('field');
-        $file_id = post('file_id');
+        $file_id     = post('file_id');
 
         if (!empty($model_field)) {
             $fileModel = $this->record->getRelationDefinition($model_field)[0];
@@ -279,7 +279,7 @@ trait ManagesUploads {
             }
         }
 
-        $file->pathUrl = $path;
+        $file->pathUrl  = $path;
         $file->thumbUrl = $thumb;
 
         return $file;
@@ -343,7 +343,7 @@ trait ManagesUploads {
 
     public function manageRichTextEditorUpload($uploadedFile) {
 
-        $data = [ 'file' => $uploadedFile ];
+        $data  = [ 'file' => $uploadedFile ];
         $rules = ['file' => 'image|max:5000'];
 
         $validation = Validator::make(
@@ -355,11 +355,11 @@ trait ManagesUploads {
             throw new ValidationException($validation);
         }
 
-        $file = new StandAloneFile();
+        $file       = new StandAloneFile();
         $file->data = $uploadedFile;
-        $file->attachment_id = $this->record->id ?? null;
+        $file->attachment_id   = $this->record->id ?? null;
         $file->attachment_type = get_class($this->record) ?? null;
-        $file->is_public = true;
+        $file->is_public       = true;
         $file->save();
 
         return Response::json([ 'link' => $file->getPath() ], 200);

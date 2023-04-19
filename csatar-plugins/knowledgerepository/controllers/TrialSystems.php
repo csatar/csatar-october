@@ -58,7 +58,7 @@ class TrialSystems extends Controller
             throw new \ValidationException($validator);
         }
 
-        $associationId = Input::get('association_id');
+        $associationId          = Input::get('association_id');
         $effectiveKnowledgeOnly = Input::get('effective_knowledge_only');
         $xlsxFile = Input::file('xlsx_file');
 

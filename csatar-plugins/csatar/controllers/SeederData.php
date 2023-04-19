@@ -17,7 +17,7 @@ class SeederData extends Controller
     {
         // initialize values
         $this->vars['seederData'] = \Csatar\Csatar\Updates\SeederData::DATA;
-        $this->vars['testData'] = \Csatar\Csatar\Updates\TestData::DATA;
+        $this->vars['testData']   = \Csatar\Csatar\Updates\TestData::DATA;
 
         // call parent constructor
         parent::__construct();

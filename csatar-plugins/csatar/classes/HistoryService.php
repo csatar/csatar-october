@@ -42,7 +42,7 @@ class HistoryService
             // set up bindings for the model
 
             $model::extend(function($model) use ($params) {
-                $basicEvents = $params['basicEvents'] ?? true;
+                $basicEvents    = $params['basicEvents'] ?? true;
                 $relationEvents = $params['relationEvents'] ?? true;
                 $customHistoryRelationName = $params['customHistoryRelationName'] ?? null;
 
@@ -195,24 +195,24 @@ class HistoryService
 
     public static function historyAfterSave($model)
     {
-        $historyRelationName = self::getHistoryRelationName($model);
+        $historyRelationName   = self::getHistoryRelationName($model);
         $historyRelationObject = $model->{$historyRelationName}();
-        $historyModel = $historyRelationObject->getRelated();
+        $historyModel          = $historyRelationObject->getRelated();
 
-        $modelClass = $historyRelationObject->getMorphClass();
-        $modelId = $model->getKey();
-        $relatedModelId = null;
+        $modelClass        = $historyRelationObject->getMorphClass();
+        $modelId           = $model->getKey();
+        $relatedModelId    = null;
         $relatedModelClass = null;
 
         if ($model instanceof CsatarPivot) {
-            $modelClass = $model->getParentClass();
-            $modelId = $model->getAttribute($model->getForeignKey());
+            $modelClass        = $model->getParentClass();
+            $modelId           = $model->getAttribute($model->getForeignKey());
             $relatedModelClass = get_class($model);
-            $relatedModelId = $model->getAttribute($model->getOtherKey());
+            $relatedModelId    = $model->getAttribute($model->getOtherKey());
         }
 
         $toSave = [];
-        $dirty = $model->getDirty();
+        $dirty  = $model->getDirty();
         foreach ($dirty as $attribute => $value) {
             if (
                 (is_array($model->exlcudedFromHistory) && in_array($attribute, $model->exlcudedFromHistory))
@@ -227,7 +227,7 @@ class HistoryService
             $old_value = $model->getOriginal($attribute);
 
             if (is_array(HistoryService::SENSITIVE_FIELDS) && in_array($attribute, HistoryService::SENSITIVE_FIELDS)) {
-                $value = '***';
+                $value     = '***';
                 $old_value = '***';
             }
 
@@ -271,9 +271,9 @@ class HistoryService
             return;
         }
 
-        $historyRelationName = self::getHistoryRelationName($model);
+        $historyRelationName   = self::getHistoryRelationName($model);
         $historyRelationObject = $model->{$historyRelationName}();
-        $historyModel = $historyRelationObject->getRelated();
+        $historyModel          = $historyRelationObject->getRelated();
 
         $toSave[] = [
             'fe_user_id' => self::historyGetUser(),
@@ -293,9 +293,9 @@ class HistoryService
     }
 
     public static function historyRelationAdd($model, $relationName, $relatedModel) {
-        $historyRelationName = self::getHistoryRelationName($model);
+        $historyRelationName   = self::getHistoryRelationName($model);
         $historyRelationObject = $model->{$historyRelationName}();
-        $historyModel = $historyRelationObject->getRelated();
+        $historyModel          = $historyRelationObject->getRelated();
 
         $toSave[] = [
             'fe_user_id' => self::historyGetUser(),
@@ -317,9 +317,9 @@ class HistoryService
     }
 
     public static function historyRelationRemove($model, $relationName, $relatedModel) {
-        $historyRelationName = self::getHistoryRelationName($model);
+        $historyRelationName   = self::getHistoryRelationName($model);
         $historyRelationObject = $model->{$historyRelationName}();
-        $historyModel = $historyRelationObject->getRelated();
+        $historyModel          = $historyRelationObject->getRelated();
 
         $toSave[] = [
             'fe_user_id' => self::historyGetUser(),
@@ -341,12 +341,12 @@ class HistoryService
     }
 
     public static function historyRelationAttach($model, $relationName, $parsedIds, $attributes) {
-        $historyRelationName = self::getHistoryRelationName($model);
+        $historyRelationName   = self::getHistoryRelationName($model);
         $historyRelationObject = $model->{$historyRelationName}();
-        $historyModel = $historyRelationObject->getRelated();
+        $historyModel          = $historyRelationObject->getRelated();
 
         $relatedModelObject = $model->{$relationName}();
-        $relatedModel = $relatedModelObject->getRelated();
+        $relatedModel       = $relatedModelObject->getRelated();
 
         $toSave = [];
         foreach ($parsedIds as $id) {
@@ -371,12 +371,12 @@ class HistoryService
     }
 
     public static function historyRelationDetach($model, $relationName, $parsedIds, $result) {
-        $historyRelationName = self::getHistoryRelationName($model);
+        $historyRelationName   = self::getHistoryRelationName($model);
         $historyRelationObject = $model->{$historyRelationName}();
-        $historyModel = $historyRelationObject->getRelated();
+        $historyModel          = $historyRelationObject->getRelated();
 
         $relatedModelObject = $model->{$relationName}();
-        $relatedModel = $relatedModelObject->getRelated();
+        $relatedModel       = $relatedModelObject->getRelated();
 
         $toSave = [];
         if (!empty($parsedIds) || !is_array($parsedIds)) {
@@ -406,9 +406,9 @@ class HistoryService
     public static function historyRecordEvent($model = null, $event = null){
         $historyModel = null;
         if (is_object($model)) {
-            $historyRelationName = self::getHistoryRelationName($model);
+            $historyRelationName   = self::getHistoryRelationName($model);
             $historyRelationObject = $model->{$historyRelationName}();
-            $historyModel = $historyRelationObject->getRelated();
+            $historyModel          = $historyRelationObject->getRelated();
         }
 
         $toSave[] = [

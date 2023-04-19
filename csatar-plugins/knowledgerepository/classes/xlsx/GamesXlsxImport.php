@@ -41,10 +41,10 @@ class GamesXlsxImport implements ToModel, WithHeadingRow, WithValidation, SkipsO
 
     public function __construct($associationId, $uploaderCsatarCode, $approverCsatarCode, $overwrite = false)
     {
-        $this->associationId = $associationId;
+        $this->associationId      = $associationId;
         $this->uploaderCsatarCode = $uploaderCsatarCode;
         $this->approverCsatarCode = $approverCsatarCode;
-        $this->overwrite = $overwrite;
+        $this->overwrite          = $overwrite;
     }
 
     public function sheets(): array
@@ -78,7 +78,7 @@ class GamesXlsxImport implements ToModel, WithHeadingRow, WithValidation, SkipsO
         if (empty($game)) {
             $game = new Game();
             $game->association_id = $this->associationId;
-            $game->name = $row['jatek_neve'];
+            $game->name           = $row['jatek_neve'];
         }
 
         $pivotRelationIds = [];
@@ -149,7 +149,7 @@ class GamesXlsxImport implements ToModel, WithHeadingRow, WithValidation, SkipsO
     {
         $searchFor = array_map('trim', explode('|', $searchFor));
         $searchFor = array_map('strtolower', $searchFor);
-        $ids = $modelName::whereIn(DB::raw('LOWER(' . $columnName . ')'), $searchFor)->when($secondaryColumnName, function ($query) use ($secondaryColumnName, $secondaryColumnValue) {
+        $ids       = $modelName::whereIn(DB::raw('LOWER(' . $columnName . ')'), $searchFor)->when($secondaryColumnName, function ($query) use ($secondaryColumnName, $secondaryColumnValue) {
             $query->where($secondaryColumnName, $secondaryColumnValue);
         })->get();
         $unmatched = array_diff($searchFor, array_map('strtolower', $ids->pluck($columnName)->toArray()));

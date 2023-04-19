@@ -56,8 +56,8 @@ class AccidentLogRigthsProvider
             return $recordGeneralRights;
         }
 
-        $rights = $recordGeneralRights;
-        $fields = $record->fillable ?? [];
+        $rights         = $recordGeneralRights;
+        $fields         = $record->fillable ?? [];
         $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'attachMany', 'hasOne', 'morphTo', 'morphOne',
                            'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'];
 
@@ -68,7 +68,7 @@ class AccidentLogRigthsProvider
         self::filterFieldsForRealtionKeys($fields);
 
         if ($isOwn) {
-            $rights['MODEL_GENERAL']['read'] = 2;
+            $rights['MODEL_GENERAL']['read']   = 2;
             $rights['MODEL_GENERAL']['update'] = 2;
         }
 

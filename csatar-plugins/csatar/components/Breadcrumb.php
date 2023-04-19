@@ -51,10 +51,10 @@ class Breadcrumb extends ComponentBase
 
     public function onRun(){
         $isFormBuilderPresent = isset($this->controller->vars['basicForm']);
-        $isTeamReportPage = isset($this->controller->vars['teamReports']->team);
+        $isTeamReportPage     = isset($this->controller->vars['teamReports']->team);
 
         if ($isFormBuilderPresent) {
-            $basicForm = $this->controller->vars['basicForm'];
+            $basicForm     = $this->controller->vars['basicForm'];
             $currentRecord = $basicForm->record;
 
             if (!($currentRecord instanceof PermissionBasedAccess)) {
@@ -68,7 +68,7 @@ class Breadcrumb extends ComponentBase
             }
 
         } elseif ($isTeamReportPage) {
-            $teamReport = $this->controller->vars['teamReports'];
+            $teamReport    = $this->controller->vars['teamReports'];
             $currentRecord = $teamReport->team;
 
             if (!empty($currentRecord)) {
@@ -148,9 +148,9 @@ class Breadcrumb extends ComponentBase
     private function getRecordUrl (PermissionBasedAccess $model, string $modelName, bool $isLastDescendant = false): void
     {
         $modelNameUserFriendly = $modelName::getOrganizationTypeModelNameUserFriendly();
-        $recordName = isset($this->modelLinkTitleMap[$modelName]) ? $model->{$this->modelLinkTitleMap[$modelName]} : '';
+        $recordName            = isset($this->modelLinkTitleMap[$modelName]) ? $model->{$this->modelLinkTitleMap[$modelName]} : '';
         $modelSlug = str_slug($modelNameUserFriendly);
-        $url   = $this->controller->pageUrl($modelSlug, [ 'id'=> $model->id ] );
+        $url       = $this->controller->pageUrl($modelSlug, [ 'id'=> $model->id ] );
         $this->urlList[] = [
             'linkTitle' => !empty($recordName) ? $recordName : $modelNameUserFriendly,
             'url'       => $isLastDescendant ? '' : $url,

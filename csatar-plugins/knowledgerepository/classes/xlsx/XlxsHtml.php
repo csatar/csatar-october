@@ -45,7 +45,7 @@ class XlxsHtml extends Html
         if ($cell->getValue() instanceof RichText) {
             $this->generateRowCellDataValueRich($cell, $cellData);
         } else {
-            $origData = $this->preCalculateFormulas ? $cell->getCalculatedValue() : $cell->getValue();
+            $origData   = $this->preCalculateFormulas ? $cell->getCalculatedValue() : $cell->getValue();
             $formatCode = $worksheet->getParentOrThrow()->getCellXfByIndex($cell->getXfIndex())->getNumberFormat()->getFormatCode();
 
             $cellData = NumberFormat::toFormattedString(
@@ -78,15 +78,15 @@ class XlxsHtml extends Html
 
                     if ($element->getFont()->getSuperscript()) {
                         $cellData .= '<sup>';
-                        $cellEnd = '</sup>';
+                        $cellEnd   = '</sup>';
                     } elseif ($element->getFont()->getSubscript()) {
                         $cellData .= '<sub>';
-                        $cellEnd = '</sub>';
+                        $cellEnd   = '</sub>';
                     }
                 }
 
                 // Convert UTF8 data to PCDATA
-                $cellText = $element->getText();
+                $cellText  = $element->getText();
                 $cellData .= htmlspecialchars($cellText, Settings::htmlEntityFlags());
 
                 $cellData .= $cellEnd;
@@ -94,7 +94,7 @@ class XlxsHtml extends Html
                 $cellData .= '</span>';
             } else {
                 // Convert UTF8 data to PCDATA
-                $cellText = $element->getText();
+                $cellText  = $element->getText();
                 $cellData .= htmlspecialchars($cellText, Settings::htmlEntityFlags());
             }
         }
@@ -129,9 +129,9 @@ class XlxsHtml extends Html
             $css['font-style'] = 'italic';
         }
 
-        $css['color'] = '#' . $font->getColor()->getRGB();
+        $css['color']       = '#' . $font->getColor()->getRGB();
         $css['font-family'] = '\'' . $font->getName() . '\'';
-        $css['font-size'] = $font->getSize() . 'pt';
+        $css['font-size']   = $font->getSize() . 'pt';
 
         return $css;
     }

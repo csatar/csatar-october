@@ -17,7 +17,7 @@ class Scouts extends Controller
         'trashed' => 'config_list_trashed.yaml'
     ];
 
-    public $formConfig = 'config_form.yaml';
+    public $formConfig     = 'config_form.yaml';
     public $relationConfig = 'config_relation.yaml';
 
     public function __construct()
@@ -35,9 +35,9 @@ class Scouts extends Controller
         if (isset($this->params[0])) {
             $scout = Scout::find($this->params[0]);
             if (isset($scout)) {
-                $scout->google_two_fa_secret_key = null;
+                $scout->google_two_fa_secret_key   = null;
                 $scout->google_two_fa_is_activated = null;
-                $scout->ignoreValidation = true;
+                $scout->ignoreValidation           = true;
                 $scout->forceSave();
                 Flash::success(Lang::get('csatar.csatar::lang.plugin.component.twoFactorAuthentication.resetSuccess'));
             }
@@ -79,9 +79,9 @@ class Scouts extends Controller
         }
         $scouts = Scout::onlyTrashed()->whereIn('id', $checkedIds)->get();
         $scouts->each(function($scout){
-            $scout->inactivated_at = $scout->inactivated_at ?? date('Y-m-d H:i:s');
+            $scout->inactivated_at   = $scout->inactivated_at ?? date('Y-m-d H:i:s');
             $scout->ignoreValidation = true;
-            $scout->deleted_at = null;
+            $scout->deleted_at       = null;
             $scout->forceSave();
         });
         Flash::success(Lang::get('csatar.csatar::lang.plugin.admin.scout.restoreSuccess'));

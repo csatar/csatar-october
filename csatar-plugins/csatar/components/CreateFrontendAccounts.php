@@ -63,8 +63,8 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
 
     public function prepareVars()
     {
-        $this->page['user'] = $this->user();
-        $this->page['canRegister'] = $this->canRegister();
+        $this->page['user']           = $this->user();
+        $this->page['canRegister']    = $this->canRegister();
         $this->page['loginAttribute'] = $this->loginAttribute();
         if (isset(Auth::user()->scout)) {
             $this->scouts = Scout::where('team_id', Auth::user()->scout->team_id)->get();
@@ -79,7 +79,7 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
         }
 
         if (isset(Auth::user()->scout)) {
-            $tempScout = new Scout();
+            $tempScout          = new Scout();
             $tempScout->team_id = Auth::user()->scout->team_id;
 
             if (Auth::user()->scout->getRightsForModel($tempScout)['MODEL_GENERAL']['read'] < 1) {
@@ -179,7 +179,7 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
 
             if ($automaticActivation) {
                 $fullName = $scout->getFullName();
-                $data = [
+                $data     = [
                     'name' => $fullName,
                 ];
 
@@ -245,7 +245,7 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
                 throw new ApplicationException(Lang::get('rainlab.user::lang.account.registration_throttled'));
             }
 
-            $data['email'] = $scout->email;
+            $data['email']    = $scout->email;
             $data['password'] = str_random(20);
             $data['password_confirmation'] = $data['password'];
 

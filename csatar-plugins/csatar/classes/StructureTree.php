@@ -305,7 +305,7 @@ class StructureTree
     }
 
     public static function updateTeamTree($teamId) {
-        $query = Team::where('id', $teamId)->with([
+        $query         = Team::where('id', $teamId)->with([
             'scoutsActive' => function($query) {
                 return self::selectFromScouts($query);
             },
@@ -360,7 +360,7 @@ class StructureTree
 
         // update the tree
         $associationId = $refreshedTeam['district']['association_id'];
-        $districtId = $refreshedTeam['district']['id'];
+        $districtId    = $refreshedTeam['district']['id'];
         unset($refreshedTeam['district']);
         $structureTree[$associationId]['districtsActive'][$districtId]['teamsActive'][$refreshedTeam['id']] = $refreshedTeam;
 

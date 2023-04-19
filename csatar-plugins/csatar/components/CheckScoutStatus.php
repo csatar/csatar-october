@@ -44,7 +44,7 @@ class CheckScoutStatus extends ComponentBase
         }
 
         $this->scoutCode = $this->property('scoutCode');
-        $this->json = false;
+        $this->json      = false;
 
         if (Input::get('json') === 'true' || Input::get('json') === '1') {
             $this->json = true;
@@ -86,7 +86,7 @@ class CheckScoutStatus extends ComponentBase
 
     public function onGetOtherScoutStatus()
     {
-        $data = post();
+        $data  = post();
         $rules = ['ecsk_code' => 'required'];
 
         $validation = Validator::make(

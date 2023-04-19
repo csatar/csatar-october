@@ -11,12 +11,12 @@ class ScoutXlsxExport implements FromCollection, WithHeadings, WithEvents
 {
     private $numberOfHeadingRows;
     private $headings = [];
-    private $data = [];
+    private $data     = [];
 
     public function __construct(int $numberOfHeadingRows, $data)
     {
         $this->numberOfHeadingRows = $numberOfHeadingRows;
-        $this->headings = $this->getHeadingRows($numberOfHeadingRows);
+        $this->headings            = $this->getHeadingRows($numberOfHeadingRows);
         $this->data = $data;
     }
 

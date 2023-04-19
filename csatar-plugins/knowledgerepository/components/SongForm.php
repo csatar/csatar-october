@@ -49,7 +49,7 @@ class SongForm extends ComponentBase
         }
 
         $song = $this->basicForm->record;
-        $song->approved_at = date('Y-m-d H:i:s');
+        $song->approved_at          = date('Y-m-d H:i:s');
         $song->approver_csatar_code = $user->scout->ecset_code;
         $song->save();
 

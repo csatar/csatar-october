@@ -118,7 +118,7 @@ class History extends Model
 
     public function getAttributeOptions(){
         $attributeOptions = self::distinct()->orderBy('attribute', 'asc')->select('attribute', 'model_type')->get()->toArray();
-        $options = [];
+        $options          = [];
         foreach ($attributeOptions as $attributeOption) {
             $options[$attributeOption['attribute']] = $attributeOption['attribute'];
             if (class_exists($attributeOption['model_type']) && method_exists($attributeOption['model_type'], 'getTranslatedAttributeNames')) {
@@ -145,7 +145,7 @@ class History extends Model
         $backendUserOptions = Db::select(
             "SELECT (SELECT CONCAT(IFNULL(first_name, ''), ' ', IFNULL(last_name, ''), ' - ', IFNULL(id, '')) as name FROM backend_users WHERE id = be_user_id) as name, be_user_id as id FROM csatar_csatar_history WHERE be_user_id IS NOT NULL GROUP BY be_user_id ORDER BY name ASC"
         );
-        $options = [];
+        $options            = [];
         foreach ($backendUserOptions as $backendUserOption) {
             $options[$backendUserOption->id] = $backendUserOption->name;
         }
