@@ -1,4 +1,5 @@
-<?php return [
+<?php 
+return [
     'frontEnd' => [
         'authException' => 'Az e-mail cím, az Igazolványszám vagy a jelszó téves!',
     ],

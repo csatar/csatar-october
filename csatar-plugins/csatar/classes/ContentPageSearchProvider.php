@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Classes;
+<?php 
+namespace Csatar\Csatar\Classes;
 
 use Csatar\Csatar\Models\ContentPage;
 use OFFLINE\SiteSearch\Classes\Providers\ResultsProvider;

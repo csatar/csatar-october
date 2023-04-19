@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Models;
+<?php 
+namespace Csatar\Csatar\Models;
 
 use Csatar\Csatar\Models\TeamReport;
 use DateTime;

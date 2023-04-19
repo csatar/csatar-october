@@ -1,4 +1,5 @@
-<?php namespace Csatar\KnowledgeRepository\Models;
+<?php 
+namespace Csatar\KnowledgeRepository\Models;
 
 use Csatar\Csatar\Classes\Constants;
 use Csatar\Csatar\Models\PermissionBasedAccess;

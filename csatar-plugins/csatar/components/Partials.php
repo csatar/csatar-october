@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Components;
+<?php 
+namespace Csatar\Csatar\Components;
 
 use Cms\Classes\ComponentBase;
 use Lang;

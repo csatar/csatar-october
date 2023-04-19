@@ -1,4 +1,5 @@
-<?php return [
+<?php 
+return [
     'plugin' => [
         'name' => 'Form Builder',
         'description' => 'Front end form builder',

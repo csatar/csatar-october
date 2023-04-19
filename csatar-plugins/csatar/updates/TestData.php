@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Updates;
+<?php 
+namespace Csatar\Csatar\Updates;
 
 use RainLab\Builder\Classes\ComponentHelper;
 use Seeder;

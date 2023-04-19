@@ -1,4 +1,5 @@
-<?php return [
+<?php 
+return [
     'frontEnd' => [
         'authException' => 'The email address, the ID number or the password is incorrect.',
     ],

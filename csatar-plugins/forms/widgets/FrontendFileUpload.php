@@ -1,4 +1,5 @@
-<?php namespace Csatar\Forms\Widgets;
+<?php 
+namespace Csatar\Forms\Widgets;
 
 use Lang;
 use Backend\Classes\FormWidgetBase;

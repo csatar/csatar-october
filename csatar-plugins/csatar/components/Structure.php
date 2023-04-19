@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Components;
+<?php 
+namespace Csatar\Csatar\Components;
 
 use Auth;
 use Cache;

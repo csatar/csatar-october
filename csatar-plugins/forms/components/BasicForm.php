@@ -1,4 +1,5 @@
-<?php namespace Csatar\Forms\Components;
+<?php 
+namespace Csatar\Forms\Components;
 
 use Auth;
 use Cms\Classes\ComponentBase;

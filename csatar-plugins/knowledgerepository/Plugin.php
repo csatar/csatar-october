@@ -1,4 +1,5 @@
-<?php namespace Csatar\KnowledgeRepository;
+<?php 
+namespace Csatar\KnowledgeRepository;
 
 use Csatar\KnowledgeRepository\Models\Region;
 use System\Classes\PluginBase;
