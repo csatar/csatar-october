@@ -40,12 +40,12 @@ class TeamReport extends ComponentBase
 
     public function onRender($isRefresh = false)
     {
-        $this->confirmDeleteMessage = Lang::get('backend::lang.form.confirm_delete');
+        $this->confirmDeleteMessage  = Lang::get('backend::lang.form.confirm_delete');
         $this->confirmRefreshMessage = Lang::get('csatar.csatar::lang.plugin.component.teamReport.confirmRefreshMessage');
         $this->year = date('n') == 1 ? date('Y') - 1 : date('Y');
 
         // retrieve the parameters
-        $this->id = $this->param('id');
+        $this->id     = $this->param('id');
         $this->action = $this->param('action');
         $this->redirectFromWaitingForApproval = Input::get('redirectFromWaitingForApproval') ?? 'false';
 
@@ -75,10 +75,10 @@ class TeamReport extends ComponentBase
             }
 
             // retrieve the scouts and calculate fees
-            $association = $this->team->district->association;
-            $this->teamFee = $association->team_fee;
+            $association       = $this->team->district->association;
+            $this->teamFee     = $association->team_fee;
             $this->totalAmount = $this->teamFee;
-            $this->currency = $association->currency->code;
+            $this->currency    = $association->currency->code;
             $this->getScouts($this->teamId);
             $this->basicForm->specialValidationExceptions = $this->errors ?? [];
             unset($this->basicForm->record->belongsToMany['ageGroups']);
@@ -94,8 +94,8 @@ class TeamReport extends ComponentBase
             if ($this->action == 'modositas' and isset($this->teamReport->submitted_at)) {
                 return Redirect::to('/csapatjelentes/' . $this->id);
             }
-            $this->teamId = $this->teamReport->team_id;
-            $this->teamFee = $this->teamReport->team_fee;
+            $this->teamId      = $this->teamReport->team_id;
+            $this->teamFee     = $this->teamReport->team_fee;
             $this->totalAmount = $this->teamReport->total_amount;
 
             $this->setVariables();
@@ -132,7 +132,7 @@ class TeamReport extends ComponentBase
 
     public function onSubmit()
     {
-        $this->id = Input::get('id');
+        $this->id         = Input::get('id');
         $this->teamReport = \Csatar\Csatar\Models\TeamReport::find($this->id);
         $this->teamReport->submitted_at = (new \DateTime())->format('Y-m-d');
         $this->teamReport->save();
@@ -149,7 +149,7 @@ class TeamReport extends ComponentBase
 
     public function onApprove()
     {
-        $this->id = Input::get('id');
+        $this->id         = Input::get('id');
         $this->teamReport = \Csatar\Csatar\Models\TeamReport::find($this->id);
         if (isset(Auth::user()->scout)) {
             $this->permissions = Auth::user()->scout->getRightsForModel($this->teamReport, true);
@@ -213,7 +213,7 @@ class TeamReport extends ComponentBase
 
     public function getScouts($teamId): void
     {
-        $scouts = Scout::where('team_id', $teamId)->whereNull('inactivated_at')->get();
+        $scouts            = Scout::where('team_id', $teamId)->whereNull('inactivated_at')->get();
         $this->totalAmount = $this->teamFee;
         $this->scoutsWithoutRegistrationForm = TeamReportModel::getScoutsWithoutRegistrationForm($scouts);
 
@@ -225,7 +225,7 @@ class TeamReport extends ComponentBase
                 $membership_fee = 0;
             }
 
-            $this->scouts[]    = [
+            $this->scouts[]     = [
                 'name'                     => $scout->family_name . ' ' . $scout->given_name,
                 'legal_relationship'       => $scout->legal_relationship,
                 'legal_relationship_id'    => $scout->legal_relationship->id ?? null,

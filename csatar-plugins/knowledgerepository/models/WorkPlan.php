@@ -99,7 +99,7 @@ class WorkPlan extends PermissionBasedAccess
             ->where('association_id', $this->getAssociation()->id)
             ->first()->id;
 
-        $mandates = $this->getMandates($deputyTeamLeaderMandateTypeId);
+        $mandates          = $this->getMandates($deputyTeamLeaderMandateTypeId);
         $deputyTeamLeaders = [];
 
         foreach ($mandates as $mandate) {

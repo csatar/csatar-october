@@ -62,8 +62,8 @@ class OrganizationBase extends PermissionBasedAccess
         }
 
         $mandateTypes = MandateType::where('association_id', $this->getAssociationId())->where('organization_type_model_name', $this->getModelName())->where('required', true)->get();
-        $mandates = $this->mandates;
-        $now = new \DateTime();
+        $mandates     = $this->mandates;
+        $now          = new \DateTime();
 
         foreach ($mandateTypes as $mandateType) {
             $validMandate = false;
@@ -184,7 +184,7 @@ class OrganizationBase extends PermissionBasedAccess
     }
 
     public function filterNameForWords($name, $filterWords){
-        $filterWords = array_map('trim',$filterWords);
+        $filterWords  = array_map('trim',$filterWords);
         $nameExploded = explode(' ', $name);
         $nameFiltered = array_map(function($word) use ($filterWords){
             if (in_array(mb_strtolower($word), $filterWords)) {

@@ -36,8 +36,8 @@ class CnpValidator
     private function validDate()
     {
         $month = (int) "{$this->cnp[3]}{$this->cnp[4]}";
-        $day = (int) "{$this->cnp[5]}{$this->cnp[6]}";
-        $year = $this->year();
+        $day   = (int) "{$this->cnp[5]}{$this->cnp[6]}";
+        $year  = $this->year();
 
         return 1900 <= $year && $year <= 2050 && checkdate($month, $day, $year);
     }

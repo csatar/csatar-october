@@ -44,13 +44,13 @@ class SongsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHeadingRo
 
     public function __construct($associationId, $overwrite, $richTextColumns, $worksheetRaw, $uploaderCsatarCode, $approverCsatarCode)
     {
-        $this->associationId = $associationId;
-        $this->overwrite = $overwrite;
-        $this->richTextColumns = $richTextColumns;
-        $this->worksheetRaw = $worksheetRaw;
+        $this->associationId      = $associationId;
+        $this->overwrite          = $overwrite;
+        $this->richTextColumns    = $richTextColumns;
+        $this->worksheetRaw       = $worksheetRaw;
         $this->uploaderCsatarCode = $uploaderCsatarCode;
         $this->approverCsatarCode = $approverCsatarCode ?? null;
-        $this->approved_at = $approverCsatarCode ? date('Y-m-d H:i:s') : null;
+        $this->approved_at        = $approverCsatarCode ? date('Y-m-d H:i:s') : null;
     }
 
     public function sheets(): array
@@ -88,7 +88,7 @@ class SongsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHeadingRo
         if (empty($song)) {
             $song = new Song();
             $song->association_id = $this->associationId;
-            $song->title = $cellsArray['dal_cim'];
+            $song->title          = $cellsArray['dal_cim'];
         }
 
         $song->song_type_id = $this->getModelIds($row, $cellsArray['dal_tipusa'] ?? '', SongType::class, 'name', null, null, true)[0] ?? null;
@@ -143,7 +143,7 @@ class SongsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHeadingRo
         }
         $searchFor = array_map('trim', explode('|', $searchFor));
         $searchFor = array_map('strtolower', $searchFor);
-        $ids = $modelName::whereIn(DB::raw('LOWER(' . $columnName . ')'), $searchFor)->when($secondaryColumnName, function ($query) use ($secondaryColumnName, $secondaryColumnValue) {
+        $ids       = $modelName::whereIn(DB::raw('LOWER(' . $columnName . ')'), $searchFor)->when($secondaryColumnName, function ($query) use ($secondaryColumnName, $secondaryColumnValue) {
             $query->where($secondaryColumnName, $secondaryColumnValue);
         })->get();
         $unmatched = array_diff($searchFor, array_map('strtolower', $ids->pluck($columnName)->toArray()));
@@ -177,9 +177,9 @@ class SongsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHeadingRo
         if (empty($richTextColumns)) {
             return;
         }
-        $richTextColumns        = array_map('trim', explode(',', $richTextColumns));
-        $richTextColumns        = array_map('str_slug', $richTextColumns);
-        $counter                = 0;
+        $richTextColumns = array_map('trim', explode(',', $richTextColumns));
+        $richTextColumns = array_map('str_slug', $richTextColumns);
+        $counter         = 0;
         $richTextColumnsNumbers = [];
         foreach ($richTextColumns as $richTextColumn) {
             $richTextColumnsNumbers[$richTextColumn] = array_search($richTextColumn, array_keys($cellsArray));
@@ -206,7 +206,7 @@ class SongsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHeadingRo
             $newSpreadsheet = new Spreadsheet();
 
             // Convert to HTML
-            $html                         = (new XlxsHtml($newSpreadsheet))->generateHtmlFromCell($worksheet, $cellRaw);
+            $html = (new XlxsHtml($newSpreadsheet))->generateHtmlFromCell($worksheet, $cellRaw);
             $cellsArray[array_search($counter, $richTextColumnsNumbers)] = $html;
             $counter++;
         }

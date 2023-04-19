@@ -120,10 +120,10 @@ class MandateType extends Model
 
     public function canDelete()
     {
-        $selfAndChildrenIds = $this->getAllChildren()->lists('id');
+        $selfAndChildrenIds   = $this->getAllChildren()->lists('id');
         $selfAndChildrenIds[] = $this->id;
 
-        $now = new DateTime();
+        $now      = new DateTime();
         $mandates = Mandate::whereIn('mandate_type_id', $selfAndChildrenIds)->get();
 
         foreach ($mandates as $mandate) {
@@ -172,31 +172,31 @@ class MandateType extends Model
     function scopeAssociation($query, $model = null)
     {
         $mandate_model_type = null;
-        $association_id = null;
+        $association_id     = null;
 
         // the model is null when this method is being triggered from the form; set the data needed to do the filtering on the organization form pages
         if ($model) {
             // when this is triggered from BE, then the mandate_model_id is set; on FE, on the pivot form, the mandate_type_id is set
             $mandate_model_type = $model->mandate_model_type ?? ($model && array_key_exists('mandate_model', $model->belongsTo) ? $model->belongsTo['mandate_model'] : null);
-            $mandate_model_id = $model->mandate_model_id;
-            $mandate_type_id = $model->mandate_type_id;
+            $mandate_model_id   = $model->mandate_model_id;
+            $mandate_type_id    = $model->mandate_type_id;
             if ($mandate_model_id) {
                 $association_id = $mandate_model_type && $mandate_model_id ? ($mandate_model_type)::find($mandate_model_id)->getAssociationId() : null;
             } else if ($mandate_type_id) {
-                $mandate_type = MandateType::find($mandate_type_id);
+                $mandate_type   = MandateType::find($mandate_type_id);
                 $association_id = $mandate_type ? $mandate_type->association_id : null;
             }
         } else {
             $inputData = Input::get('data');
             if ($inputData && array_key_exists('association', $inputData) && !empty($inputData['association'])) {
                 $mandate_model_type = District::getModelName();
-                $association_id = $inputData['association'];
+                $association_id     = $inputData['association'];
             } else if ($inputData && array_key_exists('district', $inputData) && !empty($inputData['district'])) {
                 $mandate_model_type = Team::getModelName();
-                $association_id = District::find($inputData['district'])->getAssociationId();
+                $association_id     = District::find($inputData['district'])->getAssociationId();
             } else if ($inputData && array_key_exists('team', $inputData) && !empty($inputData['team'])) {
                 $mandate_model_type = array_key_exists('troop', $inputData) ? Patrol::getModelName() : Troop::getModelName();
-                $association_id = Team::find($inputData['team'])->getAssociationId();
+                $association_id     = Team::find($inputData['team'])->getAssociationId();
             }
         }
 
@@ -275,7 +275,7 @@ class MandateType extends Model
         $mandateTypes = [];
 
         foreach ($associationIds as $associationId) {
-            $mandatesTypesInAssociation = self::where('association_id', $associationId)->orderBy('nest_left', 'desc')->get();
+            $mandatesTypesInAssociation   = self::where('association_id', $associationId)->orderBy('nest_left', 'desc')->get();
             $mandateTypes[$associationId] = $mandatesTypesInAssociation->map(function ($item){
                 return [
                     'id'                            => $item->id,

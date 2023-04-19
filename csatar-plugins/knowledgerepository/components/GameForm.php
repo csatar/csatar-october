@@ -49,7 +49,7 @@ class GameForm extends ComponentBase
         }
 
         $game = $this->basicForm->record;
-        $game->approved_at = date('Y-m-d H:i:s');
+        $game->approved_at          = date('Y-m-d H:i:s');
         $game->approver_csatar_code = $user->scout->ecset_code;
         $game->save();
 

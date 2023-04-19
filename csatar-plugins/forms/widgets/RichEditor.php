@@ -111,35 +111,35 @@ class RichEditor extends FormWidgetBase
      */
     public function prepareVars()
     {
-        $this->vars['field'] = $this->formField;
+        $this->vars['field']      = $this->formField;
         $this->vars['editorLang'] = $this->getValidEditorLang();
-        $this->vars['fullPage'] = $this->fullPage;
-        $this->vars['stretch'] = $this->formField->stretch;
-        $this->vars['size'] = $this->formField->size;
-        $this->vars['readOnly'] = $this->readOnly;
-        $this->vars['resizable'] = $this->resizable;
+        $this->vars['fullPage']   = $this->fullPage;
+        $this->vars['stretch']    = $this->formField->stretch;
+        $this->vars['size']       = $this->formField->size;
+        $this->vars['readOnly']   = $this->readOnly;
+        $this->vars['resizable']  = $this->resizable;
         $this->vars['externalToolbarAppState'] = $this->externalToolbarAppState;
         $this->vars['externalToolbarEventBus'] = $this->externalToolbarEventBus;
-        $this->vars['name'] = $this->getFieldName();
-        $this->vars['value'] = $this->getLoadValue();
-        $this->vars['toolbarButtons'] = $this->evalToolbarButtons();
+        $this->vars['name']            = $this->getFieldName();
+        $this->vars['value']           = $this->getLoadValue();
+        $this->vars['toolbarButtons']  = $this->evalToolbarButtons();
         $this->vars['useMediaManager'] = BackendAuth::userHasAccess('media.manage_media');
-        $this->vars['legacyMode'] = $this->legacyMode;
+        $this->vars['legacyMode']      = $this->legacyMode;
 
         $this->vars['globalToolbarButtons'] = EditorSetting::getConfigured('html_toolbar_buttons');
-        $this->vars['allowEmptyTags'] = EditorSetting::getConfigured('html_allow_empty_tags');
-        $this->vars['allowTags'] = EditorSetting::getConfigured('html_allow_tags');
-        $this->vars['allowAttrs'] = EditorSetting::getConfigured('html_allow_attrs');
-        $this->vars['noWrapTags'] = EditorSetting::getConfigured('html_no_wrap_tags');
-        $this->vars['removeTags'] = EditorSetting::getConfigured('html_remove_tags');
-        $this->vars['lineBreakerTags'] = EditorSetting::getConfigured('html_line_breaker_tags');
+        $this->vars['allowEmptyTags']       = EditorSetting::getConfigured('html_allow_empty_tags');
+        $this->vars['allowTags']            = EditorSetting::getConfigured('html_allow_tags');
+        $this->vars['allowAttrs']           = EditorSetting::getConfigured('html_allow_attrs');
+        $this->vars['noWrapTags']           = EditorSetting::getConfigured('html_no_wrap_tags');
+        $this->vars['removeTags']           = EditorSetting::getConfigured('html_remove_tags');
+        $this->vars['lineBreakerTags']      = EditorSetting::getConfigured('html_line_breaker_tags');
 
-        $this->vars['imageStyles'] = EditorSetting::getConfiguredStyles('html_style_image');
-        $this->vars['linkStyles'] = EditorSetting::getConfiguredStyles('html_style_link');
-        $this->vars['paragraphStyles'] = EditorSetting::getConfiguredStyles('html_style_paragraph');
+        $this->vars['imageStyles']      = EditorSetting::getConfiguredStyles('html_style_image');
+        $this->vars['linkStyles']       = EditorSetting::getConfiguredStyles('html_style_link');
+        $this->vars['paragraphStyles']  = EditorSetting::getConfiguredStyles('html_style_paragraph');
         $this->vars['paragraphFormats'] = EditorSetting::getConfiguredFormats('html_paragraph_formats');
-        $this->vars['tableStyles'] = EditorSetting::getConfiguredStyles('html_style_table');
-        $this->vars['tableCellStyles'] = EditorSetting::getConfiguredStyles('html_style_table_cell');
+        $this->vars['tableStyles']      = EditorSetting::getConfiguredStyles('html_style_table');
+        $this->vars['tableCellStyles']  = EditorSetting::getConfiguredStyles('html_style_table_cell');
 
         $this->vars['isAjax'] = Request::ajax();
     }
@@ -228,7 +228,7 @@ class RichEditor extends FormWidgetBase
 
     protected function getPageLinks($type)
     {
-        $result = [];
+        $result    = [];
         $apiResult = Event::fire('backend.richeditor.getTypeInfo', [$type]);
         if (is_array($apiResult)) {
             foreach ($apiResult as $typeInfo) {
@@ -277,9 +277,9 @@ class RichEditor extends FormWidgetBase
                     $linkUrl = '/';
                 }
 
-                $linkName = str_repeat('&nbsp;', $level * 4);
+                $linkName  = str_repeat('&nbsp;', $level * 4);
                 $linkName .= is_array($link) ? array_get($link, 'title', '') : $link;
-                $result[] = ['name' => $linkName, 'url' => $linkUrl];
+                $result[]  = ['name' => $linkName, 'url' => $linkUrl];
 
                 if (is_array($link)) {
                     $result = array_merge(

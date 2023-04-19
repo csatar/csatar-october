@@ -806,11 +806,11 @@ class SeederData extends Seeder
 
         // Head Counts
         foreach ($this::DATA['headCounts'] as $headCountData) {
-            $headCount = Headcount::firstOrNew([
+            $headCount       = Headcount::firstOrNew([
                 'description' => $headCountData['description'],
             ]);
-            $headCount->min = $headCountData['min'];
-            $headCount->max = $headCountData['max'];
+            $headCount->min  = $headCountData['min'];
+            $headCount->max  = $headCountData['max'];
             $headCount->note = $headCountData['note'];
             $headCount->sort_order = $headCountData['sort_order'];
             $headCount->save();
@@ -818,7 +818,7 @@ class SeederData extends Seeder
 
         // Durations
         foreach ($this::DATA['durations'] as $durationData) {
-            $duration = Duration::firstOrNew([
+            $duration      = Duration::firstOrNew([
                 'name' => $durationData['name'],
             ]);
             $duration->min = $durationData['min'];

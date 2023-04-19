@@ -72,18 +72,18 @@ class Region extends Model
         $name = '';
 
         if (!empty($this->big_parent_id)) {
-            $name.= $this->big_parent->name . ' - ';
+            $name .= $this->big_parent->name . ' - ';
         }
 
         if (!empty($this->mid_parent_id)) {
-            $name.= $this->mid_parent->name . ' - ';
+            $name .= $this->mid_parent->name . ' - ';
         }
 
         if (!empty($this->small_parent_id)) {
-            $name.= $this->small_parent->name . ' - ';
+            $name .= $this->small_parent->name . ' - ';
         }
 
-        $name.= $this->name;
+        $name .= $this->name;
 
         return $name;
     }

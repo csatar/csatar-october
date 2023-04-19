@@ -25,10 +25,10 @@ class CsatarGallery extends Gallery
     public $permission_to_watch;
 
     public $associationMandateTypes = ['Elnök', 'Ügyvezető elnök', 'Mozgalmi vezető', 'Iroda', 'CSATÁR fejlesztő'];
-    public $disctrictMandateTypes = ['Körzetvezető', 'CSATÁR fejlesztő'];
-    public $teamMandateTypes = ['Csapatvezető', 'CSATÁR fejlesztő'];
-    public $troopMandateTypes = ['Rajvezető', 'CSATÁR fejlesztő'];
-    public $patrolMandateTypes = ['Őrsvezető', 'CSATÁR fejlesztő'];
+    public $disctrictMandateTypes   = ['Körzetvezető', 'CSATÁR fejlesztő'];
+    public $teamMandateTypes        = ['Csapatvezető', 'CSATÁR fejlesztő'];
+    public $troopMandateTypes       = ['Rajvezető', 'CSATÁR fejlesztő'];
+    public $patrolMandateTypes      = ['Őrsvezető', 'CSATÁR fejlesztő'];
 
     public function defineProperties()
     {
@@ -53,13 +53,13 @@ class CsatarGallery extends Gallery
         $this->prepareMarkup();
         $this->addJs("/plugins/csatar/csatar/assets/touch-dnd.js");
 
-        $modelName = "Csatar\Csatar\Models\\" . $this->property('model_name');
+        $modelName   = "Csatar\Csatar\Models\\" . $this->property('model_name');
         $this->model = $modelName::find($this->property('model_id'));
-        $this->permission_to_edit = $this->getPermissionToEdit();
+        $this->permission_to_edit  = $this->getPermissionToEdit();
         $this->permission_to_watch = $this->getPermissiontoWatch();
 
-        $galleryIDs = GalleryModelPivot::select('gallery_id')->where('model_type', $modelName)->where('model_id', $this->property('model_id'))->where('parent_id', null)->get();
-        $galleries = GalleryModel::orderBy('sort_order', 'asc')->find($galleryIDs);
+        $galleryIDs      = GalleryModelPivot::select('gallery_id')->where('model_type', $modelName)->where('model_id', $this->property('model_id'))->where('parent_id', null)->get();
+        $galleries       = GalleryModel::orderBy('sort_order', 'asc')->find($galleryIDs);
         $this->galleries = $this->page['galleries'] = $galleries;
     }
 
@@ -106,13 +106,13 @@ class CsatarGallery extends Gallery
 
         if (post('parent_id')) {
             $this->parent_id = $this->page['parent_id'] = post('parent_id');
-            $parentGallery = GalleryModel::find(post('parent_id'));
-            $this->images = $this->page['images'] = $parentGallery->images;
+            $parentGallery   = GalleryModel::find(post('parent_id'));
+            $this->images    = $this->page['images'] = $parentGallery->images;
         }
 
         $this->galleries = $this->page['galleries'] = json_decode(post('gallerieArray'));
 
-        $modelName = "Csatar\Csatar\Models\\" . $this->property('model_name');
+        $modelName   = "Csatar\Csatar\Models\\" . $this->property('model_name');
         $this->model = $modelName::find($this->property('model_id'));
 
         $this->permission_to_edit = $this->getPermissionToEdit();
@@ -149,10 +149,10 @@ class CsatarGallery extends Gallery
             throw new ValidationException($validation);
         }
 
-        $gallery = new GalleryModel();
+        $gallery       = new GalleryModel();
         $gallery->name = post('name');
         $gallery->description = post('description');
-        $gallery->is_public = post('is_public') ? 1 : 0;
+        $gallery->is_public   = post('is_public') ? 1 : 0;
         $gallery->save();
 
         if (empty(Input::file('images'))) {
@@ -166,7 +166,7 @@ class CsatarGallery extends Gallery
         \Flash::success('A galéria sikeresen elkészült.');
 
         foreach (Input::file('images') as $file) {
-            $newFile = new File();
+            $newFile       = new File();
             $newFile->data = $file;
             $newFile->save();
 
@@ -186,7 +186,7 @@ class CsatarGallery extends Gallery
 
         $pivot = new GalleryModelPivot();
         $pivot->model_type = "Csatar\Csatar\Models\\" . $this->property('model_name');
-        $pivot->model_id = $this->property('model_id');
+        $pivot->model_id   = $this->property('model_id');
         $pivot->gallery_id = $gallery->id;
 
         $pivot->parent_id = post('parent_id') ?: null;
@@ -224,10 +224,10 @@ class CsatarGallery extends Gallery
             throw new ValidationException($validation);
         }
 
-        $gallery = GalleryModel::find(post('gallery_id'));
+        $gallery       = GalleryModel::find(post('gallery_id'));
         $gallery->name = post('name');
         $gallery->description = post('description');
-        $gallery->is_public = post('is_public') ? 1 : 0;
+        $gallery->is_public   = post('is_public') ? 1 : 0;
 
         if (empty(Input::file('images')) && $gallery->images()->count() === 0) {
             throw new ValidationException(['images' => 'Képet feltölteni kötelező!']);
@@ -243,7 +243,7 @@ class CsatarGallery extends Gallery
 
         if (Input::file('images') != []) {
             foreach (Input::file('images') as $file) {
-                $newFile = new File();
+                $newFile       = new File();
                 $newFile->data = $file;
                 $newFile->save();
 
@@ -263,13 +263,13 @@ class CsatarGallery extends Gallery
         $gallery->save();
         $this->gallery = $this->page['gallery'] = $gallery;
 
-        $this->gallery = $this->page['gallery'] = GalleryModel::find($gallery->id);
+        $this->gallery        = $this->page['gallery'] = GalleryModel::find($gallery->id);
         $this->childGalleries = $this->page['childGalleries'] = $this->getChildGalleries($gallery->id);
 
-        $modelName = "Csatar\Csatar\Models\\" . $this->property('model_name');
+        $modelName   = "Csatar\Csatar\Models\\" . $this->property('model_name');
         $this->model = $modelName::find($this->property('model_id'));
 
-        $this->permission_to_edit = $this->getPermissionToEdit();
+        $this->permission_to_edit  = $this->getPermissionToEdit();
         $this->permission_to_watch = $this->getPermissiontoWatch();
 
         return [
@@ -279,13 +279,13 @@ class CsatarGallery extends Gallery
 
     public function onOpenGallery($gallery_id = null)
     {
-        $this->gallery = $this->page['gallery'] = GalleryModel::find($gallery_id ?: post('gallery_id'));
+        $this->gallery        = $this->page['gallery'] = GalleryModel::find($gallery_id ?: post('gallery_id'));
         $this->childGalleries = $this->page['childGalleries'] = $this->getChildGalleries($gallery_id ?: post('gallery_id'));
 
-        $modelName = "Csatar\Csatar\Models\\" . $this->property('model_name');
+        $modelName   = "Csatar\Csatar\Models\\" . $this->property('model_name');
         $this->model = $modelName::find($this->property('model_id'));
 
-        $this->permission_to_edit = $this->getPermissionToEdit();
+        $this->permission_to_edit  = $this->getPermissionToEdit();
         $this->permission_to_watch = $this->getPermissiontoWatch();
 
         return [
@@ -304,7 +304,7 @@ class CsatarGallery extends Gallery
     public function onDeleteGallery()
     {
         $gallery = GalleryModel::find(post('gallery_id'));
-        $pivot = GalleryModelPivot::where('model_type', "Csatar\Csatar\Models\\" . $this->property('model_name'))->where('model_id', $this->property('model_id'))->where('gallery_id', $gallery->id)->first();
+        $pivot   = GalleryModelPivot::where('model_type', "Csatar\Csatar\Models\\" . $this->property('model_name'))->where('model_id', $this->property('model_id'))->where('gallery_id', $gallery->id)->first();
         $pivot->delete();
         $gallery->delete();
 
@@ -346,8 +346,8 @@ class CsatarGallery extends Gallery
 
     public function getChildGalleries($parent_id)
     {
-        $modelName = "Csatar\Csatar\Models\\" . $this->property('model_name');
-        $childIDs = GalleryModelPivot::select('gallery_id')->where('model_type', $modelName)->where('model_id', $this->property('model_id'))->where('parent_id', $parent_id)->get();
+        $modelName      = "Csatar\Csatar\Models\\" . $this->property('model_name');
+        $childIDs       = GalleryModelPivot::select('gallery_id')->where('model_type', $modelName)->where('model_id', $this->property('model_id'))->where('parent_id', $parent_id)->get();
         $childGalleries = GalleryModel::orderBy('sort_order', 'asc')->find($childIDs);
 
         return $childGalleries;
@@ -359,9 +359,9 @@ class CsatarGallery extends Gallery
             return false;
         }
 
-        $associationId  = $this->model->getAssociationId();
-        $mandateTypeIds = [];
-        $mandateTypeIds = array_merge($mandateTypeIds, Auth::user()->scout->getMandateTypeIdsInOrganizationTree($this->model, $associationId));
+        $associationId   = $this->model->getAssociationId();
+        $mandateTypeIds  = [];
+        $mandateTypeIds  = array_merge($mandateTypeIds, Auth::user()->scout->getMandateTypeIdsInOrganizationTree($this->model, $associationId));
         $checkInMandates = [];
 
         if ($this->property('model_name') == 'Association') {
@@ -377,16 +377,16 @@ class CsatarGallery extends Gallery
         }
 
         if ($this->property('model_name') == 'Troop') {
-            $team = Team::find($this->model->team_id);
-            $mandateTypeIds = array_merge($mandateTypeIds, Auth::user()->scout->getMandateTypeIdsInOrganizationTree($team, $associationId));
+            $team            = Team::find($this->model->team_id);
+            $mandateTypeIds  = array_merge($mandateTypeIds, Auth::user()->scout->getMandateTypeIdsInOrganizationTree($team, $associationId));
             $checkInMandates = ['teamMandateTypes', 'troopMandateTypes'];
         }
 
         if ($this->property('model_name') == 'Patrol') {
-            $team = Team::find($this->model->team_id);
+            $team           = Team::find($this->model->team_id);
             $mandateTypeIds = array_merge($mandateTypeIds, Auth::user()->scout->getMandateTypeIdsInOrganizationTree($team, $associationId));
             if ($this->model->troop_id != null) {
-                $troop = Troop::find($this->model->troop_id);
+                $troop          = Troop::find($this->model->troop_id);
                 $mandateTypeIds = array_merge($mandateTypeIds, Auth::user()->scout->getMandateTypeIdsInOrganizationTree($troop, $associationId));
             }
             $checkInMandates = ['teamMandateTypes', 'troopMandateTypes', 'patrolMandateTypes'];
@@ -443,16 +443,16 @@ class CsatarGallery extends Gallery
     {
         $gallery = GalleryModel::find(post('gallery_id'));
         $file_id = post('file_id');
-        $file = File ::find($file_id);
+        $file    = File ::find($file_id);
 
         $gallery->images()->remove($file);
     }
 
     public function onSaveImage()
     {
-        $gallery = GalleryModel::find(post('gallery_id'));
-        $file_id = post('file_id');
-        $file = File ::find($file_id);
+        $gallery     = GalleryModel::find(post('gallery_id'));
+        $file_id     = post('file_id');
+        $file        = File ::find($file_id);
         $file->title = post('title-' . $file_id);
         $file->description = post('description-' . $file_id);
         $file->save();
@@ -460,7 +460,7 @@ class CsatarGallery extends Gallery
 
     public function onSaveSortOrder()
     {
-        $modelName = "Csatar\Csatar\Models\\" . $this->property('model_name');
+        $modelName   = "Csatar\Csatar\Models\\" . $this->property('model_name');
         $this->model = $modelName::find($this->property('model_id'));
 
         if ($this->getPermissionToEdit()) {

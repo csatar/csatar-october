@@ -11,8 +11,8 @@ class GameTypes extends Controller
         'Backend\Behaviors\ReorderController',
     ];
 
-    public $listConfig = 'config_list.yaml';
-    public $formConfig = 'config_form.yaml';
+    public $listConfig    = 'config_list.yaml';
+    public $formConfig    = 'config_form.yaml';
     public $reorderConfig = 'config_reorder.yaml';
 
     public $requiredPermissions = [

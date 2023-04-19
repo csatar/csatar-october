@@ -53,11 +53,11 @@ class Songs extends Controller
             throw new \ValidationException($validator);
         }
 
-        $associationId = Input::get('association_id');
-        $uploaderCsatarCode = Input::get('uploader_csatar_code');
-        $approverCsatarCode = Input::get('approver_csatar_code');
+        $associationId         = Input::get('association_id');
+        $uploaderCsatarCode    = Input::get('uploader_csatar_code');
+        $approverCsatarCode    = Input::get('approver_csatar_code');
         $owerwriteExistingData = Input::get('overwrite_existing_data');
-        $richTextColumns = Input::get('rich_text_columns');
+        $richTextColumns       = Input::get('rich_text_columns');
 
         $xlsxFile = Input::file('xlsx_file');
 
@@ -86,9 +86,9 @@ class Songs extends Controller
     }
 
     public function onGetScoutOptions() {
-        $searchTerm = post('term');
+        $searchTerm   = post('term');
         $queryResults = Db::table('csatar_csatar_scouts')->whereRaw("CONCAT(family_name, ' ', given_name, ' ', ecset_code) like ?", ['%'.$searchTerm.'%'])->paginate(15);
-        $results = [];
+        $results      = [];
         foreach ($queryResults as $result) {
             $results[] = [
                 'id' => $result->ecset_code,

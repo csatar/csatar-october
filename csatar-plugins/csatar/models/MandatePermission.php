@@ -22,7 +22,7 @@ class MandatePermission extends Model
     public $rules = [];
 
     public const MODEL_GENERAL_VALUE = 'MODEL_GENERAL';
-    public const PALCEHOLDER_VALUE = 'PALCEHOLDER';
+    public const PALCEHOLDER_VALUE   = 'PALCEHOLDER';
 
     public $belongsTo = [
         'mandateType' => '\Csatar\Csatar\Models\MandateType',
@@ -173,9 +173,9 @@ class MandatePermission extends Model
 
     public function historyRecordBulkAction($dataArray, $error = null) {
 
-        $historyRelationName = HistoryService::getHistoryRelationName($this);
+        $historyRelationName   = HistoryService::getHistoryRelationName($this);
         $historyRelationObject = $this->{$historyRelationName}();
-        $historyModel = $historyRelationObject->getRelated();
+        $historyModel          = $historyRelationObject->getRelated();
 
         $modelClass = $historyRelationObject->getMorphClass();
 
@@ -210,9 +210,9 @@ class MandatePermission extends Model
     }
 
     public function historyRecordMatrixSynchronization($dataArray) {
-        $historyRelationName = HistoryService::getHistoryRelationName($this);
+        $historyRelationName   = HistoryService::getHistoryRelationName($this);
         $historyRelationObject = $this->{$historyRelationName}();
-        $historyModel = $historyRelationObject->getRelated();
+        $historyModel          = $historyRelationObject->getRelated();
 
         $modelClass = $historyRelationObject->getMorphClass();
 

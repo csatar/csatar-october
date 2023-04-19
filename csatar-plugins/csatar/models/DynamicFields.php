@@ -64,7 +64,7 @@ class DynamicFields extends Model
         // check that no other dynamic field item is already existing, which overlaps with the given period
         if (isset($this->association_id) && isset($this->model) && isset($this->start_date)) {
             $startDate = new DateTime($this->start_date);
-            $endDate = isset($this->end_date) ? new DateTime($this->end_date) : null;
+            $endDate   = isset($this->end_date) ? new DateTime($this->end_date) : null;
 
             $existingDynamicFields = self::where('association_id', $this->association_id)->where('model', $this->model)->get();
 
@@ -76,7 +76,7 @@ class DynamicFields extends Model
     
                 // check that the date isn't (partially) overlapping with a different record for the same period: overlap if max(start1, start2) < min(end1, end2)
                 $existingDynamicFieldStartDate = new DateTime($existingDynamicField['start_date']);
-                $existingDynamicFieldEndDate = isset($existingDynamicField['end_date']) ? new DateTime($existingDynamicField['end_date']) : null;
+                $existingDynamicFieldEndDate   = isset($existingDynamicField['end_date']) ? new DateTime($existingDynamicField['end_date']) : null;
 
                 $this->validateDates($existingDynamicFieldStartDate, $existingDynamicFieldEndDate, $startDate, $endDate);
             }
@@ -96,8 +96,8 @@ class DynamicFields extends Model
     public function beforeSave()
     {
         // add unique IDs and other parameters
-        $fields = isset($this->original['extra_fields_definition']) ? json_decode($this->original['extra_fields_definition'], true) : [];
-        $maxId = $this->extra_fields_max_id ?? 0;
+        $fields      = isset($this->original['extra_fields_definition']) ? json_decode($this->original['extra_fields_definition'], true) : [];
+        $maxId       = $this->extra_fields_max_id ?? 0;
         $fieldValues = $this->extra_fields_definition;
 
         // delete fields
@@ -107,7 +107,7 @@ class DynamicFields extends Model
         $this->beforeSaveAddFields($fields, $fieldValues, $maxId);
 
         // update values
-        $this->extra_fields_max_id = $this->extra_fields_max_id < $maxId ? $maxId : $this->extra_fields_max_id;
+        $this->extra_fields_max_id     = $this->extra_fields_max_id < $maxId ? $maxId : $this->extra_fields_max_id;
         $this->extra_fields_definition = $fields;
     }
 

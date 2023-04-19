@@ -770,7 +770,7 @@ class SeederData extends Seeder
         // hierarchy
         $idOfLastElement = null;
         foreach ($this::DATA['hierarchy'] as $name) {
-            $hierachyItem = Hierarchy::firstOrNew([
+            $hierachyItem            = Hierarchy::firstOrNew([
                 'name' => $name,
             ]);
             $hierachyItem->parent_id = $idOfLastElement;
@@ -796,52 +796,52 @@ class SeederData extends Seeder
             $association = Association::firstOrNew([
                 'name' => $name,
             ]);
-            $association->contact_name = $association->contact_name ?? null;
+            $association->contact_name  = $association->contact_name ?? null;
             $association->contact_email = $association->contact_email ?? null;
-            $association->address = $association->address ?? null;
+            $association->address       = $association->address ?? null;
             $association->leadership_presentation = $association->leadership_presentation ?? null;
             switch ($name) {
                 case 'Horvátországi magyar cserkészek':
                     $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'H';
-                    $association->currency_id = Currency::where('code', 'HRK')->first()->id;
-                    $association->team_fee = $association->team_fee ?? 0;
+                    $association->currency_id       = Currency::where('code', 'HRK')->first()->id;
+                    $association->team_fee          = $association->team_fee ?? 0;
                     $association->name_abbreviation = $association->name_abbreviation ?? 'HZMCS';
                     break;
                 case 'Kárpátaljai Magyar Cserkészszövetség':
-                    $association->currency_id = Currency::where('code', 'UAH')->first()->id;
-                    $association->team_fee = $association->team_fee ?? 0;
+                    $association->currency_id       = Currency::where('code', 'UAH')->first()->id;
+                    $association->team_fee          = $association->team_fee ?? 0;
                     $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'KÁ';
                     $association->name_abbreviation = $association->name_abbreviation ?? 'KáMCSSZ';
                     break;
                 case 'Külföldi Magyar Cserkészszövetség':
                     $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'KÜ';
-                    $association->currency_id = Currency::where('code', 'EUR')->first()->id;
-                    $association->team_fee = $association->team_fee ?? 0;
+                    $association->currency_id       = Currency::where('code', 'EUR')->first()->id;
+                    $association->team_fee          = $association->team_fee ?? 0;
                     $association->name_abbreviation = $association->name_abbreviation ?? 'KMCSSZ';
                     break;
                 case 'Magyar Cserkészszövetség':
                     $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'M';
-                    $association->currency_id = Currency::where('code', 'HUF')->first()->id;
-                    $association->team_fee = $association->team_fee ?? 0;
+                    $association->currency_id       = Currency::where('code', 'HUF')->first()->id;
+                    $association->team_fee          = $association->team_fee ?? 0;
                     $association->name_abbreviation = $association->name_abbreviation ?? 'MCSSZ';
                     break;
                 case 'Romániai Magyar Cserkészszövetség':
                     $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'E';
-                    $association->currency_id = Currency::where('code', 'RON')->first()->id;
-                    $association->team_fee = $association->team_fee ?? 300;
+                    $association->currency_id       = Currency::where('code', 'RON')->first()->id;
+                    $association->team_fee          = $association->team_fee ?? 300;
                     $association->name_abbreviation = $association->name_abbreviation ?? 'RMCSSZ';
-                    $association->country = 'Románia';
+                    $association->country           = 'Románia';
                     break;
                 case 'Szlovákiai Magyar Cserkészszövetség':
                     $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'F';
-                    $association->currency_id = Currency::where('code', 'EUR')->first()->id;
-                    $association->team_fee = $association->team_fee ?? 0;
+                    $association->currency_id       = Currency::where('code', 'EUR')->first()->id;
+                    $association->team_fee          = $association->team_fee ?? 0;
                     $association->name_abbreviation = $association->name_abbreviation ?? 'SZMCS';
                     break;
                 case 'Vajdasági Magyar Cserkészszövetség':
                     $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'D';
-                    $association->currency_id = Currency::where('code', 'RSD')->first()->id;
-                    $association->team_fee = $association->team_fee ?? 0;
+                    $association->currency_id       = Currency::where('code', 'RSD')->first()->id;
+                    $association->team_fee          = $association->team_fee ?? 0;
                     $association->name_abbreviation = $association->name_abbreviation ?? 'VMCSZ';
                     break;
                 default:
@@ -878,15 +878,15 @@ class SeederData extends Seeder
                         }
                         unset($mandateType['parent']);
                     }
-                    $newMandateType = MandateType::firstOrCreate([
+                    $newMandateType           = MandateType::firstOrCreate([
                         'name' => $mandateType['name'],
                         'association_id' => $mandateType['association_id'],
                         'organization_type_model_name' => $mandateType['organization_type_model_name'],
                     ]);
                     $newMandateType->required = $mandateType['required'] ?? false;
                     $newMandateType->overlap_allowed = $mandateType['overlap_allowed'] ?? false;
-                    $newMandateType->parent_id = $mandateType['parent_id'] ?? null;
-                    $newMandateType->is_vk = $mandateType['is_vk'] ?? 0;
+                    $newMandateType->parent_id       = $mandateType['parent_id'] ?? null;
+                    $newMandateType->is_vk           = $mandateType['is_vk'] ?? 0;
                     $newMandateType->save();
 
                     $mandateTypes[] = $newMandateType;
@@ -957,7 +957,7 @@ class SeederData extends Seeder
         foreach ($this::DATA['ageGroups'] as $associationName => $ageGroups) {
             $associationId = Association::where('name', $associationName)->first()->id ?? 0;
             foreach ($ageGroups as $ageGroup) {
-                $newAgeGroup = AgeGroup::firstOrCreate([
+                $newAgeGroup       = AgeGroup::firstOrCreate([
                     'name'           => $ageGroup['name'],
                     'association_id' => $associationId
                 ]);

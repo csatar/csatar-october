@@ -12,8 +12,8 @@ class TagList extends FormWidgetBase
     use \Csatar\Forms\Widgets\TagList\HasStringStore;
     use \Csatar\Forms\Widgets\TagList\HasRelationStore;
 
-    const MODE_ARRAY = 'array';
-    const MODE_STRING = 'string';
+    const MODE_ARRAY    = 'array';
+    const MODE_STRING   = 'string';
     const MODE_RELATION = 'relation';
 
     //
@@ -129,11 +129,11 @@ class TagList extends FormWidgetBase
      */
     public function prepareVars()
     {
-        $this->vars['placeholder'] = $this->placeholder;
-        $this->vars['useKey'] = $this->useKey;
-        $this->vars['field'] = $this->formField;
-        $this->vars['fieldOptions'] = $this->getFieldOptions();
-        $this->vars['selectedValues'] = $this->getLoadValue();
+        $this->vars['placeholder']      = $this->placeholder;
+        $this->vars['useKey']           = $this->useKey;
+        $this->vars['field']            = $this->formField;
+        $this->vars['fieldOptions']     = $this->getFieldOptions();
+        $this->vars['selectedValues']   = $this->getLoadValue();
         $this->vars['customSeparators'] = $this->getCustomSeparators();
     }
 

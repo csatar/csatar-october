@@ -27,7 +27,7 @@ class TeamReports extends ComponentBase
             \App::abort(403, 'Access denied!');
         }
 
-        $newTeamReport = new TeamReport();
+        $newTeamReport          = new TeamReport();
         $newTeamReport->team_id = Auth::user()->scout->team_id;
         $generalTeamReportPermissions = Auth::user()->scout->getRightsForModel($newTeamReport);
 
@@ -66,9 +66,9 @@ class TeamReports extends ComponentBase
                 $this->permissions[$teamReport->id] = Auth::user()->scout->getRightsForModel($teamReport)['MODEL_GENERAL'] ?? null;
             }
         } elseif ($this->id == null) {
-            $this->listingAll = true;
-            $associationId = Auth::user()->scout->getAssociation()->id;
-            $teamIds = Team::activeInAssociation($associationId)->get()->pluck('id')->toArray();
+            $this->listingAll  = true;
+            $associationId     = Auth::user()->scout->getAssociation()->id;
+            $teamIds           = Team::activeInAssociation($associationId)->get()->pluck('id')->toArray();
             $this->teamReports = TeamReport::whereIn('team_id', $teamIds)->orderBy('year', 'desc')->get();
 
             // create the array with the data to display in the table
@@ -109,8 +109,8 @@ class TeamReports extends ComponentBase
             $this->teamReports = TeamReport::where('team_id', $this->id)->orderBy('year', 'desc')->get();
 
             // determine whether the Team Report Create button should be shown
-            $month = date('n');
-            $year = $month <= 5 ? date('Y') - 1 : date('Y');
+            $month         = date('n');
+            $year          = $month <= 5 ? date('Y') - 1 : date('Y');
             $hasPermission = isset($this->permissions['teamReports']['create']) && $this->permissions['teamReports']['create'] > 0;
             $isInTeamReportSubmitPeriod = false;
             if ($association = $this->team->getAssociation()) {

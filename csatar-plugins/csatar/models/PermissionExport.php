@@ -67,7 +67,7 @@ class PermissionExport extends \Backend\Models\ExportModel
 
     public function getAssociationOptions()
     {
-        $associations = Association::all()->lists('name', 'id');
+        $associations        = Association::all()->lists('name', 'id');
         $associations['all'] = e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.all'));
         return $associations;
     }
