@@ -309,6 +309,7 @@ class TestData extends Seeder
             if (isset($troop_1)) {
                 $patrol_1->troop_id = $troop_1->id;
             }
+
             $patrol_1->age_group_id     = $this->getFirstAgeGroupInAssociation($team_6->id);
             $patrol_1->ignoreValidation = true;
             $patrol_1->save();
@@ -320,6 +321,7 @@ class TestData extends Seeder
             if (isset($troop_1)) {
                 $patrol_2->troop_id = $troop_1->id;
             }
+
             $patrol_2->age_group_id     = $this->getFirstAgeGroupInAssociation($team_6->id);
             $patrol_2->ignoreValidation = true;
             $patrol_2->save();
@@ -341,6 +343,7 @@ class TestData extends Seeder
             if (isset($troop_3)) {
                 $patrol_4->troop_id = $troop_3->id;
             }
+
             $patrol_4->age_group_id     = $this->getFirstAgeGroupInAssociation($team_7->id);
             $patrol_4->ignoreValidation = true;
             $patrol_4->save();
@@ -352,6 +355,7 @@ class TestData extends Seeder
             if (isset($troop_3)) {
                 $patrol_5->troop_id = $troop_3->id;
             }
+
             $patrol_5->age_group_id     = $this->getFirstAgeGroupInAssociation($team_7->id);
             $patrol_5->ignoreValidation = true;
             $patrol_5->save();
@@ -371,6 +375,7 @@ class TestData extends Seeder
             if (isset($troop_4)) {
                 $patrol_7->troop_id = $troop_4->id;
             }
+
             $patrol_7->age_group_id     = $this->getFirstAgeGroupInAssociation($team_7->id);
             $patrol_7->ignoreValidation = true;
             $patrol_7->save();
@@ -502,7 +507,6 @@ class TestData extends Seeder
             if (empty($permissionBasedModels) || empty($guestMandateTypeId)) return;
 
             foreach ($permissionBasedModels as $permissionBasedModel) {
-
                 $model          = new $permissionBasedModel();
                 $fields         = $model->fillable ?? [];
                 $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'hasOne', 'morphTo', 'morphOne',
@@ -536,7 +540,6 @@ class TestData extends Seeder
                         );
                 }
             }
-
         }
     }
 

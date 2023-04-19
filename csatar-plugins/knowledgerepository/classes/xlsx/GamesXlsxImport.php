@@ -157,6 +157,7 @@ class GamesXlsxImport implements ToModel, WithHeadingRow, WithValidation, SkipsO
             $modelNameForLangKey = (new \ReflectionClass($modelName))->getShortName();
             $this->errors[$this->getRowNumber()][] = Lang::get('csatar.knowledgerepository::lang.plugin.admin.messages.cannotFind' . $modelNameForLangKey) . implode(', ', $unmatched);
         }
+
         if ($createIfNotFound && !empty($unmatched)) {
             foreach ($unmatched as $unmatchedItem) {
                 $model = new $modelName();

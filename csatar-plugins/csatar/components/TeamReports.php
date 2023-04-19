@@ -63,6 +63,7 @@ class TeamReports extends ComponentBase
                         'submitted_at'  => (new DateTime($teamReport->submitted_at))->format('Y-m-d'),
                     ];
                 }
+
                 $this->permissions[$teamReport->id] = Auth::user()->scout->getRightsForModel($teamReport)['MODEL_GENERAL'] ?? null;
             }
         } elseif ($this->id == null) {
@@ -88,8 +89,10 @@ class TeamReports extends ComponentBase
                         'link_text' => isset($teamReport->submitted_at) ? Lang::get('csatar.csatar::lang.plugin.component.teamReports.view') : Lang::get('csatar.csatar::lang.plugin.component.teamReports.edit'),
                     ];
                 }
+
                 $this->permissions[$teamReport->id] = Auth::user()->scout->getRightsForModel($teamReport)['MODEL_GENERAL'] ?? null;
             }
+
             $this->teamReportData = collect($this->teamReportData);
             $this->teamReportData = $this->teamReportData->sortBy(function ($teamReport) {
                 return -$teamReport['year'] * 1000000 + $teamReport['team_number'];
@@ -156,6 +159,7 @@ class TeamReports extends ComponentBase
                 foreach ($this->legalRelationships as $legalRelationship) {
                     $data[$legalRelationship->id] = $scoutsDataCountPerLegalRelationship[$legalRelationship->id] ?? 0;
                 }
+
                 array_push($this->teamReportData, $data);
                 $this->permissions[$teamReport->id] = Auth::user()->scout->getRightsForModel($teamReport)['MODEL_GENERAL'] ?? null;
             }

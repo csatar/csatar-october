@@ -72,6 +72,7 @@ class CsatarGallery extends Gallery
             $this->addJs('/plugins/pollozen/simplegallery/assets/js/owl.awesome.carousel.min.js');
             $this->addJs('/plugins/pollozen/simplegallery/assets/js/pz.js');
         }
+
         if ($this->property('markup')=='masonry') {
             $this->addCss('/plugins/pollozen/simplegallery/assets/css/galleries.css');
             $this->addJs('/plugins/pollozen/simplegallery/assets/js/imagesloaded.pkgd.min.js');
@@ -235,7 +236,7 @@ class CsatarGallery extends Gallery
 
         $imagesSize = empty(Input::file('images')) ? 0 : sizeof(Input::file('images'));
 
-        if (($imagesSize + $gallery->images()->count()) > 30 ) {
+        if (($imagesSize + $gallery->images()->count()) > 30) {
             throw new ValidationException(['images' => 'Maximum 30 képet lehet feltölteni a galériához!']);
         }
 
@@ -389,6 +390,7 @@ class CsatarGallery extends Gallery
                 $troop          = Troop::find($this->model->troop_id);
                 $mandateTypeIds = array_merge($mandateTypeIds, Auth::user()->scout->getMandateTypeIdsInOrganizationTree($troop, $associationId));
             }
+
             $checkInMandates = ['teamMandateTypes', 'troopMandateTypes', 'patrolMandateTypes'];
         }
 
@@ -400,6 +402,7 @@ class CsatarGallery extends Gallery
                 }
             }
         }
+
         return false;
     }
 
@@ -422,6 +425,7 @@ class CsatarGallery extends Gallery
         ) {
             return true;
         }
+
         return false;
     }
 

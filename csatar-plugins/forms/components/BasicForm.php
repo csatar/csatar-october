@@ -150,6 +150,7 @@ class BasicForm extends ComponentBase  {
             if (empty($this->record)) {
                 return;
             }
+
             $this->readOnly = $this->properties['readOnly'] ?? false;
         } else {
             $this->getComponentSettings();
@@ -157,6 +158,7 @@ class BasicForm extends ComponentBase  {
             $this->record            = $this->getRecord();
             $this->currentUserRights = $this->getRights($this->record);
         }
+
         $this->setOrGetSessionKey();
         $this->fieldsThatRequire2FA = $this->getFieldsThatRequire2FA($this->currentUserRights);
     }
@@ -285,6 +287,7 @@ class BasicForm extends ComponentBase  {
             if (!$this->canRead('MODEL_GENERAL')) {
                 \App::abort(403, 'Access denied!');
             }
+
             $this->renderedComponent = $this->createForm(true);
         }
 
@@ -293,6 +296,7 @@ class BasicForm extends ComponentBase  {
             if (!$this->canCreate('MODEL_GENERAL')) {
                 \App::abort(403, 'Access denied!');
             }
+
             $this->renderedComponent = $this->createForm();
         }
 
@@ -304,9 +308,11 @@ class BasicForm extends ComponentBase  {
                     if (!$this->canUpdate('MODEL_GENERAL')) {
                         \App::abort(403, 'Access denied!');
                     }
+
                     if (!Auth::check()) {
                         return Redirect::to('/bejelentkezes');
                     }
+
                     $this->renderedComponent = $this->createForm();
                     break;
                 case $this->actionDeleteKeyword:
@@ -314,12 +320,14 @@ class BasicForm extends ComponentBase  {
                     if (!$this->canDelete('MODEL_GENERAL')) {
                         \App::abort(403, 'Access denied!');
                     }
+
                     $this->renderedComponent = $this->onDelete();
                     break;
                 default:
                     if (!$this->canRead('MODEL_GENERAL')) {
                         \App::abort(403, 'Access denied!');
                     }
+
                     $this->readOnly          = true;
                     $this->renderedComponent = $this->createForm(true);
             }
@@ -342,6 +350,7 @@ class BasicForm extends ComponentBase  {
         if (!empty($this->record)) {
             return $this->record;
         }
+
         $form      = $this->form ?? Form::find($this->formId ?? Input::get('formId'));
         $modelName = $form->getModelName();
         $key       = $this->recordKeyParam ?? Input::get('recordKeyParam');
@@ -464,9 +473,11 @@ class BasicForm extends ComponentBase  {
             if ($key == 'is2fa') {
                 return;
             }
+
             if (isset($item['obligatory'])) {
                 unset($item['obligatory']);
             }
+
             $valueThatIndicates2FANeed = $userRights['is2fa'] ? 1 : 0;
             return array_keys($item, $valueThatIndicates2FANeed);
         })->filter(function ($item) {

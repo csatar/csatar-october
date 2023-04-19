@@ -82,6 +82,7 @@ class AccidentLogRigthsProvider
                 'delete' => ($isAdmin || $isOwn) ? 2 : 0,
             ];
         }
+
         return $rights;
     }
 

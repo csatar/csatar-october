@@ -248,16 +248,19 @@ class Team extends OrganizationBase
                 $troop->ignoreValidation = true;
                 $troop->forceSave();
             }
+
             foreach (Patrol::where(['team_id' => $this->id, 'status' => Status::ACTIVE])->get() as $patrol) {
                 $patrol->status           = Status::INACTIVE;
                 $patrol->ignoreValidation = true;
                 $patrol->forceSave();
             }
+
             foreach (Scout::where('team_id', $this->id)->whereNull('inactivated_at')->get() as $scout) {
                 $scout->inactivated_at   = date('Y-m-d H:i:s');
                 $scout->ignoreValidation = true;
                 $scout->forceSave();
             }
+
             Mandate::setAllMandatesExpiredInOrganization($this);
         }
 
@@ -272,6 +275,7 @@ class Team extends OrganizationBase
                 StructureTree::getStructureTree();
                 return;
             }
+
             $structureTree[$this->district->association_id]['districtsActive'][$this->district_id]['teamsActive'][$this->id]['id']            = $this->name;
             $structureTree[$this->district->association_id]['districtsActive'][$this->district_id]['teamsActive'][$this->id]['name']          = $this->name;
             $structureTree[$this->district->association_id]['districtsActive'][$this->district_id]['teamsActive'][$this->id]['extended_name'] = $this->extended_name;
@@ -304,6 +308,7 @@ class Team extends OrganizationBase
                 StructureTree::getStructureTree();
                 return;
             }
+
             $structureTree[$this->district->association_id]['districtsActive'][$this->district_id]['teamsActive'][$this->id]['name']          = $this->name;
             $structureTree[$this->district->association_id]['districtsActive'][$this->district_id]['teamsActive'][$this->id]['extended_name'] = $this->extended_name;
             $structureTree[$this->district->association_id]['districtsActive'][$this->district_id]['teamsActive'][$this->id]['team_number']   = $this->team_number;
@@ -379,6 +384,7 @@ class Team extends OrganizationBase
                 return $item->id;
             }
         }
+
         return null;
     }
 

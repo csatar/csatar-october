@@ -88,6 +88,7 @@ class StructureTree
                         $relationItems instanceof Collection ? self::toKeyedByIdArray($relationItems) : ($relationItems instanceof Arrayable ? $relationItems->toArray() : $relationItems);
                 }
             }
+
             return $array;
         })->keyBy('id')->toArray();
     }
@@ -241,6 +242,7 @@ class StructureTree
                 StructureTree::getStructureTree();
                 return;
             }
+
         $structureTree[$associationId] = $refreshedAssociation;
         Cache::forever('structureTree', $structureTree);
     }
@@ -292,12 +294,14 @@ class StructureTree
         if (empty($refreshedDistrict)) {
            return;
         }
+
         // get old tree from cache and empty cache
         $structureTree = Cache::pull('structureTree');
             if (empty($structureTree)) {
                 StructureTree::getStructureTree();
                 return;
             }
+
         // update the tree
         $structureTree[$refreshedDistrict['association_id']]['districtsActive'][$refreshedDistrict['id']] = $refreshedDistrict;
         // insert the tree back to cache
@@ -351,6 +355,7 @@ class StructureTree
         if (empty($refreshedTeam)) {
             return;
         }
+
         // get old tree from cache and empty cache
         $structureTree = Cache::pull('structureTree');
         if (empty($structureTree)) {

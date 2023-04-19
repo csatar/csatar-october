@@ -77,6 +77,7 @@ class Scouts extends Controller
             Flash::error(Lang::get('csatar.csatar::lang.plugin.admin.scout.noScoutsSelected'));
             return Redirect::refresh();
         }
+
         $scouts = Scout::onlyTrashed()->whereIn('id', $checkedIds)->get();
         $scouts->each(function($scout){
             $scout->inactivated_at   = $scout->inactivated_at ?? date('Y-m-d H:i:s');

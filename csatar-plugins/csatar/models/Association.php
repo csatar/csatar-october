@@ -129,6 +129,7 @@ class Association extends OrganizationBase
 //            };
 //            $eagerLoadSettings[] = 'logo';
         }
+
         return $eagerLoadSettings;
     }
 
@@ -171,12 +172,11 @@ class Association extends OrganizationBase
             StructureTree::updateAssociationTree($this->association_id);
         }
 
-        if (empty($this->original) ) {
+        if (empty($this->original)) {
             return;
         }
 
-        if (
-            ($this->getOriginalValue('name') != $this->name)
+        if (($this->getOriginalValue('name') != $this->name)
             || ($this->getOriginalValue('name_abbreviation') != $this->name_abbreviation)
         ) {
             $structureTree = Cache::pull('structureTree');

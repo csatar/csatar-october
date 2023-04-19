@@ -86,6 +86,7 @@ class PermissionExport extends \Backend\Models\ExportModel
                     WHERE id = association_id), ' - ', name) as name, id"))
                 ->lists('name', 'id');
         }
+
         $mandateTypes['all'] = e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.all'));
 
         return $mandateTypes;

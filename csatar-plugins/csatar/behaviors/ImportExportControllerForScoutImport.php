@@ -628,6 +628,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
         foreach ($columns as $column) {
             $headers[] = $widget->getHeaderValue($column);
         }
+
         $csv->insertOne($headers);
 
         /*
@@ -651,6 +652,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
                 if (is_array($value)) {
                     $value = implode('|', $value);
                 }
+
                 $record[] = $value;
             }
 
@@ -696,8 +698,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
      */
     protected function checkPermissionsForType($type)
     {
-        if (
-            ($permissions = $this->getConfig($type.'[permissions]')) &&
+        if (($permissions = $this->getConfig($type.'[permissions]')) &&
             (!BackendAuth::getUser()->hasAnyAccess((array) $permissions))
         ) {
             return Response::make(View::make('backend::access_denied'), 403);
@@ -794,8 +795,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
             $reader->setEscape($options['escape']);
         }
 
-        if (
-            $options['encoding'] !== null &&
+        if ($options['encoding'] !== null &&
             $reader->supportsStreamFilter()
         ) {
             $reader->addStreamFilter(sprintf(

@@ -224,6 +224,7 @@ class RecordList extends RainRecordList {
         if (!empty($this->activeFilters)) {
             $model = $this->applyFilters($model);
         }
+
         $model   = $this->sort($model);
         $records = $this->paginate($model);
 
@@ -294,7 +295,6 @@ class RecordList extends RainRecordList {
             } else {
                 $headerConfig[$column]['sortable'] = $config['recordList']['sortable'] ?? false;
             }
-
         }
 
         return $headerConfig;
@@ -340,6 +340,7 @@ class RecordList extends RainRecordList {
             if (!$withoutOptions) {
                 $filterConfig[$column]['options'] = $this->getFilterOptions($column, $config);
             }
+
             $filterConfig[$column]['filterConfig'] = $config['recordList']['filterConfig'] ?? null;
         }
 
@@ -348,8 +349,7 @@ class RecordList extends RainRecordList {
 
     public function getFilterOptions($column, $config) {
 
-        if (
-            isset($config['recordList']['filterConfig']['type']) &&
+        if (isset($config['recordList']['filterConfig']['type']) &&
             $config['recordList']['filterConfig']['type']== 'freeText'
         ) {
             return [];
@@ -359,8 +359,7 @@ class RecordList extends RainRecordList {
             return $this->processPreDefinedOptions($config['recordList']['filterConfig']['options']);
         }
 
-        if (
-            isset($config['recordList']['filterConfig']['type']) &&
+        if (isset($config['recordList']['filterConfig']['type']) &&
             $config['recordList']['filterConfig']['type'] == 'relation'
         ) {
             return $this->getFilterOptionsForRelation($column, $config);
@@ -382,16 +381,19 @@ class RecordList extends RainRecordList {
         if (!is_array($options)) {
             return null;
         }
+
         $processedOptions = [];
         foreach ($options as $key => $label) {
             if (empty($label)) {
                 continue;
             }
+
             $processedOptions[] = [
                 'id' => $key,
                 'label' => $label
             ];
         }
+
         return $processedOptions;
     }
 
@@ -438,7 +440,6 @@ class RecordList extends RainRecordList {
             }
 
             if (isset($filtersConfig[$column]['filterConfig']['type'])) {
-
                 if ($filtersConfig[$column]['filterConfig']['type'] == 'freeText') {
                     $query = $query->where(function ($query) use ($column, $values) {
                         foreach ($values as $value) {
@@ -474,6 +475,7 @@ class RecordList extends RainRecordList {
             if (!isset($config['recordList'])) {
                 continue;
             }
+
             $rowConfig[$column]['attribute'] = $column;
             $rowConfig[$column]['type']      = $config['type'];
 
@@ -507,6 +509,7 @@ class RecordList extends RainRecordList {
                 return $relationType;
             }
         }
+
         return null;
     }
 
@@ -550,6 +553,7 @@ class RecordList extends RainRecordList {
         if (!strlen($modelClassName) || !class_exists($modelClassName)) {
             throw new SystemException('Invalid model class name');
         }
+
         return $modelClassName;
     }
 }

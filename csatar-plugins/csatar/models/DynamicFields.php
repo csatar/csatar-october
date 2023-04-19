@@ -127,6 +127,7 @@ class DynamicFields extends Model
                 array_push($fieldsToDelete, $key);
             }
         }
+
         foreach ($fieldsToDelete as $key) {
             unset($fields[$key]);
         }

@@ -74,6 +74,7 @@ class OrganizationUnitFrontend extends ComponentBase
             if (isset(Auth::user()->scout)) {
                 $this->permissions = Auth::user()->scout->getRightsForModel($this->model);
             }
+
             if (empty($this->model->content_page)) {
                 $this->content_page = $this->model->content_page()->create([
                     'title' => '',
@@ -84,7 +85,6 @@ class OrganizationUnitFrontend extends ComponentBase
             }
 
             $this->gallery_id = GalleryModelPivot::where('model_type', $modelName)->where('model_id', $this->property('model_id'))->value('gallery_id');
-
         }
 
         $this->inactiveMandatesColumns = $this->getInactiveMandatesColumns();
@@ -264,26 +264,32 @@ class OrganizationUnitFrontend extends ComponentBase
                     $dataRow[] = Gender::getOptionsWithLabels()[$record->{$attribute}] ?? '';
                     continue;
                 }
+
                 if ($attribute == 'legal_relationship_id') {
                     $dataRow[] = $legalRelationshipsMap[$record->{$attribute}] ?? '';
                     continue;
                 }
+
                 if ($attribute == 'religion_id') {
                     $dataRow[] = $religionsMap[$record->{$attribute}] ?? '';
                     continue;
                 }
+
                 if ($attribute == 'tshirt_size_id') {
                     $dataRow[] = $tShirtSizesMap[$record->{$attribute}] ?? '';
                     continue;
                 }
+
                 if ($attribute == 'citizenship_country_id') {
                     $dataRow[] = $countryMap[$record->{$attribute}] ?? '';
                     continue;
                 }
+
                 if ($attribute == 'is_active') {
                     $dataRow[] = $record->inactivated_at ? '0' : '1';
                     continue;
                 }
+
                 $dataRow[] = strval($record->{$attribute});
             }
 
@@ -311,8 +317,7 @@ class OrganizationUnitFrontend extends ComponentBase
         $file   = Input::file('csvXlsxFile');
         $teamId = Input::get('teamId');
 
-        if (
-            empty($file)
+        if (empty($file)
             || !$file->isValid()
             || ($file->getMimeType() != 'text/csv'
                 && $file->getMimeType() != 'application/vnd.ms-excel'
@@ -358,6 +363,7 @@ class OrganizationUnitFrontend extends ComponentBase
                     $log['errors'][] = $rowNumber . ' | ' . Lang::get('csatar.csatar::lang.plugin.component.organizationUnitFrontend.csv.personalIdentificationNumberMissing');
                     continue;
                 }
+
                 if ($scout->is_active != Status::ACTIVE) {
                     $scout->inactivated_at   = empty($scout->inactivated_at) ? date('Y-m-d H:i:s') : $scout->inactivated_at;
                     $scout->ignoreValidation = true;
@@ -365,6 +371,7 @@ class OrganizationUnitFrontend extends ComponentBase
                 } else {
                     $scout->save();
                 }
+
                 if ($scout->wasRecentlyCreated) {
                     $log['created'][] = $rowNumber . ' - ' . $scout->ecset_code;
                 } else {
@@ -376,9 +383,7 @@ class OrganizationUnitFrontend extends ComponentBase
                 } else {
                     $log['errors'][] = $rowNumber . ' | ' . $scout->name . ' - ' . $scout->ecset_code . ' | ' . $e->getMessage();
                 }
-
             }
-
         }
 
         $this->page['csvXlsxImportLog'] = $log;
@@ -400,6 +405,7 @@ class OrganizationUnitFrontend extends ComponentBase
         if ($attributes instanceof \Illuminate\Support\Collection) {
             $attributes = $attributes->toArray();
         }
+
         $legalRelationshipsMap = (new LegalRelationshipMapper)->namesToIds;
         $religionsMap          = (new ReligionMapper)->namesToIds;
         $tShirtSizesMap        = (new TShirtSizeMapper)->namesToIds;
@@ -416,32 +422,39 @@ class OrganizationUnitFrontend extends ComponentBase
                 $data[$attributes[$key]] = array_flip(Gender::getOptionsWithLabels())[$value] ?? null;
                 continue;
             }
+
             if ($attributes[$key] == 'legal_relationship_id') {
                 $data[$attributes[$key]] = $legalRelationshipsMap[$value] ?? null;
                 continue;
             }
+
             if ($attributes[$key] == 'religion_id') {
                 $data[$attributes[$key]] = $religionsMap[$value] ?? null;
                 continue;
             }
+
             if ($attributes[$key] == 'tshirt_size_id') {
                 $data[$attributes[$key]] = $tShirtSizesMap[$value] ?? null;
                 continue;
             }
+
             if ($attributes[$key] == 'citizenship_country_id') {
                 $data[$attributes[$key]] = $countryMap[$value] ?? null;
                 continue;
             }
+
             $data[$attributes[$key]] = $value;
         }
 
         if (!empty($ecsetCode)) {
             $scout = Scout::where('team_id', $teamId)->where('ecset_code', $ecsetCode)->first();
         }
+
         if (empty($scout) && !empty($personalIdentificationNumber)) {
             unset($data['ecset_code']);
             $scout = Scout::where('team_id', $teamId)->where('personal_identification_number', $personalIdentificationNumber)->first();
         }
+
         if (empty($scout)) {
             $scout = new Scout();
         }

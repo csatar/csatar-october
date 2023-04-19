@@ -75,6 +75,7 @@ class OrganizationBase extends PermissionBasedAccess
                     break;
                 }
             }
+
             if (!$validMandate) {
                 throw new ValidationException(['logo' => str_replace('%name', $mandateType->name, Lang::get('csatar.csatar::lang.plugin.admin.mandate.requiredMandateError'))]);
             }
@@ -217,6 +218,7 @@ class OrganizationBase extends PermissionBasedAccess
         if (!isset($this->original[$attribute])) {
             return null;
         }
+
         return $this->original[$attribute];
     }
 }

@@ -136,6 +136,7 @@ class Troop extends OrganizationBase
                 'team', 'team.district', 'team.district.association',
             ]);
         }
+
         if ($useCase == 'inactiveMandatesTroop') {
             $eagerLoadSettings = [
                 'mandatesInactive.mandate_troop.team' => function($query) {
@@ -148,6 +149,7 @@ class Troop extends OrganizationBase
             ];
             $eagerLoadSettings = array_merge($eagerLoadSettings, parent::getEagerLoadSettings('inactiveMandates'));
         }
+
         return $eagerLoadSettings;
     }
 
@@ -167,11 +169,13 @@ class Troop extends OrganizationBase
                 $patrol->ignoreValidation = true;
                 $patrol->forceSave();
             }
+
             foreach (Scout::where('troop_id', $this->id)->whereNull('inactivated_at')->get() as $scout) {
                 $scout->inactivated_at   = date('Y-m-d H:i:s');
                 $scout->ignoreValidation = true;
                 $scout->forceSave();
             }
+
             Mandate::setAllMandatesExpiredInOrganization($this);
         }
 
@@ -186,6 +190,7 @@ class Troop extends OrganizationBase
                 StructureTree::getStructureTree();
                 return;
             }
+
             $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->id]['id']            = $this->id;
             $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->id]['name']          = $this->name;
             $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->id]['extended_name'] = $this->extended_name;
@@ -214,6 +219,7 @@ class Troop extends OrganizationBase
                 StructureTree::getStructureTree();
                 return;
             }
+
             $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->id]['name']          = $this->name;
             $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->id]['extended_name'] = $this->extended_name;
             Cache::forever('structureTree', $structureTree);
@@ -261,6 +267,7 @@ class Troop extends OrganizationBase
         foreach (self::where('team_id', $teamId)->get() as $item) {
             $options[$item->id] = $item->extendedName;
         }
+
         asort($options);
         return $options;
     }

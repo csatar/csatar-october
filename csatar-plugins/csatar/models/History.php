@@ -65,6 +65,7 @@ class History extends Model
         if (class_exists($this->model_type) && method_exists($this->model_type, 'getOrganizationTypeModelNameUserFriendly')) {
             return ($this->model_type)::getOrganizationTypeModelNameUserFriendly();
         }
+
         return $this->model_type;
     }
 
@@ -73,6 +74,7 @@ class History extends Model
         if (class_exists($this->related_model_type) && method_exists($this->related_model_type, 'getOrganizationTypeModelNameUserFriendly')) {
             return ($this->related_model_type)::getOrganizationTypeModelNameUserFriendly();
         }
+
         return $this->related_model_type;
     }
 
@@ -96,6 +98,7 @@ class History extends Model
             if (class_exists($item) && method_exists($item, 'getOrganizationTypeModelNameUserFriendly')) {
                 $item = ($item)::getOrganizationTypeModelNameUserFriendly();
             }
+
             if (empty($item)) {
                 $item = 'N/A';
             }
@@ -109,6 +112,7 @@ class History extends Model
             if (class_exists($item) && method_exists($item, 'getOrganizationTypeModelNameUserFriendly')) {
                 $item = ($item)::getOrganizationTypeModelNameUserFriendly();
             }
+
             if (empty($item)) {
                 $item = 'N/A';
             }
@@ -138,6 +142,7 @@ class History extends Model
         foreach ($frontendUserOptions as $frontendUserOption) {
             $options[$frontendUserOption->id] = $frontendUserOption->name;
         }
+
         return $options;
     }
 
@@ -149,6 +154,7 @@ class History extends Model
         foreach ($backendUserOptions as $backendUserOption) {
             $options[$backendUserOption->id] = $backendUserOption->name;
         }
+
         return $options;
     }
 }

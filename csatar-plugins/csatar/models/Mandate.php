@@ -179,6 +179,7 @@ class Mandate extends Model
         if (empty($mandateType)) {
             return;
         }
+
         $organizationUnit = ($mandateType->organization_type_model_name)::find($data['mandate_model_id']);
         $startDate        = new DateTime($data['start_date']);
         $endDate          = isset($data['end_date']) ? new DateTime($data['end_date']) : null;
@@ -246,6 +247,7 @@ class Mandate extends Model
         foreach ($scouts as $item) {
             $options[$item->id] = $item->name;
         }
+
         asort($options);
         $fields->scout->options = $options;
     }

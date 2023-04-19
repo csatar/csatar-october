@@ -40,7 +40,6 @@ class PermissionImport extends \Backend\Models\ImportModel
         }
 
         foreach ($results as $row => $data) {
-
             $associationName = $data['association'];
             $mandateTypeName = $data['mandate_type'];
 
@@ -85,11 +84,9 @@ class PermissionImport extends \Backend\Models\ImportModel
                 } else {
                     $this->logUpdated();
                 }
-
             } catch (\Exception $ex) {
                 $this->logError($row, $ex->getMessage());
             }
-
         }
 
         set_time_limit($intialMaxExecutionTime);

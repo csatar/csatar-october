@@ -141,6 +141,7 @@ class Game extends PermissionBasedAccess
         if (!isset($related->association_id)) {
             return $query;
         }
+
         return $query->where('association_id', $related->association_id);
     }
 

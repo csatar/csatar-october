@@ -74,6 +74,7 @@ class MandatePermission extends Model
         foreach ($fields as $field => $model) {
             $returnFields[$field] = $this->getTranslatedLabelForFiled($field, $model);
         }
+
         return $returnFields;
     }
 
@@ -87,6 +88,7 @@ class MandatePermission extends Model
         if (class_exists($this->model)) {
             return ($this->model)::getOrganizationTypeModelNameUserFriendly();
         }
+
         return '';
     }
 
@@ -185,7 +187,6 @@ class MandatePermission extends Model
         }
 
         foreach ($dataArray as $data) {
-
             $toSave[] = [
                 'fe_user_id' => HistoryService::historyGetUser(),
                 'be_user_id' => HistoryService::historyGetBackendUser(),
