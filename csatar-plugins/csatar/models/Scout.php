@@ -220,7 +220,7 @@ class Scout extends OrganizationBase
 
     public $attributeNames = [];
 
-    function __construct(array $attributes = []) {
+    public function __construct(array $attributes = []) {
         parent::__construct($attributes);
         $this->attributeNames['phone'] = e(trans('csatar.csatar::lang.plugin.admin.general.phone'));
         $this->attributeNames['team']  = e(trans('csatar.csatar::lang.plugin.admin.scout.team'));

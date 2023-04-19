@@ -160,14 +160,14 @@ class DynamicFields extends Model
         }
     }
 
-    function getModelOptions()
+    public function getModelOptions()
     {
         return [
             TeamReport::getModelName() => TeamReport::getOrganizationTypeModelNameUserFriendly(),
         ];
     }
 
-    function getOrganizationTypeModelNameUserFriendlyAttribute()
+    public function getOrganizationTypeModelNameUserFriendlyAttribute()
     {
         return $this->attributes['model']
             ? ($this->attributes['model'])::getOrganizationTypeModelNameUserFriendly()

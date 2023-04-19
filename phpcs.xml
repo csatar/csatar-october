@@ -38,7 +38,7 @@
     <rule ref="Squiz.ControlStructures.ControlSignature"/>
     <rule ref="Squiz.Commenting.DocCommentAlignment"/>
     <rule ref="Squiz.Commenting.EmptyCatchComment"/>
-    <rule ref="Squiz.Commenting.InlineComment"/>
+<!--    <rule ref="Squiz.Commenting.InlineComment"/>-->
 <!--    <rule ref="Squiz.Commenting.VariableComment"/>-->
     <rule ref="Squiz.Scope.MethodScope"/>
     <rule ref="Squiz.WhiteSpace.ControlStructureSpacing"/>

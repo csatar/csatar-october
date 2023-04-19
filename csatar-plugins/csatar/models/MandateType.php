@@ -138,7 +138,7 @@ class MandateType extends Model
         return true;
     }
 
-    function beforeDelete()
+    public function beforeDelete()
     {
         MandatePermission::where('mandate_type_id', $this->id)->delete();
     }
@@ -148,7 +148,7 @@ class MandateType extends Model
         return '\\' . static::class;
     }
 
-    function getOrganizationTypeModelNameOptions()
+    public function getOrganizationTypeModelNameOptions()
     {
         return [
             Association::getModelName() => Association::getOrganizationTypeModelNameUserFriendly(),
@@ -159,7 +159,7 @@ class MandateType extends Model
         ];
     }
 
-    function getOrganizationTypeModelNameUserFriendlyAttribute()
+    public function getOrganizationTypeModelNameUserFriendlyAttribute()
     {
         return $this->attributes['organization_type_model_name']
             && $this->attributes['organization_type_model_name'] != self::MODEL_NAME_GUEST
@@ -170,7 +170,7 @@ class MandateType extends Model
     /**
      * Scope a query to only include mandates from a given association.
      */
-    function scopeAssociation($query, $model = null)
+    public function scopeAssociation($query, $model = null)
     {
         $mandate_model_type = null;
         $association_id     = null;

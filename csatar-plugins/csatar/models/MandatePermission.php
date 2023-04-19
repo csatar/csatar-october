@@ -31,7 +31,7 @@ class MandatePermission extends Model
 
     public $translatedLabelsForFields = [];
 
-    function __construct(array $attributes = []) {
+    public function __construct(array $attributes = []) {
         parent::__construct($attributes);
     }
 

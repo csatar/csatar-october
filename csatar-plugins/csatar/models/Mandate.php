@@ -29,7 +29,7 @@ class Mandate extends Model
 
     public $ignoreValidation = false;
 
-    function __construct(array $attributes = []) {
+    public function __construct(array $attributes = []) {
         parent::__construct($attributes);
         $this->setValidationAttributeNames([
             'mandate_type' => e(trans('csatar.csatar::lang.plugin.admin.mandateType.mandateType')),

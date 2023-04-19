@@ -158,7 +158,7 @@ class OrganizationBase extends PermissionBasedAccess
         return $eagerLoadSettings;
     }
 
-    function afterUpdate()
+    public function afterUpdate()
     {
         $now = new DateTime();
         if (isset($this->original['name']) && $this->name !== $this->original['name']) {
