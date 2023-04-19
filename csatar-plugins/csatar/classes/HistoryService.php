@@ -16,7 +16,7 @@ use Csatar\Csatar\Models\History as HistoryModelDefault;
 
 class HistoryService
 {
-    public const SENSITIVE_FIELDS = ['password', 'google_two_fa_secret_key'];
+    public const SENSITIVE_FIELDS = ['password', 'password_confirmation', 'google_two_fa_secret_key'];
 
     public const PERMANENTLY_EXCLUDED_FIELDS = ['updated_at', 'persist_code', ];
 
@@ -40,9 +40,8 @@ class HistoryService
             }
 
             // set up bindings for the model
-
             $model::extend(function($model) use ($params) {
-                $basicEvents = $params['basicEvents'] ?? true;
+                $basicEvents    = $params['basicEvents'] ?? true;
                 $relationEvents = $params['relationEvents'] ?? true;
                 $customHistoryRelationName = $params['customHistoryRelationName'] ?? null;
 
@@ -63,6 +62,7 @@ class HistoryService
         if (empty($extraEventListeners)) {
             return;
         }
+
         foreach ($extraEventListeners as $event => $historyServiceMethod) {
             if (!method_exists(HistoryService::class, $historyServiceMethod)) {
                 continue;
@@ -104,7 +104,6 @@ class HistoryService
 
         if ($relationEvents) {
             // RELATIONS EVENTS
-
             // for attach one or many files, hasOne or hasMany, morphOne or morphMany relations
             $model->bindEvent('model.relation.add', function ($relationName, $relatedModel) use ($model) {
                 // CONCLUSION:
@@ -126,22 +125,18 @@ class HistoryService
             });
 
             // for attach belongsTo, morphTo relations
-//        $model->bindEvent('model.relation.associate', function ($relationName, $model) {
-//        });
+// $model->bindEvent('model.relation.associate', function ($relationName, $model) {
+// });
             // CONCLUSION:
             // 1. tested with belongsTo, it is not working as expected, for example when changing currency of an association, the event it is not triggered AND when creating new mandateType for an association, the event it is not triggered - we ignore this for now because these actions are recorded with the updated event
             // 2. can not test with morphTo, currently we don't have any morphTo relation adding implemented that should be tracked
-
-
             // for detach belongsTo, morphTo relations, params: [$model->relationName, $model]
-//        $model->bindEvent('model.relation.dissociate', function ($relationName) {
-//        });
+// $model->bindEvent('model.relation.dissociate', function ($relationName) {
+// });
             // CONCLUSION:
             // 1. tested with belongsTo, it is not working as expected, for example when changing currency of an association, the event it is not triggered AND when deleting mandateType for an association, the event it is not triggered - we ignore this for now because these actions are recorded with the updated event
             // 2. can not test with morphTo, currently we don't have any morphTo relation removing implemented that should be tracked
             // when creating new mandateType for an association, the event it IS triggered for "parent" relation
-
-
             // for attach belongsToMany relations
             $model->bindEvent('model.relation.attach', function ($relationName, $parsedIds, $attributes) use ($model) {
                 // CONCLUSION: works as expected
@@ -155,6 +150,7 @@ class HistoryService
             });
         }
     }
+
     public static function historyGetUser()
     {
         if (Auth::check() && !App::runningInBackend()) {
@@ -195,27 +191,26 @@ class HistoryService
 
     public static function historyAfterSave($model)
     {
-        $historyRelationName = self::getHistoryRelationName($model);
+        $historyRelationName   = self::getHistoryRelationName($model);
         $historyRelationObject = $model->{$historyRelationName}();
-        $historyModel = $historyRelationObject->getRelated();
+        $historyModel          = $historyRelationObject->getRelated();
 
-        $modelClass = $historyRelationObject->getMorphClass();
-        $modelId = $model->getKey();
-        $relatedModelId = null;
+        $modelClass        = $historyRelationObject->getMorphClass();
+        $modelId           = $model->getKey();
+        $relatedModelId    = null;
         $relatedModelClass = null;
 
         if ($model instanceof CsatarPivot) {
-            $modelClass = $model->getParentClass();
-            $modelId = $model->getAttribute($model->getForeignKey());
+            $modelClass        = $model->getParentClass();
+            $modelId           = $model->getAttribute($model->getForeignKey());
             $relatedModelClass = get_class($model);
-            $relatedModelId = $model->getAttribute($model->getOtherKey());
+            $relatedModelId    = $model->getAttribute($model->getOtherKey());
         }
 
         $toSave = [];
-        $dirty = $model->getDirty();
+        $dirty  = $model->getDirty();
         foreach ($dirty as $attribute => $value) {
-            if (
-                (is_array($model->exlcudedFromHistory) && in_array($attribute, $model->exlcudedFromHistory))
+            if ((is_array($model->exlcudedFromHistory) && in_array($attribute, $model->exlcudedFromHistory))
                 ||
                 (is_array(HistoryService::PERMANENTLY_EXCLUDED_FIELDS) && in_array($attribute, HistoryService::PERMANENTLY_EXCLUDED_FIELDS))
                 ||
@@ -227,7 +222,7 @@ class HistoryService
             $old_value = $model->getOriginal($attribute);
 
             if (is_array(HistoryService::SENSITIVE_FIELDS) && in_array($attribute, HistoryService::SENSITIVE_FIELDS)) {
-                $value = '***';
+                $value     = '***';
                 $old_value = '***';
             }
 
@@ -263,17 +258,16 @@ class HistoryService
             class_uses_recursive(get_class($model))
         );
 
-        if (
-            is_array($model->exlcudedFromHistory) && in_array('deleted_at', $model->exlcudedFromHistory)
+        if (is_array($model->exlcudedFromHistory) && in_array('deleted_at', $model->exlcudedFromHistory)
             ||
             (is_array(HistoryService::PERMANENTLY_EXCLUDED_FIELDS) && in_array('deleted_at', HistoryService::PERMANENTLY_EXCLUDED_FIELDS))
         ) {
             return;
         }
 
-        $historyRelationName = self::getHistoryRelationName($model);
+        $historyRelationName   = self::getHistoryRelationName($model);
         $historyRelationObject = $model->{$historyRelationName}();
-        $historyModel = $historyRelationObject->getRelated();
+        $historyModel          = $historyRelationObject->getRelated();
 
         $toSave[] = [
             'fe_user_id' => self::historyGetUser(),
@@ -288,14 +282,13 @@ class HistoryService
             'updated_at' => new DateTime
         ];
 
-
         Db::table($historyModel->getTable())->insert($toSave);
     }
 
     public static function historyRelationAdd($model, $relationName, $relatedModel) {
-        $historyRelationName = self::getHistoryRelationName($model);
+        $historyRelationName   = self::getHistoryRelationName($model);
         $historyRelationObject = $model->{$historyRelationName}();
-        $historyModel = $historyRelationObject->getRelated();
+        $historyModel          = $historyRelationObject->getRelated();
 
         $toSave[] = [
             'fe_user_id' => self::historyGetUser(),
@@ -317,9 +310,9 @@ class HistoryService
     }
 
     public static function historyRelationRemove($model, $relationName, $relatedModel) {
-        $historyRelationName = self::getHistoryRelationName($model);
+        $historyRelationName   = self::getHistoryRelationName($model);
         $historyRelationObject = $model->{$historyRelationName}();
-        $historyModel = $historyRelationObject->getRelated();
+        $historyModel          = $historyRelationObject->getRelated();
 
         $toSave[] = [
             'fe_user_id' => self::historyGetUser(),
@@ -341,12 +334,12 @@ class HistoryService
     }
 
     public static function historyRelationAttach($model, $relationName, $parsedIds, $attributes) {
-        $historyRelationName = self::getHistoryRelationName($model);
+        $historyRelationName   = self::getHistoryRelationName($model);
         $historyRelationObject = $model->{$historyRelationName}();
-        $historyModel = $historyRelationObject->getRelated();
+        $historyModel          = $historyRelationObject->getRelated();
 
         $relatedModelObject = $model->{$relationName}();
-        $relatedModel = $relatedModelObject->getRelated();
+        $relatedModel       = $relatedModelObject->getRelated();
 
         $toSave = [];
         foreach ($parsedIds as $id) {
@@ -371,17 +364,18 @@ class HistoryService
     }
 
     public static function historyRelationDetach($model, $relationName, $parsedIds, $result) {
-        $historyRelationName = self::getHistoryRelationName($model);
+        $historyRelationName   = self::getHistoryRelationName($model);
         $historyRelationObject = $model->{$historyRelationName}();
-        $historyModel = $historyRelationObject->getRelated();
+        $historyModel          = $historyRelationObject->getRelated();
 
         $relatedModelObject = $model->{$relationName}();
-        $relatedModel = $relatedModelObject->getRelated();
+        $relatedModel       = $relatedModelObject->getRelated();
 
         $toSave = [];
         if (!empty($parsedIds) || !is_array($parsedIds)) {
             return;
         }
+
         foreach ($parsedIds as $id) {
             $toSave[] = [
                 'fe_user_id' => self::historyGetUser(),
@@ -406,9 +400,9 @@ class HistoryService
     public static function historyRecordEvent($model = null, $event = null){
         $historyModel = null;
         if (is_object($model)) {
-            $historyRelationName = self::getHistoryRelationName($model);
+            $historyRelationName   = self::getHistoryRelationName($model);
             $historyRelationObject = $model->{$historyRelationName}();
-            $historyModel = $historyRelationObject->getRelated();
+            $historyModel          = $historyRelationObject->getRelated();
         }
 
         $toSave[] = [
@@ -441,4 +435,5 @@ class HistoryService
             'ignoreInPermissionsMatrix' => true,
         ];
     }
+
 }

@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Components;
+<?php
+namespace Csatar\Csatar\Components;
 
 use Auth;
 use Lang;
@@ -18,6 +19,7 @@ use RainLab\User\Models\User as UserModel;
  */
 class ResetPassword extends \RainLab\User\Components\ResetPassword
 {
+
     public function componentDetails()
     {
         return [
@@ -105,4 +107,5 @@ class ResetPassword extends \RainLab\User\Components\ResetPassword
             Auth::clearThrottleForUserId($user->id);
         }
     }
+
 }

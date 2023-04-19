@@ -1,4 +1,5 @@
-<?php namespace Csatar\Forms\Traits;
+<?php
+namespace Csatar\Forms\Traits;
 
 use File;
 use Input;
@@ -29,6 +30,7 @@ function file_upload_max_size() {
             $max_size = $upload_max;
         }
     }
+
     return $max_size;
 }
 
@@ -45,12 +47,11 @@ function parse_size($size) {
 
 function human_filesize($bytes, $dec = 2)
 {
-    $size   = array('B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB');
+    $size   = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
     $factor = floor((strlen($bytes) - 1) / 3);
 
     return sprintf("%.{$dec}f", $bytes / pow(1024, $factor)) . @$size[$factor];
 }
-
 
 trait ManagesUploads {
 
@@ -127,7 +128,7 @@ trait ManagesUploads {
         $validation = Validator::make(
             Request::all(),
             [
-            'file_data' => $validationRules
+                'file_data' => $validationRules
             ],
             $customMessages,
             $attributeNames,
@@ -149,9 +150,9 @@ trait ManagesUploads {
 
         try {
             $uploadedFile = Input::file('file_data');
-            $isNew = Input::get('recordKeyValue') == 'new' ? true : false;
+            $isNew        = Input::get('recordKeyValue') == 'new' ? true : false;
 
-            if ( ! Input::hasFile('file_data')) {
+            if (! Input::hasFile('file_data')) {
                 $max_upload = human_filesize(file_upload_max_size(), 1);
                 throw new \Exception(Lang::get('csatar.forms::lang.widgets.frontendFileUploadException.fileExceedsUploadLimit') . $max_upload);
             }
@@ -174,8 +175,8 @@ trait ManagesUploads {
 
             $fileModel = $this->record->getRelationDefinition($model_field)[0];
 
-            $file = new $fileModel();
-            $file->data = $uploadedFile;
+            $file            = new $fileModel();
+            $file->data      = $uploadedFile;
             $file->is_public = true;
             $file->save();
 
@@ -196,12 +197,11 @@ trait ManagesUploads {
                 $this->record->{$model_field}()->add($file);
             }
 
-            //$file = $this->decorateFileAttributes($file);
-
+            // $file = $this->decorateFileAttributes($file);
             $result = [
                 'id' => $file->id,
-                //'thumb' => $file->thumbUrl,
-                //'path' => $file->pathUrl
+                // 'thumb' => $file->thumbUrl,
+                // 'path' => $file->pathUrl
             ];
 
             if (post('X_OCTOBER_MEDIA_MANAGER_QUICK_UPLOAD')) {
@@ -220,7 +220,7 @@ trait ManagesUploads {
     public function onRemoveAttachment()
     {
         $model_field = post('field');
-        $file_id = post('file_id');
+        $file_id     = post('file_id');
 
         if (!empty($model_field)) {
             $fileModel = $this->record->getRelationDefinition($model_field)[0];
@@ -247,7 +247,7 @@ trait ManagesUploads {
                 ->orderBy('id', 'desc')
                 ->get();
 
-        if ( ! $this->fileList) {
+        if (! $this->fileList) {
             $this->fileList = new Collection;
         }
 
@@ -279,7 +279,7 @@ trait ManagesUploads {
             }
         }
 
-        $file->pathUrl = $path;
+        $file->pathUrl  = $path;
         $file->thumbUrl = $thumb;
 
         return $file;
@@ -287,13 +287,12 @@ trait ManagesUploads {
 
     public function isPopulated()
     {
-        if ( ! $this->getFileList()) {
+        if (! $this->getFileList()) {
             return false;
         }
 
         return $this->fileList->count() > 0;
     }
-
 
     public function getCssBlockDimensions()
     {
@@ -343,7 +342,7 @@ trait ManagesUploads {
 
     public function manageRichTextEditorUpload($uploadedFile) {
 
-        $data = [ 'file' => $uploadedFile ];
+        $data  = [ 'file' => $uploadedFile ];
         $rules = ['file' => 'image|max:5000'];
 
         $validation = Validator::make(
@@ -355,11 +354,11 @@ trait ManagesUploads {
             throw new ValidationException($validation);
         }
 
-        $file = new StandAloneFile();
+        $file       = new StandAloneFile();
         $file->data = $uploadedFile;
-        $file->attachment_id = $this->record->id ?? null;
+        $file->attachment_id   = $this->record->id ?? null;
         $file->attachment_type = get_class($this->record) ?? null;
-        $file->is_public = true;
+        $file->is_public       = true;
         $file->save();
 
         return Response::json([ 'link' => $file->getPath() ], 200);

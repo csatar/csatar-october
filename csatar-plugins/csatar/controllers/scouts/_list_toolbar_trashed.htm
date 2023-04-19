@@ -1,0 +1,20 @@
+<div data-control="toolbar">
+    <button
+        class="btn btn-default oc-icon-trash-o"
+        disabled="disabled"
+        onclick="$(this).data('request-data', {
+            checked: $('.control-list').listWidget('getChecked')
+        })"
+        data-request="onRestoreScouts"
+        data-request-confirm="<?= e(trans('csatar.csatar::lang.plugin.admin.scout.restoreDeletedScoutsConfirmation')) ?>"
+        data-trigger-action="enable"
+        data-trigger=".control-list input[type=checkbox]"
+        data-trigger-condition="checked"
+        data-request-success="$(this).prop('disabled', true)"
+        data-stripe-load-indicator>
+        <?= e(trans('csatar.csatar::lang.plugin.admin.scout.restoreDeletedScouts')) ?>
+    </button>
+    <a href="<?= Backend::url('csatar/csatar/scouts') ?>" class="btn btn-primary">
+        <?= e(trans('csatar.csatar::lang.plugin.admin.general.back')) ?>
+    </a>
+</div>

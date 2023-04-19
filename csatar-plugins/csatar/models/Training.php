@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Models;
+<?php
+namespace Csatar\Csatar\Models;
 
 use Model;
 
@@ -35,8 +36,8 @@ class Training extends Model
     ];
 
     public $fillable = [
-      'name',
-      'comment',
+        'name',
+        'comment',
     ];
 
 }

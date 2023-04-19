@@ -1,10 +1,12 @@
-<?php namespace Csatar\Csatar\Updates;
+<?php
+namespace Csatar\Csatar\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarCsatarAssociation extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_csatar_associations', function($table)
@@ -24,9 +26,10 @@ class BuilderTableCreateCsatarCsatarAssociation extends Migration
             $table->string('ecset_code_suffix', 2)->nullable()->unique();
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_associations');
     }
+
 }

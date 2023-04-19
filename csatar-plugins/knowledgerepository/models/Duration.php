@@ -1,4 +1,5 @@
-<?php namespace Csatar\KnowledgeRepository\Models;
+<?php
+namespace Csatar\KnowledgeRepository\Models;
 
 use Model;
 use Lang;
@@ -46,12 +47,12 @@ class Duration extends Model
         'methodologies' => '\Csatar\Csatar\Models\Methodology'
     ];
 
-
     public function beforeSave()
     {
         if ($this->min == null) {
             $this->min = 0;
         }
+
         if ($this->max == null) {
             $this->max = 0;
         }
@@ -70,4 +71,5 @@ class Duration extends Model
     public function generateNameFromMinMax($min, $max) {
         return $min . '-' . $max . ' ' . Lang::get('csatar.knowledgerepository::lang.plugin.admin.general.minute');
     }
+
 }

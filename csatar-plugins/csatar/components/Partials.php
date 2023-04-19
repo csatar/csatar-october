@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Components;
+<?php
+namespace Csatar\Csatar\Components;
 
 use Cms\Classes\ComponentBase;
 use Lang;
@@ -8,6 +9,7 @@ use Lang;
  */
 class Partials extends ComponentBase
 {
+
     public function componentDetails()
     {
         return [
@@ -15,4 +17,5 @@ class Partials extends ComponentBase
             'description' => Lang::get('csatar.csatar::lang.plugin.component.partial.description'),
         ];
     }
+
 }

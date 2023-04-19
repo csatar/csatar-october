@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Models;
+<?php
+namespace Csatar\Csatar\Models;
 
 use Cache;
 use Csatar\Csatar\Classes\Enums\Gender;
@@ -121,6 +122,7 @@ class Patrol extends OrganizationBase
         ],
         'troop' => '\Csatar\Csatar\Models\Troop',
         'age_group' => '\Csatar\Csatar\Models\AgeGroup',
+        'trial_system_trial_type' => '\Csatar\KnowledgeRepository\Models\TrialSystemTrialType',
     ];
 
     public $hasMany = [
@@ -165,7 +167,7 @@ class Patrol extends OrganizationBase
         $eagerLoadSettings = parent::getEagerLoadSettings($useCase);
         if ($useCase === 'formBuilder') {
             // Important to extend the eager load settings, not to overwrite them!
-            $eagerLoadSettings['mandates.mandate_patrol'] = function($query) {
+            $eagerLoadSettings['mandates.mandate_patrol']      = function($query) {
                 return $query->select(
                     'csatar_csatar_patrols.id',
                     'csatar_csatar_patrols.team_id',
@@ -184,6 +186,7 @@ class Patrol extends OrganizationBase
                 'team.district.association', 'troop'
             ]);
         }
+
         if ($useCase == 'inactiveMandatesPatrol') {
             $eagerLoadSettings = [
                 'mandatesInactive.mandate_patrol.team' => function($query) {
@@ -196,13 +199,14 @@ class Patrol extends OrganizationBase
             ];
             $eagerLoadSettings = array_merge($eagerLoadSettings, parent::getEagerLoadSettings('inactiveMandates'));
         }
+
         return $eagerLoadSettings;
     }
 
     public function beforeSave()
     {
-        $filterWords = explode(',', Lang::get('csatar.csatar::lang.plugin.admin.patrol.filterOrganizationUnitNameForWords'));
-        $this->name = $this->filterNameForWords($this->name, $filterWords);
+        $filterWords    = explode(',', Lang::get('csatar.csatar::lang.plugin.admin.patrol.filterOrganizationUnitNameForWords'));
+        $this->name     = $this->filterNameForWords($this->name, $filterWords);
         $this->troop_id = $this->troop_id != 0 ? $this->troop_id : null;
 
         $this->generateSlugIfEmpty();
@@ -212,12 +216,15 @@ class Patrol extends OrganizationBase
         if (isset($this->original['status']) && $this->status != $this->original['status'] && $this->original['status'] == Status::ACTIVE) {
             // it would be more efficient to use mass update here, but in that case model events are not fired
             foreach (Scout::where('patrol_id', $this->id)->whereNull('inactivated_at')->get() as $scout) {
-                $scout->inactivated_at = date('Y-m-d H:i:s');
+                $scout->inactivated_at   = date('Y-m-d H:i:s');
                 $scout->ignoreValidation = true;
                 $scout->forceSave();
             }
+
             Mandate::setAllMandatesExpiredInOrganization($this);
         }
+
+        $this->updateScoutsTroopId(); // this should be called before updateCache()
 
         $this->updateCache();
     }
@@ -228,7 +235,7 @@ class Patrol extends OrganizationBase
             StructureTree::updateTeamTree($this->team_id);
         }
 
-        if (empty($this->original) ) {
+        if (empty($this->original)) {
             return;
         }
 
@@ -236,7 +243,7 @@ class Patrol extends OrganizationBase
             StructureTree::updateTeamTree($this->team_id);
         }
 
-        if ($this->getOriginalValue('team_id') != $this->team_id) {
+        if ($this->getOriginalValue('team_id') != $this->team_id || $this->getOriginalValue('troop_id') != $this->troop_id) {
             StructureTree::updateTeamTree($this->team_id);
             if (!empty($this->original['team_id'])) {
                 StructureTree::updateTeamTree($this->original['team_id']);
@@ -249,20 +256,33 @@ class Patrol extends OrganizationBase
                 StructureTree::getStructureTree();
                 return;
             }
-            $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['patrolsActive'][$this->id]['name'] = $this->name;
+
+            $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['patrolsActive'][$this->id]['name']          = $this->name;
             $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['patrolsActive'][$this->id]['extended_name'] = $this->extended_name;
 
             if (isset($this->troop_id)) {
-                $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->id]['name'] = $this->name;
+                $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->id]['name']          = $this->name;
                 $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->id]['extended_name'] = $this->extended_name;
             }
+
             Cache::forever('structureTree', $structureTree);
+        }
+    }
+
+    public function updateScoutsTroopId() {
+        if ($this->getOriginalValue('troop_id') != $this->troop_id) {
+            foreach ($this->scouts as $scout) {
+                $scout->troop_id         = $this->troop_id;
+                $scout->ignoreValidation = true;
+                $scout->skipCacheRefresh = true;
+                $scout->forceSave();
+            }
         }
     }
 
     public function generateSlugIfEmpty() {
         if (empty($this->slug)) {
-            $this->slug = str_slug($this->team->district->association->name_abbreviation) ;
+            $this->slug  = str_slug($this->team->district->association->name_abbreviation) ;
             $this->slug .= '/' . str_slug($this->team->team_number) . '/' . str_slug($this->name);
             $this->slug .= '-ors';
         }
@@ -318,6 +338,7 @@ class Patrol extends OrganizationBase
                 ->lists('name', 'id')
                 ;
         }
+
         return [];
     }
 
@@ -345,6 +366,7 @@ class Patrol extends OrganizationBase
         foreach (self::where('team_id', $teamId)->get() as $item) {
             $options[$item->id] = $item->extendedName;
         }
+
         asort($options);
         return $options;
     }
@@ -420,4 +442,5 @@ class Patrol extends OrganizationBase
 
         return '(' . implode(' - ', $tree) . ')';
     }
+
 }

@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Models;
+<?php
+namespace Csatar\Csatar\Models;
 
 use DateTime;
 use Lang;
@@ -113,7 +114,6 @@ class TeamReport extends PermissionBasedAccess
         ],
     ];
 
-
     /**
      * Handle the team-currency dependency
      */
@@ -125,11 +125,11 @@ class TeamReport extends PermissionBasedAccess
         }
 
         // set the spiritual leader data
-        $this->year = date('n') <= 5 ? date('Y') - 1 : date('Y');
+        $this->year         = date('n') <= 5 ? date('Y') - 1 : date('Y');
         $lastYearTeamReport = $this::where('team_id', $this->team_id)->where('year', $this->year - 1)->first();
         if (isset($lastYearTeamReport)) {
-            $fields->spiritual_leader_name->value = $lastYearTeamReport->spiritual_leader_name;
-            $fields->spiritual_leader_religion->value = $lastYearTeamReport->spiritual_leader_religion_id;
+            $fields->spiritual_leader_name->value       = $lastYearTeamReport->spiritual_leader_name;
+            $fields->spiritual_leader_religion->value   = $lastYearTeamReport->spiritual_leader_religion_id;
             $fields->spiritual_leader_occupation->value = $lastYearTeamReport->spiritual_leader_occupation;
         }
 
@@ -141,13 +141,13 @@ class TeamReport extends PermissionBasedAccess
      */
     public function beforeCreate()
     {
-        $this->team = Team::find($this->team_id);
+        $this->team  = Team::find($this->team_id);
         $association = $this->team->district->association;
 
         // save additional data
-        $this->team_fee = $association->team_fee;
+        $this->team_fee     = $association->team_fee;
         $this->total_amount = $this->team_fee;
-        $this->currency_id = $association->currency_id;
+        $this->currency_id  = $association->currency_id;
     }
 
     public function afterSave()
@@ -155,8 +155,9 @@ class TeamReport extends PermissionBasedAccess
         if ($this->skipAfterSave || $this->submitted_at || $this->approved_at || (!$this->updateScoutsList && !$this->wasRecentlyCreated)) {
             return;
         }
+
         // save the scouts (the pivot data can be saved only after the team report has been created)
-        $scouts = Scout::where('team_id', $this->team_id)->whereNull('inactivated_at')->get();
+        $scouts       = Scout::where('team_id', $this->team_id)->whereNull('inactivated_at')->get();
         $scoutsToSync = [];
         $this->total_amount = $this->team_fee;
 
@@ -185,7 +186,7 @@ class TeamReport extends PermissionBasedAccess
         $this->scouts()->sync($scoutsToSync);
 
         // save the number of patrols in different age groups
-        $ageGroups = AgeGroup::where('association_id', $this->team->district->association_id )->get();
+        $ageGroups       = AgeGroup::where('association_id', $this->team->district->association_id )->get();
         $ageGroupsToSync = [];
 
         foreach ($ageGroups as $ageGroup) {
@@ -215,11 +216,12 @@ class TeamReport extends PermissionBasedAccess
     }
 
     public function getAgeGroupsOptions(){
-        $team_id = $this->team_id ?? \Input::get('data.team');
+        $team_id     = $this->team_id ?? \Input::get('data.team');
         $attachedIds = [];
         if (!empty($this->team_id)) {
             $attachedIds = $this->ageGroups->pluck('id');
         }
+
         $team = Team::find($team_id);
         if (!empty($team_id)) {
             $ageGroups = AgeGroup::select(
@@ -231,6 +233,7 @@ class TeamReport extends PermissionBasedAccess
             ;
             return $ageGroups;
         }
+
         return [];
     }
 
@@ -262,6 +265,8 @@ class TeamReport extends PermissionBasedAccess
                 ];
             }
         }
+
         return $scoutsWithoutRegistrationForm ?? [];
     }
+
 }

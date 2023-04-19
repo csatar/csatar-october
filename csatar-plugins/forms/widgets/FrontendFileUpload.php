@@ -1,4 +1,5 @@
-<?php namespace Csatar\Forms\Widgets;
+<?php
+namespace Csatar\Forms\Widgets;
 
 use Lang;
 use Backend\Classes\FormWidgetBase;
@@ -76,7 +77,6 @@ class FrontendFileUpload extends FormWidgetBase
      */
     protected $defaultAlias = 'frontendfileupload';
 
-
     public function init()
     {
         $this->fillFromConfig([
@@ -98,18 +98,17 @@ class FrontendFileUpload extends FormWidgetBase
 
     public function render() {
         // @todo: preview mode
-
-        $this->vars['id'] = $this->getId();
-        $this->vars['name'] = $this->getFieldName();
-        $this->vars['fieldName'] = $this->fieldName;
-        $this->vars['prompt'] = empty($this->prompt) ? Lang::get('csatar.forms::lang.widgets.frontendFileUpload.browse') : $this->prompt;
-        $this->vars['fileTypes'] = $this->fileTypes;
-        $this->vars['fileList'] = $this->getFileList();
+        $this->vars['id']          = $this->getId();
+        $this->vars['name']        = $this->getFieldName();
+        $this->vars['fieldName']   = $this->fieldName;
+        $this->vars['prompt']      = empty($this->prompt) ? Lang::get('csatar.forms::lang.widgets.frontendFileUpload.browse') : $this->prompt;
+        $this->vars['fileTypes']   = $this->fileTypes;
+        $this->vars['fileList']    = $this->getFileList();
         $this->vars['isPopulated'] = $this->isPopulated();
-        $this->vars['mode'] = ($this->mode == 'image') ? 'image' : 'file';
+        $this->vars['mode']        = ($this->mode == 'image') ? 'image' : 'file';
         $this->vars['placeholder'] = empty($this->placeholder) ? '' : $this->placeholder;
 
-        $relationType = $this->model->getRelationType($this->fieldName);
+        $relationType  = $this->model->getRelationType($this->fieldName);
         $this->isMulti = $this->vars['isMulti'] = ($relationType == 'attachMany' || $relationType == 'morphMany');
 
         return $this->makePartial('frontendfileupload');

@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Components;
+<?php
+namespace Csatar\Csatar\Components;
 
 use Auth;
 use Csatar\Csatar\Models\Scout;
@@ -44,7 +45,7 @@ class CheckScoutStatus extends ComponentBase
         }
 
         $this->scoutCode = $this->property('scoutCode');
-        $this->json = false;
+        $this->json      = false;
 
         if (Input::get('json') === 'true' || Input::get('json') === '1') {
             $this->json = true;
@@ -86,7 +87,7 @@ class CheckScoutStatus extends ComponentBase
 
     public function onGetOtherScoutStatus()
     {
-        $data = post();
+        $data  = post();
         $rules = ['ecsk_code' => 'required'];
 
         $validation = Validator::make(
@@ -100,4 +101,5 @@ class CheckScoutStatus extends ComponentBase
 
         return Redirect::to('/tag-lekerdezes/'. $data['ecsk_code']);
     }
+
 }

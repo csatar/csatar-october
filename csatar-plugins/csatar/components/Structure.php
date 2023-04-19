@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Components;
+<?php
+namespace Csatar\Csatar\Components;
 
 use Auth;
 use Cache;
@@ -65,16 +66,16 @@ class Structure extends ComponentBase
     public function onRun()
     {
         if (!empty($this->property('level'))) {
-            $this->level = $this->property('level');
-            $getterFunctionName = 'get'.$this->property('model_name').'sWithTree';
-            $modelName = "Csatar\Csatar\Models\\" . $this->property('model_name');
+            $this->level          = $this->property('level');
+            $getterFunctionName   = 'get'.$this->property('model_name').'sWithTree';
+            $modelName            = "Csatar\Csatar\Models\\" . $this->property('model_name');
             $this->structureArray = (StructureTree::$getterFunctionName())->where('id', $this->property('model_id'));
             $this->showActiveScouts = true;
         } else {
-            $this->displayHeader = true;
-            $this->level = 1;
+            $this->displayHeader  = true;
+            $this->level          = 1;
             $this->structureArray = StructureTree::getAssociationsWithTree();
-            $modelName = "Csatar\Csatar\Models\Association";
+            $modelName            = "Csatar\Csatar\Models\Association";
             $this->showActiveScouts = false;
         }
 
@@ -94,4 +95,5 @@ class Structure extends ComponentBase
     public static function getDistrictScoutsCount($districtId) {
         return StructureTree::getDistrictScoutsCount($districtId);
     }
+
 }

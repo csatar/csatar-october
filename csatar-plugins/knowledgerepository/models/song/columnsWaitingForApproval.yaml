@@ -1,0 +1,34 @@
+columns:
+    title:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.song.songTitle'
+        type: text
+        recordList:
+            sortable:
+                default: asc
+            filterable: true
+            filterConfig:
+                type: freeText
+    uploader_csatar_code:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.proposerCsatarCode'
+        type: text
+        recordList:
+            sortable: true
+            filterable: true
+            filterConfig:
+                type: freeText
+    created_at:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.game.uploadedAt'
+        type: datetime
+        recordList:
+            sortable: true
+            filterable: true
+            filterConfig:
+                type: freeText
+    description:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.general.description'
+        type: text
+        recordList:
+            sortable: true
+            filterable: true
+            filterConfig:
+                type: freeText

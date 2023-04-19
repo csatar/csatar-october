@@ -1,8 +1,13 @@
-<?php namespace Csatar\KnowledgeRepository\Updates;
+<?php
+namespace Csatar\KnowledgeRepository\Updates;
 
 use Csatar\KnowledgeRepository\Models\AccidentRiskLevel;
+use Csatar\KnowledgeRepository\Models\FolkSongRhythm;
+use Csatar\KnowledgeRepository\Models\FolkSongType;
 use Csatar\KnowledgeRepository\Models\GameDevelopmentGoal;
 use Csatar\KnowledgeRepository\Models\MethodologyType;
+use Csatar\KnowledgeRepository\Models\Region;
+use Csatar\KnowledgeRepository\Models\SongType;
 use Csatar\KnowledgeRepository\Models\Tool;
 use Csatar\KnowledgeRepository\Models\Headcount;
 use Csatar\KnowledgeRepository\Models\Duration;
@@ -182,6 +187,11 @@ class SeederData extends Seeder
                 'max' => 5,
             ],
             [
+                'name' => '1-10 perc',
+                'min' => 1,
+                'max' => 10,
+            ],
+            [
                 'name' => '6-10 perc',
                 'min' => 6,
                 'max' => 10,
@@ -189,6 +199,16 @@ class SeederData extends Seeder
             [
                 'name' => '7-15 perc',
                 'min' => 7,
+                'max' => 15,
+            ],
+            [
+                'name' => '10-30 perc',
+                'min' => 10,
+                'max' => 30,
+            ],
+            [
+                'name' => '11-15 perc',
+                'min' => 11,
                 'max' => 15,
             ],
             [
@@ -200,11 +220,6 @@ class SeederData extends Seeder
                 'name' => '21-25 perc',
                 'min' => 21,
                 'max' => 25,
-            ],
-            [
-                'name' => '26-35 perc',
-                'min' => 26,
-                'max' => 35,
             ],
             [
                 'name' => '36-50 perc',
@@ -294,6 +309,14 @@ class SeederData extends Seeder
             [
                 'title' => 'Próbarendszer',
                 'model' => 'Csatar\KnowledgeRepository\Models\TrialSystem',
+            ],
+            [
+                'title' => 'Munkaterv',
+                'model' => 'Csatar\KnowledgeRepository\Models\WorkPlan',
+            ],
+            [
+                'title' => 'Dal',
+                'model' => 'Csatar\KnowledgeRepository\Models\Song',
             ],
         ],
         'trialSystemTopics' => [
@@ -448,6 +471,318 @@ class SeederData extends Seeder
                 'name' => 'Mindkettő',
                 'sort_order' => 3
             ],
+        ],
+        'songTypes' => [
+            'Népdal',
+            'Ifidal',
+            'Cserkészdal',
+        ],
+        'folkSongTypes' => [
+            [
+                'name' => 'Ráolvasások és imák',
+                'description' => 'ezek az énekek ősi praktikákból táplálkoznak, a magyar néphit és ősi népi vallásosságára világítanak rá. '
+            ],
+            [
+                'name' => 'Ünnepi dalok, rítusénekek, köszöntők és rigmusok',
+                'description' => 'a naptári év jeles napjait, a szertartásokat éneklik meg.. Az ünnepi énekek, jókívánságok jelentős része a termékenységvarázslás, amelyet összekapcsolnak a betegség- és bajelhárítással.'
+            ],
+            [
+                'name' => 'Munkadalok',
+                'description' => 'létezéséről a Szent Gellért legenda tudósít.'
+            ],
+            [
+                'name' => 'Siratóénekek',
+                'description' => 'a legősibb ősmagyar műfaj képviselői. A halállal, a gyásszal, a magáramaradottsággal szembenéző ember érzelmi megnyilvánulása. '
+            ],
+            [
+                'name' => 'Párosítók',
+                'description' => 'a párosítók szövegei sablonosak, ebbe egyszerűen belehelyezik az illető leány és legény nevét.'
+            ],
+            [
+                'name' => 'Szerelmi dalok',
+                'description' => 'a magyar népdalok legnépesebb csoportja, amely a legrégiesebb, legszebb költői alkotások és dalok gyűjteménye. Előadásuk nem kötődik meghatározott alkalmakhoz.'
+            ],
+            [
+                'name' => 'Lakodalmi énekek, dalok és vőfélyrigmusok',
+                'description' => 'a parasztlakodalom középpontjában a menyasszony és a termékenység áll.'
+            ],
+            [
+                'name' => 'Táncdalok és dudanóták',
+                'description' => 'a XX. század elejéig elmaradhatatlan kellékei voltak a táncos mulatságoknak. A dudanóták tréfásak, teli vannak kétértelmű utalásokkal és trágárságokkal.'
+            ],
+            [
+                'name' => 'Bordalok és mulatónóták',
+                'description' => 'témája általában a bor, a mámor és az ivás dicsérete. Ezeket a dalokat falun szinte kizárólag a férfiak énekelték.'
+            ],
+            [
+                'name' => 'Tréfás és csúfoló dalok, mondókák',
+                'description' => 'társas összejöveteleken elhangzó ironikus versek és rigmusok.'
+            ],
+            [
+                'name' => 'Parasztdalok és keservek',
+                'description' => 'szerelmi csalódásokat, foglalkozással járó panaszokat, sérelmeket, általában az emberi élet keserveit fogalmazzák meg.'
+            ],
+            [
+                'name' => 'Bujdosóénekek, vándordalokban',
+                'description' => 'a szülőföldhöz való ragaszkodás és a honvágy jelenik meg.'
+            ],
+            [
+                'name' => 'Történeti énekek és katonadalok',
+                'description' => 'a magyar népdalok három legnagyobb tematikus csoportjának egyike. Témájuk szerint lehetnek toborzók, sorozási nóták, katonakísérők- és siratók, kaszárnyadalok, menetdalok, csatadalok, leszerelő dalok és hadifogolynóták.'
+            ],
+            [
+                'name' => 'Pásztordalok',
+                'description' => 'sokat elárulnak a pusztai emberek élet- és gondolkozásmódjáról, érzelemvilágából.'
+            ],
+            [
+                'name' => 'Szolga- és béres dalok',
+                'description' => 'hangjuk panaszos, gúnyos, olykor lázadó.'
+            ],
+            [
+                'name' => 'Arató- és summásdalok',
+                'description' => 'a mezei munkásság dalai'
+            ],
+        ],
+        'regions' => [
+            [
+                'name' => 'Alföld'
+            ],
+            [
+                'name' => 'Bácska',
+                'big_parent' => 'Alföld'
+            ],
+            [
+                'name' => 'Kis- és Nagykunság',
+                'big_parent' => 'Alföld'
+            ],
+            [
+                'name' => 'Jászság',
+                'big_parent' => 'Alföld'
+            ],
+            [
+                'name' => 'Hajdúság',
+                'big_parent' => 'Alföld'
+            ],
+            [
+                'name' => 'Nyírség',
+                'big_parent' => 'Alföld'
+            ],
+            [
+                'name' => 'Érmellék',
+                'big_parent' => 'Alföld'
+            ],
+            [
+                'name' => 'Szamoshát',
+                'big_parent' => 'Alföld'
+            ],
+            [
+                'name' => 'Tiszahát',
+                'big_parent' => 'Alföld'
+            ],
+            [
+                'name' => 'Dunántúl'
+            ],
+            [
+                'name' => 'Ormánság',
+                'big_parent' => 'Dunántúl'
+            ],
+            [
+                'name' => 'Drávaszög',
+                'big_parent' => 'Dunántúl'
+            ],
+            [
+                'name' => 'Szlavóniai magyarság',
+                'big_parent' => 'Dunántúl'
+            ],
+            [
+                'name' => 'Őrség',
+                'big_parent' => 'Dunántúl'
+            ],
+            [
+                'name' => 'Göcsej',
+                'big_parent' => 'Dunántúl'
+            ],
+            [
+                'name' => 'Bakony erdeje',
+                'big_parent' => 'Dunántúl'
+            ],
+            [
+                'name' => 'Balatonfelvidék',
+                'big_parent' => 'Dunántúl'
+            ],
+            [
+                'name' => 'Kisalföld',
+                'big_parent' => 'Dunántúl'
+            ],
+            [
+                'name' => 'Csallóköz',
+                'big_parent' => 'Dunántúl'
+            ],
+            [
+                'name' => 'Felföld/Felvidék',
+            ],
+            [
+                'name' => 'Palócföld',
+                'big_parent' => 'Felföld/Felvidék'
+            ],
+            [
+                'name' => 'Zobor vidéke',
+                'big_parent' => 'Felföld/Felvidék'
+            ],
+            [
+                'name' => 'Garam mente',
+                'big_parent' => 'Felföld/Felvidék'
+            ],
+            [
+                'name' => 'Hegyalja',
+                'big_parent' => 'Felföld/Felvidék'
+            ],
+            [
+                'name' => 'Erdély',
+            ],
+            [
+                'name' => 'Partium',
+                'big_parent' => 'Erdély'
+            ],
+            [
+                'name' => 'Máramarosi',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Partium',
+            ],
+            [
+                'name' => 'Szilágysági',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Partium',
+            ],
+            [
+                'name' => 'Szatmári',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Partium',
+            ],
+            [
+                'name' => 'Bihari',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Partium',
+            ],
+            [
+                'name' => 'Érmelléki',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Partium',
+            ],
+            [
+                'name' => 'Kalotaszeg',
+                'big_parent' => 'Erdély'
+            ],
+            [
+                'name' => 'Torockó',
+                'big_parent' => 'Erdély'
+            ],
+            [
+                'name' => 'Mezőség',
+                'big_parent' => 'Erdély'
+            ],
+            [
+                'name' => 'Székelyföld',
+                'big_parent' => 'Erdély'
+            ],
+            [
+                'name' => 'Aranyosszék',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Székelyföld',
+            ],
+            [
+                'name' => 'Marosszék',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Székelyföld',
+            ],
+            [
+                'name' => 'Udvarhelyszék',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Székelyföld',
+            ],
+            [
+                'name' => 'Háromszék',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Székelyföld',
+            ],
+            [
+                'name' => 'Kézdiszék',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Székelyföld',
+                'small_parent' => 'Háromszék',
+            ],
+            [
+                'name' => 'Orbaiszék',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Székelyföld',
+                'small_parent' => 'Háromszék',
+            ],
+            [
+                'name' => 'Sepsiszék',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Székelyföld',
+                'small_parent' => 'Háromszék',
+            ],
+            [
+                'name' => 'Csíkszék',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Székelyföld',
+            ],
+            [
+                'name' => 'Alcsík',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Székelyföld',
+                'small_parent' => 'Csíkszék',
+            ],
+            [
+                'name' => 'Felcsík',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Székelyföld',
+                'small_parent' => 'Csíkszék',
+            ],
+            [
+                'name' => 'Gyergyószék',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Székelyföld',
+            ],
+            [
+                'name' => 'Kászon',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Székelyföld',
+            ],
+            [
+                'name' => 'Barcaság',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Székelyföld',
+            ],
+            [
+                'name' => 'Gyímes',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Székelyföld',
+            ],
+            [
+                'name' => 'Moldva',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Székelyföld',
+            ],
+            [
+                'name' => 'Bukovina',
+                'big_parent' => 'Erdély',
+                'mid_parent' => 'Székelyföld',
+            ],
+            [
+                'name' => 'nem alkalmazható',
+            ],
+        ],
+        'folkSongRhythms' => [
+            [
+                'name' => 'gyors',
+                'description' => 'gyors tempójú népdalok (csárdás, ugrós) - lehet rá menetelni'
+            ],
+            [
+                'name' => 'lassú',
+                'description' => 'lassú tempójú népdalok (keserves, sirató) - nem lehet rá menetelni'
+            ]
         ]
     ];
 
@@ -482,11 +817,11 @@ class SeederData extends Seeder
 
         // Head Counts
         foreach ($this::DATA['headCounts'] as $headCountData) {
-            $headCount = Headcount::firstOrNew([
+            $headCount       = Headcount::firstOrNew([
                 'description' => $headCountData['description'],
             ]);
-            $headCount->min = $headCountData['min'];
-            $headCount->max = $headCountData['max'];
+            $headCount->min  = $headCountData['min'];
+            $headCount->max  = $headCountData['max'];
             $headCount->note = $headCountData['note'];
             $headCount->sort_order = $headCountData['sort_order'];
             $headCount->save();
@@ -494,7 +829,7 @@ class SeederData extends Seeder
 
         // Durations
         foreach ($this::DATA['durations'] as $durationData) {
-            $duration = Duration::firstOrNew([
+            $duration      = Duration::firstOrNew([
                 'name' => $durationData['name'],
             ]);
             $duration->min = $durationData['min'];
@@ -525,8 +860,8 @@ class SeederData extends Seeder
             $form = Form::firstOrNew($formData);
             $form->save();
         }
-        // Methodology Types
 
+        // Methodology Types
         foreach ($this::DATA['methodologyTypes'] as $methodologyTypeData) {
             $methodologyType = MethodologyType::firstOrNew([
                 'name' => $methodologyTypeData['name'],
@@ -574,5 +909,56 @@ class SeederData extends Seeder
             ]);
             $trialSystemCategory->save();
         }
+
+        // Song Type
+        foreach ($this::DATA['songTypes'] as $songTypeData) {
+            $songType = SongType::firstOrNew([
+                'name' => $songTypeData
+            ]);
+            $songType->save();
+        }
+
+        // Folk Song type
+        foreach ($this::DATA['folkSongTypes'] as $folkSongTypeData) {
+            $folkSongType = FolkSongType::firstOrNew([
+                'name' => $folkSongTypeData['name'],
+            ]);
+            $folkSongType->description = $folkSongTypeData['description'];
+            $folkSongType->save();
+        }
+
+        // Region type
+        foreach ($this::DATA['regions'] as $regionData) {
+            $region = Region::firstOrNew([
+                'name' => $regionData['name']
+            ]);
+
+            if (isset($regionData['big_parent'])) {
+                $parent = Region::where('name', $regionData['big_parent'])->first() ?? null;
+                $region->big_parent_id = $parent->id;
+            }
+
+            if (isset($regionData['mid_parent'])) {
+                $parent = Region::where('name', $regionData['mid_parent'])->first() ?? null;
+                $region->mid_parent_id = $parent->id;
+            }
+
+            if (isset($regionData['small_parent'])) {
+                $parent = Region::where('name', $regionData['small_parent'])->first() ?? null;
+                $region->small_parent_id = $parent->id;
+            }
+
+            $region->save();
+        }
+
+        // Folk song rhythms
+        foreach ($this::DATA['folkSongRhythms'] as $folkSongRhythmData) {
+            $folkSongRhythm = FolkSongRhythm::firstOrNew([
+                'name' => $folkSongRhythmData['name'],
+            ]);
+            $folkSongRhythm->description = $folkSongRhythmData['description'];
+            $folkSongRhythm->save();
+        }
     }
+
 }

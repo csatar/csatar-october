@@ -53,4 +53,5 @@ class Sponsors
 
         return self::$instance;
     }
+
 }

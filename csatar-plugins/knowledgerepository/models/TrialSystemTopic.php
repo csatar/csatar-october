@@ -1,4 +1,5 @@
-<?php namespace Csatar\KnowledgeRepository\Models;
+<?php
+namespace Csatar\KnowledgeRepository\Models;
 
 use Model;
 
@@ -14,7 +15,7 @@ class TrialSystemTopic extends Model
     use \Csatar\Csatar\Traits\History;
 
     protected $dates = ['deleted_at'];
-    
+
     /**
      * @var string The database table used by the model.
      */

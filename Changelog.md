@@ -6,8 +6,31 @@
 - CS-532 - Modified search results display, added hierarchy tree to result
 - CS-532 - Created GallerySearchProvider, added gallery relation to model that has gallery
 - CS-533 - Modified search results to display results starting with Scouts to Association and last results from Content page
+- CS-530 - Added xlsx import for Songs, fixed error handling on TrialSystems xlsx import, fixed missing approved_at date on Games xlsx import.
+- CS-551 - Created Waiting For Approval accordions on Games, Methodologies and Songs page
+- CS-551 - Modified Record List component so that multiple instances are usable without conflicts on the same page
+- CS-551 - Added Delete button to Game, Methodology and Song page
+- CS-551 - Fixed filterAgeGroupByAssociation methods to return query without modification when 'association_id' is not available
+- CS-538 - Added functionality to update scout's troop id when scout is added to patrol, when patrol's troop is changed
+- CS-563 - Added Trial System Trial Type to patrol
+- CS-563 - Extended team Work Plan patrols field to include information about patrol's Trial System Trial Type
+- CS-559 - Created WorkPlan model for team, backend form and list
+- CS-559 - Created work plans tab on frontend team page, with list and new work plan button
+- CS-559 - Created frontend work plan create/edit page
+- CS-559 - Added work plan PDF download
+- CS-500 - Added restore deleted scouts option on backend, added inactivation on scout soft deleted
+- CS-554 - Extended TrialSystem model with effective knowledge attribute and create backend import page
 - CS-555 - Added google calendar tab to Association, District and Team
 - CS-475 - Added option to backend scout list to (soft)delete scout with personal data
+- CS-516 - Created Song type model
+- CS-517 - Created Folk song type model
+- CS-518 - Created Region model
+- CS-519 - Created Folk song rhythm model
+- CS-508 - Created Song model
+
+## 1.11.0
+### 2023-04-13
+
 - CS-520 - Modification and optimization of grid display and the design of the filtering
 - CS-491 - Added scout xlsx import/export to teams page
 - CS-331 - Added `manifest.json` file and updated readme with instructions on how to add PWA support
@@ -24,6 +47,7 @@
 - CS-318 - Changed Team leadership_presentation, history and description to richtext
 - CS-318 - Updated formbuilder to support subforms, created ContentPageForm component using formbuilder subform capability
 - CS-318 - Changed TinyMCE modules to ContentPageForm component
+- CS-492 - Fixed street field in the locations table
 
 ## 1.10.0
 ### 2023-03-17

@@ -1,10 +1,12 @@
-<?php namespace Csatar\Csatar\Updates;
+<?php
+namespace Csatar\Csatar\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarCsatarGalleryModel extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_csatar_gallery_model', function($table)
@@ -22,4 +24,5 @@ class BuilderTableCreateCsatarCsatarGalleryModel extends Migration
     {
         Schema::dropIfExists('csatar_csatar_gallery_model');
     }
+
 }

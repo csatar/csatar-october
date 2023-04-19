@@ -1,10 +1,12 @@
-<?php namespace Csatar\Csatar\Updates;
+<?php
+namespace Csatar\Csatar\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarCsatarProfessionalQualifications extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_csatar_professional_qualifications', function($table)
@@ -18,9 +20,10 @@ class BuilderTableCreateCsatarCsatarProfessionalQualifications extends Migration
             $table->text('comment')->nullable();
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_professional_qualifications');
     }
+
 }

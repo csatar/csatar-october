@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Updates;
+<?php
+namespace Csatar\Csatar\Updates;
 
 use DB;
 use Schema;
@@ -6,6 +7,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarCsatarMandatesPermissions extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_csatar_mandates_permissions', function($table)
@@ -31,4 +33,5 @@ class BuilderTableCreateCsatarCsatarMandatesPermissions extends Migration
     {
         Schema::dropIfExists('csatar_csatar_mandates_permissions');
     }
+
 }

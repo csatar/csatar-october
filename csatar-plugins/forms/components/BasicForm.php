@@ -1,4 +1,5 @@
-<?php namespace Csatar\Forms\Components;
+<?php
+namespace Csatar\Forms\Components;
 
 use Auth;
 use Cms\Classes\ComponentBase;
@@ -147,13 +148,18 @@ class BasicForm extends ComponentBase  {
         $this->setOrGetFormUniqueId();
         if ($this->properties['subForm']) {
             $this->record = $this->getRecordFromParent();
+            if (empty($this->record)) {
+                return;
+            }
+
             $this->readOnly = $this->properties['readOnly'] ?? false;
         } else {
             $this->getComponentSettings();
-            $this->recordKeyValue = $this->param($this->recordKeyParam);
-            $this->record = $this->getRecord();
+            $this->recordKeyValue    = $this->param($this->recordKeyParam);
+            $this->record            = $this->getRecord();
             $this->currentUserRights = $this->getRights($this->record);
         }
+
         $this->setOrGetSessionKey();
         $this->fieldsThatRequire2FA = $this->getFieldsThatRequire2FA($this->currentUserRights);
     }
@@ -264,7 +270,7 @@ class BasicForm extends ComponentBase  {
         $this->getComponentSettings();
 
         // Render frontend
-//        $this->addCss('/modules/system/assets/ui/storm.css');
+// $this->addCss('/modules/system/assets/ui/storm.css');
         $this->addCss('/plugins/csatar/forms/assets/css/storm-select2.css');
         $this->addCss('/plugins/csatar/forms/assets/css/storm.css');
         $this->addJs('/modules/system/assets/ui/storm-min.js');
@@ -273,19 +279,25 @@ class BasicForm extends ComponentBase  {
         $this->addJs('/plugins/csatar/forms/assets/js/positionValidationTags.js');
         $this->addJs('/plugins/csatar/forms/assets/js/addCheckboxClass.js');
 
+        if ($this->properties['subForm'] && empty($this->record->id)) {
+            return;
+        }
+
         if ($this->readOnly) {
-            //check if user has permissions to view record
+            // check if user has permissions to view record
             if (!$this->canRead('MODEL_GENERAL')) {
                 \App::abort(403, 'Access denied!');
             }
+
             $this->renderedComponent = $this->createForm(true);
         }
 
         if ($this->recordKeyValue === $this->createRecordKeyword && !$this->readOnly) {
-            //check if user has permissions to create record
+            // check if user has permissions to create record
             if (!$this->canCreate('MODEL_GENERAL')) {
                 \App::abort(403, 'Access denied!');
             }
+
             $this->renderedComponent = $this->createForm();
         }
 
@@ -293,27 +305,31 @@ class BasicForm extends ComponentBase  {
             $action = $this->properties['action'] ?? $this->param($this->recordActionParam) ?? null;
             switch ($action) {
                 case $this->actionUpdateKeyword:
-                    //check if user has permissions to update record
+                    // check if user has permissions to update record
                     if (!$this->canUpdate('MODEL_GENERAL')) {
                         \App::abort(403, 'Access denied!');
                     }
+
                     if (!Auth::check()) {
                         return Redirect::to('/bejelentkezes');
                     }
+
                     $this->renderedComponent = $this->createForm();
                     break;
                 case $this->actionDeleteKeyword:
-                    $this->currentUserRights = $this->getRights($this->record, true); //getting user rights from database before delete
+                    $this->currentUserRights = $this->getRights($this->record, true); // getting user rights from database before delete
                     if (!$this->canDelete('MODEL_GENERAL')) {
                         \App::abort(403, 'Access denied!');
                     }
+
                     $this->renderedComponent = $this->onDelete();
                     break;
                 default:
                     if (!$this->canRead('MODEL_GENERAL')) {
                         \App::abort(403, 'Access denied!');
                     }
-                    $this->readOnly = true;
+
+                    $this->readOnly          = true;
                     $this->renderedComponent = $this->createForm(true);
             }
         }
@@ -322,7 +338,7 @@ class BasicForm extends ComponentBase  {
     private function getForm() {
         $form = Form::where('slug', $this->property('formSlug'))->first();
         if (!empty($form)) {
-            $this->form = $form;
+            $this->form   = $form;
             $this->formId = $form->id;
             return $form;
         } else {
@@ -335,10 +351,11 @@ class BasicForm extends ComponentBase  {
         if (!empty($this->record)) {
             return $this->record;
         }
-        $form       = $this->form ?? Form::find($this->formId ?? Input::get('formId'));
-        $modelName  = $form->getModelName();
-        $key        = $this->recordKeyParam ?? Input::get('recordKeyParam');
-        $value      = $this->recordKeyValue ?? Input::get('recordKeyValue');
+
+        $form      = $this->form ?? Form::find($this->formId ?? Input::get('formId'));
+        $modelName = $form->getModelName();
+        $key       = $this->recordKeyParam ?? Input::get('recordKeyParam');
+        $value     = $this->recordKeyValue ?? Input::get('recordKeyValue');
 
         $record = null;
         if (!empty($key) && !empty($value)) {
@@ -355,7 +372,7 @@ class BasicForm extends ComponentBase  {
         }
 
         if (!$record) {
-            //TODO handle trashed records
+            // TODO handle trashed records
             return null;
         }
 
@@ -363,31 +380,39 @@ class BasicForm extends ComponentBase  {
     }
 
     private function getParent() {
-        $parentClass = $this->properties['parentModel']['class'] ?? null;
+        $parentClass    = $this->properties['parentModel']['class'] ?? null;
         $recordKeyParam = $this->properties['parentModel']['recordKeyParam'] ?? null;
         $recordKeyValue = $this->properties['parentModel']['recordKeyValue'] ?? null;
 
         return $parentClass::where($recordKeyParam, $recordKeyValue)->first();
     }
+
     private function getRecordFromParent() {
 
         $relationName = $this->properties['getRecordFromParent'] ?? null;
-        $parent = $this->getParent();
+        $parent       = $this->getParent();
+
+        if (empty($parent) || empty($relationName)) {
+            return;
+        }
 
         $this->getRightsFromParent($parent, $relationName);
 
-        $hasCreateRights = $this->currentUserRights['MODEL_GENERAL']['create'] ?? false;
-        $hasUpdateRights = $this->currentUserRights['MODEL_GENERAL']['update'] ?? false;
+        $hasCreateRights = $this->currentUserRights['MODEL_GENERAL']['create'] ?? -1;
+        $hasUpdateRights = $this->currentUserRights['MODEL_GENERAL']['update'] ?? -1;
+        $hasReadRights   = $this->currentUserRights['MODEL_GENERAL']['read'] ?? -1;
 
-
-        if ($parent->$relationName && $hasUpdateRights) {
+        if ($parent->$relationName && $hasUpdateRights > 0) {
             $record = $parent->$relationName;
             $this->properties['action'] = 'update';
-        } elseif ($hasCreateRights) {
-            $form       = $this->form ?? Form::find($this->formId ?? Input::get('formId'));
-            $modelName  = $form->getModelName();
-            $record = new $modelName();
+        } elseif ($hasCreateRights > 0) {
+            $form      = $this->form ?? Form::find($this->formId ?? Input::get('formId'));
+            $modelName = $form->getModelName();
+            $record    = new $modelName();
             $this->properties['action'] = 'create';
+        } elseif ($hasReadRights > 0) {
+            $record = $parent->$relationName;
+            $this->properties['action'] = 'read';
         }
 
         return $record;
@@ -401,19 +426,20 @@ class BasicForm extends ComponentBase  {
         $userRightsForParent = $this->getRights($parent, $ignoreCache);
         $this->currentUserRights['MODEL_GENERAL']['create'] = $userRightsForParent[$relationName]['create'];
         $this->currentUserRights['MODEL_GENERAL']['update'] = $userRightsForParent[$relationName]['update'];
+        $this->currentUserRights['MODEL_GENERAL']['read']   = $userRightsForParent[$relationName]['read'];
 
         $this->currentUserRights = collect($this->currentUserRights);
     }
 
     private function getComponentSettings() {
-        $this->recordKeyParam   = $this->property('recordKeyParam');
-        $this->readOnly         = $this->property('readOnly');
+        $this->recordKeyParam = $this->property('recordKeyParam');
+        $this->readOnly       = $this->property('readOnly');
 
         if (!$this->readOnly) {
-            $this->createRecordKeyword  = $this->property('createRecordKeyword');
-            $this->recordActionParam    = $this->property('recordActionParam');
-            $this->actionUpdateKeyword  = $this->property('actionUpdateKeyword');
-            $this->actionDeleteKeyword  = $this->property('actionDeleteKeyword');
+            $this->createRecordKeyword = $this->property('createRecordKeyword');
+            $this->recordActionParam   = $this->property('recordActionParam');
+            $this->actionUpdateKeyword = $this->property('actionUpdateKeyword');
+            $this->actionDeleteKeyword = $this->property('actionDeleteKeyword');
         }
     }
 
@@ -422,8 +448,8 @@ class BasicForm extends ComponentBase  {
     }
 
     public function setOrGetSessionKey(){
-        $prefix = $this->formUniqueId . '_form_key_';
-        $sessionKey = Session::get($this->formUniqueId) ?? uniqid($prefix, true);
+        $prefix           = $this->formUniqueId . '_form_key_';
+        $sessionKey       = Session::get($this->formUniqueId) ?? uniqid($prefix, true);
         $this->sessionKey = $sessionKey;
         Session::put($this->formUniqueId, $sessionKey);
     }
@@ -448,9 +474,11 @@ class BasicForm extends ComponentBase  {
             if ($key == 'is2fa') {
                 return;
             }
+
             if (isset($item['obligatory'])) {
                 unset($item['obligatory']);
             }
+
             $valueThatIndicates2FANeed = $userRights['is2fa'] ? 1 : 0;
             return array_keys($item, $valueThatIndicates2FANeed);
         })->filter(function ($item) {
@@ -510,4 +538,5 @@ class BasicForm extends ComponentBase  {
 
         return false;
     }
+
 }

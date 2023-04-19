@@ -4,10 +4,10 @@ namespace Csatar\Csatar\Classes\Enums;
 
 class Gender
 {
-    public const MALE = 1;
+    public const MALE   = 1;
     public const FEMALE = 2;
-    public const OTHER = 3;
-    public const MIXED = 4;
+    public const OTHER  = 3;
+    public const MIXED  = 4;
 
     public static array $optionsWithLabels = [];
 
@@ -18,4 +18,5 @@ class Gender
             self::OTHER => e(trans('csatar.csatar::lang.plugin.admin.scout.gender.other')),
         ];
     }
+
 }

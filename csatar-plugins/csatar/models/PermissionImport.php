@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Models;
+<?php
+namespace Csatar\Csatar\Models;
 
 use Csatar\Csatar\Models\Association;
 use Csatar\Csatar\Models\MandateType;
@@ -11,7 +12,7 @@ class PermissionImport extends \Backend\Models\ImportModel
      * @var array The rules to be applied to the data.
      */
     public $rules = [];
-    private $mandateTypeAssociationMap = []; //[$associationName][$mandateName] = $mandateId;
+    private $mandateTypeAssociationMap = []; // [$associationName][$mandateName] = $mandateId;
 
     public function importData($results, $sessionKey = null)
     {
@@ -40,7 +41,6 @@ class PermissionImport extends \Backend\Models\ImportModel
         }
 
         foreach ($results as $row => $data) {
-
             $associationName = $data['association'];
             $mandateTypeName = $data['mandate_type'];
 
@@ -70,7 +70,7 @@ class PermissionImport extends \Backend\Models\ImportModel
                     "model" => $data["model"],
                     "field" => $data["field"],
                 ]);
-                
+
                 $mandatePermission->update([
                     "obligatory" => $data["obligatory"] != "" ? $data["obligatory"] : null,
                     "create" => $data["create"] != "" ? $data["create"] : null,
@@ -85,13 +85,12 @@ class PermissionImport extends \Backend\Models\ImportModel
                 } else {
                     $this->logUpdated();
                 }
-
             } catch (\Exception $ex) {
                 $this->logError($row, $ex->getMessage());
             }
-
         }
 
         set_time_limit($intialMaxExecutionTime);
     }
+
 }

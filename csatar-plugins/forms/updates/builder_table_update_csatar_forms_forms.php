@@ -1,10 +1,12 @@
-<?php namespace Csatar\Forms\Updates;
+<?php
+namespace Csatar\Forms\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
 class BuilderTableUpdateCsatarFormsForms extends Migration
 {
+
     public function up()
     {
         Schema::table('csatar_forms_forms', function($table)
@@ -12,7 +14,7 @@ class BuilderTableUpdateCsatarFormsForms extends Migration
             $table->string('slug')->after('title');
         });
     }
-    
+
     public function down()
     {
         Schema::table('csatar_forms_forms', function($table)
@@ -20,4 +22,5 @@ class BuilderTableUpdateCsatarFormsForms extends Migration
             $table->dropColumn('slug');
         });
     }
+
 }

@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Behaviors;
+<?php
+namespace Csatar\Csatar\Behaviors;
 
 use Str;
 use Lang;
@@ -142,7 +143,6 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
     //
     // Controller actions
     //
-
     public function import()
     {
         if ($response = $this->checkPermissionsForType('import')) {
@@ -188,11 +188,10 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
     //
     // Importing AJAX
     //
-
     public function onImport()
     {
         try {
-            $model = $this->importGetModel();
+            $model   = $this->importGetModel();
             $matches = post('column_match', []);
 
             if ($optionData = post('ImportOptions')) {
@@ -200,13 +199,13 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
             }
 
             $importOptions = $this->getFormatOptionsFromPost();
-            $importOptions['sessionKey'] = $this->importUploadFormWidget->getSessionKey();
+            $importOptions['sessionKey']     = $this->importUploadFormWidget->getSessionKey();
             $importOptions['firstRowTitles'] = post('first_row_titles', false);
 
             $model->import($matches, $importOptions);
 
             $this->vars['importResults'] = $model->getResultStats();
-            $this->vars['returnUrl'] = $this->getRedirectUrlForType('import');
+            $this->vars['returnUrl']     = $this->getRedirectUrlForType('import');
         } catch (MassAssignmentException $ex) {
             $this->controller->handleError(new ApplicationException(Lang::get(
                 'backend::lang.model.mass_assignment_failed',
@@ -243,7 +242,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
             throw new ApplicationException(Lang::get('backend::lang.import_export.unknown_column_error'));
         }
 
-        $path = $this->getImportFilePath();
+        $path   = $this->getImportFilePath();
         $reader = $this->createCsvReader($path);
 
         if (post('first_row_titles')) {
@@ -251,7 +250,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
         }
 
         $result = $reader->setLimit(50)->fetchColumn((int) $columnId);
-        $data = iterator_to_array($result, false);
+        $data   = iterator_to_array($result, false);
 
         /*
          * Clean up data
@@ -279,10 +278,10 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
      */
     public function prepareImportVars()
     {
-        $this->vars['importUploadFormWidget'] = $this->importUploadFormWidget;
+        $this->vars['importUploadFormWidget']  = $this->importUploadFormWidget;
         $this->vars['importOptionsFormWidget'] = $this->importOptionsFormWidget;
-        $this->vars['importDbColumns'] = $this->getImportDbColumns();
-        $this->vars['importFileColumns'] = $this->getImportFileColumns();
+        $this->vars['importDbColumns']         = $this->getImportDbColumns();
+        $this->vars['importFileColumns']       = $this->getImportFileColumns();
 
         // Make these variables available to widgets
         $this->controller->vars += $this->vars;
@@ -305,7 +304,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
         }
 
         $columnConfig = $this->getConfig('import[list]');
-        $columns = $this->makeListColumns($columnConfig);
+        $columns      = $this->makeListColumns($columnConfig);
 
         if (empty($columns)) {
             throw new ApplicationException(Lang::get('backend::lang.import_export.empty_import_columns_error'));
@@ -320,7 +319,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
             return null;
         }
 
-        $reader = $this->createCsvReader($path);
+        $reader   = $this->createCsvReader($path);
         $firstRow = $reader->fetchOne(0);
 
         if (!post('first_row_titles')) {
@@ -356,7 +355,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
             return null;
         }
 
-        $widgetConfig = $this->makeConfig('$/csatar/csatar/behaviors/importexportcontrollerforscoutimport/fields_import.yaml');
+        $widgetConfig        = $this->makeConfig('$/csatar/csatar/behaviors/importexportcontrollerforscoutimport/fields_import.yaml');
         $widgetConfig->model = $this->importGetModel();
         $widgetConfig->alias = 'importUploadForm';
 
@@ -374,7 +373,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
         $widget = $this->makeOptionsFormWidgetForType('import');
 
         if (!$widget && $this->importUploadFormWidget) {
-            $stepSection = $this->importUploadFormWidget->getField('step3_section');
+            $stepSection         = $this->importUploadFormWidget->getField('step3_section');
             $stepSection->hidden = true;
         }
 
@@ -426,11 +425,10 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
     //
     // Exporting AJAX
     //
-
     public function onExport()
     {
         try {
-            $model = $this->exportGetModel();
+            $model   = $this->exportGetModel();
             $columns = $this->processExportColumnsFromPost();
 
             if ($optionData = post('ExportOptions')) {
@@ -441,12 +439,12 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
             $exportOptions['sessionKey'] = $this->exportFormatFormWidget->getSessionKey();
 
             $reference = $model->export($columns, $exportOptions);
-            $fileUrl = $this->controller->actionUrl(
+            $fileUrl   = $this->controller->actionUrl(
                 'download',
                 $reference.'/'.$this->exportFileName
             );
 
-            $this->vars['fileUrl'] = $fileUrl;
+            $this->vars['fileUrl']   = $fileUrl;
             $this->vars['returnUrl'] = $this->getRedirectUrlForType('export');
         } catch (MassAssignmentException $ex) {
             $this->controller->handleError(new ApplicationException(Lang::get(
@@ -475,9 +473,9 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
      */
     public function prepareExportVars()
     {
-        $this->vars['exportFormatFormWidget'] = $this->exportFormatFormWidget;
+        $this->vars['exportFormatFormWidget']  = $this->exportFormatFormWidget;
         $this->vars['exportOptionsFormWidget'] = $this->exportOptionsFormWidget;
-        $this->vars['exportColumns'] = $this->getExportColumns();
+        $this->vars['exportColumns']           = $this->getExportColumns();
 
         // Make these variables available to widgets
         $this->controller->vars += $this->vars;
@@ -500,7 +498,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
         }
 
         $columnConfig = $this->getConfig('export[list]');
-        $columns = $this->makeListColumns($columnConfig);
+        $columns      = $this->makeListColumns($columnConfig);
 
         if (empty($columns)) {
             throw new ApplicationException(Lang::get('backend::lang.import_export.empty_export_columns_error'));
@@ -515,7 +513,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
             return null;
         }
 
-        $widgetConfig = $this->makeConfig('~/modules/backend/behaviors/importexportcontroller/partials/fields_export.yaml');
+        $widgetConfig        = $this->makeConfig('~/modules/backend/behaviors/importexportcontroller/partials/fields_export.yaml');
         $widgetConfig->model = $this->exportGetModel();
         $widgetConfig->alias = 'exportUploadForm';
 
@@ -533,7 +531,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
         $widget = $this->makeOptionsFormWidgetForType('export');
 
         if (!$widget && $this->exportFormatFormWidget) {
-            $stepSection = $this->exportFormatFormWidget->getField('step3_section');
+            $stepSection         = $this->exportFormatFormWidget->getField('step3_section');
             $stepSection->hidden = true;
         }
 
@@ -543,7 +541,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
     protected function processExportColumnsFromPost()
     {
         $visibleColumns = post('visible_columns', []);
-        $columns = post('export_columns', []);
+        $columns        = post('export_columns', []);
 
         foreach ($columns as $key => $columnName) {
             if (!isset($visibleColumns[$columnName])) {
@@ -551,7 +549,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
             }
         }
 
-        $result = [];
+        $result      = [];
         $definitions = $this->getExportColumns();
 
         foreach ($columns as $column) {
@@ -564,7 +562,6 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
     //
     // ListController integration
     //
-
     protected function checkUseListExportMode()
     {
         if (!$useList = $this->getConfig('export[useList]')) {
@@ -628,6 +625,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
         foreach ($columns as $column) {
             $headers[] = $widget->getHeaderValue($column);
         }
+
         $csv->insertOne($headers);
 
         /*
@@ -637,7 +635,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
             ? 'getColumnValueRaw'
             : 'getColumnValue';
 
-        $query = $widget->prepareQuery();
+        $query   = $widget->prepareQuery();
         $results = $query->get();
 
         if ($event = $widget->fireSystemEvent('backend.list.extendRecords', [&$results])) {
@@ -651,6 +649,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
                 if (is_array($value)) {
                     $value = implode('|', $value);
                 }
+
                 $record[] = $value;
             }
 
@@ -696,8 +695,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
      */
     protected function checkPermissionsForType($type)
     {
-        if (
-            ($permissions = $this->getConfig($type.'[permissions]')) &&
+        if (($permissions = $this->getConfig($type.'[permissions]')) &&
             (!BackendAuth::getUser()->hasAnyAccess((array) $permissions))
         ) {
             return Response::make(View::make('backend::access_denied'), 403);
@@ -711,9 +709,9 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
         }
 
         if ($fieldConfig = $this->getConfig($type.'[form]')) {
-            $widgetConfig = $this->makeConfig($fieldConfig);
-            $widgetConfig->model = $this->getModelForType($type);
-            $widgetConfig->alias = $type.'OptionsForm';
+            $widgetConfig            = $this->makeConfig($fieldConfig);
+            $widgetConfig->model     = $this->getModelForType($type);
+            $widgetConfig->alias     = $type.'OptionsForm';
             $widgetConfig->arrayName = ucfirst($type).'Options';
 
             return $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
@@ -779,7 +777,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
      */
     protected function createCsvReader($path)
     {
-        $reader = CsvReader::createFromPath($path);
+        $reader  = CsvReader::createFromPath($path);
         $options = $this->getFormatOptionsFromPost();
 
         if ($options['delimiter'] !== null) {
@@ -794,8 +792,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
             $reader->setEscape($options['escape']);
         }
 
-        if (
-            $options['encoding'] !== null &&
+        if ($options['encoding'] !== null &&
             $reader->supportsStreamFilter()
         ) {
             $reader->addStreamFilter(sprintf(
@@ -828,10 +825,11 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
         if ($presetMode == 'custom') {
             $options['delimiter'] = post('format_delimiter');
             $options['enclosure'] = post('format_enclosure');
-            $options['escape'] = post('format_escape');
-            $options['encoding'] = post('format_encoding');
+            $options['escape']    = post('format_escape');
+            $options['encoding']  = post('format_encoding');
         }
 
         return $options;
     }
+
 }

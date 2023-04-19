@@ -1,4 +1,5 @@
-<?php namespace Csatar\KnowledgeRepository\Controllers;
+<?php
+namespace Csatar\KnowledgeRepository\Controllers;
 
 use BackendMenu;
 use Flash;
@@ -34,4 +35,5 @@ class SeederData extends Controller
         $seederData->run();
         Flash::success(Lang::get('csatar.csatar::lang.plugin.admin.admin.seederData.updateDataSuccess'));
     }
+
 }

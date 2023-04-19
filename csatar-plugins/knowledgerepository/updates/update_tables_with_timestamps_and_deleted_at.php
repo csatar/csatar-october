@@ -1,10 +1,12 @@
-<?php namespace Csatar\KnowledgeRepository\Updates;
+<?php
+namespace Csatar\KnowledgeRepository\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
 class UpdateTablesWithTimestampsAndDeletedAt extends Migration
 {
+
     public function up()
     {
         Schema::table('csatar_knowledgerepository_accident_risk_levels', function($table)
@@ -73,7 +75,7 @@ class UpdateTablesWithTimestampsAndDeletedAt extends Migration
             $table->timestamp('deleted_at')->nullable();
         });
     }
-    
+
     public function down()
     {
         Schema::table('csatar_knowledgerepository_accident_risk_levels', function($table)
@@ -142,4 +144,5 @@ class UpdateTablesWithTimestampsAndDeletedAt extends Migration
             $table->dropColumn('deleted_at');
         });
     }
+
 }

@@ -1,4 +1,5 @@
-<?php return [
+<?php
+return [
     'plugin' => [
         'name' => 'Tudástár',
         'description' => 'Tudástár plugin az RMCSSZ CSATÁR alkalmazás számára',
@@ -11,9 +12,13 @@
                     'knowledgeRepository' => 'Tudástár',
                     'testSystem' => 'Próbarendszer',
                     'games' => 'Játékok',
-                    'songs' => 'Énekek',
+                    'songs' => 'Dalok',
                     'workPlans' => 'Munkatervek',
                     'methodologies' => 'Módszertan',
+                    'songTypes' => 'Dal típusok',
+                    'folkSongTypes' => 'Népdal típusok',
+                    'regions' => 'Tájegységek',
+                    'folkSongRhythms' => 'Népdal ritmusok'
                 ],
                 'knowledgeRepositoryParameters' => [
                     'knowledgeRepositoryParameters' => 'Tudástár Paraméterek',
@@ -36,6 +41,14 @@
                     'methodologyName' => 'Módszer neve',
                     'methodology' => 'Módszertan',
                     'ageGroup' => 'Korosztály',
+                    'songType' => 'Dal típus',
+                    'folkSongType' => 'Népdal típus',
+                    'region' => 'Tájegység',
+                    'bigRegion' => 'Nagy tájegység',
+                    'midRegion' => 'Közepes tájegység',
+                    'smallRegion' => 'Kicsi tájegység',
+                    'folkSongRhythm' => 'Népdal ritmus',
+                    'song' => 'Dal'
                 ],
             ],
             'general' => [
@@ -45,6 +58,7 @@
                 'description' => 'Leírás',
                 'approverCsatarCode' => 'Jóváhagyó - igazolványszám',
                 'proposerCsatarCode' => 'Felterjesztő - igazolványszám',
+                'uploaderCsatarCode' => 'Feltöltő - igazolványszám',
                 'isApproved' => 'Jóváhagyva',
                 'minute' => 'perc',
                 'link' => 'Link',
@@ -57,6 +71,10 @@
                 'import' => 'Importálás',
                 'row' => 'sor',
                 'file' => 'Fájl',
+                'select' => 'Válassz...',
+                'richTextColumns' => 'Richtext típusú oszlopok',
+                'richTextColumnsNote' => 'Azon oszlopok nevei (vesszővel elválasztva), amelyeket richtext formátumban kell importálni. Az oszlopneveknek meg kell egyezniük xlsx dokumentumban használt oszlopnevekkel.',
+                'richTextColumnsNotFound' => 'A következő rich text oszlopok nem találhatók az xlsx dokumentumban: ":columns"! Az ékezetek és a nagybetűk ebben az esteben nem számítanak.',
             ],
             'game' => [
                 'game' => 'Játék',
@@ -92,6 +110,14 @@
                 'individual' => 'Egyéni',
                 'details' => 'Részletek',
                 'task' => 'Foglalkozás',
+                'obligatory' => 'Obligatory',
+                'effectiveKnowledge' => 'Effektív tudás',
+                'effectiveKnowledgeOnly' => 'Csak az effektív tudás oszlop importálása. (A megfelelő azonosítóval rendelkező próbarendszernek léteznie kell!)',
+                'effectiveKnowledgeColumn' => 'Az effektív tudás oszlop csak akkor importálódik formázottan, ha az oszlop neve "Effektív tudás"!',
+                'trialSystemAlreadyExists' => 'Már létezik játékrendszer a következő azonosítóval: :id!',
+                'trialSystemDoesntExist' => 'Nem létezik játékrendszer a következő azonosítóval: :id!',
+                'overwriteExistingTrialSystems' => 'Figyelem! A feltöltött próbarendszerek felülírják a már létező, azonos azonosítójú próbarendszereket!',
+                'onlyFirstSheetNote' => 'Figyelem! Csak az első munkalap importálódik!',
             ],
             'messages' => [
                 'cannotFindHeadcount' => 'A következő létszám paraméter(ek) nem található(k): ',
@@ -102,9 +128,38 @@
                 'cannotFindGameType' => 'A következő játék típus paraméter(ek) nem található(k): ',
                 'cannotFindTool' => 'A következő kellék paraméter(ek) nem található(k): ',
                 'cannotFindTrialSystem' => 'A következő próbarendszer paraméter(ek) nem található(k): ',
+                'cannotFindTrialSystemCategory' => 'A következő próbarendszer kategória(ák) nem található(k): ',
+                'cannotFindTrialSystemTopic' => 'A következő próbarendszer tema(ák) nem található(k): ',
+                'cannotFindTrialSystemSubTopic' => 'A következő próbarendszer altéma(ák) nem található(k): ',
+                'cannotFindTrialSystemType' => 'A következő próbarendszer típus(ok) nem található(k): ',
+                'cannotFindTrialSystemTrialType' => 'A következő próbarendszer próba kategória(ák) nem található(k): ',
+                'cannotFindFolkSongRhythm' => 'A következő népdal ritmus típus(ok) nem található(k): ',
+                'cannotFindFolkSongType' => 'A következő népdal típus(ok) nem található(k): ',
+                'cannotFindRegion' => 'A következő régió(k) nem található(k): ',
+                'cannotFindSongType' => 'A következő dal típus(ok) nem található(k): ',
                 'errorsOccurred' => 'Az importálás során a következő hibák léptek fel: ',
                 'importSuccessful' => 'Az importálás sikeresen megtörtént!',
             ],
+            'workPlan' => [
+                'workPlan' => 'Munkaterv',
+                'workPlans' => 'Munkatervek',
+                'workPlanAlreadyExistsForYear' => ':year-ra(re) már létezik munkaterv!',
+                'year' => 'Évszám',
+                'troops' => 'Működő rajok',
+                'patrols' => 'Őrsök listája',
+                'frameStory' => 'Éves keretmese',
+                'teamNotes' => 'A csapat megjegyzései erre az évre',
+                'teamGoals' => 'A csapat céljai',
+                'teamLeader' => 'Csapatvezető',
+                'deputyTeamLeaders' => 'Csapatvezető helyettes(ek)',
+            ],
+            'song' => [
+                'songTitle' => 'Dal cím',
+                'author' => 'Szerző',
+                'text' => 'Szöveg',
+                'songAlreadyExists' => 'Már létezik dal a következő címmel: :title!',
+                'overwriteExistingSongs' => 'Figyelem! Ha be van jelölve, feltöltött dalok felülírják a már létező, azonos című dalokat!',
+            ]
         ],
         'components' => [
             'gameForm' => [
@@ -114,6 +169,10 @@
             'methodologyForm' => [
                 'name' => 'Módszertan űrlap',
                 'description' => 'Módszertan űrlap komponens'
+            ],
+            'songForm' => [
+                'name' => 'Dal űrlap',
+                'description' => 'Dal űrlap komponens'
             ]
         ],
     ],

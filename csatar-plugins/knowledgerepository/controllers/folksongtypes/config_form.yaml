@@ -1,0 +1,10 @@
+name: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.folkSongType'
+form: $/csatar/knowledgerepository/models/folksongtype/fields.yaml
+modelClass: Csatar\KnowledgeRepository\Models\FolkSongType
+defaultRedirect: csatar/knowledgerepository/folksongtypes
+create:
+    redirect: 'csatar/knowledgerepository/folksongtypes/update/:id'
+    redirectClose: csatar/knowledgerepository/folksongtypes
+update:
+    redirect: csatar/knowledgerepository/folksongtypes
+    redirectClose: csatar/knowledgerepository/folksongtypes

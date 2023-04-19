@@ -1,10 +1,12 @@
-<?php namespace Csatar\KnowledgeRepository\Updates;
+<?php
+namespace Csatar\KnowledgeRepository\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarKnowledgerepositoryTrialSystemCategories extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_knowledgerepository_trial_system_categories', function($table)
@@ -18,9 +20,10 @@ class BuilderTableCreateCsatarKnowledgerepositoryTrialSystemCategories extends M
             $table->timestamp('deleted_at')->nullable();
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_knowledgerepository_trial_system_categories');
     }
+
 }

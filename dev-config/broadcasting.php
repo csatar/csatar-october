@@ -34,8 +34,7 @@ return [
             'secret' => '',
             'app_id' => '',
             'options' => [
-                //
-            ],
+                            ],
         ],
 
         'redis' => [

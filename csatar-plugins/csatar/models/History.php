@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Models;
+<?php
+namespace Csatar\Csatar\Models;
 
 use Model;
 use Db;
@@ -10,7 +11,7 @@ use RainLab\Builder\Classes\ComponentHelper;
 class History extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-    
+
 
     /**
      * @var string The database table used by the model.
@@ -65,6 +66,7 @@ class History extends Model
         if (class_exists($this->model_type) && method_exists($this->model_type, 'getOrganizationTypeModelNameUserFriendly')) {
             return ($this->model_type)::getOrganizationTypeModelNameUserFriendly();
         }
+
         return $this->model_type;
     }
 
@@ -73,6 +75,7 @@ class History extends Model
         if (class_exists($this->related_model_type) && method_exists($this->related_model_type, 'getOrganizationTypeModelNameUserFriendly')) {
             return ($this->related_model_type)::getOrganizationTypeModelNameUserFriendly();
         }
+
         return $this->related_model_type;
     }
 
@@ -96,6 +99,7 @@ class History extends Model
             if (class_exists($item) && method_exists($item, 'getOrganizationTypeModelNameUserFriendly')) {
                 $item = ($item)::getOrganizationTypeModelNameUserFriendly();
             }
+
             if (empty($item)) {
                 $item = 'N/A';
             }
@@ -109,6 +113,7 @@ class History extends Model
             if (class_exists($item) && method_exists($item, 'getOrganizationTypeModelNameUserFriendly')) {
                 $item = ($item)::getOrganizationTypeModelNameUserFriendly();
             }
+
             if (empty($item)) {
                 $item = 'N/A';
             }
@@ -118,7 +123,7 @@ class History extends Model
 
     public function getAttributeOptions(){
         $attributeOptions = self::distinct()->orderBy('attribute', 'asc')->select('attribute', 'model_type')->get()->toArray();
-        $options = [];
+        $options          = [];
         foreach ($attributeOptions as $attributeOption) {
             $options[$attributeOption['attribute']] = $attributeOption['attribute'];
             if (class_exists($attributeOption['model_type']) && method_exists($attributeOption['model_type'], 'getTranslatedAttributeNames')) {
@@ -138,6 +143,7 @@ class History extends Model
         foreach ($frontendUserOptions as $frontendUserOption) {
             $options[$frontendUserOption->id] = $frontendUserOption->name;
         }
+
         return $options;
     }
 
@@ -145,10 +151,12 @@ class History extends Model
         $backendUserOptions = Db::select(
             "SELECT (SELECT CONCAT(IFNULL(first_name, ''), ' ', IFNULL(last_name, ''), ' - ', IFNULL(id, '')) as name FROM backend_users WHERE id = be_user_id) as name, be_user_id as id FROM csatar_csatar_history WHERE be_user_id IS NOT NULL GROUP BY be_user_id ORDER BY name ASC"
         );
-        $options = [];
+        $options            = [];
         foreach ($backendUserOptions as $backendUserOption) {
             $options[$backendUserOption->id] = $backendUserOption->name;
         }
+
         return $options;
     }
+
 }

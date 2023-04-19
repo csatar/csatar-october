@@ -1,0 +1,5 @@
+fields:
+    name:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.songType'
+        span: auto
+        type: text

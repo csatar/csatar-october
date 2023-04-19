@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Models;
+<?php
+namespace Csatar\Csatar\Models;
 
 use Csatar\Csatar\Classes\Enums\Status;
 use Lang;
@@ -46,7 +47,7 @@ class MembershipCard extends Model
     public $belongsTo = [
         'scout' => '\Csatar\Csatar\Models\Scout',
     ];
-    
+
     /**
     * Add custom validation
     */

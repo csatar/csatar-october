@@ -1,10 +1,12 @@
-<?php namespace Csatar\Forms\Updates;
+<?php
+namespace Csatar\Forms\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarFormsForms extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_forms_forms', function($table)
@@ -22,4 +24,5 @@ class BuilderTableCreateCsatarFormsForms extends Migration
     {
         Schema::dropIfExists('csatar_forms_forms');
     }
+
 }

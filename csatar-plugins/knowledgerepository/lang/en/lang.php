@@ -1,4 +1,5 @@
-<?php return [
+<?php
+return [
     'plugin' => [
         'name' => 'Knowledge Repository',
         'description' => 'Plugin for Knowledge Repository in the RMCSSZ\'s CSATÁR project',
@@ -14,6 +15,10 @@
                     'songs' => 'Songs',
                     'workPlans' => 'Work Plans',
                     'methodologies' => 'Methodologies',
+                    'songTypes' => 'Song types',
+                    'folkSongTypes' => 'Folk song types',
+                    'regions' => 'Regions',
+                    'folkSongRhythms' => 'Folk song rhythms'
                 ],
                 'knowledgeRepositoryParameters' => [
                     'knowledgeRepositoryParameters' => 'Knowledge Repository Parameters',
@@ -36,6 +41,14 @@
                     'methodologyName' => 'Methodology name',
                     'methodology' => 'Methodology',
                     'ageGroup' => 'Age group',
+                    'songType' => 'Song type',
+                    'folkSongType' => 'Folk song type',
+                    'region' => 'Region',
+                    'bigRegion' => 'Big Region',
+                    'midRegion' => 'Mid Region',
+                    'smallRegion' => 'Small Region',
+                    'folkSongRhythm' => 'Folk song rhythm',
+                    'song' => 'Song'
                 ],
             ],
             'general' => [
@@ -45,6 +58,7 @@
                 'description' => 'Description',
                 'approverCsatarCode' => 'Approver',
                 'proposerCsatarCode' => 'Proposer',
+                'uploaderCsatarCode' => 'Uploader',
                 'isApproved' => 'Approved',
                 'minute' => 'minute',
                 'link' => 'Link',
@@ -56,6 +70,10 @@
                 'import' => 'Import',
                 'row' => 'row',
                 'file' => 'File',
+                'select' => 'Select...',
+                'richTextColumns' => 'Richtext columns',
+                'richTextColumnsNote' => 'Please fill the name of the columns (separated by comma) that should be imported as rich text. Please make sure you use the same column names as in the xlsx document.',
+                'richTextColumnsNotFound' => 'The following rich text columns are not found in the xlsx document: ":columns"! Accented letters and capital letters does not matter in this case!',
             ],
             'game' => [
                 'game' => 'Game',
@@ -91,6 +109,14 @@
                 'individual' => 'Individual',
                 'details' => 'Details',
                 'task' => 'Task',
+                'obligatory' => 'Obligatory',
+                'effectiveKnowledge' => 'Effective knowledge',
+                'effectiveKnowledgeOnly' => 'Import only effective knowledge column. (Trial system with the same id must exist!)',
+                'effectiveKnowledgeColumn' => 'The effective knowledge column is imported only if the column name is "Effektív tudás"!',
+                'trialSystemAlreadyExists' => 'Trial System already exists with the id: :id!',
+                'trialSystemDoesntExist' => 'Trial System doesn\'t exist with the id: :id!',
+                'overwriteExistingTrialSystems' => 'Please note that existing trial systems with the same id will be overwritten with the imported one!',
+                'onlyFirstSheetNote' => 'Please note that only the first sheet will be imported!',
             ],
             'messages' => [
                 'cannotFindHeadcount' => 'Cannot find headcount(s): ',
@@ -101,15 +127,48 @@
                 'cannotFindGameType' => 'Cannot find game type(s): ',
                 'cannotFindTool' => 'Cannot find tool(s): ',
                 'cannotFindTrialSystem' => 'Cannot find trial system(s): ',
+                'cannotFindTrialSystemCategory' => 'Cannot find trial system category(ies): ',
+                'cannotFindTrialSystemTopic' => 'Cannot find trial system topic(s): ',
+                'cannotFindTrialSystemSubTopic' => 'Cannot find trial system sub topic(s): ',
+                'cannotFindTrialSystemType' => 'Cannot find trial system type(s): ',
+                'cannotFindTrialSystemTrialType' => 'Cannot find trial system trial type(s): ',
+                'cannotFindFolkSongRhythm' => 'Cannot find folk song rhythm type(s): ',
+                'cannotFindFolkSongType' => 'Cannot find folk song type(s): ',
+                'cannotFindRegion' => 'Cannot find folk region(s): ',
+                'cannotFindSongType' => 'Cannot find song type(s): ',
                 'errorsOccurred' => 'Errors occurred during import: ',
                 'importSuccessful' => 'Import successful!',
             ],
+            'workPlan' => [
+                'workPlan' => 'Work Plan',
+                'workPlans' => 'Work Plans',
+                'workPlanAlreadyExistsForYear' => 'Work plan already exists for year: :year!',
+                'year' => 'Year',
+                'troops' => 'Active troops',
+                'patrols' => 'Patrols list',
+                'frameStory' => 'Frame story',
+                'teamNotes' => 'Team notes',
+                'teamGoals' => 'Team goals',
+                'teamLeader' => 'Team leader',
+                'deputyTeamLeaders' => 'Deputy team leader(s)',
+            ],
+            'song' => [
+                'songTitle' => 'Song Title',
+                'author' => 'Author',
+                'text' => 'Text',
+                'songAlreadyExists' => 'Song already exists with the title: :title!',
+                'overwriteExistingSongs' => 'Overwrite existing songs. If checked, the existing songs with the same title will be overwritten with the imported one!',
+            ]
         ],
         'components' => [
             'gameForm' => [
                 'name' => 'Game Form',
                 'description' => 'Game Form component',
             ],
+            'songForm' => [
+                'name' => 'Song Form',
+                'description' => 'Song Form component'
+            ]
         ],
     ],
 ];

@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Models;
+<?php
+namespace Csatar\Csatar\Models;
 
 use Cache;
 use Csatar\Csatar\Classes\Enums\Status;
@@ -170,7 +171,7 @@ class District extends OrganizationBase
     public function beforeSave()
     {
         $filterWords = explode(',', Lang::get('csatar.csatar::lang.plugin.admin.district.filterOrganizationUnitNameForWords'));
-        $this->name = $this->filterNameForWords($this->name, $filterWords);
+        $this->name  = $this->filterNameForWords($this->name, $filterWords);
 
         $this->generateSlugIfEmpty();
     }
@@ -188,10 +189,11 @@ class District extends OrganizationBase
                 StructureTree::getStructureTree();
                 return;
             }
-            $structureTree[$this->association_id]['districtsActive'][$this->id]['id'] = $this->id;
-            $structureTree[$this->association_id]['districtsActive'][$this->id]['name'] = $this->name;
+
+            $structureTree[$this->association_id]['districtsActive'][$this->id]['id']            = $this->id;
+            $structureTree[$this->association_id]['districtsActive'][$this->id]['name']          = $this->name;
             $structureTree[$this->association_id]['districtsActive'][$this->id]['extended_name'] = $this->extended_name;
-            $structureTree[$this->association_id]['districtsActive'][$this->id]['status'] = $this->status;
+            $structureTree[$this->association_id]['districtsActive'][$this->id]['status']        = $this->status;
             $structureTree[$this->association_id]['districtsActive'][$this->id]['association_id'] = $this->association_id;
             Cache::forever('structureTree', $structureTree);
         }
@@ -217,7 +219,8 @@ class District extends OrganizationBase
                 StructureTree::getStructureTree();
                 return;
             }
-            $structureTree[$this->association_id]['districtsActive'][$this->id]['name'] = $this->name;
+
+            $structureTree[$this->association_id]['districtsActive'][$this->id]['name']          = $this->name;
             $structureTree[$this->association_id]['districtsActive'][$this->id]['extended_name'] = $this->extended_name;
             Cache::forever('structureTree', $structureTree);
         }
@@ -296,4 +299,5 @@ class District extends OrganizationBase
     public function getParentTree() {
         return '(' . $this->association->name_abbreviation . ')';
     }
+
 }

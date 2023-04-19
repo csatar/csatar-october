@@ -1,4 +1,5 @@
-<?php namespace Csatar\Forms\Widgets\TagList;
+<?php
+namespace Csatar\Forms\Widgets\TagList;
 
 use Illuminate\Support\Collection;
 use October\Rain\Database\Relations\Relation as RelationBase;
@@ -8,6 +9,7 @@ use October\Rain\Database\Relations\Relation as RelationBase;
  */
 trait HasRelationStore
 {
+
     /**
      * getLoadValueFromRelation
      */
@@ -110,4 +112,5 @@ trait HasRelationStore
 
         return $query;
     }
+
 }

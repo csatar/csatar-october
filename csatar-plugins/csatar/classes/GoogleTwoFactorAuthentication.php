@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Classes;
+<?php
+namespace Csatar\Csatar\Classes;
 
 use Endroid\QrCode\Color\Color;
 use Endroid\QrCode\Color\ColorInterface;
@@ -78,4 +79,5 @@ final class GoogleTwoFactorAuthentication
 
         return new Color($red, $green, $blue);
     }
+
 }

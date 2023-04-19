@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Classes\SearchProviders;
+<?php
+namespace Csatar\Csatar\Classes\SearchProviders;
 
 use Carbon\Carbon;
 use Csatar\Csatar\Models\OrganizationBase;
@@ -16,6 +17,7 @@ class OrganizationSearchProvider extends ResultsProvider
         '\Csatar\Csatar\Models\District' => 5,
         '\Csatar\Csatar\Models\Association' => 6,
     ];
+
     public function search()
     {
         // The controller is used to generate page URLs.
@@ -29,35 +31,37 @@ class OrganizationSearchProvider extends ResultsProvider
 
         foreach ($organizationBaseChildClasses as $childClass) {
             // Get your matching models
-            $matching = null;
+            $matching          = null;
             $searchableColumns = $childClass::getSearchableColumns();
-            $matching = $childClass::where(function ($query) use ($searchableColumns) {
-                                return $query->when(in_array('family_name', $searchableColumns), function ($query) { //dd('family_name', $this->query, $query->toSql());
-                                    return $query->where('family_name', 'like', "%{$this->query}%");
-                                })->when(in_array('given_name', $searchableColumns), function ($query) { //dd('given_name', $this->query, $query->toSql());
-                                    return $query->orWhere('given_name', 'like', "%{$this->query}%");
-                                })->when(in_array('family_name', $searchableColumns) && in_array('given_name', $searchableColumns), function ($query) {
+            $matching          = $childClass::when($childClass == '\\Csatar\Csatar\Models\Scout', function ($query) use($searchableColumns) {
+                            $query->where(function ($query) use($searchableColumns){
+                                return $query->when(in_array('family_name', $searchableColumns) && in_array('given_name', $searchableColumns), function ($query) {
                                     return $query->orWhere(Db::raw("CONCAT(`family_name`, ' ', `given_name`)"), 'like', "%{$this->query}%");
                                 });
-                            })->when($childClass == '\\Csatar\Csatar\Models\Scout', function ($query){
-                                return $query->where(function ($query){
-                                    return $query->where('inactivated_at', '>', Carbon::now()->subYears(5))
-                                        ->orWhereNull('inactivated_at');
-                                });
-                            })->when(in_array('name', $searchableColumns), function ($query) use($searchableColumns) { //dd('name', $this->query, $query);
-                                return $query->orWhere('name', 'like', "%{$this->query}%");
-                            })->get();
+                            });
+                            $query->where(function ($query){
+                                return $query->where('inactivated_at', '>', Carbon::now()->subYears(5))
+                                    ->orWhereNull('inactivated_at');
+                            });
+                            return $query->orderByRaw("CONCAT(family_name, ' ', given_name) ASC");
+                        })->when(in_array('name', $searchableColumns), function ($query) use($searchableColumns) {
+                            return $query->orWhere('name', 'like', "%{$this->query}%");
+                        })->when(($childClass != '\\Csatar\Csatar\Models\Scout' && $childClass != '\\Csatar\Csatar\Models\Team'), function ($query){
+                            return $query->orderBy('name', 'ASC');
+                        })->when($childClass == '\\Csatar\Csatar\Models\Team', function ($query){
+                            return $query->orderByRaw('CAST(team_number AS UNSIGNED) ASC');
+                        })->get();
 
             // Create a new Result for every match
-            foreach ($matching as $match) {
-                $result            = $this->newResult();
-                $model = str_slug($childClass::getOrganizationTypeModelNameUserFriendly());
+            foreach ($matching as $key => $match) {
+                $result = $this->newResult();
+                $model  = str_slug($childClass::getOrganizationTypeModelNameUserFriendly());
 
-                $result->relevance = 100 - (self::RESULT_HIERARCHY[$childClass] ?? 1);
-                $result->title     = $match->extendedName != '' ? $match->extendedName : $match->name;
-                $result->url       = $controller->pageUrl($model, [ 'id' => $match->id ] );
-                if ( $childClass == '\\Csatar\Csatar\Models\Scout' ) {
-                    $result->url      = $controller->pageUrl('tag', [ 'ecset_code' => $match->ecset_code ] );
+                $result->relevance = $this->calculateRelevance($childClass, $key);
+                $result->title     = $match->extendedName != '' ?  $match->extendedName : $match->name;
+                $result->url       = $controller->pageUrl($model, [ 'id'=> $match->id ] );
+                if ($childClass == '\\Csatar\Csatar\Models\Scout') {
+                    $result->url      = $controller->pageUrl('tag', [ 'ecset_code'=> $match->ecset_code ] );
                     $result->text     = $match->inactivated_at === null ?
                         Lang::get('csatar.csatar::lang.plugin.admin.scout.activeMember') :
                         Lang::get('csatar.csatar::lang.plugin.admin.scout.inactiveMember');
@@ -65,7 +69,8 @@ class OrganizationSearchProvider extends ResultsProvider
                 } else {
                     $result->text     = $match->getParentTree();
                 }
-                $result->thumb     = $match->image;
+
+                $result->thumb = $match->image;
 
                 // Add the results to the results collection
                 $this->addResult($result);
@@ -84,4 +89,10 @@ class OrganizationSearchProvider extends ResultsProvider
     {
         return e(trans('csatar.csatar::lang.plugin.admin.general.contentPage'));
     }
+
+    public function calculateRelevance($childClass, $key): int
+    {
+        return 1000 + (count(self::RESULT_HIERARCHY) * 1000) - (self::RESULT_HIERARCHY[$childClass] * 1000) - $key;
+    }
+
 }

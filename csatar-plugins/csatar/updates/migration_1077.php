@@ -1,10 +1,12 @@
-<?php namespace Csatar\Csatar\Updates;
+<?php
+namespace Csatar\Csatar\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
 class Migration1077 extends Migration
 {
+
     public function up()
     {
          Schema::table('pollozen_simplegallery_galleries', function($table)
@@ -20,4 +22,5 @@ class Migration1077 extends Migration
              $table->dropColumn('sort_order');
          });
     }
+
 }

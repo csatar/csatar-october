@@ -1,0 +1,25 @@
+url = "/tudastar/dal/:id/:action?"
+layout = "default"
+title = "Dal"
+
+[songForm]
+==
+{% set song = this.controller.vars.basicForm.record %}
+{% set userRights = user.scout.getRightsForModel(song) %}
+
+<div class="container">
+    {% if userRights['MODEL_GENERAL']['create'] > 0
+    and this.param.action == false
+    and this.param[this.controller.vars.basicForm.recordKeyParam] != this.controller.vars.basicForm.createRecordKeyword %}
+        {% partial "@simpleATagButton"
+            permissionValue = userRights['MODEL_GENERAL']['update']
+            targetUrl = '/tudastar/dal/' ~ song[basicForm.recordKeyParam] ~ '/' ~ basicForm.actionUpdateKeyword
+            btnExtraClasses = 'btn-sm btn-primary'
+            btnValue = 'Dal módosítása' |_
+            btnIconClass = 'csat-edit-fill-wh-sm'
+            btnLabel = 'Dal módosítása' |_
+        %}
+    {% endif %}
+
+    {% component 'songForm' %}
+</div>

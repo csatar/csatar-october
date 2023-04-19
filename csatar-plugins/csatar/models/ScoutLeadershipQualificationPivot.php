@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Models;
+<?php
+namespace Csatar\Csatar\Models;
 
 use DateTime;
 use Lang;
@@ -68,7 +69,7 @@ class ScoutLeadershipQualificationPivot extends CsatarPivot
 
     public function beforeSave() {
         if ($this->training_id) {
-            $trainingName = Training::find($this->training_id)->name ?? null;
+            $trainingName        = Training::find($this->training_id)->name ?? null;
             $this->training_name = Training::find($this->training_id)->name;
         }
     }

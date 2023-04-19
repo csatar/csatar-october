@@ -1,4 +1,5 @@
-<?php namespace Csatar\Forms\Widgets;
+<?php
+namespace Csatar\Forms\Widgets;
 
 use October\Rain\Database\Model;
 use Backend\Classes\FormWidgetBase;
@@ -12,8 +13,8 @@ class TagList extends FormWidgetBase
     use \Csatar\Forms\Widgets\TagList\HasStringStore;
     use \Csatar\Forms\Widgets\TagList\HasRelationStore;
 
-    const MODE_ARRAY = 'array';
-    const MODE_STRING = 'string';
+    const MODE_ARRAY    = 'array';
+    const MODE_STRING   = 'string';
     const MODE_RELATION = 'relation';
 
     //
@@ -129,11 +130,11 @@ class TagList extends FormWidgetBase
      */
     public function prepareVars()
     {
-        $this->vars['placeholder'] = $this->placeholder;
-        $this->vars['useKey'] = $this->useKey;
-        $this->vars['field'] = $this->formField;
-        $this->vars['fieldOptions'] = $this->getFieldOptions();
-        $this->vars['selectedValues'] = $this->getLoadValue();
+        $this->vars['placeholder']      = $this->placeholder;
+        $this->vars['useKey']           = $this->useKey;
+        $this->vars['field']            = $this->formField;
+        $this->vars['fieldOptions']     = $this->getFieldOptions();
+        $this->vars['selectedValues']   = $this->getLoadValue();
         $this->vars['customSeparators'] = $this->getCustomSeparators();
     }
 
@@ -198,8 +199,8 @@ class TagList extends FormWidgetBase
             if (!strlen($option)) {
                 continue;
             }
-            if (
-                ($this->useKey && in_array($key, $selectedValues)) ||
+
+            if (($this->useKey && in_array($key, $selectedValues)) ||
                 (!$this->useKey && in_array($option, $selectedValues))
             ) {
                 $displayOptions[] = $option;
@@ -208,4 +209,5 @@ class TagList extends FormWidgetBase
 
         return $displayOptions;
     }
+
 }

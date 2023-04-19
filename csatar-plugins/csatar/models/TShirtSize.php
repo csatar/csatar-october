@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Models;
+<?php
+namespace Csatar\Csatar\Models;
 
 use Model;
 
@@ -8,7 +9,7 @@ use Model;
 class TShirtSize extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-    
+
     use \October\Rain\Database\Traits\SoftDelete;
 
     use \Csatar\Csatar\Traits\History;
@@ -35,8 +36,8 @@ class TShirtSize extends Model
         'name'
     ];
 
-    /** 
-     * Relations 
+    /**
+     * Relations
      */
     public $belongsToMany = [
         'scouts' => '\Csatar\Csatar\Models\Scouts'

@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Models;
+<?php
+namespace Csatar\Csatar\Models;
 
 use Csatar\Csatar\Models\MandateType;
 use Csatar\Csatar\Models\Troop;
@@ -28,7 +29,7 @@ class Mandate extends Model
 
     public $ignoreValidation = false;
 
-    function __construct(array $attributes = []) {
+    public function __construct(array $attributes = []) {
         parent::__construct($attributes);
         $this->setValidationAttributeNames([
             'mandate_type' => e(trans('csatar.csatar::lang.plugin.admin.mandateType.mandateType')),
@@ -52,9 +53,9 @@ class Mandate extends Model
 
         // on the BE, when changing the Mandate Type on the form, which is shown after the Mandate Create button has been clicked: modify the mandate_model relation type, in order to the mandate_model relation to be set
         if ($this->belongsTo['mandate_model'] == OrganizationBase::getModelName()) {
-            $mandate = Input::get('Mandate');
+            $mandate         = Input::get('Mandate');
             $mandate_type_id = $mandate ? $mandate['mandate_type'] : null;
-            $mandate_type = $mandate_type_id ? MandateType::find($mandate_type_id) : null;
+            $mandate_type    = $mandate_type_id ? MandateType::find($mandate_type_id) : null;
             $this->belongsTo['mandate_model'] = $mandate_type ? $mandate_type->organization_type_model_name : OrganizationBase::getModelName();
         }
 
@@ -123,10 +124,10 @@ class Mandate extends Model
         }
 
         // set mandate_type_id and mandate_model_id
-        $data['mandate_type_id'] = isset($data['mandate_type']) ? $data['mandate_type'] : null;
-        $data['mandate_model'] = Input::get('recordKeyValue');
+        $data['mandate_type_id']  = isset($data['mandate_type']) ? $data['mandate_type'] : null;
+        $data['mandate_model']    = Input::get('recordKeyValue');
         $data['mandate_model_id'] = isset($data['mandate_model']) ? $data['mandate_model'] : null;
-        $data['scout_id'] = isset($data['scout']) ? $data['scout'] : null;
+        $data['scout_id']         = isset($data['scout']) ? $data['scout'] : null;
 
         // check that this mandate doesn't overlap with an already existing one
         $this->validateWithExistingMandates($data);
@@ -135,7 +136,7 @@ class Mandate extends Model
     public function initFromForm($record)
     {
         // from the Organization page
-        $modelName = $record::getModelName();
+        $modelName           = $record::getModelName();
         $this->mandate_model = $record;
         $this->mandate_model_type = $modelName;
         $this->mandate_model_name = $record->extendedName;
@@ -148,7 +149,7 @@ class Mandate extends Model
         if (isset($mandateType)) {
             $this->mandate_model_type = $mandateType->organization_type_model_name;
 
-            $organizationUnit = ($mandateType->organization_type_model_name)::find($this->mandate_model_id);
+            $organizationUnit         = ($mandateType->organization_type_model_name)::find($this->mandate_model_id);
             $this->mandate_model_name = isset($organizationUnit) ? $organizationUnit->extendedName : '';
         }
     }
@@ -160,7 +161,7 @@ class Mandate extends Model
         if (isset($mandateType)) {
             $data['mandate_model_type'] = $mandateType->organization_type_model_name;
 
-            $organizationUnit = ($mandateType->organization_type_model_name)::find($data['mandate_model_id']);
+            $organizationUnit           = ($mandateType->organization_type_model_name)::find($data['mandate_model_id']);
             $data['mandate_model_name'] = isset($organizationUnit) ? $organizationUnit->extendedName : '';
         }
 
@@ -174,16 +175,17 @@ class Mandate extends Model
             return;
         }
 
-        $id = array_key_exists('id', $data) ? $data['id'] : null;
+        $id          = array_key_exists('id', $data) ? $data['id'] : null;
         $mandateType = MandateType::find($data['mandate_type_id']);
         if (empty($mandateType)) {
             return;
         }
+
         $organizationUnit = ($mandateType->organization_type_model_name)::find($data['mandate_model_id']);
-        $startDate = new DateTime($data['start_date']);
-        $endDate = isset($data['end_date']) ? new DateTime($data['end_date']) : null;
-        $scoutId = array_key_exists('scout_id', $data) ? ($data['scout_id']) : null;
-        $mandates = Mandate::where('mandate_type_id', $data['mandate_type_id'])->where('mandate_model_id', $data['mandate_model_id'])->get();
+        $startDate        = new DateTime($data['start_date']);
+        $endDate          = isset($data['end_date']) ? new DateTime($data['end_date']) : null;
+        $scoutId          = array_key_exists('scout_id', $data) ? ($data['scout_id']) : null;
+        $mandates         = Mandate::where('mandate_type_id', $data['mandate_type_id'])->where('mandate_model_id', $data['mandate_model_id'])->get();
 
         foreach ($mandates as $mandate) {
             // if we are editing the mandate: the mandate shouldn't be compared to itself
@@ -194,7 +196,7 @@ class Mandate extends Model
             // check that the date isn't (partially) overlapping with a different assignment for the same period: if the overlapping is not enabled or if it's the same user: overlap if max(start1, start2) < min(end1, end2)
             if (!$mandateType->overlap_allowed && $mandate->scout_id . '' != $scoutId) {
                 $mandateStartDate = new DateTime($mandate['start_date']);
-                $mandateEndDate = isset($mandate['end_date']) ? new DateTime($mandate['end_date']) : null;
+                $mandateEndDate   = isset($mandate['end_date']) ? new DateTime($mandate['end_date']) : null;
 
                 if (($endDate !== null && $mandateEndDate !== null && max($startDate, $mandateStartDate) < min($endDate, $mandateEndDate)) ||
                     ($endDate == null && max($startDate, $mandateStartDate) < $mandateEndDate) ||
@@ -212,8 +214,8 @@ class Mandate extends Model
     public function filterFields($fields, $context = null)
     {
         $this->mandate_model_type = !$this->mandate_model_type ? $this->belongsTo['mandate_model'] : $this->mandate_model_type;
-        $mandate_model_id = null;
-        $mandate_model_type = null;
+        $mandate_model_id         = null;
+        $mandate_model_type       = null;
 
         // in case of troops and patrols, allow anyone from the team. In case of other organization units, allow only scouts from that organization unit
         if (!$this->mandate_model_id && !$this->mandate_model) {
@@ -222,7 +224,7 @@ class Mandate extends Model
             switch ($this->mandate_model_type) {
                 case Troop::getModelName():
                 case Patrol::getModelName():
-                    $mandate_model_id = $inputData['team'];
+                    $mandate_model_id   = $inputData['team'];
                     $mandate_model_type = Team::getModelName();
                     break;
 
@@ -232,20 +234,21 @@ class Mandate extends Model
         } else {
             // we are on an edit form
             if ($this->mandate_model_type == Troop::getModelName() || $this->mandate_model_type == Patrol::getModelName()) {
-                $mandate_model_id = $this->mandate_model ? $this->mandate_model->team_id : null;
+                $mandate_model_id   = $this->mandate_model ? $this->mandate_model->team_id : null;
                 $mandate_model_type = Team::getModelName();
             } else {
-                $mandate_model_id = $this->mandate_model_id;
+                $mandate_model_id   = $this->mandate_model_id;
                 $mandate_model_type = $this->mandate_model_type;
             }
         }
 
         // from the Organization pages: populate the Scouts dropdown
-        $scouts = Scout::whereNull('inactivated_at')->organization($mandate_model_type, $mandate_model_id)->get();
+        $scouts  = Scout::whereNull('inactivated_at')->organization($mandate_model_type, $mandate_model_id)->get();
         $options = [];
         foreach ($scouts as $item) {
             $options[$item->id] = $item->name;
         }
+
         asort($options);
         $fields->scout->options = $options;
     }
@@ -284,7 +287,7 @@ class Mandate extends Model
     public function getMandateModelAttribute()
     {
         if ($this->mandate_model_type == '\Csatar\Csatar\Models\OrganizationBase') {
-            $this->mandate_model_type = $this->mandate_type ? $this->mandate_type->organization_type_model_name : null;
+            $this->mandate_model_type         = $this->mandate_type ? $this->mandate_type->organization_type_model_name : null;
             $this->belongsTo['mandate_model'] = $this->mandate_model_type;
         }
 

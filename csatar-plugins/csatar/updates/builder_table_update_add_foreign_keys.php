@@ -1,10 +1,12 @@
-<?php namespace Csatar\Csatar\Updates;
+<?php
+namespace Csatar\Csatar\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
 class BuilderTableUpdateAddForeignKeys extends Migration
 {
+
     public function up()
     {
         Schema::table('csatar_csatar_age_group_team_report', function($table)
@@ -161,7 +163,7 @@ class BuilderTableUpdateAddForeignKeys extends Migration
         Schema::table('csatar_csatar_hierarchy', function($table)
         {
             $table->dropIndex('csatar_csatar_hierarchy_parent_id_index');
-        }); 
+        });
         Schema::table('csatar_csatar_mandates', function($table)
         {
             $table->dropForeign('csatar_csatar_mandates_scout_id_foreign');
@@ -268,4 +270,5 @@ class BuilderTableUpdateAddForeignKeys extends Migration
             $table->dropForeign('csatar_csatar_troops_team_id_foreign');
         });
     }
+
 }

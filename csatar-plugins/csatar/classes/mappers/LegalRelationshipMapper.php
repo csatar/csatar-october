@@ -20,4 +20,5 @@ class LegalRelationshipMapper
             $this->namesToIds[$legalRelationship->name] = $legalRelationship->id;
         }
     }
+
 }

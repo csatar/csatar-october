@@ -1,10 +1,12 @@
-<?php namespace Csatar\Csatar\Classes\SearchProviders;
+<?php
+namespace Csatar\Csatar\Classes\SearchProviders;
 
 use Csatar\Csatar\Models\ContentPage;
 use OFFLINE\SiteSearch\Classes\Providers\ResultsProvider;
 
 class ContentPageSearchProvider extends ResultsProvider
 {
+
     public function search()
     {
         // The controller is used to generate page URLs.
@@ -17,15 +19,15 @@ class ContentPageSearchProvider extends ResultsProvider
 
         if ($matching->count() == 0) {
             $queryHtmlEndcoded = htmlentities($this->query);
-            $matching = ContentPage::where('title', 'like', "%{$queryHtmlEndcoded}%")
+            $matching          = ContentPage::where('title', 'like', "%{$queryHtmlEndcoded}%")
                 ->orWhere('content', 'like', "%{$queryHtmlEndcoded}%")
                 ->get();
-            $this->query = $queryHtmlEndcoded;
+            $this->query       = $queryHtmlEndcoded;
         }
 
         // Create a new Result for every match
         foreach ($matching as $match) {
-            $result            = $this->newResult();
+            $result                = $this->newResult();
             $modelNameUserFriendly = str_slug(('\\'.$match->model_type)::getOrganizationTypeModelNameUserFriendly());
 
             $result->relevance = 1;
@@ -51,4 +53,5 @@ class ContentPageSearchProvider extends ResultsProvider
     {
         return e(trans('csatar.csatar::lang.plugin.admin.general.contentPage'));
     }
+
 }

@@ -16,6 +16,17 @@ sortColumn = "name"
 sortDirection = "asc"
 
 [partials]
+
+[recordList waitingForApproval]
+modelClass = "Csatar\KnowledgeRepository\Models\Game"
+scope = "scopeWaitingForApproval"
+scopeValue = "{{ :scope }}"
+columnsConfigFile = "columnsWaitingForApproval.yaml"
+noRecordsMessage = "backend::lang.list.no_records"
+detailsPage = "tudastar/jatek"
+detailsKeyColumn = "id"
+detailsUrlParameter = "id"
+pageNumber = "{{ :page }}"
 ==
 <?php
 use Csatar\KnowledgeRepository\Models\Game;
@@ -26,17 +37,35 @@ public function onStart(){
         $this['association_id'] = $user->scout->getAssociationId();
         $this['game'] = new Game();
         $this['game']->association_id = $this['association_id'];
+        $this['userRights'] = $user->scout->getRightsForModel($this['game']);
     }
-
 }
 ?>
 ==
 <div class="container">
-    {% if user.scout.getRightsForModel(game)['MODEL_GENERAL']['create'] > 0 %}
+
+    {% if userRights['approved_at']['create'] > 0 and userRights['approver_csatar_code']['create'] > 0 %}
+        <div class="accordion accordion-flush mb-3">
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="waiting-for-approval">
+                    <button class="accordion-button py-2" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-waiting-for-approval" aria-expanded="false" aria-controls="flush-collapse-41">
+                        <span>{{ 'Elfogadásra váró játékok'|_ }}</span>
+                    </button>
+                </h2>
+                <div id="flush-collapse-waiting-for-approval" class="accordion-collapse collapse show" aria-labelledby="flush-heading" data-bs-parent="#waiting-for-approval" style="">
+                    <div class="accordion-body py-2">
+                        {% component 'waitingForApproval' %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    {% if userRights['MODEL_GENERAL']['create'] > 0 %}
         <form action="/tudastar/jatek/letrehozas" method="post">
             <input type="hidden" name="association" value="{{ association_id }}">
             {% partial "@formButton"
-            permissionValue = user.scout.getRightsForModel(game)['MODEL_GENERAL']['create']
+            permissionValue = userRights['MODEL_GENERAL']['create']
             btnExtraClasses = 'btn btn-sm rounded btn-primary'
             btnIconClass = 'csat-add-fill-wh-sm'
             btnLabel = 'Játék hozzáadása' |_

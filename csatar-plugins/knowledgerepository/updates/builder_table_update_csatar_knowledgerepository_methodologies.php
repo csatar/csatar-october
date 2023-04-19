@@ -1,10 +1,12 @@
-<?php namespace Csatar\KnowledgeRepository\Updates;
+<?php
+namespace Csatar\KnowledgeRepository\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
 class BuilderTableUpdateCsatarKnowledgerepositoryMethodologies extends Migration
 {
+
     public function up()
     {
         Schema::table('csatar_knowledgerepository_methodologies', function($table)
@@ -28,4 +30,5 @@ class BuilderTableUpdateCsatarKnowledgerepositoryMethodologies extends Migration
             $table->dropColumn('association_id');
         });
     }
+
 }

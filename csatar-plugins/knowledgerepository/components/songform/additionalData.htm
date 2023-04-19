@@ -1,0 +1,25 @@
+{% if basicForm.record.approved_at is null and basicForm.record.created_at is not null %}
+    {% partial "partials::dataRequestButton"
+        permissionValue = basicForm.currentUserRights['approved_at']['update']
+        dataRequest = 'onApproveSong'
+        dataRequestUpdate = "'" ~ __SELF__ ~ "::default': '#main'"
+        btnExtraClasses = 'btn-sm rounded btn-primary mb-2'
+        btnValue = 'Dal jóváhagyása' |_
+        btnIconClass = 'csat-check-fill-wh-sm'
+        btnLabel = 'Dal jóváhagyása' |_
+        tooltip = 'Dal jóváhagyása' |_
+    %}
+{% endif %}
+
+{% if basicForm.record.id is not null %}
+    {% partial "partials::dataRequestButton"
+        permissionValue = basicForm.currentUserRights['MODEL_GENERAL']['delete']
+        dataRequest = 'onDelete'
+        dataRequestConfirm = 'Biztosan törölni akarod ezt a dalt?' |_
+        btnExtraClasses = 'btn-sm btn-danger'
+        btnValue = 'Dal törlése' |_
+        btnIconClass = 'bi bi-trash'
+        btnLabel = 'Dal törlése' |_
+    %}
+{% endif %}
+

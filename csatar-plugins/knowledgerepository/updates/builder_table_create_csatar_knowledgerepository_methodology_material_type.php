@@ -1,10 +1,12 @@
-<?php namespace Csatar\KnowledgeRepository\Updates;
+<?php
+namespace Csatar\KnowledgeRepository\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarKnowledgerepositoryMethodologyMaterialType extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_knowledgerepository_methodology_material_types', function($table)
@@ -14,9 +16,10 @@ class BuilderTableCreateCsatarKnowledgerepositoryMethodologyMaterialType extends
             $table->string('name')->nullable();
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_knowledgerepository_methodology_material_types');
     }
+
 }

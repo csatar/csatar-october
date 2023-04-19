@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Models;
+<?php
+namespace Csatar\Csatar\Models;
 
 use Csatar\Csatar\Classes\Enums\Gender;
 use Csatar\Csatar\Models\Allergy;
@@ -18,13 +19,13 @@ class ScoutImport extends \Backend\Models\ImportModel
 {
     use \System\Traits\ConfigMaker;
 
-    const GENDER_MALE = 'F';
-    const GENDER_FEMALE = 'L';
-    const ISACTIVE_ACTIVE = 'aktív';
+    const GENDER_MALE       = 'F';
+    const GENDER_FEMALE     = 'L';
+    const ISACTIVE_ACTIVE   = 'aktív';
     const ISACTIVE_INACTIVE = 'inaktív';
     const MOTHERSMAIDENNAME = 'Anyja leánykori neve';
-    const STR_OTHER = 'Egyéb';
-    const DEFAULT = '-';
+    const STR_OTHER         = 'Egyéb';
+    const DEFAULT           = '-';
 
     /**
      * @var array The rules to be applied to the data.
@@ -35,7 +36,7 @@ class ScoutImport extends \Backend\Models\ImportModel
     {
         $legalRelationshipInvalidDataId = LegalRelationship::getInvalidDataId();
         $specialDietNoneId = SpecialDiet::getNoneId();
-        $religionOtherId = Religion::getOtherReligionId();
+        $religionOtherId   = Religion::getOtherReligionId();
 
         foreach ($results as $row => $data) {
             try {
@@ -46,16 +47,16 @@ class ScoutImport extends \Backend\Models\ImportModel
                     $data['gender'] = Gender::FEMALE;
                 } else {
                     $data['comment'] = (!empty($data['comment']) ? $data['comment'] . ' ' : '') . Lang::get('csatar.csatar::lang.plugin.admin.scout.gender.gender') . ': ' . $data['gender'] . '.';
-                    $data['gender'] = '';
+                    $data['gender']  = '';
                 }
 
                 // manipulate fields - birthdate
                 if (preg_match('(^(\d+)/(\d+)/(\d+)$)i', $data['birthdate'])) {
-                    $pos1 = strpos($data['birthdate'], '/');
-                    $pos2 = strpos($data['birthdate'], '/', $pos1 + 1);
+                    $pos1  = strpos($data['birthdate'], '/');
+                    $pos2  = strpos($data['birthdate'], '/', $pos1 + 1);
                     $month = substr($data['birthdate'], 0, $pos1);
-                    $day = substr($data['birthdate'], $pos1 + 1, $pos2 - $pos1 - 1);
-                    $year = substr($data['birthdate'], $pos2 + 1);
+                    $day   = substr($data['birthdate'], $pos1 + 1, $pos2 - $pos1 - 1);
+                    $year  = substr($data['birthdate'], $pos2 + 1);
                     $data['birthdate'] = $year . '-' . $month . '-' . $day;
                 }
 
@@ -65,7 +66,7 @@ class ScoutImport extends \Backend\Models\ImportModel
                 } else if ($data['is_active'] == $this::ISACTIVE_INACTIVE) {
                     $data['is_active'] = 0;
                 } else {
-                    $data['comment'] = (!empty($data['comment']) ? $data['comment'] . ' ' : '') . Lang::get('csatar.csatar::lang.plugin.admin.scout.isActive') . ': ' . $data['is_active'] . '.';
+                    $data['comment']   = (!empty($data['comment']) ? $data['comment'] . ' ' : '') . Lang::get('csatar.csatar::lang.plugin.admin.scout.isActive') . ': ' . $data['is_active'] . '.';
                     $data['is_active'] = '';
                 }
 
@@ -83,7 +84,7 @@ class ScoutImport extends \Backend\Models\ImportModel
                 if (isset($religion)) {
                     $data['religion_id'] = $religion->id;
                 } else {
-                    $data['comment'] = (!empty($data['comment']) ? $data['comment'] . ' ' : '') . Lang::get('csatar.csatar::lang.plugin.admin.scout.religion') . ': ' . $data['religion_id'] . '.';
+                    $data['comment']     = (!empty($data['comment']) ? $data['comment'] . ' ' : '') . Lang::get('csatar.csatar::lang.plugin.admin.scout.religion') . ': ' . $data['religion_id'] . '.';
                     $data['religion_id'] = '';
                 }
 
@@ -106,7 +107,7 @@ class ScoutImport extends \Backend\Models\ImportModel
                 }
 
                 // manipulate fields - address street and address number
-                $data['address_street'] = trim($data['address_street']);
+                $data['address_street']   = trim($data['address_street']);
                 $streetLastSpaceCharacter = strrpos($data['address_street'], ' ');
                 if ($streetLastSpaceCharacter != false) {
                     $streetLastSection = substr($data['address_street'], $streetLastSpaceCharacter + 1);
@@ -115,8 +116,9 @@ class ScoutImport extends \Backend\Models\ImportModel
                         $data['address_street'] = trim(substr($data['address_street'], 0, $streetLastSpaceCharacter));
                     }
                 }
+
                 if (!isset($data['address_number'])) {
-                    $data['address_number'] = $this::DEFAULT;
+                    $data['address_number']        = $this::DEFAULT;
                     $data['legal_relationship_id'] = $legalRelationshipInvalidDataId;
                 }
 
@@ -140,6 +142,7 @@ class ScoutImport extends \Backend\Models\ImportModel
                                     $data[$column] = $this::DEFAULT;
                                     break;
                             }
+
                             $data['legal_relationship_id'] = $legalRelationshipInvalidDataId;
                             $data['is_active'] = 0;
                         }
@@ -152,15 +155,16 @@ class ScoutImport extends \Backend\Models\ImportModel
                 ]);
 
                 if ($data['is_active'] != 1) {
-                    $scout->inactivated_at = $scout->inactivated_at == null ? date('Y-m-d H:i:s') : $scout->inactivated_at;
+                    $scout->inactivated_at   = $scout->inactivated_at == null ? date('Y-m-d H:i:s') : $scout->inactivated_at;
                     $scout->ignoreValidation = true;
                     unset($data['is_active']);
                 }
+
                 $scout->fill($data);
 
                 // generate an empty registration form
                 if ($scout->wasRecentlyCreated) {
-                    $file = (new \System\Models\File)->fromData('', $data['ecset_code'] . '.pdf');
+                    $file            = (new \System\Models\File)->fromData('', $data['ecset_code'] . '.pdf');
                     $file->is_public = true;
                     $file->content_type = 'application/pdf';
                     $file->save();
@@ -200,6 +204,7 @@ class ScoutImport extends \Backend\Models\ImportModel
                 $comment = $comment . (!empty($comment) ? ', ' : '') . $dataItemString;
             }
         }
+
         if (!empty($comment)) {
             $data = ($modelName)::where('name', $this::STR_OTHER)->first();
             if ($scout->{$attributeName}->isEmpty() || $scout->{$attributeName}->where('id', $data->id)->first() == null) {
@@ -208,7 +213,7 @@ class ScoutImport extends \Backend\Models\ImportModel
         }
     }
 
-    private function stripFileExtension($file) 
+    private function stripFileExtension($file)
     {
         return substr($file, 0, strlen($file) - 4);
     }
@@ -216,14 +221,16 @@ class ScoutImport extends \Backend\Models\ImportModel
     private function unzip($file)
     {
         $dir = $this->stripFileExtension($file->getLocalPath()) . '/' . $this->stripFileExtension($file->file_name);
-        if (!file_exists($dir)) {     
+        if (!file_exists($dir)) {
             Zip::extract($file->getLocalPath(), $dir);
         }
-        $files = array_diff(scandir($dir), array('.', '..'));
+
+        $files     = array_diff(scandir($dir), ['.', '..']);
         $fileArray = [];
         foreach ($files as $file) {
             $fileArray[$this->stripFileExtension($file)] = $dir . '/' . $file;
         }
+
         return $fileArray;
     }
 
@@ -248,13 +255,16 @@ class ScoutImport extends \Backend\Models\ImportModel
         if (!$file) {
             return null;
         }
+
         if (str_ends_with($file->file_name, '.csv')) {
             return $file->getLocalPath();
         }
+
         if (str_ends_with($file->file_name, '.zip')) {
             $files = $this->unzip($file);
             return isset($files) && count($files) > 0 ? array_values($files)[0] : null;
         }
+
         return null;
     }
 
@@ -265,13 +275,14 @@ class ScoutImport extends \Backend\Models\ImportModel
         }
 
         $files = [];
-        $data = [];
+        $data  = [];
 
         $sessionKey = array_get($options, 'sessionKey');
-        $file = $this->getImportFile($sessionKey);
+        $file       = $this->getImportFile($sessionKey);
         if (str_ends_with($file->file_name, '.csv')) {
             $files[$this->stripFileExtension($file->file_name)] = $file->getLocalPath();
         }
+
         if (str_ends_with($file->file_name, '.zip')) {
             $files = $this->unzip($file);
         }
@@ -283,7 +294,7 @@ class ScoutImport extends \Backend\Models\ImportModel
 
             // set the team id
             $teamNumber = array_keys($files)[$i];
-            $teamId = Team::getTeamIdByAssociationAndTeamNumber($this->association, $teamNumber);
+            $teamId     = Team::getTeamIdByAssociationAndTeamNumber($this->association, $teamNumber);
             for ($j = 0; $j < count($data); ++$j) {
                 $data[$j]['team_id'] = $teamId;
             }
@@ -298,4 +309,5 @@ class ScoutImport extends \Backend\Models\ImportModel
     {
         return Association::lists('name', 'id');
     }
+
 }

@@ -10,7 +10,7 @@ class Partners
 
     // Singleton pattern - Hold the class instance.
     private static $instance = null;
-  
+
     // The constructor is private to prevent initiation with outer code. The expensive process (e.g.,db connection) goes here.
     private function __construct()
     {
@@ -67,14 +67,15 @@ class Partners
             ],
         ];
     }
- 
+
     // The object is created from within the class itself only if the class has no instance.
     public static function getInstance()
     {
         if (self::$instance == null) {
             self::$instance = new Partners();
         }
-    
+
         return self::$instance;
     }
+
 }

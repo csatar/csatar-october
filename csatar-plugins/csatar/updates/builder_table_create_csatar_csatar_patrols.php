@@ -1,10 +1,12 @@
-<?php namespace Csatar\Csatar\Updates;
+<?php
+namespace Csatar\Csatar\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarCsatarPatrols extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_csatar_patrols', function($table)
@@ -26,9 +28,10 @@ class BuilderTableCreateCsatarCsatarPatrols extends Migration
             $table->integer('troop_id')->index('troop_id')->nullable()->unsigned();
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_patrols');
     }
+
 }

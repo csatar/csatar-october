@@ -1,10 +1,12 @@
-<?php namespace Csatar\Csatar\Updates;
+<?php
+namespace Csatar\Csatar\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarCsatarHistory extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_csatar_history', function($table)
@@ -25,15 +27,15 @@ class BuilderTableCreateCsatarCsatarHistory extends Migration
             $table->text('old_value')->nullable();
             $table->text('new_value')->nullable();
             $table->string('ip_address')->nullable();
-            
+
             $table->foreign('fe_user_id')->references('id')->on('users');
             $table->foreign('be_user_id')->references('id')->on('backend_users');
-            
+
             $table->index(['model_type', 'model_id'], 'model_index');
             $table->index(['related_model_type', 'related_model_id'], 'related_model_index');
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_history');

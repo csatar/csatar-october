@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Components;
+<?php
+namespace Csatar\Csatar\Components;
 
 use Auth;
 use Cms\Classes\ComponentBase;
@@ -54,12 +55,12 @@ class TwoFactorAuthentication extends ComponentBase
     }
 
     private function prepareVariables() {
-        $scout = Auth::user()->scout;
+        $scout           = Auth::user()->scout;
         $this->google2FA = new GoogleTwoFactorAuthentication();
 
         if (empty($scout->google_two_fa_secret_key) && !$scout->google_two_fa_is_activated) {
             $scout->google_two_fa_secret_key = $this->google2FA->generateSecretKey();
-            $scout->ignoreValidation = true;
+            $scout->ignoreValidation         = true;
             $scout->forceSave();
             $scout->refresh();
         }
@@ -84,4 +85,5 @@ class TwoFactorAuthentication extends ComponentBase
     {
         return Session::get('scout.twoFA', false);
     }
+
 }

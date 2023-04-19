@@ -1,4 +1,5 @@
-<?php namespace Csatar\Forms\Models;
+<?php
+namespace Csatar\Forms\Models;
 
 use Cache;
 use File;
@@ -38,7 +39,7 @@ class Form extends Model
     {
         $this->getModelName();
 
-        //TODO in v2: before save check if yaml file exists...
+        // TODO in v2: before save check if yaml file exists...
     }
 
     /*
@@ -75,4 +76,5 @@ class Form extends Model
 
         return $modelName;
     }
+
 }

@@ -1,10 +1,12 @@
-<?php namespace Csatar\Csatar\Updates;
+<?php
+namespace Csatar\Csatar\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarCsatarSpecialDiets extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_csatar_special_diets', function($table)
@@ -17,9 +19,10 @@ class BuilderTableCreateCsatarCsatarSpecialDiets extends Migration
             $table->string('name', 255);
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_special_diets');
     }
+
 }

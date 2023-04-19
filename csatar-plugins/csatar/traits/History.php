@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Traits;
+<?php
+namespace Csatar\Csatar\Traits;
 
 use Csatar\Csatar\Classes\HistoryService;
 
@@ -32,4 +33,5 @@ trait History
         HistoryService::addHistoryRelationToModel($this);
         HistoryService::bindEventsToModel($this);
     }
+
 }

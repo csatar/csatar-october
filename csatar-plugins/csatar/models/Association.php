@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Models;
+<?php
+namespace Csatar\Csatar\Models;
 
 use Cache;
 use Csatar\Csatar\Classes\StructureTree;
@@ -122,19 +123,21 @@ class Association extends OrganizationBase
             'name' => 'model',
         ],
     ];
+
     public static function getEagerLoadSettings(string $useCase = null): array
     {
         $eagerLoadSettings = parent::getEagerLoadSettings($useCase);
         if ($useCase === 'formBuilder') {
             // Important to extend the eager load settings, not to overwrite them!
-//            $eagerLoadSettings['currency'] = function($query) {
-//                return $query->select(
-//                    'csatar_csatar_currencies.id',
-//                    'csatar_csatar_currencies.code',
-//                );
-//            };
-//            $eagerLoadSettings[] = 'logo';
+            // $eagerLoadSettings['currency'] = function($query) {
+                // return $query->select(
+                    // 'csatar_csatar_currencies.id',
+                    // 'csatar_csatar_currencies.code',
+                // );
+            // };
+            // $eagerLoadSettings[] = 'logo';
         }
+
         return $eagerLoadSettings;
     }
 
@@ -177,12 +180,11 @@ class Association extends OrganizationBase
             StructureTree::updateAssociationTree($this->association_id);
         }
 
-        if (empty($this->original) ) {
+        if (empty($this->original)) {
             return;
         }
 
-        if (
-            ($this->getOriginalValue('name') != $this->name)
+        if (($this->getOriginalValue('name') != $this->name)
             || ($this->getOriginalValue('name_abbreviation') != $this->name_abbreviation)
         ) {
             $structureTree = Cache::pull('structureTree');
@@ -193,7 +195,7 @@ class Association extends OrganizationBase
 
             $structureTree[$this->id]['name'] = $this->name;
             $structureTree[$this->id]['name_abbreviation'] = $this->name_abbreviation;
-            $structureTree[$this->id]['extended_name'] = $this->extended_name;
+            $structureTree[$this->id]['extended_name']     = $this->extended_name;
             Cache::forever('structureTree', $structureTree);
         }
     }
@@ -239,4 +241,20 @@ class Association extends OrganizationBase
     public function getActiveMembersCountAttribute() {
         return StructureTree::getAssociationScoutsCount($this->id);
     }
+
+    public static function getAssociationOptionsForSelect() {
+        $associations = self::all()->lists('name', 'id');
+        $results      = [];
+        foreach ($associations as $id => $name) {
+            $results[] = [
+                'id' => $id,
+                'text' => $name,
+            ];
+        }
+
+        return [
+            'results' => $results,
+        ];
+    }
+
 }

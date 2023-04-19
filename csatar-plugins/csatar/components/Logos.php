@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Components;
+<?php
+namespace Csatar\Csatar\Components;
 
 use Lang;
 use Cms\Classes\ComponentBase;
@@ -24,7 +25,7 @@ class Logos extends ComponentBase
 
     public function onRender()
     {
-        $this->mode = $this->property('mode');
+        $this->mode          = $this->property('mode');
         $this->hideSeparator = $this->property('hideSeparator');
 
         switch ($this->mode) {
@@ -47,4 +48,5 @@ class Logos extends ComponentBase
                 break;
         }
     }
+
 }

@@ -1,0 +1,10 @@
+name: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.region'
+form: $/csatar/knowledgerepository/models/region/fields.yaml
+modelClass: Csatar\KnowledgeRepository\Models\Region
+defaultRedirect: csatar/knowledgerepository/regions
+create:
+    redirect: 'csatar/knowledgerepository/regions/update/:id'
+    redirectClose: csatar/knowledgerepository/regions
+update:
+    redirect: csatar/knowledgerepository/regions
+    redirectClose: csatar/knowledgerepository/regions

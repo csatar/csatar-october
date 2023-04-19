@@ -8,16 +8,24 @@ function onStart()
     if ($this->param('extension') == 'csv') {
         $filePath = temp_path() . '/' . $this->param('file');
         $headers = [
-            'Content-Type' => 'text/csv',
-            'charset' => 'UTF-8',
+            'Content-Type'  => 'text/csv',
+            'charset'       => 'UTF-8',
         ];
     }
 
     if ($this->param('extension') == 'xlsx') {
         $filePath = storage_path() . '/app/' . $this->param('file');
         $headers = [
-            'Content-Type' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-            'charset' => 'UTF-8',
+            'Content-Type'  => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'charset'           => 'UTF-8',
+        ];
+    }
+
+    if ($this->param('extension') == 'pdf') {
+        $filePath = temp_path() . '/' . $this->param('file');
+        $headers = [
+            'Content-Type'              => 'application/pdf',
+            'Content-Transfer-Encoding' => 'binary',
         ];
     }
 

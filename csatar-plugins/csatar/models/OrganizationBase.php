@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Models;
+<?php
+namespace Csatar\Csatar\Models;
 
 use Csatar\Csatar\Classes\Enums\Status;
 use Csatar\Csatar\Classes\RightsMatrix;
@@ -62,8 +63,8 @@ class OrganizationBase extends PermissionBasedAccess
         }
 
         $mandateTypes = MandateType::where('association_id', $this->getAssociationId())->where('organization_type_model_name', $this->getModelName())->where('required', true)->get();
-        $mandates = $this->mandates;
-        $now = new \DateTime();
+        $mandates     = $this->mandates;
+        $now          = new \DateTime();
 
         foreach ($mandateTypes as $mandateType) {
             $validMandate = false;
@@ -75,6 +76,7 @@ class OrganizationBase extends PermissionBasedAccess
                     break;
                 }
             }
+
             if (!$validMandate) {
                 throw new ValidationException(['logo' => str_replace('%name', $mandateType->name, Lang::get('csatar.csatar::lang.plugin.admin.mandate.requiredMandateError'))]);
             }
@@ -156,7 +158,7 @@ class OrganizationBase extends PermissionBasedAccess
         return $eagerLoadSettings;
     }
 
-    function afterUpdate()
+    public function afterUpdate()
     {
         $now = new DateTime();
         if (isset($this->original['name']) && $this->name !== $this->original['name']) {
@@ -184,7 +186,7 @@ class OrganizationBase extends PermissionBasedAccess
     }
 
     public function filterNameForWords($name, $filterWords){
-        $filterWords = array_map('trim',$filterWords);
+        $filterWords  = array_map('trim',$filterWords);
         $nameExploded = explode(' ', $name);
         $nameFiltered = array_map(function($word) use ($filterWords){
             if (in_array(mb_strtolower($word), $filterWords)) {
@@ -217,10 +219,12 @@ class OrganizationBase extends PermissionBasedAccess
         if (!isset($this->original[$attribute])) {
             return null;
         }
+
         return $this->original[$attribute];
     }
 
     public function getParentTree() {
         return null;
     }
+
 }

@@ -1,10 +1,12 @@
-<?php namespace Csatar\Csatar\Updates;
+<?php
+namespace Csatar\Csatar\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarCsatarSpecialTests extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_csatar_special_tests', function($table)
@@ -19,9 +21,10 @@ class BuilderTableCreateCsatarCsatarSpecialTests extends Migration
             $table->smallInteger('sort_order')->unsigned()->default(1);
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_special_tests');
     }
+
 }

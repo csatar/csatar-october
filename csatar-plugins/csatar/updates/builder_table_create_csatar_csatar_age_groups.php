@@ -1,10 +1,12 @@
-<?php namespace Csatar\Csatar\Updates;
+<?php
+namespace Csatar\Csatar\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarCsatarAgeGroups extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_csatar_age_groups', function($table)
@@ -17,7 +19,7 @@ class BuilderTableCreateCsatarCsatarAgeGroups extends Migration
             $table->integer('sort_order')->unsigned()->default(0);
             $table->integer('association_id')->unsigned();
             $table->timestamp('deleted_at')->nullable();
-            
+
             $table->foreign('association_id')->references('id')->on('csatar_csatar_associations');
         });
     }
@@ -26,4 +28,5 @@ class BuilderTableCreateCsatarCsatarAgeGroups extends Migration
     {
         Schema::dropIfExists('csatar_csatar_age_groups');
     }
+
 }

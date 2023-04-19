@@ -1,10 +1,12 @@
-<?php namespace Csatar\Csatar\Updates;
+<?php
+namespace Csatar\Csatar\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
 class BuilderTableUpdateCsatarCsatarAssociations extends Migration
 {
+
     public function up()
     {
         Schema::table('csatar_csatar_associations', function($table)
@@ -13,7 +15,7 @@ class BuilderTableUpdateCsatarCsatarAssociations extends Migration
             $table->integer('currency_id')->index('currency_id')->unsigned();
         });
     }
-    
+
     public function down()
     {
         Schema::table('csatar_csatar_associations', function($table)
@@ -23,4 +25,5 @@ class BuilderTableUpdateCsatarCsatarAssociations extends Migration
             $table->dropColumn('currency_id');
         });
     }
+
 }

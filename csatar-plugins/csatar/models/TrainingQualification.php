@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Models;
+<?php
+namespace Csatar\Csatar\Models;
 
 use Model;
 
@@ -49,8 +50,8 @@ class TrainingQualification extends Model
         ]
     ];
 
-
     public function getTrainingIdOptions(){
         return Training::lists('name', 'id');
     }
+
 }

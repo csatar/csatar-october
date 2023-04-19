@@ -1,4 +1,5 @@
-<?php namespace Csatar\KnowledgeRepository\Controllers;
+<?php
+namespace Csatar\KnowledgeRepository\Controllers;
 
 use Backend\Classes\Controller;
 use BackendMenu;
@@ -11,8 +12,8 @@ class AccidentRiskLevel extends Controller
         'Backend\Behaviors\ReorderController'
     ];
 
-    public $listConfig = 'config_list.yaml';
-    public $formConfig = 'config_form.yaml';
+    public $listConfig    = 'config_list.yaml';
+    public $formConfig    = 'config_form.yaml';
     public $reorderConfig = 'config_reorder.yaml';
 
     public $requiredPermissions = [
@@ -25,4 +26,5 @@ class AccidentRiskLevel extends Controller
         parent::__construct();
         BackendMenu::setContext('Csatar.KnowledgeRepository', 'main-menu-knowledge-repository-parameters', 'side-menu-item2');
     }
+
 }

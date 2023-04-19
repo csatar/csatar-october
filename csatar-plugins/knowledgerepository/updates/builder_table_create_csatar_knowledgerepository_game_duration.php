@@ -1,10 +1,12 @@
-<?php namespace Csatar\KnowledgeRepository\Updates;
+<?php
+namespace Csatar\KnowledgeRepository\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarKnowledgerepositoryGameDuration extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_knowledgerepository_game_duration', function($table)
@@ -22,4 +24,5 @@ class BuilderTableCreateCsatarKnowledgerepositoryGameDuration extends Migration
     {
         Schema::dropIfExists('csatar_knowledgerepository_game_duration');
     }
+
 }

@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Updates;
+<?php
+namespace Csatar\Csatar\Updates;
 
 use Seeder;
 use Csatar\Csatar\Models\District;
@@ -8,6 +9,7 @@ use Csatar\Csatar\Models\Patrol;
 
 class Seeder1068 extends Seeder
 {
+
     public function run()
     {
         $organizations = District::all() ?? [];
@@ -42,4 +44,5 @@ class Seeder1068 extends Seeder
             $organization->forceSave();
         }
     }
+
 }

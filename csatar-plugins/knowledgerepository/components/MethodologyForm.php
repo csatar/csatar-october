@@ -48,11 +48,19 @@ class MethodologyForm extends ComponentBase
         }
 
         $methodology = $this->basicForm->record;
-        $methodology->approved_at = date('Y-m-d H:i:s');
+        $methodology->approved_at          = date('Y-m-d H:i:s');
         $methodology->approver_csatar_code = $user->scout->ecset_code;
         $methodology->save();
 
         $this->onRender();
         return Redirect::refresh();
     }
+
+    public function onDelete()
+    {
+        $this->basicForm->record->delete();
+
+        return Redirect::to('/tudastar/modszertanok');
+    }
+
 }

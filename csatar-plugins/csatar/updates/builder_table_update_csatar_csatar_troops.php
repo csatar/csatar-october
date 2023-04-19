@@ -1,10 +1,12 @@
-<?php namespace Csatar\Csatar\Updates;
+<?php
+namespace Csatar\Csatar\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
 class BuilderTableUpdateCsatarCsatarTroops extends Migration
 {
+
     public function up()
     {
         Schema::table('csatar_csatar_troops', function($table)
@@ -14,7 +16,7 @@ class BuilderTableUpdateCsatarCsatarTroops extends Migration
             $table->dropColumn('troop_leader_email');
         });
     }
-    
+
     public function down()
     {
         Schema::table('csatar_csatar_troops', function($table)
@@ -24,4 +26,5 @@ class BuilderTableUpdateCsatarCsatarTroops extends Migration
             $table->string('troop_leader_email', 255);
         });
     }
+
 }

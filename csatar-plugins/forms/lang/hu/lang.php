@@ -1,4 +1,5 @@
-<?php return [
+<?php
+return [
     'plugin' => [
         'name' => 'Űrlapkészítő',
         'description' => 'Űrlapkészítő a felhasználói felülethez',

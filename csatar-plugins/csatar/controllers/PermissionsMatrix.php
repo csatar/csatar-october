@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Controllers;
+<?php
+namespace Csatar\Csatar\Controllers;
 
 use BackendMenu;
 use Backend\Classes\Controller;
@@ -25,8 +26,8 @@ class PermissionsMatrix extends Controller
         'Backend\Behaviors\ImportExportController',
     ];
 
-    public $listConfig = 'config_list.yaml';
-    public $formConfig = 'config_form.yaml';
+    public $listConfig         = 'config_list.yaml';
+    public $formConfig         = 'config_form.yaml';
     public $importExportConfig = 'config_import_export.yaml';
 
     public $sessionValues;
@@ -54,15 +55,15 @@ class PermissionsMatrix extends Controller
     public function listExtendRecords($records) {
         if ($this->action === 'edit') {
             // this is needed to instert special first row that can manipulate the selects in every row below it
-            $model = new MandatePermission();
-            $model->id = 'all';
+            $model        = new MandatePermission();
+            $model->id    = 'all';
             $model->field = MandatePermission::PALCEHOLDER_VALUE;
             $model->model = MandatePermission::PALCEHOLDER_VALUE;
             $model->obligatory = 'all';
-            $model->create = 'all';
-            $model->read = 'all';
-            $model->update = 'all';
-            $model->delete = 'all';
+            $model->create     = 'all';
+            $model->read       = 'all';
+            $model->update     = 'all';
+            $model->delete     = 'all';
             $records->prepend($model);
         }
     }
@@ -76,9 +77,9 @@ class PermissionsMatrix extends Controller
 
     public function onValueChange(){
 
-        $permissionId = Input::get('recordId');
-        $action = Input::get('action');
-        $key = $action . '_' . $permissionId;
+        $permissionId  = Input::get('recordId');
+        $action        = Input::get('action');
+        $key           = $action . '_' . $permissionId;
         $sessionValues = $this->getSessionValues();
         $sessionValues[$key] = [
             'id' => $permissionId,
@@ -89,13 +90,14 @@ class PermissionsMatrix extends Controller
         if (Input::get($key) == Input::get('initialValue')) {
             unset($sessionValues[$key]);
         }
+
         Session::put('permissionValueChanges', $sessionValues);
 
     }
 
     public function onMultipleValueChange(){
         $sessionValues = $this->getSessionValues();
-        $ajaxData = Input::get('data');
+        $ajaxData      = Input::get('data');
         $sessionValues = array_replace($sessionValues, $ajaxData ?? []);
         Session::put('permissionValueChanges', $sessionValues);
     }
@@ -107,15 +109,16 @@ class PermissionsMatrix extends Controller
             return;
         }
 
-        foreach ($sessionValuesGroupedByAction as $action => $actionGroup ) {
+        foreach ($sessionValuesGroupedByAction as $action => $actionGroup) {
             $groupedByValue = $actionGroup->groupBy('value');
             foreach ($groupedByValue as $value => $valueGroup) {
-                $permissionsIdsToUpdate = $valueGroup->pluck('id');
+                $permissionsIdsToUpdate     = $valueGroup->pluck('id');
                 $numberOfUpdatedPermissions = MandatePermission::whereIn('id', $permissionsIdsToUpdate)
                     ->update([$action => $value]);
                 if ($numberOfUpdatedPermissions == $valueGroup->count()) {
                     (new MandatePermission())->historyRecordBulkAction($valueGroup->toArray());
                 }
+
                 if ($numberOfUpdatedPermissions < $valueGroup->count()) {
                     $warning = Lang::get('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.notAllPermissionChanged',
                         [
@@ -130,8 +133,8 @@ class PermissionsMatrix extends Controller
                     \Flash::warning($warning);
                 }
             }
-
         }
+
         Session::forget('permissionValueChanges');
     }
 
@@ -150,7 +153,6 @@ class PermissionsMatrix extends Controller
     }
 
     // permissions manage page
-
     public function manage() {
         $this->pageTitle = e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.managePermissions'));
         $this->initForm(new MandatePermission());
@@ -174,17 +176,17 @@ class PermissionsMatrix extends Controller
                     ]);
 
                     $mandatePermission->create = $permissionToCopy->create;
-                    $mandatePermission->read = $permissionToCopy->read;
+                    $mandatePermission->read   = $permissionToCopy->read;
                     $mandatePermission->update = $permissionToCopy->update;
                     $mandatePermission->delete = $permissionToCopy->delete;
                     $mandatePermission->save();
                 }
             }
+
             \Flash::success(e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.copySuccess')));
             if (Input::get('close')) {
                 return \Backend::redirect('csatar/csatar/permissionsmatrix');
             }
-
         }
 
         if ($formData['action'] === 'delete') {
@@ -200,7 +202,7 @@ class PermissionsMatrix extends Controller
     public function onSynchronizePermissionsMatrix(){
 
         $permissionBasedModels = PermissionBasedAccess::getAllChildClasses();
-        $mandateTypes = MandateType::all();
+        $mandateTypes          = MandateType::all();
 
         if (empty($permissionBasedModels) || empty($mandateTypes)) return;
 
@@ -210,9 +212,9 @@ class PermissionsMatrix extends Controller
                 foreach ($permissionBasedModels as $permissionBasedModel) {
                     if ($permissionBasedModel == MandateType::MODEL_NAME_GUEST) return;
 
-                    $model = new $permissionBasedModel();
-                    $fields = $model->fillable ?? [];
-                    $fields = array_merge($fields, $model->additionalFieldsForPermissionMatrix ?? []);
+                    $model          = new $permissionBasedModel();
+                    $fields         = $model->fillable ?? [];
+                    $fields         = array_merge($fields, $model->additionalFieldsForPermissionMatrix ?? []);
                     $relationArrays = Constants::AVAILABLE_RELATION_TYPES;
 
                     foreach ($relationArrays as $relationArrayName) {
@@ -223,22 +225,22 @@ class PermissionsMatrix extends Controller
                                 return !isset($value['ignoreInPermissionsMatrix']) || $value['ignoreInPermissionsMatrix'] === false;
                             });
                         }
+
                         $fields = array_merge($fields, array_keys($relationArray));
                     }
 
                     $this->filterFieldsForRealtionKeys($fields);
                     $fields = array_unique($fields);
 
-                    //add permission for the model in general
+                    // add permission for the model in general
                     $tempMandatePermissionsMap[] = [ 'mandate_type_id' => $mandateType->id, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 0];
 
                     if ($mandateType->organization_type_model_name == MandateType::MODEL_NAME_SCOUT && $permissionBasedModel == MandateType::MODEL_NAME_SCOUT) {
-
-                        //add permission for the model in general for own
+                        // add permission for the model in general for own
                         $tempMandatePermissionsMap[] = [ 'mandate_type_id' => $mandateType->id, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 1];
                     }
 
-                    //add permission for each attribute for general, own
+                    // add permission for each attribute for general, own
                     foreach ($fields as $field) {
                         $tempMandatePermissionsMap[] = [ 'mandate_type_id' => $mandateType->id, 'model' => $permissionBasedModel, 'field' => $field, 'own' => 0];
 
@@ -274,7 +276,6 @@ class PermissionsMatrix extends Controller
             });
 
             Flash::success(e(trans('csatar.csatar::lang.plugin.admin.admin.seederData.synchronizeComplete')));
-
         } catch (Exception $exception) {
             Flash::error($exception->getMessage());
         }
@@ -292,4 +293,5 @@ class PermissionsMatrix extends Controller
             }
         }
     }
+
 }

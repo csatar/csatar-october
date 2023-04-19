@@ -1,4 +1,5 @@
-<?php namespace Csatar\KnowledgeRepository\Models;
+<?php
+namespace Csatar\KnowledgeRepository\Models;
 
 use Auth;
 use Model;
@@ -77,6 +78,7 @@ class Game extends PermissionBasedAccess
             'key' => 'approver_csatar_code',
             'otherKey' => 'ecset_code',
             'label' => 'csatar.knowledgerepository::lang.plugin.admin.game.approver',
+            'ignoreInPermissionsMatrix' => true,
         ],
         'association' => [
             '\Csatar\Csatar\Models\Association',
@@ -134,12 +136,12 @@ class Game extends PermissionBasedAccess
         'attachements' => ['System\Models\File'],
     ];
 
-
     public static function filterAgeGroupByAssociation($query, $related)
     {
         if (!isset($related->association_id)) {
-            return $query->where('id', 0);
+            return $query;
         }
+
         return $query->where('association_id', $related->association_id);
     }
 
@@ -163,6 +165,11 @@ class Game extends PermissionBasedAccess
         return $query->whereNotNull('approved_at');
     }
 
+    public function scopeWaitingForApproval($query)
+    {
+        return $query->whereNull('approved_at');
+    }
+
     public function beforeCreate()
     {
         if (empty($this->uploader_csatar_code)) {
@@ -179,4 +186,5 @@ class Game extends PermissionBasedAccess
     public function getApproverScout() {
         return $this->approver_csatar_code ? $this->approver : null;
     }
+
 }

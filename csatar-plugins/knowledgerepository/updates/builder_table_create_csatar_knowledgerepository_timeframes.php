@@ -1,10 +1,12 @@
-<?php namespace Csatar\KnowledgeRepository\Updates;
+<?php
+namespace Csatar\KnowledgeRepository\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarKnowledgerepositoryTimeframes extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_knowledgerepository_durations', function($table)
@@ -21,4 +23,5 @@ class BuilderTableCreateCsatarKnowledgerepositoryTimeframes extends Migration
     {
         Schema::dropIfExists('csatar_knowledgerepository_durations');
     }
+
 }

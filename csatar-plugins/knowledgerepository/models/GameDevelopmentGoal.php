@@ -1,4 +1,5 @@
-<?php namespace Csatar\KnowledgeRepository\Models;
+<?php
+namespace Csatar\KnowledgeRepository\Models;
 
 use Model;
 
@@ -40,11 +41,11 @@ class GameDevelopmentGoal extends Model
         'sort_order',
     ];
 
-
     public function beforeSave()
     {
         if (empty($this->sort_order)) {
             $this->sort_order = static::max('sort_order') + 1;
         }
     }
+
 }

@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Controllers;
+<?php
+namespace Csatar\Csatar\Controllers;
 
 use Backend\Classes\Controller;
 use BackendMenu;
@@ -28,4 +29,5 @@ class MandateTypes extends Controller
     public function onDelete(){
         return BackendExtensions::onDelete($this);
     }
+
 }

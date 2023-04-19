@@ -41,10 +41,10 @@ class GamesXlsxImport implements ToModel, WithHeadingRow, WithValidation, SkipsO
 
     public function __construct($associationId, $uploaderCsatarCode, $approverCsatarCode, $overwrite = false)
     {
-        $this->associationId = $associationId;
+        $this->associationId      = $associationId;
         $this->uploaderCsatarCode = $uploaderCsatarCode;
         $this->approverCsatarCode = $approverCsatarCode;
-        $this->overwrite = $overwrite;
+        $this->overwrite          = $overwrite;
     }
 
     public function sheets(): array
@@ -78,7 +78,7 @@ class GamesXlsxImport implements ToModel, WithHeadingRow, WithValidation, SkipsO
         if (empty($game)) {
             $game = new Game();
             $game->association_id = $this->associationId;
-            $game->name = $row['jatek_neve'];
+            $game->name           = $row['jatek_neve'];
         }
 
         $pivotRelationIds = [];
@@ -119,11 +119,12 @@ class GamesXlsxImport implements ToModel, WithHeadingRow, WithValidation, SkipsO
             return;
         }
 
-        $game->update([
+        $game->fill([
             'description' => $row['leiras'] ?? null,
             'link' => $row['link'] ?? null,
             'uploader_csatar_code' => $this->uploaderCsatarCode,
             'approver_csatar_code' => $this->approverCsatarCode,
+            'approved_at' => $this->approverCsatarCode ? date('Y-m-d H:i:s') : null,
             'note' => $row['megjegyzes'],
         ]);
 
@@ -148,7 +149,7 @@ class GamesXlsxImport implements ToModel, WithHeadingRow, WithValidation, SkipsO
     {
         $searchFor = array_map('trim', explode('|', $searchFor));
         $searchFor = array_map('strtolower', $searchFor);
-        $ids = $modelName::whereIn(DB::raw('LOWER(' . $columnName . ')'), $searchFor)->when($secondaryColumnName, function ($query) use ($secondaryColumnName, $secondaryColumnValue) {
+        $ids       = $modelName::whereIn(DB::raw('LOWER(' . $columnName . ')'), $searchFor)->when($secondaryColumnName, function ($query) use ($secondaryColumnName, $secondaryColumnValue) {
             $query->where($secondaryColumnName, $secondaryColumnValue);
         })->get();
         $unmatched = array_diff($searchFor, array_map('strtolower', $ids->pluck($columnName)->toArray()));
@@ -156,6 +157,7 @@ class GamesXlsxImport implements ToModel, WithHeadingRow, WithValidation, SkipsO
             $modelNameForLangKey = (new \ReflectionClass($modelName))->getShortName();
             $this->errors[$this->getRowNumber()][] = Lang::get('csatar.knowledgerepository::lang.plugin.admin.messages.cannotFind' . $modelNameForLangKey) . implode(', ', $unmatched);
         }
+
         if ($createIfNotFound && !empty($unmatched)) {
             foreach ($unmatched as $unmatchedItem) {
                 $model = new $modelName();
@@ -186,4 +188,5 @@ class GamesXlsxImport implements ToModel, WithHeadingRow, WithValidation, SkipsO
             }
         });
     }
+
 }

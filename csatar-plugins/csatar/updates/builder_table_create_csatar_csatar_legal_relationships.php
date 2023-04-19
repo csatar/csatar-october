@@ -1,10 +1,12 @@
-<?php namespace Csatar\Csatar\Updates;
+<?php
+namespace Csatar\Csatar\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarCsatarLegalRelationships extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_csatar_legal_relationships', function($table)
@@ -18,9 +20,10 @@ class BuilderTableCreateCsatarCsatarLegalRelationships extends Migration
             $table->smallInteger('sort_order')->unsigned()->default(1);
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_legal_relationships');
     }
+
 }

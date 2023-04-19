@@ -149,6 +149,46 @@
                 ?>
             </ul>
         </li>
+        <li>
+            <h4><?= e(trans('csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepository.songTypes')) ?>:</h4>
+            <ul>
+                <?php
+                foreach ($seederData['songTypes'] as $data) {
+                    echo '<li>' . $data . '</li>';
+                }
+                ?>
+            </ul>
+        </li>
+        <li>
+            <h4><?= e(trans('csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepository.folkSongTypes')) ?>:</h4>
+            <ul>
+                <?php
+                foreach ($seederData['folkSongTypes'] as $data) {
+                    echo '<li>' . $data['name'] . '</li>';
+                }
+                ?>
+            </ul>
+        </li>
+        <li>
+            <h4><?= e(trans('csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepository.regions')) ?>:</h4>
+            <ul>
+                <?php
+                foreach ($seederData['regions'] as $data) {
+                    echo '<li>' . $data['name'] . '</li>';
+                }
+                ?>
+            </ul>
+        </li>
+        <li>
+            <h4><?= e(trans('csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepository.folkSongRhythms')) ?>:</h4>
+            <ul>
+                <?php
+                foreach ($seederData['folkSongRhythms'] as $data) {
+                    echo '<li>' . $data['name'] . '</li>';
+                }
+                ?>
+            </ul>
+        </li>
     </ul>
     <p><?= e(trans('csatar.csatar::lang.plugin.admin.admin.seederData.seederDataConfirmMessage')) ?></p>
     <p><button type="button" data-request="onSeederDataUpdateButtonClick" class="btn btn-default"><?= e(trans('csatar.csatar::lang.plugin.admin.admin.seederData.updateData')) ?></button></p>

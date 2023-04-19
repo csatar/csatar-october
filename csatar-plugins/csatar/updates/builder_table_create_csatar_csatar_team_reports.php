@@ -1,10 +1,12 @@
-<?php namespace Csatar\Csatar\Updates;
+<?php
+namespace Csatar\Csatar\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarCsatarTeamReports extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_csatar_team_reports', function($table)
@@ -35,9 +37,10 @@ class BuilderTableCreateCsatarCsatarTeamReports extends Migration
             $table->dateTime('approved_at')->nullable();
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_team_reports');
     }
+
 }

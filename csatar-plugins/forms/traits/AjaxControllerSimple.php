@@ -1,4 +1,5 @@
-<?php namespace Csatar\Forms\Traits;
+<?php
+namespace Csatar\Forms\Traits;
 
 use Auth;
 use http\Env\Request;
@@ -44,7 +45,7 @@ trait AjaxControllerSimple {
                 'label' => 'Date picker',
                 'code'  => 'datepicker'
             ],
-//            'Backend\FormWidgets\RichEditor' => [
+// 'Backend\FormWidgets\RichEditor' => [
             'Csatar\Forms\Widgets\RichEditor' => [
                 'label' => 'Rich editor',
                 'code'  => 'richeditor'
@@ -89,7 +90,7 @@ trait AjaxControllerSimple {
 
     public function createForm($preview = false)
     {
-        $form  = $this->form ?? Form::find($this->formId);
+        $form   = $this->form ?? Form::find($this->formId);
         $record = $this->getRecord();
 
         if (!$record) {
@@ -103,17 +104,18 @@ trait AjaxControllerSimple {
         $record->fill($data = Input::get('data') ?? []);
 
         $config = $this->makeConfig($form->getFieldsConfig());
-        //update field list and config based on currentUserRights
-        $config->fields = $this->markFieldsThatRequire2FA($config->fields, $preview, empty($record->id));
+        // update field list and config based on currentUserRights
+        $config->fields        = $this->markFieldsThatRequire2FA($config->fields, $preview, empty($record->id));
         $messageAbout2faFields = $this->generate2FAFieldsMessage($config->fields, $preview, empty($record->id));
-        $config->fields = $this->applyUserRightsToForm($config->fields, $preview, empty($record->id));
-        $config->arrayName = 'data';
-        $config->alias = $this->alias;
-        $config->model = $record;
+        $config->fields        = $this->applyUserRightsToForm($config->fields, $preview, empty($record->id));
+        $config->arrayName     = 'data';
+        $config->alias         = $this->alias;
+        $config->model         = $record;
 
         if (method_exists($record, 'initFromForm')) {
             $record->initFromForm();
         }
+
         $this->autoloadBelongsToRelations($record);
         $this->autoloadhasManyRelations($record);
 
@@ -128,9 +130,10 @@ trait AjaxControllerSimple {
             $html = $this->renderViewMode($this->widget);
         } else {
             $this->makePreselectedFieldsReadOnly();
-            $html = $this->widget->render(['preview' => $preview]);
+            $html  = $this->widget->render(['preview' => $preview]);
             $html .= $this->renderValidationTags($record);
         }
+
         $html .= $this->renderBelongsToManyWithPivotDataAndHasManyRelations($record, !$preview);
 
         $variablesToPass = [
@@ -152,7 +155,7 @@ trait AjaxControllerSimple {
 
     public function renderViewMode($widget)
     {
-        $mainCardVariablesToPass = [];
+        $mainCardVariablesToPass  = [];
         $sheetCardVariablesToPass = [];
         $fieldsToPass = [];
 
@@ -166,17 +169,19 @@ trait AjaxControllerSimple {
             // gather all cards and fields in arrays
             if ($field['formBuilder']['type'] == 'card') {
                 if ($field['formBuilder']['position'] == 'main') {
-                    $mainCardVariablesToPass['name'] = $key;
+                    $mainCardVariablesToPass['name']  = $key;
                     $mainCardVariablesToPass['class'] = $field['formBuilder']['class'];
                 } else if ($field['formBuilder']['position'] == 'sheets') {
-                    $sheetCardVariablesToPass[$key] = [];
+                    $sheetCardVariablesToPass[$key]         = [];
                     $sheetCardVariablesToPass[$key]['name'] = array_key_exists('label', $field) ? Lang::get($field['label']) : null;
                     if (array_key_exists('class', $field['formBuilder'])) {
                         $sheetCardVariablesToPass[$key]['class'] = $field['formBuilder']['class'];
                     }
+
                     if (array_key_exists('color', $field['formBuilder'])) {
                         $sheetCardVariablesToPass[$key]['color'] = $field['formBuilder']['color'];
                     }
+
                     if (array_key_exists('order', $field['formBuilder'])) {
                         $sheetCardVariablesToPass[$key]['order'] = $field['formBuilder']['order'];
                     }
@@ -230,17 +235,21 @@ trait AjaxControllerSimple {
                 if (isset($field['label'])) {
                     $newField['label'] = Lang::get($field['label']);
                 }
+
                 $newField['value'] = $value;
 
                 if (array_key_exists('position', $field['formBuilder'])) {
                     $newField['position'] = $field['formBuilder']['position'];
                 }
+
                 if (array_key_exists('order', $field['formBuilder'])) {
                     $newField['order'] = $field['formBuilder']['order'];
                 }
+
                 if ($field['type'] == 'richeditor') {
                     $newField['raw'] = true;
                 }
+
                 array_push($fieldsToPass[$field['formBuilder']['card']], $newField);
             }
         }
@@ -253,7 +262,7 @@ trait AjaxControllerSimple {
             if ($key == $mainCardVariablesToPass['name']) {
                 $titleFields = [];
                 $mainCardVariablesToPass['subtitleFields'] = [];
-                $mainCardVariablesToPass['fields'] = [];
+                $mainCardVariablesToPass['fields']         = [];
 
                 // gather the fields by position
                 foreach ($fields as $field) {
@@ -296,7 +305,7 @@ trait AjaxControllerSimple {
         }
 
         // render the main card
-        $html = '<div class="row">';
+        $html  = '<div class="row">';
         $html .= $this->renderPartial('@partials/mainCard', $mainCardVariablesToPass);
 
         // render the sheets
@@ -305,6 +314,7 @@ trait AjaxControllerSimple {
             foreach ($sheetCardVariablesToPass as $sheet) {
                 $html .= $this->renderPartial('@partials/sheetCard', $sheet);
             }
+
             $html .= '</div></div>';
         }
 
@@ -319,8 +329,9 @@ trait AjaxControllerSimple {
                 if (!array_key_exists('order', $array[$i]) || !array_key_exists('order', $array[$j])) {
                     continue;
                 }
+
                 if ($array[$i]['order'] < $array[$j]['order']) {
-                    $v = $array[$i];
+                    $v         = $array[$i];
                     $array[$i] = $array[$j];
                     $array[$j] = $v;
                 }
@@ -330,7 +341,7 @@ trait AjaxControllerSimple {
 
     public function onAddPivotRelation(){
         $relationName = Input::get('relationName');
-        $relationId = Input::get($relationName);
+        $relationId   = Input::get($relationName);
 
         if ($relationName && $relationId) {
             return $this->createPivotForm($relationName, $relationId);
@@ -349,15 +360,15 @@ trait AjaxControllerSimple {
     }
 
     public function onListAttachOptions(){
-        $record = $this->getRecord();
+        $record       = $this->getRecord();
         $relationName = Input::get('relationName');
-        $defRecords = DeferredBinding::where('master_field', $relationName)
+        $defRecords   = DeferredBinding::where('master_field', $relationName)
             ->where('session_key', $this->sessionKey)
             ->get();
 
-        $attachedIds = $record->id ? $record->{$relationName}->pluck('id') : $defRecords->pluck('slave_id');
+        $attachedIds       = $record->id ? $record->{$relationName}->pluck('id') : $defRecords->pluck('slave_id');
         $isHasManyRelation = array_key_exists($relationName, $record->hasMany);
-        $relatedModelName = array_key_exists($relationName, $record->belongsToMany) ?
+        $relatedModelName  = array_key_exists($relationName, $record->belongsToMany) ?
             $record->belongsToMany[$relationName][0] :
             ($isHasManyRelation ?
                 (isset($record->hasMany[$relationName][0]::$relatedModelNameForFormBuilder) ?
@@ -370,7 +381,7 @@ trait AjaxControllerSimple {
             $record->hasMany[$relationName][0]::$relatedModelAllowDuplicates;
 
         $getFunctionName = 'get' . $this->underscoreToCamelCase($relationName, true) . 'Options';
-        $options = method_exists($record, $getFunctionName) ? $record->{$getFunctionName}() : null;
+        $options         = method_exists($record, $getFunctionName) ? $record->{$getFunctionName}() : null;
 
         // scope the returned values if a scope is specified in the fields.html
         $scope = null;
@@ -378,7 +389,7 @@ trait AjaxControllerSimple {
             $tmpModelName = is_array($record->hasMany[$relationName]) ? $record->hasMany[$relationName][0] : $record->hasMany[$relationName];
             if (isset($tmpModelName::$relatedFieldForFormBuilder)) {
                 $pivotConfig = $this->getConfig($tmpModelName, 'fields.yaml');
-                $scope = $pivotConfig->fields[$tmpModelName::$relatedFieldForFormBuilder]['scope'];
+                $scope       = $pivotConfig->fields[$tmpModelName::$relatedFieldForFormBuilder]['scope'];
             }
         }
 
@@ -429,10 +440,10 @@ trait AjaxControllerSimple {
 
     public function createPivotForm($relationName, $relationId, $edit = false) {
         $preview = $this->readOnly;
-        $record = $this->getRecord();
+        $record  = $this->getRecord();
 
         $isHasManyRelation = array_key_exists($relationName, $record->hasMany);
-        $relatedModelName = array_key_exists($relationName, $record->belongsToMany) ?
+        $relatedModelName  = array_key_exists($relationName, $record->belongsToMany) ?
             $record->belongsToMany[$relationName][0] :
             ($isHasManyRelation ?
                 $record->hasMany[$relationName][0] :
@@ -441,16 +452,17 @@ trait AjaxControllerSimple {
         if ($isHasManyRelation) {
             $pivotConfig = $this->getConfig($record->hasMany[$relationName][0], 'fields.yaml');
             if ($edit) {
-                $relatedModel = $relatedModelName::find($relationId);
+                $relatedModel       = $relatedModelName::find($relationId);
                 $pivotConfig->model = $relatedModel;
             } else {
-                $relatedModel = new $relatedModelName();
+                $relatedModel       = new $relatedModelName();
                 $pivotConfig->model = $relatedModel;
                 if (isset($relatedModel::$relatedModelNameForFormBuilder) && isset($relatedModel::$relatedFieldForFormBuilder)) {
                     $rModel = ($relatedModel::$relatedModelNameForFormBuilder)::find($relationId);
                     $relatedModel->{$relatedModel::$relatedFieldForFormBuilder} = $rModel;
                     $pivotConfig->fields[$relatedModel::$relatedFieldForFormBuilder]['readOnly'] = 1;
                 }
+
                 if (method_exists($relatedModel, 'initFromForm')) {
                     $relatedModel->initFromForm($record);
                 }
@@ -468,15 +480,17 @@ trait AjaxControllerSimple {
                     $relatedModel->attributes['pivot'] = $record->{$relationName}->find($relationId)->pivot->attributes;
                 }
             }
-            $pivotConfig = $this->getConfig($relatedModelName, 'fieldsPivot.yaml');
+
+            $pivotConfig        = $this->getConfig($relatedModelName, 'fieldsPivot.yaml');
             $pivotConfig->model = $relatedModel;
         }
+
         $pivotConfig->arrayName = $relationName;
-        $pivotConfig->alias = $relatedModelName;
+        $pivotConfig->alias     = $relatedModelName;
         $widget = new \Backend\Widgets\Form($this, $pivotConfig);
         $this->loadBackendFormWidgets();
 
-        $html = $widget->render(['preview' => $preview]);
+        $html       = $widget->render(['preview' => $preview]);
         $pivotModel = $this->getPivotModelIfSet($relationName);
         if (!$preview && !empty($pivotModel->rules)) {
             $html .= $this->renderValidationTags($pivotModel, array_key_exists($relationName, $record->belongsToMany), $relationName);
@@ -493,13 +507,13 @@ trait AjaxControllerSimple {
     }
 
     public function onSavePivotRelation(){
-        $record = $this->getRecord();
+        $record       = $this->getRecord();
         $relationName = Input::get('relationName');
-        $relationId = Input::get('relationId');
-        $edit = Input::get('edit') == 1 ? true : false;
+        $relationId   = Input::get('relationId');
+        $edit         = Input::get('edit') == 1 ? true : false;
 
         $isHasManyRelation = array_key_exists($relationName, $record->hasMany);
-        $relatedModelName = array_key_exists($relationName, $record->belongsToMany) ?
+        $relatedModelName  = array_key_exists($relationName, $record->belongsToMany) ?
             $record->belongsToMany[$relationName][0] :
             ($isHasManyRelation ?
                 $record->hasMany[$relationName][0] :
@@ -509,17 +523,18 @@ trait AjaxControllerSimple {
 
         if (isset(Input::get($relationName)['pivot']) && $edit) {
             $pivotData = Input::get($relationName)['pivot'];
-            $rules = $record->{$relationName}->find($relationId)->pivot->rules ?? [];
+            $rules     = $record->{$relationName}->find($relationId)->pivot->rules ?? [];
         } else {
             $pivotData = Input::get($relationName);
-            $rules = !empty($model->rules) ? $model->rules : [];
+            $rules     = !empty($model->rules) ? $model->rules : [];
         }
 
         if ($model && method_exists($model, 'beforeValidateFromForm')) {
             $model->beforeValidateFromForm($pivotData);
         }
+
         if (count($rules) > 0) {
-            $pivotConfig = $isHasManyRelation ?
+            $pivotConfig    = $isHasManyRelation ?
                 $this->getConfig($record->hasMany[$relationName][0], 'fields.yaml') :
                 $this->getConfig($record->belongsToMany[$relationName][0], 'fieldsPivot.yaml');
             $attributeNames = [];
@@ -538,6 +553,7 @@ trait AjaxControllerSimple {
                 throw new \ValidationException($validation);
             }
         }
+
         if ($model && method_exists($model, 'beforeSaveFromForm')) {
             $model->beforeSaveFromForm($pivotData);
         }
@@ -568,10 +584,10 @@ trait AjaxControllerSimple {
         } else {  // add relation, polimorphic
             $relatedModelName = $record->hasMany[$relationName][0];
             if (!$record->id && isset($relatedModelName::$relatedModelNameForFormBuilder) && isset($relatedModelName::$relatedFieldForFormBuilder)) {
-                $form = Form::find($this->formId ?? Input::get('formId'));
-                $modelName = $form->getModelName();
+                $form         = Form::find($this->formId ?? Input::get('formId'));
+                $modelName    = $form->getModelName();
                 $max_slave_id = DeferredBinding::where('master_type', substr($modelName, 1))->where('master_field', $relationName)->where('session_key', $this->sessionKey)->max('slave_id');
-                $model->id = isset($max_slave_id) ? $max_slave_id + 1 : 1;
+                $model->id    = isset($max_slave_id) ? $max_slave_id + 1 : 1;
                 $record->bindDeferred($relationName, $model, $this->sessionKey, $pivotData);
             } else {
                 $model = $model::create(isset($model->attributes) ? array_merge($model->attributes, $pivotData) : $pivotData);
@@ -604,7 +620,7 @@ trait AjaxControllerSimple {
 
     public function onSave()
     {
-        $isNew = Input::get('recordKeyValue') == 'new' ? true : false;
+        $isNew  = Input::get('recordKeyValue') == 'new' ? true : false;
         $record = $this->record;
 
         if (!$data = Input::get('data')) {
@@ -612,12 +628,12 @@ trait AjaxControllerSimple {
             throw new ApplicationException($error);
         }
 
-        //until this point record was displayed based on rights cached in session
+        // until this point record was displayed based on rights cached in session
         $this->currentUserRights = $this->getRights($record, true); // now we get rights from database and ignore session
 
         if ($this->properties['subForm']) {
             $relationName = $this->properties['getRecordFromParent'] ?? null;
-            $parent = $this->getParent();
+            $parent       = $this->getParent();
 
             $this->getRightsFromParent($parent, $relationName);
 
@@ -631,7 +647,7 @@ trait AjaxControllerSimple {
         }
 
         // validate the form
-        $form = Form::find($this->formId ?? Input::get('formId'));
+        $form   = Form::find($this->formId ?? Input::get('formId'));
         $config = $this->makeConfig($form->getFieldsConfig());
 
         $attributeNames = [];
@@ -645,7 +661,7 @@ trait AjaxControllerSimple {
         $rules = $this->addRequiredRuleBasedOnUserRights($record->rules, $this->currentUserRights ?? []);
 
         // add extra fields validation
-        $extraFields = $this->getExtraFields($this->record, (new DateTime())->format('Y-m-d')) ?? [];
+        $extraFields      = $this->getExtraFields($this->record, (new DateTime())->format('Y-m-d')) ?? [];
         $extraFieldValues = json_decode($this->record->extra_fields, true) ?? [];
 
         foreach ($extraFieldValues as $extraFieldValue) {
@@ -657,15 +673,17 @@ trait AjaxControllerSimple {
                     break;
                 }
             }
+
             if (!$found) {
                 array_push($extraFields, $extraFieldValue);
             }
         }
+
         foreach ($extraFields as $extraField) {
             $dynamicFieldModelId = $extraField['dynamicFieldModelId'] ?? '';
             $id = 'extra_fields_' . $extraField['id'] . '_' . $dynamicFieldModelId;
             $attributeNames[$id] = $extraField['label'];
-            $rules[$id] = 'max:500';
+            $rules[$id]          = 'max:500';
             if ($extraField['required'] == 1) {
                 $rules[$id] .= '|required';
             }
@@ -682,7 +700,7 @@ trait AjaxControllerSimple {
             $specialValidationExceptions = unserialize($specialValidationExceptions);
         }
 
-        //validate for conditional rules
+        // validate for conditional rules
         if (isset($record->conditionalRules)) {
             foreach ($record->conditionalRules as $conditionalRule) {
                 $validation->sometimes($conditionalRule['fields'], $conditionalRule['rules'], function ($input) use ($record, $conditionalRule) {
@@ -729,7 +747,8 @@ trait AjaxControllerSimple {
             } else {
                 $data[$key] = (int) $data[$name];
             }
-//            unset($data[$name]);
+
+// unset($data[$name]);
         }
 
         // Resolve belongsToMany relations
@@ -743,11 +762,11 @@ trait AjaxControllerSimple {
                 if (is_array($data[$relationName])) {
                     foreach ($data[$relationName] as $recordToAttachId) {
                         $deferred = new DeferredBinding();
-                        $deferred->master_type = get_class($record);
+                        $deferred->master_type  = get_class($record);
                         $deferred->master_field = $relationName;
-                        $deferred->slave_type = $relatedModel;
-                        $deferred->slave_id = $recordToAttachId;
-                        $deferred->session_key = $this->sessionKey;
+                        $deferred->slave_type   = $relatedModel;
+                        $deferred->slave_id     = $recordToAttachId;
+                        $deferred->session_key  = $this->sessionKey;
                         $deferred->save();
                     }
                 }
@@ -779,15 +798,18 @@ trait AjaxControllerSimple {
                 if (method_exists($model, 'initFromForm')) {
                     $model->initFromForm($record);
                 }
+
                 foreach ($model->fillable as $fillable) {
                     if (array_key_exists($fillable, $defRecord['pivot_data']) && !isset($model->{$fillable})) {
                         $model->{$fillable} = $defRecord['pivot_data'][$fillable];
                     }
                 }
+
                 if (isset($model::$relatedModelNameForFormBuilder) && isset($model::$relatedFieldForFormBuilder)) {
                     $tmp = $defRecord['pivot_data'][$model::$relatedFieldForFormBuilder];
                     $model->{$model::$relatedFieldForFormBuilder} = ($model::$relatedModelNameForFormBuilder)::find($tmp);
                 }
+
                 $model = $model->save();
             }
 
@@ -815,12 +837,13 @@ trait AjaxControllerSimple {
         } else {
             Flash::success(e(trans('csatar.forms::lang.success.saved')));
         }
+
         return Redirect::back()->withInput();
     }
 
     public function onCloseForm(){
-        DeferredBinding::cleanUp(1); //Destroys all bindings that have not been committed and are older than 1 day
-        $this->record->cancelDeferred($this->sessionKey); //Destroys current form's bindings
+        DeferredBinding::cleanUp(1); // Destroys all bindings that have not been committed and are older than 1 day
+        $this->record->cancelDeferred($this->sessionKey); // Destroys current form's bindings
         return Redirect::to(Input::get('redirectOnClose') ?? '/');
     }
 
@@ -844,6 +867,7 @@ trait AjaxControllerSimple {
                 'relationName' => $relationName
             ]);
         }
+
         return '';
     }
 
@@ -880,6 +904,7 @@ trait AjaxControllerSimple {
                         break;
                     }
                 }
+
                 if (!$found) {
                     array_push($extraFieldValues, $extraFieldActive);
                 }
@@ -893,6 +918,7 @@ trait AjaxControllerSimple {
             if (empty($extraFieldsActive) || !$this->isSavedExtraFieldActive($extraFieldValue, $extraFieldsActive)) {
                 $extraFieldValues[$key]['disabled'] = true;
             }
+
             $this->widget->model->attributes[$id] = isset($extraFieldValue['value']) ? $extraFieldValue['value'] : '';
         }
 
@@ -912,6 +938,7 @@ trait AjaxControllerSimple {
                 return true;
             }
         }
+
         return false;
     }
 
@@ -933,10 +960,10 @@ trait AjaxControllerSimple {
 
     private function createExtraFieldFields($extraFields, &$rules = []) {
         $fields = [];
-        $order = 1;
+        $order  = 1;
         foreach ($extraFields as $extraField) {
             $dynamicFieldModelId = $extraField['dynamicFieldModelId'] ?? '';
-            $id = 'extra_fields_' . $extraField['id'] . '_' . $dynamicFieldModelId;
+            $id          = 'extra_fields_' . $extraField['id'] . '_' . $dynamicFieldModelId;
             $fields[$id] = [
                 'label' => $extraField['label'],
                 'span' => 'auto',
@@ -951,11 +978,14 @@ trait AjaxControllerSimple {
                 $fields[$id]['required'] = 1;
                 $rules[$id] = 'required';
             }
+
             if (isset($extraField['disabled'])) {
                 $fields[$id]['disabled'] = $extraField['disabled'];
             }
+
             $order++;
         }
+
         return $fields;
     }
 
@@ -964,10 +994,12 @@ trait AjaxControllerSimple {
         if (!method_exists($model, 'getAssociation') || !method_exists($model, 'getModelName')) {
             return null;
         }
+
         $association = $model->getAssociation();
         if (!isset($association)) {
             return null;
         }
+
         $modelName = $model::getModelName();
 
         // get the extra fields defined for the given association, model and current date
@@ -997,10 +1029,12 @@ trait AjaxControllerSimple {
         if ($config[0] != '$') {
             $config = '$/' . str_replace('\\', '/', strtolower($model)) . '/' . $config;
         }
+
         $config = File::symbolizePath($config);
         if (!File::isFile($config)) {
             return false;
         }
+
         return $this->makeConfig($config);
     }
 
@@ -1022,7 +1056,7 @@ trait AjaxControllerSimple {
         foreach ($record->hasMany as $relationName => $definition) {
             if ($this->canRead($relationName)
                 && is_array($definition)
-                && (array_key_exists('renderableOnCreateForm', $definition) || array_key_exists('renderableOnUpdateForm', $definition)) //this is needed to avoid looping though relations that renderable and eager loaded
+                && (array_key_exists('renderableOnCreateForm', $definition) || array_key_exists('renderableOnUpdateForm', $definition)) // this is needed to avoid looping though relations that renderable and eager loaded
                 && (count($record->{$relationName}) > 0 || $showEmpty)
                 && ((!$record->id
                     && array_key_exists('renderableOnCreateForm', $definition)
@@ -1032,11 +1066,12 @@ trait AjaxControllerSimple {
                         && $definition['renderableOnUpdateForm'])
                 )
             ) {
-                $pivotConfig = $this->getConfig($definition[0], 'columns.yaml');
+                $pivotConfig         = $this->getConfig($definition[0], 'columns.yaml');
                 $attributesToDisplay = $pivotConfig->columns;
                 $html .= $this->generatePivotSection($record, $relationName, $definition, $attributesToDisplay);
             }
         }
+
         $html .= '</div>';
 
         return $html;
@@ -1046,13 +1081,14 @@ trait AjaxControllerSimple {
         $attributesToDisplay = [];
         foreach ($pivotConfig->columns as $columnName => $data) {
             if (strpos($columnName, 'pivot') !== false) {
-                $pivotColumn = str_replace(']', '', str_replace('pivot[', '', $columnName));
+                $pivotColumn     = str_replace(']', '', str_replace('pivot[', '', $columnName));
                 $data['isPivot'] = true;
                 $attributesToDisplay[$pivotColumn] = $data;
             } else {
                 $attributesToDisplay[$columnName] = $data;
             }
         }
+
         return $attributesToDisplay;
     }
 
@@ -1062,7 +1098,7 @@ trait AjaxControllerSimple {
         if (count($record->$relationName)>0 ||
             (!$record->id && count($record->{$relationName}()->withDeferred($this->sessionKey)->get())>0)) {
             $pivotTableHeader = $this->generatePivotTableHeader($attributesToDisplay);
-            $pivotTableRows = $this->generatePivotTableRows($record, $relationName, $attributesToDisplay);
+            $pivotTableRows   = $this->generatePivotTableRows($record, $relationName, $attributesToDisplay);
         }
 
         return $this->renderPartial('@partials/pivotSection.htm', [
@@ -1079,14 +1115,15 @@ trait AjaxControllerSimple {
     }
 
     public function onDeletePivotRelation(){
-        $record = $this->getRecord();
+        $record       = $this->getRecord();
         $relationName = Input::get('relationName');
-        $relationId = Input::get('relationId');
+        $relationId   = Input::get('relationId');
 
         if (!$this->canDelete($relationName)) {
             Flash::warning(e(trans('csatar.forms::lang.failed.noPermissionToDeleteRecord')));
             return;
         }
+
         $isHasManyRelation = array_key_exists($relationName, $record->hasMany);
 
         $defRecords = DeferredBinding::where('master_field', $relationName)
@@ -1107,7 +1144,7 @@ trait AjaxControllerSimple {
 
     public function onModifyPivotRelation(){
         $relationName = Input::get('relationName');
-        $relationId = Input::get('relationId');
+        $relationId   = Input::get('relationId');
         return $this->createPivotForm($relationName, $relationId, true);
     }
 
@@ -1126,9 +1163,9 @@ trait AjaxControllerSimple {
 
     public function generatePivotTableRows($record, $relationName, $attributesToDisplay) {
 
-        $records = $record->{$relationName};
+        $records           = $record->{$relationName};
         $isHasManyRelation = array_key_exists($relationName, $record->hasMany);
-        $defRecords = null;
+        $defRecords        = null;
         if (!$record->id) {
             $defRecords = DeferredBinding::where('master_field', $relationName)
                 ->where('session_key', $this->sessionKey)
@@ -1149,12 +1186,13 @@ trait AjaxControllerSimple {
             if ($relatedRecord->is_hidden_frontend) {
                 continue;
             }
+
             if ($defRecords) {
                 if (!$isHasManyRelation) {
                     $relatedRecord->pivot = (object)$defRecords[$key]->pivot_data;
                 } else {
                     $relatedRecord->attributes = $defRecords[$key]->pivot_data;
-                    $relatedRecord->id = $defRecords[$key]->slave_id;
+                    $relatedRecord->id         = $defRecords[$key]->slave_id;
                     if (isset($relatedRecord::$relatedModelNameForFormBuilder) && isset($relatedRecord::$relatedFieldForFormBuilder)) {
                         $tmp = $relatedRecord->{$relatedRecord::$relatedFieldForFormBuilder};
                         unset($relatedRecord->{$relatedRecord::$relatedFieldForFormBuilder});
@@ -1163,7 +1201,7 @@ trait AjaxControllerSimple {
                 }
             }
 
-            $cols = '';
+            $cols       = '';
             $colButtons = '';
             foreach ($attributesToDisplay as $key => $data) {
                 $label = Lang::get($data['label']);
@@ -1172,7 +1210,7 @@ trait AjaxControllerSimple {
                     $value = $relatedRecord->pivot->{$key} ?? '';
                 } else {
                     $attribute = array_key_exists('valueFromFormBuilder', $data) ? $data['valueFromFormBuilder'] : 'name';
-                    $value = (is_object($relatedRecord->{$key}) ?
+                    $value     = (is_object($relatedRecord->{$key}) ?
                         $relatedRecord->{$key}->{$attribute} :
                         $relatedRecord->{$key});
                 }
@@ -1192,6 +1230,7 @@ trait AjaxControllerSimple {
                     'fieldsThatRequire2FA' => $this->fieldsThatRequire2FA,
                 ]);
             }
+
             $tableRows .= $this->renderPartial('@partials/pivotTableRow', [
                 'cols' => $cols,
                 'colButtons' => $colButtons,
@@ -1212,7 +1251,7 @@ trait AjaxControllerSimple {
     }
 
     public function getPivotModelIfSet($relationName) {
-        $record = $this->getRecord();
+        $record            = $this->getRecord();
         $isHasManyRelation = array_key_exists($relationName, $record->hasMany);
 
         if (array_key_exists($relationName, $record->belongsToMany)) {
@@ -1222,10 +1261,11 @@ trait AjaxControllerSimple {
             }
         } else if ($isHasManyRelation) {
             $relationConfigArray = $record->hasMany[$relationName];
-            $relatedModel = new $relationConfigArray[0]();
+            $relatedModel        = new $relationConfigArray[0]();
             if (method_exists($relatedModel, 'initFromForm')) {
                 $relatedModel->initFromForm($record);
             }
+
             return $relatedModel;
         }
 
@@ -1242,7 +1282,6 @@ trait AjaxControllerSimple {
 
         // Autoload belongsTo relations
         foreach ($record->belongsTo as $name => $definition) {
-
             if (empty($_POST[$name]) && empty($_POST['data'][$name])) {
                 if (!empty($definition['formBuilder']['requiredBeforeRender'])
                     && $definition['formBuilder']['requiredBeforeRender']
@@ -1253,7 +1292,7 @@ trait AjaxControllerSimple {
                 continue;
             }
 
-            $key = isset($definition['key']) ? $definition['key'] : $name . '_id';
+            $key          = isset($definition['key']) ? $definition['key'] : $name . '_id';
             $record->$key = (Input::get($name) ?? Input::get('data.' . $name));
         }
 
@@ -1273,12 +1312,11 @@ trait AjaxControllerSimple {
 
         // Autoload hasMany relations
         foreach ($record->hasMany as $name => $definition) {
-
             if (!Input::get($name) && !Input::get('data.' . $name)) {
                 continue;
             }
 
-            $key = isset($definition['key']) ? $definition['key'] : $name . '_id';
+            $key          = isset($definition['key']) ? $definition['key'] : $name . '_id';
             $record->$key = Input::get($name) ?? Input::get('data.' . $name);
         }
     }
@@ -1293,11 +1331,8 @@ trait AjaxControllerSimple {
         // In create mode, we do not care about read/update/delete rights.
         // In update mode, we do not care about read/create rights.
         // This function is called in every mode.
-
         // NOTE: in create mode, we do not care about update/delete
-
         foreach ($attributesArray as $attribute => $settings) {
-
             if (isset($settings['type']) && ($settings['type'] == 'custom' || $settings['type'] == 'section')) {
                 continue;
             }
@@ -1355,27 +1390,30 @@ trait AjaxControllerSimple {
                 if (in_array('read', $settings)) {
                     $key = isset($attributesArray[$attribute]) ? $attribute : '@' . $attribute;
                     $attributesArray[$key]['formBuilder']['2fa'] = $this->fieldsThatRequire2FA[$attribute];
-                    $attributesArray[$key]['cssClass'] = 'csat-2fa-field';
+                    $attributesArray[$key]['cssClass']           = 'csat-2fa-field';
                 }
             }
+
             return $attributesArray;
         } else if ($isNewRecord) {
             foreach ($this->fieldsThatRequire2FA as $attribute => $settings) {
                 if (in_array('create', $settings)) {
                     $key = isset($attributesArray[$attribute]) ? $attribute : '@' . $attribute;
                     $attributesArray[$key]['formBuilder']['2fa'] = $this->fieldsThatRequire2FA[$attribute];
-                    $attributesArray[$key]['cssClass'] = 'csat-2fa-field';
+                    $attributesArray[$key]['cssClass']           = 'csat-2fa-field';
                 }
             }
+
             return $attributesArray;
         } else {
             foreach ($this->fieldsThatRequire2FA as $attribute => $settings) {
                 if (in_array('update', $settings) || in_array('delete', $settings)) {
                     $key = isset($attributesArray[$attribute]) ? $attribute : '@' . $attribute;
                     $attributesArray[$key]['formBuilder']['2fa'] = $this->fieldsThatRequire2FA[$attribute];
-                    $attributesArray[$key]['cssClass'] = 'csat-2fa-field';
+                    $attributesArray[$key]['cssClass']           = 'csat-2fa-field';
                 }
             }
+
             return $attributesArray;
         }
 
@@ -1395,7 +1433,7 @@ trait AjaxControllerSimple {
         if ($preview) {
             foreach ($attributesArray as $key => $value) {
                 $actionsThatNeed2FA = $value['formBuilder']['2fa'] ?? null;
-                if ( $actionsThatNeed2FA && in_array('read', $actionsThatNeed2FA)) {
+                if ($actionsThatNeed2FA && in_array('read', $actionsThatNeed2FA)) {
                     $fieldsThatRequire2FA[] = $this->get2FAFieldName($key, $value);
                 }
             }
@@ -1406,7 +1444,7 @@ trait AjaxControllerSimple {
         } else if ($isNewRecord) {
             foreach ($attributesArray as $key => $value) {
                 $actionsThatNeed2FA = $value['formBuilder']['2fa'] ?? null;
-                if ( $actionsThatNeed2FA
+                if ($actionsThatNeed2FA
                     && in_array('create', $actionsThatNeed2FA)
                 ) {
                     $fieldsThatRequire2FA[] = $this->get2FAFieldName($key, $value);
@@ -1423,7 +1461,7 @@ trait AjaxControllerSimple {
         } else {
             foreach ($attributesArray as $key => $value) {
                 $actionsThatNeed2FA = $value['formBuilder']['2fa'] ?? null;
-                if ( $actionsThatNeed2FA
+                if ($actionsThatNeed2FA
                     && (in_array('update', $actionsThatNeed2FA)
                         || in_array('delete', $actionsThatNeed2FA))
                 ) {
@@ -1450,12 +1488,10 @@ trait AjaxControllerSimple {
         }
 
         if ($relationsArray = array_merge($this->record->belongsToMany, $this->record->hasMany)) {
-            if (
-                isset($relationsArray[str_replace('@', "", $attribute)]['label'])
+            if (isset($relationsArray[str_replace('@', "", $attribute)]['label'])
             ) {
                 return Lang::get($relationsArray[str_replace('@', "", $attribute)]['label']);
             }
-
         }
 
         return $attribute;
@@ -1473,6 +1509,7 @@ trait AjaxControllerSimple {
                 return true;
             }
         }
+
         return false;
     }
 
@@ -1483,14 +1520,12 @@ trait AjaxControllerSimple {
     {
         // This function is needed because at the time of rendering the form user rights are loaded from session,
         // but before save we confirm the rights from database, and if there were changes, not-allowed data should not be saved.
-
         // NOTE:
         // In readOnly mode we do not care about create/update/delete rights.
         // In create mode, we do not care about read/update/delete rights.
         // In update mode, we do not care about read/create rights.
         // This function is called only in create/update mode.
-
-        if ($isNewRecord) { //if it's a new record, we care only about create right
+        if ($isNewRecord) { // if it's a new record, we care only about create right
             foreach ($data as $attribute => $value) {
                 if ($this->shouldIgnoreUserRights($attribute, $fieldsConfig)) {
                     continue;
@@ -1502,18 +1537,20 @@ trait AjaxControllerSimple {
             }
         }
 
-        if (!$isNewRecord) { //if updating an existing record we don't care about create right
+        if (!$isNewRecord) { // if updating an existing record we don't care about create right
             foreach ($data as $attribute => $value) {
                 if ($this->shouldIgnoreUserRights($attribute, $fieldsConfig)) {
                     continue;
                 }
-                //if user can delete attribute, but he is not allowed to update it, accept only empty value for the attribute
+
+                // if user can delete attribute, but he is not allowed to update it, accept only empty value for the attribute
                 if ($this->canDelete($attribute) && !$this->canUpdate($attribute)) {
                     if (!empty($value) && $value != $this->record->{$attribute}) {
                         $this->storeMessage('warning', e(trans('csatar.forms::lang.failed.noPermissionForSomeFields')));
                         unset($data[$attribute]);
                     }
-                    //if user can delete attribute, but he is not allowed to update it and value is empty for the attribute, continue
+
+                    // if user can delete attribute, but he is not allowed to update it and value is empty for the attribute, continue
                     continue;
                 }
 
@@ -1522,7 +1559,7 @@ trait AjaxControllerSimple {
                     unset($data[$attribute]);
                 }
 
-                //if user can't update the attribute, and the above conditions doesn't apply, unset attribute before save
+                // if user can't update the attribute, and the above conditions doesn't apply, unset attribute before save
                 if (!$this->canUpdate($attribute) && $value != $this->record->{$attribute}) {
                     $this->storeMessage('warning', e(trans('csatar.forms::lang.failed.noPermissionForSomeFields')));
                     unset($data[$attribute]);
@@ -1543,11 +1580,10 @@ trait AjaxControllerSimple {
         // In create mode, we do not care about read/update/delete rights.
         // In update mode, we do not care about read/create rights.
         // This function is called only in create/update mode.
-
         foreach ($rights as $attribute => $right) {
             if ($this->isObligatory($attribute)) {
-                //add required rule if is obligatory for user to fill the attribute
-                //BUT this should not remove required rule IF, it's required by model settings
+                // add required rule if is obligatory for user to fill the attribute
+                // BUT this should not remove required rule IF, it's required by model settings
                 if (!array_key_exists($attribute, $rules)) {
                     // if there are no rules for the attribute
                     $rules[$attribute] = 'required';
@@ -1568,4 +1604,5 @@ trait AjaxControllerSimple {
     {
         $this->messages[$messageType][$message] = $message;
     }
+
 }

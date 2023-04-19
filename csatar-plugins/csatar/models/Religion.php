@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Models;
+<?php
+namespace Csatar\Csatar\Models;
 
 use Model;
 
@@ -8,7 +9,7 @@ use Model;
 class Religion extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-    
+
     use \October\Rain\Database\Traits\SoftDelete;
 
     use \Csatar\Csatar\Traits\History;
@@ -35,18 +36,18 @@ class Religion extends Model
         'name'
     ];
 
-    /** 
-     * Relations 
+    /**
+     * Relations
      */
     public $belongsToMany = [
         'scouts' => '\Csatar\Csatar\Models\Scout',
         'team_reports' => '\Csatar\Csatar\Models\TeamReport',
     ];
 
-
     public static function getOtherReligionId()
     {
         $data = self::where('name', 'Más felekezethez tartozó')->first();
         return isset($data) ? $data->id : null;
     }
+
 }

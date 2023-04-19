@@ -1,10 +1,12 @@
-<?php namespace Csatar\Csatar\Updates;
+<?php
+namespace Csatar\Csatar\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarCsatarMandateTypes extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_csatar_mandate_types', function($table)
@@ -25,9 +27,10 @@ class BuilderTableCreateCsatarCsatarMandateTypes extends Migration
             $table->smallInteger('nest_depth')->nullable()->unsigned();
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_mandate_types');
     }
+
 }

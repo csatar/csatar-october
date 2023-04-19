@@ -1,4 +1,5 @@
-<?php namespace Csatar\KnowledgeRepository\Models;
+<?php
+namespace Csatar\KnowledgeRepository\Models;
 
 use Model;
 
@@ -8,7 +9,7 @@ use Model;
 class TrialSystemCategory extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-    
+
     use \October\Rain\Database\Traits\SoftDelete;
 
     use \Csatar\Csatar\Traits\History;

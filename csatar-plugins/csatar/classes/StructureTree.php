@@ -14,6 +14,7 @@ use Illuminate\Contracts\Support\Arrayable;
 
 class StructureTree
 {
+
     private static function getAssociationsQueryWithArray(): array
     {
         return [
@@ -88,6 +89,7 @@ class StructureTree
                         $relationItems instanceof Collection ? self::toKeyedByIdArray($relationItems) : ($relationItems instanceof Arrayable ? $relationItems->toArray() : $relationItems);
                 }
             }
+
             return $array;
         })->keyBy('id')->toArray();
     }
@@ -229,7 +231,7 @@ class StructureTree
             ->with(self::getAssociationsQueryWithArray())
             ->select('id', 'name', 'name_abbreviation');
 
-        $refreshedAssociation = self::toKeyedByIdArray($query->get()); //dd($refreshedAssociation);
+        $refreshedAssociation = self::toKeyedByIdArray($query->get()); // dd($refreshedAssociation);
         $refreshedAssociation = array_merge([], ...$refreshedAssociation);
 
         if (empty($refreshedAssociation)) {
@@ -241,6 +243,7 @@ class StructureTree
                 StructureTree::getStructureTree();
                 return;
             }
+
         $structureTree[$associationId] = $refreshedAssociation;
         Cache::forever('structureTree', $structureTree);
     }
@@ -292,12 +295,14 @@ class StructureTree
         if (empty($refreshedDistrict)) {
            return;
         }
+
         // get old tree from cache and empty cache
         $structureTree = Cache::pull('structureTree');
             if (empty($structureTree)) {
                 StructureTree::getStructureTree();
                 return;
             }
+
         // update the tree
         $structureTree[$refreshedDistrict['association_id']]['districtsActive'][$refreshedDistrict['id']] = $refreshedDistrict;
         // insert the tree back to cache
@@ -305,7 +310,7 @@ class StructureTree
     }
 
     public static function updateTeamTree($teamId) {
-        $query = Team::where('id', $teamId)->with([
+        $query         = Team::where('id', $teamId)->with([
             'scoutsActive' => function($query) {
                 return self::selectFromScouts($query);
             },
@@ -351,6 +356,7 @@ class StructureTree
         if (empty($refreshedTeam)) {
             return;
         }
+
         // get old tree from cache and empty cache
         $structureTree = Cache::pull('structureTree');
         if (empty($structureTree)) {
@@ -360,11 +366,12 @@ class StructureTree
 
         // update the tree
         $associationId = $refreshedTeam['district']['association_id'];
-        $districtId = $refreshedTeam['district']['id'];
+        $districtId    = $refreshedTeam['district']['id'];
         unset($refreshedTeam['district']);
         $structureTree[$associationId]['districtsActive'][$districtId]['teamsActive'][$refreshedTeam['id']] = $refreshedTeam;
 
         // insert the tree back to cache
         Cache::forever('structureTree', $structureTree);
     }
+
 }

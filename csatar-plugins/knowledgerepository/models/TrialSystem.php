@@ -1,4 +1,5 @@
-<?php namespace Csatar\KnowledgeRepository\Models;
+<?php
+namespace Csatar\KnowledgeRepository\Models;
 
 use Csatar\Csatar\Models\Association;
 use Csatar\Csatar\Models\PermissionBasedAccess;
@@ -10,7 +11,7 @@ use Lang;
 class TrialSystem extends PermissionBasedAccess
 {
     use \October\Rain\Database\Traits\Validation;
-    
+
     use \October\Rain\Database\Traits\SoftDelete;
 
     use \Csatar\Csatar\Traits\History;
@@ -37,6 +38,7 @@ class TrialSystem extends PermissionBasedAccess
         'task',
         'obligatory',
         'note',
+        'effective_knowledge',
     ];
 
     public $belongsTo = [
@@ -70,7 +72,6 @@ class TrialSystem extends PermissionBasedAccess
         ]
     ];
 
-
     public static function getOrganizationTypeModelNameUserFriendly()
     {
         return Lang::get('csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystem');
@@ -89,8 +90,9 @@ class TrialSystem extends PermissionBasedAccess
     public static function filterAgeGroupByAssociation($query, $related)
     {
         if (!isset($related->association_id)) {
-            return $query->where('id', 0);
+            return $query;
         }
+
         return $query->where('association_id', $related->association_id);
     }
 
@@ -100,16 +102,41 @@ class TrialSystem extends PermissionBasedAccess
         if ($this->for_patrols) {
             $oefk[] = 'Ő';
         }
+
         if ($this->individual) {
             $oefk[] = 'E';
         }
+
         if ($this->task) {
             $oefk[] = 'F';
         }
+
         if ($this->obligatory) {
             $oefk[] = 'K';
         }
-        
+
         return implode('-', $oefk);
     }
+
+    public function getOEFKTooltipAttribute() {
+        $oefk = [];
+        if ($this->for_patrols) {
+            $oefk[] = Lang::get('csatar.knowledgerepository::lang.plugin.admin.trialSystem.forPatrols');
+        }
+
+        if ($this->individual) {
+            $oefk[] = Lang::get('csatar.knowledgerepository::lang.plugin.admin.trialSystem.individual');
+        }
+
+        if ($this->task) {
+            $oefk[] = Lang::get('csatar.knowledgerepository::lang.plugin.admin.trialSystem.task');
+        }
+
+        if ($this->obligatory) {
+            $oefk[] = Lang::get('csatar.knowledgerepository::lang.plugin.admin.trialSystem.obligatory');
+        }
+
+        return implode('-', $oefk);
+    }
+
 }

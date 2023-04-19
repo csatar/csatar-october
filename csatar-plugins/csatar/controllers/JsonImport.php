@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Controllers;
+<?php
+namespace Csatar\Csatar\Controllers;
 
 use Backend\Classes\Controller;
 use BackendMenu;
@@ -54,7 +55,7 @@ class JsonImport extends Controller
             't' => Status::INACTIVE,
         ];
 
-        $this->association = Association::where('name', 'Romániai Magyar Cserkészszövetség')->first();
+        $this->association   = Association::where('name', 'Romániai Magyar Cserkészszövetség')->first();
         $this->associationId = $this->association->id;
 
         $this->countyMap = [
@@ -100,9 +101,9 @@ class JsonImport extends Controller
     }
 
     private array $legalRelationshipMap = [];
-    private array $religionMap = [];
-    private array $allergiesMap = [];
-    private array $chronicIllnesMap = [];
+    private array $religionMap          = [];
+    private array $allergiesMap         = [];
+    private array $chronicIllnesMap     = [];
     private array $foodSensitivitiesMap = [];
 
     private function prepareScoutRelatedMappings() {
@@ -128,7 +129,7 @@ class JsonImport extends Controller
             'unit' => Religion::where('name', 'Unitárius')->first()->id,
         ];
 
-        $allergies = Allergy::all();
+        $allergies          = Allergy::all();
         $this->allergiesMap = [
             "Nincs" => $allergies->where('name', 'Nincs')->first(),
             "Darázscsípés" => $allergies->where('name', 'Rovarméreg allergia')->first(),
@@ -264,7 +265,7 @@ class JsonImport extends Controller
             "időszakos ekcéma" => $allergies->where('name', 'Egyéb')->first(),
         ];
 
-        $chronicIllnes = ChronicIllness::all();
+        $chronicIllnes          = ChronicIllness::all();
         $this->chronicIllnesMap = [
             "NINCS" => $chronicIllnes->where('name', 'Nincs krónikus betegsége')->first(),
             "komolytalanság?!" => $chronicIllnes->where('name', 'Nincs krónikus betegsége')->first(),
@@ -313,7 +314,7 @@ class JsonImport extends Controller
             "Pitvari Septum Defectus (ASD), Atópiás asztma, Allergiás Rhinitis" => $chronicIllnes->where('name', 'Egyéb')->first(),
         ];
 
-        $foodSensitivities = FoodSensitivity::all();
+        $foodSensitivities          = FoodSensitivity::all();
         $this->foodSensitivitiesMap = [
             'az én ételem nem érzékeny' => null,
             'Vegán' => $foodSensitivities->where('name', 'Egyéb')->first(),
@@ -383,18 +384,18 @@ class JsonImport extends Controller
     public function onUploadAndProcessOrganizations() {
         $file = Input::file('json_file');
         if ($file->isValid()) {
-            $file = $file->move(temp_path(), $file->getClientOriginalName());
+            $file        = $file->move(temp_path(), $file->getClientOriginalName());
             $jsonDecoded = json_decode(file_get_contents($file->getRealPath()));
-            $data = collect($jsonDecoded);
+            $data        = collect($jsonDecoded);
         }
 
         $data = $data->groupBy('model');
 
-        //import districts
+        // import districts
         foreach ($data['szervezet.korzet'] as $org) {
             $fields = $org->fields;
 
-            $address = $fields->cim_utca ? ($fields->cim_utca . ', ') : '';
+            $address  = $fields->cim_utca ? ($fields->cim_utca . ', ') : '';
             $address .= $fields->cim_irsz ? ($fields->cim_irsz . ', ') : '';
             $address .= $fields->cim_telepules ? ($fields->cim_telepules . ', ') : '';
             $address .= $fields->cim_megye ? (($this->countyMap[$fields->cim_megye] ?? $fields->cim_megye) . ', ') : '';
@@ -423,7 +424,7 @@ class JsonImport extends Controller
 
             if (!empty($fields->kep)) {
                 $path = '/storage/app/media/importedimages/' . $fields->kep;
-                $url = url('/') . $path;
+                $url  = url('/') . $path;
                 if ((new Filesystem())->existsInsensitive(base_path() . $path)) {
                     $file = new File;
                     $file->fromUrl($url);
@@ -436,17 +437,18 @@ class JsonImport extends Controller
             $district->ignoreValidation = true;
             $district->forceSave();
 
-            $address = null;
+            $address  = null;
             $district = null;
         }
 
-        //import teams
+        // import teams
         foreach ($data['szervezet.csapat'] as $org) {
             $fields = $org->fields;
             if (empty($fields->korzet)) {
                 Log::warning("Can not import: $org->model - name: $fields->nev - composed-slug: $fields->composed_slug; 'korzet' is empty");
                 continue;
             }
+
             $district_id = District::where('slug', $fields->korzet)->first()->id ?? null;
 
             if (empty($district_id)) {
@@ -454,7 +456,7 @@ class JsonImport extends Controller
                 continue;
             }
 
-            $address = $fields->cim_utca ? ($fields->cim_utca . ', ') : '';
+            $address  = $fields->cim_utca ? ($fields->cim_utca . ', ') : '';
             $address .= $fields->cim_irsz ? ($fields->cim_irsz . ', ') : '';
             $address .= $fields->cim_telepules ? ($fields->cim_telepules . ', ') : '';
             $address .= $fields->cim_megye ? (($this->countyMap[$fields->cim_megye] ?? $fields->cim_megye) . ', ') : '';
@@ -473,23 +475,23 @@ class JsonImport extends Controller
                 $team->team_number = $fields->szam;
             }
 
-            $team->district_id                    = $district_id;
-            $team->slug                           = $fields->composed_slug;
-            $team->name                           = $fields->nev;
-            $team->status                         = $this->statusMap[$fields->statusz] ?? null;
-            $team->address                        = $address;
-            $team->description                    = $fields->leiras;
-            $team->email                          = $fields->email;
-            $team->website                        = $fields->web;
-            $team->facebook_page                  = $fields->facebook;
-            $team->juridical_person_bank_account  = $fields->bankszamla_szam;
+            $team->district_id   = $district_id;
+            $team->slug          = $fields->composed_slug;
+            $team->name          = $fields->nev;
+            $team->status        = $this->statusMap[$fields->statusz] ?? null;
+            $team->address       = $address;
+            $team->description   = $fields->leiras;
+            $team->email         = $fields->email;
+            $team->website       = $fields->web;
+            $team->facebook_page = $fields->facebook;
+            $team->juridical_person_bank_account = $fields->bankszamla_szam;
 
             $team->ignoreValidation = true;
             $team->forceSave();
 
             if (!empty($fields->kep)) {
                 $path = '/storage/app/media/importedimages/' . $fields->kep;
-                $url = url('/') . $path;
+                $url  = url('/') . $path;
                 if ((new Filesystem())->existsInsensitive(base_path() . $path)) {
                     $file = new File;
                     $file->fromUrl($url);
@@ -502,18 +504,19 @@ class JsonImport extends Controller
             $team->ignoreValidation = true;
             $team->forceSave();
 
-            $address = null;
+            $address     = null;
             $district_id = null;
-            $team = null;
+            $team        = null;
         }
 
-        //import troops
+        // import troops
         foreach ($data['szervezet.raj'] as $org) {
             $fields = $org->fields;
             if (empty($fields->csapat)) {
                 Log::warning("Can not import: $org->model - name: $fields->nev - composed-slug: $fields->composed_slug; 'csapat' is empty");
                 continue;
             }
+
             $team_id = Team::where('slug', $fields->csapat)->first()->id ?? null;
 
             if (empty($team_id)) {
@@ -528,18 +531,18 @@ class JsonImport extends Controller
                 ]
             );
 
-            $troop->name                           = $fields->nev;
-            $troop->status                         = $this->statusMap[$fields->statusz] ?? null;
-            $troop->email                          = $fields->email;
-            $troop->website                        = $fields->web;
-            $troop->facebook_page                  = $fields->facebook;
+            $troop->name          = $fields->nev;
+            $troop->status        = $this->statusMap[$fields->statusz] ?? null;
+            $troop->email         = $fields->email;
+            $troop->website       = $fields->web;
+            $troop->facebook_page = $fields->facebook;
 
             $troop->ignoreValidation = true;
             $troop->forceSave();
 
             if (!empty($fields->kep)) {
                 $path = '/storage/app/media/importedimages/' . $fields->kep;
-                $url = url('/') . $path;
+                $url  = url('/') . $path;
                 if ((new Filesystem())->existsInsensitive(base_path() . $path)) {
                     $file = new File;
                     $file->fromUrl($url);
@@ -552,19 +555,20 @@ class JsonImport extends Controller
             $troop->ignoreValidation = true;
             $troop->forceSave();
 
-            $troop = null;
+            $troop   = null;
             $team_id = null;
         }
 
-        //import patrols
+        // import patrols
         foreach ($data['szervezet.ors'] as $org) {
             $fields = $org->fields;
             if (empty($fields->csapat) && empty($fields->raj)) {
                 Log::warning("Can not import: $org->model - name: $fields->nev - composed-slug: $fields->composed_slug; 'csapat' and 'raj' is empty");
                 continue;
             }
-            $troop = Troop::where('slug', $fields->raj)->first() ?? null;
-            $team_id  = Team::where('slug', $fields->csapat)->first()->id ?? $troop->team_id;
+
+            $troop   = Troop::where('slug', $fields->raj)->first() ?? null;
+            $team_id = Team::where('slug', $fields->csapat)->first()->id ?? $troop->team_id;
             if (empty($team_id) && empty($troop->id)) {
                 Log::warning("Can not import: $org->model - name: $fields->nev - composed-slug: $fields->composed_slug; Can't find team: $fields->csapat and troop: $fields->raj");
                 continue;
@@ -578,21 +582,21 @@ class JsonImport extends Controller
                 ]
             );
 
-            $patrol->name                           = $fields->nev;
-            $patrol->status                         = $this->statusMap[$fields->statusz] ?? null;
-            $patrol->gender                         = $this->genderMap[$fields->nem] ?? '';
-            $patrol->email                          = $fields->email;
-            $patrol->website                        = $fields->web;
-            $patrol->facebook_page                  = $fields->facebook;
+            $patrol->name          = $fields->nev;
+            $patrol->status        = $this->statusMap[$fields->statusz] ?? null;
+            $patrol->gender        = $this->genderMap[$fields->nem] ?? '';
+            $patrol->email         = $fields->email;
+            $patrol->website       = $fields->web;
+            $patrol->facebook_page = $fields->facebook;
 
-            $patrol->age_group_id                   = isset($fields->korosztaly[0]) && isset($this->ageGroupMap[$fields->korosztaly[0]]) ? $this->ageGroupMap[$fields->korosztaly[0]] : $this->ageGroupMap['v'];
+            $patrol->age_group_id = isset($fields->korosztaly[0]) && isset($this->ageGroupMap[$fields->korosztaly[0]]) ? $this->ageGroupMap[$fields->korosztaly[0]] : $this->ageGroupMap['v'];
 
             $patrol->ignoreValidation = true;
             $patrol->forceSave();
 
             if (!empty($fields->kep)) {
                 $path = '/storage/app/media/importedimages/' . $fields->kep;
-                $url = url('/') . $path;
+                $url  = url('/') . $path;
                 if ((new Filesystem())->existsInsensitive(base_path() . $path)) {
                     $file = new File;
                     $file->fromUrl($url);
@@ -600,22 +604,21 @@ class JsonImport extends Controller
                 } else {
                     Log::warning("Can't attach file $url.");
                 }
-
             }
 
             $patrol->ignoreValidation = true;
             $patrol->forceSave();
 
-            $troop = null;
-            $patrol = null;
-            $team_id  = null;
+            $troop   = null;
+            $patrol  = null;
+            $team_id = null;
         }
 
     }
 
     public function onUploadAndProcessScouts() {
         $scoutsFile = Input::file('scouts_json_file');
-        $pivotFile = Input::file('pivot_json_file');
+        $pivotFile  = Input::file('pivot_json_file');
 
         if ($scoutsFile->isValid()) {
             $scoutsFile = $scoutsFile->move(temp_path(), $scoutsFile->getClientOriginalName());
@@ -638,13 +641,13 @@ class JsonImport extends Controller
         $this->prepareScoutRelatedMappings();
 
         foreach ($scoutsData as $scout) {
-
-            $fields = $scout->fields; //dd($fields);
+            $fields = $scout->fields; // dd($fields);
 
             if (empty($fields->csapat)) {
                 Log::warning("Can not import scout: $fields->ecsk name: $fields->nev $fields->keresztnev; 'csapat' is empty");
                 continue;
             }
+
             $team_id = Team::where('slug', $fields->csapat)->first()->id ?? null;
 
             if (empty($team_id)) {
@@ -654,7 +657,7 @@ class JsonImport extends Controller
 
             if (!empty($fields->ecsk) && isset($pivotData[$fields->ecsk])) {
                 $patrol_slug = $pivotData[$fields->ecsk];
-                $patrol = Patrol::where('team_id', $team_id)->where('slug', $patrol_slug)->first();
+                $patrol      = Patrol::where('team_id', $team_id)->where('slug', $patrol_slug)->first();
             }
 
             if (!empty($patrol->troop_id)) {
@@ -663,52 +666,52 @@ class JsonImport extends Controller
 
             $scout = Scout::withTrashed()->firstOrNew (
                 [
-                    'ecset_code'        => $fields->ecsk, //TODO check
+                    'ecset_code'        => $fields->ecsk, // TODO check
                     'team_id'           => $team_id,
                 ]
             );
 
-            $scout->troop_id                       = $troop->id ?? null;
-            $scout->patrol_id                      = $patrol->id ?? null;
-            $scout->name_prefix                    = $fields->nev_elotag ?? null;
-            $scout->family_name                    = $fields->nev ?? null;
-            $scout->given_name                     = $fields->keresztnev ?? null;
-            $scout->nickname                       = $fields->becenev ?? null;
-            $scout->email                          = $fields->email ?? null;
-            $scout->phone                          = $fields->telefonszam ?? null;
+            $scout->troop_id    = $troop->id ?? null;
+            $scout->patrol_id   = $patrol->id ?? null;
+            $scout->name_prefix = $fields->nev_elotag ?? null;
+            $scout->family_name = $fields->nev ?? null;
+            $scout->given_name  = $fields->keresztnev ?? null;
+            $scout->nickname    = $fields->becenev ?? null;
+            $scout->email       = $fields->email ?? null;
+            $scout->phone       = $fields->telefonszam ?? null;
             $scout->personal_identification_number = !empty($fields->jellemzok->id_12) ? substr($fields->jellemzok->id_12, 0, 20) : null;
-            $scout->gender                         = $this->genderMap[$fields->nem] ?? null;
-            $scout->is_active                      = $this->statusMap[$fields->statusz] ?? null;
-            $scout->legal_relationship_id          = isset($fields->jogviszony[0]) ?
+            $scout->gender    = $this->genderMap[$fields->nem] ?? null;
+            $scout->is_active = $this->statusMap[$fields->statusz] ?? null;
+            $scout->legal_relationship_id = isset($fields->jogviszony[0]) ?
                 ($this->legalRelationshipMap[$fields->jogviszony[0]] ?? $this->legalRelationshipMap['ervenytelen'])
                 : $this->legalRelationshipMap['ervenytelen'];
-            $scout->religion_id                    = isset($fields->felekezet[0]) ? ($this->religionMap[$fields->felekezet[0]] ?? $this->religionMap['mas']) : $this->religionMap['mas'];
-            $scout->nationality                    = $fields->jellemzok->id_13 ?? null;
-            $scout->birthdate                      = $fields->szuletesi_datum ?? null;
-            $scout->maiden_name                    = $fields->szuletesi_nev ?? null;
-            $scout->birthplace                     = $fields->szuletesi_hely ?? null;
-            $scout->address_country                = $fields->cim_orszag ?? null;
-            $scout->address_zipcode                = $fields->cim_irsz ?? null;
-            $scout->address_county                 = $fields->cim_megye ?? null;
-            $scout->address_location               = $fields->cim_telepules ?? null;
-            $scout->address_street                 = $fields->cim_utcahsz ?? null;
-            $scout->mothers_name                   = $fields->anyja_neve ?? $fields->anya_nev ?? null;
-            $scout->mothers_phone                  = $fields->anya_telefon ?? null;
-            $scout->mothers_email                  = $fields->anya_email ?? null;
-            $scout->fathers_name                   = $fields->apa_nev ?? null;
-            $scout->fathers_phone                  = $fields->apa_telefon ?? null;
-            $scout->fathers_email                  = $fields->apa_email ?? null;
-            $scout->elementary_school              = $fields->jellemzok->id_25 ?? null;
-            $scout->primary_school                 = $fields->jellemzok->id_26 ?? null;
-            $scout->secondary_school               = $fields->jellemzok->id_27 ?? null;
-            $scout->post_secondary_school          = $fields->jellemzok->id_28 ?? null;
-            $scout->college                        = $fields->jellemzok->id_29 ?? null;
-            $scout->university                     = $fields->jellemzok->id_30 ?? null;
-            $scout->foreign_language_knowledge     = $fields->jellemzok->id_14 ?? null;
-            $scout->occupation                     = $fields->jellemzok->id_31 ?? null;
-            $scout->workplace                      = $fields->jellemzok->id_32 ?? null;
-            $scout->comment                        = $fields->jellemzok->id_18 ?? null;
-            $scout->raw_import                     = $fields;
+            $scout->religion_id           = isset($fields->felekezet[0]) ? ($this->religionMap[$fields->felekezet[0]] ?? $this->religionMap['mas']) : $this->religionMap['mas'];
+            $scout->nationality           = $fields->jellemzok->id_13 ?? null;
+            $scout->birthdate         = $fields->szuletesi_datum ?? null;
+            $scout->maiden_name       = $fields->szuletesi_nev ?? null;
+            $scout->birthplace        = $fields->szuletesi_hely ?? null;
+            $scout->address_country   = $fields->cim_orszag ?? null;
+            $scout->address_zipcode   = $fields->cim_irsz ?? null;
+            $scout->address_county    = $fields->cim_megye ?? null;
+            $scout->address_location  = $fields->cim_telepules ?? null;
+            $scout->address_street    = $fields->cim_utcahsz ?? null;
+            $scout->mothers_name      = $fields->anyja_neve ?? $fields->anya_nev ?? null;
+            $scout->mothers_phone     = $fields->anya_telefon ?? null;
+            $scout->mothers_email     = $fields->anya_email ?? null;
+            $scout->fathers_name      = $fields->apa_nev ?? null;
+            $scout->fathers_phone     = $fields->apa_telefon ?? null;
+            $scout->fathers_email     = $fields->apa_email ?? null;
+            $scout->elementary_school = $fields->jellemzok->id_25 ?? null;
+            $scout->primary_school    = $fields->jellemzok->id_26 ?? null;
+            $scout->secondary_school  = $fields->jellemzok->id_27 ?? null;
+            $scout->post_secondary_school = $fields->jellemzok->id_28 ?? null;
+            $scout->college    = $fields->jellemzok->id_29 ?? null;
+            $scout->university = $fields->jellemzok->id_30 ?? null;
+            $scout->foreign_language_knowledge = $fields->jellemzok->id_14 ?? null;
+            $scout->occupation = $fields->jellemzok->id_31 ?? null;
+            $scout->workplace  = $fields->jellemzok->id_32 ?? null;
+            $scout->comment    = $fields->jellemzok->id_18 ?? null;
+            $scout->raw_import = $fields;
 
             if ($fields->statusz === 't') {
                 $scout->deleted_at = date('Y-m-d');
@@ -717,7 +720,7 @@ class JsonImport extends Controller
             $scout->ignoreValidation = true;
             $scout->forceSave();
 
-            //allergies
+            // allergies
             if (!empty($fields->jellemzok->id_19) && !empty($this->allergiesMap[$fields->jellemzok->id_19])) {
                 $allergy = $this->allergiesMap[$fields->jellemzok->id_19];
                 if (!$scout->allergies->contains($allergy)) {
@@ -728,7 +731,7 @@ class JsonImport extends Controller
                 }
             }
 
-            //chronic_illnesses
+            // chronic_illnesses
             if (!empty($fields->jellemzok->id_17) && !empty($this->chronicIllnesMap[$fields->jellemzok->id_17])) {
                 $chronic_illnesses = $this->chronicIllnesMap[$fields->jellemzok->id_17];
                 if (!$scout->chronic_illnesses->contains($chronic_illnesses)) {
@@ -739,7 +742,7 @@ class JsonImport extends Controller
                 }
             }
 
-            //foodsensitivites
+            // foodsensitivites
             if (!empty($fields->jellemzok->id_20) && !empty($this->foodSensitivitiesMap[$fields->jellemzok->id_20])) {
                 $foodSensitivity = $this->foodSensitivitiesMap[$fields->jellemzok->id_20];
                 if (!$scout->food_sensitivities->contains($foodSensitivity)) {
@@ -751,10 +754,10 @@ class JsonImport extends Controller
             }
 
             if (!empty($fields->kep)) {
-                $path = '/storage/app/media/importedimages/' . $fields->kep;
+                $path            = '/storage/app/media/importedimages/' . $fields->kep;
                 $lastDotPosition = strrchr($path, ".");
-                $extension = substr($lastDotPosition, 1);
-                $path = str_replace($extension, strtolower($extension), $path);
+                $extension       = substr($lastDotPosition, 1);
+                $path            = str_replace($extension, strtolower($extension), $path);
                 $url = url('/') . $path;
                 if ((new Filesystem())->existsInsensitive(base_path() . $path)) {
                     $file = new File;
@@ -765,17 +768,17 @@ class JsonImport extends Controller
                 }
             }
 
-            $team_id = null;
-            $troop = null;
-            $patrol = null;
+            $team_id     = null;
+            $troop       = null;
+            $patrol      = null;
             $patrol_slug = null;
-            $scout = null;
+            $scout       = null;
         }
     }
 
     public function onUploadAndProcessMandates() {
         $mandateTypesFile = Input::file('mandate_types_json_file');
-        $pivotFile = Input::file('pivot_json_file');
+        $pivotFile        = Input::file('pivot_json_file');
 
         if ($mandateTypesFile->isValid()) {
             $mandateTypesFile = $mandateTypesFile->move(temp_path(), $mandateTypesFile->getClientOriginalName());
@@ -845,8 +848,8 @@ class JsonImport extends Controller
 
         $mandateTypesPreMapped = $mandateTypesData->mapWithKeys(function ($item) use ($orgTypeModelNameMap) {
             $first = mb_substr($item->nev, 0, 1, "utf8");
-            $rest = mb_substr($item->nev, 1, null, "utf8");
-            $name = mb_strtoupper($first, "utf8") . $rest;
+            $rest  = mb_substr($item->nev, 1, null, "utf8");
+            $name  = mb_strtoupper($first, "utf8") . $rest;
             return [
                 $item->rovidites => [
                     'name' => $name,
@@ -867,7 +870,7 @@ class JsonImport extends Controller
             ]);
 
             $mandateType->overlap_allowed = $mandate->overlap_allowed ?? $item['overlap_allowed'];
-            $mandateType->is_vk = $item['is_vk'];
+            $mandateType->is_vk           = $item['is_vk'];
             $mandateType->save();
 
             return [
@@ -876,12 +879,12 @@ class JsonImport extends Controller
         });
 
         foreach ($pivotData as $item) {
-            $data = $item->fields;
+            $data        = $item->fields;
             $mandateType = $mandateTypesMap->get($data->megbizatas[1]);
 
             $organizationMap = $organizationsArraysMap[$mandateType->organization_type_model_name];
-            $model = $organizationMap[$mandateType->is_vk ? 'rmcssz': $data->egyseg[0]];
-            $mandate = Mandate::firstOrNew([
+            $model           = $organizationMap[$mandateType->is_vk ? 'rmcssz': $data->egyseg[0]];
+            $mandate         = Mandate::firstOrNew([
                 'scout_id' => $scoutsMap[$data->tag[0]],
                 'mandate_type_id' => $mandateType->id,
                 'mandate_model_id' => $model->id,
@@ -890,14 +893,14 @@ class JsonImport extends Controller
                 'end_date' => $data->vege ?? null,
             ]);
 
-            $mandate->comment = $data->tovabbi_nev;
+            $mandate->comment          = $data->tovabbi_nev;
             $mandate->ignoreValidation = true;
             $mandate->save();
 
-            $mandateType = null;
+            $mandateType     = null;
             $organizationMap = null;
-            $model = null;
-            $mandate = null;
+            $model           = null;
+            $mandate         = null;
         }
     }
 
@@ -914,7 +917,7 @@ class JsonImport extends Controller
         }
 
         $totalItemsToAdd = $pivotData->count();
-        $pivotData = $pivotData->groupBy('fields.tag');
+        $pivotData       = $pivotData->groupBy('fields.tag');
 
         $promisesMap = [
             "cserkeszfogadalom" => 'Cserkész fogadalom',
@@ -958,7 +961,7 @@ class JsonImport extends Controller
 
         $leadershipQualificationsMap = [
             "segedorsvezeto" => "Segédőrsvezető képzés",
-            "orsvezeto" => "Őrsvezető képzés", //kivéve ahol a tovabbi_adatok.kepzes tartalmazza az "FŐVK"-t. ott a "Felnőtt őrsvezető képzés"-t kell hozzárendelni
+            "orsvezeto" => "Őrsvezető képzés", // kivéve ahol a tovabbi_adatok.kepzes tartalmazza az "FŐVK"-t. ott a "Felnőtt őrsvezető képzés"-t kell hozzárendelni
             "fovk-orsvezeto" => "Felnőtt őrsvezető képzés",
             "segedtiszt" => "Segédvezető képzés",
             "cserkesztiszt" => "Cserkész vezető",
@@ -977,7 +980,7 @@ class JsonImport extends Controller
             return TrainingQualification::firstOrCreate([ 'name' => $value ]);
         }, $trainingQualificationsMap);
 
-        $typeMap = [
+        $typeMap   = [
             "cserkeszfogadalom" => [ 'promises', $promisesMap],
             "kiscserkesz-igeret" => [ 'promises', $promisesMap],
             "felnottcserkesz-fogadalom" => [ 'promises', $promisesMap],
@@ -1041,14 +1044,14 @@ class JsonImport extends Controller
                 if (!empty($data->tovabbi_adatok->kepzes) && strpos($data->tovabbi_adatok->kepzes, 'FŐVK') !== false) {
                     $kepesites = 'fovk-' . $kepesites;
                 }
-                $relationName = $typeMap[$kepesites][0];
+
+                $relationName  = $typeMap[$kepesites][0];
                 $relationModel = $typeMap[$kepesites][1][$kepesites];
-                $pivotArray = [
+                $pivotArray    = [
                     'date' => $data->datum ?? null,
                     'location' => $data->tovabbi_adatok->helyszin ?? null,
                 ];
                 if (array_key_exists($kepesites, $trainingQualificationsMap) || array_key_exists($kepesites, $leadershipQualificationsMap)) {
-
                     if (empty($data->tovabbi_adatok->betetlap)
                         || empty($data->tovabbi_adatok->kv)
                         || empty($data->tovabbi_adatok->kepzes)
@@ -1076,10 +1079,10 @@ class JsonImport extends Controller
                     $itemsAdded++;
                 }
 
-                $training = null;
-                $pivotArray = null;
-                $kepesites = null;
-                $relationName = null;
+                $training      = null;
+                $pivotArray    = null;
+                $kepesites     = null;
+                $relationName  = null;
                 $relationModel = null;
             }
 
@@ -1109,14 +1112,14 @@ class JsonImport extends Controller
                 continue;
             }
 
-            $file = new File;
+            $file       = new File;
             $file->data = $path;
             $file->save();
-            $originalName = $file->getFileName();
+            $originalName         = $file->getFileName();
             $postfixWithExtension = 'E.' . $file->getExtension();
             if (strpos($originalName, $postfixWithExtension)) {
                 $ecset_code = str_replace($postfixWithExtension, '-E', $originalName);
-                $scout = Scout::withTrashed()->where('ecset_code', $ecset_code)->first();
+                $scout      = Scout::withTrashed()->where('ecset_code', $ecset_code)->first();
 
                 if (empty($scout)) {
                     Log::warning("Could not find scout with identifier: $ecset_code. Registration from not imported.");
@@ -1137,14 +1140,14 @@ class JsonImport extends Controller
         $dataFile = Input::file('member_cards_data_file');
 
         if ($dataFile->isValid()) {
-            $dataFile = $dataFile->move(temp_path(), $dataFile->getClientOriginalName());
+            $dataFile        = $dataFile->move(temp_path(), $dataFile->getClientOriginalName());
             $memberCardsData = collect(json_decode(file_get_contents($dataFile->getRealPath())));
         }
 
         foreach ($memberCardsData as $memberCardData) {
-            $data = $memberCardData->fields;
+            $data       = $memberCardData->fields;
             $ecset_code = $data->tag[0];
-            $scout = Scout::withTrashed()->where('ecset_code', $ecset_code)->first();
+            $scout      = Scout::withTrashed()->where('ecset_code', $ecset_code)->first();
 
             if (empty($scout)) {
                 Log::warning("Could not find scout with identifier: $ecset_code. Member card data from not imported.");
@@ -1153,15 +1156,13 @@ class JsonImport extends Controller
 
             $membershipCard = MembershipCard::firstOrNew(['rfid_tag' => $data->rfid_tag ]);
 
-            $membershipCard->scout_id           = $scout->id;
-            $membershipCard->issued_date_time   = $data->legyartva;
-            $membershipCard->active             = $data->ervenyes;
-            $membershipCard->note               = $data->megjegyzes;
+            $membershipCard->scout_id         = $scout->id;
+            $membershipCard->issued_date_time = $data->legyartva;
+            $membershipCard->active           = $data->ervenyes;
+            $membershipCard->note = $data->megjegyzes;
 
             $membershipCard->forceSave();
         }
-
-
 
     }
 
@@ -1176,11 +1177,13 @@ class JsonImport extends Controller
 
         Zip::extract($file->getRealPath(), $dir);
 
-        $files = array_diff(scandir($dir), array('.', '..'));
+        $files     = array_diff(scandir($dir), ['.', '..']);
         $fileArray = [];
         foreach ($files as $file) {
             $fileArray[$this->stripFileExtension($file)] = $dir . '/' . $file;
         }
+
         return $fileArray;
     }
+
 }

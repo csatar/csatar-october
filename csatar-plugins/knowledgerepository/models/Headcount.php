@@ -1,4 +1,5 @@
-<?php namespace Csatar\KnowledgeRepository\Models;
+<?php
+namespace Csatar\KnowledgeRepository\Models;
 
 use Model;
 
@@ -53,9 +54,9 @@ class Headcount extends Model
         ]
     ];
 
-
     public function getNameAttribute()
     {
         return $this->description;
     }
+
 }

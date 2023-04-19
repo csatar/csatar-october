@@ -11,3 +11,15 @@
     %}
 {% endif %}
 
+{% if basicForm.record.id is not null %}
+    {% partial "partials::dataRequestButton"
+        permissionValue = basicForm.currentUserRights['MODEL_GENERAL']['delete']
+        dataRequest = 'onDelete'
+        dataRequestConfirm = 'Biztosan törölni akarod ezt a játékot?' |_
+        btnExtraClasses = 'btn-sm btn-danger'
+        btnValue = 'Játék törlése' |_
+        btnIconClass = 'bi bi-trash'
+        btnLabel = 'Játék törlése' |_
+    %}
+{% endif %}
+

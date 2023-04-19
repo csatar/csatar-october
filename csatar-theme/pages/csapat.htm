@@ -31,6 +31,17 @@ model_id = "{{ :id }}"
 [contentPageForm]
 parentModelClass = "Csatar\Csatar\Models\Team"
 parentRecordKeyParam = "id"
+
+[recordList]
+modelClass = "Csatar\KnowledgeRepository\Models\WorkPlan"
+scope = "scopeForTeam"
+scopeValue = "{{ :id }}"
+columnsConfigFile = "columns.yaml"
+noRecordsMessage = "backend::lang.list.no_records"
+detailsPage = "tudastar/munkaterv"
+detailsKeyColumn = "id"
+detailsUrlParameter = "id"
+pageNumber = "{{ :page }}"
 ==
 <?php
 public function onStart() {

@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Controllers;
+<?php
+namespace Csatar\Csatar\Controllers;
 
 use BackendMenu;
 use Csatar\Csatar\Models\MandatePermission;
@@ -17,7 +18,7 @@ class SeederData extends Controller
     {
         // initialize values
         $this->vars['seederData'] = \Csatar\Csatar\Updates\SeederData::DATA;
-        $this->vars['testData'] = \Csatar\Csatar\Updates\TestData::DATA;
+        $this->vars['testData']   = \Csatar\Csatar\Updates\TestData::DATA;
 
         // call parent constructor
         parent::__construct();
@@ -62,4 +63,5 @@ class SeederData extends Controller
         $locationData->run();
         Flash::success(Lang::get('csatar.csatar::lang.plugin.admin.admin.seederData.updateDataSuccess'));
     }
+
 }

@@ -1,10 +1,12 @@
-<?php namespace Csatar\Csatar\Updates;
+<?php
+namespace Csatar\Csatar\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarCsatarDynamicFields extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_csatar_dynamic_fields', function($table)
@@ -20,13 +22,14 @@ class BuilderTableCreateCsatarCsatarDynamicFields extends Migration
             $table->string('model', 255);
             $table->integer('extra_fields_max_id')->unsigned()->default(0);
             $table->text('extra_fields_definition')->nullable();
-            
+
             $table->foreign('association_id')->references('id')->on('csatar_csatar_associations');
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_dynamic_fields');
     }
+
 }

@@ -1,10 +1,12 @@
-<?php namespace Csatar\Csatar\Updates;
+<?php
+namespace Csatar\Csatar\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
 class UpdateMandateTypesAddIsVkColumn extends Migration
 {
+
     public function up()
     {
         Schema::table('csatar_csatar_mandate_types', function($table)
@@ -20,4 +22,5 @@ class UpdateMandateTypesAddIsVkColumn extends Migration
             $table->dropColumn('is_vk');
         });
     }
+
 }

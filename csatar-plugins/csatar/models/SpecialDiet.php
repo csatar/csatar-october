@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Models;
+<?php
+namespace Csatar\Csatar\Models;
 
 use Model;
 
@@ -8,7 +9,7 @@ use Model;
 class SpecialDiet extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-    
+
     use \October\Rain\Database\Traits\SoftDelete;
 
     use \Csatar\Csatar\Traits\History;
@@ -35,17 +36,17 @@ class SpecialDiet extends Model
         'name'
     ];
 
-    /** 
-     * Relations 
+    /**
+     * Relations
      */
     public $belongsToMany = [
         'scouts' => '\Csatar\Csatar\Models\Scouts'
     ];
-
 
     public static function getNoneId()
     {
         $data = self::where('name', 'Nem igényel különleges étrendet')->first();
         return isset($data) ? $data->id : null;
     }
+
 }

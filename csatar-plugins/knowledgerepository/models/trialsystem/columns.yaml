@@ -96,7 +96,8 @@ columns:
         label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.details'
         type: text
         sortable: true
-        recordList: true
+        recordList:
+            tooltipFrom: o_e_f_k_tooltip
     note:
         label: 'csatar.knowledgerepository::lang.plugin.admin.general.note'
         type: text

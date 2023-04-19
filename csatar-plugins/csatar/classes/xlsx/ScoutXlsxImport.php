@@ -14,4 +14,5 @@ class ScoutXlsxImport implements ToCollection
     {
         $this->data = $rows;
     }
+
 }

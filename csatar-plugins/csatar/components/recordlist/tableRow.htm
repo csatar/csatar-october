@@ -15,12 +15,21 @@
                             {% endif %}
                         {% endfor %}
                     {% else %}
-                        {% set value = record[column['relationName']][column['valueFrom']] %}
+                        {% if column['type'] == 'regionExtendedName' %}
+                            {% set value = record[column['relationName']].getExtendedNameAttribute %}
+                        {% else %}
+                            {% set value = record[column['relationName']][column['valueFrom']] %}
+                        {% endif %}
                     {% endif %}
                 {% else %}
                     {% set value = record[column['attribute']] %}
                 {% endif %}
-                <div class="col-6 col-md-4 col-lg mb-2 mb-lg-0 overflow-hidden" data-bs-toggle="tooltip" title="{{ value }}">
+                {% if column['tooltipFrom'] %}
+                    {% set tooltip = record[column['tooltipFrom']] %}
+                {% else %}
+                    {% set tooltip = value %}
+                {% endif %}
+                <div class="col-6 col-md-4 col-lg mb-2 mb-lg-0 overflow-hidden" data-bs-toggle="tooltip" title="{{ tooltip }}">
                     <p class="td label d-block d-lg-none">{{ column['label'] }}</p>
                     <p class="td grid-ellipsis">{{ value }}</p>
                 </div>

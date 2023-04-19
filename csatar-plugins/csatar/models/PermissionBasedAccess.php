@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Models;
+<?php
+namespace Csatar\Csatar\Models;
 
 use Csatar\Csatar\Classes\RightsMatrix;
 use Model;
@@ -106,10 +107,10 @@ class PermissionBasedAccess extends Model
     public function getGuestRightsForModel()
     {
         $associationId = $this->getAssociationId();
-        $modelName = $this::getModelName();
-        $key = $associationId . $modelName;
+        $modelName     = $this::getModelName();
+        $key           = $associationId . $modelName;
 
-        $sessionRecord = Session::get('guest.rightsForModels');
+        $sessionRecord         = Session::get('guest.rightsForModels');
         $sessionRecordForModel = $sessionRecord ? $sessionRecord->get($key) : null;
 
         if (!empty($sessionRecordForModel)
@@ -122,7 +123,7 @@ class PermissionBasedAccess extends Model
             $sessionRecord = new Collection([]);
         }
 
-        $rights = $this->getRightsForMandateTypes();
+        $rights        = $this->getRightsForMandateTypes();
         $sessionRecord = $sessionRecord->replace([
             $key => [
                 'associationId' => $associationId,
@@ -146,8 +147,8 @@ class PermissionBasedAccess extends Model
         if ((is_array(self::$translatedAttributeNames) && !array_key_exists($organizationTypeModelName, self::$translatedAttributeNames)) ||
             !is_array(self::$translatedAttributeNames)
         ) {
-            $fields = strtolower(str_replace('\\', DIRECTORY_SEPARATOR, plugins_path() . $organizationTypeModelName . '\\fields.yaml'));
-            $columns = strtolower(str_replace('\\', DIRECTORY_SEPARATOR, plugins_path() . $organizationTypeModelName . '\\columns.yaml'));
+            $fields     = strtolower(str_replace('\\', DIRECTORY_SEPARATOR, plugins_path() . $organizationTypeModelName . '\\fields.yaml'));
+            $columns    = strtolower(str_replace('\\', DIRECTORY_SEPARATOR, plugins_path() . $organizationTypeModelName . '\\columns.yaml'));
             $attributes = array_merge(Yaml::parseFile($fields)['fields'], Yaml::parseFile($columns)['columns']);
             foreach ($attributes as $key => $attribute) {
                 if (is_array($attribute) && array_key_exists('label', $attribute)) {
@@ -193,7 +194,7 @@ class PermissionBasedAccess extends Model
 
             foreach ($pluginCodes as $pluginCode) {
                 $pluginCodeObj = new PluginCode($pluginCode);
-                $models = ModelModel::listPluginModels($pluginCodeObj);
+                $models        = ModelModel::listPluginModels($pluginCodeObj);
                 $pluginModelsNamespace = $pluginCodeObj->toPluginNamespace() . '\\Models\\';
                 foreach ($models as $model) {
                     $fullClassName = $pluginModelsNamespace . $model->className;
@@ -239,4 +240,5 @@ class PermissionBasedAccess extends Model
     public function getPatrol() {
         return null;
     }
+
 }

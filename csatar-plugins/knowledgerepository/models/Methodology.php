@@ -1,4 +1,5 @@
-<?php namespace Csatar\KnowledgeRepository\Models;
+<?php
+namespace Csatar\KnowledgeRepository\Models;
 
 use Auth;
 use Csatar\Csatar\Models\PermissionBasedAccess;
@@ -92,7 +93,8 @@ class Methodology extends PermissionBasedAccess
             '\Csatar\Csatar\Models\Scout',
             'key' => 'approver_csatar_code',
             'otherKey' => 'ecset_code',
-            'label' => 'csatar.knowledgerepository::lang.plugin.admin.general.approverCsatarCode'
+            'label' => 'csatar.knowledgerepository::lang.plugin.admin.general.approverCsatarCode',
+            'ignoreInPermissionsMatrix' => true,
         ],
         'association' => [
             '\Csatar\Csatar\Models\Association',
@@ -139,7 +141,6 @@ class Methodology extends PermissionBasedAccess
         'attachements' => ['System\Models\File'],
     ];
 
-
     public function beforeCreate()
     {
         if (empty($this->uploader_csatar_code)) {
@@ -152,8 +153,9 @@ class Methodology extends PermissionBasedAccess
     public static function filterAgeGroupByAssociation($query, $related)
     {
         if (!isset($related->association_id)) {
-            return $query->where('id', 0);
+            return $query;
         }
+
         return $query->where('association_id', $related->association_id);
     }
 
@@ -177,6 +179,11 @@ class Methodology extends PermissionBasedAccess
         return $query->whereNotNull('approved_at');
     }
 
+    public function scopeWaitingForApproval($query)
+    {
+        return $query->whereNull('approved_at');
+    }
+
     public function getUploaderScout() {
         return $this->uploader_csatar_code ? $this->uploaderscout : null;
     }
@@ -184,4 +191,5 @@ class Methodology extends PermissionBasedAccess
     public function getApproverScout() {
         return $this->approver_csatar_code ? $this->approverscout : null;
     }
+
 }

@@ -4,8 +4,7 @@ namespace Csatar\Csatar\Classes\Validators;
 
 use Rainlab\Location\Models\Country;
 
-//based on https://github.com/laravel-enso/cnp-validator
-
+// based on https://github.com/laravel-enso/cnp-validator
 class CnpValidator
 {
     private const HashTable = [2, 7, 9, 1, 4, 6, 3, 5, 8, 2, 7, 9];
@@ -13,7 +12,7 @@ class CnpValidator
 
     public function validate($attribute, $value, $params): bool
     {
-        $this->cnp = $value;
+        $this->cnp = (string) $value;
         return $this->isNumeric() && $this->validLength()
             && $this->validDate() && $this->validHash();
     }
@@ -36,8 +35,8 @@ class CnpValidator
     private function validDate()
     {
         $month = (int) "{$this->cnp[3]}{$this->cnp[4]}";
-        $day = (int) "{$this->cnp[5]}{$this->cnp[6]}";
-        $year = $this->year();
+        $day   = (int) "{$this->cnp[5]}{$this->cnp[6]}";
+        $year  = $this->year();
 
         return 1900 <= $year && $year <= 2050 && checkdate($month, $day, $year);
     }
@@ -86,4 +85,5 @@ class CnpValidator
         $country = Country::where('code', 'RO')->first();
         return $country->id ?? null;
     }
+
 }

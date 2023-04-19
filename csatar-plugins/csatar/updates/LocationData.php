@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Updates;
+<?php
+namespace Csatar\Csatar\Updates;
 
 use Csatar\Csatar\Models\Locations;
 use RainLab\Builder\Classes\ComponentHelper;
@@ -7,14 +8,14 @@ use Db;
 
 class LocationData extends Seeder
 {
+
     public function run()
     {
         // seed romanian locations
-
         set_time_limit(100000);
 
-        if (($handle = fopen(base_path() . "/plugins/csatar/csatar/updates/locations_ro.csv", "r")) !== FALSE) {
-            while (($data = fgetcsv($handle)) !== FALSE) {
+        if (($handle = fopen(base_path() . "/plugins/csatar/csatar/updates/locations_ro.csv", "r")) !== false) {
+            while (($data = fgetcsv($handle)) !== false) {
                 $location = Locations::firstOrCreate(                        [
                     'country'     => 'Romania',
                     'code'        => $data[0],
@@ -28,4 +29,5 @@ class LocationData extends Seeder
             }
         }
     }
+
 }

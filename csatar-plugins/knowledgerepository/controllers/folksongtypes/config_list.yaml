@@ -1,0 +1,12 @@
+title: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.folkSongType'
+modelClass: Csatar\KnowledgeRepository\Models\FolkSongType
+list: $/csatar/knowledgerepository/models/folksongtype/columns.yaml
+recordUrl: 'csatar/knowledgerepository/folksongtypes/update/:id'
+noRecordsMessage: 'backend::lang.list.no_records'
+recordsPerPage: 20
+showSetup: true
+showCheckboxes: true
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'

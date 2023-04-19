@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Components;
+<?php
+namespace Csatar\Csatar\Components;
 
 use Auth;
 use Carbon\Carbon;
@@ -27,7 +28,7 @@ class TeamReports extends ComponentBase
             \App::abort(403, 'Access denied!');
         }
 
-        $newTeamReport = new TeamReport();
+        $newTeamReport          = new TeamReport();
         $newTeamReport->team_id = Auth::user()->scout->team_id;
         $generalTeamReportPermissions = Auth::user()->scout->getRightsForModel($newTeamReport);
 
@@ -63,12 +64,13 @@ class TeamReports extends ComponentBase
                         'submitted_at'  => (new DateTime($teamReport->submitted_at))->format('Y-m-d'),
                     ];
                 }
+
                 $this->permissions[$teamReport->id] = Auth::user()->scout->getRightsForModel($teamReport)['MODEL_GENERAL'] ?? null;
             }
         } elseif ($this->id == null) {
-            $this->listingAll = true;
-            $associationId = Auth::user()->scout->getAssociation()->id;
-            $teamIds = Team::activeInAssociation($associationId)->get()->pluck('id')->toArray();
+            $this->listingAll  = true;
+            $associationId     = Auth::user()->scout->getAssociation()->id;
+            $teamIds           = Team::activeInAssociation($associationId)->get()->pluck('id')->toArray();
             $this->teamReports = TeamReport::whereIn('team_id', $teamIds)->orderBy('year', 'desc')->get();
 
             // create the array with the data to display in the table
@@ -88,8 +90,10 @@ class TeamReports extends ComponentBase
                         'link_text' => isset($teamReport->submitted_at) ? Lang::get('csatar.csatar::lang.plugin.component.teamReports.view') : Lang::get('csatar.csatar::lang.plugin.component.teamReports.edit'),
                     ];
                 }
+
                 $this->permissions[$teamReport->id] = Auth::user()->scout->getRightsForModel($teamReport)['MODEL_GENERAL'] ?? null;
             }
+
             $this->teamReportData = collect($this->teamReportData);
             $this->teamReportData = $this->teamReportData->sortBy(function ($teamReport) {
                 return -$teamReport['year'] * 1000000 + $teamReport['team_number'];
@@ -109,8 +113,8 @@ class TeamReports extends ComponentBase
             $this->teamReports = TeamReport::where('team_id', $this->id)->orderBy('year', 'desc')->get();
 
             // determine whether the Team Report Create button should be shown
-            $month = date('n');
-            $year = $month <= 5 ? date('Y') - 1 : date('Y');
+            $month         = date('n');
+            $year          = $month <= 5 ? date('Y') - 1 : date('Y');
             $hasPermission = isset($this->permissions['teamReports']['create']) && $this->permissions['teamReports']['create'] > 0;
             $isInTeamReportSubmitPeriod = false;
             if ($association = $this->team->getAssociation()) {
@@ -156,9 +160,11 @@ class TeamReports extends ComponentBase
                 foreach ($this->legalRelationships as $legalRelationship) {
                     $data[$legalRelationship->id] = $scoutsDataCountPerLegalRelationship[$legalRelationship->id] ?? 0;
                 }
+
                 array_push($this->teamReportData, $data);
                 $this->permissions[$teamReport->id] = Auth::user()->scout->getRightsForModel($teamReport)['MODEL_GENERAL'] ?? null;
             }
         }
     }
+
 }

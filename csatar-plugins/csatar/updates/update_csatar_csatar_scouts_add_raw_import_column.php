@@ -1,10 +1,12 @@
-<?php namespace Csatar\Csatar\Updates;
+<?php
+namespace Csatar\Csatar\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
 class UpdateCsatarCsatarScoutsAddRawImportColumn extends Migration
 {
+
     public function up()
     {
         Schema::table('csatar_csatar_scouts', function($table)
@@ -20,4 +22,5 @@ class UpdateCsatarCsatarScoutsAddRawImportColumn extends Migration
             $table->dropColumn('raw_import');
         });
     }
+
 }

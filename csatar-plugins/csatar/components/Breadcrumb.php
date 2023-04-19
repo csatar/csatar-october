@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Components;
+<?php
+namespace Csatar\Csatar\Components;
 
 use Auth;
 use Cms\Classes\ComponentBase;
@@ -51,10 +52,10 @@ class Breadcrumb extends ComponentBase
 
     public function onRun(){
         $isFormBuilderPresent = isset($this->controller->vars['basicForm']);
-        $isTeamReportPage = isset($this->controller->vars['teamReports']->team);
+        $isTeamReportPage     = isset($this->controller->vars['teamReports']->team);
 
         if ($isFormBuilderPresent) {
-            $basicForm = $this->controller->vars['basicForm'];
+            $basicForm     = $this->controller->vars['basicForm'];
             $currentRecord = $basicForm->record;
 
             if (!($currentRecord instanceof PermissionBasedAccess)) {
@@ -66,13 +67,11 @@ class Breadcrumb extends ComponentBase
                 $this->getRecordUrl($currentRecord, $currentRecordName, true);
                 $this->getAncestorsTree($currentRecord);
             }
-
         } elseif ($isTeamReportPage) {
-            $teamReport = $this->controller->vars['teamReports'];
+            $teamReport    = $this->controller->vars['teamReports'];
             $currentRecord = $teamReport->team;
 
             if (!empty($currentRecord)) {
-
                 $this->urlList[] = [
                     'linkTitle' => e(trans('csatar.csatar::lang.plugin.component.teamReports.name')),
                     'url'       => '',
@@ -82,16 +81,13 @@ class Breadcrumb extends ComponentBase
                 $this->getRecordUrl($currentRecord, $currentRecordName);
                 $this->getAncestorsTree($currentRecord);
             }
-
         } else {
-
             $this->urlList[] = [
                 'linkTitle' => $this->page->title ?? '',
                 'url'       => '',
             ];
 
             if (isset(Auth::user()->scout)) {
-
                 $currentRecord = Auth::user()->scout->team;
 
                 if (!empty($currentRecord)) {
@@ -136,6 +132,7 @@ class Breadcrumb extends ComponentBase
                 }
             }
         }
+
         $parent = $currentRecord->{$parentRelationName};
         if (!empty($parent) && $parent instanceof PermissionBasedAccess) {
             $this->getRecordUrl($parent, $possibleParentModel);
@@ -148,12 +145,13 @@ class Breadcrumb extends ComponentBase
     private function getRecordUrl (PermissionBasedAccess $model, string $modelName, bool $isLastDescendant = false): void
     {
         $modelNameUserFriendly = $modelName::getOrganizationTypeModelNameUserFriendly();
-        $recordName = isset($this->modelLinkTitleMap[$modelName]) ? $model->{$this->modelLinkTitleMap[$modelName]} : '';
+        $recordName            = isset($this->modelLinkTitleMap[$modelName]) ? $model->{$this->modelLinkTitleMap[$modelName]} : '';
         $modelSlug = str_slug($modelNameUserFriendly);
-        $url   = $this->controller->pageUrl($modelSlug, [ 'id'=> $model->id ] );
+        $url       = $this->controller->pageUrl($modelSlug, [ 'id'=> $model->id ] );
         $this->urlList[] = [
             'linkTitle' => !empty($recordName) ? $recordName : $modelNameUserFriendly,
             'url'       => $isLastDescendant ? '' : $url,
         ];
     }
+
 }

@@ -18,7 +18,7 @@ class AccidentLogRigthsProvider
             "read" => 1,
             "update" => 1,
             "delete" => 1,
-            ],
+        ],
     ];
 
     public const ENTRY_RIGHTS = [
@@ -56,10 +56,11 @@ class AccidentLogRigthsProvider
             return $recordGeneralRights;
         }
 
-        $rights = $recordGeneralRights;
-        $fields = $record->fillable ?? [];
+        $rights         = $recordGeneralRights;
+        $fields         = $record->fillable ?? [];
         $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'attachMany', 'hasOne', 'morphTo', 'morphOne',
-                           'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'];
+            'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'
+        ];
 
         foreach ($relationArrays as $relationArray) {
             $fields = array_merge($fields, array_keys($record->$relationArray));
@@ -68,12 +69,12 @@ class AccidentLogRigthsProvider
         self::filterFieldsForRealtionKeys($fields);
 
         if ($isOwn) {
-            $rights['MODEL_GENERAL']['read'] = 2;
+            $rights['MODEL_GENERAL']['read']   = 2;
             $rights['MODEL_GENERAL']['update'] = 2;
         }
 
         foreach ($fields as $field) {
-            //add rights for the record->field
+            // add rights for the record->field
             $rights[$field] = [
                 "obligatory" => 0,
                 'create' => 2,
@@ -82,6 +83,7 @@ class AccidentLogRigthsProvider
                 'delete' => ($isAdmin || $isOwn) ? 2 : 0,
             ];
         }
+
         return $rights;
     }
 
@@ -109,4 +111,5 @@ class AccidentLogRigthsProvider
     public static function inAccidentLogAdminGroup(User $user) {
         return self::isInGroup($user, self::GROUP_CODE_ADMIN);
     }
+
 }

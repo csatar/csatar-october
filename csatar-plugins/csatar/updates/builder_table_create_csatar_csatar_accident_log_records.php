@@ -1,10 +1,12 @@
-<?php namespace Csatar\Csatar\Updates;
+<?php
+namespace Csatar\Csatar\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarCsatarAccidentLogRecords extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_csatar_accident_log_records', function($table)
@@ -22,11 +24,11 @@ class BuilderTableCreateCsatarCsatarAccidentLogRecords extends Migration
             $table->string('location')->nullable();
             $table->text('activity')->nullable();
             $table->text('reason')->nullable();
-            $table->smallInteger('injured_person_age')->default(NULL)->nullable();
-            $table->smallInteger('injured_person_gender')->default(NULL)->nullable();
+            $table->smallInteger('injured_person_age')->default(null)->nullable();
+            $table->smallInteger('injured_person_gender')->default(null)->nullable();
             $table->string('injured_person_name')->nullable();
             $table->text('injury')->nullable();
-            $table->smallInteger('injury_severity')->default(NULL)->nullable();
+            $table->smallInteger('injury_severity')->default(null)->nullable();
             $table->string('skipped_days_number')->nullable();
             $table->string('tools_used')->nullable();
             $table->string('transport_to_doctor')->nullable();
@@ -34,13 +36,14 @@ class BuilderTableCreateCsatarCsatarAccidentLogRecords extends Migration
             $table->text('persons_involved_in_care')->nullable();
             $table->text('url')->nullable();
             $table->integer('user_id')->unsigned();
-            
+
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_accident_log_records');
     }
+
 }

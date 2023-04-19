@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Models;
+<?php
+namespace Csatar\Csatar\Models;
 
 use Auth;
 use Model;
@@ -76,7 +77,6 @@ class AccidentLogRecord extends Model
         ],
     ];
 
-
     public static function getModelName()
     {
         return '\\' . static::class;
@@ -91,6 +91,7 @@ class AccidentLogRecord extends Model
                 'createdBy'   => Lang::get('csatar.csatar::lang.plugin.component.accidentLog.createdBy'),
             ];
         }
+
         return [
             'created_at'    => Lang::get('csatar.csatar::lang.plugin.admin.general.createdAt'),
             'updated_at'    => Lang::get('csatar.csatar::lang.plugin.admin.general.updatedAt'),
@@ -122,6 +123,7 @@ class AccidentLogRecord extends Model
         if (!Auth::user()) {
             return;
         }
+
         $this->user_id = Auth::user()->id;
     }
 
@@ -152,7 +154,9 @@ class AccidentLogRecord extends Model
         if (empty($this->attachments)) {
             return null;
         }
+
         return $this->attachments->pluck('path', 'file_name');
 
     }
+
 }

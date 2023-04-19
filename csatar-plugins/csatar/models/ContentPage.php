@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Models;
+<?php
+namespace Csatar\Csatar\Models;
 
 use Model;
 use Lang;
@@ -44,4 +45,5 @@ class ContentPage extends PermissionBasedAccess
     {
         return Lang::get('csatar.csatar::lang.plugin.admin.general.contentPage');
     }
+
 }

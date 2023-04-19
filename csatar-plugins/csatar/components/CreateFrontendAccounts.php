@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Components;
+<?php
+namespace Csatar\Csatar\Components;
 
 use Lang;
 use Auth;
@@ -48,7 +49,7 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
         return [
             'paramCode' => [
                 'title'       => 'rainlab.user::lang.reset_password.code_param',
-                'description' => 'rainlab.user::lang.reset_password.code_param_desc', //The page URL parameter used for the reset code
+                'description' => 'rainlab.user::lang.reset_password.code_param_desc', // The page URL parameter used for the reset code
                 'type'        => 'string',
                 'default'     => 'code'
             ],
@@ -63,8 +64,8 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
 
     public function prepareVars()
     {
-        $this->page['user'] = $this->user();
-        $this->page['canRegister'] = $this->canRegister();
+        $this->page['user']           = $this->user();
+        $this->page['canRegister']    = $this->canRegister();
         $this->page['loginAttribute'] = $this->loginAttribute();
         if (isset(Auth::user()->scout)) {
             $this->scouts = Scout::where('team_id', Auth::user()->scout->team_id)->get();
@@ -79,7 +80,7 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
         }
 
         if (isset(Auth::user()->scout)) {
-            $tempScout = new Scout();
+            $tempScout          = new Scout();
             $tempScout->team_id = Auth::user()->scout->team_id;
 
             if (Auth::user()->scout->getRightsForModel($tempScout)['MODEL_GENERAL']['read'] < 1) {
@@ -95,13 +96,11 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
     public function getResetPageOptions()
     {
         return [
-                '' => Lang::get('csatar.csatar::lang.plugin.component.createFrontendAccounts.currentPage'),
-            ] + Page::sortBy('baseFileName')->lists('baseFileName', 'baseFileName');
+            '' => Lang::get('csatar.csatar::lang.plugin.component.createFrontendAccounts.currentPage'),
+        ] + Page::sortBy('baseFileName')->lists('baseFileName', 'baseFileName');
     }
 
-
      // Self register with email and ID number
-
     public function onRegister(){
 
         $data = post();
@@ -179,7 +178,7 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
 
             if ($automaticActivation) {
                 $fullName = $scout->getFullName();
-                $data = [
+                $data     = [
                     'name' => $fullName,
                 ];
 
@@ -208,7 +207,6 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
         $scouts = Scout::whereIn('id', $scoutIds)->get();
 
         foreach ($scouts as $scout) {
-
             if (!empty($scout->user_id)) {
                 $this->messages['errors'][$scout->id] =
                     Lang::get('csatar.csatar::lang.plugin.component.createFrontendAccounts.messages.scoutAlreadyHasUserAccount',
@@ -231,9 +229,7 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
         ];
     }
 
-
      // Register the user
-
     public function register($scout)
     {
         try {
@@ -245,7 +241,7 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
                 throw new ApplicationException(Lang::get('rainlab.user::lang.account.registration_throttled'));
             }
 
-            $data['email'] = $scout->email;
+            $data['email']    = $scout->email;
             $data['password'] = str_random(20);
             $data['password_confirmation'] = $data['password'];
 
@@ -298,7 +294,6 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
 
             $this->messages['success'][$scout->id] = Lang::get('csatar.csatar::lang.plugin.component.createFrontendAccounts.messages.userAccountCreated',
                 ['name' => $scout->getFullName() ]);
-
         } catch (Exception $ex) {
             if (Request::ajax()) throw $ex;
             else Flash::error($ex->getMessage());

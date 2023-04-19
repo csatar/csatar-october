@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Controllers;
+<?php
+namespace Csatar\Csatar\Controllers;
 
 use Backend;
 use BackendMenu;
@@ -117,12 +118,13 @@ class MembershipCardRequests extends Controller
 
     public function download() {
         $fileName = Carbon::today()->toDateString() . '.csv';
-        $csvPath = temp_path() . '/' . $fileName;
-        $headers = [
+        $csvPath  = temp_path() . '/' . $fileName;
+        $headers  = [
             'Content-Type' => 'text/csv',
             'charset' => 'UTF-8',
         ];
 
         return Response::download($csvPath, $fileName, $headers)->deleteFileAfterSend(true);
     }
+
 }

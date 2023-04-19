@@ -1,10 +1,12 @@
-<?php namespace Csatar\KnowledgeRepository\Updates;
+<?php
+namespace Csatar\KnowledgeRepository\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarKnowledgerepositoryAgeGroupMethodology extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_knowledgerepository_age_group_methodology', function($table)
@@ -22,4 +24,5 @@ class BuilderTableCreateCsatarKnowledgerepositoryAgeGroupMethodology extends Mig
     {
         Schema::dropIfExists('csatar_knowledgerepository_age_group_methodology');
     }
+
 }

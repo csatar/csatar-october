@@ -1,10 +1,12 @@
-<?php namespace Csatar\Csatar\Updates;
+<?php
+namespace Csatar\Csatar\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
 class BuilderTableUpdateCsatarCsatarTeams extends Migration
 {
+
     public function up()
     {
         Schema::table('csatar_csatar_teams', function($table)
@@ -12,7 +14,7 @@ class BuilderTableUpdateCsatarCsatarTeams extends Migration
             $table->smallInteger('status')->nullable()->default(1);
         });
     }
-    
+
     public function down()
     {
         Schema::table('csatar_csatar_teams', function($table)
@@ -20,4 +22,5 @@ class BuilderTableUpdateCsatarCsatarTeams extends Migration
             $table->dropColumn('status');
         });
     }
+
 }

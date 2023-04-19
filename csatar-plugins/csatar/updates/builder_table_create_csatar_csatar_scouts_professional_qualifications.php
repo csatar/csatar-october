@@ -1,10 +1,12 @@
-<?php namespace Csatar\Csatar\Updates;
+<?php
+namespace Csatar\Csatar\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarCsatarScoutsProfessionalQualifications extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_csatar_scouts_professional_qualifications', function($table)
@@ -17,9 +19,10 @@ class BuilderTableCreateCsatarCsatarScoutsProfessionalQualifications extends Mig
             $table->primary(['scout_id','professional_qualification_id'], 'csatar_csatar_scout_id_professional_qualification_id_primary');
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_scouts_professional_qualifications');
     }
+
 }

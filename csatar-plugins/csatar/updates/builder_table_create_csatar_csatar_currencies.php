@@ -1,10 +1,12 @@
-<?php namespace Csatar\Csatar\Updates;
+<?php
+namespace Csatar\Csatar\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarCsatarCurrencies extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_csatar_currencies', function($table)
@@ -16,9 +18,10 @@ class BuilderTableCreateCsatarCsatarCurrencies extends Migration
             $table->string('code', 3);
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_currencies');
     }
+
 }

@@ -1,4 +1,5 @@
-<?php namespace Csatar\KnowledgeRepository\Controllers;
+<?php
+namespace Csatar\KnowledgeRepository\Controllers;
 
 use BackendMenu;
 use Backend\Classes\Controller;
@@ -32,17 +33,17 @@ class Games extends Controller
     {
         parent::__construct();
         BackendMenu::setContext('Csatar.KnowledgeRepository', 'main-menu-knowledge-repository', 'side-menu-games');
-        $this->pageTitle = Lang::get('csatar.knowledgerepository::lang.plugin.admin.general.import');
     }
 
     public function import()
     {
+        $this->pageTitle = Lang::get('csatar.knowledgerepository::lang.plugin.admin.general.import');
     }
 
     public function onGetScoutOptions() {
-        $searchTerm = post('term');
+        $searchTerm   = post('term');
         $queryResults = Db::table('csatar_csatar_scouts')->whereRaw("CONCAT(family_name, ' ', given_name, ' ', ecset_code) like ?", ['%'.$searchTerm.'%'])->paginate(15);
-        $results = [];
+        $results      = [];
         foreach ($queryResults as $result) {
             $results[] = [
                 'id' => $result->ecset_code,
@@ -76,9 +77,9 @@ class Games extends Controller
             throw new \ValidationException($validator);
         }
 
-        $associationId = Input::get('association_id');
-        $uploaderCsatarCode = Input::get('uploader_csatar_code');
-        $approverCsatarCode = Input::get('approver_csatar_code');
+        $associationId         = Input::get('association_id');
+        $uploaderCsatarCode    = Input::get('uploader_csatar_code');
+        $approverCsatarCode    = Input::get('approver_csatar_code');
         $owerwriteExistingData = Input::get('overwrite_existing_data');
         $xlsxFile = Input::file('xlsx_file');
 
@@ -104,18 +105,7 @@ class Games extends Controller
     }
 
     public function onGetAssociationOptions() {
-        $associations = Association::all()->lists('name', 'id');
-        $results = [];
-        foreach ($associations as $id => $name) {
-            $results[] = [
-                'id' => $id,
-                'text' => $name,
-                'selected' => $name == 'Romániai Magyar Cserkészszövetség' ? true : false,
-            ];
-        }
-
-        return [
-            'results' => $results,
-        ];
+        return Association::getAssociationOptionsForSelect();
     }
+
 }

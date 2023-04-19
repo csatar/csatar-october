@@ -1,10 +1,12 @@
-<?php namespace Csatar\Csatar\Updates;
+<?php
+namespace Csatar\Csatar\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;
 
 class BuilderTableUpdateCsatarCsatarAssociations3 extends Migration
 {
+
     public function up()
     {
         Schema::table('csatar_csatar_associations', function($table)
@@ -12,7 +14,7 @@ class BuilderTableUpdateCsatarCsatarAssociations3 extends Migration
             $table->string('personal_identification_number_validator')->nullable();
         });
     }
-    
+
     public function down()
     {
         Schema::table('csatar_csatar_associations', function($table)
@@ -20,4 +22,5 @@ class BuilderTableUpdateCsatarCsatarAssociations3 extends Migration
             $table->dropColumn('personal_identification_number_validator');
         });
     }
+
 }

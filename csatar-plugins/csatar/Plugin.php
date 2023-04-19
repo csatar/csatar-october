@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar;
+<?php
+namespace Csatar\Csatar;
 
 use App;
 use Backend;
@@ -181,12 +182,12 @@ class Plugin extends PluginBase
                 throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.canNotFindUser'), 5);
             }
 
-            //check if scout already has a user_id and if that matches or not the returned user's id
+            // check if scout already has a user_id and if that matches or not the returned user's id
             if (!empty($scout->user_id) && $scout->user_id != $user->id) {
                 throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.userIdAndScoutUserIdMismatch'), 6);
             }
 
-            //if scout doesn't have a user_id, set the returned user's id as user_id
+            // if scout doesn't have a user_id, set the returned user's id as user_id
             if (empty($scout->user_id)) {
                 $scout->user_id = $user->id;
                 $scout->save();
@@ -201,12 +202,13 @@ class Plugin extends PluginBase
                 if ($form->arrayName === 'Gallery[images]') {
                     $form->addFields([
                         'is_public' => [
-                                'label' => 'Public',
-                                'type'  => 'checkbox',
-                                'default'   => false
+                            'label' => 'Public',
+                            'type'  => 'checkbox',
+                            'default'   => false
                         ]
                     ]);
                 }
+
                 $form->addFields([
                     'sort_order' => [
                         'label' => 'csatar.csatar::lang.plugin.admin.general.sortOrder',
@@ -279,7 +281,6 @@ class Plugin extends PluginBase
             \Csatar\Forms\Widgets\RichEditor::class => 'richeditor',
         ];
     }
-
 
     public function registerSettings()
     {
@@ -360,14 +361,15 @@ class Plugin extends PluginBase
     public function registerSchedule($schedule)
     {
         $schedule->call(function () {
-            $scouts = Scout::where('inactivated_at', '<', Carbon::now()->subYears(5))->where('family_name', '!=', Scout::NAME_DELETED_INACTIVITY)->get();
+            $scouts = Scout::where('inactivated_at', '<', Carbon::now()->subYears(5))->where('family_name', '!=', Scout::NAME_DELETED_INACTIVITY)->withTrashed()->get();
             foreach ($scouts as $scout) {
-                $scout->family_name = Scout::NAME_DELETED_INACTIVITY;
-                $scout->given_name = '';
+                $scout->family_name      = Scout::NAME_DELETED_INACTIVITY;
+                $scout->given_name       = '';
                 $scout->ignoreValidation = true;
                 $scout->forceSave();
             }
         })
             ->dailyAt('00:15');
     }
+
 }

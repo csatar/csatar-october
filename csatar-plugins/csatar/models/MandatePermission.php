@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Models;
+<?php
+namespace Csatar\Csatar\Models;
 
 use Model;
 use Db;
@@ -22,7 +23,7 @@ class MandatePermission extends Model
     public $rules = [];
 
     public const MODEL_GENERAL_VALUE = 'MODEL_GENERAL';
-    public const PALCEHOLDER_VALUE = 'PALCEHOLDER';
+    public const PALCEHOLDER_VALUE   = 'PALCEHOLDER';
 
     public $belongsTo = [
         'mandateType' => '\Csatar\Csatar\Models\MandateType',
@@ -30,7 +31,7 @@ class MandatePermission extends Model
 
     public $translatedLabelsForFields = [];
 
-    function __construct(array $attributes = []) {
+    public function __construct(array $attributes = []) {
         parent::__construct($attributes);
     }
 
@@ -74,6 +75,7 @@ class MandatePermission extends Model
         foreach ($fields as $field => $model) {
             $returnFields[$field] = $this->getTranslatedLabelForFiled($field, $model);
         }
+
         return $returnFields;
     }
 
@@ -87,6 +89,7 @@ class MandatePermission extends Model
         if (class_exists($this->model)) {
             return ($this->model)::getOrganizationTypeModelNameUserFriendly();
         }
+
         return '';
     }
 
@@ -163,17 +166,18 @@ class MandatePermission extends Model
     public function getModelOptions(){
         $modelOptions = self::distinct()->orderBy('model', 'asc')->lists('model', 'model');
         array_walk($modelOptions, function (&$item) {
-            $item = ($item)::getOrganizationTypeModelNameUserFriendly();
+            if (class_exists($item) && method_exists($item, 'getOrganizationTypeModelNameUserFriendly')){
+                $item = ($item)::getOrganizationTypeModelNameUserFriendly();
+            }
         });
         return $modelOptions;
     }
 
-
     public function historyRecordBulkAction($dataArray, $error = null) {
 
-        $historyRelationName = HistoryService::getHistoryRelationName($this);
+        $historyRelationName   = HistoryService::getHistoryRelationName($this);
         $historyRelationObject = $this->{$historyRelationName}();
-        $historyModel = $historyRelationObject->getRelated();
+        $historyModel          = $historyRelationObject->getRelated();
 
         $modelClass = $historyRelationObject->getMorphClass();
 
@@ -183,7 +187,6 @@ class MandatePermission extends Model
         }
 
         foreach ($dataArray as $data) {
-
             $toSave[] = [
                 'fe_user_id' => HistoryService::historyGetUser(),
                 'be_user_id' => HistoryService::historyGetBackendUser(),
@@ -208,9 +211,9 @@ class MandatePermission extends Model
     }
 
     public function historyRecordMatrixSynchronization($dataArray) {
-        $historyRelationName = HistoryService::getHistoryRelationName($this);
+        $historyRelationName   = HistoryService::getHistoryRelationName($this);
         $historyRelationObject = $this->{$historyRelationName}();
-        $historyModel = $historyRelationObject->getRelated();
+        $historyModel          = $historyRelationObject->getRelated();
 
         $modelClass = $historyRelationObject->getMorphClass();
 
@@ -239,4 +242,5 @@ class MandatePermission extends Model
 
         Db::table($historyModel->getTable())->insert($toSave);
     }
+
 }

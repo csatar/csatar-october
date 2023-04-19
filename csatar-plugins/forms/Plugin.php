@@ -1,10 +1,12 @@
-<?php namespace Csatar\Forms;
+<?php
+namespace Csatar\Forms;
 
 use System\Classes\PluginBase;
 
 
 class Plugin extends PluginBase
 {
+
     /**
      * Component details
      * @return array
