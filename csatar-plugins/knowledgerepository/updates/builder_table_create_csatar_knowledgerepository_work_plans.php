@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\KnowledgeRepository\Updates;
 
 use Schema;
@@ -21,12 +21,12 @@ class BuilderTableCreateCsatarKnowledgerepositoryWorkPlans extends Migration
             $table->text('team_notes')->nullable();
             $table->timestamp('created_at')->nullable();
             $table->timestamp('updated_at')->nullable();
-            
+
             $table->foreign('team_id')->references('id')->on('csatar_csatar_teams');
             $table->unique(['team_id', 'year'], 'team_year');
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_knowledgerepository_work_plans');

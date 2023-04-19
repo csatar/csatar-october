@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Models;
 
 use Model;
@@ -9,7 +9,7 @@ use Model;
 class LegalRelationship extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-    
+
     use \October\Rain\Database\Traits\SoftDelete;
 
     use \October\Rain\Database\Traits\Sortable;
@@ -39,8 +39,8 @@ class LegalRelationship extends Model
         'sort_order'
     ];
 
-    /** 
-     * Relations 
+    /**
+     * Relations
      */
     public $belongsToMany = [
         'scouts' => '\Csatar\Csatar\Models\Scout',

@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -36,7 +36,7 @@ class BuilderTableCreateCsatarCsatarTeamReports extends Migration
             $table->dateTime('approved_at')->nullable();
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_team_reports');

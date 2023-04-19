@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -13,7 +13,7 @@ class BuilderTableUpdateCsatarCsatarTeamReports extends Migration
             $table->text('extra_fields')->nullable();
         });
     }
-    
+
     public function down()
     {
         Schema::table('csatar_csatar_team_reports', function($table)

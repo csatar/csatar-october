@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -15,7 +15,7 @@ class BuilderTableUpdateCsatarCsatarScoutsTrainingQualifications extends Migrati
             $table->dropColumn('qualification');
         });
     }
-    
+
     public function down()
     {
         Schema::table('csatar_csatar_scouts_training_qualifications', function($table)

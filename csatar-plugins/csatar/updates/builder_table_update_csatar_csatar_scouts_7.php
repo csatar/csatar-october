@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Db;
@@ -21,7 +21,7 @@ class BuilderTableUpdateCsatarCsatarScouts7 extends Migration
             $table->dropColumn('is_active');
         });
     }
-    
+
     public function down()
     {
         Schema::table('csatar_csatar_scouts', function($table)

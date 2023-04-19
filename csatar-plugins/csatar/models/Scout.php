@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Models;
 
 use Auth;
@@ -330,7 +330,6 @@ class Scout extends OrganizationBase
         if (!$this->skipCacheRefresh) {
             $this->updateCache();
         }
-
 
     }
 

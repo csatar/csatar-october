@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Models;
 
 use Model;
@@ -57,12 +57,12 @@ class Hierarchy extends Model
 
     public $hasMany = [
         'children' => [
-            '\Csatar\Csatar\Models\Hierarchy', 
+            '\Csatar\Csatar\Models\Hierarchy',
             'key' => 'parent_id',
             'order' => 'weight asc',
         ],
         'child_count' => [
-            '\Csatar\Csatar\Models\Hierarchy', 
+            '\Csatar\Csatar\Models\Hierarchy',
             'key' => 'parent_id',
             'count' => true,
         ],

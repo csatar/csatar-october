@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -35,11 +35,11 @@ class BuilderTableCreateCsatarCsatarAccidentLogRecords extends Migration
             $table->text('persons_involved_in_care')->nullable();
             $table->text('url')->nullable();
             $table->integer('user_id')->unsigned();
-            
+
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_accident_log_records');

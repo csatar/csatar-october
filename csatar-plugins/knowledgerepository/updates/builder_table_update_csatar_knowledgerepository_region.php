@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\KnowledgeRepository\Updates;
 
 use Schema;
@@ -15,7 +15,7 @@ class BuilderTableUpdateCsatarKnowledgerepositoryRegion extends Migration
             $table->timestamp('deleted_at')->nullable();
         });
     }
-    
+
     public function down()
     {
         Schema::table('csatar_knowledgerepository_region', function($table)

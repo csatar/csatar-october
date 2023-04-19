@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -37,7 +37,7 @@ class BuilderTableCreateCsatarCsatarTeams extends Migration
             $table->integer('district_id')->index('district_id')->unsigned();
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_teams');

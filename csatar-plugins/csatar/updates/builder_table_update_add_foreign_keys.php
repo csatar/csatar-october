@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -162,7 +162,7 @@ class BuilderTableUpdateAddForeignKeys extends Migration
         Schema::table('csatar_csatar_hierarchy', function($table)
         {
             $table->dropIndex('csatar_csatar_hierarchy_parent_id_index');
-        }); 
+        });
         Schema::table('csatar_csatar_mandates', function($table)
         {
             $table->dropForeign('csatar_csatar_mandates_scout_id_foreign');

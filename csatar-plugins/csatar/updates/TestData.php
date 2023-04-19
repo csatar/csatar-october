@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use RainLab\Builder\Classes\ComponentHelper;
@@ -461,7 +461,6 @@ class TestData extends Seeder
                         'delete'        => 2,
                     ]
                 );
-
 
             //add permission for each attribute for general, own
 

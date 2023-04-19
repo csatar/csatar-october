@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -16,7 +16,7 @@ class Migration1015 extends Migration
             $table->primary(['scout_id','chronic_illness_id'], 'csatar_csatar_scout_id_chronic_illness_id_primary');
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_scouts_chronic_illnesses');

@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -17,13 +17,12 @@ class BuilderTableCreateCsatarCsatarMembershipCards extends Migration
             $table->string('note', 200)->nullable();
             $table->dateTime('issued_date_time')->nullable();
             $table->integer('scout_id')->unsigned();
-            
+
             $table->foreign('scout_id')->references('id')->on('csatar_csatar_scouts');
         });
-        
-        
+
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_membership_cards');

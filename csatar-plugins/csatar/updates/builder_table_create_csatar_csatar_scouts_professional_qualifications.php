@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -18,7 +18,7 @@ class BuilderTableCreateCsatarCsatarScoutsProfessionalQualifications extends Mig
             $table->primary(['scout_id','professional_qualification_id'], 'csatar_csatar_scout_id_professional_qualification_id_primary');
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_scouts_professional_qualifications');

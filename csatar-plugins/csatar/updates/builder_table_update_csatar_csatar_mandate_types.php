@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -13,7 +13,7 @@ class BuilderTableUpdateCsatarCsatarMandateTypes extends Migration
             $table->boolean('is_hidden_frontend')->nullable()->default(0);
         });
     }
-    
+
     public function down()
     {
         Schema::table('csatar_csatar_mandate_types', function($table)

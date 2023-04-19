@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\KnowledgeRepository\Updates;
 
 use Schema;
@@ -19,7 +19,7 @@ class BuilderTableCreateCsatarKnowledgerepositoryTrialSystemCategories extends M
             $table->timestamp('deleted_at')->nullable();
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_knowledgerepository_trial_system_categories');

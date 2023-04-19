@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -15,7 +15,7 @@ class BuilderTableUpdateCsatarCsatarTroops extends Migration
             $table->dropColumn('troop_leader_email');
         });
     }
-    
+
     public function down()
     {
         Schema::table('csatar_csatar_troops', function($table)

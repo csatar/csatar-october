@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -20,7 +20,7 @@ class BuilderTableCreateCsatarCsatarLocations extends Migration
             $table->string('code', 255)->nullable();
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_csatar_locations');

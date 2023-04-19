@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Models;
 
 use Csatar\Csatar\Models\TeamReport;
@@ -56,7 +56,7 @@ class DynamicFields extends Model
         'association' => '\Csatar\Csatar\Models\Association',
     ];
 
-    
+
     /**
      * Add custom validation
      */
@@ -74,7 +74,7 @@ class DynamicFields extends Model
                 if ($this->id == $existingDynamicField->id) {
                     continue;
                 }
-    
+
                 // check that the date isn't (partially) overlapping with a different record for the same period: overlap if max(start1, start2) < min(end1, end2)
                 $existingDynamicFieldStartDate = new DateTime($existingDynamicField['start_date']);
                 $existingDynamicFieldEndDate   = isset($existingDynamicField['end_date']) ? new DateTime($existingDynamicField['end_date']) : null;
@@ -115,7 +115,7 @@ class DynamicFields extends Model
     private function beforeSaveDeleteFields(&$fields, &$fieldValues)
     {
         $fieldsToDelete = [];
-        foreach ($fields as $key => $field) {            
+        foreach ($fields as $key => $field) {
             $found = false;
             foreach ($fieldValues as $fieldValue) {
                 if ($fieldValue['label'] == $field['label']) {
@@ -123,7 +123,7 @@ class DynamicFields extends Model
                     break;
                 }
             }
-    
+
             if (!$found) {
                 array_push($fieldsToDelete, $key);
             }

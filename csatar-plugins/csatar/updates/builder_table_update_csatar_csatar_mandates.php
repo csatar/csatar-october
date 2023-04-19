@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -14,7 +14,7 @@ class BuilderTableUpdateCsatarCsatarMandates extends Migration
             $table->date('end_date')->nullable()->unsigned(false)->default(null)->comment(null)->change();
         });
     }
-    
+
     public function down()
     {
         Schema::table('csatar_csatar_mandates', function($table)

@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\KnowledgeRepository;
 
 use Csatar\KnowledgeRepository\Models\Region;

@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Models;
 
 use Csatar\Csatar\Models\Association;
@@ -98,7 +98,7 @@ class MandateType extends Model
         ]
     ];
 
-    
+
     /**
      * Add custom validation
      */

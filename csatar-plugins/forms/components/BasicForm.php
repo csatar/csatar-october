@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Forms\Components;
 
 use Auth;
@@ -400,7 +400,6 @@ class BasicForm extends ComponentBase  {
         $hasCreateRights = $this->currentUserRights['MODEL_GENERAL']['create'] ?? -1;
         $hasUpdateRights = $this->currentUserRights['MODEL_GENERAL']['update'] ?? -1;
         $hasReadRights   = $this->currentUserRights['MODEL_GENERAL']['read'] ?? -1;
-
 
         if ($parent->$relationName && $hasUpdateRights > 0) {
             $record = $parent->$relationName;

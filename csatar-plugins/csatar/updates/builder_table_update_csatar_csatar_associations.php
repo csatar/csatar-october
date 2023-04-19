@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -14,7 +14,7 @@ class BuilderTableUpdateCsatarCsatarAssociations extends Migration
             $table->integer('currency_id')->index('currency_id')->unsigned();
         });
     }
-    
+
     public function down()
     {
         Schema::table('csatar_csatar_associations', function($table)

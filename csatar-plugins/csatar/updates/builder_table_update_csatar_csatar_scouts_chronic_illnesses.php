@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Updates;
 
 use Schema;
@@ -13,7 +13,7 @@ class BuilderTableUpdateCsatarCsatarScoutsChronicIllnesses extends Migration
             $table->string('comment', 255)->nullable();
         });
     }
-    
+
     public function down()
     {
         Schema::table('csatar_csatar_scouts_chronic_illnesses', function($table)
