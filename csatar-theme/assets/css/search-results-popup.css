@@ -33,7 +33,7 @@
 }
 
 .ss-search-form__results--visible {
-    max-height: 500px;
+    max-height: 80vh;
     overflow-y: scroll;
     margin-top: -5px;
     border-style: solid;
