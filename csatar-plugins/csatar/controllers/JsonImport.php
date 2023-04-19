@@ -1185,4 +1185,5 @@ class JsonImport extends Controller
 
         return $fileArray;
     }
+
 }

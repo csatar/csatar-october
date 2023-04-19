@@ -126,4 +126,5 @@ class MembershipCardRequests extends Controller
 
         return Response::download($csvPath, $fileName, $headers)->deleteFileAfterSend(true);
     }
+
 }

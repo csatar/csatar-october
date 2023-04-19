@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableUpdateAddForeignKeys extends Migration
 {
+
     public function up()
     {
         Schema::table('csatar_csatar_age_group_team_report', function($table)
@@ -269,4 +270,5 @@ class BuilderTableUpdateAddForeignKeys extends Migration
             $table->dropForeign('csatar_csatar_troops_team_id_foreign');
         });
     }
+
 }

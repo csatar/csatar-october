@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarMethodologyTrialSystem extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_methodology_trial_system', function($table)
@@ -23,4 +24,5 @@ class BuilderTableCreateCsatarMethodologyTrialSystem extends Migration
     {
         Schema::dropIfExists('csatar_methodology_trial_system');
     }
+
 }

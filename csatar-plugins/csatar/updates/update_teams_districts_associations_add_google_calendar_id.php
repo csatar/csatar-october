@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class UpdateTeamsDistrictsAssociationsAddGoogleCalendarId extends Migration
 {
+
     public function up()
     {
         Schema::table('csatar_csatar_teams', function($table)
@@ -41,4 +42,5 @@ class UpdateTeamsDistrictsAssociationsAddGoogleCalendarId extends Migration
             $table->dropColumn('google_calendar_id');
         });
     }
+
 }

@@ -299,4 +299,5 @@ class RichEditor extends FormWidgetBase
 
         return $links;
     }
+
 }

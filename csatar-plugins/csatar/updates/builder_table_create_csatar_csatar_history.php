@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarCsatarHistory extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_csatar_history', function($table)

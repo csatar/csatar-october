@@ -48,4 +48,5 @@ class Logos extends ComponentBase
                 break;
         }
     }
+
 }

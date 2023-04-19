@@ -202,4 +202,5 @@ class Song extends PermissionBasedAccess
     {
         return isset($this->attributes['name']) ? $this->attributes['name'] . ' ' . Lang::get('csatar.csatar::lang.plugin.admin.district.nameSuffix') : null;
     }
+
 }

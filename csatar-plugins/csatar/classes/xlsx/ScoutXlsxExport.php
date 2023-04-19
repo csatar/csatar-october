@@ -49,4 +49,5 @@ class ScoutXlsxExport implements FromCollection, WithHeadings, WithEvents
 
         return $headingRows;
     }
+
 }

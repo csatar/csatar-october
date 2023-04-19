@@ -20,4 +20,5 @@ class InjurySeverity
             self::FATAL => e(trans('csatar.csatar::lang.plugin.component.accidentLog.injurySeverity.fatal')),
         ];
     }
+
 }

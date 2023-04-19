@@ -158,4 +158,5 @@ class History extends Model
 
         return $options;
     }
+
 }

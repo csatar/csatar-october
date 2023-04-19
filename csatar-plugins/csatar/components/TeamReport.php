@@ -19,7 +19,6 @@ class TeamReport extends ComponentBase
 {
     public $id, $teamId, $action, $year, $teamReport, $team, $scouts, $teamFee, $totalAmount, $currency, $status, $basicForm, $redirectFromWaitingForApproval, $errors, $permissions, $confirmDeleteMessage, $confirmRefreshMessage, $legalRelationshipsInAssociation, $scoutsWithoutRegistrationForm;
 
-
     public function init()
     {
         $this->basicForm = $this->addComponent(BasicForm::class, 'basicForm', [
@@ -249,4 +248,5 @@ class TeamReport extends ComponentBase
             }
         }
     }
+
 }

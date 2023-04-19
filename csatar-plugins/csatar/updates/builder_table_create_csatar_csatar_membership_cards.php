@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarCsatarMembershipCards extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_csatar_membership_cards', function($table)
@@ -27,4 +28,5 @@ class BuilderTableCreateCsatarCsatarMembershipCards extends Migration
     {
         Schema::dropIfExists('csatar_csatar_membership_cards');
     }
+
 }

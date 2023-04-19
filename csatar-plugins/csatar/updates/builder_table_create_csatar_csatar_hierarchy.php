@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarCsatarHierarchy extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_csatar_hierarchy', function($table)
@@ -25,4 +26,5 @@ class BuilderTableCreateCsatarCsatarHierarchy extends Migration
     {
         Schema::dropIfExists('csatar_csatar_hierarchy');
     }
+
 }

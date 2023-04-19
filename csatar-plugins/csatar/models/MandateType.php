@@ -98,7 +98,6 @@ class MandateType extends Model
         ]
     ];
 
-
     /**
      * Add custom validation
      */

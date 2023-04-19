@@ -114,7 +114,6 @@ class TeamReport extends PermissionBasedAccess
         ],
     ];
 
-
     /**
      * Handle the team-currency dependency
      */
@@ -269,4 +268,5 @@ class TeamReport extends PermissionBasedAccess
 
         return $scoutsWithoutRegistrationForm ?? [];
     }
+
 }

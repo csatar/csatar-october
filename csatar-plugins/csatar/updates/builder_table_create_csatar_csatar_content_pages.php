@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarCsatarContentPages extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_csatar_content_pages', function($table)
@@ -26,4 +27,5 @@ class BuilderTableCreateCsatarCsatarContentPages extends Migration
     {
         Schema::dropIfExists('csatar_csatar_content_pages');
     }
+
 }

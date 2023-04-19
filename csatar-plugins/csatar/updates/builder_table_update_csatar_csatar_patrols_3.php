@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableUpdateCsatarCsatarPatrols3 extends Migration
 {
+
     public function up()
     {
         Schema::table('csatar_csatar_patrols', function($table)
@@ -23,4 +24,5 @@ class BuilderTableUpdateCsatarCsatarPatrols3 extends Migration
             $table->dropColumn('trial_system_trial_type_id');
         });
     }
+
 }

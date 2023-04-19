@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarCsatarPromises extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_csatar_promises', function($table)
@@ -23,4 +24,5 @@ class BuilderTableCreateCsatarCsatarPromises extends Migration
     {
         Schema::dropIfExists('csatar_csatar_promises');
     }
+
 }

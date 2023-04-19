@@ -141,7 +141,6 @@ class Methodology extends PermissionBasedAccess
         'attachements' => ['System\Models\File'],
     ];
 
-
     public function beforeCreate()
     {
         if (empty($this->uploader_csatar_code)) {
@@ -192,4 +191,5 @@ class Methodology extends PermissionBasedAccess
     public function getApproverScout() {
         return $this->approver_csatar_code ? $this->approverscout : null;
     }
+
 }

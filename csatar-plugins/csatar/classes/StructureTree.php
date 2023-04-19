@@ -14,6 +14,7 @@ use Illuminate\Contracts\Support\Arrayable;
 
 class StructureTree
 {
+
     private static function getAssociationsQueryWithArray(): array
     {
         return [
@@ -372,4 +373,5 @@ class StructureTree
         // insert the tree back to cache
         Cache::forever('structureTree', $structureTree);
     }
+
 }

@@ -113,7 +113,6 @@ class Troop extends OrganizationBase
         ],
     ];
 
-
     public static function getEagerLoadSettings(string $useCase = null): array
     {
         $eagerLoadSettings = parent::getEagerLoadSettings($useCase);
@@ -333,4 +332,5 @@ class Troop extends OrganizationBase
     public function getActiveMembersCountAttribute() {
         return StructureTree::getTroopScoutsCount($this->id);
     }
+
 }

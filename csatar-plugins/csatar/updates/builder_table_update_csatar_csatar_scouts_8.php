@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableUpdateCsatarCsatarScouts8 extends Migration
 {
+
     public function up()
     {
         Schema::table('csatar_csatar_scouts', function($table)

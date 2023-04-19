@@ -150,6 +150,7 @@ class HistoryService
             });
         }
     }
+
     public static function historyGetUser()
     {
         if (Auth::check() && !App::runningInBackend()) {
@@ -434,4 +435,5 @@ class HistoryService
             'ignoreInPermissionsMatrix' => true,
         ];
     }
+
 }

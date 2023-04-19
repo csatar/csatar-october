@@ -56,7 +56,6 @@ class DynamicFields extends Model
         'association' => '\Csatar\Csatar\Models\Association',
     ];
 
-
     /**
      * Add custom validation
      */
@@ -173,4 +172,5 @@ class DynamicFields extends Model
             ? ($this->attributes['model'])::getOrganizationTypeModelNameUserFriendly()
                 : '';
     }
+
 }

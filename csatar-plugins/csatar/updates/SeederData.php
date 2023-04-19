@@ -715,8 +715,6 @@ class SeederData extends Seeder
         ]
     ];
 
-
-
     public function run()
     {
         // allergies
@@ -1051,4 +1049,5 @@ class SeederData extends Seeder
             }
         }
     }
+
 }

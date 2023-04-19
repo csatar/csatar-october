@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarCsatarAllergies extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_csatar_allergies', function($table)
@@ -23,4 +24,5 @@ class BuilderTableCreateCsatarCsatarAllergies extends Migration
     {
         Schema::dropIfExists('csatar_csatar_allergies');
     }
+
 }

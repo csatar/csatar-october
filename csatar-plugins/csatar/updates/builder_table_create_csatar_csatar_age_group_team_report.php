@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarCsatarAgeGroupTeamReport extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_csatar_age_group_team_report', function($table)
@@ -21,4 +22,5 @@ class BuilderTableCreateCsatarCsatarAgeGroupTeamReport extends Migration
     {
         Schema::dropIfExists('csatar_csatar_age_group_team_report');
     }
+
 }

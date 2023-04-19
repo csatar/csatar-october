@@ -88,4 +88,5 @@ class Region extends Model
 
         return $name;
     }
+
 }

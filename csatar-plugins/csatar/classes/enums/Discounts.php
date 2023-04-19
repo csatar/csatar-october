@@ -47,4 +47,5 @@ class Discounts
 
         return self::$instance;
     }
+
 }

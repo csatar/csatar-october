@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarKnowledgerepositoryAgeGroupGame extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_knowledgerepository_age_group_game', function($table)
@@ -23,4 +24,5 @@ class BuilderTableCreateCsatarKnowledgerepositoryAgeGroupGame extends Migration
     {
         Schema::dropIfExists('csatar_knowledgerepository_age_group_game');
     }
+
 }

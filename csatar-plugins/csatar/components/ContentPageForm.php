@@ -66,4 +66,5 @@ class ContentPageForm extends ComponentBase
     {
         return ComponentHelper::instance()->listGlobalModels();
     }
+
 }

@@ -77,7 +77,6 @@ class FrontendFileUpload extends FormWidgetBase
      */
     protected $defaultAlias = 'frontendfileupload';
 
-
     public function init()
     {
         $this->fillFromConfig([

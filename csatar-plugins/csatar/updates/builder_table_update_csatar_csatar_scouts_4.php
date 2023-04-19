@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableUpdateCsatarCsatarScouts4 extends Migration
 {
+
     public function up()
     {
         Schema::table('csatar_csatar_scouts', function($table)
@@ -21,4 +22,5 @@ class BuilderTableUpdateCsatarCsatarScouts4 extends Migration
             $table->dropColumn('is_approved');
         });
     }
+
 }

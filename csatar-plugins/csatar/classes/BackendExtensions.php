@@ -9,6 +9,7 @@ use Session;
 
 class BackendExtensions
 {
+
     public static function onDelete($controller, $methodToRunAfterDelete = null)
     {
         /*
@@ -73,4 +74,5 @@ class BackendExtensions
             $record->$methodToRunAfterDelete();
         }
     }
+
 }

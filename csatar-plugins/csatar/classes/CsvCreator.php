@@ -4,6 +4,7 @@ namespace Csatar\Csatar\Classes;
 
 class CsvCreator
 {
+
     public static function writeCsvFile($fileName, $data, $append=false): ?string
     {
         if (!is_array($data)) {
@@ -26,4 +27,5 @@ class CsvCreator
         fclose($file);
         return null;
     }
+
 }

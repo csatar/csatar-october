@@ -212,4 +212,5 @@ class TrialSystemsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHe
             $counter++;
         }
     }
+
 }

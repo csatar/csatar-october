@@ -6,6 +6,7 @@ use Db;
 
 class Seeder1040 extends Seeder
 {
+
     public function run()
     {
         $contactFormSettings = [
@@ -173,4 +174,5 @@ class Seeder1040 extends Seeder
                 ['value' => json_encode($contactFormSettings)]
             );
     }
+
 }

@@ -16,4 +16,5 @@ class DynamicFields extends Controller
         parent::__construct();
         BackendMenu::setContext('Csatar.Csatar', 'main-menu-item-organization-system-data', 'side-menu-item-dynamic-fields');
     }
+
 }

@@ -6,6 +6,7 @@ namespace Csatar\Forms\Widgets\TagList;
  */
 trait HasStringStore
 {
+
     /**
      * getLoadValueFromString
      */
@@ -55,4 +56,5 @@ trait HasStringStore
                 return ' ';
         }
     }
+
 }

@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarKnowledgerepositoryTools extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_knowledgerepository_tools', function($table)
@@ -27,4 +28,5 @@ class BuilderTableCreateCsatarKnowledgerepositoryTools extends Migration
     {
         Schema::dropIfExists('csatar_knowledgerepository_tools');
     }
+
 }

@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableUpdateCsatarCsatarAssociations extends Migration
 {
+
     public function up()
     {
         Schema::table('csatar_csatar_associations', function($table)
@@ -24,4 +25,5 @@ class BuilderTableUpdateCsatarCsatarAssociations extends Migration
             $table->dropColumn('currency_id');
         });
     }
+
 }

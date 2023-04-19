@@ -173,7 +173,6 @@ class MandatePermission extends Model
         return $modelOptions;
     }
 
-
     public function historyRecordBulkAction($dataArray, $error = null) {
 
         $historyRelationName   = HistoryService::getHistoryRelationName($this);
@@ -243,4 +242,5 @@ class MandatePermission extends Model
 
         Db::table($historyModel->getTable())->insert($toSave);
     }
+
 }

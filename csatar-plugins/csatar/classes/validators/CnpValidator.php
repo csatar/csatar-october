@@ -85,4 +85,5 @@ class CnpValidator
         $country = Country::where('code', 'RO')->first();
         return $country->id ?? null;
     }
+
 }

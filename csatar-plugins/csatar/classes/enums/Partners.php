@@ -77,4 +77,5 @@ class Partners
 
         return self::$instance;
     }
+
 }

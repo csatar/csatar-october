@@ -309,4 +309,5 @@ class ScoutImport extends \Backend\Models\ImportModel
     {
         return Association::lists('name', 'id');
     }
+
 }

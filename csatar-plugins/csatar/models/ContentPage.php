@@ -45,4 +45,5 @@ class ContentPage extends PermissionBasedAccess
     {
         return Lang::get('csatar.csatar::lang.plugin.admin.general.contentPage');
     }
+
 }

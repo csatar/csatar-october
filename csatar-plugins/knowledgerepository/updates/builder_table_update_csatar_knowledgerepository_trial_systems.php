@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableUpdateCsatarKnowledgerepositoryTrialSystems extends Migration
 {
+
     public function up()
     {
         Schema::table('csatar_knowledgerepository_trial_systems', function($table)
@@ -25,4 +26,5 @@ class BuilderTableUpdateCsatarKnowledgerepositoryTrialSystems extends Migration
             $table->dropColumn('effective_knowledge');
         });
     }
+
 }

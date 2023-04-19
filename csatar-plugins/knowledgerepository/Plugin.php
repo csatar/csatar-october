@@ -47,4 +47,5 @@ class Plugin extends PluginBase
         $region = Region::where('name', $value)->first() ?? null;
         return $region ? $region->getExtendedNameAttribute() : '';
     }
+
 }

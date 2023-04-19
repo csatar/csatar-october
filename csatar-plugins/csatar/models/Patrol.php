@@ -304,7 +304,6 @@ class Patrol extends OrganizationBase
         ],
     ];
 
-
     /**
      * Scope a query to only include patrols with a given team id.
      */
@@ -421,4 +420,5 @@ class Patrol extends OrganizationBase
     public function getActiveMembersCountAttribute() {
         return StructureTree::getPatrolScoutsCount($this->id);
     }
+
 }

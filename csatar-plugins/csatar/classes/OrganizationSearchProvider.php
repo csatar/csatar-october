@@ -16,6 +16,7 @@ class OrganizationSearchProvider extends ResultsProvider
         '\Csatar\Csatar\Models\District' => 5,
         '\Csatar\Csatar\Models\Association' => 6,
     ];
+
     public function search()
     {
         // The controller is used to generate page URLs.
@@ -87,4 +88,5 @@ class OrganizationSearchProvider extends ResultsProvider
     {
         return 1000 + (count(self::RESULT_HIERARCHY) * 1000) - (self::RESULT_HIERARCHY[$childClass] * 1000) - $key;
     }
+
 }

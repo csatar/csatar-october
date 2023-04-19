@@ -107,4 +107,5 @@ class Games extends Controller
     public function onGetAssociationOptions() {
         return Association::getAssociationOptionsForSelect();
     }
+
 }

@@ -293,4 +293,5 @@ class PermissionsMatrix extends Controller
             }
         }
     }
+
 }

@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarKnowledgerepositoryLocationMethodology extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_knowledgerepository_location_methodology', function($table)
@@ -23,4 +24,5 @@ class BuilderTableCreateCsatarKnowledgerepositoryLocationMethodology extends Mig
     {
         Schema::dropIfExists('csatar_knowledgerepository_location_methodology');
     }
+
 }

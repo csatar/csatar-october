@@ -77,7 +77,6 @@ class AccidentLogRecord extends Model
         ],
     ];
 
-
     public static function getModelName()
     {
         return '\\' . static::class;
@@ -159,4 +158,5 @@ class AccidentLogRecord extends Model
         return $this->attachments->pluck('path', 'file_name');
 
     }
+
 }

@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarKnowledgerepositoryAgeGroupSong extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_knowledgerepository_age_group_song', function($table)
@@ -23,4 +24,5 @@ class BuilderTableCreateCsatarKnowledgerepositoryAgeGroupSong extends Migration
     {
         Schema::dropIfExists('csatar_knowledgerepository_age_group_song');
     }
+
 }

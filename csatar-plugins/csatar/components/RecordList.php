@@ -556,4 +556,5 @@ class RecordList extends RainRecordList {
 
         return $modelClassName;
     }
+
 }

@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarKnowledgerepositoryHeadcountMethodology extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_knowledgerepository_headcount_methodology', function($table)
@@ -23,4 +24,5 @@ class BuilderTableCreateCsatarKnowledgerepositoryHeadcountMethodology extends Mi
     {
         Schema::dropIfExists('csatar_knowledgerepository_headcount_methodology');
     }
+
 }

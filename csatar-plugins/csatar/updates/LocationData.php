@@ -8,6 +8,7 @@ use Db;
 
 class LocationData extends Seeder
 {
+
     public function run()
     {
         // seed romanian locations
@@ -28,4 +29,5 @@ class LocationData extends Seeder
             }
         }
     }
+
 }

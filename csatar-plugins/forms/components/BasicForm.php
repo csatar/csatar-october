@@ -386,6 +386,7 @@ class BasicForm extends ComponentBase  {
 
         return $parentClass::where($recordKeyParam, $recordKeyValue)->first();
     }
+
     private function getRecordFromParent() {
 
         $relationName = $this->properties['getRecordFromParent'] ?? null;
@@ -537,4 +538,5 @@ class BasicForm extends ComponentBase  {
 
         return false;
     }
+
 }

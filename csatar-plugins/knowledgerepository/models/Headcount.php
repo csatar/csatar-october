@@ -54,9 +54,9 @@ class Headcount extends Model
         ]
     ];
 
-
     public function getNameAttribute()
     {
         return $this->description;
     }
+
 }

@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableUpdateCsatarKnowledgerepositorySongs3 extends Migration
 {
+
     public function up()
     {
         Schema::table('csatar_knowledgerepository_songs', function($table)
@@ -21,4 +22,5 @@ class BuilderTableUpdateCsatarKnowledgerepositorySongs3 extends Migration
             $table->dropColumn('association_id');
         });
     }
+
 }

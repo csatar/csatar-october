@@ -33,4 +33,5 @@ trait History
         HistoryService::addHistoryRelationToModel($this);
         HistoryService::bindEventsToModel($this);
     }
+
 }

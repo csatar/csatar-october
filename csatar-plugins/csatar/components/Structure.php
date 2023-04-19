@@ -95,4 +95,5 @@ class Structure extends ComponentBase
     public static function getDistrictScoutsCount($districtId) {
         return StructureTree::getDistrictScoutsCount($districtId);
     }
+
 }

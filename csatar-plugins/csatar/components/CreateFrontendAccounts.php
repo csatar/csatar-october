@@ -100,7 +100,6 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
         ] + Page::sortBy('baseFileName')->lists('baseFileName', 'baseFileName');
     }
 
-
      // Self register with email and ID number
     public function onRegister(){
 
@@ -229,7 +228,6 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
             '#messageList' => $this->renderPartial('@messages',)
         ];
     }
-
 
      // Register the user
     public function register($scout)

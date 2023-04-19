@@ -111,4 +111,5 @@ class AccidentLogRigthsProvider
     public static function inAccidentLogAdminGroup(User $user) {
         return self::isInGroup($user, self::GROUP_CODE_ADMIN);
     }
+
 }

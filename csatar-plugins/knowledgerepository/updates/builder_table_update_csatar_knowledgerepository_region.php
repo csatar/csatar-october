@@ -6,6 +6,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableUpdateCsatarKnowledgerepositoryRegion extends Migration
 {
+
     public function up()
     {
         Schema::table('csatar_knowledgerepository_region', function($table)
@@ -25,4 +26,5 @@ class BuilderTableUpdateCsatarKnowledgerepositoryRegion extends Migration
             $table->dropColumn('deleted_at');
         });
     }
+
 }

@@ -18,4 +18,5 @@ class Gender
             self::OTHER => e(trans('csatar.csatar::lang.plugin.admin.scout.gender.other')),
         ];
     }
+
 }

@@ -61,4 +61,5 @@ class AccidentLogRecordList extends ComponentBase
 
         return Redirect::to('letoltes/csv/' . $fileName);
     }
+
 }
