@@ -57,10 +57,11 @@ class OrganizationSearchProvider extends ResultsProvider
                 $result->relevance = $this->calculateRelevance($childClass, $key);
                 $result->title     = $match->extendedName != '' ?  $match->extendedName : $match->name;
                 $result->url       = $controller->pageUrl($model, [ 'id'=> $match->id ] );
-                if ( $childClass == '\\Csatar\Csatar\Models\Scout' ) {
+                if ($childClass == '\\Csatar\Csatar\Models\Scout') {
                     $result->url  = $controller->pageUrl('tag', [ 'ecset_code'=> $match->ecset_code ] );
                     $result->text = $childClass::getOrganizationTypeModelNameUserFriendly();
                 }
+
                 $result->thumb = $match->image;
 
                 // Add the results to the results collection

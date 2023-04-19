@@ -208,7 +208,6 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
         $scouts = Scout::whereIn('id', $scoutIds)->get();
 
         foreach ($scouts as $scout) {
-
             if (!empty($scout->user_id)) {
                 $this->messages['errors'][$scout->id] =
                     Lang::get('csatar.csatar::lang.plugin.component.createFrontendAccounts.messages.scoutAlreadyHasUserAccount',
@@ -298,7 +297,6 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
 
             $this->messages['success'][$scout->id] = Lang::get('csatar.csatar::lang.plugin.component.createFrontendAccounts.messages.userAccountCreated',
                 ['name' => $scout->getFullName() ]);
-
         } catch (Exception $ex) {
             if (Request::ajax()) throw $ex;
             else Flash::error($ex->getMessage());

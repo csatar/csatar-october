@@ -52,6 +52,7 @@ class Duration extends Model
         if ($this->min == null) {
             $this->min = 0;
         }
+
         if ($this->max == null) {
             $this->max = 0;
         }

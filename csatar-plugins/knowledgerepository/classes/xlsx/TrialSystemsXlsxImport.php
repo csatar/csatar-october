@@ -64,7 +64,7 @@ class TrialSystemsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHe
     {
         $cellsArray = $row->toArray();
 
-        if (!isset($cellsArray['id']) || (!isset($cellsArray['megnevezes']) && !$this->effectiveKnowledgeOnly) ) {
+        if (!isset($cellsArray['id']) || (!isset($cellsArray['megnevezes']) && !$this->effectiveKnowledgeOnly)) {
             return null;
         }
 
@@ -161,6 +161,7 @@ class TrialSystemsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHe
             $modelNameForLangKey = (new \ReflectionClass($modelName))->getShortName();
             $this->errors[$row->getRowIndex()][] = Lang::get('csatar.knowledgerepository::lang.plugin.admin.messages.cannotFind' . $modelNameForLangKey) . implode(', ', $unmatched);
         }
+
         if ($createIfNotFound && !empty($unmatched)) {
             foreach ($unmatched as $unmatchedItem) {
                 $model = new $modelName();
@@ -198,6 +199,7 @@ class TrialSystemsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHe
                 $counter++;
                 continue;
             }
+
             $coordinates = $cell->getCoordinate();
             $cellRaw     = $worksheet->getCell($coordinates);
 

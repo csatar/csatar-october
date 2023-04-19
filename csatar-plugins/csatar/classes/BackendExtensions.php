@@ -40,6 +40,7 @@ class BackendExtensions
                     $errors[]   = Session::pull($sessionKey, 'N/A');
                     continue;
                 }
+
                 if ($record->delete()) {
                     $deletedRecords++;
                     if ($methodToRunAfterDelete !== null) {
@@ -60,7 +61,6 @@ class BackendExtensions
             } else if ($deletedRecords > 0) {
                 Flash::success(Lang::get('backend::lang.list.delete_selected_success'));
             }
-
         } else {
             Flash::error(Lang::get('backend::lang.list.delete_selected_empty'));
         }

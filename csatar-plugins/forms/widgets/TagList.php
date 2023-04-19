@@ -198,8 +198,8 @@ class TagList extends FormWidgetBase
             if (!strlen($option)) {
                 continue;
             }
-            if (
-                ($this->useKey && in_array($key, $selectedValues)) ||
+
+            if (($this->useKey && in_array($key, $selectedValues)) ||
                 (!$this->useKey && in_array($option, $selectedValues))
             ) {
                 $displayOptions[] = $option;

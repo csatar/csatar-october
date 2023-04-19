@@ -141,6 +141,7 @@ class SongsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHeadingRo
         if (empty($searchFor)) {
             return [];
         }
+
         $searchFor = array_map('trim', explode('|', $searchFor));
         $searchFor = array_map('strtolower', $searchFor);
         $ids       = $modelName::whereIn(DB::raw('LOWER(' . $columnName . ')'), $searchFor)->when($secondaryColumnName, function ($query) use ($secondaryColumnName, $secondaryColumnValue) {
@@ -151,6 +152,7 @@ class SongsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHeadingRo
             $modelNameForLangKey = (new \ReflectionClass($modelName))->getShortName();
             $this->errors[$row->getRowIndex()][] = Lang::get('csatar.knowledgerepository::lang.plugin.admin.messages.cannotFind' . $modelNameForLangKey) . implode(', ', $unmatched);
         }
+
         if ($createIfNotFound && !empty($unmatched)) {
             foreach ($unmatched as $unmatchedItem) {
                 $model = new $modelName();
@@ -177,6 +179,7 @@ class SongsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHeadingRo
         if (empty($richTextColumns)) {
             return;
         }
+
         $richTextColumns = array_map('trim', explode(',', $richTextColumns));
         $richTextColumns = array_map('str_slug', $richTextColumns);
         $counter         = 0;
@@ -199,6 +202,7 @@ class SongsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHeadingRo
                 $counter++;
                 continue;
             }
+
             $coordinates = $cell->getCoordinate();
             $cellRaw     = $worksheet->getCell($coordinates);
 

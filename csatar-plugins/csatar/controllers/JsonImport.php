@@ -447,6 +447,7 @@ class JsonImport extends Controller
                 Log::warning("Can not import: $org->model - name: $fields->nev - composed-slug: $fields->composed_slug; 'korzet' is empty");
                 continue;
             }
+
             $district_id = District::where('slug', $fields->korzet)->first()->id ?? null;
 
             if (empty($district_id)) {
@@ -514,6 +515,7 @@ class JsonImport extends Controller
                 Log::warning("Can not import: $org->model - name: $fields->nev - composed-slug: $fields->composed_slug; 'csapat' is empty");
                 continue;
             }
+
             $team_id = Team::where('slug', $fields->csapat)->first()->id ?? null;
 
             if (empty($team_id)) {
@@ -563,6 +565,7 @@ class JsonImport extends Controller
                 Log::warning("Can not import: $org->model - name: $fields->nev - composed-slug: $fields->composed_slug; 'csapat' and 'raj' is empty");
                 continue;
             }
+
             $troop   = Troop::where('slug', $fields->raj)->first() ?? null;
             $team_id = Team::where('slug', $fields->csapat)->first()->id ?? $troop->team_id;
             if (empty($team_id) && empty($troop->id)) {
@@ -600,7 +603,6 @@ class JsonImport extends Controller
                 } else {
                     Log::warning("Can't attach file $url.");
                 }
-
             }
 
             $patrol->ignoreValidation = true;
@@ -638,13 +640,13 @@ class JsonImport extends Controller
         $this->prepareScoutRelatedMappings();
 
         foreach ($scoutsData as $scout) {
-
             $fields = $scout->fields; //dd($fields);
 
             if (empty($fields->csapat)) {
                 Log::warning("Can not import scout: $fields->ecsk name: $fields->nev $fields->keresztnev; 'csapat' is empty");
                 continue;
             }
+
             $team_id = Team::where('slug', $fields->csapat)->first()->id ?? null;
 
             if (empty($team_id)) {
@@ -1041,6 +1043,7 @@ class JsonImport extends Controller
                 if (!empty($data->tovabbi_adatok->kepzes) && strpos($data->tovabbi_adatok->kepzes, 'FŐVK') !== false) {
                     $kepesites = 'fovk-' . $kepesites;
                 }
+
                 $relationName  = $typeMap[$kepesites][0];
                 $relationModel = $typeMap[$kepesites][1][$kepesites];
                 $pivotArray    = [
@@ -1048,7 +1051,6 @@ class JsonImport extends Controller
                     'location' => $data->tovabbi_adatok->helyszin ?? null,
                 ];
                 if (array_key_exists($kepesites, $trainingQualificationsMap) || array_key_exists($kepesites, $leadershipQualificationsMap)) {
-
                     if (empty($data->tovabbi_adatok->betetlap)
                         || empty($data->tovabbi_adatok->kv)
                         || empty($data->tovabbi_adatok->kepzes)
@@ -1181,6 +1183,7 @@ class JsonImport extends Controller
         foreach ($files as $file) {
             $fileArray[$this->stripFileExtension($file)] = $dir . '/' . $file;
         }
+
         return $fileArray;
     }
 }

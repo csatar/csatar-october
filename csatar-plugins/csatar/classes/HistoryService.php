@@ -63,6 +63,7 @@ class HistoryService
         if (empty($extraEventListeners)) {
             return;
         }
+
         foreach ($extraEventListeners as $event => $historyServiceMethod) {
             if (!method_exists(HistoryService::class, $historyServiceMethod)) {
                 continue;
@@ -214,8 +215,7 @@ class HistoryService
         $toSave = [];
         $dirty  = $model->getDirty();
         foreach ($dirty as $attribute => $value) {
-            if (
-                (is_array($model->exlcudedFromHistory) && in_array($attribute, $model->exlcudedFromHistory))
+            if ((is_array($model->exlcudedFromHistory) && in_array($attribute, $model->exlcudedFromHistory))
                 ||
                 (is_array(HistoryService::PERMANENTLY_EXCLUDED_FIELDS) && in_array($attribute, HistoryService::PERMANENTLY_EXCLUDED_FIELDS))
                 ||
@@ -263,8 +263,7 @@ class HistoryService
             class_uses_recursive(get_class($model))
         );
 
-        if (
-            is_array($model->exlcudedFromHistory) && in_array('deleted_at', $model->exlcudedFromHistory)
+        if (is_array($model->exlcudedFromHistory) && in_array('deleted_at', $model->exlcudedFromHistory)
             ||
             (is_array(HistoryService::PERMANENTLY_EXCLUDED_FIELDS) && in_array('deleted_at', HistoryService::PERMANENTLY_EXCLUDED_FIELDS))
         ) {
@@ -382,6 +381,7 @@ class HistoryService
         if (!empty($parsedIds) || !is_array($parsedIds)) {
             return;
         }
+
         foreach ($parsedIds as $id) {
             $toSave[] = [
                 'fe_user_id' => self::historyGetUser(),

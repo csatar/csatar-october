@@ -66,13 +66,11 @@ class Breadcrumb extends ComponentBase
                 $this->getRecordUrl($currentRecord, $currentRecordName, true);
                 $this->getAncestorsTree($currentRecord);
             }
-
         } elseif ($isTeamReportPage) {
             $teamReport    = $this->controller->vars['teamReports'];
             $currentRecord = $teamReport->team;
 
             if (!empty($currentRecord)) {
-
                 $this->urlList[] = [
                     'linkTitle' => e(trans('csatar.csatar::lang.plugin.component.teamReports.name')),
                     'url'       => '',
@@ -82,16 +80,13 @@ class Breadcrumb extends ComponentBase
                 $this->getRecordUrl($currentRecord, $currentRecordName);
                 $this->getAncestorsTree($currentRecord);
             }
-
         } else {
-
             $this->urlList[] = [
                 'linkTitle' => $this->page->title ?? '',
                 'url'       => '',
             ];
 
             if (isset(Auth::user()->scout)) {
-
                 $currentRecord = Auth::user()->scout->team;
 
                 if (!empty($currentRecord)) {
@@ -136,6 +131,7 @@ class Breadcrumb extends ComponentBase
                 }
             }
         }
+
         $parent = $currentRecord->{$parentRelationName};
         if (!empty($parent) && $parent instanceof PermissionBasedAccess) {
             $this->getRecordUrl($parent, $possibleParentModel);

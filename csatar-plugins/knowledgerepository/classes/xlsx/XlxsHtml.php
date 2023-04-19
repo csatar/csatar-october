@@ -30,7 +30,6 @@ class XlxsHtml extends Html
             $cellData = (string) preg_replace('/(?m)(?:^|\\G) /', '&nbsp;', $cellData);
 
             $cellData = nl2br($cellData);
-
         } else {
             if (is_string($cssClass)) {
                 $cssClass .= ' style0';
@@ -57,6 +56,7 @@ class XlxsHtml extends Html
             if ($cellData === $origData) {
                 $cellData = htmlspecialchars($cellData, Settings::htmlEntityFlags());
             }
+
             if ($worksheet->getParentOrThrow()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSuperscript()) {
                 $cellData = '<sup>' . $cellData . '</sup>';
             } elseif ($worksheet->getParentOrThrow()->getCellXfByIndex($cell->getXfIndex())->getFont()->getSubscript()) {
@@ -106,6 +106,7 @@ class XlxsHtml extends Html
         foreach ($values as $property => $value) {
             $pairs[] = $property . ':' . $value;
         }
+
         $string = implode('; ', $pairs);
 
         return $string;
@@ -118,6 +119,7 @@ class XlxsHtml extends Html
         if ($font->getBold()) {
             $css['font-weight'] = 'bold';
         }
+
         if ($font->getUnderline() != Font::UNDERLINE_NONE && $font->getStrikethrough()) {
             $css['text-decoration'] = 'underline line-through';
         } elseif ($font->getUnderline() != Font::UNDERLINE_NONE) {
@@ -125,6 +127,7 @@ class XlxsHtml extends Html
         } elseif ($font->getStrikethrough()) {
             $css['text-decoration'] = 'line-through';
         }
+
         if ($font->getItalic()) {
             $css['font-style'] = 'italic';
         }

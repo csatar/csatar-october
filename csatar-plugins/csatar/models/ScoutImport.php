@@ -115,6 +115,7 @@ class ScoutImport extends \Backend\Models\ImportModel
                         $data['address_street'] = trim(substr($data['address_street'], 0, $streetLastSpaceCharacter));
                     }
                 }
+
                 if (!isset($data['address_number'])) {
                     $data['address_number']        = $this::DEFAULT;
                     $data['legal_relationship_id'] = $legalRelationshipInvalidDataId;
@@ -140,6 +141,7 @@ class ScoutImport extends \Backend\Models\ImportModel
                                     $data[$column] = $this::DEFAULT;
                                     break;
                             }
+
                             $data['legal_relationship_id'] = $legalRelationshipInvalidDataId;
                             $data['is_active'] = 0;
                         }
@@ -156,6 +158,7 @@ class ScoutImport extends \Backend\Models\ImportModel
                     $scout->ignoreValidation = true;
                     unset($data['is_active']);
                 }
+
                 $scout->fill($data);
 
                 // generate an empty registration form
@@ -200,6 +203,7 @@ class ScoutImport extends \Backend\Models\ImportModel
                 $comment = $comment . (!empty($comment) ? ', ' : '') . $dataItemString;
             }
         }
+
         if (!empty($comment)) {
             $data = ($modelName)::where('name', $this::STR_OTHER)->first();
             if ($scout->{$attributeName}->isEmpty() || $scout->{$attributeName}->where('id', $data->id)->first() == null) {
@@ -219,11 +223,13 @@ class ScoutImport extends \Backend\Models\ImportModel
         if (!file_exists($dir)) {     
             Zip::extract($file->getLocalPath(), $dir);
         }
+
         $files     = array_diff(scandir($dir), array('.', '..'));
         $fileArray = [];
         foreach ($files as $file) {
             $fileArray[$this->stripFileExtension($file)] = $dir . '/' . $file;
         }
+
         return $fileArray;
     }
 
@@ -248,13 +254,16 @@ class ScoutImport extends \Backend\Models\ImportModel
         if (!$file) {
             return null;
         }
+
         if (str_ends_with($file->file_name, '.csv')) {
             return $file->getLocalPath();
         }
+
         if (str_ends_with($file->file_name, '.zip')) {
             $files = $this->unzip($file);
             return isset($files) && count($files) > 0 ? array_values($files)[0] : null;
         }
+
         return null;
     }
 
@@ -272,6 +281,7 @@ class ScoutImport extends \Backend\Models\ImportModel
         if (str_ends_with($file->file_name, '.csv')) {
             $files[$this->stripFileExtension($file->file_name)] = $file->getLocalPath();
         }
+
         if (str_ends_with($file->file_name, '.zip')) {
             $files = $this->unzip($file);
         }

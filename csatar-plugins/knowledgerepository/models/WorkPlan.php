@@ -105,6 +105,7 @@ class WorkPlan extends PermissionBasedAccess
         foreach ($mandates as $mandate) {
             $deputyTeamLeaders[] = $mandate->scout->full_name;
         }
+
         return implode(', ', $deputyTeamLeaders);
     }
 

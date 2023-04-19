@@ -89,6 +89,7 @@ class PermissionsMatrix extends Controller
         if (Input::get($key) == Input::get('initialValue')) {
             unset($sessionValues[$key]);
         }
+
         Session::put('permissionValueChanges', $sessionValues);
 
     }
@@ -107,7 +108,7 @@ class PermissionsMatrix extends Controller
             return;
         }
 
-        foreach ($sessionValuesGroupedByAction as $action => $actionGroup ) {
+        foreach ($sessionValuesGroupedByAction as $action => $actionGroup) {
             $groupedByValue = $actionGroup->groupBy('value');
             foreach ($groupedByValue as $value => $valueGroup) {
                 $permissionsIdsToUpdate     = $valueGroup->pluck('id');
@@ -116,6 +117,7 @@ class PermissionsMatrix extends Controller
                 if ($numberOfUpdatedPermissions == $valueGroup->count()) {
                     (new MandatePermission())->historyRecordBulkAction($valueGroup->toArray());
                 }
+
                 if ($numberOfUpdatedPermissions < $valueGroup->count()) {
                     $warning = Lang::get('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.notAllPermissionChanged',
                         [
@@ -130,8 +132,8 @@ class PermissionsMatrix extends Controller
                     \Flash::warning($warning);
                 }
             }
-
         }
+
         Session::forget('permissionValueChanges');
     }
 
@@ -180,11 +182,11 @@ class PermissionsMatrix extends Controller
                     $mandatePermission->save();
                 }
             }
+
             \Flash::success(e(trans('csatar.csatar::lang.plugin.admin.admin.permissionsMatrix.copySuccess')));
             if (Input::get('close')) {
                 return \Backend::redirect('csatar/csatar/permissionsmatrix');
             }
-
         }
 
         if ($formData['action'] === 'delete') {
@@ -223,6 +225,7 @@ class PermissionsMatrix extends Controller
                                 return !isset($value['ignoreInPermissionsMatrix']) || $value['ignoreInPermissionsMatrix'] === false;
                             });
                         }
+
                         $fields = array_merge($fields, array_keys($relationArray));
                     }
 
@@ -233,7 +236,6 @@ class PermissionsMatrix extends Controller
                     $tempMandatePermissionsMap[] = [ 'mandate_type_id' => $mandateType->id, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 0];
 
                     if ($mandateType->organization_type_model_name == MandateType::MODEL_NAME_SCOUT && $permissionBasedModel == MandateType::MODEL_NAME_SCOUT) {
-
                         //add permission for the model in general for own
                         $tempMandatePermissionsMap[] = [ 'mandate_type_id' => $mandateType->id, 'model' => $permissionBasedModel, 'field' => 'MODEL_GENERAL', 'own' => 1];
                     }
@@ -274,7 +276,6 @@ class PermissionsMatrix extends Controller
             });
 
             Flash::success(e(trans('csatar.csatar::lang.plugin.admin.admin.seederData.synchronizeComplete')));
-
         } catch (Exception $exception) {
             Flash::error($exception->getMessage());
         }

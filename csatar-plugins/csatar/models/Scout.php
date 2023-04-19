@@ -341,6 +341,7 @@ class Scout extends OrganizationBase
         if ($this->skipCacheRefresh) {
             return;
         }
+
         if (!empty($this->team_id)) {
             StructureTree::updateTeamTree($this->team_id);
         }
@@ -352,7 +353,7 @@ class Scout extends OrganizationBase
             StructureTree::updateTeamTree($this->team_id);
         }
 
-        if (empty($this->original) ) {
+        if (empty($this->original)) {
             return;
         }
 
@@ -360,8 +361,7 @@ class Scout extends OrganizationBase
             StructureTree::updateTeamTree($this->team_id);
         }
 
-        if (
-            ($this->getOriginalValue('team_id') != $this->team_id)
+        if (($this->getOriginalValue('team_id') != $this->team_id)
             || ($this->getOriginalValue('troop_id') != $this->troop_id)
             || ($this->getOriginalValue('patrol_id') != $this->patrol_id)
         ) {
@@ -371,8 +371,7 @@ class Scout extends OrganizationBase
             }
         }
 
-        if (
-            ($this->getOriginalValue('family_name') != $this->family_name)
+        if (($this->getOriginalValue('family_name') != $this->family_name)
             || ($this->getOriginalValue('given_name') != $this->given_name)
             || ($this->getOriginalValue('ecset_code') != $this->ecset_code)
             || ($this->getOriginalValue('legal_relationship_id') != $this->legal_relationship_id)
@@ -401,6 +400,7 @@ class Scout extends OrganizationBase
                 $teamsActive[$this->team->id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['legal_relationship_name'] = $this->legal_relationship_name;
                 $teamsActive[$this->team->id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['legal_relationship']      = $this->legal_relationship ? $this->legal_relationship->toArray() : null;
             }
+
             if (isset($this->troop_id)) {
                 $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['scoutsActive'][$this->id]['family_name'] = $this->family_name;
                 $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['scoutsActive'][$this->id]['given_name']  = $this->given_name;
@@ -410,6 +410,7 @@ class Scout extends OrganizationBase
                 $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['scoutsActive'][$this->id]['legal_relationship_name'] = $this->legal_relationship_name;
                 $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['scoutsActive'][$this->id]['legal_relationship']      = $this->legal_relationship ? $this->legal_relationship->toArray() : null;
             }
+
             if (isset($this->troop_id) && isset($this->patrol_id)) {
                 $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['family_name'] = $this->family_name;
                 $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['given_name']  = $this->given_name;
@@ -419,6 +420,7 @@ class Scout extends OrganizationBase
                 $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['legal_relationship_name'] = $this->legal_relationship_name;
                 $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['legal_relationship']      = $this->legal_relationship ? $this->legal_relationship->toArray() : null;
             }
+
             $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'] = $teamsActive;
             Cache::forever('structureTree', $structureTree);
         }
@@ -669,6 +671,7 @@ class Scout extends OrganizationBase
                 'allergies', 'chronic_illnesses', 'food_sensitivities', 'promises', 'tests', 'special_tests', 'professional_qualifications', 'special_qualifications', 'leadership_qualifications', 'training_qualifications', 'team', 'team.district', 'team.district.association', 'troop', 'patrol'
             ]);
         }
+
         return $eagerLoadSettings;
     }
 
@@ -678,6 +681,7 @@ class Scout extends OrganizationBase
         foreach ($teams as $team) {
             $teamOptions[$team->id] = $team->extended_name_with_association;
         }
+
         return $teamOptions;
     }
 
@@ -688,6 +692,7 @@ class Scout extends OrganizationBase
             $countryOptions[$country->id] = $country->getAttributeTranslated('name', 'hu');
             // this is a hardcoded language setting, will should be solved with task CS-521
         }
+
         return $countryOptions;
     }
 
@@ -717,6 +722,7 @@ class Scout extends OrganizationBase
                 $this->patrol_id = $patrol->id == $this->patrol_id ? null : $this->patrol_id;
             }
         }
+
         $this->nameday   = $this->nameday != '' ? $this->nameday : null;
         $this->troop_id  = $this->troop_id != 0 ? $this->troop_id : null;
         $this->patrol_id = $this->patrol_id != 0 ? $this->patrol_id : null;
@@ -800,9 +806,11 @@ class Scout extends OrganizationBase
                 if (!isset($field->pivot->date)) {
                     throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.dateRequiredError'))]);
                 }
+
                 if (!isset($field->pivot->location) || $field->pivot->location == '') {
                     throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.locationRequiredError'))]);
                 }
+
                 if (new \DateTime($field->pivot->date) > new \DateTime()) {
                     throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.dateInTheFutureError'))]);
                 }
@@ -818,9 +826,11 @@ class Scout extends OrganizationBase
                 if (!isset($field->pivot->qualification_certificate_number) || $field->pivot->qualification_certificate_number == '') {
                     throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.qualificationCertificateNumberRequiredError'))]);
                 }
+
                 if (!isset($field->pivot->training_id) || $field->pivot->training_id == '') {
                     throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.qualificationRequiredError'))]);
                 }
+
                 if (!isset($field->pivot->qualification_leader) || $field->pivot->qualification_leader == '') {
                     throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.qualificationLeaderRequiredError'))]);
                 }
@@ -880,6 +890,7 @@ class Scout extends OrganizationBase
         if (empty($this->legal_relationship_id)) {
             return '';
         }
+
         return $this->legal_relationship->name;
     }
 
@@ -888,6 +899,7 @@ class Scout extends OrganizationBase
         if (empty($this->legal_relationship_id)) {
             return '';
         }
+
         return $this->legal_relationship->name;
     }
 
@@ -1274,10 +1286,12 @@ class Scout extends OrganizationBase
         if ($this->address_zipcode != null) {
             $array = Locations::where('country', '=', $this->address_country)->where('code', '=', $this->address_zipcode)->lists('county', 'county');
         }
+
         if (empty($array)) {
             if ($savedCounty != null) {
                 $array[$savedCounty] = $savedCounty;
             }
+
             if ($this->address_county != $savedCounty) {
                 $array[$this->address_county] = $this->address_county;
             }
@@ -1296,10 +1310,12 @@ class Scout extends OrganizationBase
         if ($this->address_zipcode != null) {
             $array = Locations::where('country', '=', $this->address_country)->where('code', '=', $this->address_zipcode)->lists('city', 'city');
         }
+
         if (empty($array)) {
             if ($savedLocation != null) {
                 $array[$savedLocation] = $savedLocation;
             }
+
             if ($this->address_location != $savedLocation) {
                 $array[$this->address_location] = $this->address_location;
             }
@@ -1324,10 +1340,12 @@ class Scout extends OrganizationBase
                 }
             }
         }
+
         if (empty($array)) {
             if ($savedStreet != null) {
                 $array[$savedStreet] = $savedStreet;
             }
+
             if ($this->address_street != $savedStreet) {
                 $array[$this->address_street] = $this->address_street;
             }
@@ -1383,6 +1401,7 @@ class Scout extends OrganizationBase
             if (empty($oldTeam) || empty($newTeam)) {
                 continue;
             }
+
             $oldTeam        = "<a href='/csapat/$oldTeam->id'>$oldTeam->name</a>";
             $newTeam        = "<a href='/csapat/$newTeam->id'>$newTeam->name</a>";
             $historyArray[] = Lang::get('csatar.csatar::lang.plugin.admin.scout.teamChangeHistoryMessage', ['date' => $date, 'oldTeam' => $oldTeam, 'newTeam' => $newTeam]);

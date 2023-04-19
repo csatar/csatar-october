@@ -847,21 +847,26 @@ class SeederData extends Seeder
                 default:
                     break;
             }
+
             $association->save();
 
             // associations - legal relationships pivot
             if ($association->legal_relationships->where('id', $legalRelationship1->id)->first() == null) {
                 $association->legal_relationships()->attach($legalRelationship1, ['membership_fee' => 0]);
             }
+
             if ($association->legal_relationships->where('id', $legalRelationship2->id)->first() == null) {
                 $association->legal_relationships()->attach($legalRelationship2, ['membership_fee' => 0]);
             }
+
             if ($association->legal_relationships->where('id', $legalRelationship3->id)->first() == null) {
                 $association->legal_relationships()->attach($legalRelationship3, ['membership_fee' => 0]);
             }
+
             if ($association->legal_relationships->where('id', $legalRelationship4->id)->first() == null) {
                 $association->legal_relationships()->attach($legalRelationship4, ['membership_fee' => 0]);
             }
+
             $association->save();
 
             // mandate types
@@ -876,8 +881,10 @@ class SeederData extends Seeder
                                 break;
                             }
                         }
+
                         unset($mandateType['parent']);
                     }
+
                     $newMandateType           = MandateType::firstOrCreate([
                         'name' => $mandateType['name'],
                         'association_id' => $mandateType['association_id'],
@@ -942,6 +949,7 @@ class SeederData extends Seeder
             $form->slugAttributes();
             $form->save();
         }
+
         foreach ($this::DATA['form'] as $form) {
             $item = Form::firstOrCreate($form);
         }
@@ -981,6 +989,7 @@ class SeederData extends Seeder
                 $contactSettings->{$contact_key} = $contact_value;
             }
         }
+
         $contactSettings->save();
 
         // seed site search plugin settings

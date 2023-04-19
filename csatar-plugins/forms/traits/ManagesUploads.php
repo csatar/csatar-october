@@ -29,6 +29,7 @@ function file_upload_max_size() {
             $max_size = $upload_max;
         }
     }
+
     return $max_size;
 }
 
@@ -151,7 +152,7 @@ trait ManagesUploads {
             $uploadedFile = Input::file('file_data');
             $isNew        = Input::get('recordKeyValue') == 'new' ? true : false;
 
-            if ( ! Input::hasFile('file_data')) {
+            if (! Input::hasFile('file_data')) {
                 $max_upload = human_filesize(file_upload_max_size(), 1);
                 throw new \Exception(Lang::get('csatar.forms::lang.widgets.frontendFileUploadException.fileExceedsUploadLimit') . $max_upload);
             }
@@ -247,7 +248,7 @@ trait ManagesUploads {
                 ->orderBy('id', 'desc')
                 ->get();
 
-        if ( ! $this->fileList) {
+        if (! $this->fileList) {
             $this->fileList = new Collection;
         }
 
@@ -287,7 +288,7 @@ trait ManagesUploads {
 
     public function isPopulated()
     {
-        if ( ! $this->getFileList()) {
+        if (! $this->getFileList()) {
             return false;
         }
 

@@ -88,12 +88,15 @@ class TeamReport extends ComponentBase
             if (isset(Auth::user()->scout)) {
                 $this->permissions = Auth::user()->scout->getRightsForModel($this->teamReport);
             }
+
             if (!isset($this->teamReport)) {
                 return Redirect::to('404')->with('message', \Lang::get('csatar.csatar::lang.plugin.component.teamReport.validationExceptions.teamReportCannotBeFound'));
             }
+
             if ($this->action == 'modositas' and isset($this->teamReport->submitted_at)) {
                 return Redirect::to('/csapatjelentes/' . $this->id);
             }
+
             $this->teamId      = $this->teamReport->team_id;
             $this->teamFee     = $this->teamReport->team_fee;
             $this->totalAmount = $this->teamReport->total_amount;
@@ -102,6 +105,7 @@ class TeamReport extends ComponentBase
             if (!isset($this->team)) {
                 return Redirect::to('404')->with('message', \Lang::get('csatar.csatar::lang.plugin.component.teamReport.validationExceptions.teamCannotBeFound'));
             }
+
             $this->currency = $this->team->district->association->currency->code;
 
             // retrieve the scouts and calculate fees
@@ -154,15 +158,18 @@ class TeamReport extends ComponentBase
         if (isset(Auth::user()->scout)) {
             $this->permissions = Auth::user()->scout->getRightsForModel($this->teamReport, true);
         }
+
         if ($this->permissions['approved_at']['update'] < 1) {
             \Flash::error(e(trans('csatar.csatar::lang.plugin.admin.teamReport.validationExceptions.noPermissionToApprove')));
             return;
         }
+
         $this->teamReport->approved_at = (new \DateTime())->format('Y-m-d');
         $this->teamReport->save();
         if (Input::get('redirectFromWaitingForApproval') == 'true') {
             return Redirect::to('/csapatjelentesek/elfogadasravaro');
         }
+
         return Redirect::to('/csapatjelentes/' . $this->id);
     }
 

@@ -15,6 +15,7 @@ class UserRigthsProvider
             if (!empty(Auth::user()->scout) && $record instanceof PermissionBasedAccess) {
                 return Auth::user()->scout->getRightsForModel($record, $ignoreCache);
             }
+
             if (AccidentLogRigthsProvider::isAccidentLogUser(Auth::user())) {
                 return AccidentLogRigthsProvider::getAccidentLogRights(Auth::user(), $record) ?? $record->getGuestRightsForModel();
             }

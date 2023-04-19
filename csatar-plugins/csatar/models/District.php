@@ -182,6 +182,7 @@ class District extends OrganizationBase
                 StructureTree::getStructureTree();
                 return;
             }
+
             $structureTree[$this->association_id]['districtsActive'][$this->id]['id']            = $this->id;
             $structureTree[$this->association_id]['districtsActive'][$this->id]['name']          = $this->name;
             $structureTree[$this->association_id]['districtsActive'][$this->id]['extended_name'] = $this->extended_name;
@@ -211,6 +212,7 @@ class District extends OrganizationBase
                 StructureTree::getStructureTree();
                 return;
             }
+
             $structureTree[$this->association_id]['districtsActive'][$this->id]['name']          = $this->name;
             $structureTree[$this->association_id]['districtsActive'][$this->id]['extended_name'] = $this->extended_name;
             Cache::forever('structureTree', $structureTree);

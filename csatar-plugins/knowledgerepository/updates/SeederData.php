@@ -849,6 +849,7 @@ class SeederData extends Seeder
             $form = Form::firstOrNew($formData);
             $form->save();
         }
+
         // Methodology Types
 
         foreach ($this::DATA['methodologyTypes'] as $methodologyTypeData) {

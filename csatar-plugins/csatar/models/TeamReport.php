@@ -155,6 +155,7 @@ class TeamReport extends PermissionBasedAccess
         if ($this->skipAfterSave || $this->submitted_at || $this->approved_at || (!$this->updateScoutsList && !$this->wasRecentlyCreated)) {
             return;
         }
+
         // save the scouts (the pivot data can be saved only after the team report has been created)
         $scouts       = Scout::where('team_id', $this->team_id)->whereNull('inactivated_at')->get();
         $scoutsToSync = [];
@@ -220,6 +221,7 @@ class TeamReport extends PermissionBasedAccess
         if (!empty($this->team_id)) {
             $attachedIds = $this->ageGroups->pluck('id');
         }
+
         $team = Team::find($team_id);
         if (!empty($team_id)) {
             $ageGroups = AgeGroup::select(
@@ -231,6 +233,7 @@ class TeamReport extends PermissionBasedAccess
             ;
             return $ageGroups;
         }
+
         return [];
     }
 
@@ -262,6 +265,7 @@ class TeamReport extends PermissionBasedAccess
                 ];
             }
         }
+
         return $scoutsWithoutRegistrationForm ?? [];
     }
 }
