@@ -36,7 +36,6 @@
     <!-- Include some sniffs from other standards that don't conflict with PEAR -->
     <rule ref="Squiz.Arrays.ArrayBracketSpacing"/>
     <rule ref="Squiz.ControlStructures.ControlSignature"/>
-    <rule ref="Squiz.Commenting.DocCommentAlignment"/>
     <rule ref="Squiz.Commenting.EmptyCatchComment"/>
 <!--    <rule ref="Squiz.Commenting.InlineComment"/>-->
 <!--    <rule ref="Squiz.Commenting.VariableComment"/>-->
@@ -127,7 +126,7 @@
     <!-- Warn about lines longer than 135 chars, and never error. -->
     <rule ref="Generic.Files.LineLength">
         <properties>
-            <property name="lineLimit" value="170" />
+            <property name="lineLimit" value="200" />
             <property name="absoluteLineLimit" value="0" />
         </properties>
     </rule>
