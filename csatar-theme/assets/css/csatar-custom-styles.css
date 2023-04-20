@@ -2128,3 +2128,16 @@ ul.pagination > li {
     background-color: #78863F !important;
     border-color: #78863F !important;
 }
+
+mark, .mark {
+    padding: 0.2em 0em;
+    background-color: #fcf8e3;
+}
+
+.ss-show-all-results {
+    position: absolute;
+    bottom: 0;
+    width: 95%;
+    background-color: #FFFFFF;
+
+}

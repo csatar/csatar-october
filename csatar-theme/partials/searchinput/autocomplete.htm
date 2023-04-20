@@ -6,12 +6,11 @@
         {% endfor %}
 
         {% if __SELF__.searchPage %}
-        <hr>
-            <p class="ss-show-all-results">
+            <div class="ss-show-all-results mb-1 pt-2">
                 <a href="{{ __SELF__.searchPage | page }}?q={{ query | url_encode(true) }}">
-                    {{ 'Minden találat'|_ }} &raquo;
+                    {{ 'Minden találat'|_ }}lllllll &raquo;
                 </a>
-            </p>
+            </div>
         {% endif %}
     {% else %}
         {# No results found #}

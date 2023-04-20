@@ -296,8 +296,12 @@ class District extends OrganizationBase
         return StructureTree::getDistrictScoutsCount($this->id);
     }
 
+    public function getTextForSearchResultsTreeAttribute() {
+        return $this->name;
+    }
+
     public function getParentTree() {
-        return '(' . $this->association->name_abbreviation . ')';
+        return '(' . $this->association->text_for_search_results_tree . ')';
     }
 
 }

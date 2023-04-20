@@ -341,11 +341,15 @@ class Troop extends OrganizationBase
         return StructureTree::getTroopScoutsCount($this->id);
     }
 
+    public function getTextForSearchResultsTreeAttribute() {
+        return $this->name;
+    }
+
     public function getParentTree() {
         $tree = [
-            $this->team->district->association->name_abbreviation,
-            $this->team->district->extended_name,
-            $this->team->extended_name,
+            $this->team->district->association->text_for_search_results_tree,
+            $this->team->district->text_for_search_results_tree,
+            $this->team->text_for_search_results_tree,
         ];
 
         return '(' . implode(' - ', $tree) . ')';

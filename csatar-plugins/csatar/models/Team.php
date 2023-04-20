@@ -478,10 +478,14 @@ class Team extends OrganizationBase
         return StructureTree::getTeamScoutsCount($this->id);
     }
 
+    public function getTextForSearchResultsTreeAttribute() {
+        return $this->team_number;
+    }
+
     public function getParentTree() {
         $tree = [
-            $this->district->association->name_abbreviation,
-            $this->district->extended_name,
+            $this->district->association->text_for_search_results_tree,
+            $this->district->text_for_search_results_tree,
         ];
 
         return '(' . implode(' - ', $tree) . ')';
