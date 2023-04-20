@@ -58,7 +58,7 @@ class Songs extends Controller
         $uploaderCsatarCode    = Input::get('uploader_csatar_code');
         $approverCsatarCode    = Input::get('approver_csatar_code');
         $owerwriteExistingData = Input::get('overwrite_existing_data');
-        $richTextColumns       = Input::get('rich_text_columns');
+        $richTextColumns       = 'Szöveg';
 
         $xlsxFile = Input::file('xlsx_file');
 
