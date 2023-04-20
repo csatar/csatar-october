@@ -36,6 +36,10 @@ fields:
         span: auto
         type: relation
         nameFrom: name
+        formBuilder:
+            type: field
+            card: patrolData
+            position: details
     email:
         label: 'csatar.csatar::lang.plugin.admin.general.email'
         span: auto
@@ -69,6 +73,7 @@ fields:
         dependsOn: team
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
+        nameFrom: name
         type: dropdown
         formBuilder:
             type: field

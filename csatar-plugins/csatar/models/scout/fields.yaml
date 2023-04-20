@@ -18,6 +18,7 @@ fields:
         type: section
     team:
         label: 'csatar.csatar::lang.plugin.admin.scout.team'
+        nameFrom: extendedNameWithAssociation
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
         required: 1
@@ -30,6 +31,7 @@ fields:
             readOnlyIfPreselected: true
     troop:
         label: 'csatar.csatar::lang.plugin.admin.scout.troop'
+        nameFrom: extendedName
         dependsOn: team
         span: auto
         type: dropdown
@@ -40,6 +42,7 @@ fields:
             order: 2
     patrol:
         label: 'csatar.csatar::lang.plugin.admin.scout.patrol'
+        nameFrom: extendedName
         dependsOn:
             - team
             - troop
@@ -124,6 +127,7 @@ fields:
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         span: auto
         type: dropdown
+        nameFrom: name
         required: 1
         formBuilder:
             type: field
