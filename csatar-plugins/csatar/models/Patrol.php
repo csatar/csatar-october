@@ -9,6 +9,7 @@ use Lang;
 use DB;
 use Csatar\Csatar\Models\AgeGroup;
 use Csatar\Csatar\Models\OrganizationBase;
+use Csatar\Csatar\Models\Troop;
 
 /**
  * Model
@@ -57,12 +58,25 @@ class Patrol extends OrganizationBase
         }
 
         // if the selected troop does not belong to the selected team, then throw and exception
-        if ($this->troop_id && $this->troop->team->id != $this->team_id) {
-            throw new \ValidationException(['troop' => Lang::get('csatar.csatar::lang.plugin.admin.patrol.troopNotInTheTeamError')]);
+        if ($this->troop_id) {
+            $this->validateTroopId($this->troop_id);
         }
 
         // check that the required mandates are set for now
         $this->validateRequiredMandates($this->attributes);
+    }
+
+    public function validateTroopId($id)
+    {
+        $troop = Troop::find($id);
+
+        if (empty($troop)) {
+            throw new \ValidationException(['troop' => Lang::get('csatar.csatar::lang.plugin.admin.troop.canNotFindTroopError', ['troopId' => $id])]);
+        }
+
+        if ($troop->team_id != $this->team_id) {
+            throw new \ValidationException(['troop' => Lang::get('csatar.csatar::lang.plugin.admin.patrol.troopNotInTheTeamError')]);
+        }
     }
 
     /**
@@ -74,6 +88,7 @@ class Patrol extends OrganizationBase
             $fields->troop->options = [];
             $team_id = $this->team_id;
             if ($team_id) {
+                $fields->troop->options += ['null' => e(trans('csatar.csatar::lang.plugin.admin.general.select'))];
                 foreach (\Csatar\Csatar\Models\Troop::teamId($team_id)->get() as $troop) {
                     $fields->troop->options += [$troop['id'] => $troop['extendedName']];
                 }
