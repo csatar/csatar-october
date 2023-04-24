@@ -1371,8 +1371,8 @@ class Scout extends OrganizationBase
     }
 
     public function deletePersonalInformation() {
-        $this->family_name = null;
-        $this->given_name  = null;
+        $this->family_name = '(Törölt';
+        $this->given_name  = 'Tag)';
         $this->email       = null;
         $this->phone       = null;
 

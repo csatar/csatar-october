@@ -134,7 +134,7 @@ trait AjaxControllerSimple {
             $html .= $this->renderValidationTags($record);
         }
 
-        $html .= $this->renderBelongsToManyWithPivotDataAndHasManyRelations($record, !$preview);
+        $html .= $this->renderPivotSection($record, !$preview);
 
         $variablesToPass = [
             'form' => $html,
@@ -521,9 +521,9 @@ trait AjaxControllerSimple {
 
         $model = $edit ? $relatedModelName::find($relationId) : $this->getPivotModelIfSet($relationName);
 
-        if (isset(Input::get($relationName)['pivot']) && $edit) {
+        if (isset(Input::get($relationName)['pivot'])) {
             $pivotData = Input::get($relationName)['pivot'];
-            $rules     = $record->{$relationName}->find($relationId)->pivot->rules ?? [];
+            $rules     = $record->{$relationName}->find($relationId)->pivot->rules ?? $model->rules ?? [];
         } else {
             $pivotData = Input::get($relationName);
             $rules     = !empty($model->rules) ? $model->rules : [];
@@ -593,6 +593,8 @@ trait AjaxControllerSimple {
                 $model = $model::create(isset($model->attributes) ? array_merge($model->attributes, $pivotData) : $pivotData);
             }
         }
+
+        $record->refresh();
 
         return [
             '#pivotSection' =>
@@ -1038,8 +1040,17 @@ trait AjaxControllerSimple {
         return $this->makeConfig($config);
     }
 
-    public function renderBelongsToManyWithPivotDataAndHasManyRelations($record, $showEmpty = true){
+    public function renderPivotSection($record, $showEmpty = true) {
         $html = '<div class="row" id="pivotSection">';
+        $html .= $this->renderBelongsToManyWithPivotDataAndHasManyRelations($record, $showEmpty);
+        $html .= '</div>';
+
+        return $html;
+    }
+
+    public function renderBelongsToManyWithPivotDataAndHasManyRelations($record, $showEmpty = true){
+
+        $html = '';
 
         // render belongsToMany relations
         foreach ($record->belongsToMany as $relationName => $definition) {
@@ -1071,8 +1082,6 @@ trait AjaxControllerSimple {
                 $html .= $this->generatePivotSection($record, $relationName, $definition, $attributesToDisplay);
             }
         }
-
-        $html .= '</div>';
 
         return $html;
     }
@@ -1135,6 +1144,8 @@ trait AjaxControllerSimple {
         } else {
             ($record->hasMany[$relationName][0])::where('id', $relationId)->delete();
         }
+
+        $record->refresh();
 
         return [
             '#pivotSection' =>

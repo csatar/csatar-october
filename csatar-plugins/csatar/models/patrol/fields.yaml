@@ -112,8 +112,6 @@ fields:
     troop:
         label: 'csatar.csatar::lang.plugin.admin.patrol.troop'
         nameFrom: extendedName
-        descriptionFrom: description
-        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
         dependsOn: team
         span: auto
         type: dropdown

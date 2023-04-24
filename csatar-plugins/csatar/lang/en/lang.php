@@ -509,6 +509,7 @@ return [
                 'breadcrumb' => 'Troops',
                 'organizationUnitNameWarning' => 'The name of the troop can not contain the word "troop."',
                 'filterOrganizationUnitNameForWords' => 'troop',
+                'canNotFindTroopError' => 'Can not find troop with id ":troopId".',
             ],
             'patrol' => [
                 'patrol' => 'Patrol',
