@@ -5,26 +5,26 @@ use App;
 use Backend;
 use Csatar\Csatar\Classes\Exceptions\OauthException;
 use Csatar\Csatar\Classes\HistoryService;
+use Csatar\Csatar\Classes\SearchProviders\ContentPageSearchProvider;
+use Csatar\Csatar\Classes\SearchProviders\OrganizationSearchProvider;
+use Csatar\Csatar\Classes\SearchProviders\GallerySearchProvider;
+use Csatar\Csatar\Classes\Validators\CnpValidator;
 use Csatar\Csatar\Models\Association;
 use Csatar\Csatar\Models\MandateType;
 use Csatar\Csatar\Models\Scout;
-use Csatar\Csatar\Classes\ContentPageSearchProvider;
-use Csatar\Csatar\Classes\OrganizationSearchProvider;
 use Db;
 use Event;
 use Input;
+use Lang;
 use Media\Classes\MediaLibrary;
 use PolloZen\SimpleGallery\Controllers\Gallery as SimpleGalleryController;
-use PolloZen\SimpleGallery\Models\Gallery as GalleryModel;
-use Lang;
 use RainLab\User\Models\User;
 use Redirect;
+use Schema;
 use Session;
 use System\Classes\PluginBase;
 use ValidationException;
 use Validator;
-use Schema;
-use Csatar\Csatar\Classes\Validators\CnpValidator;
 
 /**
  * csatar Plugin Information File
@@ -219,6 +219,20 @@ class Plugin extends PluginBase
             });
         }
 
+        if (class_exists('PolloZen\SimpleGallery\Models\Gallery')) {
+            \PolloZen\SimpleGallery\Models\Gallery::extend(function($model) {
+                $model->morphTo = [
+                    'model' => []
+                ];
+                $model->hasMany = [
+                    'galleryPivot' => [
+                        \Csatar\Csatar\Models\GalleryModelPivot::class,
+                        'table' => 'csatar_csatar_gallery_model',
+                    ],
+                ];
+            });
+        }
+
         Event::listen('rainlab.user.login', function($user) {
             if (!empty($user->scout)) {
                 $user->scout->saveMandateTypeIdsForEveryAssociationToSession();
@@ -226,7 +240,7 @@ class Plugin extends PluginBase
         });
 
         Event::listen('offline.sitesearch.extend', function () {
-            return [ new OrganizationSearchProvider(), new ContentPageSearchProvider() ];
+            return [ new OrganizationSearchProvider(), new ContentPageSearchProvider(), new GallerySearchProvider() ];
         });
 
         $this->saveGuestMandateTypeIdsForEveryAssociationToSession();

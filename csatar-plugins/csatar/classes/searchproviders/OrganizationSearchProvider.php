@@ -1,9 +1,10 @@
 <?php
-namespace Csatar\Csatar\Classes;
+namespace Csatar\Csatar\Classes\SearchProviders;
 
-use Csatar\Csatar\Models\OrganizationBase;
 use Carbon\Carbon;
+use Csatar\Csatar\Models\OrganizationBase;
 use Db;
+use Lang;
 use OFFLINE\SiteSearch\Classes\Providers\ResultsProvider;
 
 class OrganizationSearchProvider extends ResultsProvider
@@ -57,11 +58,14 @@ class OrganizationSearchProvider extends ResultsProvider
                 $model  = str_slug($childClass::getOrganizationTypeModelNameUserFriendly());
 
                 $result->relevance = $this->calculateRelevance($childClass, $key);
-                $result->title     = $match->extendedName != '' ?  $match->extendedName : $match->name;
-                $result->url       = $controller->pageUrl($model, [ 'id'=> $match->id ] );
+                $result->title     = $match->extendedName != '' ? $match->extendedName : $match->name;
+                $result->url       = $controller->pageUrl($model, [ 'id' => $match->id ] );
                 if ($childClass == '\\Csatar\Csatar\Models\Scout') {
-                    $result->url  = $controller->pageUrl('tag', [ 'ecset_code'=> $match->ecset_code ] );
-                    $result->text = $childClass::getOrganizationTypeModelNameUserFriendly();
+                    $result->url   = $controller->pageUrl('tag', [ 'ecset_code' => $match->ecset_code ] );
+                    $result->text  = $match->inactivated_at === null ? Lang::get('csatar.csatar::lang.plugin.admin.scout.activeMember') : Lang::get('csatar.csatar::lang.plugin.admin.scout.inactiveMember');
+                    $result->text .= ' ' . $match->getParentTree();
+                } else {
+                    $result->text = $match->getParentTree();
                 }
 
                 $result->thumb = $match->image;

@@ -34,4 +34,8 @@ class GalleryModelPivot extends Model
         'model_type',
     ];
 
+    public $morphTo = [
+        'model' => []
+    ];
+
 }

@@ -116,6 +116,14 @@ class Association extends OrganizationBase
         ],
     ];
 
+    public $morphMany = [
+        'galleryPivot' => [
+            \Csatar\Csatar\Models\GalleryModelPivot::class,
+            'table' => 'csatar_csatar_gallery_model',
+            'name' => 'model',
+        ],
+    ];
+
     public static function getEagerLoadSettings(string $useCase = null): array
     {
         $eagerLoadSettings = parent::getEagerLoadSettings($useCase);
@@ -232,6 +240,10 @@ class Association extends OrganizationBase
 
     public function getActiveMembersCountAttribute() {
         return StructureTree::getAssociationScoutsCount($this->id);
+    }
+
+    public function getTextForSearchResultsTreeAttribute() {
+        return $this->name_abbreviation;
     }
 
     public static function getAssociationOptionsForSelect() {

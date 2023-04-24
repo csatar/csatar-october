@@ -319,6 +319,14 @@ class Patrol extends OrganizationBase
         ],
     ];
 
+    public $morphMany = [
+        'galleryPivot' => [
+            \Csatar\Csatar\Models\GalleryModelPivot::class,
+            'table' => 'csatar_csatar_gallery_model',
+            'name' => 'model',
+        ],
+    ];
+
     /**
      * Scope a query to only include patrols with a given team id.
      */
@@ -434,6 +442,24 @@ class Patrol extends OrganizationBase
 
     public function getActiveMembersCountAttribute() {
         return StructureTree::getPatrolScoutsCount($this->id);
+    }
+
+    public function getTextForSearchResultsTreeAttribute() {
+        return $this->extended_name;
+    }
+
+    public function getParentTree() {
+        $tree = [
+            $this->team->district->association->text_for_search_results_tree,
+            $this->team->district->text_for_search_results_tree,
+            $this->team->text_for_search_results_tree,
+        ];
+
+        if (isset($this->troop_id)) {
+            $tree[] = $this->troop->text_for_search_results_tree;
+        }
+
+        return '(' . implode(' - ', $tree) . ')';
     }
 
 }

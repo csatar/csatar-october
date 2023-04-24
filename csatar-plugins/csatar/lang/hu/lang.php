@@ -227,6 +227,8 @@ return [
                 'import' => [
                     'invalidDateTimeFormat' => 'Érvénytelen dátum formátum. A helyes formátum: év-hónap-nap, pl. 2023-01-01',
                 ],
+                'activeMember' => 'aktív tag',
+                'inactiveMember' => 'inaktív tag',
             ],
             'admin' => [
                 'menu' => [

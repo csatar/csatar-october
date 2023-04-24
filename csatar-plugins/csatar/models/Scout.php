@@ -762,7 +762,7 @@ class Scout extends OrganizationBase
         if (!empty($organization) && $mandates = $this->getMandatesForOrganization($organization, true)) {
             foreach ($mandates as $mandate) {
                 $mandate->ignoreValidation = true;
-                $mandate->end_date         = (new DateTime($mandate->end_date) > new DateTime() || is_null($mandate->end_date)) ? date('Y-m-d') : $mandate->end_date;
+                $mandate->end_date         = (new DateTime($mandate->end_date) > new DateTime() || $mandate->end_date === null) ? date('Y-m-d') : $mandate->end_date;
                 $mandate->save();
             }
         }
@@ -1039,7 +1039,8 @@ class Scout extends OrganizationBase
             $sessionRecord = new Collection([]);
         }
 
-        $scoutMandateTypeIds = array_merge($this->getMandatesInAssociation($associationId, $savedAfterDate)->pluck('mandate_type_id')->toArray(), MandateType::getScoutMandateTypeIdInAssociation($associationId));
+        $scoutMandateTypeIds = array_merge($this->getMandatesInAssociation($associationId, $savedAfterDate)
+            ->pluck('mandate_type_id')->toArray(), MandateType::getScoutMandateTypeIdInAssociation($associationId));
 
         $sessionRecord = $sessionRecord->replace([ $associationId => [
             'associationId' => $associationId,
@@ -1321,7 +1322,7 @@ class Scout extends OrganizationBase
                 $array[$this->address_location] = $this->address_location;
             }
         } else {
-            $field->value = array_values($array)[0];
+            $field->value           = array_values($array)[0];
             $this->address_location = array_values($array)[0];
         }
 
@@ -1334,7 +1335,9 @@ class Scout extends OrganizationBase
         $array       = [];
 
         if ($this->address_zipcode != null) {
-            $locationsArray = Locations::where('country', '=', $this->address_country)->where('code', '=', $this->address_zipcode)->where('city', '=', $this->address_location)->where('street', '!=', '')->get();
+            $locationsArray = Locations::where('country', '=', $this->address_country)->where('code', '=', $this->address_zipcode)
+                ->where('city', '=', $this->address_location)->where('street', '!=', '')
+                ->get();
             if (!empty($locationsArray)) {
                 foreach ($locationsArray as $location) {
                     $street         = $location['street_type'] . ' ' . $location['street'];
@@ -1410,6 +1413,24 @@ class Scout extends OrganizationBase
         }
 
         return $historyArray;
+    }
+
+    public function getParentTree() {
+        $tree = [
+            $this->team->district->association->text_for_search_results_tree,
+            $this->team->district->text_for_search_results_tree,
+            $this->team->text_for_search_results_tree,
+        ];
+
+        if (isset($this->troop_id)) {
+            $tree[] = $this->troop->text_for_search_results_tree;
+        }
+
+        if (isset($this->patrol_id)) {
+            $tree[] = $this->patrol->text_for_search_results_tree;
+        }
+
+        return '(' . implode(' - ', $tree) . ')';
     }
 
 }

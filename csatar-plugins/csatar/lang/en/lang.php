@@ -229,6 +229,8 @@ return [
                 'import' => [
                     'invalidDateTimeFormat' => 'Invalid date time format. The correct format is year-month-day, for example 2023-01-01',
                 ],
+                'activeMember' => 'active member',
+                'inactiveMember' => 'inactive member',
             ],
             'admin' => [
                 'menu' => [
