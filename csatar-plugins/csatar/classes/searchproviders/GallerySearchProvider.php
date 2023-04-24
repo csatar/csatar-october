@@ -31,7 +31,7 @@ class GallerySearchProvider extends ResultsProvider
             $result->relevance = 1;
             $result->title     = SearchResultsHelper::getMatchForQuery($this->query, $match->name ,$match->description);
             if ($parentModel) {
-                $result->url       = $controller->pageUrl(str_slug($parentModel::getOrganizationTypeModelNameUserFriendly()), [ 'id'=> $parentModel->id ] );
+                $result->url       = $controller->pageUrl(str_slug($parentModel::getOrganizationTypeModelNameUserFriendly()), [ 'id' => $parentModel->id ] );
                 $result->text      = Lang::get('csatar.csatar::lang.plugin.admin.gallery.gallery') . ' - ' . $parentModel->extended_name . ' ' . ($parentModel->getParentTree() ?? '') ;
             }
 
