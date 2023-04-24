@@ -12,7 +12,7 @@ class BuilderTableUpdateCsatarCsatarPatrols3 extends Migration
         Schema::table('csatar_csatar_patrols', function($table)
         {
             $table->integer('trial_system_trial_type_id')->unsigned()->nullable();
-            $table->foreign('trial_system_trial_type_id', 'patrol_trial_system_trial_type_foreign')->references('id')->on('csatar_knowledgerepository_trial_systems');
+            $table->foreign('trial_system_trial_type_id', 'patrol_trial_system_trial_type_foreign')->references('id')->on('csatar_knowledgerepository_trial_system_trial_types');
         });
     }
 
