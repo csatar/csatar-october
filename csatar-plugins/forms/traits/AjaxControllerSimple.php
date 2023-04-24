@@ -521,9 +521,9 @@ trait AjaxControllerSimple {
 
         $model = $edit ? $relatedModelName::find($relationId) : $this->getPivotModelIfSet($relationName);
 
-        if (isset(Input::get($relationName)['pivot']) && $edit) {
+        if (isset(Input::get($relationName)['pivot'])) {
             $pivotData = Input::get($relationName)['pivot'];
-            $rules     = $record->{$relationName}->find($relationId)->pivot->rules ?? [];
+            $rules     = $record->{$relationName}->find($relationId)->pivot->rules ?? $model->rules ?? [];
         } else {
             $pivotData = Input::get($relationName);
             $rules     = !empty($model->rules) ? $model->rules : [];
