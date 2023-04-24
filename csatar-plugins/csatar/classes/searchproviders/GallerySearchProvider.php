@@ -7,6 +7,7 @@ use Lang;
 
 class GallerySearchProvider extends ResultsProvider
 {
+
     public function search()
     {
         // The controller is used to generate page URLs.
@@ -54,4 +55,5 @@ class GallerySearchProvider extends ResultsProvider
     {
         return e(trans('csatar.csatar::lang.plugin.admin.general.contentPage'));
     }
+
 }
