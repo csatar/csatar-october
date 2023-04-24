@@ -28,10 +28,10 @@ class ContentPageSearchProvider extends ResultsProvider
         // Create a new Result for every match
         foreach ($matching as $match) {
             $result                = $this->newResult();
-            $modelNameUserFriendly = str_slug(('\\'.$match->model_type)::getOrganizationTypeModelNameUserFriendly());
+            $modelNameUserFriendly = str_slug(('\\' . $match->model_type)::getOrganizationTypeModelNameUserFriendly());
 
             $result->relevance = 1;
-            $processedText     = SearchResultsHelper::getMatchForQuery($this->query, $match->title ,$match->content);
+            $processedText     = SearchResultsHelper::getMatchForQuery($this->query, $match->title, $match->content);
             $result->title     = (string) $processedText;
             $result->text      = $match->model->extended_name . ' ' . ($match->model->getParentTree() ?? '') ;
             $result->url       = $controller->pageUrl($modelNameUserFriendly, [ 'id' => $match->model_id ] );
