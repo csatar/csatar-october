@@ -30,7 +30,6 @@
         let query = $('#search-input').val();
         if (query.length < 3 || window.ajaxInProgress) {
             document.getElementById('autocomplete-results').classList.remove('ss-search-form__results--visible')
-            console.log('in progress, return')
             return
         }
 
