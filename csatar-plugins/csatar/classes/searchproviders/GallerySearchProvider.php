@@ -1,4 +1,5 @@
-<?php namespace Csatar\Csatar\Classes\SearchProviders;
+<?php 
+namespace Csatar\Csatar\Classes\SearchProviders;
 
 use OFFLINE\SiteSearch\Classes\Providers\ResultsProvider;
 use PolloZen\SimpleGallery\Models\Gallery;
