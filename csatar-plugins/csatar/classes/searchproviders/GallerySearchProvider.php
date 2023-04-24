@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace Csatar\Csatar\Classes\SearchProviders;
 
 use OFFLINE\SiteSearch\Classes\Providers\ResultsProvider;
