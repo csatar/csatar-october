@@ -18,10 +18,10 @@ class GallerySearchProvider extends ResultsProvider
 
         if ($matching->count() == 0) {
             $queryHtmlEndcoded = htmlentities($this->query);
-            $matching = Gallery::where('name', 'like', "%{$queryHtmlEndcoded}%")
+            $matching          = Gallery::where('name', 'like', "%{$queryHtmlEndcoded}%")
                 ->orWhere('description', 'like', "%{$queryHtmlEndcoded}%")
                 ->get();
-            $this->query = $queryHtmlEndcoded;
+            $this->query       = $queryHtmlEndcoded;
         }
 
         // Create a new Result for every match
@@ -31,11 +31,11 @@ class GallerySearchProvider extends ResultsProvider
             $result->relevance = 1;
             $result->title     = SearchResultsHelper::getMatchForQuery($this->query, $match->name, $match->description);
             if ($parentModel) {
-                $result->url       = $controller->pageUrl(str_slug($parentModel::getOrganizationTypeModelNameUserFriendly()), [ 'id' => $parentModel->id ] );
-                $result->text      = Lang::get('csatar.csatar::lang.plugin.admin.gallery.gallery') . ' - ' . $parentModel->extended_name . ' ' . ($parentModel->getParentTree() ?? '') ;
+                $result->url  = $controller->pageUrl(str_slug($parentModel::getOrganizationTypeModelNameUserFriendly()), [ 'id' => $parentModel->id ] );
+                $result->text = Lang::get('csatar.csatar::lang.plugin.admin.gallery.gallery') . ' - ' . $parentModel->extended_name . ' ' . ($parentModel->getParentTree() ?? '') ;
             }
 
-            $result->thumb     = $match->image;
+            $result->thumb = $match->image;
 
             // Add the results to the results collection
             $this->addResult($result);

@@ -61,11 +61,11 @@ class OrganizationSearchProvider extends ResultsProvider
                 $result->title     = $match->extendedName != '' ? $match->extendedName : $match->name;
                 $result->url       = $controller->pageUrl($model, [ 'id' => $match->id ] );
                 if ($childClass == '\\Csatar\Csatar\Models\Scout') {
-                    $result->url      = $controller->pageUrl('tag', [ 'ecset_code' => $match->ecset_code ] );
-                    $result->text     = $match->inactivated_at === null ? Lang::get('csatar.csatar::lang.plugin.admin.scout.activeMember') : Lang::get('csatar.csatar::lang.plugin.admin.scout.inactiveMember');
-                    $result->text     .= ' ' . $match->getParentTree();
+                    $result->url   = $controller->pageUrl('tag', [ 'ecset_code' => $match->ecset_code ] );
+                    $result->text  = $match->inactivated_at === null ? Lang::get('csatar.csatar::lang.plugin.admin.scout.activeMember') : Lang::get('csatar.csatar::lang.plugin.admin.scout.inactiveMember');
+                    $result->text .= ' ' . $match->getParentTree();
                 } else {
-                    $result->text     = $match->getParentTree();
+                    $result->text = $match->getParentTree();
                 }
 
                 $result->thumb = $match->image;

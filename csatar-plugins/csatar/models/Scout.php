@@ -1322,7 +1322,7 @@ class Scout extends OrganizationBase
                 $array[$this->address_location] = $this->address_location;
             }
         } else {
-            $field->value = array_values($array)[0];
+            $field->value           = array_values($array)[0];
             $this->address_location = array_values($array)[0];
         }
 
