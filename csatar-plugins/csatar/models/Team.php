@@ -230,6 +230,10 @@ class Team extends OrganizationBase
             '\Csatar\Csatar\KnowledgeRepository\WorkPlan',
             'label' => 'csatar.knowledgerepository::lang.plugin.admin.workPlan.workPlans',
         ],
+        'ovamtvWorkPlans' => [
+            '\Csatar\Csatar\KnowledgeRepository\OvamtvWorkPlan',
+            'label' => 'csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.ovamtvWorkPlan',
+        ],
     ];
 
     public $attachOne = [

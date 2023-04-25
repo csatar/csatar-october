@@ -16,6 +16,7 @@ class Gender
             self::MALE => e(trans('csatar.csatar::lang.plugin.admin.scout.gender.male')),
             self::FEMALE => e(trans('csatar.csatar::lang.plugin.admin.scout.gender.female')),
             self::OTHER => e(trans('csatar.csatar::lang.plugin.admin.scout.gender.other')),
+            self::MIXED => e(trans('csatar.csatar::lang.plugin.admin.patrol.gender.mixed')),
         ];
     }
 

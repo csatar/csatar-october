@@ -168,6 +168,10 @@ class Patrol extends OrganizationBase
             'scope' => 'inactiveMandatesInOrganization',
             'ignoreInPermissionsMatrix' => true,
         ],
+        'ovamtvWorkPlans' => [
+            '\Csatar\Csatar\KnowledgeRepository\OvamtvWorkPlan',
+            'label' => 'csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.ovamtvWorkPlan',
+        ],
     ];
 
     public $attachOne = [

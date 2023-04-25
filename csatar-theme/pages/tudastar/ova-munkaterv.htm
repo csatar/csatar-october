@@ -1,0 +1,40 @@
+url = "/ova-munkaterv/:id/:action?"
+layout = "default"
+title = "ŐVáMTV"
+
+[basicForm]
+formSlug = "ovamtv"
+recordKeyParam = "id"
+recordActionParam = "action"
+createRecordKeyword = "letrehozas"
+actionUpdateKeyword = "modositas"
+actionDeleteKeyword = "torles"
+
+[partials]
+==
+{% set ovaWorkPlanId = this.controller.param('id') %}
+<div class="container">
+    {% if this.param[this.controller.vars.basicForm.recordKeyParam] != this.controller.vars.basicForm.createRecordKeyword %}
+        {% partial "@simpleATagButton"
+            permissionValue = this.controller.vars.basicForm.currentUserRights['MODEL_GENERAL']['update']
+            targetUrl = '/ova-munkaterv/'~ovaWorkPlanId~'/modositas'
+            btnExtraClasses = 'btn-sm btn-primary'
+            btnIconClass = 'csat-edit-fill-wh-sm'
+            btnLabel = 'Munkaterv szerkesztése' |_
+        %}
+    {% endif %}
+
+    {% component 'basicForm' %}
+
+</div>
+
+<script>
+    $(document).ready(function() {
+        $('#Form-basicForm-field-data-newMaterial').select2({
+            maximumSelectionLength: 24
+        });
+        $('#Form-basicForm-field-data-oldMaterial').select2({
+            maximumSelectionLength: 24
+        });
+    });
+</script>

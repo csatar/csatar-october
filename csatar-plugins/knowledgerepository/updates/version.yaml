@@ -141,3 +141,9 @@
 1.0.48:
     - 'Created table csatar_knowledgerepository_song_trial_system'
     - builder_table_create_csatar_knowledgerepository_song_trial_system.php
+1.0.49:
+    - 'Created table csatar_knowledgerepository_ovamtv_work_plans'
+    - builder_table_create_csatar_knowledgerepository_ovamtv_work_plans.php
+1.0.50:
+    - 'Created table csatar_knowledgerepository_ovamtv_work_plan_materials'
+    - builder_table_create_csatar_knowledgerepository_ovamtv_work_plan_materials.php
