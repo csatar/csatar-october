@@ -415,6 +415,10 @@ class BasicForm extends ComponentBase  {
             $this->properties['action'] = 'read';
         }
 
+        if (empty($record)) {
+            return;
+        }
+
         return $record;
     }
 
