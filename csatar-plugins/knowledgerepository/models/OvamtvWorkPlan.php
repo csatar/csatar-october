@@ -304,5 +304,27 @@ class OvamtvWorkPlan extends PermissionBasedAccess
         return $startDateOptions;
     }
 
+    public function getMonthLable($month) {
+        if (empty($month)) {
+            return null;
+        }
+
+        $months = [];
+        $scoutYearStart = date('m') >= 9 ? date('Y') . '-09-01' : date('Y', strtotime('-1 year')) . '-09-01';
+        for ($i = 0; $i < 12; $i += 2) {
+            $key = date('m', strtotime($scoutYearStart . ' +' . $i . ' month'));
+            $value = date('F', strtotime($scoutYearStart . ' +' . $i . ' month')) . date('F', strtotime($scoutYearStart . ' +' . ($i + 1) . ' month'));
+            $value = Lang::get('csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.periods.' . $value);
+            $months[$key] = $value;
+        }
+
+        if (isset($months[$month])) {
+            return $months[$month];
+        }
+
+        return null;
+
+    }
+
 }
 

@@ -12,6 +12,39 @@ actionDeleteKeyword = "torles"
 
 [partials]
 ==
+<?php
+use Renatio\DynamicPDF\Classes\PDF;
+
+public function onDownloadPdf(){
+
+    if (!$id = Input::get('id')) {
+        return;
+    }
+
+    $fileName = $this->generatePdf($id);
+
+    return Redirect::to("/letoltes/pdf/$fileName");
+}
+
+public function generatePdf(int $id) {
+    $templateCode = 'csatar.knowledgerepository::pdf.ovaworkplantemplate';
+
+    $ovamtvWorkPlan = \Csatar\KnowledgeRepository\Models\OvamtvWorkPlan::find($id);
+
+    $data = [
+    'css' => \File::get(plugins_path('csatar/knowledgerepository/assets/css/workPlan.css')),
+    'ovaworkPlan' => $ovamtvWorkPlan,
+    ];
+
+    $fileName = $ovamtvWorkPlan->patrol_name_gender . '.pdf';
+    PDF::loadTemplate($templateCode, $data)
+    ->setOption(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])
+    ->save(temp_path($fileName));
+
+    return $fileName;
+}
+?>
+==
 {% set ovaWorkPlanId = this.controller.param('id') %}
 <div class="container">
     {% if this.param[this.controller.vars.basicForm.recordKeyParam] != this.controller.vars.basicForm.createRecordKeyword %}
@@ -25,6 +58,18 @@ actionDeleteKeyword = "torles"
     {% endif %}
 
     {% component 'basicForm' %}
+
+    {% if user.scout and this.controller.vars.basicForm.record.created_at is not null %}
+        {% partial '@dataRequestButton'
+            permissionValue = 1
+            dataRequest = 'onDownloadPdf'
+            dataRequestData = 'id: ' ~ this.controller.vars.basicForm.record.id
+            dataRequestLoading = '#fs-saving-loader'
+            btnExtraClasses = 'btn-sm btn-primary'
+            btnIconClass = 'csat-arrowdown-fill-wh-sm'
+            btnLabel = 'ŐVáMTV letöltése' |_
+        %}
+    {% endif %}
 
 </div>
 
