@@ -6,6 +6,10 @@
 - CS-532 - Modified search results display, added hierarchy tree to result
 - CS-532 - Created GallerySearchProvider, added gallery relation to model that has gallery
 - CS-533 - Modified search results to display results starting with Scouts to Association and last results from Content page
+
+## 1.12.0
+### 2023-04-25
+
 - CS-530 - Added xlsx import for Songs, fixed error handling on TrialSystems xlsx import, fixed missing approved_at date on Games xlsx import.
 - CS-551 - Created Waiting For Approval accordions on Games, Methodologies and Songs page
 - CS-551 - Modified Record List component so that multiple instances are usable without conflicts on the same page
