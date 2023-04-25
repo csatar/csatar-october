@@ -57,6 +57,10 @@ class Patrol extends OrganizationBase
             return;
         }
 
+        if ($this->troop_id === 'null') {
+            $this->troop_id = null;
+        }
+
         // if the selected troop does not belong to the selected team, then throw and exception
         if ($this->troop_id) {
             $this->validateTroopId($this->troop_id);
