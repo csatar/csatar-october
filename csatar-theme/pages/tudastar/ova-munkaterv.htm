@@ -47,7 +47,8 @@ public function generatePdf(int $id) {
 ==
 {% set ovaWorkPlanId = this.controller.param('id') %}
 <div class="container">
-    {% if this.param[this.controller.vars.basicForm.recordKeyParam] != this.controller.vars.basicForm.createRecordKeyword %}
+    {% if this.param[this.controller.vars.basicForm.recordKeyParam] != this.controller.vars.basicForm.createRecordKeyword
+        and this.param[this.controller.vars.basicForm.recordActionParam] != this.controller.vars.basicForm.actionUpdateKeyword %}
         {% partial "@simpleATagButton"
             permissionValue = this.controller.vars.basicForm.currentUserRights['MODEL_GENERAL']['update']
             targetUrl = '/ova-munkaterv/'~ovaWorkPlanId~'/modositas'

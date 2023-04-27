@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-562 - Created ŐVáMTV frontend form, listing, PDF download, Google Calendar integration
 - CS-532 - Added ajax search result popup to search input field
 - CS-532 - Modified search results display, added hierarchy tree to result
 - CS-532 - Created GallerySearchProvider, added gallery relation to model that has gallery
