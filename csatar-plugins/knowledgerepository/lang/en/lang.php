@@ -201,7 +201,11 @@ return [
             'songForm' => [
                 'name' => 'Song Form',
                 'description' => 'Song Form component'
-            ]
+            ],
+            'workPlansList' => [
+                'name' => 'Work Plans List',
+                'description' => 'Work Plans List component',
+            ],
         ],
     ],
 ];

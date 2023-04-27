@@ -1,0 +1,33 @@
+{% for ovamtv in patrolOvamtvs %}
+    {% set buttonId = 'patrol-workplans-months-' ~ patrolId ~ '-' ~ ovamtv.id ~ '-' ~ year %}
+    {% set collapseId = 'flush-collapse-' ~ buttonId %}
+    <div class="accordion accordion-flush mb-3">
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="{{ buttonId }}">
+                <button class="accordion-button py-2 collapsed"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#{{ collapseId }}"
+                        aria-expanded="false"
+                        aria-controls="{{ collapseId }}"
+                >
+                    <span>{{ ovamtv.getMonthLabel(ovamtv.start_date|date('m')) }}</span>
+                </button>
+            </h2>
+            <div id="{{ collapseId }}"
+                 class="accordion-collapse collapse"
+                 aria-labelledby="flush-heading"
+                 data-bs-parent="#{{ buttonId }}"
+            >
+                <div class="accordion-body py-2">
+                    {% if ovamtv.id %}
+                        <a href="/ova-munkaterv/{{ ovamtv.id }}" title="{{ 'Kéthavi munkaterv'|_ }}">
+                            <span>{{ 'Kéthavi munkaterv'|_ }}</span>
+                            <span class="bi bi-box-arrow-up-right"></span>
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}

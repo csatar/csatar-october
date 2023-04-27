@@ -206,7 +206,11 @@ return [
             'songForm' => [
                 'name' => 'Dal űrlap',
                 'description' => 'Dal űrlap komponens'
-            ]
+            ],
+            'workPlansList' => [
+                'name' => 'Munkaterv lista',
+                'description' => 'Munkaterv lista komponens',
+            ],
         ],
     ],
 ];

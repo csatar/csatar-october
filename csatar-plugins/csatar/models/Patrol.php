@@ -169,7 +169,7 @@ class Patrol extends OrganizationBase
             'ignoreInPermissionsMatrix' => true,
         ],
         'ovamtvWorkPlans' => [
-            '\Csatar\Csatar\KnowledgeRepository\OvamtvWorkPlan',
+            '\Csatar\KnowledgeRepository\Models\OvamtvWorkPlan',
             'label' => 'csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.ovamtvWorkPlan',
         ],
     ];

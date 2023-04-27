@@ -61,34 +61,41 @@
         {% endif %}
         {% if permissions['workPlans']['read'] or permissions['ovamtvWorkPlans']['read'] %}
         <div class="tab-pane fade" id="work-plans" role="tabpanel" aria-labelledby="work-plans-tab" tabindex="0">
-            {% partial "@formWithButton"
-                permissionValue = permissions['workPlans']['create']
-                actionUrl = '/munkaterv/letrehozas'
-                hiddenInputs = { 'team': team_id }
-                btnExtraClasses = 'btn-sm btn-primary'
-                btnValue = 'Csapatvezetői munkaterv létrehozása' |_
-                btnIconClass = 'csat-add-fill-wh-sm'
-                btnLabel = 'Csapatvezetői munkaterv létrehozása' |_
-            %}
+            <div class="d-flex flex-wrap">
+                <div class="me-2">
+                    {% partial "@formWithButton"
+                        permissionValue = permissions['workPlans']['create']
+                        actionUrl = '/munkaterv/letrehozas'
+                        hiddenInputs = { 'team': team_id }
+                        btnExtraClasses = 'btn-sm btn-primary'
+                        btnValue = 'Csapatvezetői munkaterv létrehozása' |_
+                        btnIconClass = 'csat-add-fill-wh-sm'
+                        btnLabel = 'Csapatvezetői munkaterv létrehozása' |_
+                    %}
+                </div>
 
-            {% if model_name == 'team' %}
-                {% set teamId = team_id %}
-            {% elseif model_name == 'patrol' %}
-                {% set teamId = this.controller.vars.basicForm.record.team_id %}
-                {% set patrolId = this.controller.vars.basicForm.record.id %}
-            {% endif %}
+                {% if model_name == 'team' %}
+                    {% set teamId = team_id %}
+                {% elseif model_name == 'patrol' %}
+                    {% set teamId = this.controller.vars.basicForm.record.team_id %}
+                    {% set patrolId = this.controller.vars.basicForm.record.id %}
+                {% endif %}
 
-            {% partial "@formWithButton"
-                permissionValue = permissions['ovamtvWorkPlans']['create']
-                actionUrl = '/ova-munkaterv/letrehozas'
-                hiddenInputs = { 'team': teamId, 'patrol': patrolId }
-                btnExtraClasses = 'btn-sm btn-primary'
-                btnValue = 'Kéthavi ŐVáMTV létrehozása' |_
-                btnIconClass = 'csat-add-fill-wh-sm'
-                btnLabel = 'Kéthavi ŐVáMTV létrehozása' |_
-            %}
-            <hr>
-            {% component 'recordList' %}
+                <div class="me-2">
+                    {% partial "@formWithButton"
+                        permissionValue = permissions['ovamtvWorkPlans']['create']
+                        actionUrl = '/ova-munkaterv/letrehozas'
+                        hiddenInputs = { 'team': teamId, 'patrol': patrolId }
+                        btnExtraClasses = 'btn-sm btn-primary'
+                        btnValue = 'Kéthavi ŐVáMTV létrehozása' |_
+                        btnIconClass = 'csat-add-fill-wh-sm'
+                        btnLabel = 'Kéthavi ŐVáMTV létrehozása' |_
+                    %}
+                </div>
+            </div>
+
+            {% component 'workPlansList' %}
+
         </div>
         {% endif %}
     </div>

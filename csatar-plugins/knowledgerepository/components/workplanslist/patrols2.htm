@@ -1,0 +1,26 @@
+<div class="accordion accordion-flush mb-3">
+    {% for patrolId, patrolOvamtvs in ovamtvWorkPlansArray %}
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="patrol-{{ patrolId }}-{{ year }}">
+            <button class="accordion-button py-2 collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapse-patrol-{{ patrolId }}-{{ year }}"
+                    aria-expanded="false"
+                    aria-controls="flush-collapse-patrol-{{ patrolId }}-{{ year }}"
+            >
+                <span>{{ patrolOvamtvs[0].patrol.extended_name }}</span>
+            </button>
+        </h2>
+        <div id="flush-collapse-patrol-{{ patrolId }}-{{ year }}"
+             class="accordion-collapse collapse"
+             aria-labelledby="flush-heading"
+             data-bs-parent="#patrol-{{ patrolId }}-{{ year }}"
+        >
+            <div class="accordion-body py-2">
+                {% partial '@months3.htm' patrolOvamtvs = patrolOvamtvs year = year patrolId = patrolId %}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>

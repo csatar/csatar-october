@@ -1,0 +1,28 @@
+{% set workPlans = __SELF__.workPlans %}
+
+<div class="accordion accordion-flush mb-3">
+    {% for key, workPlan in workPlans %}
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="year{{ key }}">
+                <button class="accordion-button py-2 collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapse-{{ key }}" aria-expanded="false" aria-controls="flush-collapse-{{ key }}">
+                    <span>{{ key }} - {{ key + 1 }}</span>
+                </button>
+            </h2>
+            <div id="flush-collapse-{{ key }}" class="accordion-collapse collapse" aria-labelledby="flush-heading" data-bs-parent="#year{{ key }}" style="">
+                <div class="accordion-body py-2">
+                    {% if workPlan['teamWorkPlan'] %}
+                    <a href="/munkaterv/{{ workPlan['teamWorkPlan'].id }}" title="{{ workPlan['teamWorkPlan'].name }}">
+                        <span>{{ workPlan['teamWorkPlan'].name }}</span>
+                        <span class="bi bi-box-arrow-up-right"></span>
+                    </a>
+                    {% endif %}
+                    {% if workPlan['ovamtvWorkPlans']|length > 0 %}
+                        {% partial '@patrolWorkPlansAccordion1.htm' ovamtvWorkPlansArray = workPlan['ovamtvWorkPlans'] year = key %}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+
