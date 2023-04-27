@@ -34,6 +34,8 @@ columns:
           sortable:
             default: asc
           filterable: true
+          filterConfig:
+            type: freeText
     text:
         label: 'csatar.knowledgerepository::lang.plugin.admin.song.text'
         type: text
