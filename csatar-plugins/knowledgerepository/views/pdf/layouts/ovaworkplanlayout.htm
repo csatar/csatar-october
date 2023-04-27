@@ -51,7 +51,7 @@ name = "Ova Work Plan layout"
         </tr>
         <tr>
             <td>{{ 'Hónapok'|_ }}:</td>
-            <td> {{ ovaworkPlan.getMonthLable(ovaworkPlan.start_date|date('m')) }}</td>
+            <td> {{ ovaworkPlan.getMonthLabel(ovaworkPlan.start_date|date('m')) }}</td>
         </tr>
     </table>
 
@@ -78,6 +78,42 @@ name = "Ova Work Plan layout"
     {% endif %}
 
     <h4>{{ '2. Eseménynaptár – hónap/hónap'|_ }}</h4>
+
+    {% if ovaworkPlan.event_calendar %}
+        <table class="table csat-grid">
+            <tr>
+                <th>
+                    {{ 'csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.eventCalendar.start'|trans }}
+                </th>
+                <th>
+                    {{ 'csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.eventCalendar.end'|trans }}
+                </th>
+                <th>
+                    {{ 'csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.eventCalendar.event'|trans }}
+                </th>
+                <th>
+                    {{ 'csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.eventCalendar.location'|trans }}
+                </th>
+                <th>
+                    {{ 'csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.eventCalendar.organizer'|trans }}
+                </th>
+                <th>
+                    {{ 'csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.eventCalendar.note'|trans }}
+                </th>
+            </tr>
+
+            {% for event in ovaworkPlan.event_calendar %}
+            <tr>
+                <td class="td">{{ event['start'] }}</td>
+                <td class="td">{{ event['end'] }}</td>
+                <td class="td">{{ event['description'] }}</td>
+                <td class="td">{{ event['location'] }}</td>
+                <td class="td">{{ event['organizer'] }}</td>
+                <td class="td">{{ event['note'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
 
     <h4>{{ '3. Megjegyzések'|_ }}</h4>
 

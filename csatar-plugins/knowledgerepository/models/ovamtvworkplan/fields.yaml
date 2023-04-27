@@ -63,6 +63,11 @@ fields:
         customTags: false
         useKey: true
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+    event_calendar:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.eventCalendar.eventCalendar'
+        span: full
+        path: $/csatar/knowledgerepository/models/ovamtvworkplan/eventcalendar.htm
+        type: partial
     notes:
         label: 'csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.notes'
         span: full

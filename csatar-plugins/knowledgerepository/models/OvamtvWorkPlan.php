@@ -1,8 +1,10 @@
 <?php namespace Csatar\KnowledgeRepository\Models;
 
 use Auth;
+use Carbon\Carbon;
 use Csatar\Csatar\Classes\Constants;
 use Csatar\Csatar\Classes\Enums\Gender;
+use Csatar\Csatar\Classes\GoogleCalendar;
 use Csatar\Csatar\Models\MandateType;
 use Csatar\Csatar\Models\Patrol;
 use Csatar\Csatar\Models\PermissionBasedAccess;
@@ -44,6 +46,10 @@ class OvamtvWorkPlan extends PermissionBasedAccess
         'notes',
         'goals',
         'tasks',
+    ];
+
+    public $additionalFieldsForPermissionMatrix = [
+        'event_calendar',
     ];
 
     public $nullable = [
@@ -304,7 +310,7 @@ class OvamtvWorkPlan extends PermissionBasedAccess
         return $startDateOptions;
     }
 
-    public function getMonthLable($month) {
+    public function getMonthLabel($month) {
         if (empty($month)) {
             return null;
         }
@@ -324,6 +330,66 @@ class OvamtvWorkPlan extends PermissionBasedAccess
 
         return null;
 
+    }
+
+    public function getEventCalendarAttribute() {
+        if (empty($this->start_date)) {
+            return null;
+        }
+        
+        $endDate = date('Y-m-d', strtotime($this->start_date . ' +2 month'));
+
+        $events = GoogleCalendar::getEvents($this->getCalnedarIds(), $this->start_date, $endDate)->sortBy('start');
+
+        //format the date in the collection
+        $events->transform(function ($item, $key) {
+            $item['start'] = $item['start'] ? $this->formatDateTimeFromIso($item['start']) : null;
+            $item['end'] = $item['end'] ? $this->formatDateTimeFromIso($item['end']) : null;
+            return $item;
+        });
+
+        return $events;
+    }
+
+    public function formatDateTimeFromIso($dateTimeString) {
+        if (empty($dateTimeString)) {
+            return null;
+        }
+
+        if (strpos($dateTimeString, 'T') !== false) {
+            $date = Carbon::createFromFormat('Y-m-d\TH:i:sP', $dateTimeString);
+            // Set the timezone to the original timezone
+            $date->setTimezone(new \DateTimeZone($date->getTimezone()->getName()));
+        } else {
+            return $dateTimeString;
+        }
+
+        return $date->format('Y-m-d H:i');
+    }
+
+    public function getCalnedarIds() {
+        $calendarIds = [];
+        if (!empty($this->patrol->google_calendar_id)) {
+            $calendarIds[] = $this->patrol->google_calendar_id;
+        }
+
+        if (!empty($this->patrol->troop->google_calendar_id)) {
+            $calendarIds[] = $this->patrol->troop->google_calendar_id;
+        }
+
+        if (!empty($this->patrol->team->google_calendar_id)) {
+            $calendarIds[] = $this->patrol->troop->team->google_calendar_id;
+        }
+
+        if (!empty($this->patrol->team->district->google_calendar_id)) {
+            $calendarIds[] = $this->patrol->team->district->google_calendar_id;
+        }
+
+        if (!empty($this->patrol->team->district->association->google_calendar_id)) {
+            $calendarIds[] = $this->patrol->team->district->association->google_calendar_id;
+        }
+
+        return $calendarIds;
     }
 
 }

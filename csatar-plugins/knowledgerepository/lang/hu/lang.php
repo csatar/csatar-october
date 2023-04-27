@@ -163,7 +163,6 @@ return [
                 'startDate' => 'Hónapok',
                 'oldMaterial' => 'Régi anyag',
                 'newMaterial' => 'Új anyag',
-                'eventCalendar' => 'Eseménynaptár',
                 'notes' => 'Megjegyzések',
                 'goals' => 'Célok',
                 'tasks' => 'Feladatok',
@@ -177,6 +176,15 @@ return [
                     'JulyAugust' => 'Július - Augusztus',
                 ],
                 'ovamtvWorkPlanExistsForPeriod' => 'Már létezik ŐVáMTV a kiválasztott periódusra!',
+                'eventCalendar' => [
+                    'eventCalendar' => 'Eseménynaptár',
+                    'start' => 'Dátum kezdete',
+                    'end' => 'Dátum vége',
+                    'event' => 'Rendezvény / Ünnepek',
+                    'location' => 'Helyszín',
+                    'organizer' => 'Ki szervezi?',
+                    'note' => 'Megjegyzés',
+                ],
             ],
             'song' => [
                 'songTitle' => 'Dal cím',

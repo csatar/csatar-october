@@ -4,6 +4,6 @@
     "description": "Plugin for the RMCSSZ's CSATÁR project",
     "require": {
         "composer/installers": "~1.0",
-        "google/apiclient": "2.12.1"
+        "google/apiclient": "2.13.2"
     }
 }
