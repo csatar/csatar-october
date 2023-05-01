@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-520 - Changed the display of recordlist component filters to wrap to next line
 - CS-532 - Added ajax search result popup to search input field
 - CS-532 - Modified search results display, added hierarchy tree to result
 - CS-532 - Created GallerySearchProvider, added gallery relation to model that has gallery
