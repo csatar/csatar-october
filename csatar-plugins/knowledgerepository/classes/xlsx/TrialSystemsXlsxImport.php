@@ -70,6 +70,7 @@ class TrialSystemsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHe
 
         $trialSystem = TrialSystem::where('association_id', $this->associationId)
             ->where('id_string', $cellsArray['id'])
+            ->withTrashed()
             ->first();
 
         if (!$this->overwrite && !empty($trialSystem)) {
@@ -134,6 +135,7 @@ class TrialSystemsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHe
             'effective_knowledge' => $cellsArray['effektiv_tudas'] ?? null,
         ]);
 
+        $trialSystem->deleted_at = null;
         $trialSystem->save();
     }
 
