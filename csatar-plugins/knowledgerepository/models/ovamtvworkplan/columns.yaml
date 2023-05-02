@@ -1,0 +1,28 @@
+columns:
+    creator_csatar_code:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.creatorCsatarCode'
+        type: text
+    patrol_name_gender:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.patrolsNameGender'
+        type: text
+    patrol_leader:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.patrolLeader'
+        type: text
+    deputy_patrol_leaders:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.deputyPatrolLeaders'
+        type: text
+    patrol_members:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.patrolMembers'
+        type: text
+    troop:
+        label: 'csatar.csatar::lang.plugin.admin.troop.troop'
+        type: text
+    age_group_test:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.ageGroupTest'
+        type: text
+    start_date:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.startDate'
+        type: text
+    notes:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.notes'
+        type: text

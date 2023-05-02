@@ -1,9 +1,9 @@
-url = "/munkaterv/:id/:action?"
+url = "/ova-munkaterv/:id/:action?"
 layout = "default"
-title = "Munkaterv"
+title = "ŐVáMTV"
 
 [basicForm]
-formSlug = "munkaterv"
+formSlug = "ovamtv"
 recordKeyParam = "id"
 recordActionParam = "action"
 createRecordKeyword = "letrehozas"
@@ -26,38 +26,38 @@ public function onDownloadPdf(){
     return Redirect::to("/letoltes/pdf/$fileName");
 }
 
-public function generatePdf(int $workPlanId) {
-    $templateCode = 'csatar.knowledgerepository::pdf.workplantemplate';
+public function generatePdf(int $id) {
+    $templateCode = 'csatar.knowledgerepository::pdf.ovaworkplantemplate';
 
-    $workPlan = \Csatar\KnowledgeRepository\Models\WorkPlan::find($workPlanId);
+    $ovamtvWorkPlan = \Csatar\KnowledgeRepository\Models\OvamtvWorkPlan::find($id);
 
     $data = [
-        'css' => \File::get(plugins_path('csatar/knowledgerepository/assets/css/workPlan.css')),
-        'workPlan' => $workPlan,
+    'css' => \File::get(plugins_path('csatar/knowledgerepository/assets/css/workPlan.css')),
+    'ovaworkPlan' => $ovamtvWorkPlan,
     ];
 
-    $fileName = $workPlan->name . '.pdf';
+    $fileName = $ovamtvWorkPlan->patrol_name_gender . '.pdf';
     PDF::loadTemplate($templateCode, $data)
-        ->setOption(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])
-        ->save(temp_path($fileName));
+    ->setOption(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])
+    ->save(temp_path($fileName));
 
     return $fileName;
 }
 ?>
 ==
-{% set workPlanId = this.controller.param('id') %}
+{% set ovaWorkPlanId = this.controller.param('id') %}
 <div class="container">
     {% if this.param[this.controller.vars.basicForm.recordKeyParam] != this.controller.vars.basicForm.createRecordKeyword
         and this.param[this.controller.vars.basicForm.recordActionParam] != this.controller.vars.basicForm.actionUpdateKeyword %}
         {% partial "@simpleATagButton"
             permissionValue = this.controller.vars.basicForm.currentUserRights['MODEL_GENERAL']['update']
-            targetUrl = '/munkaterv/'~workPlanId~'/modositas'
+            targetUrl = '/ova-munkaterv/'~ovaWorkPlanId~'/modositas'
             btnExtraClasses = 'btn-sm btn-primary'
             btnIconClass = 'csat-edit-fill-wh-sm'
             btnLabel = 'Munkaterv szerkesztése' |_
         %}
     {% endif %}
-    
+
     {% component 'basicForm' %}
 
     {% if user.scout and this.controller.vars.basicForm.record.created_at is not null %}
@@ -68,8 +68,19 @@ public function generatePdf(int $workPlanId) {
             dataRequestLoading = '#fs-saving-loader'
             btnExtraClasses = 'btn-sm btn-primary'
             btnIconClass = 'csat-arrowdown-fill-wh-sm'
-            btnLabel = 'Munkaterv letöltése' |_
+            btnLabel = 'ŐVáMTV letöltése' |_
         %}
     {% endif %}
 
 </div>
+
+<script>
+    $(document).ready(function() {
+        $('#Form-basicForm-field-data-newMaterial').select2({
+            maximumSelectionLength: 24
+        });
+        $('#Form-basicForm-field-data-oldMaterial').select2({
+            maximumSelectionLength: 24
+        });
+    });
+</script>

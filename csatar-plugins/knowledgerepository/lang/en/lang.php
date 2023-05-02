@@ -152,6 +152,39 @@ return [
                 'teamLeader' => 'Team leader',
                 'deputyTeamLeaders' => 'Deputy team leader(s)',
             ],
+            'ovamtvWorkPlan' => [
+                'ovamtvWorkPlan' => 'ŐVáMTV Work Plan',
+                'patrolsNameGender' => 'Patrol name and gender',
+                'patrolLeader' => 'Patrol leader',
+                'deputyPatrolLeaders' => 'Deputy patrol leader(s)',
+                'patrolMembers' => 'Patrol members',
+                'ageGroupTest' => 'Age group - test',
+                'startDate' => 'Months',
+                'oldMaterial' => 'Old material',
+                'newMaterial' => 'New material',
+                'eventCalendar' => [
+                    'eventCalendar' => 'Event calendar',
+                    'start' => 'Start date',
+                    'end' => 'End date',
+                    'event' => 'Event',
+                    'location' => 'Location',
+                    'organizer' => 'Organizer',
+                    'note' => 'Note',
+                ],
+                'notes' => 'Notes',
+                'goals' => 'Goals',
+                'tasks' => 'Tasks',
+                'creatorCsatarCode' => 'Creator',
+                'periods' => [
+                    'SeptemberOctober' => 'September - October',
+                    'NovemberDecember' => 'November - December',
+                    'JanuaryFebruary' => 'January - February',
+                    'MarchApril' => 'March - April',
+                    'MayJune' => 'May - June',
+                    'JulyAugust' => 'July - August',
+                ],
+                'ovamtvWorkPlanExistsForPeriod' => 'ŐVáMTV work plan already exists this period!',
+            ],
             'song' => [
                 'songTitle' => 'Song Title',
                 'author' => 'Author',
@@ -165,10 +198,18 @@ return [
                 'name' => 'Game Form',
                 'description' => 'Game Form component',
             ],
+            'methodologyForm' => [
+                'name' => 'Methodology Form',
+                'description' => 'Methodology Form component',
+            ],
             'songForm' => [
                 'name' => 'Song Form',
                 'description' => 'Song Form component'
-            ]
+            ],
+            'workPlansList' => [
+                'name' => 'Work Plans List',
+                'description' => 'Work Plans List component',
+            ],
         ],
     ],
 ];

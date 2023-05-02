@@ -227,8 +227,12 @@ class Team extends OrganizationBase
             'ignoreInPermissionsMatrix' => true,
         ],
         'workPlans' => [
-            '\Csatar\Csatar\KnowledgeRepository\WorkPlan',
+            '\Csatar\KnowledgeRepository\Models\WorkPlan',
             'label' => 'csatar.knowledgerepository::lang.plugin.admin.workPlan.workPlans',
+        ],
+        'ovamtvWorkPlans' => [
+            '\Csatar\KnowledgeRepository\Models\OvamtvWorkPlan',
+            'label' => 'csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.ovamtvWorkPlan',
         ],
     ];
 

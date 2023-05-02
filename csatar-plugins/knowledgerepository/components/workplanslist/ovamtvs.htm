@@ -1,0 +1,7 @@
+<ul>
+    {% for ovamtv in patrolOvamtvs %}
+    <li>
+        {{ ovamtv.getMonthLabel(ovamtv.start_date|date('m')) }}
+    </li>
+    {% endfor %}
+</ul>

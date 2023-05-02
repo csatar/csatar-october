@@ -22,4 +22,9 @@ class Constants
 
     public const MANDATE_TYPE_TEAM_LEADER        = 'Csapatvezető';
     public const MANDATE_TYPE_DEPUTY_TEAM_LEADER = 'Csapatvezető helyettes';
+
+    public const MANDATE_TYPE_PATROL_LEADER        = 'Őrsvezető';
+    public const MANDATE_TYPE_DEPUTY_PATROL_LEADER = 'Segédőrsvezető';
+
+
 }

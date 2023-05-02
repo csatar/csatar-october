@@ -315,6 +315,10 @@ class SeederData extends Seeder
                 'model' => 'Csatar\KnowledgeRepository\Models\WorkPlan',
             ],
             [
+                'title' => 'ŐVáMTV',
+                'model' => 'Csatar\KnowledgeRepository\Models\OvamtvWorkPlan',
+            ],
+            [
                 'title' => 'Dal',
                 'model' => 'Csatar\KnowledgeRepository\Models\Song',
             ],
