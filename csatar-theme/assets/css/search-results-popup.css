@@ -34,7 +34,7 @@
 
 .ss-search-form__results--visible {
     max-height: 80vh;
-    overflow-y: scroll;
+    overflow-y: auto;
     margin-top: -5px;
     border-style: solid;
     border-color: #78863F;
