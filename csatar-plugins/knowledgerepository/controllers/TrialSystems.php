@@ -63,7 +63,11 @@ class TrialSystems extends Controller
         $effectiveKnowledgeOnly = Input::get('effective_knowledge_only');
         $xlsxFile = Input::file('xlsx_file');
 
-        if (empty($xlsxFile) || !$xlsxFile->isValid() || ($xlsxFile->getMimeType() != 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')) {
+        if (empty($xlsxFile)
+            || !$xlsxFile->isValid()
+            || ($xlsxFile->getMimeType() != 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+            && $xlsxFile->getMimeType() !='application/vnd.ms-excel')
+        ) {
             Flash::error(Lang::get('csatar.csatar::lang.plugin.component.organizationUnitFrontend.csv.fileMissingOrInvalid'));
             return;
         }
