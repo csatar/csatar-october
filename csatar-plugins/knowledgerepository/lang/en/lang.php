@@ -198,6 +198,10 @@ return [
                 'name' => 'Game Form',
                 'description' => 'Game Form component',
             ],
+            'methodologyForm' => [
+                'name' => 'Methodology Form',
+                'description' => 'Methodology Form component',
+            ],
             'songForm' => [
                 'name' => 'Song Form',
                 'description' => 'Song Form component'
