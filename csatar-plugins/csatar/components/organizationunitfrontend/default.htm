@@ -76,6 +76,8 @@
 
                 {% if model_name == 'team' %}
                     {% set teamId = team_id %}
+                {% elseif model_name == 'troop' %}
+                    {% set teamId = this.controller.vars.basicForm.record.team_id %}
                 {% elseif model_name == 'patrol' %}
                     {% set teamId = this.controller.vars.basicForm.record.team_id %}
                     {% set patrolId = this.controller.vars.basicForm.record.id %}
