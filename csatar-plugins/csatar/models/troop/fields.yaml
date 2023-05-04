@@ -90,3 +90,6 @@ fields:
             position: details
             order: 10
             ignoreUserRights: 1
+    ovamtvWorkPlans:
+        label: 'csatar.csatar::lang.plugin.admin.troop.ovamtvWorkPlans'
+        hidden: 1

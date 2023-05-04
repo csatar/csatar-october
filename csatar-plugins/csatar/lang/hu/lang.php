@@ -508,6 +508,7 @@ return [
                 'organizationUnitNameWarning' => 'A raj neve nem tartalmazhatja a "raj" szót.',
                 'filterOrganizationUnitNameForWords' => 'raj',
                 'canNotFindTroopError' => 'Nem található raj a következő azonosítóval: ":troopId".',
+                'ovamtvWorkPlans' => 'ŐVáMTV',
             ],
             'patrol' => [
                 'patrol' => 'Őrs',

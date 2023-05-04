@@ -53,6 +53,10 @@ class Troop extends OrganizationBase
         'status',
     ];
 
+    public $additionalFieldsForPermissionMatrix = [
+        'ovamtvWorkPlans',
+    ];
+
     /**
      * Relations
      */

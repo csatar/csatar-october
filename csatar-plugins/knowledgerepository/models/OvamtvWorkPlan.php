@@ -130,6 +130,10 @@ class OvamtvWorkPlan extends PermissionBasedAccess
         return $this->team_id ? $this->team : null;
     }
 
+    public function getTroop() {
+        return $this->patrol_id ? $this->patrol->troop : null;
+    }
+
     public function getPatrol() {
         return $this->patrol_id ? $this->patrol : null;
     }
@@ -181,7 +185,7 @@ class OvamtvWorkPlan extends PermissionBasedAccess
     }
 
     public function handlePatrolMembersField(&$fields){
-        if (!empty($this->patrol_id)) {
+        if (!empty($this->patrol_id) && empty($this->patrol_members)) {
             $fields->patrol_members->value = $this->getDefaultValueForPatrolMembers();
         }
     }
@@ -261,15 +265,13 @@ class OvamtvWorkPlan extends PermissionBasedAccess
             return null;
         }
 
-        $scoutsList = '';
+        $scoutsList = [];
 
         foreach ($scouts as $scout) {
-            $scoutsList .= $scout->full_name . ', ';
-            // add system new line
-            $scoutsList .= "\n";
+            $scoutsList[] = $scout->full_name;
         }
 
-        return $scoutsList;
+        return implode(", \n", $scoutsList);
     }
 
     public function getDefaultValueForTroop() {

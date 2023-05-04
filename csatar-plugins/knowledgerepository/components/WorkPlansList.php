@@ -18,6 +18,8 @@ class WorkPlansList extends ComponentBase
 
     public $isPatrolPage;
 
+    public $isTroopPage;
+
     public function componentDetails()
     {
         return [
@@ -30,6 +32,7 @@ class WorkPlansList extends ComponentBase
     {
         $this->organizationUnit = $this->page->controller->vars["basicForm"]->record;
         $this->isPatrolPage = get_class($this->organizationUnit) == 'Csatar\Csatar\Models\Patrol' ? true : false;
+        $this->isTroopPage = get_class($this->organizationUnit) == 'Csatar\Csatar\Models\Troop' ? true : false;
         $this->workPlans = $this->getWorkPlans();
     }
 
@@ -37,9 +40,13 @@ class WorkPlansList extends ComponentBase
     {
         $workPlans = isset($this->organizationUnit->workPlans) ? $this->organizationUnit->workPlans : $this->organizationUnit->team->workPlans;
 
-        $ovamtvWorkPlans = isset($this->organizationUnit->ovamtvWorkPlans) ? $this->organizationUnit->ovamtvWorkPlans->load('patrol') : collect([]);
+        if ($this->isTroopPage) {
+            $ovamtvWorkPlans = $this->organizationUnit->patrols->load('ovamtvWorkPlans.patrol')->pluck('ovamtvWorkPlans')->flatten();
+        } else {
+            $ovamtvWorkPlans = isset($this->organizationUnit->ovamtvWorkPlans) ? $this->organizationUnit->ovamtvWorkPlans->load('patrol') : collect([]);
+        }
 
-        $workPlansDates = !$this->isPatrolPage ? $workPlans->pluck('year')->toArray() : [];
+        $workPlansDates = !$this->isPatrolPage && !$this->isTroopPage ? $workPlans->pluck('year')->toArray() : [];
         $ovamtvWorkPlansDates = $ovamtvWorkPlans->pluck('start_date')->map(function ($date) {
             return $this->getScountingYear($date);
         })->toArray();
@@ -67,7 +74,10 @@ class WorkPlansList extends ComponentBase
         return $ovamtvWorkPlans->map(function ($ovamtv) {
             $ovamtv['patrol_name'] = $ovamtv->patrol->extended_name;
             return $ovamtv;
-        })->groupBy('patrol_id');
+        })
+        ->sortBy('start_date')
+        ->groupBy('patrol_id');
+
     }
 
     public function getScountingYear($dateString) {
