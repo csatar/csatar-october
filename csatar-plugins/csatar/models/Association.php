@@ -169,7 +169,7 @@ class Association extends OrganizationBase
     public function updateCache(): void
     {
         if ($this->wasRecentlyCreated) {
-            StructureTree::updateAssociationTree($this->association_id);
+            StructureTree::updateAssociationTree($this->id);
         }
 
         if (empty($this->original)) {
