@@ -147,6 +147,7 @@ class SeederData extends Seeder
             'Romániai Magyar Cserkészszövetség',
             'Szlovákiai Magyar Cserkészszövetség',
             'Vajdasági Magyar Cserkészszövetség',
+            'Honi Cserkész Szövetség',
         ],
         'foodSensitivity'           => [
             'liszt',
@@ -385,6 +386,16 @@ class SeederData extends Seeder
                 ],
             ],
             'Vajdasági Magyar Cserkészszövetség'   => [
+                [
+                    'name'                         => 'Cserkész',
+                    'organization_type_model_name' => '\Csatar\Csatar\Models\Scout',
+                ],
+                [
+                    'name'                         => 'Látogató',
+                    'organization_type_model_name' => 'GUEST',
+                ],
+            ],
+            'Honi Cserkész Szövetség'      => [
                 [
                     'name'                         => 'Cserkész',
                     'organization_type_model_name' => '\Csatar\Csatar\Models\Scout',
@@ -946,7 +957,7 @@ class SeederData extends Seeder
         // seeders for the Forms plugin
         foreach (Form::all() as $form) {
             $form->slugAttributes();
-            $form->save();
+            $form->forceSave();
         }
 
         foreach ($this::DATA['form'] as $form) {
