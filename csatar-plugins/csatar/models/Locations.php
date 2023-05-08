@@ -1,12 +1,12 @@
 <?php
 namespace Csatar\Csatar\Models;
 
-use Model;
+use Csatar\Csatar\Models\ModelExtended;
 
 /**
  * Model
  */
-class Locations extends Model
+class Locations extends ModelExtended
 {
     use \October\Rain\Database\Traits\Validation;
 

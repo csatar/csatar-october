@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-413 - Changed every "Scout systemdata" and "Knowledge repository parameter" model's base model to ModelExtended model
 - CS-562 - Created ŐVáMTV frontend form, listing, PDF download, Google Calendar integration
 - CS-520 - Changed the display of recordlist component filters to wrap to next line
 - CS-532 - Added ajax search result popup to search input field

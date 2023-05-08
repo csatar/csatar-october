@@ -1,12 +1,12 @@
 <?php
 namespace Csatar\Csatar\Models;
 
-use Model;
+use Csatar\Csatar\Models\ModelExtended;
 
 /**
  * Model
  */
-class FoodSensitivity extends Model
+class FoodSensitivity extends ModelExtended
 {
     use \October\Rain\Database\Traits\Validation;
 
