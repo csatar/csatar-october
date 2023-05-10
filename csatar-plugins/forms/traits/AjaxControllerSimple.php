@@ -756,7 +756,12 @@ trait AjaxControllerSimple {
 
         // Resolve belongsToMany relations
         foreach ($record->belongsToMany as $relationName => $definition) {
-            if (!isset($data[$relationName]) || $data[$relationName] =='') {
+            if (!isset($data[$relationName])) {
+                continue;
+            }
+
+            if ($record->id && $data[$relationName] == '') {
+                $record->$relationName()->detach();
                 continue;
             }
 

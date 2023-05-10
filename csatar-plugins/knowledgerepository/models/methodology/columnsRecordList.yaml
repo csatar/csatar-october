@@ -1,0 +1,65 @@
+columns:
+    name:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.methodologyName'
+        type: text
+        searchable: true
+        sortable: true
+        recordList:
+            sortable:
+                default: asc
+            filterable: true
+            filterConfig:
+                type: freeText
+    trial_systems:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystem'
+        type: text
+        relation: trial_systems
+        valueFrom: name
+        recordList:
+            sortable: true
+            filterable: true
+            filterConfig:
+                type: relation
+                relationName: trial_systems
+                keyFrom: id
+                labelFrom: name
+    timeframe:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.duration'
+        type: text
+        relation: timeframe
+        valueFrom: name
+        recordList:
+            sortable: true
+            filterable: true
+            filterConfig:
+                type: relation
+                relationName: timeframe
+                keyFrom: id
+                labelFrom: name
+    agegroups:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.ageGroup'
+        type: text
+        select: name
+        relation: agegroups
+        recordList:
+            sortable: true
+            filterable: true
+            filterConfig:
+                type: relation
+                relationName: agegroups
+                keyFrom: id
+                labelFrom: name
+    locations:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.locations'
+        type: text
+        select: name
+        relation: locations
+        recordList:
+            sortable: true
+            filterable: true
+            filterConfig:
+                type: relation
+                relationName: locations
+                keyFrom: id
+                labelFrom: name
+

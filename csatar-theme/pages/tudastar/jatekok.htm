@@ -2,19 +2,6 @@ url = "/tudastar/jatekok"
 layout = "default"
 title = "Játékok"
 
-[builderList]
-modelClass = "Csatar\KnowledgeRepository\Models\Game"
-scope = "scopeApproved"
-scopeValue = "{{ :scope }}"
-displayColumn = "name"
-noRecordsMessage = "backend::lang.list.no_records"
-detailsPage = "tudastar/jatek"
-detailsKeyColumn = "id"
-detailsUrlParameter = "id"
-pageNumber = "{{ :page }}"
-sortColumn = "name"
-sortDirection = "asc"
-
 [partials]
 
 [recordList waitingForApproval]
@@ -26,6 +13,18 @@ noRecordsMessage = "backend::lang.list.no_records"
 detailsPage = "tudastar/jatek"
 detailsKeyColumn = "id"
 detailsUrlParameter = "id"
+pageNumber = "{{ :page }}"
+
+[recordList]
+modelClass = "Csatar\KnowledgeRepository\Models\Game"
+scope = "scopeApproved"
+scopeValue = "{{ :scope }}"
+columnsConfigFile = "columns.yaml"
+noRecordsMessage = "backend::lang.list.no_records"
+detailsPage = "tudastar/jatek"
+detailsKeyColumn = "id"
+detailsUrlParameter = "id"
+recordsPerPage = 15
 pageNumber = "{{ :page }}"
 ==
 <?php
@@ -44,6 +43,18 @@ public function onStart(){
 ==
 <div class="container">
 
+    {% if userRights['MODEL_GENERAL']['create'] > 0 %}
+        <form action="/tudastar/jatek/letrehozas" method="post" class="mb-2">
+            <input type="hidden" name="association" value="{{ association_id }}">
+            {% partial "@formButton"
+            permissionValue = userRights['MODEL_GENERAL']['create']
+            btnExtraClasses = 'btn btn-sm rounded btn-primary'
+            btnIconClass = 'csat-add-fill-wh-sm'
+            btnLabel = 'Játék hozzáadása' |_
+            %}
+        </form>
+    {% endif %}
+
     {% if userRights['approved_at']['create'] > 0 and userRights['approver_csatar_code']['create'] > 0 %}
         <div class="accordion accordion-flush mb-3">
             <div class="accordion-item">
@@ -61,17 +72,6 @@ public function onStart(){
         </div>
     {% endif %}
 
-    {% if userRights['MODEL_GENERAL']['create'] > 0 %}
-        <form action="/tudastar/jatek/letrehozas" method="post">
-            <input type="hidden" name="association" value="{{ association_id }}">
-            {% partial "@formButton"
-            permissionValue = userRights['MODEL_GENERAL']['create']
-            btnExtraClasses = 'btn btn-sm rounded btn-primary'
-            btnIconClass = 'csat-add-fill-wh-sm'
-            btnLabel = 'Játék hozzáadása' |_
-            %}
-        </form>
-    {% endif %}
-
-    {% component 'builderList' %}
+    {% component 'recordList' %}
+    
 </div>
