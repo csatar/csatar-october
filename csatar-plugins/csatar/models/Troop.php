@@ -38,6 +38,7 @@ class Troop extends OrganizationBase
         'facebook_page' => 'url|regex:(facebook)|nullable',
         'logo' => 'image|nullable',
         'team' => 'required',
+        'status' => 'required',
     ];
 
     /**
