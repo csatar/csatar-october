@@ -98,6 +98,7 @@ class Game extends PermissionBasedAccess
             '\Csatar\KnowledgeRepository\Models\Tool',
             'table' => 'csatar_knowledgerepository_game_tool',
             'label' => 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.tools',
+            'scope' => 'approved',
         ],
         'headcounts' => [
             '\Csatar\KnowledgeRepository\Models\Headcount',

@@ -67,4 +67,8 @@ class Tool extends ModelExtended
         ]
     ];
 
+    public function scopeApproved($query)
+    {
+        return $query->where('is_approved', true);
+    }
 }
