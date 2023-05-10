@@ -8,7 +8,6 @@ fields:
         required: 1
         type: relation
         readOnly: true
-#        hidden: true
     patrol_name:
         label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.patrol'
         span: auto

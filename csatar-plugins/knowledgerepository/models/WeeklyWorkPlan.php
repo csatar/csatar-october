@@ -17,6 +17,71 @@ class WeeklyWorkPlan extends PermissionBasedAccess
 
     use \Csatar\Csatar\Traits\History;
 
+    public const NO_TOOL_REQUIRED = 'nem szükséges kellék';
+    public const SPECIAL_AGE_GROUP_ACTIVITIES = [
+        'Nyitó szertartás' => [
+            'sort_order' => 1,
+            'default_duration' => 5,
+        ],
+        'Mozgós, erőkifejtős játék' => [
+            'sort_order' => 2,
+        ],
+        'Mozgós játék' => [
+            'sort_order' => 3,
+        ],
+        'Kevés mozgást igénylő játék, ügyességi, koncentrációs játék' => [
+            'sort_order' => 4,
+        ],
+        'El nem mozdulós játék' => [
+            'sort_order' => 5,
+        ],
+        'Új anyag' => [
+            'sort_order' => 6,
+        ],
+        'Régi anyag' => [
+            'sort_order' => 7,
+        ],
+        'Mozgós, szórakoztató játék' => [
+            'sort_order' => 8,
+        ],
+        'Záró szertartás' => [
+            'sort_order' => 9,
+            'default_duration' => 5,
+        ]
+    ];
+    public const DEFAULT_AGE_GROUP_ACTIVITIES = [
+        'Nyitó szertartás' => [
+            'sort_order' => 1,
+            'default_duration' => 5,
+        ],
+        'Játék' => [
+            'sort_order' => 2,
+        ],
+        'Régi gyakorlat' => [
+            'sort_order' => 3,
+        ],
+        'Új elmélet' => [
+            'sort_order' => 4,
+        ],
+        'Dal' => [
+            'sort_order' => 5,
+            'default_duration' => 10,
+        ],
+        'Új gyakorlat' => [
+            'sort_order' => 6,
+        ],
+        'Régi elmélet' => [
+            'sort_order' => 7,
+        ],
+        'Új játék' => [
+            'sort_order' => 8,
+        ],
+        'Záró szertartás' => [
+            'sort_order' => 9,
+            'default_duration' => 5,
+        ]
+    ];
+
     /**
      * @var string The database table used by the model.
      */
@@ -184,70 +249,9 @@ class WeeklyWorkPlan extends PermissionBasedAccess
         $specialAgeGroupId = $this->patrol->team->district->association->special_workplan_age_group_id ?? null;
 
         if ($this->patrol && $specialAgeGroupId && $this->patrol->age_group->id == $specialAgeGroupId) {
-            $activitiesToAttach = [
-                'Nyitó szertartás' => [
-                    'sort_order' => 1,
-                    'default_duration' => 5,
-                ],
-                'Mozgós, erőkifejtős játék' => [
-                    'sort_order' => 2,
-                ],
-                'Mozgós játék' => [
-                    'sort_order' => 3,
-                ],
-                'Kevés mozgást igénylő játék, ügyességi, koncentrációs játék' => [
-                    'sort_order' => 4,
-                ],
-                'El nem mozdulós játék' => [
-                    'sort_order' => 5,
-                ],
-                'Új anyag' => [
-                    'sort_order' => 6,
-                ],
-                'Régi anyag' => [
-                    'sort_order' => 7,
-                ],
-                'Mozgós, szórakoztató játék' => [
-                    'sort_order' => 8,
-                ],
-                'Záró szertartás' => [
-                    'sort_order' => 9,
-                    'default_duration' => 5,
-                ]
-            ];
+            $activitiesToAttach = self::SPECIAL_AGE_GROUP_ACTIVITIES;
         } else {
-            $activitiesToAttach = [
-                'Nyitó szertartás' => [
-                    'sort_order' => 1,
-                    'default_duration' => 5,
-                ],
-                'Játék' => [
-                    'sort_order' => 2,
-                ],
-                'Régi gyakorlat' => [
-                    'sort_order' => 3,
-                ],
-                'Új elmélet' => [
-                    'sort_order' => 4,
-                ],
-                'Dal' => [
-                    'sort_order' => 5,
-                    'default_duration' => 10,
-                ],
-                'Új gyakorlat' => [
-                    'sort_order' => 6,
-                ],
-                'Régi elmélet' => [
-                    'sort_order' => 7,
-                ],
-                'Új játék' => [
-                    'sort_order' => 8,
-                ],
-                'Záró szertartás' => [
-                    'sort_order' => 9,
-                    'default_duration' => 5,
-                ]
-            ];
+            $activitiesToAttach = self::DEFAULT_AGE_GROUP_ACTIVITIES;
         }
         return ActivityType::whereIn('name', array_keys($activitiesToAttach))
             ->get()
@@ -443,7 +447,7 @@ class WeeklyWorkPlan extends PermissionBasedAccess
         }
         $ovamtvWorkPlan = OvamtvWorkPlan::where('id', $this->ovamtv_work_plan_id)->with('oldMaterial')->first();
 
-        return $ovamtvWorkPlan->newMaterial->mapWithKeys(function ($material) {
+        return $ovamtvWorkPlan->oldMaterial->mapWithKeys(function ($material) {
             return [
                 $material->id => $material->name,
             ];
@@ -486,7 +490,7 @@ class WeeklyWorkPlan extends PermissionBasedAccess
             ->flatten()
             ->unique()
             ->map(function ($item, $key) {
-                if ($item != 'nem szükséges kellék') {
+                if ($item != self::NO_TOOL_REQUIRED) {
                     return ucfirst($item);
                 }
             })
