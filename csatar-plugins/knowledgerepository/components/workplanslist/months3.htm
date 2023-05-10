@@ -1,7 +1,7 @@
 {% for ovamtv in patrolOvamtvs %}
     {% set buttonId = 'patrol-workplans-months-' ~ patrolId ~ '-' ~ ovamtv.id ~ '-' ~ year %}
     {% set collapseId = 'flush-collapse-' ~ buttonId %}
-    <div class="accordion accordion-flush mb-3">
+    <div class="accordion accordion-flush mt-2">
         <div class="accordion-item">
             <h2 class="accordion-header" id="{{ buttonId }}">
                 <button class="accordion-button py-2 collapsed"
@@ -25,6 +25,9 @@
                             <span>{{ 'Kéthavi munkaterv'|_ }}</span>
                             <span class="bi bi-box-arrow-up-right"></span>
                         </a>
+                        {% if ovamtv.weeklyWorkPlans|length > 0 %}
+                            {% partial '@weeklyWorkPlans4.htm' ovamtv = ovamtv patrolId = patrolId %}
+                        {% endif %}
                     {% endif %}
                 </div>
             </div>

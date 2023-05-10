@@ -189,6 +189,16 @@
                 ?>
             </ul>
         </li>
+        <li>
+            <h4><?= e(trans('csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.activityTypesSeederLabel')) ?>:</h4>
+            <ul>
+                <?php
+                foreach ($seederData['activityTypes'] as $data) {
+                    echo '<li>' . $data['name'] . ' - ' . $data['tooltip'] . '</li>';
+                }
+                ?>
+            </ul>
+        </li>
     </ul>
     <p><?= e(trans('csatar.csatar::lang.plugin.admin.admin.seederData.seederDataConfirmMessage')) ?></p>
     <p><button type="button" data-request="onSeederDataUpdateButtonClick" class="btn btn-default"><?= e(trans('csatar.csatar::lang.plugin.admin.admin.seederData.updateData')) ?></button></p>

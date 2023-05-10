@@ -144,6 +144,15 @@ class BasicForm extends ComponentBase  {
      * Initialise plugin and parse request
      */
     public function init() {
+
+        $this->controller->bindEvent('ajax.beforeRunHandler', function ($handler) {
+            //check if handler starts with "relation"
+            if (substr($handler, 0, 13) === 'pivotRelation' && strpos($handler, '::')) {
+                [$componentAlias, $handlerName] = explode('::', $handler);
+                return $this->$handlerName($componentAlias);
+            }
+        });
+        
         $this->getForm();
         $this->setOrGetFormUniqueId();
         if ($this->properties['subForm']) {

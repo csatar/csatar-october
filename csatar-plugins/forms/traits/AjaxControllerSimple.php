@@ -108,6 +108,14 @@ trait AjaxControllerSimple {
         $config->fields        = $this->markFieldsThatRequire2FA($config->fields, $preview, empty($record->id));
         $messageAbout2faFields = $this->generate2FAFieldsMessage($config->fields, $preview, empty($record->id));
         $config->fields        = $this->applyUserRightsToForm($config->fields, $preview, empty($record->id));
+
+        if ($preview) {
+            $config->fields = array_map(function ($field) {
+                $field['formBuilder']['preview'] = true;
+                return $field;
+            }, $config->fields);
+        }
+
         $config->arrayName     = 'data';
         $config->alias         = $this->alias;
         $config->model         = $record;
@@ -486,7 +494,7 @@ trait AjaxControllerSimple {
         }
 
         $pivotConfig->arrayName = $relationName;
-        $pivotConfig->alias     = $relatedModelName;
+        $pivotConfig->alias     = 'pivotRelation_' . $relationName;
         $widget = new \Backend\Widgets\Form($this, $pivotConfig);
         $this->loadBackendFormWidgets();
 
@@ -593,6 +601,35 @@ trait AjaxControllerSimple {
                 $model = $model::create(isset($model->attributes) ? array_merge($model->attributes, $pivotData) : $pivotData);
             }
         }
+
+        $record->refresh();
+
+        return [
+            '#pivotSection' =>
+                $this->renderBelongsToManyWithPivotDataAndHasManyRelations($record),
+            '#pivot-form' => '',
+        ];
+    }
+
+    public function onChangeSortOrder() {
+        $record       = $this->getRecord();
+        $relationName = Input::get('relationName');
+        $sortOrder    = Input::get('sortOrder');
+        $direction    = Input::get('direction');
+        $change       = $direction == 'up' ? -1 : 1;
+
+        $attachedModels = $record->{$relationName};
+        $attachedModel1 = $attachedModels->firstWhere('pivot.sort_order', $sortOrder);
+        $attachedModel2 = $attachedModels->firstWhere('pivot.sort_order', $sortOrder+$change);
+
+        if (empty($attachedModel1) || empty($attachedModel2)) {
+            return false;
+        }
+
+        $attachedModel1->pivot->sort_order = $sortOrder + $change;
+        $attachedModel2->pivot->sort_order = $sortOrder;
+        $attachedModel1->pivot->save();
+        $attachedModel2->pivot->save();
 
         $record->refresh();
 
@@ -1054,6 +1091,10 @@ trait AjaxControllerSimple {
 
         // render belongsToMany relations
         foreach ($record->belongsToMany as $relationName => $definition) {
+            if (empty($record->id)
+                && (isset($definition['renderableOnCreateForm']) && !$definition['renderableOnCreateForm'])) {
+                continue;
+            }
             if ($this->canRead($relationName) && !empty($definition['pivot']) && (count($record->{$relationName}) > 0 || $showEmpty)) {
                 $pivotConfig = $this->getConfig($definition[0], 'columnsPivot.yaml');
                 if ($pivotConfig) {
@@ -1159,7 +1200,15 @@ trait AjaxControllerSimple {
         return $this->createPivotForm($relationName, $relationId, true);
     }
 
-    public function onRefresh(){
+    public function onRefresh($refreshRelationFrom = null) {
+
+        if ($refreshRelationFrom) {
+            $relationName = Input::get('relationName');
+            $relationId   = Input::get('relationId');
+            $edit         = Input::get('edit');
+            return $this->createPivotForm($relationName, $relationId, $edit);
+        }
+
         return [
             '#renderedFormArea' => $this->createForm(),
         ];
@@ -1192,6 +1241,10 @@ trait AjaxControllerSimple {
             }
         }
 
+        $records = $records->sortBy(function ($record) {
+            return $record->pivot->sort_order ?? $record->id;
+        });
+
         $tableRows = '';
         foreach ($records as $key => $relatedRecord) {
             if ($relatedRecord->is_hidden_frontend) {
@@ -1216,19 +1269,25 @@ trait AjaxControllerSimple {
             $colButtons = '';
             foreach ($attributesToDisplay as $key => $data) {
                 $label = Lang::get($data['label']);
+                $tooltipAttribute = array_key_exists('tooltipFrom', $data) ? $data['tooltipFrom'] : null;
 
                 if (array_key_exists('isPivot', $data)) {
                     $value = $relatedRecord->pivot->{$key} ?? '';
+                    $tooltip = $tooltipAttribute ? $relatedRecord->pivot->{$tooltipAttribute} ?? null : null;
                 } else {
                     $attribute = array_key_exists('valueFromFormBuilder', $data) ? $data['valueFromFormBuilder'] : 'name';
                     $value     = (is_object($relatedRecord->{$key}) ?
                         $relatedRecord->{$key}->{$attribute} :
                         $relatedRecord->{$key});
+                    $tooltip = $tooltipAttribute ? (is_object($relatedRecord->{$key}) ?
+                        $relatedRecord->{$key}->{$tooltipAttribute} :
+                        $relatedRecord->{$tooltipAttribute}) : null;
                 }
 
                 $cols .= $this->renderPartial('@partials/pivotTableRowCol.htm', [
                     'label' => $label,
                     'value' => $value,
+                    'tooltip' => $tooltip,
                 ]);
             }
 
@@ -1238,6 +1297,7 @@ trait AjaxControllerSimple {
                     'canDelete' => $this->canDelete($relationName),
                     'relationName' => $relationName,
                     'relationId' => $relatedRecord->id,
+                    'sortOrder' => $relatedRecord->pivot->sort_order ?? false,
                     'fieldsThatRequire2FA' => $this->fieldsThatRequire2FA,
                 ]);
             }

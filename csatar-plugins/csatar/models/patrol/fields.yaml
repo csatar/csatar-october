@@ -131,3 +131,6 @@ fields:
             position: details
             order: 10
             ignoreUserRights: 1
+    weeklyWorkPlans:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.weeklyWorkPlan'
+        hidden: 1
