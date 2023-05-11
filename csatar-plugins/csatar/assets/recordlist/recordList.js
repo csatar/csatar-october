@@ -56,7 +56,7 @@ function addKeywordCheckbox(element){
     filterSortPaginate(alias);
 }
 
-function filterSortPaginate(componentAlias, page = 1, sortColumn = '', sortDirection = '') {
+function filterSortPaginate(componentAlias, page = 1, sortColumn = '', sortDirection = '', changedColumn = null) {
     let selected = {};
     selected[componentAlias] = [];
     let activeFilters = {};
@@ -98,7 +98,8 @@ function filterSortPaginate(componentAlias, page = 1, sortColumn = '', sortDirec
             activeFilters: activeFilters,
             page: page,
             sortColumn: sortColumn,
-            sortDirection: sortDirection
+            sortDirection: sortDirection,
+            changedColumn: changedColumn
         }
     });
 

@@ -10,6 +10,7 @@
 - CS-532 - Modified search results display, added hierarchy tree to result
 - CS-532 - Created GallerySearchProvider, added gallery relation to model that has gallery
 - CS-533 - Modified search results to display results starting with Scouts to Association and last results from Content page
+- CS-571 - Added association filter to the Knowledge repository models
 
 ## 1.12.0
 ### 2023-04-25

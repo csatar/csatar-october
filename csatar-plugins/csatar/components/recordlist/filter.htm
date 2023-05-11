@@ -35,18 +35,18 @@
         <div class="collapse collapsable-filter" id="{{ collapsableAreaId }}">
             <div class="overflow-auto checkbox-container {{ filterCheckboxContainerId }} mb-2 px-2" id="{{ filterCheckboxContainerId }}">
                 {% for option in config['options'] %}
-
                     <div class="form-check">
                         <input
                                 class="form-check-input"
-                                type="checkbox"
+                                type="{{ config['filterConfig']['selectType'] }}"
                                 value="{{ option.id }}"
                                 name="{{ filterNameArrayName }}[]"
                                 id="{{ filterNameArrayName }}-{{ option['id'] }}"
-                                onchange="filterSortPaginate('{{ alias }}')"
+                                onchange="filterSortPaginate('{{ alias }}', 1, '', '', '{{ column }}')"
                                 data-column="{{ column }}"
                                 data-column-label="{{ config['label'] }}"
                                 data-alias="{{ alias }}"
+                                {% if option.checked %} checked {% endif %}
                         >
                         <label class="form-check-label" for="{{ filterNameArrayName }}-{{ option['id'] }}">
                             {{ option['label'] }}
