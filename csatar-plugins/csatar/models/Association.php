@@ -268,4 +268,5 @@ class Association extends OrganizationBase
 
         return AgeGroup::where('association_id', $this->id)->lists('name', 'id');
     }
+
 }

@@ -5,6 +5,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarKnowledgerepositoryWeeklyWorkPlanActivityType extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_knowledgerepository_weekly_work_plan_activity_type', function($table)
@@ -29,4 +30,5 @@ class BuilderTableCreateCsatarKnowledgerepositoryWeeklyWorkPlanActivityType exte
     {
         Schema::dropIfExists('csatar_knowledgerepository_weekly_work_plan_activity_type');
     }
+
 }

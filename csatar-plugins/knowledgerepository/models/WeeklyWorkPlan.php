@@ -537,4 +537,5 @@ class WeeklyWorkPlan extends PermissionBasedAccess
                 ];
             });
     }
+
 }

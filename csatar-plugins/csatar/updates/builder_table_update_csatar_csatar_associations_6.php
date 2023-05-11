@@ -5,6 +5,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableUpdateCsatarCsatarAssociations6 extends Migration
 {
+
     public function up()
     {
         Schema::table('csatar_csatar_associations', function($table)
@@ -22,4 +23,5 @@ class BuilderTableUpdateCsatarCsatarAssociations6 extends Migration
             $table->dropColumn('special_workplan_age_group_id');
         });
     }
+
 }

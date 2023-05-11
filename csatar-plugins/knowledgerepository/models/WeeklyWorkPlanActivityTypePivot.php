@@ -18,6 +18,7 @@ class WeeklyWorkPlanActivityTypePivot extends CsatarPivot
     public function filterFields($fields, $context = null) {
         $fields->programmable_type->options = [];
     }
+
     /**
      * @var array Fillable values
      */

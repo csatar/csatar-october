@@ -5,6 +5,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarKnowledgerepositoryActivityTypes extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_knowledgerepository_activity_types', function($table)
@@ -22,4 +23,5 @@ class BuilderTableCreateCsatarKnowledgerepositoryActivityTypes extends Migration
     {
         Schema::dropIfExists('csatar_knowledgerepository_activity_types');
     }
+
 }

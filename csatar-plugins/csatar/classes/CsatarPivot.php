@@ -29,4 +29,5 @@ class CsatarPivot extends Pivot
     public function getParentById($id) {
         return $this->getParentClass()::find($id);
     }
+
 }
