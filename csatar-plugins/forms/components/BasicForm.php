@@ -144,6 +144,11 @@ class BasicForm extends ComponentBase  {
      * Initialise plugin and parse request
      */
     public function init() {
+
+        if (post('redirect')) {
+            return;
+        }
+
         $this->getForm();
         $this->setOrGetFormUniqueId();
         if ($this->properties['subForm']) {
