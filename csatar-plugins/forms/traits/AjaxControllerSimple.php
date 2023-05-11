@@ -218,10 +218,8 @@ trait AjaxControllerSimple {
                     $mainCardVariablesToPass['customImage'] = true;
                 } else if ($field['type'] == 'custom') { // custom field type, which permits to list title-value pairs in the descriptionList part of the mainCard
                     $value = $widget->model->{$key};
-                } else if (is_array($widget->model->customAttributes) && in_array($key, $widget->model->customAttributes)) { // to display values from get...Arribute() functions
+                } else if (isset($widget->model->{$key})) { // regular fields
                     $value = $widget->model->{$key};
-                } else if (isset($widget->model->attributes[$key]) && !empty($widget->model->attributes[$key])) { // regular fields
-                    $value = $widget->model->attributes[$key];
                 } else {
                     continue;
                 }
