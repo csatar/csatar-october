@@ -469,7 +469,7 @@ class WeeklyWorkPlan extends PermissionBasedAccess
         $previousActivitiesDuration = $this->activityTypes->whereBetween('pivot.sort_order', [0, $sortOrder-1])
             ->sum('pivot.duration');
 
-        return date('H:i:s',strtotime($this->start_date_time) + ($previousActivitiesDuration * 60));
+        return date('H:i:s', strtotime($this->start_date_time) + ($previousActivitiesDuration * 60));
 
     }
 

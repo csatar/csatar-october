@@ -408,7 +408,7 @@ class OvamtvWorkPlan extends PermissionBasedAccess
     }
 
     public function getNameAttribute() {
-        return date("Y",strtotime($this->start_date)) . ' ' . $this->getMonthLabel(date("m",strtotime($this->start_date)));
+        return date("Y", strtotime($this->start_date)) . ' ' . $this->getMonthLabel(date("m", strtotime($this->start_date)));
     }
 
 }
