@@ -428,7 +428,7 @@ class Team extends OrganizationBase
 
     public function scopeActive($query)
     {
-        $query->where('status', Status::ACTIVE)->orderByRaw('CONVERT(team_number, UNSIGNED) asc');
+        $query->where('status', Status::ACTIVE)->whereHas('scoutsActive')->orderByRaw('CONVERT(team_number, UNSIGNED) asc');
     }
 
     public function scopeActiveInDistrict($query, $districtId) {

@@ -26,7 +26,7 @@
             {% set array = array|sort((a, b) => a['team_number'] <=> b['team_number']) %}
         {% endif %}
         {% for item in array %}
-            {% if level < 3 or item['scoutsActive'] | length != 0 %}
+            {% if item[childArrayName]|length > 0 or item['scoutsActive'] | length != 0 %}
             <div class="accordion-item my-3">
                 {% if organizationTypeForUrl in this.page.id %}
                     {% partial __SELF__ ~ '::accordionbody'
