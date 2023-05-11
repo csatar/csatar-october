@@ -87,7 +87,7 @@
                     {% partial "@formWithButton"
                         permissionValue = permissions['ovamtvWorkPlans']['create']
                         actionUrl = '/ova-munkaterv/letrehozas'
-                        hiddenInputs = { 'patrol': patrolId }
+                        hiddenInputs = { 'team': teamId, 'patrol': patrolId }
                         btnExtraClasses = 'btn-sm btn-primary'
                         btnValue = 'Kéthavi ŐVáMTV létrehozása' |_
                         btnIconClass = 'csat-add-fill-wh-sm'
