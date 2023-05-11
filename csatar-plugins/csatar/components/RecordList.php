@@ -179,7 +179,7 @@ class RecordList extends RainRecordList {
         $this->filtersConfig = $this->page['filtersConfig'] = $this->getFiltersConfig();
 
         $this->addCss('/plugins/csatar/csatar/assets/recordlist/recordList.css?v=1.0.0');
-        $this->addJs('/plugins/csatar/csatar/assets/recordlist/recordList.js?v=1.1.0');
+        $this->addJs('/plugins/csatar/csatar/assets/recordlist/recordList.js?v=1.1.1');
     }
 
     protected function prepareVars()
