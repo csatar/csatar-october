@@ -344,22 +344,22 @@ class WeeklyWorkPlan extends PermissionBasedAccess
 
     public function hideFieldsOnCreate(&$fields){
         if (empty($this->id)) {
-            $fields->spareGames->cssClass = 'd-none';
-            $fields->spareGames->cssClass = 'd-none';
-            $fields->tools->cssClass = 'd-none';
+            $fields->spareGames->cssClass  = 'd-none';
+            $fields->spareGames->cssClass  = 'd-none';
+            $fields->tools->cssClass       = 'd-none';
             $fields->extra_tools->cssClass = 'd-none';
-            $fields->evaluation->cssClass = 'd-none';
+            $fields->evaluation->cssClass  = 'd-none';
 
             $fields->new_material_effective_knowledge->cssClass = 'd-none';
             $fields->old_material_effective_knowledge->cssClass = 'd-none';
 
-            $fields->attachments->cssClass = 'd-none';
+            $fields->attachments->cssClass         = 'd-none';
             $fields->creator_csatar_code->cssClass = 'd-none';
             $fields->updater_csatar_code->cssClass = 'd-none';
-            $fields->scouts->cssClass = 'd-none';
+            $fields->scouts->cssClass      = 'd-none';
             $fields->scouts_list->cssClass = 'd-none';
             $fields->programNote->cssClass = 'd-none';
-            $fields->_ruler4->cssClass = 'd-none';
+            $fields->_ruler4->cssClass     = 'd-none';
         }
     }
 
@@ -380,7 +380,7 @@ class WeeklyWorkPlan extends PermissionBasedAccess
             ->where('association_id', $this->getAssociation()->id)
             ->first()->id;
 
-        $mandates          = $this->getMandates($deputyPatrolLeaderMandateTypeId);
+        $mandates            = $this->getMandates($deputyPatrolLeaderMandateTypeId);
         $deputyPatrolLeaders = [];
 
         foreach ($mandates as $mandate) {

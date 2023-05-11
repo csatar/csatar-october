@@ -54,8 +54,8 @@ class ActivityType extends Model
         if (isset($pivotData['programmable_id'])
             && (!isset($this->pivot['programmable_id']) || $pivotData['programmable_id'] != $this->pivot['programmable_id'])) {
             $fields->{'pivot[programmable_id]'}->value = $pivotData['programmable_id'];
-            $fields->{'pivot[duration]'}->value = $this->getDurationDefaultValue($pivotData['programmable_id']);
-            $fields->{'pivot[description]'}->value = $this->getDescriptionDefaultValue($pivotData['programmable_id']);
+            $fields->{'pivot[duration]'}->value        = $this->getDurationDefaultValue($pivotData['programmable_id']);
+            $fields->{'pivot[description]'}->value     = $this->getDescriptionDefaultValue($pivotData['programmable_id']);
         }
 
         if (empty($this->model)) {

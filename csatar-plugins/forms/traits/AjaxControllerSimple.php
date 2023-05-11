@@ -116,9 +116,9 @@ trait AjaxControllerSimple {
             }, $config->fields);
         }
 
-        $config->arrayName     = 'data';
-        $config->alias         = $this->alias;
-        $config->model         = $record;
+        $config->arrayName = 'data';
+        $config->alias     = $this->alias;
+        $config->model     = $record;
 
         if (method_exists($record, 'initFromForm')) {
             $record->initFromForm();
@@ -1079,7 +1079,7 @@ trait AjaxControllerSimple {
     }
 
     public function renderPivotSection($record, $showEmpty = true) {
-        $html = '<div class="row" id="pivotSection">';
+        $html  = '<div class="row" id="pivotSection">';
         $html .= $this->renderBelongsToManyWithPivotDataAndHasManyRelations($record, $showEmpty);
         $html .= '</div>';
 
@@ -1269,18 +1269,18 @@ trait AjaxControllerSimple {
             $cols       = '';
             $colButtons = '';
             foreach ($attributesToDisplay as $key => $data) {
-                $label = Lang::get($data['label']);
+                $label            = Lang::get($data['label']);
                 $tooltipAttribute = array_key_exists('tooltipFrom', $data) ? $data['tooltipFrom'] : null;
 
                 if (array_key_exists('isPivot', $data)) {
-                    $value = $relatedRecord->pivot->{$key} ?? '';
+                    $value   = $relatedRecord->pivot->{$key} ?? '';
                     $tooltip = $tooltipAttribute ? $relatedRecord->pivot->{$tooltipAttribute} ?? null : null;
                 } else {
                     $attribute = array_key_exists('valueFromFormBuilder', $data) ? $data['valueFromFormBuilder'] : 'name';
                     $value     = (is_object($relatedRecord->{$key}) ?
                         $relatedRecord->{$key}->{$attribute} :
                         $relatedRecord->{$key});
-                    $tooltip = $tooltipAttribute ? (is_object($relatedRecord->{$key}) ?
+                    $tooltip   = $tooltipAttribute ? (is_object($relatedRecord->{$key}) ?
                         $relatedRecord->{$key}->{$tooltipAttribute} :
                         $relatedRecord->{$tooltipAttribute}) : null;
                 }

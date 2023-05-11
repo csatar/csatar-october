@@ -1112,12 +1112,12 @@ class SeederData extends Seeder
 
         // Activity Types
         foreach ($this::DATA['activityTypes'] as $activityTypeData) {
-            $activityType = ActivityType::firstOrNew([
+            $activityType        = ActivityType::firstOrNew([
                 'name' => $activityTypeData['name'],
             ]);
             $activityType->model = $activityTypeData['model'];
             $activityType->categories = $activityTypeData['categories'];
-            $activityType->tooltip = $activityTypeData['tooltip'];
+            $activityType->tooltip    = $activityTypeData['tooltip'];
             $activityType->save();
         }
     }
