@@ -813,52 +813,58 @@ class SeederData extends Seeder
             switch ($name) {
                 case 'Horvátországi magyar cserkészek':
                     $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'H';
-                    $association->currency_id       = Currency::where('code', 'HRK')->first()->id;
+                    $association->currency_id       = $association->currency_id ?? Currency::where('code', 'HRK')->first()->id;
                     $association->team_fee          = $association->team_fee ?? 0;
                     $association->name_abbreviation = $association->name_abbreviation ?? 'HZMCS';
                     break;
                 case 'Kárpátaljai Magyar Cserkészszövetség':
-                    $association->currency_id       = Currency::where('code', 'UAH')->first()->id;
+                    $association->currency_id       = $association->currency_id ?? Currency::where('code', 'UAH')->first()->id;
                     $association->team_fee          = $association->team_fee ?? 0;
                     $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'KÁ';
                     $association->name_abbreviation = $association->name_abbreviation ?? 'KáMCSSZ';
                     break;
                 case 'Külföldi Magyar Cserkészszövetség':
                     $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'KÜ';
-                    $association->currency_id       = Currency::where('code', 'EUR')->first()->id;
+                    $association->currency_id       = $association->currency_id ?? Currency::where('code', 'EUR')->first()->id;
                     $association->team_fee          = $association->team_fee ?? 0;
                     $association->name_abbreviation = $association->name_abbreviation ?? 'KMCSSZ';
                     break;
                 case 'Magyar Cserkészszövetség':
                     $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'M';
-                    $association->currency_id       = Currency::where('code', 'HUF')->first()->id;
+                    $association->currency_id       = $association->currency_id ?? Currency::where('code', 'HUF')->first()->id;
                     $association->team_fee          = $association->team_fee ?? 0;
                     $association->name_abbreviation = $association->name_abbreviation ?? 'MCSSZ';
                     break;
                 case 'Romániai Magyar Cserkészszövetség':
                     $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'E';
-                    $association->currency_id       = Currency::where('code', 'RON')->first()->id;
+                    $association->currency_id       = $association->currency_id ?? Currency::where('code', 'RON')->first()->id;
                     $association->team_fee          = $association->team_fee ?? 300;
                     $association->name_abbreviation = $association->name_abbreviation ?? 'RMCSSZ';
                     $association->country           = 'Románia';
                     break;
                 case 'Szlovákiai Magyar Cserkészszövetség':
                     $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'F';
-                    $association->currency_id       = Currency::where('code', 'EUR')->first()->id;
+                    $association->currency_id       = $association->currency_id ?? Currency::where('code', 'EUR')->first()->id;
                     $association->team_fee          = $association->team_fee ?? 0;
                     $association->name_abbreviation = $association->name_abbreviation ?? 'SZMCS';
                     break;
                 case 'Vajdasági Magyar Cserkészszövetség':
                     $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'D';
-                    $association->currency_id       = Currency::where('code', 'RSD')->first()->id;
+                    $association->currency_id       = $association->currency_id ?? Currency::where('code', 'RSD')->first()->id;
                     $association->team_fee          = $association->team_fee ?? 0;
                     $association->name_abbreviation = $association->name_abbreviation ?? 'VMCSZ';
+                    break;
+                case 'Honi Cserkész Szövetség':
+                    $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'HU';
+                    $association->currency_id       = $association->currency_id ?? Currency::where('code', 'HUF')->first()->id;
+                    $association->team_fee          = $association->team_fee ?? 0;
+                    $association->name_abbreviation = $association->name_abbreviation ?? 'HCSSZ';
                     break;
                 default:
                     break;
             }
 
-            $association->save();
+            $association->forceSave();
 
             // associations - legal relationships pivot
             if ($association->legal_relationships->where('id', $legalRelationship1->id)->first() == null) {
@@ -877,7 +883,7 @@ class SeederData extends Seeder
                 $association->legal_relationships()->attach($legalRelationship4, ['membership_fee' => 0]);
             }
 
-            $association->save();
+            $association->forceSave();
 
             // mandate types
             $mandateTypes = [];
