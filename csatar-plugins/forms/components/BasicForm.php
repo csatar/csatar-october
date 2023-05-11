@@ -440,6 +440,7 @@ class BasicForm extends ComponentBase  {
         if (empty($userRightsForParent[$relationName])) {
             return [];
         }
+
         $this->currentUserRights['MODEL_GENERAL']['create'] = $userRightsForParent[$relationName]['create'];
         $this->currentUserRights['MODEL_GENERAL']['update'] = $userRightsForParent[$relationName]['update'];
         $this->currentUserRights['MODEL_GENERAL']['read']   = $userRightsForParent[$relationName]['read'];

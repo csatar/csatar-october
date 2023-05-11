@@ -1096,6 +1096,7 @@ trait AjaxControllerSimple {
                 && (isset($definition['renderableOnCreateForm']) && !$definition['renderableOnCreateForm'])) {
                 continue;
             }
+
             if ($this->canRead($relationName) && !empty($definition['pivot']) && (count($record->{$relationName}) > 0 || $showEmpty)) {
                 $pivotConfig = $this->getConfig($definition[0], 'columnsPivot.yaml');
                 if ($pivotConfig) {

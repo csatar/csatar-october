@@ -254,6 +254,7 @@ class WeeklyWorkPlan extends PermissionBasedAccess
         } else {
             $activitiesToAttach = self::DEFAULT_AGE_GROUP_ACTIVITIES;
         }
+
         return ActivityType::whereIn('name', array_keys($activitiesToAttach))
             ->get()
             ->mapWithKeys(function ($item, $key) use ($activitiesToAttach) {
@@ -430,6 +431,7 @@ class WeeklyWorkPlan extends PermissionBasedAccess
         if (empty($this->ovamtv_work_plan_id)) {
             return [];
         }
+
         $ovamtvWorkPlan = OvamtvWorkPlan::where('id', $this->ovamtv_work_plan_id)->with('newMaterial')->first();
 
         return $ovamtvWorkPlan->newMaterial->mapWithKeys(function ($material) {
@@ -446,6 +448,7 @@ class WeeklyWorkPlan extends PermissionBasedAccess
         if (empty($this->ovamtv_work_plan_id)) {
             return [];
         }
+
         $ovamtvWorkPlan = OvamtvWorkPlan::where('id', $this->ovamtv_work_plan_id)->with('oldMaterial')->first();
 
         return $ovamtvWorkPlan->oldMaterial->mapWithKeys(function ($material) {
@@ -482,6 +485,7 @@ class WeeklyWorkPlan extends PermissionBasedAccess
             if (!empty($toolsArray)) {
                 $tools[] = $toolsArray;
             }
+
             if (!empty($activityType->other_tools)) {
                 $tools[] = $activityType->other_tools;
             }

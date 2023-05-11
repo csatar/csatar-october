@@ -102,6 +102,7 @@ class ActivityType extends Model
         if (empty($weeklyWorkPlanId)) {
             return;
         }
+
         return WeeklyWorkPlan::where('id', $weeklyWorkPlanId)
             ->with([
                 'newMaterial',
