@@ -1,4 +1,21 @@
 columns:
+    association_id:
+      label: 'csatar.csatar::lang.plugin.admin.association.association'
+      type: text
+      searchable: true
+      sortable: true
+      select: name
+      relation: association
+      recordList:
+        sortable: true
+        filterable: true
+        filterConfig:
+          type: relation
+          relationName: association
+          keyFrom: id
+          labelFrom: name
+          selectType: radio
+          defaultFrom: getAssociationIdByUser
     song_type_id:
       label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.songType'
       type: text
@@ -14,6 +31,7 @@ columns:
           relationName: songtype
           keyFrom: id
           labelFrom: name
+          selectType: checkbox
     title:
         label: 'csatar.knowledgerepository::lang.plugin.admin.song.songTitle'
         type: text
@@ -56,6 +74,7 @@ columns:
             relationName: folksongtype
             keyFrom: id
             labelFrom: name
+            selectType: checkbox
     region_id:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.region'
         type: regionExtendedName
@@ -75,6 +94,7 @@ columns:
             additionalKeyFrom2: mid_parent_id
             additionalKeyFrom3: small_parent_id
             extendedLabel: true
+            selectType: checkbox
     rhythm_id:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.folkSongRhythm'
         type: text
@@ -95,6 +115,8 @@ columns:
             relationName: agegroups
             keyFrom: id
             labelFrom: name
+            selectType: checkbox
+            dependsOn: association_id
     trial_system_id:
         label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystems'
         type: text

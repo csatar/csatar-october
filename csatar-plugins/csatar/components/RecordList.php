@@ -5,6 +5,7 @@ use Auth;
 use Carbon\Carbon;
 use Cms\Classes\ComponentBase;
 use Csatar\Csatar\Classes\Constants;
+use Csatar\Csatar\Models\Association;
 use Input;
 use Lang;
 use Storage;
@@ -69,6 +70,8 @@ class RecordList extends RainRecordList {
      * @var mixed
      */
     public $recordsForFilterOptions;
+
+    public $defaultAssociation = 'Romániai Magyar Cserkészszövetség';
 
     public function componentDetails()
     {
@@ -153,7 +156,7 @@ class RecordList extends RainRecordList {
                 'validationPattern' => '^[0-9]*$',
                 'validationMessage' => 'rainlab.builder::lang.components.list_records_per_page_validation',
                 'group'             => 'rainlab.builder::lang.components.list_pagination'
-            ],
+            ]
         ];
 
         if (isset($parentProperties['sortColumn'])) {
@@ -339,7 +342,17 @@ class RecordList extends RainRecordList {
 
             $filterConfig[$column]['type'] = $config['type']; // maybe this should be ignored and only the filterConfig type should be used
             if (!$withoutOptions) {
-                $filterConfig[$column]['options'] = $this->getFilterOptions($column, $config);
+                $dependsOnValue = null;
+                if (isset($config['recordList']['filterConfig']['dependsOn'])) {
+                    foreach ($filterConfig[$config['recordList']['filterConfig']['dependsOn']]['options'] as $option) {
+                        if ($option['checked'] == true) {
+                            $dependsOnValue = $option['id'];
+                            break;
+                        }
+                    }
+                }
+
+                $filterConfig[$column]['options'] = $this->getFilterOptions($column, $config, $dependsOnValue);
             }
 
             $filterConfig[$column]['filterConfig'] = $config['recordList']['filterConfig'] ?? null;
@@ -348,7 +361,7 @@ class RecordList extends RainRecordList {
         return $filterConfig;
     }
 
-    public function getFilterOptions($column, $config) {
+    public function getFilterOptions($column, $config, $dependsOn = null) {
 
         if (isset($config['recordList']['filterConfig']['type']) &&
             $config['recordList']['filterConfig']['type']== 'freeText'
@@ -363,7 +376,7 @@ class RecordList extends RainRecordList {
         if (isset($config['recordList']['filterConfig']['type']) &&
             $config['recordList']['filterConfig']['type'] == 'relation'
         ) {
-            return $this->getFilterOptionsForRelation($column, $config);
+            return $this->getFilterOptionsForRelation($column, $config, $dependsOn);
         }
 
         return $this->recordsForFilterOptions
@@ -402,16 +415,27 @@ class RecordList extends RainRecordList {
         return $model->get();
     }
 
-    protected function getFilterOptionsForRelation($column, $config) {
+    protected function getFilterOptionsForRelation($column, $config, $dependsOn = null) {
         $options      = [];
         $model        = new $this->modelClassName();
         $relationName = $config['recordList']['filterConfig']['relationName'] ?? $column;
         $relationType = $this->rowConfig[$column]['relationName'] ?? $this->getRelationType($relationName);
+
+        $defaultId = null;
+        if (isset($config['recordList']['filterConfig']['defaultFrom'])) {
+            $defaultFrom = $config['recordList']['filterConfig']['defaultFrom'];
+            $defaultId = $this->$defaultFrom();
+        }
+        $activeFilters = json_decode(Input::get('activeFilters'), true);
+        $columnActiveFilters = isset($activeFilters[$column]) ? $activeFilters[$column] : null;
+
         if (isset($model->$relationType[$relationName])) {
             $relationModelClassName = is_array($model->$relationType[$relationName]) ? $model->$relationType[$relationName][0] : $model->$relationType[$relationName];
             $relationModelClassName = $this->validateModelClassName($relationModelClassName);
 
-            return $relationModelClassName::all()->map(function ($item) use ($config) {
+            $query = !empty($dependsOn) ? $relationModelClassName::where($config['recordList']['filterConfig']['dependsOn'], $dependsOn)->get() : $relationModelClassName::all();
+
+            return $query->map(function ($item) use ($config, $defaultId, $columnActiveFilters) {
                 $keyFrom = $config['recordList']['filterConfig']['keyFrom'] ?? 'id';
 
                 if (isset($config['recordList']['filterConfig']['extendedLabel'])) {
@@ -424,6 +448,7 @@ class RecordList extends RainRecordList {
                 return [
                     'id' => $item->$keyFrom,
                     'label' => $label,
+                    'checked' => $this->isOptionSelected($item->$keyFrom, $defaultId, $columnActiveFilters),
                 ];
             });
         }
@@ -535,10 +560,18 @@ class RecordList extends RainRecordList {
             $this->sortDirection = $sortDirection;
         }
 
+        $partialArray = [];
+
+        $this->filtersConfig = $this->page['filtersConfig'] = $this->getFiltersConfig();
+        foreach ($this->filtersConfig as $column => $config) {
+            if (isset($config['filterConfig']['dependsOn']) && Input::get('changedColumn') == $config['filterConfig']['dependsOn']) {
+                $partialArray['#filter-' . $column . '-'. $componentAlias] = $this->renderPartial('@filter', ['column' => $column, 'config' => $config]);
+            }
+        }
+
         $this->records = $this->page['records'] = $this->listRecords();
-        return [
-            '#tableRows-' . $componentAlias => $this->renderPartial('@tableRows')
-        ];
+        $partialArray['#tableRows-' . $componentAlias] = $this->renderPartial('@tableRows');
+        return $partialArray;
     }
 
     /**
@@ -555,6 +588,24 @@ class RecordList extends RainRecordList {
         }
 
         return $modelClassName;
+    }
+
+    public function getAssociationIdByUser()
+    {
+        return !Auth::user() ? Association::where('name', $this->defaultAssociation)->select('id')->first()->getAssociationId() : Auth::user()->scout->getAssociation()->id;
+    }
+
+    public function isOptionSelected($value, $defaultId = null, $activeIds = null)
+    {
+        if ($activeIds != null && in_array($value, array_values($activeIds))) {
+            return true;
+        }
+
+        if (!Input::get('activeFilters') && $value == $defaultId) {
+            return true;
+        }
+
+        return false;
     }
 
 }

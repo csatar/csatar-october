@@ -1,4 +1,21 @@
 columns:
+    association_id:
+      label: 'csatar.csatar::lang.plugin.admin.association.association'
+      type: text
+      searchable: true
+      sortable: true
+      select: name
+      relation: association
+      recordList:
+        sortable: true
+        filterable: true
+        filterConfig:
+          type: relation
+          relationName: association
+          keyFrom: id
+          labelFrom: name
+          selectType: radio
+          defaultFrom: getAssociationIdByUser
     uploader_csatar_code:
         label: 'csatar.knowledgerepository::lang.plugin.admin.game.uploader'
         type: text
@@ -27,6 +44,8 @@ columns:
                 relationName: age_groups
                 keyFrom: id
                 labelFrom: name
+                selectType: checkbox
+                dependsOn: association_id
     game_types:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.gameTypes'
         type: text
@@ -40,6 +59,7 @@ columns:
                 relationName: game_types
                 keyFrom: id
                 labelFrom: name
+                selectType: checkbox
     locations:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.locations'
         type: text
@@ -53,6 +73,7 @@ columns:
                 relationName: locations
                 keyFrom: id
                 labelFrom: name
+                selectType: checkbox
     headcounts:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.headCount'
         type: text
@@ -66,6 +87,7 @@ columns:
                 relationName: headcounts
                 keyFrom: id
                 labelFrom: name
+                selectType: checkbox
     description:
         label: 'csatar.knowledgerepository::lang.plugin.admin.general.description'
         type: text

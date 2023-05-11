@@ -1,4 +1,21 @@
 columns:
+    association_id:
+        label: 'csatar.csatar::lang.plugin.admin.association.association'
+        type: text
+        searchable: true
+        sortable: true
+        select: name
+        relation: association
+        recordList:
+            sortable: true
+            filterable: true
+            filterConfig:
+                type: relation
+                relationName: association
+                keyFrom: id
+                labelFrom: name
+                selectType: radio
+                defaultFrom: getAssociationIdByUser
     name:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.methodologyName'
         type: text
