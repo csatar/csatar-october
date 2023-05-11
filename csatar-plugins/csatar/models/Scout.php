@@ -3,6 +3,7 @@ namespace Csatar\Csatar\Models;
 
 use Auth;
 use Cache;
+use Carbon\Carbon;
 use Csatar\Csatar\Classes\Enums\Status;
 use Csatar\Csatar\Classes\RightsMatrix;
 use Csatar\Csatar\Classes\StructureTree;
@@ -1412,4 +1413,8 @@ class Scout extends OrganizationBase
         return $historyArray;
     }
 
+    public function getBirthdateAttribute($value)
+    {
+        return $value ? Carbon::parse($value)->format('Y-m-d') : null;
+    }
 }
