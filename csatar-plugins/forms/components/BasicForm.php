@@ -152,7 +152,7 @@ class BasicForm extends ComponentBase  {
                 return $this->$handlerName($componentAlias);
             }
         });
-        
+
         $this->getForm();
         $this->setOrGetFormUniqueId();
         if ($this->properties['subForm']) {

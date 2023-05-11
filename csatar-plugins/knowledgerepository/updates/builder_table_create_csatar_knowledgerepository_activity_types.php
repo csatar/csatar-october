@@ -18,7 +18,7 @@ class BuilderTableCreateCsatarKnowledgerepositoryActivityTypes extends Migration
             $table->text('tooltip')->nullable();
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_knowledgerepository_activity_types');

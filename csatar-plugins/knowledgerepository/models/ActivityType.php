@@ -10,7 +10,7 @@ use Csatar\KnowledgeRepository\Models\WeeklyWorkPlan;
 class ActivityType extends Model
 {
     use \October\Rain\Database\Traits\Validation;
-    
+
     /*
      * Disable timestamps by default.
      * Remove this line if timestamps are defined in the database table.

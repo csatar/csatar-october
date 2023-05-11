@@ -19,13 +19,13 @@ class BuilderTableCreateCsatarKnowledgerepositoryWeeklyWorkPlanActivityType exte
             $table->text('description')->nullable();
             $table->integer('sort_order')->unsigned()->nullable();
             $table->smallInteger('duration')->unsigned()->nullable();
-            
+
             $table->foreign('weekly_work_plan_id', 'weekly_workplan_foreign')->references('id')->on('csatar_knowledgerepository_weekly_work_plans');
             $table->foreign('activity_type_id', 'activity_type_foreign')->references('id')->on('csatar_knowledgerepository_activity_types');
         });
 
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_knowledgerepository_weekly_work_plan_activity_type');

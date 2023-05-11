@@ -28,7 +28,7 @@ class BuilderTableCreateCsatarKnowledgerepositoryWeeklyWorkPlans extends Migrati
             $table->timestamp('updated_at')->nullable();
             $table->string('creator_csatar_code')->nullable();
             $table->string('updater_csatar_code')->nullable();
-            
+
             $table->foreign('patrol_id', 'patrol_weekly_foreign')->references('id')->on('csatar_csatar_patrols');
             $table->foreign('new_material_id', 'new_material_weekly_foreign')->references('id')->on('csatar_knowledgerepository_trial_systems');
             $table->foreign('old_material_id', 'old_material_weekly_foreign')->references('id')->on('csatar_knowledgerepository_trial_systems');
@@ -37,7 +37,7 @@ class BuilderTableCreateCsatarKnowledgerepositoryWeeklyWorkPlans extends Migrati
             $table->foreign('ovamtv_work_plan_id', 'ovamtv_work_plan_weekly_foreign')->references('id')->on('csatar_knowledgerepository_ovamtv_work_plans');
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_knowledgerepository_weekly_work_plans');

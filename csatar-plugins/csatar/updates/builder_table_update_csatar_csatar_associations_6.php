@@ -14,7 +14,7 @@ class BuilderTableUpdateCsatarCsatarAssociations6 extends Migration
             $table->foreign('special_workplan_age_group_id', 'special_workplan_age_group_foreign')->references('id')->on('csatar_csatar_age_groups');
         });
     }
-    
+
     public function down()
     {
         Schema::table('csatar_csatar_associations', function($table)
