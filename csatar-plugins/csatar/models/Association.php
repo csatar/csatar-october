@@ -261,4 +261,12 @@ class Association extends OrganizationBase
         ];
     }
 
+    public function getSpecialWorkplanAgeGroupIdOptions() {
+        if (empty($this->id)) {
+            return [];
+        }
+
+        return AgeGroup::where('association_id', $this->id)->lists('name', 'id');
+    }
+
 }

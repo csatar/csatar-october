@@ -124,7 +124,7 @@ class Song extends PermissionBasedAccess
             'label' => 'csatar.csatar::lang.plugin.admin.ageGroups.ageGroups',
             'scope' => [self::class, 'filterAgeGroupByAssociation']
         ],
-        'trialsystems' => [
+        'trial_systems' => [
             '\Csatar\KnowledgeRepository\Models\TrialSystem',
             'table' => 'csatar_knowledgerepository_song_trial_system',
             'label' => 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystems',

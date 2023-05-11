@@ -20,6 +20,8 @@ class OvamtvWorkPlan extends PermissionBasedAccess
 {
     use \October\Rain\Database\Traits\Validation;
 
+    use \Csatar\Csatar\Traits\History;
+
     /**
      * @var string The database table used by the model.
      */
@@ -77,17 +79,24 @@ class OvamtvWorkPlan extends PermissionBasedAccess
     public $belongsToMany = [
         'newMaterial' => [
             'Csatar\KnowledgeRepository\Models\TrialSystem',
-            'lablel' => 'csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.newMaterial',
+            'label' => 'csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.newMaterial',
             'table' => 'csatar_knowledgerepository_ovamtv_work_plan_material',
             'key' => 'ovamtv_work_plan_id',
             'otherKey' => 'new_material_id',
         ],
         'oldMaterial' => [
             'Csatar\KnowledgeRepository\Models\TrialSystem',
-            'lablel' => 'csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.oldMaterial',
+            'label' => 'csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.oldMaterial',
             'table' => 'csatar_knowledgerepository_ovamtv_work_plan_material',
             'key' => 'ovamtv_work_plan_id',
             'otherKey' => 'old_material_id',
+        ],
+    ];
+
+    public $hasMany = [
+        'weeklyWorkPlans' => [
+            'Csatar\KnowledgeRepository\Models\WeeklyWorkPlan',
+            'label' => 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.weeklyWorkPlans',
         ],
     ];
 
@@ -124,6 +133,10 @@ class OvamtvWorkPlan extends PermissionBasedAccess
 
     public function getAssociation() {
         return $this->team->district->association ?? null;
+    }
+
+    public function getDistrict() {
+        return $this->team->district ?? null;
     }
 
     public function getTeam() {
@@ -392,6 +405,10 @@ class OvamtvWorkPlan extends PermissionBasedAccess
         }
 
         return $calendarIds;
+    }
+
+    public function getNameAttribute() {
+        return date("Y", strtotime($this->start_date)) . ' ' . $this->getMonthLabel(date("m", strtotime($this->start_date)));
     }
 
 }

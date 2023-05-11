@@ -11,10 +11,10 @@
             <div id="flush-collapse-{{ key }}" class="accordion-collapse collapse" aria-labelledby="flush-heading" data-bs-parent="#year{{ key }}" style="">
                 <div class="accordion-body py-2">
                     {% if workPlan['teamWorkPlan'] %}
-                    <a href="/munkaterv/{{ workPlan['teamWorkPlan'].id }}" title="{{ workPlan['teamWorkPlan'].name }}">
-                        <span>{{ workPlan['teamWorkPlan'].name }}</span>
-                        <span class="bi bi-box-arrow-up-right"></span>
-                    </a>
+                        <a href="/munkaterv/{{ workPlan['teamWorkPlan'].id }}" title="{{ workPlan['teamWorkPlan'].name }}" class="mb-3">
+                            <span>{{ workPlan['teamWorkPlan'].name }}</span>
+                            <span class="bi bi-box-arrow-up-right"></span>
+                        </a>
                     {% endif %}
                     {% if workPlan['ovamtvWorkPlans']|length > 0 %}
                         {% partial '@patrolWorkPlansAccordion1.htm' ovamtvWorkPlansArray = workPlan['ovamtvWorkPlans'] year = key %}

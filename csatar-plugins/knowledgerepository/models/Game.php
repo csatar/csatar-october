@@ -133,6 +133,13 @@ class Game extends PermissionBasedAccess
         ],
     ];
 
+    public $morphOne = [
+        'photo' => [
+            \Csatar\KnowledgeRepository\Models\ActivityType::class,
+            'name' => 'programmable',
+        ],
+    ];
+
     public $attachMany = [
         'attachements' => ['System\Models\File'],
     ];

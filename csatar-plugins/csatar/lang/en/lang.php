@@ -57,6 +57,7 @@ return [
                 'activeMembersCount' => 'Active members count',
                 'clearFilters' => 'Clear filters',
                 'googleCalendarId' => 'Google Calendar ID',
+                'specialWorkplanAgeGroupId' => 'Special workplan age group',
                 'back' => 'Back',
             ],
             'history' => [

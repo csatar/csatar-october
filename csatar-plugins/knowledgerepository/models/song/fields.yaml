@@ -79,7 +79,7 @@ fields:
         customTags: false
         dependsOn: association
         nameFrom: name
-    trialsystems:
+    trial_systems:
         label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystems'
         span: auto
         type: taglist

@@ -99,7 +99,7 @@ columns:
         label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystems'
         type: text
         select: name
-        relation: trialsystems
+        relation: trial_systems
     link:
         label: 'csatar.knowledgerepository::lang.plugin.admin.general.link'
         type: text
