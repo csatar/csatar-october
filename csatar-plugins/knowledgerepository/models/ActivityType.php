@@ -119,11 +119,11 @@ class ActivityType extends Model
 
         $ids = [];
 
-        if($weeklyWorkPlan->newMaterial) {
+        if ($weeklyWorkPlan->newMaterial) {
             $ids[] = $weeklyWorkPlan->newMaterial->id;
         }
 
-        if($weeklyWorkPlan->oldMaterial) {
+        if ($weeklyWorkPlan->oldMaterial) {
             $ids[] = $weeklyWorkPlan->oldMaterial->id;
         }
 
