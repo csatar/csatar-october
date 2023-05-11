@@ -71,6 +71,8 @@ class RecordList extends RainRecordList {
      */
     public $recordsForFilterOptions;
 
+    public $defaultAssociation = 'Romániai Magyar Cserkészszövetség';
+
     public function componentDetails()
     {
         return [
@@ -431,7 +433,7 @@ class RecordList extends RainRecordList {
             $relationModelClassName = is_array($model->$relationType[$relationName]) ? $model->$relationType[$relationName][0] : $model->$relationType[$relationName];
             $relationModelClassName = $this->validateModelClassName($relationModelClassName);
 
-            $query = $dependsOn ? $relationModelClassName::where($config['recordList']['filterConfig']['dependsOn'], $dependsOn)->get() : $relationModelClassName::all();
+            $query = !empty($dependsOn) ? $relationModelClassName::where($config['recordList']['filterConfig']['dependsOn'], $dependsOn)->get() : $relationModelClassName::all();
 
             return $query->map(function ($item) use ($config, $defaultId, $columnActiveFilters) {
                 $keyFrom = $config['recordList']['filterConfig']['keyFrom'] ?? 'id';
@@ -590,7 +592,7 @@ class RecordList extends RainRecordList {
 
     public function getAssociationIdByUser()
     {
-        return !Auth::user() ? Association::where('name', 'Romániai Magyar Cserkészszövetség')->select('id')->first()->getAssociationId() : Auth::user()->scout->getAssociation()->id;
+        return !Auth::user() ? Association::where('name', $this->defaultAssociation)->select('id')->first()->getAssociationId() : Auth::user()->scout->getAssociation()->id;
     }
 
     public function isOptionSelected($value, $defaultId = null, $activeIds = null)
