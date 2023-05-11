@@ -3,6 +3,7 @@ namespace Csatar\Csatar\Models;
 
 use Auth;
 use Cache;
+use Carbon\Carbon;
 use Csatar\Csatar\Classes\Enums\Status;
 use Csatar\Csatar\Classes\RightsMatrix;
 use Csatar\Csatar\Classes\StructureTree;
@@ -762,7 +763,7 @@ class Scout extends OrganizationBase
         if (!empty($organization) && $mandates = $this->getMandatesForOrganization($organization, true)) {
             foreach ($mandates as $mandate) {
                 $mandate->ignoreValidation = true;
-                $mandate->end_date         = (new DateTime($mandate->end_date) > new DateTime() || $mandate->end_date === null) ? date('Y-m-d') : $mandate->end_date;
+                $mandate->end_date         = (new DateTime($mandate->end_date) > new DateTime() || is_null($mandate->end_date)) ? date('Y-m-d') : $mandate->end_date;
                 $mandate->save();
             }
         }
@@ -1039,8 +1040,7 @@ class Scout extends OrganizationBase
             $sessionRecord = new Collection([]);
         }
 
-        $scoutMandateTypeIds = array_merge($this->getMandatesInAssociation($associationId, $savedAfterDate)
-            ->pluck('mandate_type_id')->toArray(), MandateType::getScoutMandateTypeIdInAssociation($associationId));
+        $scoutMandateTypeIds = array_merge($this->getMandatesInAssociation($associationId, $savedAfterDate)->pluck('mandate_type_id')->toArray(), MandateType::getScoutMandateTypeIdInAssociation($associationId));
 
         $sessionRecord = $sessionRecord->replace([ $associationId => [
             'associationId' => $associationId,
@@ -1322,7 +1322,7 @@ class Scout extends OrganizationBase
                 $array[$this->address_location] = $this->address_location;
             }
         } else {
-            $field->value           = array_values($array)[0];
+            $field->value = array_values($array)[0];
             $this->address_location = array_values($array)[0];
         }
 
@@ -1335,9 +1335,7 @@ class Scout extends OrganizationBase
         $array       = [];
 
         if ($this->address_zipcode != null) {
-            $locationsArray = Locations::where('country', '=', $this->address_country)->where('code', '=', $this->address_zipcode)
-                ->where('city', '=', $this->address_location)->where('street', '!=', '')
-                ->get();
+            $locationsArray = Locations::where('country', '=', $this->address_country)->where('code', '=', $this->address_zipcode)->where('city', '=', $this->address_location)->where('street', '!=', '')->get();
             if (!empty($locationsArray)) {
                 foreach ($locationsArray as $location) {
                     $street         = $location['street_type'] . ' ' . $location['street'];
@@ -1433,4 +1431,8 @@ class Scout extends OrganizationBase
         return '(' . implode(' - ', $tree) . ')';
     }
 
+    public function getBirthdateAttribute($value)
+    {
+        return $value ? Carbon::parse($value)->format('Y-m-d') : null;
+    }
 }
