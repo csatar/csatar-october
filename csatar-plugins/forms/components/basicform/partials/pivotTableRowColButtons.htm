@@ -4,6 +4,7 @@
                 class="btn btn-xs rounded btn-primary m-1" data-request-flash
                 data-request="onModifyPivotRelation"
                 data-request-data="relationName: '{{ relationName }}', relationId: '{{ relationId }}'"
+                onclick="document.getElementById('add-edit-{{ relationName }}').scrollIntoView({ behavior: 'smooth' });"
         >
             <i class="bi bi-pencil"></i>
         </button>
@@ -27,5 +28,29 @@
               title="{{ 'csatar.forms::lang.components.basicForm.2FANeeded'|trans }}">
             <button class="btn btn-xs rounded btn-danger m-1" disabled><i class="csat-key-out-wh-sm"></i></button>
         </span>
+    {% endif %}
+    {% if sortOrder %}
+        <button
+                class="btn btn-xs rounded btn-primary m-1" data-request-flash
+                data-request="onChangeSortOrder"
+                data-request-data="
+                    relationName: '{{ relationName }}',
+                    relationId: '{{ relationId }}',
+                    direction: 'up',
+                    sortOrder: '{{ sortOrder }}'"
+        >
+            <i class="csat-arrowup-out-wh-sm"></i>
+        </button>
+        <button
+                class="btn btn-xs rounded btn-primary m-1" data-request-flash
+                data-request="onChangeSortOrder"
+                data-request-data="
+                        relationName: '{{ relationName }}',
+                        relationId: '{{ relationId }}',
+                        direction: 'down',
+                        sortOrder: '{{ sortOrder }}'"
+        >
+            <i class="csat-arrowdown-out-wh-sm"></i>
+        </button>
     {% endif %}
 </div>

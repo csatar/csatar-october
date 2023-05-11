@@ -1,0 +1,17 @@
+columns:
+    when:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.when'
+    type_name:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.typeName'
+        type: text
+        searchable: true
+        sortable: true
+        tooltipFrom: tooltip
+    'pivot[description]':
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.how'
+        type: text
+        searchable: true
+        sortable: true
+    'pivot[duration]':
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.duration'
+        type: text

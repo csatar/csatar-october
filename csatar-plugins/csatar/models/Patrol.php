@@ -118,6 +118,10 @@ class Patrol extends OrganizationBase
         'status'
     ];
 
+    public $additionalFieldsForPermissionMatrix = [
+        'weeklyWorkPlans',
+    ];
+
     protected $nullable = [
         'email',
         'website',

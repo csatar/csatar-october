@@ -67,12 +67,16 @@ class WorkPlan extends PermissionBasedAccess
         return Lang::get('csatar.knowledgerepository::lang.plugin.admin.workPlan.workPlan');
     }
 
-    public function getTeam() {
-        return $this->team_id ? $this->team : null;
-    }
-
     public function getAssociation() {
         return $this->team->district->association ?? null;
+    }
+
+    public function getDistrict() {
+        return $this->team->district ?? null;
+    }
+
+    public function getTeam() {
+        return $this->team ? $this->team : null;
     }
 
     public function getTroopsAttribute() {

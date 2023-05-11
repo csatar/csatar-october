@@ -57,6 +57,7 @@ return [
                 'activeMembersCount' => 'Aktív tagok száma',
                 'clearFilters' => 'Szűrők törlése',
                 'googleCalendarId' => 'Google naptár azonosító',
+                'specialWorkplanAgeGroupId' => 'A speciális munkaterv korosztálya',
                 'back' => 'Vissza',
             ],
             'history' => [

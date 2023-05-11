@@ -144,6 +144,15 @@ class BasicForm extends ComponentBase  {
      * Initialise plugin and parse request
      */
     public function init() {
+
+        $this->controller->bindEvent('ajax.beforeRunHandler', function ($handler) {
+            //check if handler starts with "relation"
+            if (substr($handler, 0, 13) === 'pivotRelation' && strpos($handler, '::')) {
+                [$componentAlias, $handlerName] = explode('::', $handler);
+                return $this->$handlerName($componentAlias);
+            }
+        });
+
         $this->getForm();
         $this->setOrGetFormUniqueId();
         if ($this->properties['subForm']) {
@@ -431,6 +440,7 @@ class BasicForm extends ComponentBase  {
         if (empty($userRightsForParent[$relationName])) {
             return [];
         }
+
         $this->currentUserRights['MODEL_GENERAL']['create'] = $userRightsForParent[$relationName]['create'];
         $this->currentUserRights['MODEL_GENERAL']['update'] = $userRightsForParent[$relationName]['update'];
         $this->currentUserRights['MODEL_GENERAL']['read']   = $userRightsForParent[$relationName]['read'];

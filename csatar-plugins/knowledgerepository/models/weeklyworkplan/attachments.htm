@@ -1,0 +1,11 @@
+<div>
+    <?php if($model->attachments->isNotEmpty()): ?>
+        <ul>
+            <?php foreach($model->attachments as $attachment): ?>
+                <li>
+                    <a href="<?= $attachment['path'] ?>" download="<?= $attachment['fileName'] ?>"><?= $attachment['fileName'] ?></a>
+                </li>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
+</div>
