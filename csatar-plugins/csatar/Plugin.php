@@ -3,6 +3,7 @@ namespace Csatar\Csatar;
 
 use App;
 use Backend;
+use Carbon\Carbon;
 use Csatar\Csatar\Classes\Exceptions\OauthException;
 use Csatar\Csatar\Classes\HistoryService;
 use Csatar\Csatar\Classes\SearchProviders\ContentPageSearchProvider;
