@@ -352,9 +352,9 @@ class Troop extends OrganizationBase
 
     public function getParentTree() {
         $tree = [
-            $this->team->district->association->text_for_search_results_tree,
-            $this->team->district->text_for_search_results_tree,
-            $this->team->text_for_search_results_tree,
+            $this->team->district->association->text_for_search_results_tree ?? null,
+            $this->team->district->text_for_search_results_tree ?? null,
+            $this->team->text_for_search_results_tree ?? null,
         ];
 
         return '(' . implode(' - ', $tree) . ')';
