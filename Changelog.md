@@ -2,9 +2,11 @@
 
 ## Unreleased
 
+- CS-570 - Improved pagination in record list component, fixed row height in record list component
 - CS-413 - Changed every "Scout systemdata" and "Knowledge repository parameter" model's base model to ModelExtended model
 - CS-564 - Added weekly form plan to patrol, frontend from, list and PDF download
 - CS-571 - Added association filter to the Knowledge repository models
+
 ## 1.13.0
 ### 2023-05-12
 
