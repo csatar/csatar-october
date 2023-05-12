@@ -488,8 +488,8 @@ class Team extends OrganizationBase
 
     public function getParentTree() {
         $tree = [
-            $this->district->association->text_for_search_results_tree,
-            $this->district->text_for_search_results_tree,
+            $this->district->association->text_for_search_results_tree ?? null,
+            $this->district->text_for_search_results_tree ?? null,
         ];
 
         return '(' . implode(' - ', $tree) . ')';
