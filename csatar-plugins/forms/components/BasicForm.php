@@ -144,6 +144,9 @@ class BasicForm extends ComponentBase  {
      * Initialise plugin and parse request
      */
     public function init() {
+        if (post('redirect')) {
+            return;
+        }
 
         $this->controller->bindEvent('ajax.beforeRunHandler', function ($handler) {
             //check if handler starts with "relation"
@@ -152,6 +155,7 @@ class BasicForm extends ComponentBase  {
                 return $this->$handlerName($componentAlias);
             }
         });
+
 
         $this->getForm();
         $this->setOrGetFormUniqueId();
