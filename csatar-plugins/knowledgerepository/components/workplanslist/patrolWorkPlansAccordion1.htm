@@ -1,0 +1,33 @@
+{% set isPatrolPage = __SELF__.isPatrolPage %}
+
+<div class="accordion accordion-flush mb-3">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="patrol-workplans-{{ year }}">
+            <button class="accordion-button py-2 collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#flush-collapse-patrol-workplans-{{ year }}"
+                    aria-expanded="false"
+                    aria-controls="flush-collapse-patrol-workplans-{{ year }}"
+            >
+                <span>{{ 'Őrsi szintű munkatervek'|_ }}</span>
+            </button>
+        </h2>
+        <div id="flush-collapse-patrol-workplans-{{ year }}"
+             class="accordion-collapse collapse"
+             aria-labelledby="flush-heading"
+             data-bs-parent="#patrol-workplans-{{ year }}"
+        >
+            <div class="accordion-body py-2">
+                {% if isPatrolPage %}
+                    {% for patrolId, patrolOvamtvs in ovamtvWorkPlansArray %}
+                        {% partial '@months3.htm' patrolOvamtvs = patrolOvamtvs year = year patrolId = patrolId %}
+                    {% endfor %}
+                {% else %}
+                    {% partial '@patrols2.htm' ovamtvWorkPlansArray = ovamtvWorkPlansArray year = year %}
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+</div>

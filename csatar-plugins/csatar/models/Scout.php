@@ -1413,6 +1413,24 @@ class Scout extends OrganizationBase
         return $historyArray;
     }
 
+    public function getParentTree() {
+        $tree = [
+            $this->team->district->association->text_for_search_results_tree,
+            $this->team->district->text_for_search_results_tree,
+            $this->team->text_for_search_results_tree,
+        ];
+
+        if (isset($this->troop_id)) {
+            $tree[] = $this->troop->text_for_search_results_tree;
+        }
+
+        if (isset($this->patrol_id)) {
+            $tree[] = $this->patrol->text_for_search_results_tree;
+        }
+
+        return '(' . implode(' - ', $tree) . ')';
+    }
+
     public function getBirthdateAttribute($value)
     {
         return $value ? Carbon::parse($value)->format('Y-m-d') : null;

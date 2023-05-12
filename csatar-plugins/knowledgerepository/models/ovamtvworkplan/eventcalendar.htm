@@ -1,0 +1,87 @@
+<div>
+    <?php if($model->event_calendar): ?>
+        <div class="table csat-grid">
+            <div class="tr d-none d-lg-block">
+                <div class="card csat-resp-gdtable csat-border-lg-none">
+                    <div class="row">
+                        <div class="col">
+                            <div class="th-grid">
+                                <?= e(trans('csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.eventCalendar.start')) ?>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="th-grid">
+                                <?= e(trans('csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.eventCalendar.end')) ?>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="th-grid">
+                                <?= e(trans('csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.eventCalendar.event')) ?>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="th-grid">
+                                <?= e(trans('csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.eventCalendar.location')) ?>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="th-grid">
+                                <?= e(trans('csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.eventCalendar.organizer')) ?>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="th-grid">
+                                <?= e(trans('csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.eventCalendar.note')) ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <?php foreach($model->event_calendar as $event): ?>
+                <div class="tr">
+                    <div class="card csat-resp-gdtable csat-border-lg-none">
+                        <div class="row">
+                            <div class="col-6 col-lg-2 col-lg">
+                                <p class="td label d-block d-lg-none">
+                                    <?= e(trans('csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.eventCalendar.start')) ?>
+                                </p>
+                                <p class="td"><?= $event['start'] ?></p>
+                            </div>
+                            <div class="col-6 col-lg-2">
+                                <p class="td label d-block d-lg-none">
+                                    <?= e(trans('csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.eventCalendar.end')) ?>
+                                </p>
+                                <p class="td"><?= $event['end'] ?></p>
+                            </div>
+                            <div class="col-6 col-lg-2">
+                                <p class="td label d-block d-lg-none">
+                                    <?= e(trans('csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.eventCalendar.event')) ?>
+                                </p>
+                                <p class="td"><?= $event['summary'] ?></p>
+                            </div>
+                            <div class="col-6 col-lg-2">
+                                <p class="td label d-block d-lg-none">
+                                    <?= e(trans('csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.eventCalendar.location')) ?>
+                                </p>
+                                <p class="td"><?= $event['location'] ?></p>
+                            </div>
+                            <div class="col-6 col-lg-2">
+                                <p class="td label d-block d-lg-none">
+                                    <?= e(trans('csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.eventCalendar.organizer')) ?>
+                                </p>
+                                <p class="td"><?= $event['organizer'] ?></p>
+                            </div>
+                            <div class="col-6 col-lg-2">
+                                <p class="td label d-block d-lg-none">
+                                    <?= e(trans('csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.eventCalendar.note')) ?>
+                                </p>
+                                <p class="td"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <?php endforeach ?>
+        </div>
+    <?endif?>
+</div>

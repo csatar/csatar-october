@@ -1,0 +1,19 @@
+<div class="p-2">
+    {% if results.count %}
+        {% for result in results | slice(0, __SELF__.autoCompleteResultCount) %}
+            {# Display results #}
+            {% partial __SELF__ ~ '::searchresult.htm' result = result %}
+        {% endfor %}
+
+        {% if __SELF__.searchPage %}
+            <div class="ss-show-all-results mb-1 pt-2">
+                <a href="{{ __SELF__.searchPage | page }}?q={{ query | url_encode(true) }}">
+                    {{ 'Minden találat'|_ }} &raquo;
+                </a>
+            </div>
+        {% endif %}
+    {% else %}
+        {# No results found #}
+        <p>{{ 'Nincs találat'|_ }}</p>
+    {% endif %}
+</div>

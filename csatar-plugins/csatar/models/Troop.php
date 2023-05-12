@@ -54,6 +54,10 @@ class Troop extends OrganizationBase
         'status',
     ];
 
+    public $additionalFieldsForPermissionMatrix = [
+        'ovamtvWorkPlans',
+    ];
+
     /**
      * Relations
      */
@@ -111,6 +115,14 @@ class Troop extends OrganizationBase
         'richTextUploads' => [
             'System\Models\File',
             'ignoreInPermissionsMatrix' => true,
+        ],
+    ];
+
+    public $morphMany = [
+        'galleryPivot' => [
+            \Csatar\Csatar\Models\GalleryModelPivot::class,
+            'table' => 'csatar_csatar_gallery_model',
+            'name' => 'model',
         ],
     ];
 
@@ -332,6 +344,20 @@ class Troop extends OrganizationBase
 
     public function getActiveMembersCountAttribute() {
         return StructureTree::getTroopScoutsCount($this->id);
+    }
+
+    public function getTextForSearchResultsTreeAttribute() {
+        return $this->name;
+    }
+
+    public function getParentTree() {
+        $tree = [
+            $this->team->district->association->text_for_search_results_tree,
+            $this->team->district->text_for_search_results_tree,
+            $this->team->text_for_search_results_tree,
+        ];
+
+        return '(' . implode(' - ', $tree) . ')';
     }
 
 }

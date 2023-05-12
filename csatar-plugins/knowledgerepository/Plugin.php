@@ -14,6 +14,7 @@ class Plugin extends PluginBase
             \Csatar\KnowledgeRepository\Components\GameForm::class => 'gameForm',
             \Csatar\KnowledgeRepository\Components\MethodologyForm::class => 'methodologyForm',
             \Csatar\KnowledgeRepository\Components\SongForm::class => 'songForm',
+            \Csatar\KnowledgeRepository\Components\WorkPlansList::class => 'workPlansList',
         ];
     }
 
@@ -25,6 +26,7 @@ class Plugin extends PluginBase
     {
         return [
             'csatar.knowledgerepository::pdf.layouts.workplanlayout',
+            'csatar.knowledgerepository::pdf.layouts.ovaworkplanlayout',
         ];
     }
 
@@ -32,6 +34,7 @@ class Plugin extends PluginBase
     {
         return [
             'csatar.knowledgerepository::pdf.workplantemplate',
+            'csatar.knowledgerepository::pdf.ovaworkplantemplate',
         ];
     }
 

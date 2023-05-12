@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+- CS-562 - Created ŐVáMTV frontend form, listing, PDF download, Google Calendar integration
+- CS-520 - Changed the display of recordlist component filters to wrap to next line
+- CS-532 - Added ajax search result popup to search input field
+- CS-532 - Modified search results display, added hierarchy tree to result
+- CS-532 - Created GallerySearchProvider, added gallery relation to model that has gallery
+- CS-533 - Modified search results to display results starting with Scouts to Association and last results from Content page
+
 ## 1.12.0
 ### 2023-04-25
 

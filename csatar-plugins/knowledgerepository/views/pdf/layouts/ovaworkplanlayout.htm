@@ -1,0 +1,128 @@
+name = "Ova Work Plan layout"
+==
+
+
+==
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Document</title>
+    <style type="text/css" media="screen">
+        {{ css|raw }}
+    </style>
+</head>
+<body>
+    <header>
+        <img class="logo" src="{{ 'assets/images/android-chrome-192x192.png' | theme }}" >
+    </header>
+    <footer>
+        <p class="page_number"></p>
+    </footer>
+    <div class="title">
+        <h3>{{ 'Kéthavi ŐVáMTV cserkész őrsnek'|_ }}</h3>
+        <h6>{{ 'Őrsvezetőnek átadott munkaterv, amit az őv a csapatparancsnokkal közösen készít'|_ }}</h6>
+    </div>
+
+    <table class="no-border">
+        <tr>
+            <td>{{ 'Őrs neve, neme'|_ }}:</td>
+            <td>{{ ovaworkPlan.patrol_name_gender }}</td>
+        </tr>
+        <tr>
+            <td>{{ 'Őrsvezető'|_ }}:</td>
+            <td> {{ ovaworkPlan.patrol_leader }}</td>
+        </tr>
+        <tr>
+            <td>{{ 'Segédőrsvezető(k)'|_ }}:</td>
+            <td> {{ ovaworkPlan.deputy_patrol_leaders }}</td>
+        </tr>
+        <tr>
+            <td>{{ 'Őrstagok'|_ }}:</td>
+            <td> {{ ovaworkPlan.patrol_members }}</td>
+        </tr>
+        <tr>
+            <td>{{ 'Raj, amibe tartozik'|_ }}:</td>
+            <td> {{ ovaworkPlan.troop }}</td>
+        </tr>
+        <tr>
+            <td>{{ 'Korosztály és próba, amire készülnek'|_ }}:</td>
+            <td> {{ ovaworkPlan.age_group_test }}</td>
+        </tr>
+        <tr>
+            <td>{{ 'Hónapok'|_ }}:</td>
+            <td> {{ ovaworkPlan.getMonthLabel(ovaworkPlan.start_date|date('m')) }}</td>
+        </tr>
+    </table>
+
+    <hr>
+
+    <h4>{{ '1. Próbaanyag erre a 2 hónapra'|_ }}</h4>
+
+    <h5>{{ 'Új anyag'|_ }}:</h5>
+    {% if ovaworkPlan.newMaterial %}
+    <ul>
+        {% for newMaterial in ovaworkPlan.newMaterial  %}
+        <li>{{ newMaterial.name }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <h5>{{ 'Régi anyag'|_ }}:</h5>
+    {% if ovaworkPlan.oldMaterial %}
+    <ul>
+        {% for oldMaterial in ovaworkPlan.oldMaterial %}
+            <li>{{ oldMaterial.name }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <h4>{{ '2. Eseménynaptár – hónap/hónap'|_ }}</h4>
+
+    {% if ovaworkPlan.event_calendar %}
+        <table class="table csat-grid">
+            <tr>
+                <th>
+                    {{ 'csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.eventCalendar.start'|trans }}
+                </th>
+                <th>
+                    {{ 'csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.eventCalendar.end'|trans }}
+                </th>
+                <th>
+                    {{ 'csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.eventCalendar.event'|trans }}
+                </th>
+                <th>
+                    {{ 'csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.eventCalendar.location'|trans }}
+                </th>
+                <th>
+                    {{ 'csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.eventCalendar.organizer'|trans }}
+                </th>
+                <th>
+                    {{ 'csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.eventCalendar.note'|trans }}
+                </th>
+            </tr>
+
+            {% for event in ovaworkPlan.event_calendar %}
+            <tr>
+                <td class="td">{{ event['start'] }}</td>
+                <td class="td">{{ event['end'] }}</td>
+                <td class="td">{{ event['description'] }}</td>
+                <td class="td">{{ event['location'] }}</td>
+                <td class="td">{{ event['organizer'] }}</td>
+                <td class="td">{{ event['note'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+    <h4>{{ '3. Megjegyzések'|_ }}</h4>
+
+    {{ ovaworkPlan.notes }} <br>
+
+    <h4>{{ '4. Célok és FELADATOK'|_ }}:</h4>
+
+    {{ ovaworkPlan.goals|raw }}
+
+    {{ ovaworkPlan.tasks|raw }}
+</body>
+</html>

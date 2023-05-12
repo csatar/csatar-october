@@ -223,4 +223,8 @@ class OrganizationBase extends PermissionBasedAccess
         return $this->original[$attribute];
     }
 
+    public function getParentTree() {
+        return null;
+    }
+
 }

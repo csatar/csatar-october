@@ -47,13 +47,17 @@ public function generatePdf(int $workPlanId) {
 ==
 {% set workPlanId = this.controller.param('id') %}
 <div class="container">
-    {% partial "@simpleATagButton"
-        permissionValue = this.controller.vars.basicForm.currentUserRights['MODEL_GENERAL']['update']
-        targetUrl = '/munkaterv/'~workPlanId~'/modositas'
-        btnExtraClasses = 'btn-sm btn-primary'
-        btnIconClass = 'csat-edit-fill-wh-sm'
-        btnLabel = 'Munkaterv szerkesztése' |_
-    %}
+    {% if this.param[this.controller.vars.basicForm.recordKeyParam] != this.controller.vars.basicForm.createRecordKeyword
+        and this.param[this.controller.vars.basicForm.recordActionParam] != this.controller.vars.basicForm.actionUpdateKeyword %}
+        {% partial "@simpleATagButton"
+            permissionValue = this.controller.vars.basicForm.currentUserRights['MODEL_GENERAL']['update']
+            targetUrl = '/munkaterv/'~workPlanId~'/modositas'
+            btnExtraClasses = 'btn-sm btn-primary'
+            btnIconClass = 'csat-edit-fill-wh-sm'
+            btnLabel = 'Munkaterv szerkesztése' |_
+        %}
+    {% endif %}
+    
     {% component 'basicForm' %}
 
     {% if user.scout and this.controller.vars.basicForm.record.created_at is not null %}
@@ -67,4 +71,5 @@ public function generatePdf(int $workPlanId) {
             btnLabel = 'Munkaterv letöltése' |_
         %}
     {% endif %}
+
 </div>

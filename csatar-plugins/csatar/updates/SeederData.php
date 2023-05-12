@@ -686,42 +686,42 @@ class SeederData extends Seeder
             [
                 'model' => 'Association',
                 'modelName' => 'Romániai Magyar Cserkészszövetség',
-                'params' => 'src=rmcssz%40gmail.com&ctz=Europe%2FBucharest&hl=hu'
+                'google_calendar_id' => 'rmcssz@gmail.com'
             ],
             [
                 'model' => 'District',
                 'modelName' => 'Csík',
-                'params' => 'src=uga7ch24mbb4ckfpqo3ruf912k%40group.calendar.google.com&ctz=Europe%2FBucharest&hl=hu'
+                'google_calendar_id' => 'uga7ch24mbb4ckfpqo3ruf912k@group.calendar.google.com'
             ],
             [
                 'model' => 'District',
                 'modelName' => 'Gyergyó',
-                'params' => 'src=qq1b0l0i4unvuj4qdul780h8o8%40group.calendar.google.com&ctz=Europe%2FBucharest&hl=hu'
+                'google_calendar_id' => 'qq1b0l0i4unvuj4qdul780h8o8@group.calendar.google.com'
             ],
             [
                 'model' => 'District',
                 'modelName' => 'Háromszék',
-                'params' => 'src=8onq5ut3tetqldh682alu37mt4%40group.calendar.google.com&ctz=Europe%2FBucharest&hl=hu'
+                'google_calendar_id' => '8onq5ut3tetqldh682alu37mt4@group.calendar.google.com'
             ],
             [
                 'model' => 'District',
                 'modelName' => 'Kolozsvár',
-                'params' => 'src=694ek0k60e0era4vmf8bbui5vs%40group.calendar.google.com&ctz=Europe%2FBucharest&hl=hu'
+                'google_calendar_id' => '694ek0k60e0era4vmf8bbui5vs@group.calendar.google.com'
             ],
             [
                 'model' => 'District',
                 'modelName' => 'Maros',
-                'params' => 'src=fbrs4olb1skmbvsbaoov7hga8k%40group.calendar.google.com&ctz=Europe%2FBucharest&hl=hu'
+                'google_calendar_id' => 'fbrs4olb1skmbvsbaoov7hga8k@group.calendar.google.com'
             ],
             [
                 'model' => 'District',
                 'modelName' => 'Nagyenyed',
-                'params' => 'src=btivjhutht8ucmecvcjik1lh64%40group.calendar.google.com&ctz=Europe%2FBucharest&hl=hu'
+                'google_calendar_id' => 'btivjhutht8ucmecvcjik1lh64@group.calendar.google.com'
             ],
             [
                 'model' => 'District',
                 'modelName' => 'Udvarhely',
-                'params' => 'src=cfovub3qe4jg3celfsp7ivr3ds%40group.calendar.google.com&ctz=Europe%2FBucharest&hl=hu'
+                'google_calendar_id' => 'cfovub3qe4jg3celfsp7ivr3ds@group.calendar.google.com'
             ],
         ]
     ];
@@ -1055,7 +1055,7 @@ class SeederData extends Seeder
             $model = $class::where('name', $params['modelName'])->first();
 
             if ($model) {
-                $model->google_calendar_id = $params['params'];
+                $model->google_calendar_id = $params['google_calendar_id'];
                 $model->forceSave();
             }
         }

@@ -153,6 +153,39 @@ return [
                 'teamLeader' => 'Csapatvezető',
                 'deputyTeamLeaders' => 'Csapatvezető helyettes(ek)',
             ],
+            'ovamtvWorkPlan' => [
+                'ovamtvWorkPlan' => 'ŐVáMTV',
+                'patrolsNameGender' => 'Őrs neve, neme',
+                'patrolLeader' => 'Őrsvezető',
+                'deputyPatrolLeaders' => 'Őrsvezető helyettes(ek)',
+                'patrolMembers' => 'Őrstagok',
+                'ageGroupTest' => 'Korosztály - teszt',
+                'startDate' => 'Hónapok',
+                'oldMaterial' => 'Régi anyag',
+                'newMaterial' => 'Új anyag',
+                'notes' => 'Megjegyzések',
+                'goals' => 'Célok',
+                'tasks' => 'Feladatok',
+                'creatorCsatarCode' => 'Létrehozó',
+                'periods' => [
+                    'SeptemberOctober' => 'Szeptember - Október',
+                    'NovemberDecember' => 'November - December',
+                    'JanuaryFebruary' => 'Január - Február',
+                    'MarchApril' => 'Március - Április',
+                    'MayJune' => 'Május - Június',
+                    'JulyAugust' => 'Július - Augusztus',
+                ],
+                'ovamtvWorkPlanExistsForPeriod' => 'Már létezik ŐVáMTV a kiválasztott periódusra!',
+                'eventCalendar' => [
+                    'eventCalendar' => 'Eseménynaptár',
+                    'start' => 'Dátum kezdete',
+                    'end' => 'Dátum vége',
+                    'event' => 'Rendezvény / Ünnepek',
+                    'location' => 'Helyszín',
+                    'organizer' => 'Ki szervezi?',
+                    'note' => 'Megjegyzés',
+                ],
+            ],
             'song' => [
                 'songTitle' => 'Dal cím',
                 'author' => 'Szerző',
@@ -173,7 +206,11 @@ return [
             'songForm' => [
                 'name' => 'Dal űrlap',
                 'description' => 'Dal űrlap komponens'
-            ]
+            ],
+            'workPlansList' => [
+                'name' => 'Munkaterv lista',
+                'description' => 'Munkaterv lista komponens',
+            ],
         ],
     ],
 ];

@@ -527,6 +527,26 @@ body>p.flash-message.error {
     background: #DDDDDD;
 }
 
+@media (max-width: 991px) {
+    div.ss-search-form__results::-webkit-scrollbar-track {
+        background: #DDDDDD;
+        border-top-right-radius: 10px;
+        border-bottom-right-radius: 10px;
+    }
+}
+    
+    /* Up button */
+
+div.ss-search-form__results::-webkit-scrollbar-button:single-button:vertical:decrement {
+    border-top-right-radius: 10px;
+}
+
+    /* Down button */
+
+div.ss-search-form__results::-webkit-scrollbar-button:single-button:vertical:increment {
+    border-bottom-right-radius: 10px;
+}
+
 ::-webkit-scrollbar-thumb {
     background: #99A56B;
     border-radius: 12px;
@@ -2100,4 +2120,16 @@ ul.pagination {
 
 ul.pagination > li {
     padding: 0px 10px;
+}
+
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #78863F !important;
+    border-color: #78863F !important;
+}
+
+mark, .mark {
+    padding: 0.2em 0em;
+    background-color: #fcf8e3;
 }

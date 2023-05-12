@@ -227,6 +227,8 @@ return [
                 'import' => [
                     'invalidDateTimeFormat' => 'Érvénytelen dátum formátum. A helyes formátum: év-hónap-nap, pl. 2023-01-01',
                 ],
+                'activeMember' => 'aktív tag',
+                'inactiveMember' => 'inaktív tag',
             ],
             'admin' => [
                 'menu' => [
@@ -506,6 +508,7 @@ return [
                 'organizationUnitNameWarning' => 'A raj neve nem tartalmazhatja a "raj" szót.',
                 'filterOrganizationUnitNameForWords' => 'raj',
                 'canNotFindTroopError' => 'Nem található raj a következő azonosítóval: ":troopId".',
+                'ovamtvWorkPlans' => 'ŐVáMTV',
             ],
             'patrol' => [
                 'patrol' => 'Őrs',

@@ -229,6 +229,8 @@ return [
                 'import' => [
                     'invalidDateTimeFormat' => 'Invalid date time format. The correct format is year-month-day, for example 2023-01-01',
                 ],
+                'activeMember' => 'active member',
+                'inactiveMember' => 'inactive member',
             ],
             'admin' => [
                 'menu' => [
@@ -508,6 +510,7 @@ return [
                 'organizationUnitNameWarning' => 'The name of the troop can not contain the word "troop."',
                 'filterOrganizationUnitNameForWords' => 'troop',
                 'canNotFindTroopError' => 'Can not find troop with id ":troopId".',
+                'ovamtvWorkPlans' => 'OVAMTV Work Plans',
             ],
             'patrol' => [
                 'patrol' => 'Patrol',
