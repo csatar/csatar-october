@@ -364,7 +364,7 @@ class RecordList extends RainRecordList {
     public function getFilterOptions($column, $config, $dependsOn = null) {
 
         if (isset($config['recordList']['filterConfig']['type']) &&
-            $config['recordList']['filterConfig']['type']== 'freeText'
+            $config['recordList']['filterConfig']['type'] == 'freeText'
         ) {
             return [];
         }

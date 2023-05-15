@@ -1016,7 +1016,7 @@ class Scout extends OrganizationBase
         $sessionRecord = $sessionRecord->replace([ $associationId => [
             'associationId' => $associationId,
             'savedToSession' => date('Y-m-d H:i'),
-            'mandates'=> ($scoutMandates)->toArray(),
+            'mandates' => ($scoutMandates)->toArray(),
         ]
         ]);
 
@@ -1045,7 +1045,7 @@ class Scout extends OrganizationBase
         $sessionRecord = $sessionRecord->replace([ $associationId => [
             'associationId' => $associationId,
             'savedToSession' => date('Y-m-d H:i'),
-            'mandateTypeIds'=> $scoutMandateTypeIds,
+            'mandateTypeIds' => $scoutMandateTypeIds,
         ]
         ]);
 

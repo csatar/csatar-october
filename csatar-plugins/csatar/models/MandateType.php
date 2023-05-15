@@ -235,7 +235,7 @@ class MandateType extends Model
         $sessionRecord = $sessionRecord->replace([ $associationId => [
             'associationId' => $associationId,
             'savedToSession' => date('Y-m-d H:i'),
-            'guestMandateTypeId'=> $guestMandateType ? $guestMandateType->id : null,
+            'guestMandateTypeId' => $guestMandateType ? $guestMandateType->id : null,
         ]
         ]);
 
