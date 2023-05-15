@@ -25,7 +25,6 @@ use Seeder;
 
 class SeederData extends Seeder
 {
-    // phpcs:ignore -- Generic.Files.LineLength
     public const DATA = [
         'gameDevelopmentGoals' => [
             [
