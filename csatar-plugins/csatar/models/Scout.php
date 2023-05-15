@@ -396,10 +396,10 @@ class Scout extends OrganizationBase
             if (isset($this->patrol_id)) {
                 $scoutsActive = $teamsActive[$this->team->id]['patrolsActive'][$this->patrol_id]['scoutsActive'];
 
-                $scoutsActive[$this->id]['family_name']             = $this->family_name;
-                $scoutsActive[$this->id]['given_name']              = $this->given_name;
-                $scoutsActive[$this->id]['full_name']               = $this->full_name;
-                $scoutsActive[$this->id]['ecset_code']              = $this->ecset_code;
+                $scoutsActive[$this->id]['family_name'] = $this->family_name;
+                $scoutsActive[$this->id]['given_name']  = $this->given_name;
+                $scoutsActive[$this->id]['full_name']   = $this->full_name;
+                $scoutsActive[$this->id]['ecset_code']  = $this->ecset_code;
                 $scoutsActive[$this->id]['legal_relationship_id']   = $this->legal_relationship_id;
                 $scoutsActive[$this->id]['legal_relationship_name'] = $this->legal_relationship_name;
                 $scoutsActive[$this->id]['legal_relationship']      = $this->legal_relationship ? $this->legal_relationship->toArray() : null;
@@ -410,10 +410,10 @@ class Scout extends OrganizationBase
             if (isset($this->troop_id)) {
                 $scoutsActive = $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['scoutsActive'];
 
-                $scoutsActive[$this->id]['family_name']             = $this->family_name;
-                $scoutsActive[$this->id]['given_name']              = $this->given_name;
-                $scoutsActive[$this->id]['full_name']               = $this->full_name;
-                $scoutsActive[$this->id]['ecset_code']              = $this->ecset_code;
+                $scoutsActive[$this->id]['family_name'] = $this->family_name;
+                $scoutsActive[$this->id]['given_name']  = $this->given_name;
+                $scoutsActive[$this->id]['full_name']   = $this->full_name;
+                $scoutsActive[$this->id]['ecset_code']  = $this->ecset_code;
                 $scoutsActive[$this->id]['legal_relationship_id']   = $this->legal_relationship_id;
                 $scoutsActive[$this->id]['legal_relationship_name'] = $this->legal_relationship_name;
                 $scoutsActive[$this->id]['legal_relationship']      = $this->legal_relationship ? $this->legal_relationship->toArray() : null;
@@ -424,10 +424,10 @@ class Scout extends OrganizationBase
             if (isset($this->troop_id) && isset($this->patrol_id)) {
                 $scoutsActive = $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->patrol_id]['scoutsActive'];
 
-                $scoutsActive[$this->id]['family_name']             = $this->family_name;
-                $scoutsActive[$this->id]['given_name']              = $this->given_name;
-                $scoutsActive[$this->id]['full_name']               = $this->full_name;
-                $scoutsActive[$this->id]['ecset_code']              = $this->ecset_code;
+                $scoutsActive[$this->id]['family_name'] = $this->family_name;
+                $scoutsActive[$this->id]['given_name']  = $this->given_name;
+                $scoutsActive[$this->id]['full_name']   = $this->full_name;
+                $scoutsActive[$this->id]['ecset_code']  = $this->ecset_code;
                 $scoutsActive[$this->id]['legal_relationship_id']   = $this->legal_relationship_id;
                 $scoutsActive[$this->id]['legal_relationship_name'] = $this->legal_relationship_name;
                 $scoutsActive[$this->id]['legal_relationship']      = $this->legal_relationship ? $this->legal_relationship->toArray() : null;
