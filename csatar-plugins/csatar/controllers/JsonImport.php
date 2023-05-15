@@ -129,7 +129,7 @@ class JsonImport extends Controller
             'unit' => Religion::where('name', 'Unitárius')->first()->id,
         ];
 
-        $allergies = Allergy::all();
+        $allergies          = Allergy::all();
         $this->allergiesMap = [
             "Nincs" => $allergies->where('name', 'Nincs')->first(),
             "Darázscsípés" => $allergies->where('name', 'Rovarméreg allergia')->first(),

@@ -1436,7 +1436,7 @@ class Scout extends OrganizationBase
         // populate the Troop and Patrol dropdowns with troops and patrols that belong to the selected team
         if (isset($fields->troop)) {
             $fields->troop->options = [];
-            $team_id                = $this->team_id;
+            $team_id = $this->team_id;
             if ($team_id) {
                 $fields->troop->options += ['null' => e(trans('csatar.csatar::lang.plugin.admin.general.select'))];
                 foreach (\Csatar\Csatar\Models\Troop::teamId($team_id)->get() as $troop) {
@@ -1455,9 +1455,9 @@ class Scout extends OrganizationBase
     {
         // populate the Patrol dropdown with patrols that belong to the selected team and to the selected troop
         if (isset($fields->patrol)) {
-            $team_id                 = $this->team_id;
+            $team_id = $this->team_id;
             $fields->patrol->options = [];
-            $troop_id                = $this->troop_id;
+            $troop_id = $this->troop_id;
             $fields->patrol->options += ['null' => e(trans('csatar.csatar::lang.plugin.admin.general.select'))];
             if ($troop_id && $troop_id != 'null') { // important, 'null' is string at this point
                 foreach (\Csatar\Csatar\Models\Patrol::troopId($troop_id)->get() as $patrol) {

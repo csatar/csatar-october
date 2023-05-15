@@ -223,11 +223,11 @@ class ScoutImport extends \Backend\Models\ImportModel
     {
         // manipulate fields - birthdate
         if (preg_match('(^(\d+)/(\d+)/(\d+)$)i', $data['birthdate'])) {
-            $pos1              = strpos($data['birthdate'], '/');
-            $pos2              = strpos($data['birthdate'], '/', $pos1 + 1);
-            $month             = substr($data['birthdate'], 0, $pos1);
-            $day               = substr($data['birthdate'], $pos1 + 1, $pos2 - $pos1 - 1);
-            $year              = substr($data['birthdate'], $pos2 + 1);
+            $pos1  = strpos($data['birthdate'], '/');
+            $pos2  = strpos($data['birthdate'], '/', $pos1 + 1);
+            $month = substr($data['birthdate'], 0, $pos1);
+            $day   = substr($data['birthdate'], $pos1 + 1, $pos2 - $pos1 - 1);
+            $year  = substr($data['birthdate'], $pos2 + 1);
             $data['birthdate'] = $year . '-' . $month . '-' . $day;
         }
     }
@@ -260,9 +260,9 @@ class ScoutImport extends \Backend\Models\ImportModel
         if (isset($legalRelationship)) {
             $data['legal_relationship_id'] = $legalRelationship->id;
         } else {
-            $data['comment']                = (!empty($data['comment']) ? $data['comment'] . ' ' : '');
-            $data['comment']               .= Lang::get('csatar.csatar::lang.plugin.admin.scout.legalRelationship') . ': ' . $data['legal_relationship_id'] . '.';
-            $data['legal_relationship_id']  = '';
+            $data['comment']  = (!empty($data['comment']) ? $data['comment'] . ' ' : '');
+            $data['comment'] .= Lang::get('csatar.csatar::lang.plugin.admin.scout.legalRelationship') . ': ' . $data['legal_relationship_id'] . '.';
+            $data['legal_relationship_id'] = '';
         }
     }
 
@@ -278,7 +278,7 @@ class ScoutImport extends \Backend\Models\ImportModel
             $data['religion_id'] = $religion->id;
         } else {
             $data['comment']     = (!empty($data['comment']) ? $data['comment'] . ' ' : '');
-            $data['comment']     .= Lang::get('csatar.csatar::lang.plugin.admin.scout.religion') . ': ' . $data['religion_id'] . '.';
+            $data['comment']    .= Lang::get('csatar.csatar::lang.plugin.admin.scout.religion') . ': ' . $data['religion_id'] . '.';
             $data['religion_id'] = '';
         }
     }
@@ -330,7 +330,7 @@ class ScoutImport extends \Backend\Models\ImportModel
     {
         // manipulate fields - mother's maiden name
         if (!empty($data['mothers_maiden_name'])) {
-            $data['comment'] = (!empty($data['comment']) ? $data['comment'] . ' ' : '');
+            $data['comment']  = (!empty($data['comment']) ? $data['comment'] . ' ' : '');
             $data['comment'] .= $this::MOTHERSMAIDENNAME . ': ' . $data['mothers_maiden_name'] . '.';
             unset($data['mothers_maiden_name']);
         }
@@ -384,7 +384,7 @@ class ScoutImport extends \Backend\Models\ImportModel
                     }
 
                     $data['legal_relationship_id'] = $legalRelationshipInvalidDataId;
-                    $data['is_active']             = 0;
+                    $data['is_active'] = 0;
                 }
             }
         }
@@ -411,8 +411,8 @@ class ScoutImport extends \Backend\Models\ImportModel
 
         // generate an empty registration form
         if ($scout->wasRecentlyCreated) {
-            $file               = (new \System\Models\File)->fromData('', $data['ecset_code'] . '.pdf');
-            $file->is_public    = true;
+            $file            = (new \System\Models\File)->fromData('', $data['ecset_code'] . '.pdf');
+            $file->is_public = true;
             $file->content_type = 'application/pdf';
             $file->save();
             $scout->registration_form()->add($file);
