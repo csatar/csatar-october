@@ -225,7 +225,7 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
         }
 
         return [
-            '#messageList' => $this->renderPartial('@messages',)
+            '#messageList' => $this->renderPartial('@messages', )
         ];
     }
 

@@ -186,7 +186,7 @@ class OrganizationBase extends PermissionBasedAccess
     }
 
     public function filterNameForWords($name, $filterWords){
-        $filterWords  = array_map('trim',$filterWords);
+        $filterWords  = array_map('trim', $filterWords);
         $nameExploded = explode(' ', $name);
         $nameFiltered = array_map(function($word) use ($filterWords){
             if (in_array(mb_strtolower($word), $filterWords)) {
