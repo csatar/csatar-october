@@ -565,7 +565,7 @@ class RecordList extends RainRecordList {
         $this->filtersConfig = $this->page['filtersConfig'] = $this->getFiltersConfig();
         foreach ($this->filtersConfig as $column => $config) {
             if (isset($config['filterConfig']['dependsOn']) && Input::get('changedColumn') == $config['filterConfig']['dependsOn']) {
-                $partialArray['#filter-' . $column . '-'. $componentAlias] = $this->renderPartial('@filter', ['column' => $column, 'config' => $config]);
+                $partialArray['#filter-' . $column . '-' . $componentAlias] = $this->renderPartial('@filter', ['column' => $column, 'config' => $config]);
             }
         }
 

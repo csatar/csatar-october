@@ -99,7 +99,7 @@ class CheckScoutStatus extends ComponentBase
             throw new ValidationException($validation);
         }
 
-        return Redirect::to('/tag-lekerdezes/'. $data['ecsk_code']);
+        return Redirect::to('/tag-lekerdezes/' . $data['ecsk_code']);
     }
 
 }
