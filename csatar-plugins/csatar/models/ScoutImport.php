@@ -40,90 +40,18 @@ class ScoutImport extends \Backend\Models\ImportModel
 
         foreach ($results as $row => $data) {
             try {
-                // manipulate fields - gender
-                if ($data['gender'] == $this::GENDER_MALE) {
-                    $data['gender'] = Gender::MALE;
-                } else if ($data['gender'] == $this::GENDER_FEMALE) {
-                    $data['gender'] = Gender::FEMALE;
-                } else {
-                    $data['comment'] = (!empty($data['comment']) ? $data['comment'] . ' ' : '') . Lang::get('csatar.csatar::lang.plugin.admin.scout.gender.gender') . ': ' . $data['gender'] . '.';
-                    $data['gender']  = '';
-                }
+                $this->manipulateGenderField($data);
+                $this->manipulateBirthdateField($data);
+                $this->manipulateIsActiveField($data);
+                $this->manipulateLegalRelationshipField($data);
+                $this->manipulateReligionField($data);
 
-                // manipulate fields - birthdate
-                if (preg_match('(^(\d+)/(\d+)/(\d+)$)i', $data['birthdate'])) {
-                    $pos1  = strpos($data['birthdate'], '/');
-                    $pos2  = strpos($data['birthdate'], '/', $pos1 + 1);
-                    $month = substr($data['birthdate'], 0, $pos1);
-                    $day   = substr($data['birthdate'], $pos1 + 1, $pos2 - $pos1 - 1);
-                    $year  = substr($data['birthdate'], $pos2 + 1);
-                    $data['birthdate'] = $year . '-' . $month . '-' . $day;
-                }
+                $chronicIllnessesStrings = $this->manipulateChronicIllnessesField($data);
+                $allergiesStrings        = $this->manipulateAllergiesField($data);
+                $foodSensitivitieStrings = $this->manipulateFoodSensitivitiesField($data);
 
-                // manipulate fields - is active
-                if ($data['is_active'] == $this::ISACTIVE_ACTIVE) {
-                    $data['is_active'] = 1;
-                } else if ($data['is_active'] == $this::ISACTIVE_INACTIVE) {
-                    $data['is_active'] = 0;
-                } else {
-                    $data['comment']   = (!empty($data['comment']) ? $data['comment'] . ' ' : '') . Lang::get('csatar.csatar::lang.plugin.admin.scout.isActive') . ': ' . $data['is_active'] . '.';
-                    $data['is_active'] = '';
-                }
-
-                // manipulate fields - legal relationship
-                $legalRelationship = LegalRelationship::where('name', $data['legal_relationship_id'])->first();
-                if (isset($legalRelationship)) {
-                    $data['legal_relationship_id'] = $legalRelationship->id;
-                } else {
-                    $data['comment']  = (!empty($data['comment']) ? $data['comment'] . ' ' : '');
-                    $data['comment'] .= Lang::get('csatar.csatar::lang.plugin.admin.scout.legalRelationship') . ': ' . $data['legal_relationship_id'] . '.';
-                    $data['legal_relationship_id'] = '';
-                }
-
-                // manipulate fields - religion
-                $religion = Religion::where('name', $data['religion_id'])->first();
-                if (isset($religion)) {
-                    $data['religion_id'] = $religion->id;
-                } else {
-                    $data['comment']     = (!empty($data['comment']) ? $data['comment'] . ' ' : '');
-                    $data['comment']    .= Lang::get('csatar.csatar::lang.plugin.admin.scout.religion') . ': ' . $data['religion_id'] . '.';
-                    $data['religion_id'] = '';
-                }
-
-                // manipulate fields - chronic illnesses
-                $chronicIllnessesStrings = !empty($data['chronic_illnesses']) ? explode(',', $data['chronic_illnesses']) : [];
-                unset($data['chronic_illnesses']);
-
-                // manipulate fields - allergies
-                $allergiesStrings = !empty($data['allergies']) ? explode(',', $data['allergies']) : [];
-                unset($data['allergies']);
-
-                // manipulate fields - food sensitivities
-                $foodSensitivitieStrings = !empty($data['food_sensitivities']) ? explode(',', $data['food_sensitivities']) : [];
-                unset($data['food_sensitivities']);
-
-                // manipulate fields - mother's maiden name
-                if (!empty($data['mothers_maiden_name'])) {
-                    $data['comment']  = (!empty($data['comment']) ? $data['comment'] . ' ' : '');
-                    $data['comment'] .= $this::MOTHERSMAIDENNAME . ': ' . $data['mothers_maiden_name'] . '.';
-                    unset($data['mothers_maiden_name']);
-                }
-
-                // manipulate fields - address street and address number
-                $data['address_street']   = trim($data['address_street']);
-                $streetLastSpaceCharacter = strrpos($data['address_street'], ' ');
-                if ($streetLastSpaceCharacter != false) {
-                    $streetLastSection = substr($data['address_street'], $streetLastSpaceCharacter + 1);
-                    if (preg_match('/[0-9]/i', $streetLastSection)) {
-                        $data['address_number'] = $streetLastSection;
-                        $data['address_street'] = trim(substr($data['address_street'], 0, $streetLastSpaceCharacter));
-                    }
-                }
-
-                if (!isset($data['address_number'])) {
-                    $data['address_number']        = $this::DEFAULT;
-                    $data['legal_relationship_id'] = $legalRelationshipInvalidDataId;
-                }
+                $this->manipulateMothersMaidenNameField($data);
+                $this->manipulateFieldsAddressStreetAndAddressNumber($data, $legalRelationshipInvalidDataId);
 
                 // manipulate fields - registration form
                 unset($data['registration_form']);
@@ -131,51 +59,8 @@ class ScoutImport extends \Backend\Models\ImportModel
                 // manipulate fields - special diet
                 $data['special_diet_id'] = $specialDietNoneId;
 
-                // add a "-" to all required fields
-                $config = File::symbolizePath('$/csatar/csatar/models/scoutimport/columns.yaml');
-                if (File::isFile($config)) {
-                    $config = $this->makeConfig($config);
-                    foreach ($config->columns as $column => $columnData) {
-                        if (isset($columnData['required']) && $columnData['required'] == 1 && empty($data[$column])) {
-                            switch ($column) {
-                                case 'religion_id':
-                                    $data[$column] = $religionOtherId;
-                                    break;
-                                default:
-                                    $data[$column] = $this::DEFAULT;
-                                    break;
-                            }
-
-                            $data['legal_relationship_id'] = $legalRelationshipInvalidDataId;
-                            $data['is_active'] = 0;
-                        }
-                    }
-                }
-
-                // retrieve/create the scout
-                $scout = Scout::firstOrNew([
-                    'ecset_code' => $data['ecset_code'],
-                ]);
-
-                if ($data['is_active'] != 1) {
-                    $scout->inactivated_at   = $scout->inactivated_at == null ? date('Y-m-d H:i:s') : $scout->inactivated_at;
-                    $scout->ignoreValidation = true;
-                    unset($data['is_active']);
-                }
-
-                $scout->fill($data);
-
-                // generate an empty registration form
-                if ($scout->wasRecentlyCreated) {
-                    $file            = (new \System\Models\File)->fromData('', $data['ecset_code'] . '.pdf');
-                    $file->is_public = true;
-                    $file->content_type = 'application/pdf';
-                    $file->save();
-                    $scout->registration_form()->add($file);
-                }
-
-                // save the scout
-                $scout->forceSave();
+                $this->handleRequiredFields($data, $religionOtherId, $legalRelationshipInvalidDataId);
+                $scout = $this->getOrCreateScout($data);
 
                 // save the pivot data
                 $this->savePivotData($scout, $chronicIllnessesStrings, ChronicIllness::class, 'chronic_illnesses');
@@ -259,11 +144,11 @@ class ScoutImport extends \Backend\Models\ImportModel
             return null;
         }
 
-        if (str_ends_with($file->file_name, '.csv')) {
+        if (substr($file->file_name, -4) === '.csv') {
             return $file->getLocalPath();
         }
 
-        if (str_ends_with($file->file_name, '.zip')) {
+        if (substr($file->file_name, -4) === '.zip') {
             $files = $this->unzip($file);
             return isset($files) && count($files) > 0 ? array_values($files)[0] : null;
         }
@@ -311,6 +196,232 @@ class ScoutImport extends \Backend\Models\ImportModel
     public function getAssociationOptions()
     {
         return Association::lists('name', 'id');
+    }
+
+    /**
+     * @param $data
+     * @return void
+     */
+    public function manipulateGenderField(&$data)
+    {
+        // manipulate fields - gender
+        if ($data['gender'] == $this::GENDER_MALE) {
+            $data['gender'] = Gender::MALE;
+        } else if ($data['gender'] == $this::GENDER_FEMALE) {
+            $data['gender'] = Gender::FEMALE;
+        } else {
+            $data['comment'] = (!empty($data['comment']) ? $data['comment'] . ' ' : '') . Lang::get('csatar.csatar::lang.plugin.admin.scout.gender.gender') . ': ' . $data['gender'] . '.';
+            $data['gender']  = '';
+        }
+    }
+
+    /**
+     * @param $data
+     * @return void
+     */
+    public function manipulateBirthdateField(&$data)
+    {
+        // manipulate fields - birthdate
+        if (preg_match('(^(\d+)/(\d+)/(\d+)$)i', $data['birthdate'])) {
+            $pos1  = strpos($data['birthdate'], '/');
+            $pos2  = strpos($data['birthdate'], '/', $pos1 + 1);
+            $month = substr($data['birthdate'], 0, $pos1);
+            $day   = substr($data['birthdate'], $pos1 + 1, $pos2 - $pos1 - 1);
+            $year  = substr($data['birthdate'], $pos2 + 1);
+            $data['birthdate'] = $year . '-' . $month . '-' . $day;
+        }
+    }
+
+    /**
+     * @param $data
+     * @return void
+     */
+    public function manipulateIsActiveField(&$data)
+    {
+        // manipulate fields - is active
+        if ($data['is_active'] == $this::ISACTIVE_ACTIVE) {
+            $data['is_active'] = 1;
+        } else if ($data['is_active'] == $this::ISACTIVE_INACTIVE) {
+            $data['is_active'] = 0;
+        } else {
+            $data['comment']   = (!empty($data['comment']) ? $data['comment'] . ' ' : '') . Lang::get('csatar.csatar::lang.plugin.admin.scout.isActive') . ': ' . $data['is_active'] . '.';
+            $data['is_active'] = '';
+        }
+    }
+
+    /**
+     * @param $data
+     * @return void
+     */
+    public function manipulateLegalRelationshipField(&$data)
+    {
+        // manipulate fields - legal relationship
+        $legalRelationship = LegalRelationship::where('name', $data['legal_relationship_id'])->first();
+        if (isset($legalRelationship)) {
+            $data['legal_relationship_id'] = $legalRelationship->id;
+        } else {
+            $data['comment']  = (!empty($data['comment']) ? $data['comment'] . ' ' : '');
+            $data['comment'] .= Lang::get('csatar.csatar::lang.plugin.admin.scout.legalRelationship') . ': ' . $data['legal_relationship_id'] . '.';
+            $data['legal_relationship_id'] = '';
+        }
+    }
+
+    /**
+     * @param $data
+     * @return void
+     */
+    public function manipulateReligionField(&$data)
+    {
+        // manipulate fields - religion
+        $religion = Religion::where('name', $data['religion_id'])->first();
+        if (isset($religion)) {
+            $data['religion_id'] = $religion->id;
+        } else {
+            $data['comment']     = (!empty($data['comment']) ? $data['comment'] . ' ' : '');
+            $data['comment']    .= Lang::get('csatar.csatar::lang.plugin.admin.scout.religion') . ': ' . $data['religion_id'] . '.';
+            $data['religion_id'] = '';
+        }
+    }
+
+    /**
+     * @param $data
+     * @return string
+     */
+    public function manipulateChronicIllnessesField(&$data)
+    {
+        // manipulate fields - chronic illnesses
+        $chronicIllnessesStrings = !empty($data['chronic_illnesses']) ? explode(',', $data['chronic_illnesses']) : [];
+        unset($data['chronic_illnesses']);
+
+        return $chronicIllnessesStrings;
+    }
+
+    /**
+     * @param $data
+     * @return string
+     */
+    public function manipulateAllergiesField(&$data)
+    {
+        // manipulate fields - allergies
+        $allergiesStrings = !empty($data['allergies']) ? explode(',', $data['allergies']) : [];
+        unset($data['allergies']);
+
+        return $allergiesStrings;
+    }
+
+    /**
+     * @param $data
+     * @return string
+     */
+    public function manipulateFoodSensitivitiesField(&$data)
+    {
+        // manipulate fields - food sensitivities
+        $foodSensitivitieStrings = !empty($data['food_sensitivities']) ? explode(',', $data['food_sensitivities']) : [];
+        unset($data['food_sensitivities']);
+
+        return $foodSensitivitieStrings;
+    }
+
+    /**
+     * @param $data
+     * @return void
+     */
+    public function manipulateMothersMaidenNameField(&$data)
+    {
+        // manipulate fields - mother's maiden name
+        if (!empty($data['mothers_maiden_name'])) {
+            $data['comment']  = (!empty($data['comment']) ? $data['comment'] . ' ' : '');
+            $data['comment'] .= $this::MOTHERSMAIDENNAME . ': ' . $data['mothers_maiden_name'] . '.';
+            unset($data['mothers_maiden_name']);
+        }
+    }
+
+    /**
+     * @param $data
+     * @param $legalRelationshipInvalidDataId
+     * @return void
+     */
+    public function manipulateFieldsAddressStreetAndAddressNumber(&$data, $legalRelationshipInvalidDataId)
+    {
+        // manipulate fields - address street and address number
+        $data['address_street']   = trim($data['address_street']);
+        $streetLastSpaceCharacter = strrpos($data['address_street'], ' ');
+        if ($streetLastSpaceCharacter != false) {
+            $streetLastSection = substr($data['address_street'], $streetLastSpaceCharacter + 1);
+            if (preg_match('/[0-9]/i', $streetLastSection)) {
+                $data['address_number'] = $streetLastSection;
+                $data['address_street'] = trim(substr($data['address_street'], 0, $streetLastSpaceCharacter));
+            }
+        }
+
+        if (!isset($data['address_number'])) {
+            $data['address_number']        = $this::DEFAULT;
+            $data['legal_relationship_id'] = $legalRelationshipInvalidDataId;
+        }
+    }
+
+    /**
+     * @param $data
+     * @param $religionOtherId
+     * @param $legalRelationshipInvalidDataId
+     * @return void
+     */
+    public function handleRequiredFields(&$data, $religionOtherId, $legalRelationshipInvalidDataId)
+    {
+        // add a "-" to all required fields
+        $config = File::symbolizePath('$/csatar/csatar/models/scoutimport/columns.yaml');
+        if (File::isFile($config)) {
+            $config = $this->makeConfig($config);
+            foreach ($config->columns as $column => $columnData) {
+                if (isset($columnData['required']) && $columnData['required'] == 1 && empty($data[$column])) {
+                    switch ($column) {
+                        case 'religion_id':
+                            $data[$column] = $religionOtherId;
+                            break;
+                        default:
+                            $data[$column] = $this::DEFAULT;
+                            break;
+                    }
+
+                    $data['legal_relationship_id'] = $legalRelationshipInvalidDataId;
+                    $data['is_active'] = 0;
+                }
+            }
+        }
+    }
+
+    /**
+     * @param $data
+     * @return Scout
+     */
+    public function getOrCreateScout($data)
+    {
+        // retrieve/create the scout
+        $scout = Scout::firstOrNew([
+            'ecset_code' => $data['ecset_code'],
+        ]);
+
+        if ($data['is_active'] != 1) {
+            $scout->inactivated_at   = $scout->inactivated_at == null ? date('Y-m-d H:i:s') : $scout->inactivated_at;
+            $scout->ignoreValidation = true;
+            unset($data['is_active']);
+        }
+
+        $scout->fill($data);
+
+        // generate an empty registration form
+        if ($scout->wasRecentlyCreated) {
+            $file            = (new \System\Models\File)->fromData('', $data['ecset_code'] . '.pdf');
+            $file->is_public = true;
+            $file->content_type = 'application/pdf';
+            $file->save();
+            $scout->registration_form()->add($file);
+        }
+
+        // save the scout
+        $scout->forceSave();
+
+        return $scout;
     }
 
 }

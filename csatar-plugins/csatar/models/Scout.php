@@ -483,66 +483,12 @@ class Scout extends OrganizationBase
      * Handle the team-troop-patrol dependencies
      */
     public function filterFields($fields, $context = null) {
-        // populate the Troop and Patrol dropdowns with troops and patrols that belong to the selected team
-        if (isset($fields->troop)) {
-            $fields->troop->options = [];
-            $team_id = $this->team_id;
-            if ($team_id) {
-                $fields->troop->options += ['null' => e(trans('csatar.csatar::lang.plugin.admin.general.select'))];
-                foreach (\Csatar\Csatar\Models\Troop::teamId($team_id)->get() as $troop) {
-                    $fields->troop->options += [$troop['id'] => $troop['extendedName']];
-                }
-            }
-        }
-
-        // populate the Patrol dropdown with patrols that belong to the selected team and to the selected troop
-        if (isset($fields->patrol)) {
-            $fields->patrol->options = [];
-            $troop_id = $this->troop_id;
-            $fields->patrol->options += ['null' => e(trans('csatar.csatar::lang.plugin.admin.general.select'))];
-            if ($troop_id && $troop_id != 'null') { // important, 'null' is string at this point
-                foreach (\Csatar\Csatar\Models\Patrol::troopId($troop_id)->get() as $patrol) {
-                    $fields->patrol->options += [$patrol['id'] => $patrol['extendedName']];
-                }
-            } else if ($team_id) {
-                foreach (\Csatar\Csatar\Models\Patrol::teamId($team_id)->get() as $patrol) {
-                    $fields->patrol->options += [$patrol['id'] => $patrol['extendedName']];
-                }
-            }
-        }
-
-        // populate the Legal Relationships dropdown with legal relationships that belong to the selected team's association
-        if (isset($fields->legal_relationship)) {
-            $fields->legal_relationship->options = $this->team ? \Csatar\Csatar\Models\LegalRelationship::associationId($this->team->district->association->id)->lists('name', 'id') : [];
-        }
-
-        if (isset($fields->personal_identification_number)
-            && !$this->shouldNotValidateCnp()
-            && !empty($fields->personal_identification_number->value)
-            && in_array('cnp', $this->getPersonalIdentificationNumberValidators())
-            && ((isset($this->original['personal_identification_number'])
-                    && $this->original['personal_identification_number'] != $fields->personal_identification_number->value)
-                || empty($this->original)
-            )
-        ) {
-            $fields->birthdate->value = $this->getBirthDateFromCNP($fields->personal_identification_number->value);
-        }
-
-        if (isset($fields->address_county)) {
-            $this->setAddressCountyOptions($fields->address_county);
-        }
-
-        if (isset($fields->address_location)) {
-            $this->setAddressLocationOptions($fields->address_location);
-        }
-
-        if (isset($fields->address_street)) {
-            $this->setAddressStreetOptions($fields->address_street);
-        }
-
-        if (isset($fields->citizenship_country) && empty($fields->citizenship_country->value)) {
-            $fields->citizenship_country->value = Country::where('code', 'RO')->first()->id ?? null;
-        }
+        $this->handleTroopDropdown($fields);
+        $this->handlePatrolDopdown($fields);
+        $this->handleLegalRelationshipDropdown($fields);
+        $this->handlePersonalIdentificationNumberField($fields);
+        $this->handleAddressFields($fields);
+        $this->handleCitizenshipField($fields);
 
         $fields->is_active->value = $this->inactivated_at == null;
     }
@@ -1479,6 +1425,111 @@ class Scout extends OrganizationBase
     public function getBirthdateAttribute($value)
     {
         return $value ? Carbon::parse($value)->format('Y-m-d') : null;
+    }
+
+    /**
+     * @param $fields
+     * @return void
+     */
+    public function handleTroopDropdown(&$fields)
+    {
+        // populate the Troop and Patrol dropdowns with troops and patrols that belong to the selected team
+        if (isset($fields->troop)) {
+            $fields->troop->options = [];
+            $team_id = $this->team_id;
+            if ($team_id) {
+                $fields->troop->options += ['null' => e(trans('csatar.csatar::lang.plugin.admin.general.select'))];
+                foreach (\Csatar\Csatar\Models\Troop::teamId($team_id)->get() as $troop) {
+                    $fields->troop->options += [$troop['id'] => $troop['extendedName']];
+                }
+            }
+        }
+    }
+
+    /**
+     * @param $fields
+     * @param $team_id
+     * @return void
+     */
+    public function handlePatrolDopdown(&$fields): void
+    {
+        // populate the Patrol dropdown with patrols that belong to the selected team and to the selected troop
+        if (isset($fields->patrol)) {
+            $team_id = $this->team_id;
+            $fields->patrol->options = [];
+            $troop_id = $this->troop_id;
+            $fields->patrol->options += ['null' => e(trans('csatar.csatar::lang.plugin.admin.general.select'))];
+            if ($troop_id && $troop_id != 'null') { // important, 'null' is string at this point
+                foreach (\Csatar\Csatar\Models\Patrol::troopId($troop_id)->get() as $patrol) {
+                    $fields->patrol->options += [$patrol['id'] => $patrol['extendedName']];
+                }
+            } else if ($team_id) {
+                foreach (\Csatar\Csatar\Models\Patrol::teamId($team_id)->get() as $patrol) {
+                    $fields->patrol->options += [$patrol['id'] => $patrol['extendedName']];
+                }
+            }
+        }
+    }
+
+    /**
+     * @param $fields
+     * @return void
+     */
+    public function handleLegalRelationshipDropdown(&$fields): void
+    {
+        // populate the Legal Relationships dropdown with legal relationships that belong to the selected team's association
+        if (isset($fields->legal_relationship)) {
+            $fields->legal_relationship->options = $this->team ? \Csatar\Csatar\Models\LegalRelationship::associationId($this->team->district->association->id)->lists('name', 'id') : [];
+        }
+    }
+
+    /**
+     * @param $fields
+     * @return void
+     */
+    public function handlePersonalIdentificationNumberField(&$fields): void
+    {
+        if (isset($fields->personal_identification_number)
+            && !$this->shouldNotValidateCnp()
+            && !empty($fields->personal_identification_number->value)
+            && in_array('cnp', $this->getPersonalIdentificationNumberValidators())
+            && ((isset($this->original['personal_identification_number'])
+                    && $this->original['personal_identification_number'] != $fields->personal_identification_number->value)
+                || empty($this->original)
+            )
+        ) {
+            $fields->birthdate->value = $this->getBirthDateFromCNP($fields->personal_identification_number->value);
+        }
+    }
+
+    /**
+     * @param $fields
+     * @return void
+     */
+    public function handleAddressFields(&$fields): void
+    {
+        if (isset($fields->address_county)) {
+            $this->setAddressCountyOptions($fields->address_county);
+        }
+
+        if (isset($fields->address_location)) {
+            $this->setAddressLocationOptions($fields->address_location);
+        }
+
+        if (isset($fields->address_street)) {
+            $this->setAddressStreetOptions($fields->address_street);
+        }
+    }
+
+    /**
+     * @param $fields
+     * @return void
+     */
+    public function handleCitizenshipField(&$fields): void
+    {
+        if (isset($fields->citizenship_country) && empty($fields->citizenship_country->value)) {
+            $fields->citizenship_country->value = Country::where('code', 'RO')->first()->id ?? null;
+        }
     }
 
 }
