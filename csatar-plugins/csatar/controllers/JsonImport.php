@@ -129,7 +129,7 @@ class JsonImport extends Controller
             'unit' => Religion::where('name', 'Unitárius')->first()->id,
         ];
 
-        $allergies          = Allergy::all();
+        $allergies = Allergy::all();
         // phpcs:ignore -- Generic.Files.LineLength
         $this->allergiesMap = [
             "Nincs" => $allergies->where('name', 'Nincs')->first(),
