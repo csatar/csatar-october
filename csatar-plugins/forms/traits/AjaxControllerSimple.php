@@ -1258,7 +1258,7 @@ trait AjaxControllerSimple {
 
             if ($defRecords) {
                 if (!$isHasManyRelation) {
-                    $relatedRecord->pivot = (object)$defRecords[$key]->pivot_data;
+                    $relatedRecord->pivot = (object) $defRecords[$key]->pivot_data;
                 } else {
                     $relatedRecord->attributes = $defRecords[$key]->pivot_data;
                     $relatedRecord->id         = $defRecords[$key]->slave_id;
@@ -1592,7 +1592,7 @@ trait AjaxControllerSimple {
     /**
      * Filters posted data array, run before $record->save();
      */
-    private function filterDataBasedOnUserRightsBeforeSave(array $data, $fieldsConfig, bool $isNewRecord = false ): array
+    private function filterDataBasedOnUserRightsBeforeSave(array $data, $fieldsConfig, bool $isNewRecord = false): array
     {
         // This function is needed because at the time of rendering the form user rights are loaded from session,
         // but before save we confirm the rights from database, and if there were changes, not-allowed data should not be saved.

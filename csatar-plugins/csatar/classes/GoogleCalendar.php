@@ -40,7 +40,7 @@ class GoogleCalendar
         $optParams  = [
             'maxResults'   => 100,
             'orderBy'      => 'startTime',
-            'singleEvents' => TRUE,
+            'singleEvents' => true,
             'timeMin'      => $timeMin ?? date('c'),
         ];
 

@@ -163,7 +163,7 @@ class Association extends OrganizationBase
     public function beforeValidate()
     {
         if (!empty($this->team_report_submit_start_date)
-            && (is_null($this->team_report_submit_end_date) || new DateTime($this->team_report_submit_start_date) > new DateTime($this->team_report_submit_end_date))
+            && ($this->team_report_submit_end_date == null || new DateTime($this->team_report_submit_start_date) > new DateTime($this->team_report_submit_end_date))
         ) {
             throw new ValidationException(['team_report_submit_end_date' => Lang::get('csatar.csatar::lang.plugin.admin.association.validationExceptions.invalidTeamReportSubmissionPeriod')]);
         }

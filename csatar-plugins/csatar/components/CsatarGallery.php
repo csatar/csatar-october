@@ -161,7 +161,7 @@ class CsatarGallery extends Gallery
             throw new ValidationException(['images' => 'Képet feltölteni kötelező!']);
         }
 
-        if (sizeof(Input::file('images')) > 30) {
+        if (count(Input::file('images')) > 30) {
             throw new ValidationException(['images' => 'Maximum 30 képet lehet feltölteni a galériához!']);
         }
 
@@ -234,7 +234,7 @@ class CsatarGallery extends Gallery
             throw new ValidationException(['images' => 'Képet feltölteni kötelező!']);
         }
 
-        $imagesSize = empty(Input::file('images')) ? 0 : sizeof(Input::file('images'));
+        $imagesSize = empty(Input::file('images')) ? 0 : count(Input::file('images'));
 
         if (($imagesSize + $gallery->images()->count()) > 30) {
             throw new ValidationException(['images' => 'Maximum 30 képet lehet feltölteni a galériához!']);

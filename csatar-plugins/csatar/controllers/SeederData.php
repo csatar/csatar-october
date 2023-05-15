@@ -12,7 +12,9 @@ use Backend\Classes\Controller;
 
 class SeederData extends Controller
 {
-    public $seederData, $testData, $data;
+    public $seederData;
+    public $testData;
+    public $data;
 
     public function __construct()
     {
