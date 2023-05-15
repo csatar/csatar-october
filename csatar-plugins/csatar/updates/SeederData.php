@@ -977,36 +977,7 @@ class SeederData extends Seeder
 
             $association->forceSave();
 
-            // mandate types
-            $mandateTypes = [];
-            if (isset($this::DATA['mandateType'][$association->name])) {
-                foreach ($this::DATA['mandateType'][$association->name] as $mandateType) {
-                    $mandateType['association_id'] = $association->id;
-                    if (isset($mandateType['parent'])) {
-                        foreach ($mandateTypes as $item) {
-                            if ($item->name == $mandateType['parent']) {
-                                $mandateType['parent_id'] = $item->id;
-                                break;
-                            }
-                        }
-
-                        unset($mandateType['parent']);
-                    }
-
-                    $newMandateType                  = MandateType::firstOrCreate([
-                        'name'                         => $mandateType['name'],
-                        'association_id'               => $mandateType['association_id'],
-                        'organization_type_model_name' => $mandateType['organization_type_model_name'],
-                    ]);
-                    $newMandateType->required        = $mandateType['required'] ?? false;
-                    $newMandateType->overlap_allowed = $mandateType['overlap_allowed'] ?? false;
-                    $newMandateType->parent_id       = $mandateType['parent_id'] ?? null;
-                    $newMandateType->is_vk           = $mandateType['is_vk'] ?? 0;
-                    $newMandateType->save();
-
-                    $mandateTypes[] = $newMandateType;
-                }
-            }
+            $this->seedMandateTypesForAssociation($association);
 
             // update the membership fee value for RMCSSZ - Member
             if ($association->name == 'Romániai Magyar Cserkészszövetség') {
@@ -1232,6 +1203,44 @@ class SeederData extends Seeder
             if ($model) {
                 $model->google_calendar_id = $params['google_calendar_id'];
                 $model->forceSave();
+            }
+        }
+    }
+
+    /**
+     * @param $association
+     * @return void
+     */
+    public function seedMandateTypesForAssociation($association): void
+    {
+        // mandate types
+        $mandateTypes = [];
+        if (isset($this::DATA['mandateType'][$association->name])) {
+            foreach ($this::DATA['mandateType'][$association->name] as $mandateType) {
+                $mandateType['association_id'] = $association->id;
+                if (isset($mandateType['parent'])) {
+                    foreach ($mandateTypes as $item) {
+                        if ($item->name == $mandateType['parent']) {
+                            $mandateType['parent_id'] = $item->id;
+                            break;
+                        }
+                    }
+
+                    unset($mandateType['parent']);
+                }
+
+                $newMandateType                  = MandateType::firstOrCreate([
+                    'name'                         => $mandateType['name'],
+                    'association_id'               => $mandateType['association_id'],
+                    'organization_type_model_name' => $mandateType['organization_type_model_name'],
+                ]);
+                $newMandateType->required        = $mandateType['required'] ?? false;
+                $newMandateType->overlap_allowed = $mandateType['overlap_allowed'] ?? false;
+                $newMandateType->parent_id       = $mandateType['parent_id'] ?? null;
+                $newMandateType->is_vk           = $mandateType['is_vk'] ?? 0;
+                $newMandateType->save();
+
+                $mandateTypes[] = $newMandateType;
             }
         }
     }
