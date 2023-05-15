@@ -29,13 +29,13 @@ class BuilderTableCreateCsatarKnowledgerepositoryOvamtvWorkPlans extends Migrati
             $table->string('notes', 500)->nullable();
             $table->text('goals')->nullable();
             $table->text('tasks')->nullable();
-            
+
             $table->foreign('team_id')->references('id')->on('csatar_csatar_teams');
             $table->foreign('patrol_id')->references('id')->on('csatar_csatar_patrols');
             $table->foreign('creator_csatar_code', 'creator_code_foreign')->references('ecset_code')->on('csatar_csatar_scouts');
         });
     }
-    
+
     public function down()
     {
         Schema::dropIfExists('csatar_knowledgerepository_ovamtv_work_plans');

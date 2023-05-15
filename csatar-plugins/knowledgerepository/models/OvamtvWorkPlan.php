@@ -353,7 +353,7 @@ class OvamtvWorkPlan extends PermissionBasedAccess
         if (empty($this->start_date)) {
             return null;
         }
-        
+
         $endDate = date('Y-m-d', strtotime($this->start_date . ' +2 month'));
 
         $events = GoogleCalendar::getEvents($this->getCalnedarIds(), $this->start_date, $endDate)->sortBy('start');
