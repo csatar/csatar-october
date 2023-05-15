@@ -1075,7 +1075,7 @@ class JsonImport extends Controller
                 }
 
                 if (!$scout->{$relationName}->contains($relationModel)) {
-                    $scout->{$relationName}()->add($relationModel,$pivotArray);
+                    $scout->{$relationName}()->add($relationModel, $pivotArray);
                     $itemsAdded++;
                 }
 

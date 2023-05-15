@@ -359,7 +359,7 @@ class Patrol extends OrganizationBase
         if ($this->team_id) {
             $team = $this->team;
             return AgeGroup::select(
-                DB::raw("CONCAT(NAME, IF(note, CONCAT(' (',note, ')'), '')) AS name"),'id')
+                DB::raw("CONCAT(NAME, IF(note, CONCAT(' (',note, ')'), '')) AS name"), 'id')
                 ->where('association_id', $team->district->association->id)
                 ->orderBy('sort_order')
                 ->lists('name', 'id')
