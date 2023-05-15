@@ -161,6 +161,7 @@ class WeeklyWorkPlan extends PermissionBasedAccess
             'Csatar\KnowledgeRepository\Models\Game',
             'table' => 'csatar_knowledgerepository_weekly_work_plan_spare_game',
             'label' => 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.spareGames',
+            'scope' => 'approved',
         ],
         'scouts' => [
             'Csatar\Csatar\Models\Scout',
@@ -271,6 +272,12 @@ class WeeklyWorkPlan extends PermissionBasedAccess
     public function attachDefaultActivities() {
         $activitiesToAttach = $this->getActivitiesToAttach();
         $this->activityTypes()->sync($activitiesToAttach);
+    }
+
+    public function handlePatrol(&$fields){
+        if (empty($this->patrol_name)) {
+            $fields->patrol_name->value = $this->patrol->name;
+        }
     }
 
     public function handlePatrolName(&$fields){
