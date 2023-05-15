@@ -105,7 +105,7 @@ class ScoutImport extends \Backend\Models\ImportModel
                 // manipulate fields - mother's maiden name
                 if (!empty($data['mothers_maiden_name'])) {
                     $data['comment']  = (!empty($data['comment']) ? $data['comment'] . ' ' : '');
-                    $data['comment'] .=  $this::MOTHERSMAIDENNAME . ': ' . $data['mothers_maiden_name'] . '.';
+                    $data['comment'] .= $this::MOTHERSMAIDENNAME . ': ' . $data['mothers_maiden_name'] . '.';
                     unset($data['mothers_maiden_name']);
                 }
 
