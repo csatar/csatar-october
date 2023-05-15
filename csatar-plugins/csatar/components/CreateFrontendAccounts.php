@@ -22,7 +22,6 @@ use Csatar\Csatar\Models\Scout;
 
 /**
  * Creates a Frontend user account for an existing Scout
- *
  */
 
 class CreateFrontendAccounts extends \RainLab\User\Components\Account
@@ -191,8 +190,11 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
 
             return Redirect::to('/tag/' . $ecsetCode);
         } catch (Exception $ex) {
-            if (Request::ajax()) throw $ex;
-            else Flash::error($ex->getMessage());
+            if (Request::ajax()) {
+                throw $ex;
+            } else {
+                Flash::error($ex->getMessage());
+            }
         }
     }
 
@@ -208,8 +210,7 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
 
         foreach ($scouts as $scout) {
             if (!empty($scout->user_id)) {
-                $this->messages['errors'][$scout->id] =
-                    Lang::get('csatar.csatar::lang.plugin.component.createFrontendAccounts.messages.scoutAlreadyHasUserAccount',
+                $this->messages['errors'][$scout->id] = Lang::get('csatar.csatar::lang.plugin.component.createFrontendAccounts.messages.scoutAlreadyHasUserAccount',
                         ['name' => $scout->getFullName() ], 'hu');
             }
 
@@ -218,8 +219,7 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
             }
 
             if (empty($scout->email)) {
-                $this->messages['errors'][$scout->id] =
-                    Lang::get('csatar.csatar::lang.plugin.component.createFrontendAccounts.messages.scoutHasNoEmail',
+                $this->messages['errors'][$scout->id] = Lang::get('csatar.csatar::lang.plugin.component.createFrontendAccounts.messages.scoutHasNoEmail',
                         ['name' => $scout->getFullName() ]);
             }
         }
@@ -295,8 +295,11 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
             $this->messages['success'][$scout->id] = Lang::get('csatar.csatar::lang.plugin.component.createFrontendAccounts.messages.userAccountCreated',
                 ['name' => $scout->getFullName() ]);
         } catch (Exception $ex) {
-            if (Request::ajax()) throw $ex;
-            else Flash::error($ex->getMessage());
+            if (Request::ajax()) {
+                throw $ex;
+            } else {
+                Flash::error($ex->getMessage());
+            }
         }
     }
 

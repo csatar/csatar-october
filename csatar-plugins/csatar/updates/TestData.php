@@ -411,7 +411,9 @@ class TestData extends Seeder
     public function addAllPermissionsToScouts() {
         $associationId = Association::where('name_abbreviation', 'RMCSSZ')->first()->id ?? null;
 
-        if (empty($associationId)) return;
+        if (empty($associationId)) {
+            return;
+        }
 
         $permissionBasedModels = PermissionBasedAccess::getAllChildClasses(); // get every model that needs permissions
         $scoutMandateTypeId    = Db::table('csatar_csatar_mandate_types')->select('id')
@@ -420,10 +422,14 @@ class TestData extends Seeder
             ->whereNull('deleted_at')
             ->first()->id; // get scout mandate type id
 
-        if (empty($permissionBasedModels) || empty($scoutMandateTypeId)) return;
+        if (empty($permissionBasedModels) || empty($scoutMandateTypeId)) {
+return;
+        }
 
         foreach ($permissionBasedModels as $permissionBasedModel) {
-            if ($permissionBasedModel == MandateType::MODEL_NAME_GUEST) return;
+            if ($permissionBasedModel == MandateType::MODEL_NAME_GUEST) {
+                return;
+            }
 
             $model          = new $permissionBasedModel();
             $fields         = $model->fillable ?? [];
@@ -501,7 +507,9 @@ class TestData extends Seeder
                 ->whereNull('deleted_at')
                 ->first()->id; // get guest mandate type id
 
-            if (empty($permissionBasedModels) || empty($guestMandateTypeId)) return;
+            if (empty($permissionBasedModels) || empty($guestMandateTypeId)) {
+                return;
+            }
 
             foreach ($permissionBasedModels as $permissionBasedModel) {
                 $model          = new $permissionBasedModel();
