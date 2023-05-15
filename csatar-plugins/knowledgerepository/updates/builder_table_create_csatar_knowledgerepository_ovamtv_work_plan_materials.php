@@ -27,4 +27,5 @@ class BuilderTableCreateCsatarKnowledgerepositoryOvamtvWorkPlanMaterials extends
     {
         Schema::dropIfExists('csatar_knowledgerepository_ovamtv_work_plan_material');
     }
+
 }
