@@ -1,4 +1,6 @@
-<?php namespace Csatar\KnowledgeRepository\Updates;
+<?php
+
+namespace Csatar\KnowledgeRepository\Updates;
 
 use Schema;
 use October\Rain\Database\Updates\Migration;

@@ -60,8 +60,7 @@ class Scouts extends Controller
 
     public function listExtendQuery($query, $definition)
     {
-        if ($definition == 'trashed')
-        {
+        if ($definition == 'trashed') {
             $query->onlyTrashed();
         }
     }

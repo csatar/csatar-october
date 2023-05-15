@@ -13,7 +13,16 @@ use Csatar\Csatar\Models\TeamReport;
 
 class TeamReports extends ComponentBase
 {
-    public $id, $waitingForApprovalMode, $team, $teamReports, $legalRelationships, $teamReportData, $showTeamReportCreateButton, $permissions, $permissionForCreateButton, $listingAll;
+    public $id;
+    public $waitingForApprovalMode;
+    public $team;
+    public $teamReports;
+    public $legalRelationships;
+    public $teamReportData;
+    public $showTeamReportCreateButton;
+    public $permissions;
+    public $permissionForCreateButton;
+    public $listingAll;
 
     public function componentDetails()
     {

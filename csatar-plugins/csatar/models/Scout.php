@@ -763,7 +763,7 @@ class Scout extends OrganizationBase
         if (!empty($organization) && $mandates = $this->getMandatesForOrganization($organization, true)) {
             foreach ($mandates as $mandate) {
                 $mandate->ignoreValidation = true;
-                $mandate->end_date         = (new DateTime($mandate->end_date) > new DateTime() || is_null($mandate->end_date)) ? date('Y-m-d') : $mandate->end_date;
+                $mandate->end_date         = (new DateTime($mandate->end_date) > new DateTime() || $mandate->end_date == null) ? date('Y-m-d') : $mandate->end_date;
                 $mandate->save();
             }
         }
@@ -1217,7 +1217,7 @@ class Scout extends OrganizationBase
 
     public function isPersonalDataAccepted(): bool
     {
-        return !is_null($this->accepted_at);
+        return $this->accepted_at !== null;
     }
 
     public function setPersonalDataAccepted(): bool

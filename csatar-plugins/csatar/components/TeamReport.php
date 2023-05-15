@@ -17,7 +17,25 @@ use Session;
 
 class TeamReport extends ComponentBase
 {
-    public $id, $teamId, $action, $year, $teamReport, $team, $scouts, $teamFee, $totalAmount, $currency, $status, $basicForm, $redirectFromWaitingForApproval, $errors, $permissions, $confirmDeleteMessage, $confirmRefreshMessage, $legalRelationshipsInAssociation, $scoutsWithoutRegistrationForm;
+    public $id;
+    public $teamId;
+    public $action;
+    public $year;
+    public $teamReport;
+    public $team;
+    public $scouts;
+    public $teamFee;
+    public $totalAmount;
+    public $currency;
+    public $status;
+    public $basicForm;
+    public $redirectFromWaitingForApproval;
+    public $errors;
+    public $permissions;
+    public $confirmDeleteMessage;
+    public $confirmRefreshMessage;
+    public $legalRelationshipsInAssociation;
+    public $scoutsWithoutRegistrationForm;
 
     public function init()
     {
