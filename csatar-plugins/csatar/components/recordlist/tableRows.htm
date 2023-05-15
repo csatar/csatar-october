@@ -28,10 +28,9 @@
         </li>
 
         <li class="ps-0 pe-1 pt-1">
-            <select>
+            <select onchange="filterSortPaginate('{{ __SELF__.alias }}', this.value)">
                 {% for page in 1..records.lastPage %}
                 <option
-                        onclick="filterSortPaginate('{{ __SELF__.alias }}', {{ page }})"
                         value="{{ page }}"
                         {{ records.currentPage == page ? 'selected' : '' }}
                 >
