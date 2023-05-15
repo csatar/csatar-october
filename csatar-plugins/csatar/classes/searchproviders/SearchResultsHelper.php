@@ -20,6 +20,7 @@ class SearchResultsHelper
             if (strpos($content, $query) !== 0) {
                 $result = "..." . $result;
             }
+
             if (strpos($content, $query) !== (strlen($content) - strlen($content))) {
                 $result = $result . "...";
             }

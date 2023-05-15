@@ -87,6 +87,7 @@ class WorkPlansList extends ComponentBase
         if ($month < 9) {
             $year--;
         }
+
         return (int) $year;
     }
 

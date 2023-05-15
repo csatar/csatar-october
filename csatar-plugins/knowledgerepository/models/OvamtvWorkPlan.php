@@ -176,10 +176,12 @@ class OvamtvWorkPlan extends PermissionBasedAccess
             $fields->patrol_name_gender->span   = 'full';
             $fields->patrol_name_gender->hidden = true;
         }
+
         if (!empty($this->patrol_id) && !empty($this->id)) {
             $fields->patrol->span   = 'full';
             $fields->patrol->hidden = true;
         }
+
         if (empty($this->id)) {
             $fields->patrol->readOnly = false;
         }
@@ -226,6 +228,7 @@ class OvamtvWorkPlan extends PermissionBasedAccess
             $patrolGenderName           = $this->getPatrolGenderName($patrol);
             $patrolOptions[$patrol->id] = $patrolGenderName;
         }
+
         return $patrolOptions;
     }
 
@@ -321,7 +324,6 @@ class OvamtvWorkPlan extends PermissionBasedAccess
             $value = date('F', strtotime($scoutYearStart . ' +' . $i . ' month')) . date('F', strtotime($scoutYearStart . ' +' . ($i + 1) . ' month'));
             $value = Lang::get('csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.periods.' . $value);
             $startDateOptions[$key] = $value;
-
         }
 
         return $startDateOptions;
