@@ -412,7 +412,7 @@ class TestData extends Seeder
         $associationId = Association::where('name_abbreviation', 'RMCSSZ')->first()->id ?? null;
 
         if (empty($associationId)) {
-return;
+            return;
         }
 
         $permissionBasedModels = PermissionBasedAccess::getAllChildClasses(); // get every model that needs permissions
@@ -428,7 +428,7 @@ return;
 
         foreach ($permissionBasedModels as $permissionBasedModel) {
             if ($permissionBasedModel == MandateType::MODEL_NAME_GUEST) {
-return;
+                return;
             }
 
             $model          = new $permissionBasedModel();
@@ -508,7 +508,7 @@ return;
                 ->first()->id; // get guest mandate type id
 
             if (empty($permissionBasedModels) || empty($guestMandateTypeId)) {
-return;
+                return;
             }
 
             foreach ($permissionBasedModels as $permissionBasedModel) {
