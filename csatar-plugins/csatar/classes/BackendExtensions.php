@@ -55,7 +55,11 @@ class BackendExtensions
 
             if (!empty($errors)) {
                 $errorMessages = implode(', ', $errors);
-                $message       = $deletedRecords > 0 ? Lang::get('csatar.csatar::lang.plugin.admin.general.bulkDeletePartialSuccess', ['deletedCount' => $deletedRecords, 'totalCount' => $records->count()]) : '';
+                $message       = $deletedRecords > 0 ?
+                    Lang::get('csatar.csatar::lang.plugin.admin.general.bulkDeletePartialSuccess', [
+                        'deletedCount' => $deletedRecords,
+                        'totalCount' => $records->count()
+                    ]) : '';
                 $message      .= Lang::get('csatar.csatar::lang.plugin.admin.general.bulkDeleteError');
                 $message      .= $errorMessages;
                 Flash::error($message);

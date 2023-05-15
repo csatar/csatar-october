@@ -520,7 +520,10 @@ class Scout extends OrganizationBase
             && !$this->shouldNotValidateCnp()
             && !empty($fields->personal_identification_number->value)
             && in_array('cnp', $this->getPersonalIdentificationNumberValidators())
-            && ((isset($this->original['personal_identification_number']) && $this->original['personal_identification_number'] != $fields->personal_identification_number->value) || empty($this->original))
+            && ((isset($this->original['personal_identification_number'])
+                    && $this->original['personal_identification_number'] != $fields->personal_identification_number->value)
+                || empty($this->original)
+            )
         ) {
             $fields->birthdate->value = $this->getBirthDateFromCNP($fields->personal_identification_number->value);
         }
@@ -681,7 +684,21 @@ class Scout extends OrganizationBase
         if ($useCase === 'formBuilder') {
             // Important to extend the eager load settings, not to overwrite them!
             $eagerLoadSettings = array_merge_recursive($eagerLoadSettings, [
-                'allergies', 'chronic_illnesses', 'food_sensitivities', 'promises', 'tests', 'special_tests', 'professional_qualifications', 'special_qualifications', 'leadership_qualifications', 'training_qualifications', 'team', 'team.district', 'team.district.association', 'troop', 'patrol'
+                'allergies',
+                'chronic_illnesses',
+                'food_sensitivities',
+                'promises',
+                'tests',
+                'special_tests',
+                'professional_qualifications',
+                'special_qualifications',
+                'leadership_qualifications',
+                'training_qualifications',
+                'team',
+                'team.district',
+                'team.district.association',
+                'troop',
+                'patrol',
             ]);
         }
 
@@ -816,15 +833,18 @@ class Scout extends OrganizationBase
         if ($fields) {
             foreach ($fields as $field) {
                 if (!isset($field->pivot->date)) {
-                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.dateRequiredError'))]);
+                    $error = Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.dateRequiredError');
+                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], $error)]);
                 }
 
                 if (!isset($field->pivot->location) || $field->pivot->location == '') {
-                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.locationRequiredError'))]);
+                    $error = Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.locationRequiredError');
+                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], $error)]);
                 }
 
                 if (new \DateTime($field->pivot->date) > new \DateTime()) {
-                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.dateInTheFutureError'))]);
+                    $error = Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.dateInTheFutureError');
+                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], $error)]);
                 }
             }
         }
@@ -836,15 +856,18 @@ class Scout extends OrganizationBase
             $this->validatePivotDateAndLocationFields($fields, $category);
             foreach ($fields as $field) {
                 if (!isset($field->pivot->qualification_certificate_number) || $field->pivot->qualification_certificate_number == '') {
-                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.qualificationCertificateNumberRequiredError'))]);
+                    $error = Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.qualificationCertificateNumberRequiredError');
+                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], $error)]);
                 }
 
                 if (!isset($field->pivot->training_id) || $field->pivot->training_id == '') {
-                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.qualificationRequiredError'))]);
+                    $error = Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.qualificationRequiredError');
+                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], $error)]);
                 }
 
                 if (!isset($field->pivot->qualification_leader) || $field->pivot->qualification_leader == '') {
-                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.qualificationLeaderRequiredError'))]);
+                    $error = Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.qualificationLeaderRequiredError');
+                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], $error)]);
                 }
             }
         }
