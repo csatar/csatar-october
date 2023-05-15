@@ -204,13 +204,17 @@ class PermissionsMatrix extends Controller
         $permissionBasedModels = PermissionBasedAccess::getAllChildClasses();
         $mandateTypes          = MandateType::all();
 
-        if (empty($permissionBasedModels) || empty($mandateTypes)) return;
+        if (empty($permissionBasedModels) || empty($mandateTypes)) {
+            return;
+        }
 
         $tempMandatePermissionsMap = [];
         try {
             foreach ($mandateTypes as $mandateType) {
                 foreach ($permissionBasedModels as $permissionBasedModel) {
-                    if ($permissionBasedModel == MandateType::MODEL_NAME_GUEST) return;
+                    if ($permissionBasedModel == MandateType::MODEL_NAME_GUEST) {
+                        return;
+                    }
 
                     $model          = new $permissionBasedModel();
                     $fields         = $model->fillable ?? [];

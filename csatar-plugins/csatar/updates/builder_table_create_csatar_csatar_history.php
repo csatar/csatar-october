@@ -40,4 +40,5 @@ class BuilderTableCreateCsatarCsatarHistory extends Migration
     {
         Schema::dropIfExists('csatar_csatar_history');
     }
+
 }

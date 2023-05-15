@@ -426,6 +426,7 @@ class RecordList extends RainRecordList {
             $defaultFrom = $config['recordList']['filterConfig']['defaultFrom'];
             $defaultId   = $this->$defaultFrom();
         }
+
         $activeFilters       = json_decode(Input::get('activeFilters'), true);
         $columnActiveFilters = isset($activeFilters[$column]) ? $activeFilters[$column] : null;
 
