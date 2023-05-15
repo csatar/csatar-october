@@ -108,33 +108,43 @@ class HistoryService
             $model->bindEvent('model.relation.add', function ($relationName, $relatedModel) use ($model) {
                 // CONCLUSION:
                 // 1. tested with attachOne and attachMany, it works as expected
-                // 2. with has many it is not working as expected, for example when creating a new team under district event is not triggered, AND when changing the district of a team, the event it is also not triggered - we ignore this for now because these actions are recorded on the attached model
+                // 2. with has many it is not working as expected, for example when creating a new team under district
+                // event is not triggered, AND when changing the district of a team, the event it is also not triggered
+                // - we ignore this for now because these actions are recorded on the attached model
                 // 3. with morphOne is not working as expected, when creating new content_page to team event is not triggered - we ignore this for now
                 // 4. can't test with morphMany, currently we don't have any morphMany relation adding implemented that should be tracked - we ignore this for now
                 HistoryService::historyRelationAdd($model, $relationName, $relatedModel);
             });
-//
+
             // for detach one or many files, hasOne or hasMany, morphOne or morphMany relations
             $model->bindEvent('model.relation.remove', function ($relationName, $relatedModel) use ($model) {
                 // CONCLUSION:
                 // 1. tested with attachOne and attachMany, it works as expected
-                // 2. with has many it is not working as expected, for example when deleting a team the event is not triggered, AND when changing the district of a team, the event it is also not triggered - we ignore this for now because these actions are recorded on the attached model
+                // 2. with has many it is not working as expected, for example when deleting a team the event is not triggered,
+                // AND when changing the district of a team, the event it is also not triggered - we ignore this for now because
+                // these actions are recorded on the attached model
                 // 3. can't test with morphOne, currently we don't have any morphOne relation removing implemented
                 // 4. can't test with morphMany, currently we don't have any morphMany relation adding implemented that should be tracked
                 HistoryService::historyRelationRemove($model, $relationName, $relatedModel);
             });
 
             // for attach belongsTo, morphTo relations
-// $model->bindEvent('model.relation.associate', function ($relationName, $model) {
-// });
+            // $model->bindEvent('model.relation.associate', function ($relationName, $model) {
+            // });
+
             // CONCLUSION:
-            // 1. tested with belongsTo, it is not working as expected, for example when changing currency of an association, the event it is not triggered AND when creating new mandateType for an association, the event it is not triggered - we ignore this for now because these actions are recorded with the updated event
+            // 1. tested with belongsTo, it is not working as expected, for example when changing currency of an association,
+            // the event it is not triggered AND when creating new mandateType for an association, the event it is not
+            // triggered - we ignore this for now because these actions are recorded with the updated event
             // 2. can not test with morphTo, currently we don't have any morphTo relation adding implemented that should be tracked
             // for detach belongsTo, morphTo relations, params: [$model->relationName, $model]
-// $model->bindEvent('model.relation.dissociate', function ($relationName) {
-// });
+            // $model->bindEvent('model.relation.dissociate', function ($relationName) {
+            // });
+
             // CONCLUSION:
-            // 1. tested with belongsTo, it is not working as expected, for example when changing currency of an association, the event it is not triggered AND when deleting mandateType for an association, the event it is not triggered - we ignore this for now because these actions are recorded with the updated event
+            // 1. tested with belongsTo, it is not working as expected, for example when changing currency of an association,
+            // the event it is not triggered AND when deleting mandateType for an association, the event it is not
+            // triggered - we ignore this for now because these actions are recorded with the updated event
             // 2. can not test with morphTo, currently we don't have any morphTo relation removing implemented that should be tracked
             // when creating new mandateType for an association, the event it IS triggered for "parent" relation
             // for attach belongsToMany relations

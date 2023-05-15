@@ -351,7 +351,14 @@ class Team extends OrganizationBase
      */
     public function getExtendedNameAttribute()
     {
-        return isset($this->attributes['team_number']) && isset($this->attributes['name']) ? str_pad($this->attributes['team_number'], 3, '0', STR_PAD_LEFT) . ' - ' . $this->attributes['name'] . ' ' . Lang::get('csatar.csatar::lang.plugin.admin.team.nameSuffix') : null;
+        if (isset($this->attributes['team_number']) && isset($this->attributes['name'])) {
+            $extendedName  = str_pad($this->attributes['team_number'], 3, '0', STR_PAD_LEFT);
+            $extendedName .= ' - ' . $this->attributes['name'];
+            $extendedName .= ' ' . Lang::get('csatar.csatar::lang.plugin.admin.team.nameSuffix');
+            return $extendedName;
+        }
+
+        return null;
     }
 
     public function getExtendedNameWithAssociationAttribute()

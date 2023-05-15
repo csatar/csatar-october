@@ -193,9 +193,13 @@ class OrganizationUnitFrontend extends ComponentBase
         $attributesWithLabels['fathers_name']  = '(' . Lang::get('csatar.csatar::lang.plugin.admin.scout.father') . ') ' . $attributesWithLabels['fathers_name'];
         $attributesWithLabels['fathers_phone'] = '(' . Lang::get('csatar.csatar::lang.plugin.admin.scout.father') . ') ' . $attributesWithLabels['fathers_phone'];
         $attributesWithLabels['fathers_email'] = '(' . Lang::get('csatar.csatar::lang.plugin.admin.scout.father') . ') ' . $attributesWithLabels['fathers_email'];
-        $attributesWithLabels['legal_representative_name']  = '(' . Lang::get('csatar.csatar::lang.plugin.admin.scout.legalRepresentative') . ') ' . $attributesWithLabels['legal_representative_name'];
-        $attributesWithLabels['legal_representative_phone'] = '(' . Lang::get('csatar.csatar::lang.plugin.admin.scout.legalRepresentative') . ') ' . $attributesWithLabels['legal_representative_phone'];
-        $attributesWithLabels['legal_representative_email'] = '(' . Lang::get('csatar.csatar::lang.plugin.admin.scout.legalRepresentative') . ') ' . $attributesWithLabels['legal_representative_email'];
+
+        $attributesWithLabels['legal_representative_name']   = '(' . Lang::get('csatar.csatar::lang.plugin.admin.scout.legalRepresentative') . ') ';
+        $attributesWithLabels['legal_representative_name']  .= $attributesWithLabels['legal_representative_name'];
+        $attributesWithLabels['legal_representative_phone']  = '(' . Lang::get('csatar.csatar::lang.plugin.admin.scout.legalRepresentative') . ') ';
+        $attributesWithLabels['legal_representative_phone'] .= $attributesWithLabels['legal_representative_phone'];
+        $attributesWithLabels['legal_representative_email']  = '(' . Lang::get('csatar.csatar::lang.plugin.admin.scout.legalRepresentative') . ') ';
+        $attributesWithLabels['legal_representative_email'] .= $attributesWithLabels['legal_representative_email'];
 
         $attributes = [
             'ecset_code',

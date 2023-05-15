@@ -96,7 +96,9 @@ class TeamReports extends ComponentBase
                         'submitted_at'  => (new DateTime($teamReport->submitted_at))->format('Y-m-d'),
                         'status' => $teamReport->getStatus(),
                         'link' => isset($teamReport->submitted_at) ? '/csapatjelentes/' . $teamReport->id : '/csapatjelentes/' . $teamReport->id . '/modositas',
-                        'link_text' => isset($teamReport->submitted_at) ? Lang::get('csatar.csatar::lang.plugin.component.teamReports.view') : Lang::get('csatar.csatar::lang.plugin.component.teamReports.edit'),
+                        'link_text' => isset($teamReport->submitted_at) ?
+                            Lang::get('csatar.csatar::lang.plugin.component.teamReports.view') :
+                            Lang::get('csatar.csatar::lang.plugin.component.teamReports.edit'),
                     ];
                 }
 
@@ -151,7 +153,9 @@ class TeamReports extends ComponentBase
                     foreach ($scout as $item) {
                         if ($item->team_report_id == $teamReport->id) {
                             $scoutsCount++;
-                            $scoutsDataCountPerLegalRelationship[$item->legal_relationship_id] = array_key_exists($item->legal_relationship_id, $scoutsDataCountPerLegalRelationship) ? $scoutsDataCountPerLegalRelationship[$item->legal_relationship_id] + 1 : 1;
+                            $scoutsDataCountPerLegalRelationship[$item->legal_relationship_id] =
+                                array_key_exists($item->legal_relationship_id, $scoutsDataCountPerLegalRelationship) ?
+                                    $scoutsDataCountPerLegalRelationship[$item->legal_relationship_id] + 1 : 1;
                         }
                     }
                 }
@@ -164,7 +168,9 @@ class TeamReports extends ComponentBase
                     'total_amount'  => $teamReport->total_amount . ' ' . $teamReport->currency->code,
                     'status'        => $teamReport->getStatus(),
                     'link'          => isset($teamReport->submitted_at) ? '/csapatjelentes/' . $teamReport->id : '/csapatjelentes/' . $teamReport->id . '/modositas',
-                    'link_text'     => isset($teamReport->submitted_at) ? Lang::get('csatar.csatar::lang.plugin.component.teamReports.view') : Lang::get('csatar.csatar::lang.plugin.component.teamReports.edit'),
+                    'link_text'     => isset($teamReport->submitted_at) ?
+                        Lang::get('csatar.csatar::lang.plugin.component.teamReports.view') :
+                        Lang::get('csatar.csatar::lang.plugin.component.teamReports.edit'),
                 ];
                 foreach ($this->legalRelationships as $legalRelationship) {
                     $data[$legalRelationship->id] = $scoutsDataCountPerLegalRelationship[$legalRelationship->id] ?? 0;
