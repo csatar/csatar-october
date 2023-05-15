@@ -1435,4 +1435,5 @@ class Scout extends OrganizationBase
     {
         return $value ? Carbon::parse($value)->format('Y-m-d') : null;
     }
+
 }

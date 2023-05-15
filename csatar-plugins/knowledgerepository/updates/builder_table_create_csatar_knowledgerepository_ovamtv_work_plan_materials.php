@@ -5,6 +5,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarKnowledgerepositoryOvamtvWorkPlanMaterials extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_knowledgerepository_ovamtv_work_plan_material', function($table)

@@ -8,8 +8,10 @@ use Model;
  */
 class ModelExtended extends Model
 {
+
     public function getNameAttribute($value)
     {
         return ucfirst($value);
     }
+
 }

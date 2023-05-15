@@ -6,6 +6,7 @@ use Google_Client;
 use Google_Service_Calendar;
 class GoogleCalendar
 {
+
     public static function getEvents(array $calendarIds, $timeMin = null, $timeMax = null)
     {
         $events = [];
@@ -18,6 +19,7 @@ class GoogleCalendar
 
         return collect($events);
     }
+
     public static function getClient() {
         $authFile = plugins_path('csatar/csatar/assets/service_account_keys.json');
 
@@ -82,4 +84,5 @@ class GoogleCalendar
 
         return $events;
     }
+
 }
