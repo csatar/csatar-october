@@ -10,7 +10,7 @@
 {% endfor %}
 <ul class="pagination mt-2 justify-content-center">
     {% if records.lastPage > 1 %}
-        <li class="p-0">
+        <li class="ps-0 pe-1 pt-1">
             <button href="javascript:"
                onclick="filterSortPaginate('{{ __SELF__.alias }}', 1)"
                class="btn btn-sm rounded btn-light"
@@ -18,7 +18,7 @@
             >{{ 'Első'|_ }}
             </button>
         </li>
-        <li>
+        <li class="ps-0 pe-1 pt-1">
             <button href="javascript:"
                 onclick="filterSortPaginate('{{ __SELF__.alias }}', {{ records.currentPage-1 }})"
                 class="btn btn-sm rounded btn-light"
@@ -27,26 +27,28 @@
             </button>
         </li>
 
-        <select>
-            {% for page in 1..records.lastPage %}
-            <option
-                    onclick="filterSortPaginate('{{ __SELF__.alias }}', {{ page }})"
-                    value="{{ page }}"
-                    {{ records.currentPage == page ? 'selected' : '' }}
-            >
-                {{ page }}
-            </option>
-            {% endfor %}
-        </select>
+        <li class="ps-0 pe-1 pt-1">
+            <select>
+                {% for page in 1..records.lastPage %}
+                <option
+                        onclick="filterSortPaginate('{{ __SELF__.alias }}', {{ page }})"
+                        value="{{ page }}"
+                        {{ records.currentPage == page ? 'selected' : '' }}
+                >
+                    {{ page }}
+                </option>
+                {% endfor %}
+            </select>
+        </li>
 
-        <li>
+        <li class="ps-0 pe-1 pt-1">
             <button href="javascript:"
                onclick="filterSortPaginate('{{ __SELF__.alias }}', {{ records.currentPage+1 }})"
                class="btn btn-sm rounded btn-light"
                {{ records.currentPage == records.lastPage ? 'disabled' : '' }}
             >{{ 'Következő'|_ }} &rarr;</button>
         </li>
-        <li class="p-0">
+        <li class="ps-0 pe-1 pt-1">
             <button href="javascript:"
                onclick="filterSortPaginate('{{ __SELF__.alias }}', {{ records.lastPage }})"
                class="btn btn-sm rounded btn-light"

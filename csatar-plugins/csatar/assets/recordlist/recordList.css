@@ -38,3 +38,12 @@ select {
     padding: 8px 25px 8px 13px;
     border-radius: 12px;
 }
+
+.pagination li {
+    display: flex;
+    align-items: stretch;
+}
+
+.pagination select {
+    padding: 8px 8px 8px 13px;
+}
