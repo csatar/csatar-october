@@ -171,11 +171,11 @@ class OvamtvWorkPlan extends PermissionBasedAccess
         }
 
         if (empty($this->patrol_name_gender)) {
-            $fields->patrol_name_gender->span = 'full';
+            $fields->patrol_name_gender->span   = 'full';
             $fields->patrol_name_gender->hidden = true;
         }
         if (!empty($this->patrol_id) && !empty($this->id)) {
-            $fields->patrol->span = 'full';
+            $fields->patrol->span   = 'full';
             $fields->patrol->hidden = true;
         }
         if (empty($this->id)) {
@@ -186,14 +186,14 @@ class OvamtvWorkPlan extends PermissionBasedAccess
     public function handlePatrolLeaderField(&$fields){
         if (!empty($this->patrol_id)) {
             $fields->patrol_leader->readOnly = true;
-            $fields->patrol_leader->value = $this->getPatrolLeader();
+            $fields->patrol_leader->value    = $this->getPatrolLeader();
         }
     }
 
     public function handleDeputyPatrolLeadersField(&$fields){
         if (!empty($this->patrol_id)) {
             $fields->deputy_patrol_leaders->readOnly = true;
-            $fields->deputy_patrol_leaders->value = $this->getDeputyPatrolLeaders();
+            $fields->deputy_patrol_leaders->value    = $this->getDeputyPatrolLeaders();
         }
     }
 
@@ -206,22 +206,22 @@ class OvamtvWorkPlan extends PermissionBasedAccess
     public function handleTroopField(&$fields){
         if (!empty($this->patrol_id)) {
             $fields->troop->readOnly = true;
-            $fields->troop->value = $this->getDefaultValueForTroop();
+            $fields->troop->value    = $this->getDefaultValueForTroop();
         }
     }
 
     public function handleAgeGroupTestField(&$fields){
         if (!empty($this->patrol_id)) {
             $fields->age_group_test->readOnly = true;
-            $fields->age_group_test->value = $this->getDefaultValueForAgeGroupTest();
+            $fields->age_group_test->value    = $this->getDefaultValueForAgeGroupTest();
         }
     }
 
     public function getPatrolOptions($patrolId = null) {
-        $patrols = Patrol::where('team_id', $this->team_id)->get();
+        $patrols       = Patrol::where('team_id', $this->team_id)->get();
         $patrolOptions = [];
         foreach ($patrols as $patrol) {
-            $patrolGenderName = $this->getPatrolGenderName($patrol);
+            $patrolGenderName           = $this->getPatrolGenderName($patrol);
             $patrolOptions[$patrol->id] = $patrolGenderName;
         }
         return $patrolOptions;
@@ -262,7 +262,7 @@ class OvamtvWorkPlan extends PermissionBasedAccess
             ->where('association_id', $this->getAssociation()->id)
             ->first()->id;
 
-        $mandates          = $this->getMandates($deputyPatrolLeaderMandateTypeId);
+        $mandates            = $this->getMandates($deputyPatrolLeaderMandateTypeId);
         $deputyPatrolLeaders = [];
 
         foreach ($mandates as $mandate) {
@@ -315,7 +315,7 @@ class OvamtvWorkPlan extends PermissionBasedAccess
         $startDateOptions = [];
         // array start date options every second month from september to august as key, value month and next month name
         for ($i = 0; $i < 12; $i += 2) {
-            $key = date('Y-m-d', strtotime($scoutYearStart . ' +' . $i . ' month'));
+            $key   = date('Y-m-d', strtotime($scoutYearStart . ' +' . $i . ' month'));
             $value = date('F', strtotime($scoutYearStart . ' +' . $i . ' month')) . date('F', strtotime($scoutYearStart . ' +' . ($i + 1) . ' month'));
             $value = Lang::get('csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.periods.' . $value);
             $startDateOptions[$key] = $value;
@@ -330,12 +330,12 @@ class OvamtvWorkPlan extends PermissionBasedAccess
             return null;
         }
 
-        $months = [];
+        $months         = [];
         $scoutYearStart = date('m') >= 9 ? date('Y') . '-09-01' : date('Y', strtotime('-1 year')) . '-09-01';
         for ($i = 0; $i < 12; $i += 2) {
-            $key = date('m', strtotime($scoutYearStart . ' +' . $i . ' month'));
-            $value = date('F', strtotime($scoutYearStart . ' +' . $i . ' month')) . date('F', strtotime($scoutYearStart . ' +' . ($i + 1) . ' month'));
-            $value = Lang::get('csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.periods.' . $value);
+            $key          = date('m', strtotime($scoutYearStart . ' +' . $i . ' month'));
+            $value        = date('F', strtotime($scoutYearStart . ' +' . $i . ' month')) . date('F', strtotime($scoutYearStart . ' +' . ($i + 1) . ' month'));
+            $value        = Lang::get('csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.periods.' . $value);
             $months[$key] = $value;
         }
 
@@ -359,7 +359,7 @@ class OvamtvWorkPlan extends PermissionBasedAccess
         //format the date in the collection
         $events->transform(function ($item, $key) {
             $item['start'] = $item['start'] ? $this->formatDateTimeFromIso($item['start']) : null;
-            $item['end'] = $item['end'] ? $this->formatDateTimeFromIso($item['end']) : null;
+            $item['end']   = $item['end'] ? $this->formatDateTimeFromIso($item['end']) : null;
             return $item;
         });
 

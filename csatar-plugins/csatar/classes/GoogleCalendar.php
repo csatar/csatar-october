@@ -37,7 +37,7 @@ class GoogleCalendar
             $timeMin = date('c', strtotime($timeMin));
         }
 
-        $optParams  = [
+        $optParams = [
             'maxResults'   => 100,
             'orderBy'      => 'startTime',
             'singleEvents' => TRUE,
@@ -50,7 +50,7 @@ class GoogleCalendar
 
         $service = new Google_Service_Calendar($client);
         $results = $service->events->listEvents($calendarId, $optParams);
-        $events = [];
+        $events  = [];
 
         if (count($results->getItems()) == 0) {
 
