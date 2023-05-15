@@ -210,7 +210,10 @@ trait AjaxControllerSimple {
 
                 if (is_object($widget->model->{$key}) && array_key_exists('nameFrom', $field) && isset($widget->model->{$key}->{$field['nameFrom']})) { // relation fields
                     $value = $widget->model->{$key}->{$field['nameFrom']};
-                } else if (is_a($widget->model->{$key}, 'Illuminate\Database\Eloquent\Collection') && count($widget->model->{$key}) > 0 && array_key_exists('nameFrom', $field)) { // belongs to many with no pivot data
+                } else if (is_a($widget->model->{$key}, 'Illuminate\Database\Eloquent\Collection')
+                    && count($widget->model->{$key}) > 0
+                    && array_key_exists('nameFrom', $field)
+                ) { // belongs to many with no pivot data
                     $value = '';
                     foreach ($widget->model->{$key} as $item) {
                         if (isset($item->{$field['nameFrom']})) {
@@ -917,7 +920,12 @@ trait AjaxControllerSimple {
     public function makePreselectedFieldsReadOnly()
     {
         foreach ($this->widget->fields as $key => &$field) {
-            if (isset($field['formBuilder']) && isset($field['formBuilder']['readOnlyIfPreselected']) && $field['formBuilder']['readOnlyIfPreselected'] && isset($this->widget->model->{$key}) && !empty($this->widget->model->{$key})) {
+            if (isset($field['formBuilder'])
+                && isset($field['formBuilder']['readOnlyIfPreselected'])
+                && $field['formBuilder']['readOnlyIfPreselected']
+                && isset($this->widget->model->{$key})
+                && !empty($this->widget->model->{$key})
+            ) {
                 $field['readOnly'] = 1;
             }
         }
@@ -940,7 +948,10 @@ trait AjaxControllerSimple {
                 $found = false;
                 foreach ($extraFieldValues as $key => $extraFieldValue) {
                     if (($extraFieldActive['id'] == $extraFieldValue['id'])
-                        && (isset($extraFieldActive['dynamicFieldModelId']) && isset($extraFieldValue['dynamicFieldModelId']) && $extraFieldActive['dynamicFieldModelId'] == $extraFieldValue['dynamicFieldModelId'])
+                        && (isset($extraFieldActive['dynamicFieldModelId'])
+                            && isset($extraFieldValue['dynamicFieldModelId'])
+                            && $extraFieldActive['dynamicFieldModelId'] == $extraFieldValue['dynamicFieldModelId']
+                        )
                     ) {
                         $extraFieldValues[$key]['required'] = $extraFieldActive['required'];
                         $found = true;
@@ -976,7 +987,10 @@ trait AjaxControllerSimple {
     {
         foreach ($extraFieldsActive as $extraFieldActive) {
             if (($savedExtraField['id'] == $extraFieldActive['id'])
-                && (isset($savedExtraField['dynamicFieldModelId']) && isset($extraFieldActive['dynamicFieldModelId']) && $savedExtraField['dynamicFieldModelId'] == $extraFieldActive['dynamicFieldModelId'])
+                && (isset($savedExtraField['dynamicFieldModelId'])
+                    && isset($extraFieldActive['dynamicFieldModelId'])
+                    && $savedExtraField['dynamicFieldModelId'] == $extraFieldActive['dynamicFieldModelId']
+                )
             ) {
                 return true;
             }
@@ -1113,7 +1127,8 @@ trait AjaxControllerSimple {
         foreach ($record->hasMany as $relationName => $definition) {
             if ($this->canRead($relationName)
                 && is_array($definition)
-                && (array_key_exists('renderableOnCreateForm', $definition) || array_key_exists('renderableOnUpdateForm', $definition)) // this is needed to avoid looping though relations that renderable and eager loaded
+                && (array_key_exists('renderableOnCreateForm', $definition) || array_key_exists('renderableOnUpdateForm', $definition))
+                // this is needed to avoid looping though relations that renderable and eager loaded
                 && (count($record->{$relationName}) > 0 || $showEmpty)
                 && ((!$record->id
                     && array_key_exists('renderableOnCreateForm', $definition)

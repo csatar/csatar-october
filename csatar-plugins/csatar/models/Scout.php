@@ -384,6 +384,7 @@ class Scout extends OrganizationBase
             }
 
             $teamsActive = $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'];
+
             $teamsActive[$this->team->id]['scoutsActive'][$this->id]['family_name'] = $this->family_name;
             $teamsActive[$this->team->id]['scoutsActive'][$this->id]['given_name']  = $this->given_name;
             $teamsActive[$this->team->id]['scoutsActive'][$this->id]['full_name']   = $this->full_name;
@@ -393,33 +394,45 @@ class Scout extends OrganizationBase
             $teamsActive[$this->team->id]['scoutsActive'][$this->id]['legal_relationship']      = $this->legal_relationship ? $this->legal_relationship->toArray() : null;
 
             if (isset($this->patrol_id)) {
-                $teamsActive[$this->team->id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['family_name'] = $this->family_name;
-                $teamsActive[$this->team->id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['given_name']  = $this->given_name;
-                $teamsActive[$this->team->id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['full_name']   = $this->full_name;
-                $teamsActive[$this->team->id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['ecset_code']  = $this->ecset_code;
-                $teamsActive[$this->team->id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['legal_relationship_id']   = $this->legal_relationship_id;
-                $teamsActive[$this->team->id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['legal_relationship_name'] = $this->legal_relationship_name;
-                $teamsActive[$this->team->id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['legal_relationship']      = $this->legal_relationship ? $this->legal_relationship->toArray() : null;
+                $scoutsActive = $teamsActive[$this->team->id]['patrolsActive'][$this->patrol_id]['scoutsActive'];
+
+                $scoutsActive[$this->id]['family_name']             = $this->family_name;
+                $scoutsActive[$this->id]['given_name']              = $this->given_name;
+                $scoutsActive[$this->id]['full_name']               = $this->full_name;
+                $scoutsActive[$this->id]['ecset_code']              = $this->ecset_code;
+                $scoutsActive[$this->id]['legal_relationship_id']   = $this->legal_relationship_id;
+                $scoutsActive[$this->id]['legal_relationship_name'] = $this->legal_relationship_name;
+                $scoutsActive[$this->id]['legal_relationship']      = $this->legal_relationship ? $this->legal_relationship->toArray() : null;
+
+                $teamsActive[$this->team->id]['patrolsActive'][$this->patrol_id]['scoutsActive'] = $scoutsActive;
             }
 
             if (isset($this->troop_id)) {
-                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['scoutsActive'][$this->id]['family_name'] = $this->family_name;
-                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['scoutsActive'][$this->id]['given_name']  = $this->given_name;
-                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['scoutsActive'][$this->id]['full_name']   = $this->full_name;
-                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['scoutsActive'][$this->id]['ecset_code']  = $this->ecset_code;
-                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['scoutsActive'][$this->id]['legal_relationship_id']   = $this->legal_relationship_id;
-                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['scoutsActive'][$this->id]['legal_relationship_name'] = $this->legal_relationship_name;
-                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['scoutsActive'][$this->id]['legal_relationship']      = $this->legal_relationship ? $this->legal_relationship->toArray() : null;
+                $scoutsActive = $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['scoutsActive'];
+
+                $scoutsActive[$this->id]['family_name']             = $this->family_name;
+                $scoutsActive[$this->id]['given_name']              = $this->given_name;
+                $scoutsActive[$this->id]['full_name']               = $this->full_name;
+                $scoutsActive[$this->id]['ecset_code']              = $this->ecset_code;
+                $scoutsActive[$this->id]['legal_relationship_id']   = $this->legal_relationship_id;
+                $scoutsActive[$this->id]['legal_relationship_name'] = $this->legal_relationship_name;
+                $scoutsActive[$this->id]['legal_relationship']      = $this->legal_relationship ? $this->legal_relationship->toArray() : null;
+
+                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['scoutsActive'] = $scoutsActive;
             }
 
             if (isset($this->troop_id) && isset($this->patrol_id)) {
-                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['family_name'] = $this->family_name;
-                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['given_name']  = $this->given_name;
-                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['full_name']   = $this->full_name;
-                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['ecset_code']  = $this->ecset_code;
-                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['legal_relationship_id']   = $this->legal_relationship_id;
-                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['legal_relationship_name'] = $this->legal_relationship_name;
-                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['legal_relationship']      = $this->legal_relationship ? $this->legal_relationship->toArray() : null;
+                $scoutsActive = $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->patrol_id]['scoutsActive'];
+
+                $scoutsActive[$this->id]['family_name']             = $this->family_name;
+                $scoutsActive[$this->id]['given_name']              = $this->given_name;
+                $scoutsActive[$this->id]['full_name']               = $this->full_name;
+                $scoutsActive[$this->id]['ecset_code']              = $this->ecset_code;
+                $scoutsActive[$this->id]['legal_relationship_id']   = $this->legal_relationship_id;
+                $scoutsActive[$this->id]['legal_relationship_name'] = $this->legal_relationship_name;
+                $scoutsActive[$this->id]['legal_relationship']      = $this->legal_relationship ? $this->legal_relationship->toArray() : null;
+
+                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->patrol_id]['scoutsActive'] = $scoutsActive;
             }
 
             $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'] = $teamsActive;
@@ -1040,7 +1053,12 @@ class Scout extends OrganizationBase
             $sessionRecord = new Collection([]);
         }
 
-        $scoutMandateTypeIds = array_merge($this->getMandatesInAssociation($associationId, $savedAfterDate)->pluck('mandate_type_id')->toArray(), MandateType::getScoutMandateTypeIdInAssociation($associationId));
+        $scoutMandateTypeIds = array_merge(
+            $this->getMandatesInAssociation($associationId, $savedAfterDate)
+                ->pluck('mandate_type_id')
+                ->toArray(),
+            MandateType::getScoutMandateTypeIdInAssociation($associationId)
+        );
 
         $sessionRecord = $sessionRecord->replace([ $associationId => [
             'associationId' => $associationId,
@@ -1335,7 +1353,11 @@ class Scout extends OrganizationBase
         $array       = [];
 
         if ($this->address_zipcode != null) {
-            $locationsArray = Locations::where('country', '=', $this->address_country)->where('code', '=', $this->address_zipcode)->where('city', '=', $this->address_location)->where('street', '!=', '')->get();
+            $locationsArray = Locations::where('country', '=', $this->address_country)
+                ->where('code', '=', $this->address_zipcode)
+                ->where('city', '=', $this->address_location)
+                ->where('street', '!=', '')
+                ->get();
             if (!empty($locationsArray)) {
                 foreach ($locationsArray as $location) {
                     $street         = $location['street_type'] . ' ' . $location['street'];

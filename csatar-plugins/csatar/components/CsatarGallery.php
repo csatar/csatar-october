@@ -305,7 +305,10 @@ class CsatarGallery extends Gallery
     public function onDeleteGallery()
     {
         $gallery = GalleryModel::find(post('gallery_id'));
-        $pivot   = GalleryModelPivot::where('model_type', "Csatar\Csatar\Models\\" . $this->property('model_name'))->where('model_id', $this->property('model_id'))->where('gallery_id', $gallery->id)->first();
+        $pivot   = GalleryModelPivot::where('model_type', "Csatar\Csatar\Models\\" . $this->property('model_name'))
+            ->where('model_id', $this->property('model_id'))
+            ->where('gallery_id', $gallery->id)
+            ->first();
         $pivot->delete();
         $gallery->delete();
 
@@ -333,7 +336,10 @@ class CsatarGallery extends Gallery
 
     public function onReturnBack()
     {
-        $pivot = GalleryModelPivot::where('model_type', "Csatar\Csatar\Models\\" . $this->property('model_name'))->where('model_id', $this->property('model_id'))->where('gallery_id', post('gallery_id'))->first();
+        $pivot = GalleryModelPivot::where('model_type', "Csatar\Csatar\Models\\" . $this->property('model_name'))
+            ->where('model_id', $this->property('model_id'))
+            ->where('gallery_id', post('gallery_id'))
+            ->first();
 
         if ($pivot->parent_id != null) {
             return $this->onOpenGallery($pivot->parent_id);

@@ -75,7 +75,8 @@ class ScoutImport extends \Backend\Models\ImportModel
                 if (isset($legalRelationship)) {
                     $data['legal_relationship_id'] = $legalRelationship->id;
                 } else {
-                    $data['comment'] = (!empty($data['comment']) ? $data['comment'] . ' ' : '') . Lang::get('csatar.csatar::lang.plugin.admin.scout.legalRelationship') . ': ' . $data['legal_relationship_id'] . '.';
+                    $data['comment']  = (!empty($data['comment']) ? $data['comment'] . ' ' : '');
+                    $data['comment'] .= Lang::get('csatar.csatar::lang.plugin.admin.scout.legalRelationship') . ': ' . $data['legal_relationship_id'] . '.';
                     $data['legal_relationship_id'] = '';
                 }
 
@@ -84,7 +85,8 @@ class ScoutImport extends \Backend\Models\ImportModel
                 if (isset($religion)) {
                     $data['religion_id'] = $religion->id;
                 } else {
-                    $data['comment']     = (!empty($data['comment']) ? $data['comment'] . ' ' : '') . Lang::get('csatar.csatar::lang.plugin.admin.scout.religion') . ': ' . $data['religion_id'] . '.';
+                    $data['comment']     = (!empty($data['comment']) ? $data['comment'] . ' ' : '');
+                    $data['comment']    .= Lang::get('csatar.csatar::lang.plugin.admin.scout.religion') . ': ' . $data['religion_id'] . '.';
                     $data['religion_id'] = '';
                 }
 
@@ -102,7 +104,8 @@ class ScoutImport extends \Backend\Models\ImportModel
 
                 // manipulate fields - mother's maiden name
                 if (!empty($data['mothers_maiden_name'])) {
-                    $data['comment'] = (!empty($data['comment']) ? $data['comment'] . ' ' : '') . $this::MOTHERSMAIDENNAME . ': ' . $data['mothers_maiden_name'] . '.';
+                    $data['comment']  = (!empty($data['comment']) ? $data['comment'] . ' ' : '');
+                    $data['comment'] .=  $this::MOTHERSMAIDENNAME . ': ' . $data['mothers_maiden_name'] . '.';
                     unset($data['mothers_maiden_name']);
                 }
 

@@ -130,6 +130,7 @@ class JsonImport extends Controller
         ];
 
         $allergies          = Allergy::all();
+        // phpcs:ignore -- Generic.Files.LineLength
         $this->allergiesMap = [
             "Nincs" => $allergies->where('name', 'Nincs')->first(),
             "Darázscsípés" => $allergies->where('name', 'Rovarméreg allergia')->first(),

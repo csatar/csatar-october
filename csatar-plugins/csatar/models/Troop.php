@@ -204,10 +204,14 @@ class Troop extends OrganizationBase
                 return;
             }
 
-            $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->id]['id']            = $this->id;
-            $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->id]['name']          = $this->name;
-            $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->id]['extended_name'] = $this->extended_name;
-            $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->id]['team_id']       = $this->team_id;
+            $structureTree[$this->team->district->association_id]['districtsActive']
+                [$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->id]['id']            = $this->id;
+            $structureTree[$this->team->district->association_id]['districtsActive']
+                [$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->id]['name']          = $this->name;
+            $structureTree[$this->team->district->association_id]['districtsActive']
+                [$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->id]['extended_name'] = $this->extended_name;
+            $structureTree[$this->team->district->association_id]['districtsActive']
+                [$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->id]['team_id']       = $this->team_id;
             Cache::forever('structureTree', $structureTree);
         }
 
@@ -233,8 +237,10 @@ class Troop extends OrganizationBase
                 return;
             }
 
-            $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->id]['name']          = $this->name;
-            $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->id]['extended_name'] = $this->extended_name;
+            $structureTree[$this->team->district->association_id]['districtsActive']
+                [$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->id]['name']          = $this->name;
+            $structureTree[$this->team->district->association_id]['districtsActive']
+                [$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->id]['extended_name'] = $this->extended_name;
             Cache::forever('structureTree', $structureTree);
         }
     }

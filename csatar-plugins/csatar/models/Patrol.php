@@ -284,12 +284,18 @@ class Patrol extends OrganizationBase
                 return;
             }
 
-            $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['patrolsActive'][$this->id]['name']          = $this->name;
-            $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['patrolsActive'][$this->id]['extended_name'] = $this->extended_name;
+            $structureTree[$this->team->district->association_id]['districtsActive']
+                [$this->team->district_id]['teamsActive'][$this->team->id]['patrolsActive'][$this->id]['name']          = $this->name;
+            $structureTree[$this->team->district->association_id]['districtsActive']
+                [$this->team->district_id]['teamsActive'][$this->team->id]['patrolsActive'][$this->id]['extended_name'] = $this->extended_name;
 
             if (isset($this->troop_id)) {
-                $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->id]['name']          = $this->name;
-                $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->id]['extended_name'] = $this->extended_name;
+                $structureTree[$this->team->district->association_id]['districtsActive']
+                    [$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive']
+                    [$this->troop_id]['patrolsActive'][$this->id]['name']          = $this->name;
+                $structureTree[$this->team->district->association_id]['districtsActive']
+                    [$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive']
+                    [$this->troop_id]['patrolsActive'][$this->id]['extended_name'] = $this->extended_name;
             }
 
             Cache::forever('structureTree', $structureTree);

@@ -58,7 +58,9 @@ class LegalRelationship extends ModelExtended
      */
     public function scopeAssociationId($query, $id)
     {
-        return $query->join('csatar_csatar_associations_legal_relationships', 'csatar_csatar_legal_relationships.id', '=', 'csatar_csatar_associations_legal_relationships.legal_relationship_id')->where('association_id', $id);
+        return $query
+            ->join('csatar_csatar_associations_legal_relationships', 'csatar_csatar_legal_relationships.id', '=', 'csatar_csatar_associations_legal_relationships.legal_relationship_id')
+            ->where('association_id', $id);
     }
 
     public static function getInvalidDataId()
