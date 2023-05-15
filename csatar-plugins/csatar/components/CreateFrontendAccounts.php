@@ -191,9 +191,9 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
             return Redirect::to('/tag/' . $ecsetCode);
         } catch (Exception $ex) {
             if (Request::ajax()) {
-throw $ex;
+                throw $ex;
             } else {
-Flash::error($ex->getMessage());
+                Flash::error($ex->getMessage());
             }
         }
     }
