@@ -764,6 +764,7 @@ class SeederData extends Seeder
                 'name' => $name
             ]);
         }
+
         return $name;
     }
 
@@ -778,6 +779,7 @@ class SeederData extends Seeder
                 'name' => $name
             ]);
         }
+
         return $name;
     }
 
@@ -792,6 +794,7 @@ class SeederData extends Seeder
                 'name' => $name
             ]);
         }
+
         return $name;
     }
 
@@ -806,6 +809,7 @@ class SeederData extends Seeder
                 'name' => $name
             ]);
         }
+
         return $name;
     }
 
@@ -820,6 +824,7 @@ class SeederData extends Seeder
                 'name' => $name
             ]);
         }
+
         return $name;
     }
 
@@ -834,6 +839,7 @@ class SeederData extends Seeder
                 'name' => $name
             ]);
         }
+
         return $name;
     }
 
@@ -848,6 +854,7 @@ class SeederData extends Seeder
                 'name' => $name
             ]);
         }
+
         return $name;
     }
 
@@ -867,6 +874,7 @@ class SeederData extends Seeder
 
             $idOfLastElement = $hierachyItem->id;
         }
+
         return $name;
     }
 
@@ -989,6 +997,7 @@ class SeederData extends Seeder
                 }
             }
         }
+
         return $name;
     }
 
@@ -1003,6 +1012,7 @@ class SeederData extends Seeder
                 'name' => $name
             ]);
         }
+
         return $name;
     }
 
@@ -1030,6 +1040,7 @@ class SeederData extends Seeder
                 'name' => $name
             ]);
         }
+
         return $name;
     }
 
@@ -1044,6 +1055,7 @@ class SeederData extends Seeder
                 'name' => $name
             ]);
         }
+
         return $name;
     }
 
