@@ -67,7 +67,7 @@ class Structure extends ComponentBase
     {
         if (!empty($this->property('level'))) {
             $this->level          = $this->property('level');
-            $getterFunctionName   = 'get'.$this->property('model_name').'sWithTree';
+            $getterFunctionName   = 'get' . $this->property('model_name') . 'sWithTree';
             $modelName            = "Csatar\Csatar\Models\\" . $this->property('model_name');
             $this->structureArray = (StructureTree::$getterFunctionName())->where('id', $this->property('model_id'));
             $this->showActiveScouts = true;

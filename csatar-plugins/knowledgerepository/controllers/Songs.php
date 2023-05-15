@@ -88,7 +88,7 @@ class Songs extends Controller
 
     public function onGetScoutOptions() {
         $searchTerm   = post('term');
-        $queryResults = Db::table('csatar_csatar_scouts')->whereRaw("CONCAT(family_name, ' ', given_name, ' ', ecset_code) like ?", ['%'.$searchTerm.'%'])->paginate(15);
+        $queryResults = Db::table('csatar_csatar_scouts')->whereRaw("CONCAT(family_name, ' ', given_name, ' ', ecset_code) like ?", ['%' . $searchTerm . '%'])->paginate(15);
         $results      = [];
         foreach ($queryResults as $result) {
             $results[] = [

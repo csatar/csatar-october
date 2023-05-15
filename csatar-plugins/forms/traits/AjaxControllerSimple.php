@@ -870,7 +870,7 @@ trait AjaxControllerSimple {
         }
 
         if ($isNew) {
-            $redirectUrl = str_replace('default', '', $this->currentPageUrl(false)) . $record->{$this->recordKeyParam ?? Input::get('recordKeyParam')} . '/' .Input::get('actionUpdateKeyword');
+            $redirectUrl = str_replace('default', '', $this->currentPageUrl(false)) . $record->{$this->recordKeyParam ?? Input::get('recordKeyParam')} . '/' . Input::get('actionUpdateKeyword');
             return Redirect::to($redirectUrl)->withInput();
         }
 
