@@ -424,9 +424,9 @@ class RecordList extends RainRecordList {
         $defaultId = null;
         if (isset($config['recordList']['filterConfig']['defaultFrom'])) {
             $defaultFrom = $config['recordList']['filterConfig']['defaultFrom'];
-            $defaultId = $this->$defaultFrom();
+            $defaultId   = $this->$defaultFrom();
         }
-        $activeFilters = json_decode(Input::get('activeFilters'), true);
+        $activeFilters       = json_decode(Input::get('activeFilters'), true);
         $columnActiveFilters = isset($activeFilters[$column]) ? $activeFilters[$column] : null;
 
         if (isset($model->$relationType[$relationName])) {
