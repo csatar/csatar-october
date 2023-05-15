@@ -339,7 +339,7 @@ class WeeklyWorkPlan extends PermissionBasedAccess
                 return $item->count();
             })->keys()->first();
 
-            $dayOfWeek = explode(' ', $mostFrequentDayTime)[0]-1;
+            $dayOfWeek = explode(' ', $mostFrequentDayTime)[0] - 1;
             // set week of the day with hour and minute to start_date_time based on current week
             $startDateTime = Carbon::now()->startOfWeek()->addDays($dayOfWeek)->format('Y-m-d') . ' ' . explode(' ', $mostFrequentDayTime)[1];
             // if start_date_time is in the past, add 7 days
@@ -473,7 +473,7 @@ class WeeklyWorkPlan extends PermissionBasedAccess
     }
 
     public function getActivityStartDateTimeBySortOrder($sortOrder) {
-        $previousActivitiesDuration = $this->activityTypes->whereBetween('pivot.sort_order', [0, $sortOrder-1])
+        $previousActivitiesDuration = $this->activityTypes->whereBetween('pivot.sort_order', [0, $sortOrder - 1])
             ->sum('pivot.duration');
 
         return date('H:i:s', strtotime($this->start_date_time) + ($previousActivitiesDuration * 60));

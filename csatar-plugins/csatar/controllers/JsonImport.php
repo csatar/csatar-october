@@ -883,7 +883,7 @@ class JsonImport extends Controller
             $mandateType = $mandateTypesMap->get($data->megbizatas[1]);
 
             $organizationMap = $organizationsArraysMap[$mandateType->organization_type_model_name];
-            $model           = $organizationMap[$mandateType->is_vk ? 'rmcssz': $data->egyseg[0]];
+            $model           = $organizationMap[$mandateType->is_vk ? 'rmcssz' : $data->egyseg[0]];
             $mandate         = Mandate::firstOrNew([
                 'scout_id' => $scoutsMap[$data->tag[0]],
                 'mandate_type_id' => $mandateType->id,

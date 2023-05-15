@@ -618,7 +618,7 @@ trait AjaxControllerSimple {
 
         $attachedModels = $record->{$relationName};
         $attachedModel1 = $attachedModels->firstWhere('pivot.sort_order', $sortOrder);
-        $attachedModel2 = $attachedModels->firstWhere('pivot.sort_order', $sortOrder+$change);
+        $attachedModel2 = $attachedModels->firstWhere('pivot.sort_order', $sortOrder + $change);
 
         if (empty($attachedModel1) || empty($attachedModel2)) {
             return false;
@@ -1150,8 +1150,8 @@ trait AjaxControllerSimple {
     public function generatePivotSection($record, $relationName, $definition, $attributesToDisplay) {
         $relationLabel = array_key_exists('label', $definition) ? Lang::get($definition['label']) : $relationName;
 
-        if (count($record->$relationName)>0 ||
-            (!$record->id && count($record->{$relationName}()->withDeferred($this->sessionKey)->get())>0)) {
+        if (count($record->$relationName) > 0 ||
+            (!$record->id && count($record->{$relationName}()->withDeferred($this->sessionKey)->get()) > 0)) {
             $pivotTableHeader = $this->generatePivotTableHeader($attributesToDisplay);
             $pivotTableRows   = $this->generatePivotTableRows($record, $relationName, $attributesToDisplay);
         }
