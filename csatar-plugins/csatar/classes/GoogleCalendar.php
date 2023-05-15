@@ -55,9 +55,7 @@ class GoogleCalendar
         $events  = [];
 
         if (count($results->getItems()) == 0) {
-
         } else {
-
             foreach ($results->getItems() as $event) {
                 $start = $event->start->dateTime;
                 $end   = $event->end->dateTime;
@@ -78,7 +76,6 @@ class GoogleCalendar
                     'location'   => $event->getLocation(),
                     'organizer'  => $event->getOrganizer()->getDisplayName() ?? $event->getOrganizer()->getEmail(),
                 ];
-
             }
         }
 
