@@ -895,12 +895,12 @@ class SeederData extends Seeder
         $legalRelationship4 = LegalRelationship::where('name', 'Újonc')->first();
 
         foreach ($this::DATA['association'] as $name) {
-            $association                          = Association::firstOrNew([
+            $association = Association::firstOrNew([
                 'name' => $name,
             ]);
-            $association->contact_name            = $association->contact_name ?? null;
-            $association->contact_email           = $association->contact_email ?? null;
-            $association->address                 = $association->address ?? null;
+            $association->contact_name  = $association->contact_name ?? null;
+            $association->contact_email = $association->contact_email ?? null;
+            $association->address       = $association->address ?? null;
             $association->leadership_presentation = $association->leadership_presentation ?? null;
             switch ($name) {
                 case 'Horvátországi magyar cserkészek':
@@ -993,12 +993,12 @@ class SeederData extends Seeder
                         unset($mandateType['parent']);
                     }
 
-                    $newMandateType                  = MandateType::firstOrCreate([
+                    $newMandateType           = MandateType::firstOrCreate([
                         'name'                         => $mandateType['name'],
                         'association_id'               => $mandateType['association_id'],
                         'organization_type_model_name' => $mandateType['organization_type_model_name'],
                     ]);
-                    $newMandateType->required        = $mandateType['required'] ?? false;
+                    $newMandateType->required = $mandateType['required'] ?? false;
                     $newMandateType->overlap_allowed = $mandateType['overlap_allowed'] ?? false;
                     $newMandateType->parent_id       = $mandateType['parent_id'] ?? null;
                     $newMandateType->is_vk           = $mandateType['is_vk'] ?? 0;
