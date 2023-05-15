@@ -71,4 +71,5 @@ class Tool extends ModelExtended
     {
         return $query->where('is_approved', true);
     }
+
 }

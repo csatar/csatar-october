@@ -4,6 +4,7 @@ namespace Csatar\Csatar\Classes\SearchProviders;
 
 class SearchResultsHelper
 {
+
     public static function getMatchForQuery($query, $title, $content)
     {
         // check if the query is in the title
@@ -26,4 +27,5 @@ class SearchResultsHelper
             return $result;
         }
     }
+
 }

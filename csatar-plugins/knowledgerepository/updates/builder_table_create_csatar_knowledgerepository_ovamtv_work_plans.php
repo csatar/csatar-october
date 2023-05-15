@@ -7,6 +7,7 @@ use October\Rain\Database\Updates\Migration;
 
 class BuilderTableCreateCsatarKnowledgerepositoryOvamtvWorkPlans extends Migration
 {
+
     public function up()
     {
         Schema::create('csatar_knowledgerepository_ovamtv_work_plans', function($table)
@@ -39,4 +40,5 @@ class BuilderTableCreateCsatarKnowledgerepositoryOvamtvWorkPlans extends Migrati
     {
         Schema::dropIfExists('csatar_knowledgerepository_ovamtv_work_plans');
     }
+
 }

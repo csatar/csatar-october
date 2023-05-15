@@ -89,4 +89,5 @@ class WorkPlansList extends ComponentBase
         }
         return (int) $year;
     }
+
 }
