@@ -205,7 +205,7 @@ class PermissionsMatrix extends Controller
         $mandateTypes          = MandateType::all();
 
         if (empty($permissionBasedModels) || empty($mandateTypes)) {
-return;
+            return;
         }
 
         $tempMandatePermissionsMap = [];
@@ -213,7 +213,7 @@ return;
             foreach ($mandateTypes as $mandateType) {
                 foreach ($permissionBasedModels as $permissionBasedModel) {
                     if ($permissionBasedModel == MandateType::MODEL_NAME_GUEST) {
-return;
+                        return;
                     }
 
                     $model          = new $permissionBasedModel();
