@@ -296,9 +296,9 @@ class CreateFrontendAccounts extends \RainLab\User\Components\Account
                 ['name' => $scout->getFullName() ]);
         } catch (Exception $ex) {
             if (Request::ajax()) {
-throw $ex;
+                throw $ex;
             } else {
-Flash::error($ex->getMessage());
+                Flash::error($ex->getMessage());
             }
         }
     }
