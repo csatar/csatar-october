@@ -334,7 +334,7 @@ class Plugin extends PluginBase
 
             $model->bindEvent('model.beforeDelete', function () use ($model) {
                 if (isset($model->scout) || $model->historyRecords->isNotEmpty()) {
-                    throw new ApplicationException(e(trans('csatar.csatar::lang.plugin.admin.general.canNotDeleteUser')),);
+                    throw new ApplicationException(e(trans('csatar.csatar::lang.plugin.admin.general.canNotDeleteUser')));
                 }
             });
 
