@@ -163,148 +163,14 @@ trait AjaxControllerSimple {
 
     public function renderViewMode($widget)
     {
-        $mainCardVariablesToPass  = [];
-        $sheetCardVariablesToPass = [];
-        $fieldsToPass = [];
-
         // gather all cards and fields in arrays
-        foreach ($widget->fields as $key => $field) {
-            // if no formBuilder data is set; or if any of the mandatory formBuilder attributes are not set, then continue
-            if (!array_key_exists('formBuilder', $field) || !array_key_exists('type', $field['formBuilder'])) {
-                continue;
-            }
-
-            // gather all cards and fields in arrays
-            if ($field['formBuilder']['type'] == 'card') {
-                if ($field['formBuilder']['position'] == 'main') {
-                    $mainCardVariablesToPass['name']  = $key;
-                    $mainCardVariablesToPass['class'] = $field['formBuilder']['class'];
-                } else if ($field['formBuilder']['position'] == 'sheets') {
-                    $sheetCardVariablesToPass[$key]         = [];
-                    $sheetCardVariablesToPass[$key]['name'] = array_key_exists('label', $field) ? Lang::get($field['label']) : null;
-                    if (array_key_exists('class', $field['formBuilder'])) {
-                        $sheetCardVariablesToPass[$key]['class'] = $field['formBuilder']['class'];
-                    }
-
-                    if (array_key_exists('color', $field['formBuilder'])) {
-                        $sheetCardVariablesToPass[$key]['color'] = $field['formBuilder']['color'];
-                    }
-
-                    if (array_key_exists('order', $field['formBuilder'])) {
-                        $sheetCardVariablesToPass[$key]['order'] = $field['formBuilder']['order'];
-                    }
-                }
-            } else if ($field['formBuilder']['type'] == 'field') {
-                // if mandatory config is not set, then don't show the field
-                if (!isset($field['formBuilder']['card'])) {
-                    continue;
-                }
-
-                // if no value is set, then don't show the field
-                if (!isset($widget->model->{$key}) || empty(($widget->model->{$key}))) {
-                    continue;
-                }
-
-                // retrieve the value for the field
-                $value = '';
-
-                if (is_object($widget->model->{$key}) && array_key_exists('nameFrom', $field) && isset($widget->model->{$key}->{$field['nameFrom']})) { // relation fields
-                    $value = $widget->model->{$key}->{$field['nameFrom']};
-                } else if (is_a($widget->model->{$key}, 'Illuminate\Database\Eloquent\Collection')
-                    && count($widget->model->{$key}) > 0
-                    && array_key_exists('nameFrom', $field)
-                ) { // belongs to many with no pivot data
-                    $value = '';
-                    foreach ($widget->model->{$key} as $item) {
-                        if (isset($item->{$field['nameFrom']})) {
-                            $value .= $item->{$field['nameFrom']} . ', ';
-                        }
-                    }
-                } else if ($field['type'] == 'dropdown' && array_key_exists('options', $field) && is_array($field['options']) && count($field['options']) > 0) { // dropdown fields
-                    $value = Lang::get($field['options'][$widget->model->{$key}]);
-                } else if ($field['type'] == 'checkbox') { // bool fields
-                    $value = $widget->model->{$key} == 1 ? Lang::get('csatar.csatar::lang.plugin.admin.general.yes') : Lang::get('csatar.csatar::lang.plugin.admin.general.no');
-                } else if ($field['type'] == 'fileupload' && $field['mode'] == 'image') { // images
-                    $value = $widget->model->{$key}->getPath();
-                    $mainCardVariablesToPass['customImage'] = true;
-                } else if ($field['type'] == 'custom') { // custom field type, which permits to list title-value pairs in the descriptionList part of the mainCard
-                    $value = $widget->model->{$key};
-                } else if (isset($widget->model->{$key})) { // regular fields
-                    $value = $widget->model->{$key};
-                } else {
-                    continue;
-                }
-
-                // if an array for the card does not exist yet, then create it
-                if (!array_key_exists($field['formBuilder']['card'], $fieldsToPass)) {
-                    $fieldsToPass[$field['formBuilder']['card']] = [];
-                }
-
-                $newField = [];
-                if (isset($field['label'])) {
-                    $newField['label'] = Lang::get($field['label']);
-                }
-
-                $newField['value'] = $value;
-
-                if (array_key_exists('position', $field['formBuilder'])) {
-                    $newField['position'] = $field['formBuilder']['position'];
-                }
-
-                if (array_key_exists('order', $field['formBuilder'])) {
-                    $newField['order'] = $field['formBuilder']['order'];
-                }
-
-                if ($field['type'] == 'richeditor') {
-                    $newField['raw'] = true;
-                }
-
-                array_push($fieldsToPass[$field['formBuilder']['card']], $newField);
-            }
-        }
+        list($mainCardVariablesToPass, $sheetCardVariablesToPass, $fieldsToPass) = $this->gatherAllCardsAndFieldsInArrays($widget);
 
         // sort the sheets
         $this->sortArrayByOrder($sheetCardVariablesToPass);
 
         // set the appropriate field array for each of the cards
-        foreach ($fieldsToPass as $key => $fields) {
-            if ($key == $mainCardVariablesToPass['name']) {
-                $titleFields = [];
-                $mainCardVariablesToPass['subtitleFields'] = [];
-                $mainCardVariablesToPass['fields']         = [];
-
-                // gather the fields by position
-                foreach ($fields as $field) {
-                    if ($field['position'] == 'image') {
-                        $mainCardVariablesToPass['image'] = $field['value'];
-                    } else if ($field['position'] == 'title') {
-                        array_push($titleFields, $field);
-                    } else if ($field['position'] == 'subtitle') {
-                        array_push($mainCardVariablesToPass['subtitleFields'], $field);
-                    } else if ($field['position'] == 'details') {
-                        array_push($mainCardVariablesToPass['fields'], $field);
-                    } else if ($field['position'] == 'descriptionList') {
-                        $mainCardVariablesToPass['descriptionList'] = $field['value'];
-                    }
-                }
-
-                // sort the title fields and create the title
-                $this->sortArrayByOrder($titleFields);
-                $mainCardVariablesToPass['title'] = '';
-                foreach ($titleFields as $field) {
-                    $mainCardVariablesToPass['title'] .= $field['value'] . ' ';
-                }
-
-                // sort the subtitle fields
-                $this->sortArrayByOrder($mainCardVariablesToPass['subtitleFields']);
-
-                // sort the fields array
-                $this->sortArrayByOrder($mainCardVariablesToPass['fields']);
-            } else if (isset($sheetCardVariablesToPass[$key])) {
-                $this->sortArrayByOrder($fields);
-                $sheetCardVariablesToPass[$key]['fields'] = $fields;
-            }
-        }
+        list($mainCardVariablesToPass, $sheetCardVariablesToPass) = $this->setTheAppropriateFieldArrayForEachOfTheCards($fieldsToPass, $mainCardVariablesToPass, $sheetCardVariablesToPass);
 
         // hide the empty boxes
         foreach ($sheetCardVariablesToPass as $key => $card) {
@@ -538,30 +404,7 @@ trait AjaxControllerSimple {
             $rules     = !empty($model->rules) ? $model->rules : [];
         }
 
-        if ($model && method_exists($model, 'beforeValidateFromForm')) {
-            $model->beforeValidateFromForm($pivotData);
-        }
-
-        if (count($rules) > 0) {
-            $pivotConfig    = $isHasManyRelation ?
-                $this->getConfig($record->hasMany[$relationName][0], 'fields.yaml') :
-                $this->getConfig($record->belongsToMany[$relationName][0], 'fieldsPivot.yaml');
-            $attributeNames = [];
-            foreach ($pivotConfig->fields as $key => $value) {
-                $key = str_replace(']', '', str_replace('pivot[', '', $key));
-                $attributeNames[$key] = Lang::get($value['label']);
-            }
-
-            $validation = Validator::make(
-                $pivotData,
-                $rules,
-                [],
-                $attributeNames,
-            );
-            if ($validation->fails()) {
-                throw new \ValidationException($validation);
-            }
-        }
+        $this->handlePivotRelationValidation($model, $pivotData, $rules, $isHasManyRelation, $record, $relationName);
 
         if ($model && method_exists($model, 'beforeSaveFromForm')) {
             $model->beforeSaveFromForm($pivotData);
@@ -599,7 +442,7 @@ trait AjaxControllerSimple {
                 $model->id    = isset($max_slave_id) ? $max_slave_id + 1 : 1;
                 $record->bindDeferred($relationName, $model, $this->sessionKey, $pivotData);
             } else {
-                $model = $model::create(isset($model->attributes) ? array_merge($model->attributes, $pivotData) : $pivotData);
+                $model::create(isset($model->attributes) ? array_merge($model->attributes, $pivotData) : $pivotData);
             }
         }
 
@@ -690,182 +533,44 @@ trait AjaxControllerSimple {
         $form   = Form::find($this->formId ?? Input::get('formId'));
         $config = $this->makeConfig($form->getFieldsConfig());
 
-        $attributeNames = [];
-
-        foreach ($config->fields as $key => $value) {
-            $type = $value['type'] ?? null;
-            if ($type !== 'section' && isset($value['label'])) {
-                $attributeNames[$key] = Lang::get($value['label']);
-            }
-        }
+        $attributeNames = $this->getAttributeNames($config);
 
         $rules = $this->addRequiredRuleBasedOnUserRights($record->rules, $this->currentUserRights ?? []);
 
         // add extra fields validation
-        $extraFields      = $this->getExtraFields($this->record, (new DateTime())->format('Y-m-d')) ?? [];
-        $extraFieldValues = json_decode($this->record->extra_fields, true) ?? [];
+        $extraFields = $this->getExtraFieldsData();
+        list($attributeNames, $rules) = $this->handleExtraFieldsValidationSettings($extraFields, $attributeNames, $rules);
 
-        foreach ($extraFieldValues as $extraFieldValue) {
-            $found = false;
-            foreach ($extraFields as $key => $extraField) {
-                if ($extraField['id'] == $extraFieldValue['id']) {
-                    $extraField[$key]['required'] = $extraFieldValue['required'];
-                    $found = true;
-                    break;
-                }
-            }
-
-            if (!$found) {
-                array_push($extraFields, $extraFieldValue);
-            }
-        }
-
-        foreach ($extraFields as $extraField) {
-            $dynamicFieldModelId = $extraField['dynamicFieldModelId'] ?? '';
-            $id = 'extra_fields_' . $extraField['id'] . '_' . $dynamicFieldModelId;
-            $attributeNames[$id] = $extraField['label'];
-            $rules[$id]          = 'max:500';
-            if ($extraField['required'] == 1) {
-                $rules[$id] .= '|required';
-            }
-        }
-
-        $validation = Validator::make(
-            $data,
-            $rules,
-            $record->customMessages ?? [],
-            $attributeNames,
-        );
-
-        if ($specialValidationExceptions = Input::get('specialValidationExceptions')) {
-            $specialValidationExceptions = unserialize($specialValidationExceptions);
-        }
-
-        // validate for conditional rules
-        if (isset($record->conditionalRules)) {
-            foreach ($record->conditionalRules as $conditionalRule) {
-                $validation->sometimes($conditionalRule['fields'], $conditionalRule['rules'], function ($input) use ($record, $conditionalRule) {
-                    return $record->{$conditionalRule['validationFunctionName']}($input);
-                });
-            }
-        }
-
-        if ($validation->fails() || !empty($specialValidationExceptions)) {
-            foreach ((array) $specialValidationExceptions as $key => $value) {
-                $validation->messages()->add('special_validation_exception_' . $key, $value);
-            }
-
-            throw new \ValidationException($validation);
-        }
+        $this->validateFormData($data, $rules, $record, $attributeNames);
 
         // resolve extra fields data
-        if (isset($extraFields)) {
-            foreach ($extraFields as &$extraField) {
-                $dynamicFieldModelId = $extraField['dynamicFieldModelId'] ?? '';
-                $id = 'extra_fields_' . $extraField['id'] . '_' . $dynamicFieldModelId;
-                $extraField['value'] = $data[$id];
-                unset($data[$id]);
-            }
-        }
+        list($extraFields, $data) = $this->resolveExtraFieldsData($extraFields, $data);
 
         $data = $this->filterDataBasedOnUserRightsBeforeSave($data, $config->fields, $isNew);
 
         // resolve extra fields data. It needs to be done after the data has been filtered by rights, as that removes extra_field from data, as extra_fields is not part of the permission matrix
-        if (isset($extraFields)) {
+        if (!empty($extraFields)) {
             $data['extra_fields'] = json_encode($extraFields);
         }
 
-        // Resolve belongsTo relations
-        foreach ($record->belongsTo as $name => $definition) {
-            if (empty($data[$name])) {
-                continue;
-            }
-
-            $key = isset($definition['key']) ? $definition['key'] : $name . '_id';
-            if (isset($definition['keyType'])) {
-                $data[$key] = $data[$name];
-                settype($data[$key], $definition['keyType']);
-            } else {
-                $data[$key] = (int) $data[$name];
-            }
-
-// unset($data[$name]);
-        }
-
-        // Resolve belongsToMany relations
-        foreach ($record->belongsToMany as $relationName => $definition) {
-            if (!isset($data[$relationName])) {
-                continue;
-            }
-
-            if ($record->id && $data[$relationName] == '') {
-                $record->$relationName()->detach();
-                continue;
-            }
-
-            if (!$record->id) {
-                $relatedModel = $definition[0];
-                if (is_array($data[$relationName])) {
-                    foreach ($data[$relationName] as $recordToAttachId) {
-                        $deferred = new DeferredBinding();
-                        $deferred->master_type  = get_class($record);
-                        $deferred->master_field = $relationName;
-                        $deferred->slave_type   = $relatedModel;
-                        $deferred->slave_id     = $recordToAttachId;
-                        $deferred->session_key  = $this->sessionKey;
-                        $deferred->save();
-                    }
-                }
-            } else {
-                $record->$relationName()->sync($data[$relationName]);
-            }
-        }
+        $data = $this->resolveBelongsToRelations($record, $data);
+        $record = $this->resolveBelongsToManyRelations($record, $data);
 
         // save the data
         if ($isNew) {
-            // remove hasMany relations
-            $defRecords = [];
-            foreach ($record->hasMany as $relationName => $definition) {
-                $defRecords = array_merge($defRecords, DeferredBinding::where('master_field', $relationName)
-                    ->where('session_key', $this->sessionKey)
-                    ->get()->toArray());
-
-                foreach ($defRecords as $defRecord) {
-                    DeferredBinding::find($defRecord['id'])->delete();
-                }
-            }
-
-            // save the record
-            $record = $record->create($data, $this->sessionKey);
-
-            // Resolve hasMany relations
-            foreach ($defRecords as $defRecord) {
-                $model = new $defRecord['slave_type'];
-                if (method_exists($model, 'initFromForm')) {
-                    $model->initFromForm($record);
-                }
-
-                foreach ($model->fillable as $fillable) {
-                    if (array_key_exists($fillable, $defRecord['pivot_data']) && !isset($model->{$fillable})) {
-                        $model->{$fillable} = $defRecord['pivot_data'][$fillable];
-                    }
-                }
-
-                if (isset($model::$relatedModelNameForFormBuilder) && isset($model::$relatedFieldForFormBuilder)) {
-                    $tmp = $defRecord['pivot_data'][$model::$relatedFieldForFormBuilder];
-                    $model->{$model::$relatedFieldForFormBuilder} = ($model::$relatedModelNameForFormBuilder)::find($tmp);
-                }
-
-                $model = $model->save();
-            }
-
-            // resolve other relations
-            $record->commitDeferred($this->sessionKey);
+            $record = $this->saveNewRecord($record, $data);
         }
 
         if (!$record->update($data) && !$isNew) {
             $error = e(trans('csatar.forms::lang.errors.canNotSaveValidated'));
             throw new ApplicationException($error);
+        }
+
+        if (!empty($this->messages) && array_key_exists('warning', $this->messages)) {
+            $warnings = implode('\n', $this->messages['warning']);
+            Flash::warning($warnings);
+        } else {
+            Flash::success(e(trans('csatar.forms::lang.success.saved')));
         }
 
         if (Input::get('close')) {
@@ -875,13 +580,6 @@ trait AjaxControllerSimple {
         if ($isNew) {
             $redirectUrl = str_replace('default', '', $this->currentPageUrl(false)) . $record->{$this->recordKeyParam ?? Input::get('recordKeyParam')} . '/' . Input::get('actionUpdateKeyword');
             return Redirect::to($redirectUrl)->withInput();
-        }
-
-        if (!empty($this->messages) && array_key_exists('warning', $this->messages)) {
-            $warnings = implode('\n', $this->messages['warning']);
-            Flash::warning($warnings);
-        } else {
-            Flash::success(e(trans('csatar.forms::lang.success.saved')));
         }
 
         return Redirect::back()->withInput();
@@ -1247,18 +945,7 @@ trait AjaxControllerSimple {
         $isHasManyRelation = array_key_exists($relationName, $record->hasMany);
         $defRecords        = null;
         if (!$record->id) {
-            $defRecords = DeferredBinding::where('master_field', $relationName)
-                ->where('session_key', $this->sessionKey)
-                ->get();
-            if (!$isHasManyRelation) {
-                $records = $record->{$relationName}()->withDeferred($this->sessionKey)->get();
-            } else {
-                $records = [];
-                foreach ($defRecords as $defRecord) {
-                    $record = new $defRecord->slave_type();
-                    array_push($records, $record);
-                }
-            }
+            list($defRecords, $records) = $this->getDeferredRecords($relationName, $isHasManyRelation, $record, $records);
         }
 
         $records = $records->sortBy(function ($record) {
@@ -1271,61 +958,7 @@ trait AjaxControllerSimple {
                 continue;
             }
 
-            if ($defRecords) {
-                if (!$isHasManyRelation) {
-                    $relatedRecord->pivot = (object) $defRecords[$key]->pivot_data;
-                } else {
-                    $relatedRecord->attributes = $defRecords[$key]->pivot_data;
-                    $relatedRecord->id         = $defRecords[$key]->slave_id;
-                    if (isset($relatedRecord::$relatedModelNameForFormBuilder) && isset($relatedRecord::$relatedFieldForFormBuilder)) {
-                        $tmp = $relatedRecord->{$relatedRecord::$relatedFieldForFormBuilder};
-                        unset($relatedRecord->{$relatedRecord::$relatedFieldForFormBuilder});
-                        $relatedRecord->{$relatedRecord::$relatedFieldForFormBuilder} = ($relatedRecord::$relatedModelNameForFormBuilder)::find($tmp);
-                    }
-                }
-            }
-
-            $cols       = '';
-            $colButtons = '';
-            foreach ($attributesToDisplay as $key => $data) {
-                $label            = Lang::get($data['label']);
-                $tooltipAttribute = array_key_exists('tooltipFrom', $data) ? $data['tooltipFrom'] : null;
-
-                if (array_key_exists('isPivot', $data)) {
-                    $value   = $relatedRecord->pivot->{$key} ?? '';
-                    $tooltip = $tooltipAttribute ? $relatedRecord->pivot->{$tooltipAttribute} ?? null : null;
-                } else {
-                    $attribute = array_key_exists('valueFromFormBuilder', $data) ? $data['valueFromFormBuilder'] : 'name';
-                    $value     = (is_object($relatedRecord->{$key}) ?
-                        $relatedRecord->{$key}->{$attribute} :
-                        $relatedRecord->{$key});
-                    $tooltip   = $tooltipAttribute ? (is_object($relatedRecord->{$key}) ?
-                        $relatedRecord->{$key}->{$tooltipAttribute} :
-                        $relatedRecord->{$tooltipAttribute}) : null;
-                }
-
-                $cols .= $this->renderPartial('@partials/pivotTableRowCol.htm', [
-                    'label' => $label,
-                    'value' => $value,
-                    'tooltip' => $tooltip,
-                ]);
-            }
-
-            if (!$this->readOnly) {
-                $colButtons .= $this->renderPartial('@partials/pivotTableRowColButtons.htm', [
-                    'canUpdate' => $this->canUpdate($relationName),
-                    'canDelete' => $this->canDelete($relationName),
-                    'relationName' => $relationName,
-                    'relationId' => $relatedRecord->id,
-                    'sortOrder' => $relatedRecord->pivot->sort_order ?? false,
-                    'fieldsThatRequire2FA' => $this->fieldsThatRequire2FA,
-                ]);
-            }
-
-            $tableRows .= $this->renderPartial('@partials/pivotTableRow', [
-                'cols' => $cols,
-                'colButtons' => $colButtons,
-            ]);
+            $tableRows .= $this->generatePivotTableRow($defRecords, $isHasManyRelation, $key, $relatedRecord, $attributesToDisplay, $relationName);
         }
 
         return $tableRows;
@@ -1519,50 +1152,20 @@ trait AjaxControllerSimple {
             return;
         }
 
-        $fieldsThatRequire2FA = [];
-
         if ($preview) {
-            foreach ($attributesArray as $key => $value) {
-                $actionsThatNeed2FA = $value['formBuilder']['2fa'] ?? null;
-                if ($actionsThatNeed2FA && in_array('read', $actionsThatNeed2FA)) {
-                    $fieldsThatRequire2FA[] = $this->get2FAFieldName($key, $value);
-                }
-            }
+            $fieldsThatRequire2FA = $this->getFieldsThatRequire2FAForMessage($attributesArray, ['read']);
 
             if (!empty($fieldsThatRequire2FA)) {
                 return Lang::get('csatar.forms::lang.components.basicForm.2FAtoRead') . implode(', ', $fieldsThatRequire2FA);
             }
         } else if ($isNewRecord) {
-            foreach ($attributesArray as $key => $value) {
-                $actionsThatNeed2FA = $value['formBuilder']['2fa'] ?? null;
-                if ($actionsThatNeed2FA
-                    && in_array('create', $actionsThatNeed2FA)
-                ) {
-                    $fieldsThatRequire2FA[] = $this->get2FAFieldName($key, $value);
-                }
-            }
-
-            $fieldsThatRequire2FA = array_filter($fieldsThatRequire2FA, function($value) {
-                return strpos($value, '@') === false;
-            });
+            $fieldsThatRequire2FA = $this->getFieldsThatRequire2FAForMessage($attributesArray, ['create']);
 
             if (!empty($fieldsThatRequire2FA)) {
                 return Lang::get('csatar.forms::lang.components.basicForm.2FAtoCreate') . implode(', ', $fieldsThatRequire2FA);
             }
         } else {
-            foreach ($attributesArray as $key => $value) {
-                $actionsThatNeed2FA = $value['formBuilder']['2fa'] ?? null;
-                if ($actionsThatNeed2FA
-                    && (in_array('update', $actionsThatNeed2FA)
-                        || in_array('delete', $actionsThatNeed2FA))
-                ) {
-                    $fieldsThatRequire2FA[] = $this->get2FAFieldName($key, $value);
-                }
-            }
-
-            $fieldsThatRequire2FA = array_filter($fieldsThatRequire2FA, function($value) {
-                return strpos($value, '@') === false;
-            });
+            $fieldsThatRequire2FA = $this->getFieldsThatRequire2FAForMessage($attributesArray, ['update', 'delete']);
 
             if (!empty($fieldsThatRequire2FA)) {
                 return Lang::get('csatar.forms::lang.components.basicForm.2FAtoModify') . implode(', ', $fieldsThatRequire2FA);
@@ -1694,6 +1297,596 @@ trait AjaxControllerSimple {
     public function storeMessage(string $messageType, string $message): void
     {
         $this->messages[$messageType][$message] = $message;
+    }
+
+    /**
+     * @param $relationName
+     * @param bool $isHasManyRelation
+     * @param $record
+     * @param mixed $records
+     * @return array
+     */
+    public function getDeferredRecords($relationName, bool $isHasManyRelation, $record, $records): array
+    {
+        $defRecords = DeferredBinding::where('master_field', $relationName)
+            ->where('session_key', $this->sessionKey)
+            ->get();
+        if (!$isHasManyRelation) {
+            $records = $record->{$relationName}()->withDeferred($this->sessionKey)->get();
+        } else {
+            $records = [];
+            foreach ($defRecords as $defRecord) {
+                $record    = new $defRecord->slave_type();
+                $records[] = $record;
+            }
+        }
+        return array($defRecords, $records);
+    }
+
+    /**
+     * @param bool $isHasManyRelation
+     * @param $defRecord
+     * @param $relatedRecord
+     * @return object
+     */
+    public function handleDeferredRecord(bool $isHasManyRelation, $defRecord, $relatedRecord): object
+    {
+        if (!$isHasManyRelation) {
+            $relatedRecord->pivot = (object) $defRecord->pivot_data;
+        } else {
+            $relatedRecord->attributes = $defRecord->pivot_data;
+            $relatedRecord->id         = $defRecord->slave_id;
+            if (isset($relatedRecord::$relatedModelNameForFormBuilder) && isset($relatedRecord::$relatedFieldForFormBuilder)) {
+                $tmp = $relatedRecord->{$relatedRecord::$relatedFieldForFormBuilder};
+                unset($relatedRecord->{$relatedRecord::$relatedFieldForFormBuilder});
+                $relatedRecord->{$relatedRecord::$relatedFieldForFormBuilder} = ($relatedRecord::$relatedModelNameForFormBuilder)::find($tmp);
+            }
+        }
+
+        return $relatedRecord;
+    }
+
+    /**
+     * @param $data
+     * @param $key
+     * @param $relatedRecord
+     * @return string
+     */
+    public function getColPartial($data, $key, $relatedRecord): string
+    {
+        $label            = Lang::get($data['label']);
+        $tooltipAttribute = array_key_exists('tooltipFrom', $data) ? $data['tooltipFrom'] : null;
+
+        if (array_key_exists('isPivot', $data)) {
+            $value   = $relatedRecord->pivot->{$key} ?? '';
+            $tooltip = $tooltipAttribute ? $relatedRecord->pivot->{$tooltipAttribute} ?? null : null;
+        } else {
+            $attribute = array_key_exists('valueFromFormBuilder', $data) ? $data['valueFromFormBuilder'] : 'name';
+            $value     = (is_object($relatedRecord->{$key}) ?
+                $relatedRecord->{$key}->{$attribute} :
+                $relatedRecord->{$key});
+            $tooltip   = $tooltipAttribute ? (is_object($relatedRecord->{$key}) ?
+                $relatedRecord->{$key}->{$tooltipAttribute} :
+                $relatedRecord->{$tooltipAttribute}) : null;
+        }
+
+        return $this->renderPartial('@partials/pivotTableRowCol.htm', [
+            'label'   => $label,
+            'value'   => $value,
+            'tooltip' => $tooltip,
+        ]);
+    }
+
+    /**
+     * @param $defRecords
+     * @param bool $isHasManyRelation
+     * @param $key
+     * @param $relatedRecord
+     * @param $attributesToDisplay
+     * @param $relationName
+     * @return string
+     */
+    public function generatePivotTableRow($defRecords, bool $isHasManyRelation, $key, $relatedRecord, $attributesToDisplay, $relationName): string
+    {
+        if ($defRecords) {
+            $relatedRecord = $this->handleDeferredRecord($isHasManyRelation, $defRecords[$key], $relatedRecord);
+        }
+
+        $cols       = '';
+        $colButtons = '';
+        foreach ($attributesToDisplay as $key => $data) {
+            $cols .= $this->getColPartial($data, $key, $relatedRecord);
+        }
+
+        if (!$this->readOnly) {
+            $colButtons .= $this->renderPartial('@partials/pivotTableRowColButtons.htm', [
+                'canUpdate'            => $this->canUpdate($relationName),
+                'canDelete'            => $this->canDelete($relationName),
+                'relationName'         => $relationName,
+                'relationId'           => $relatedRecord->id,
+                'sortOrder'            => $relatedRecord->pivot->sort_order ?? false,
+                'fieldsThatRequire2FA' => $this->fieldsThatRequire2FA,
+            ]);
+        }
+
+        return $this->renderPartial('@partials/pivotTableRow', [
+            'cols'       => $cols,
+            'colButtons' => $colButtons,
+        ]);
+    }
+
+    /**
+     * @param array $attributesArray
+     * @param array $needles
+     * @return array
+     */
+    public function getFieldsThatRequire2FAForMessage(array $attributesArray, array $needles): array
+    {
+        $fieldsThatRequire2FA = [];
+
+        foreach ($attributesArray as $key => $value) {
+            $actionsThatNeed2FA = $value['formBuilder']['2fa'] ?? null;
+            if ($actionsThatNeed2FA && !empty(array_intersect($actionsThatNeed2FA, $needles))) {
+                $fieldsThatRequire2FA[] = $this->get2FAFieldName($key, $value);
+            }
+        }
+
+        return array_filter($fieldsThatRequire2FA, function($value) {
+            return strpos($value, '@') === false;
+        });
+    }
+
+    /**
+     * @param $config
+     * @return array
+     */
+    public function getAttributeNames($config): array
+    {
+        foreach ($config->fields as $key => $value) {
+            $type = $value['type'] ?? null;
+            if ($type !== 'section' && isset($value['label'])) {
+                $attributeNames[$key] = Lang::get($value['label']);
+            }
+        }
+        return $attributeNames;
+    }
+
+    /**
+     * @return array
+     */
+    public function getExtraFieldsData(): array
+    {
+        $extraFields      = $this->getExtraFields($this->record, (new DateTime())->format('Y-m-d')) ?? [];
+        $extraFieldValues = json_decode($this->record->extra_fields, true) ?? [];
+
+        foreach ($extraFieldValues as $extraFieldValue) {
+            $found = false;
+            foreach ($extraFields as $key => $extraField) {
+                if ($extraField['id'] == $extraFieldValue['id']) {
+                    $extraField[$key]['required'] = $extraFieldValue['required'];
+                    $found                        = true;
+                    break;
+                }
+            }
+
+            if (!$found) {
+                $extraFields[] = $extraFieldValue;
+            }
+        }
+        return $extraFields;
+    }
+
+    /**
+     * @param array $extraFields
+     * @param array $attributeNames
+     * @param array $rules
+     * @return array
+     */
+    public function handleExtraFieldsValidationSettings(array $extraFields, array $attributeNames, array $rules): array
+    {
+        foreach ($extraFields as $extraField) {
+            $dynamicFieldModelId = $extraField['dynamicFieldModelId'] ?? '';
+            $id                  = 'extra_fields_' . $extraField['id'] . '_' . $dynamicFieldModelId;
+            $attributeNames[$id] = $extraField['label'];
+            $rules[$id]          = 'max:500';
+            if ($extraField['required'] == 1) {
+                $rules[$id] .= '|required';
+            }
+        }
+        return [$attributeNames, $rules];
+    }
+
+    /**
+     * @param $data
+     * @param array $rules
+     * @param $record
+     * @param array $attributeNames
+     * @return void
+     */
+    public function validateFormData($data, array $rules, $record, array $attributeNames): void
+    {
+        $validation = Validator::make(
+            $data,
+            $rules,
+            $record->customMessages ?? [],
+            $attributeNames,
+        );
+
+        if ($specialValidationExceptions = Input::get('specialValidationExceptions')) {
+            $specialValidationExceptions = unserialize($specialValidationExceptions);
+        }
+
+        // validate for conditional rules
+        if (isset($record->conditionalRules)) {
+            foreach ($record->conditionalRules as $conditionalRule) {
+                $validation->sometimes($conditionalRule['fields'], $conditionalRule['rules'], function ($input) use ($record, $conditionalRule) {
+                    return $record->{$conditionalRule['validationFunctionName']}($input);
+                });
+            }
+        }
+
+        if ($validation->fails() || !empty($specialValidationExceptions)) {
+            foreach ((array)$specialValidationExceptions as $key => $value) {
+                $validation->messages()->add('special_validation_exception_' . $key, $value);
+            }
+
+            throw new \ValidationException($validation);
+        }
+    }
+
+    /**
+     * @param array $extraFields
+     * @param $data
+     * @return array
+     */
+    public function resolveExtraFieldsData(array $extraFields, $data): array
+    {
+        if (isset($extraFields)) {
+            foreach ($extraFields as &$extraField) {
+                $dynamicFieldModelId = $extraField['dynamicFieldModelId'] ?? '';
+                $id                  = 'extra_fields_' . $extraField['id'] . '_' . $dynamicFieldModelId;
+                $extraField['value'] = $data[$id];
+                unset($data[$id]);
+            }
+        }
+        return array($extraFields, $data);
+    }
+
+    /**
+     * @param $record
+     * @param array $data
+     * @return array
+     */
+    public function resolveBelongsToRelations($record, array $data): array
+    {
+        // Resolve belongsTo relations
+        foreach ($record->belongsTo as $name => $definition) {
+            if (empty($data[$name])) {
+                continue;
+            }
+
+            $key = isset($definition['key']) ? $definition['key'] : $name . '_id';
+            if (isset($definition['keyType'])) {
+                $data[$key] = $data[$name];
+                settype($data[$key], $definition['keyType']);
+            } else {
+                $data[$key] = (int)$data[$name];
+            }
+        }
+        return $data;
+    }
+
+    /**
+     * @param $record
+     * @param array $data
+     * @return object
+     */
+    public function resolveBelongsToManyRelations($record, array $data): object
+    {
+        // Resolve belongsToMany relations
+        foreach ($record->belongsToMany as $relationName => $definition) {
+            if (!isset($data[$relationName])) {
+                continue;
+            }
+
+            if ($record->id && $data[$relationName] == '') {
+                $record->$relationName()->detach();
+                continue;
+            }
+
+            if (!$record->id) {
+                $relatedModel = $definition[0];
+                if (is_array($data[$relationName])) {
+                    foreach ($data[$relationName] as $recordToAttachId) {
+                        $deferred               = new DeferredBinding();
+                        $deferred->master_type  = get_class($record);
+                        $deferred->master_field = $relationName;
+                        $deferred->slave_type   = $relatedModel;
+                        $deferred->slave_id     = $recordToAttachId;
+                        $deferred->session_key  = $this->sessionKey;
+                        $deferred->save();
+                    }
+                }
+            } else {
+                $record->$relationName()->sync($data[$relationName]);
+            }
+        }
+        return $record;
+    }
+
+    /**
+     * @param $record
+     * @param array $data
+     * @return mixed
+     */
+    public function saveNewRecord($record, array $data)
+    {
+        // remove hasMany relations
+        $defRecords = [];
+        foreach ($record->hasMany as $relationName => $definition) {
+            $defRecords = array_merge($defRecords, DeferredBinding::where('master_field', $relationName)
+                ->where('session_key', $this->sessionKey)
+                ->get()->toArray());
+
+            foreach ($defRecords as $defRecord) {
+                DeferredBinding::find($defRecord['id'])->delete();
+            }
+        }
+
+        // save the record
+        $record = $record->create($data, $this->sessionKey);
+
+        // Resolve hasMany relations
+        foreach ($defRecords as $defRecord) {
+            $model = new $defRecord['slave_type'];
+            if (method_exists($model, 'initFromForm')) {
+                $model->initFromForm($record);
+            }
+
+            foreach ($model->fillable as $fillable) {
+                if (array_key_exists($fillable, $defRecord['pivot_data']) && !isset($model->{$fillable})) {
+                    $model->{$fillable} = $defRecord['pivot_data'][$fillable];
+                }
+            }
+
+            if (isset($model::$relatedModelNameForFormBuilder) && isset($model::$relatedFieldForFormBuilder)) {
+                $tmp                                          = $defRecord['pivot_data'][$model::$relatedFieldForFormBuilder];
+                $model->{$model::$relatedFieldForFormBuilder} = ($model::$relatedModelNameForFormBuilder)::find($tmp);
+            }
+
+            $model = $model->save();
+        }
+
+        // resolve other relations
+        $record->commitDeferred($this->sessionKey);
+        return $record;
+    }
+
+    /**
+     * @param $model
+     * @param $pivotData
+     * @param array $rules
+     * @param bool $isHasManyRelation
+     * @param $record
+     * @param $relationName
+     * @return void
+     */
+    public function handlePivotRelationValidation($model, $pivotData, array $rules, bool $isHasManyRelation, $record, $relationName): void
+    {
+        if ($model && method_exists($model, 'beforeValidateFromForm')) {
+            $model->beforeValidateFromForm($pivotData);
+        }
+
+        if (count($rules) > 0) {
+            $pivotConfig    = $isHasManyRelation ?
+                $this->getConfig($record->hasMany[$relationName][0], 'fields.yaml') :
+                $this->getConfig($record->belongsToMany[$relationName][0], 'fieldsPivot.yaml');
+            $attributeNames = [];
+            foreach ($pivotConfig->fields as $key => $value) {
+                $key                  = str_replace(']', '', str_replace('pivot[', '', $key));
+                $attributeNames[$key] = Lang::get($value['label']);
+            }
+
+            $validation = Validator::make(
+                $pivotData,
+                $rules,
+                [],
+                $attributeNames,
+            );
+            if ($validation->fails()) {
+                throw new \ValidationException($validation);
+            }
+        }
+    }
+
+    /**
+     * @param $widget
+     * @return array
+     */
+    public function gatherAllCardsAndFieldsInArrays($widget): array
+    {
+        $mainCardVariablesToPass  = [];
+        $sheetCardVariablesToPass = [];
+        $fieldsToPass = [];
+
+        // gather all cards and fields in arrays
+        foreach ($widget->fields as $key => $field) {
+            // if no formBuilder data is set; or if any of the mandatory formBuilder attributes are not set, then continue
+            if (!array_key_exists('formBuilder', $field) || !array_key_exists('type', $field['formBuilder'])) {
+                continue;
+            }
+
+            // gather all cards and fields in arrays
+            if ($field['formBuilder']['type'] == 'card') {
+                list($mainCardVariablesToPass, $sheetCardVariablesToPass) = $this->handleCards($field, $key, $mainCardVariablesToPass, $sheetCardVariablesToPass);
+            } else if ($field['formBuilder']['type'] == 'field') {
+                // if mandatory config is not set, then don't show the field
+                if (!isset($field['formBuilder']['card'])) {
+                    continue;
+                }
+
+                // if no value is set, then don't show the field
+                if (!isset($widget->model->{$key}) || empty(($widget->model->{$key}))) {
+                    continue;
+                }
+
+                // retrieve the value for the field
+                list($value, $mainCardVariablesToPass, $continue) = $this->retrieveTheValueForTheField($key, $widget, $field, $mainCardVariablesToPass);
+
+                if ($continue) {
+                    continue;
+                }
+
+                // if an array for the card does not exist yet, then create it
+                if (!array_key_exists($field['formBuilder']['card'], $fieldsToPass)) {
+                    $fieldsToPass[$field['formBuilder']['card']] = [];
+                }
+
+                $newField = [];
+                if (isset($field['label'])) {
+                    $newField['label'] = Lang::get($field['label']);
+                }
+
+                $newField['value'] = $value;
+
+                if (array_key_exists('position', $field['formBuilder'])) {
+                    $newField['position'] = $field['formBuilder']['position'];
+                }
+
+                if (array_key_exists('order', $field['formBuilder'])) {
+                    $newField['order'] = $field['formBuilder']['order'];
+                }
+
+                if ($field['type'] == 'richeditor') {
+                    $newField['raw'] = true;
+                }
+
+                $fieldsToPass[$field['formBuilder']['card']][] = $newField;
+            }
+        }
+        return array($mainCardVariablesToPass, $sheetCardVariablesToPass, $fieldsToPass);
+    }
+
+    /**
+     * @param $fieldsToPass
+     * @param $mainCardVariablesToPass
+     * @param $sheetCardVariablesToPass
+     * @return array
+     */
+    public function setTheAppropriateFieldArrayForEachOfTheCards($fieldsToPass, $mainCardVariablesToPass, $sheetCardVariablesToPass): array
+    {
+        // set the appropriate field array for each of the cards
+        foreach ($fieldsToPass as $key => $fields) {
+            if ($key == $mainCardVariablesToPass['name']) {
+                $titleFields                               = [];
+                $mainCardVariablesToPass['subtitleFields'] = [];
+                $mainCardVariablesToPass['fields']         = [];
+
+                // gather the fields by position
+                foreach ($fields as $field) {
+                    if ($field['position'] == 'image') {
+                        $mainCardVariablesToPass['image'] = $field['value'];
+                    } else if ($field['position'] == 'title') {
+                        $titleFields[] = $field;
+                    } else if ($field['position'] == 'subtitle') {
+                        $mainCardVariablesToPass['subtitleFields'][] = $field;
+                    } else if ($field['position'] == 'details') {
+                        $mainCardVariablesToPass['fields'][] = $field;
+                    } else if ($field['position'] == 'descriptionList') {
+                        $mainCardVariablesToPass['descriptionList'] = $field['value'];
+                    }
+                }
+
+                // sort the title fields and create the title
+                $this->sortArrayByOrder($titleFields);
+                $mainCardVariablesToPass['title'] = '';
+                foreach ($titleFields as $field) {
+                    $mainCardVariablesToPass['title'] .= $field['value'] . ' ';
+                }
+
+                // sort the subtitle fields
+                $this->sortArrayByOrder($mainCardVariablesToPass['subtitleFields']);
+
+                // sort the fields array
+                $this->sortArrayByOrder($mainCardVariablesToPass['fields']);
+            } else if (isset($sheetCardVariablesToPass[$key])) {
+                $this->sortArrayByOrder($fields);
+                $sheetCardVariablesToPass[$key]['fields'] = $fields;
+            }
+        }
+        return array($mainCardVariablesToPass, $sheetCardVariablesToPass);
+    }
+
+    /**
+     * @param $field
+     * @param $key
+     * @param array $mainCardVariablesToPass
+     * @param array $sheetCardVariablesToPass
+     * @return array
+     */
+    public function handleCards($field, $key, array $mainCardVariablesToPass, array $sheetCardVariablesToPass): array
+    {
+        if ($field['formBuilder']['position'] == 'main') {
+            $mainCardVariablesToPass['name']  = $key;
+            $mainCardVariablesToPass['class'] = $field['formBuilder']['class'];
+        } else if ($field['formBuilder']['position'] == 'sheets') {
+            $sheetCardVariablesToPass[$key]         = [];
+            $sheetCardVariablesToPass[$key]['name'] = array_key_exists('label', $field) ? Lang::get($field['label']) : null;
+            if (array_key_exists('class', $field['formBuilder'])) {
+                $sheetCardVariablesToPass[$key]['class'] = $field['formBuilder']['class'];
+            }
+
+            if (array_key_exists('color', $field['formBuilder'])) {
+                $sheetCardVariablesToPass[$key]['color'] = $field['formBuilder']['color'];
+            }
+
+            if (array_key_exists('order', $field['formBuilder'])) {
+                $sheetCardVariablesToPass[$key]['order'] = $field['formBuilder']['order'];
+            }
+        }
+        return array($mainCardVariablesToPass, $sheetCardVariablesToPass);
+    }
+
+    /**
+     * @param $key
+     * @param $widget
+     * @param $field
+     * @param $mainCardVariablesToPass
+     * @return array
+     */
+    public function retrieveTheValueForTheField($key, $widget, $field, $mainCardVariablesToPass): array
+    {
+        // retrieve the value for the field
+        $value = '';
+        $continue = false;
+
+        if (is_object($widget->model->{$key}) && array_key_exists('nameFrom', $field) && isset($widget->model->{$key}->{$field['nameFrom']})) { // relation fields
+            $value = $widget->model->{$key}->{$field['nameFrom']};
+        } else if (is_a($widget->model->{$key}, 'Illuminate\Database\Eloquent\Collection')
+            && count($widget->model->{$key}) > 0
+            && array_key_exists('nameFrom', $field)
+        ) { // belongs to many with no pivot data
+            $value = '';
+            foreach ($widget->model->{$key} as $item) {
+                if (isset($item->{$field['nameFrom']})) {
+                    $value .= $item->{$field['nameFrom']} . ', ';
+                }
+            }
+        } else if ($field['type'] == 'dropdown' && array_key_exists('options', $field) && is_array($field['options']) && count($field['options']) > 0) { // dropdown fields
+            $value = Lang::get($field['options'][$widget->model->{$key}]);
+        } else if ($field['type'] == 'checkbox') { // bool fields
+            $value = $widget->model->{$key} == 1 ? Lang::get('csatar.csatar::lang.plugin.admin.general.yes') : Lang::get('csatar.csatar::lang.plugin.admin.general.no');
+        } else if ($field['type'] == 'fileupload' && $field['mode'] == 'image') { // images
+            $value                                  = $widget->model->{$key}->getPath();
+            $mainCardVariablesToPass['customImage'] = true;
+        } else if ($field['type'] == 'custom') { // custom field type, which permits to list title-value pairs in the descriptionList part of the mainCard
+            $value = $widget->model->{$key};
+        } else if (isset($widget->model->{$key})) { // regular fields
+            $value = $widget->model->{$key};
+        } else {
+            $continue = true;
+        }
+        return array($value, $mainCardVariablesToPass, $continue);
     }
 
 }
