@@ -281,68 +281,34 @@ class BasicForm extends ComponentBase  {
 
         $this->getComponentSettings();
 
-        // Render frontend
-// $this->addCss('/modules/system/assets/ui/storm.css');
-        $this->addCss('/plugins/csatar/forms/assets/css/storm-select2.css');
-        $this->addCss('/plugins/csatar/forms/assets/css/storm.css');
-        $this->addJs('/modules/system/assets/ui/storm-min.js');
-        $this->addJs('/plugins/csatar/forms/assets/vendor/dropzone/dropzone.js');
-        $this->addJs('/plugins/csatar/forms/assets/js/uploader.js');
-        $this->addJs('/plugins/csatar/forms/assets/js/positionValidationTags.js');
-        $this->addJs('/plugins/csatar/forms/assets/js/addCheckboxClass.js');
+        $this->injectAssets();
 
         if ($this->properties['subForm'] && empty($this->record->id)) {
             return;
         }
 
         if ($this->readOnly) {
-            // check if user has permissions to view record
-            if (!$this->canRead('MODEL_GENERAL')) {
-                \App::abort(403, 'Access denied!');
-            }
-
-            $this->renderedComponent = $this->createForm(true);
+            $this->initReadOnlyMode();
+            return;
         }
 
         if ($this->recordKeyValue === $this->createRecordKeyword && !$this->readOnly) {
-            // check if user has permissions to create record
-            if (!$this->canCreate('MODEL_GENERAL')) {
-                \App::abort(403, 'Access denied!');
-            }
-
-            $this->renderedComponent = $this->createForm();
+            $this->initCreateMode();
+            return;
         }
 
         if ($this->recordKeyValue !== $this->createRecordKeyword && !$this->readOnly && $this->recordActionParam) {
             $action = $this->properties['action'] ?? $this->param($this->recordActionParam) ?? null;
             switch ($action) {
                 case $this->actionUpdateKeyword:
-                    // check if user has permissions to update record
-                    if (!$this->canUpdate('MODEL_GENERAL')) {
-                        \App::abort(403, 'Access denied!');
-                    }
-
-                    if (!Auth::check()) {
-                        return Redirect::to('/bejelentkezes');
-                    }
-
-                    $this->renderedComponent = $this->createForm();
+                    $this->initUpdateMode();
                     break;
                 case $this->actionDeleteKeyword:
-                    $this->currentUserRights = $this->getRights($this->record, true); // getting user rights from database before delete
-                    if (!$this->canDelete('MODEL_GENERAL')) {
-                        \App::abort(403, 'Access denied!');
-                    }
-
-                    $this->renderedComponent = $this->onDelete();
+                    $this->initDeleteMode();
                     break;
                 default:
-                    if (!$this->canRead('MODEL_GENERAL')) {
-                        \App::abort(403, 'Access denied!');
-                    }
-
-                    $this->readOnly          = true;
-                    $this->renderedComponent = $this->createForm(true);
+                    $this->readOnly = true;
+                    $this->initReadOnlyMode();
             }
         }
     }
@@ -535,6 +501,73 @@ class BasicForm extends ComponentBase  {
             && is_array($this->currentUserRights[$attribute])
             && isset($this->currentUserRights[$attribute]['delete'])
             && $this->currentUserRights[$attribute]['delete'] > 0;
+    }
+
+    /**
+     * @return void
+     */
+    public function initReadOnlyMode(): void
+    {
+        // check if user has permissions to view record
+        if (!$this->canRead('MODEL_GENERAL')) {
+            \App::abort(403, 'Access denied!');
+        }
+
+        $this->renderedComponent = $this->createForm(true);
+    }
+
+    /**
+     * @return void
+     */
+    public function initCreateMode(): void
+    {
+        // check if user has permissions to create record
+        if (!$this->canCreate('MODEL_GENERAL')) {
+            \App::abort(403, 'Access denied!');
+        }
+
+        $this->renderedComponent = $this->createForm();
+    }
+
+    /**
+     * @return void
+     */
+    public function initUpdateMode(): void
+    {
+        // check if user has permissions to update record
+        if (!$this->canUpdate('MODEL_GENERAL')) {
+            \App::abort(403, 'Access denied!');
+        }
+
+        $this->renderedComponent = $this->createForm();
+    }
+
+    /**
+     * @return void
+     */
+    public function initDeleteMode(): void
+    {
+        $this->currentUserRights = $this->getRights($this->record, true); // getting user rights from database before delete
+        if (!$this->canDelete('MODEL_GENERAL')) {
+            \App::abort(403, 'Access denied!');
+        }
+
+        $this->renderedComponent = $this->onDelete();
+    }
+
+    /**
+     * @return void
+     */
+    public function injectAssets(): void
+    {
+        // Render frontend
+        $this->addCss('/plugins/csatar/forms/assets/css/storm-select2.css');
+        $this->addCss('/plugins/csatar/forms/assets/css/storm.css');
+        $this->addJs('/modules/system/assets/ui/storm-min.js');
+        $this->addJs('/plugins/csatar/forms/assets/vendor/dropzone/dropzone.js');
+        $this->addJs('/plugins/csatar/forms/assets/js/uploader.js');
+        $this->addJs('/plugins/csatar/forms/assets/js/positionValidationTags.js');
+        $this->addJs('/plugins/csatar/forms/assets/js/addCheckboxClass.js');
     }
 
     private function isObligatory(string $attribute): bool
