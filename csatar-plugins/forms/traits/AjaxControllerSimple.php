@@ -553,7 +553,7 @@ trait AjaxControllerSimple {
             $data['extra_fields'] = json_encode($extraFields);
         }
 
-        $data = $this->resolveBelongsToRelations($record, $data);
+        $data   = $this->resolveBelongsToRelations($record, $data);
         $record = $this->resolveBelongsToManyRelations($record, $data);
 
         // save the data
@@ -1466,7 +1466,7 @@ trait AjaxControllerSimple {
             foreach ($extraFields as $key => $extraField) {
                 if ($extraField['id'] == $extraFieldValue['id']) {
                     $extraField[$key]['required'] = $extraFieldValue['required'];
-                    $found                        = true;
+                    $found = true;
                     break;
                 }
             }
@@ -1489,7 +1489,7 @@ trait AjaxControllerSimple {
     {
         foreach ($extraFields as $extraField) {
             $dynamicFieldModelId = $extraField['dynamicFieldModelId'] ?? '';
-            $id                  = 'extra_fields_' . $extraField['id'] . '_' . $dynamicFieldModelId;
+            $id = 'extra_fields_' . $extraField['id'] . '_' . $dynamicFieldModelId;
             $attributeNames[$id] = $extraField['label'];
             $rules[$id]          = 'max:500';
             if ($extraField['required'] == 1) {
@@ -1548,7 +1548,7 @@ trait AjaxControllerSimple {
         if (isset($extraFields)) {
             foreach ($extraFields as &$extraField) {
                 $dynamicFieldModelId = $extraField['dynamicFieldModelId'] ?? '';
-                $id                  = 'extra_fields_' . $extraField['id'] . '_' . $dynamicFieldModelId;
+                $id = 'extra_fields_' . $extraField['id'] . '_' . $dynamicFieldModelId;
                 $extraField['value'] = $data[$id];
                 unset($data[$id]);
             }
@@ -1604,7 +1604,7 @@ trait AjaxControllerSimple {
                 $relatedModel = $definition[0];
                 if (is_array($data[$relationName])) {
                     foreach ($data[$relationName] as $recordToAttachId) {
-                        $deferred               = new DeferredBinding();
+                        $deferred = new DeferredBinding();
                         $deferred->master_type  = get_class($record);
                         $deferred->master_field = $relationName;
                         $deferred->slave_type   = $relatedModel;
@@ -1657,7 +1657,7 @@ trait AjaxControllerSimple {
             }
 
             if (isset($model::$relatedModelNameForFormBuilder) && isset($model::$relatedFieldForFormBuilder)) {
-                $tmp                                          = $defRecord['pivot_data'][$model::$relatedFieldForFormBuilder];
+                $tmp = $defRecord['pivot_data'][$model::$relatedFieldForFormBuilder];
                 $model->{$model::$relatedFieldForFormBuilder} = ($model::$relatedModelNameForFormBuilder)::find($tmp);
             }
 
@@ -1690,7 +1690,7 @@ trait AjaxControllerSimple {
                 $this->getConfig($record->belongsToMany[$relationName][0], 'fieldsPivot.yaml');
             $attributeNames = [];
             foreach ($pivotConfig->fields as $key => $value) {
-                $key                  = str_replace(']', '', str_replace('pivot[', '', $key));
+                $key = str_replace(']', '', str_replace('pivot[', '', $key));
                 $attributeNames[$key] = Lang::get($value['label']);
             }
 
@@ -1786,7 +1786,7 @@ trait AjaxControllerSimple {
         // set the appropriate field array for each of the cards
         foreach ($fieldsToPass as $key => $fields) {
             if ($key == $mainCardVariablesToPass['name']) {
-                $titleFields                               = [];
+                $titleFields = [];
                 $mainCardVariablesToPass['subtitleFields'] = [];
                 $mainCardVariablesToPass['fields']         = [];
 
@@ -1867,7 +1867,7 @@ trait AjaxControllerSimple {
     public function retrieveTheValueForTheField($key, $widget, $field, $mainCardVariablesToPass): array
     {
         // retrieve the value for the field
-        $value = '';
+        $value    = '';
         $continue = false;
 
         if (is_object($widget->model->{$key}) && array_key_exists('nameFrom', $field) && isset($widget->model->{$key}->{$field['nameFrom']})) { // relation fields
@@ -1887,7 +1887,7 @@ trait AjaxControllerSimple {
         } else if ($field['type'] == 'checkbox') { // bool fields
             $value = $widget->model->{$key} == 1 ? Lang::get('csatar.csatar::lang.plugin.admin.general.yes') : Lang::get('csatar.csatar::lang.plugin.admin.general.no');
         } else if ($field['type'] == 'fileupload' && $field['mode'] == 'image') { // images
-            $value                                  = $widget->model->{$key}->getPath();
+            $value = $widget->model->{$key}->getPath();
             $mainCardVariablesToPass['customImage'] = true;
         } else if ($field['type'] == 'custom') { // custom field type, which permits to list title-value pairs in the descriptionList part of the mainCard
             $value = $widget->model->{$key};
