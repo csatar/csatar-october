@@ -193,10 +193,21 @@ class Plugin extends PluginBase
                     \Csatar\Csatar\Models\Scout::class
                 ];
 
+                $model->hasMany['historyRecords'] = [
+                    \Csatar\Csatar\Models\History::class,
+                    'key' => 'fe_user_id',
+                ];
+
                 $model->attributeNames = [
                     'password'              => Lang::get('csatar.csatar::lang.plugin.admin.general.password'),
                     'password_confirmation' => Lang::get('csatar.csatar::lang.plugin.admin.general.password_confirmation'),
                 ];
+
+                $model->bindEvent('model.beforeDelete', function () use ($model) {
+                    if (isset($model->scout) || $model->historyRecords->isNotEmpty()) {
+                        throw new ApplicationException(e(trans('csatar.csatar::lang.plugin.admin.general.canNotDeleteUser')));
+                    }
+                });
 
             });
         }

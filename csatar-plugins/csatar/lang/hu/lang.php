@@ -59,6 +59,7 @@ return [
                 'googleCalendarId' => 'Google naptár azonosító',
                 'specialWorkplanAgeGroupId' => 'A speciális munkaterv korosztálya',
                 'back' => 'Vissza',
+                'canNotDeleteUser' => 'Nem lehet törölni olyan felhasználót, amelyikhez cserkész tartozik vagy vannak hozzá kapcsolódó előzmények! Kérjük, helyette deaktiválja a felhasználót.',
             ],
             'history' => [
                 'histories' => 'Előzmények',
