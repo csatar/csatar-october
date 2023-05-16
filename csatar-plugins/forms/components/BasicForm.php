@@ -350,7 +350,6 @@ class BasicForm extends ComponentBase  {
         }
 
         if (!$record) {
-            // TODO handle trashed records
             return null;
         }
 

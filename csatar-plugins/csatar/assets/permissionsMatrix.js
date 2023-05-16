@@ -2,11 +2,11 @@ $(document).ready(function () {
     updateValuesFromSession();
 });
 
-$(document).on('ajaxUpdate', function (event, context) {
+$(document).on('ajaxUpdate', function () {
     updateValuesFromSession();
 })
 
-$(document).on('edit::onPaginate', function (event, context) {
+$(document).on('edit::onPaginate', function () {
     updateValuesFromSession();
 })
 

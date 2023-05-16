@@ -7,11 +7,11 @@ $(document).ready(function() {
         }
     });
 
-    $('.searchButton').on('click', function(event){
+    $('.searchButton').on('click', function(){
         addKeywordCheckbox($('#' + $(this).data('input-id')));
     });
 
-    $('#sort').on('change', function(event){
+    $('#sort').on('change', function(){
         let selectedOption = $(this).find('option:selected');
         let sortColumn = selectedOption.data('column');
         let sortDirection = selectedOption.data('direction');
@@ -115,12 +115,4 @@ function removeAllFilters(componentAlias){
         $(this).prop( "checked", false );
     });
     filterSortPaginate(componentAlias);
-}
-
-function collapseOtherFilters(currentFilterId){
-    $('.collapsable-filter').each(function(){
-        if ($(this).attr('id') != currentFilterId) {
-            $(this).collapse('hide');
-        }
-    });
 }

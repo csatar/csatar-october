@@ -58,7 +58,6 @@ hr {
 
 table, div.table {
     width:100%;
-    table-layout: fixed;
     overflow-wrap: break-word;
     border-collapse: separate !important;
     border-spacing: 4px;
