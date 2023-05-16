@@ -1320,6 +1320,7 @@ trait AjaxControllerSimple {
                 $records[] = $record;
             }
         }
+
         return array($defRecords, $records);
     }
 
@@ -1448,6 +1449,7 @@ trait AjaxControllerSimple {
                 $attributeNames[$key] = Lang::get($value['label']);
             }
         }
+
         return $attributeNames;
     }
 
@@ -1473,6 +1475,7 @@ trait AjaxControllerSimple {
                 $extraFields[] = $extraFieldValue;
             }
         }
+
         return $extraFields;
     }
 
@@ -1493,6 +1496,7 @@ trait AjaxControllerSimple {
                 $rules[$id] .= '|required';
             }
         }
+
         return [$attributeNames, $rules];
     }
 
@@ -1549,6 +1553,7 @@ trait AjaxControllerSimple {
                 unset($data[$id]);
             }
         }
+
         return array($extraFields, $data);
     }
 
@@ -1573,6 +1578,7 @@ trait AjaxControllerSimple {
                 $data[$key] = (int)$data[$name];
             }
         }
+
         return $data;
     }
 
@@ -1611,6 +1617,7 @@ trait AjaxControllerSimple {
                 $record->$relationName()->sync($data[$relationName]);
             }
         }
+
         return $record;
     }
 
@@ -1764,6 +1771,7 @@ trait AjaxControllerSimple {
                 $fieldsToPass[$field['formBuilder']['card']][] = $newField;
             }
         }
+
         return array($mainCardVariablesToPass, $sheetCardVariablesToPass, $fieldsToPass);
     }
 
@@ -1814,6 +1822,7 @@ trait AjaxControllerSimple {
                 $sheetCardVariablesToPass[$key]['fields'] = $fields;
             }
         }
+
         return array($mainCardVariablesToPass, $sheetCardVariablesToPass);
     }
 
@@ -1844,6 +1853,7 @@ trait AjaxControllerSimple {
                 $sheetCardVariablesToPass[$key]['order'] = $field['formBuilder']['order'];
             }
         }
+
         return array($mainCardVariablesToPass, $sheetCardVariablesToPass);
     }
 
@@ -1886,6 +1896,7 @@ trait AjaxControllerSimple {
         } else {
             $continue = true;
         }
+
         return array($value, $mainCardVariablesToPass, $continue);
     }
 
