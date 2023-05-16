@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CodeFactor issue fix: maintainability
 - CS-583 - CodeFactor issue fix: reduced complexity in form builder methods
 - CS-570 - Improved pagination in record list component, fixed row height in record list component
 - CS-413 - Changed every "Scout systemdata" and "Knowledge repository parameter" model's base model to ModelExtended model

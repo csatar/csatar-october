@@ -973,7 +973,7 @@ class Scout extends OrganizationBase
 
         if (!empty($sessionRecord) && $sessionRecordForAssociation = $sessionRecord->where('associationId', $associationId)->first()) {
             if ($sessionRecordForAssociation['savedToSession'] >= $savedAfterDate) {
-                // TODO: implement touch scout when mandate is added or removed CS-288
+                // implement touch scout when mandate is added or removed CS-288
                 return new Collection($sessionRecordForAssociation['mandates']);
             }
         }
@@ -1013,7 +1013,7 @@ class Scout extends OrganizationBase
 
         if (!empty($sessionRecord) && $sessionRecordForAssociation = $sessionRecord->where('associationId', $associationId)->first()) {
             if ($sessionRecordForAssociation['savedToSession'] >= $savedAfterDate) {
-                // TODO: implement touch scout when mandate is added or removed CS-288
+                // implement touch scout when mandate is added or removed CS-288
                 return $sessionRecordForAssociation['mandateTypeIds'];
             }
         }
