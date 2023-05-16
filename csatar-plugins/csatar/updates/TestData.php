@@ -433,7 +433,7 @@ class TestData extends Seeder
                 return;
             }
 
-            $model          = new $permissionBasedModel();
+            $model = new $permissionBasedModel();
             list($fields, $relationArrays) = ModelExtended::getFieldsAndRelationArrays($model);
 
             foreach ($relationArrays as $relationArray) {
@@ -511,7 +511,7 @@ class TestData extends Seeder
             }
 
             foreach ($permissionBasedModels as $permissionBasedModel) {
-                $model          = new $permissionBasedModel();
+                $model = new $permissionBasedModel();
                 list($fields, $relationArrays) = ModelExtended::getFieldsAndRelationArrays($model);
 
                 foreach ($relationArrays as $relationArray) {

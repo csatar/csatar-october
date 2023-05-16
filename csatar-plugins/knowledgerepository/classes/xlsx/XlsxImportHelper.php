@@ -17,7 +17,7 @@ trait XlsxImportHelper {
         })->get();
         $unmatched = array_diff($searchFor, array_map('strtolower', $ids->pluck($columnName)->toArray()));
         if (!empty($unmatched) && !$createIfNotFound) {
-            $rowNumber = $row ? $row->getRowIndex() : $this->getRowNumber();
+            $rowNumber           = $row ? $row->getRowIndex() : $this->getRowNumber();
             $modelNameForLangKey = (new \ReflectionClass($modelName))->getShortName();
             $this->errors[$rowNumber][] = Lang::get('csatar.knowledgerepository::lang.plugin.admin.messages.cannotFind' . $modelNameForLangKey) . implode(', ', $unmatched);
         }

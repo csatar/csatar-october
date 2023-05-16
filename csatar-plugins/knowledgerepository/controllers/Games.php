@@ -42,7 +42,7 @@ class Games extends Controller
     }
 
     public function onGetScoutOptions() {
-        $searchTerm   = post('term');
+        $searchTerm = post('term');
         return Scout::getScoutOptionsForSelect($searchTerm);
     }
 

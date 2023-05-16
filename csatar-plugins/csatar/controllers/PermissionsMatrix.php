@@ -217,7 +217,7 @@ class PermissionsMatrix extends Controller
                         return;
                     }
 
-                    $model          = new $permissionBasedModel();
+                    $model = new $permissionBasedModel();
                     list($fields, $relationArrays) = ModelExtended::getFieldsAndRelationArrays($model);
 
                     foreach ($relationArrays as $relationArrayName) {

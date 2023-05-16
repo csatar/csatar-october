@@ -57,7 +57,7 @@ class AccidentLogRigthsProvider
             return $recordGeneralRights;
         }
 
-        $rights         = $recordGeneralRights;
+        $rights = $recordGeneralRights;
         list($fields, $relationArrays) = ModelExtended::getFieldsAndRelationArrays($record);
 
         foreach ($relationArrays as $relationArray) {
