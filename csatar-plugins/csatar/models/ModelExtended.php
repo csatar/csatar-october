@@ -24,7 +24,7 @@ class ModelExtended extends Model
         $fields         = $model->fillable ?? [];
         $fields         = array_merge($fields, $model->additionalFieldsForPermissionMatrix ?? []);
         $relationArrays = Constants::AVAILABLE_RELATION_TYPES;
-        return array($fields, $relationArrays);
+        return [$fields, $relationArrays];
     }
 
 }
