@@ -58,6 +58,7 @@ return [
                 'clearFilters' => 'Szűrők törlése',
                 'googleCalendarId' => 'Google naptár azonosító',
                 'back' => 'Vissza',
+                'canNotDeleteUser' => 'Nem lehet törölni olyan felhasználót, amelyikhez cserkész tartozik vagy vannak hozzá kapcsolódó előzmények! Kérjük, helyette deaktiválja a felhasználót.',
             ],
             'history' => [
                 'histories' => 'Előzmények',
