@@ -1530,7 +1530,7 @@ trait AjaxControllerSimple {
         }
 
         if ($validation->fails() || !empty($specialValidationExceptions)) {
-            foreach ((array)$specialValidationExceptions as $key => $value) {
+            foreach ((array) $specialValidationExceptions as $key => $value) {
                 $validation->messages()->add('special_validation_exception_' . $key, $value);
             }
 
@@ -1575,7 +1575,7 @@ trait AjaxControllerSimple {
                 $data[$key] = $data[$name];
                 settype($data[$key], $definition['keyType']);
             } else {
-                $data[$key] = (int)$data[$name];
+                $data[$key] = (int) $data[$name];
             }
         }
 
