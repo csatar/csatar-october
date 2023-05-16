@@ -1321,7 +1321,7 @@ trait AjaxControllerSimple {
             }
         }
 
-        return array($defRecords, $records);
+        return [$defRecords, $records];
     }
 
     /**
@@ -1554,7 +1554,7 @@ trait AjaxControllerSimple {
             }
         }
 
-        return array($extraFields, $data);
+        return [$extraFields, $data];
     }
 
     /**
@@ -1772,7 +1772,7 @@ trait AjaxControllerSimple {
             }
         }
 
-        return array($mainCardVariablesToPass, $sheetCardVariablesToPass, $fieldsToPass);
+        return [$mainCardVariablesToPass, $sheetCardVariablesToPass, $fieldsToPass];
     }
 
     /**
@@ -1823,7 +1823,7 @@ trait AjaxControllerSimple {
             }
         }
 
-        return array($mainCardVariablesToPass, $sheetCardVariablesToPass);
+        return [$mainCardVariablesToPass, $sheetCardVariablesToPass];
     }
 
     /**
@@ -1854,7 +1854,7 @@ trait AjaxControllerSimple {
             }
         }
 
-        return array($mainCardVariablesToPass, $sheetCardVariablesToPass);
+        return [$mainCardVariablesToPass, $sheetCardVariablesToPass];
     }
 
     /**
@@ -1897,7 +1897,7 @@ trait AjaxControllerSimple {
             $continue = true;
         }
 
-        return array($value, $mainCardVariablesToPass, $continue);
+        return [$value, $mainCardVariablesToPass, $continue];
     }
 
 }
