@@ -1428,7 +1428,7 @@ class Scout extends OrganizationBase
     }
 
     /**
-     * @param $fields
+     * @param  $fields
      * @return void
      */
     public function handleTroopDropdown(&$fields)
@@ -1447,8 +1447,8 @@ class Scout extends OrganizationBase
     }
 
     /**
-     * @param $fields
-     * @param $team_id
+     * @param  $fields
+     * @param  $team_id
      * @return void
      */
     public function handlePatrolDopdown(&$fields): void
@@ -1472,7 +1472,7 @@ class Scout extends OrganizationBase
     }
 
     /**
-     * @param $fields
+     * @param  $fields
      * @return void
      */
     public function handleLegalRelationshipDropdown(&$fields): void
@@ -1484,7 +1484,7 @@ class Scout extends OrganizationBase
     }
 
     /**
-     * @param $fields
+     * @param  $fields
      * @return void
      */
     public function handlePersonalIdentificationNumberField(&$fields): void
@@ -1503,7 +1503,7 @@ class Scout extends OrganizationBase
     }
 
     /**
-     * @param $fields
+     * @param  $fields
      * @return void
      */
     public function handleAddressFields(&$fields): void
@@ -1522,7 +1522,7 @@ class Scout extends OrganizationBase
     }
 
     /**
-     * @param $fields
+     * @param  $fields
      * @return void
      */
     public function handleCitizenshipField(&$fields): void
@@ -1550,4 +1550,5 @@ class Scout extends OrganizationBase
             ],
         ];
     }
+
 }

@@ -7,6 +7,7 @@ use Csatar\Csatar\Models\PermissionBasedAccess;
 
 class PatrolWorkPlanBase extends PermissionBasedAccess
 {
+
     public function getMandates($mandateTypeId) {
         $date = $this->created_at ?? date('Y-m-d');
 
@@ -42,4 +43,5 @@ class PatrolWorkPlanBase extends PermissionBasedAccess
 
         return implode(', ', $deputyPatrolLeaders);
     }
+
 }
