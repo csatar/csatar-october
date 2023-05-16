@@ -1,6 +1,7 @@
 <?php
 namespace Csatar\Csatar\Updates;
 
+use Csatar\Csatar\Classes\Constants;
 use RainLab\Builder\Classes\ComponentHelper;
 use Seeder;
 use Csatar\Csatar\Models\Association;
@@ -9,6 +10,7 @@ use Csatar\Csatar\Models\Patrol;
 use Csatar\Csatar\Models\Team;
 use Csatar\Csatar\Models\Troop;
 use Csatar\Csatar\Models\MandateType;
+use Csatar\Csatar\Models\ModelExtended;
 use Csatar\Csatar\Models\PermissionBasedAccess;
 use Db;
 
@@ -423,7 +425,7 @@ class TestData extends Seeder
             ->first()->id; // get scout mandate type id
 
         if (empty($permissionBasedModels) || empty($scoutMandateTypeId)) {
-return;
+            return;
         }
 
         foreach ($permissionBasedModels as $permissionBasedModel) {
@@ -432,10 +434,7 @@ return;
             }
 
             $model          = new $permissionBasedModel();
-            $fields         = $model->fillable ?? [];
-            $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'hasOne', 'morphTo', 'morphOne',
-                'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'
-            ];
+            list($fields, $relationArrays) = ModelExtended::getFieldsAndRelationArrays($model);
 
             foreach ($relationArrays as $relationArray) {
                 $fields = array_merge($fields, array_keys($model->$relationArray));
@@ -513,10 +512,7 @@ return;
 
             foreach ($permissionBasedModels as $permissionBasedModel) {
                 $model          = new $permissionBasedModel();
-                $fields         = $model->fillable ?? [];
-                $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'hasOne', 'morphTo', 'morphOne',
-                    'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'
-                ];
+                list($fields, $relationArrays) = ModelExtended::getFieldsAndRelationArrays($model);
 
                 foreach ($relationArrays as $relationArray) {
                     $fields = array_merge($fields, array_keys($model->$relationArray));

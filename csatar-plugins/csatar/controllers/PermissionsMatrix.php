@@ -8,6 +8,7 @@ use Csatar\Csatar\Classes\Constants;
 use Csatar\Csatar\Models\History;
 use Csatar\Csatar\Models\MandatePermission;
 use Csatar\Csatar\Models\MandateType;
+use Csatar\Csatar\Models\ModelExtended;
 use Csatar\Csatar\Models\PermissionBasedAccess;
 use Db;
 use File;
@@ -217,9 +218,7 @@ class PermissionsMatrix extends Controller
                     }
 
                     $model          = new $permissionBasedModel();
-                    $fields         = $model->fillable ?? [];
-                    $fields         = array_merge($fields, $model->additionalFieldsForPermissionMatrix ?? []);
-                    $relationArrays = Constants::AVAILABLE_RELATION_TYPES;
+                    list($fields, $relationArrays) = ModelExtended::getFieldsAndRelationArrays($model);
 
                     foreach ($relationArrays as $relationArrayName) {
                         $relationArray = $model->$relationArrayName;

@@ -34,24 +34,27 @@ return [
                 ],
                 'groupCRUD' => [
                     'groupName'                 => 'CRUD paraméterek',
-                    'recordKeyParam'            => 'Record key link param. name',
-                    'recordKeyParamDescr'       => 'The URL parameter and record attribute name that is used to identify to record, for example "/teams/:id". Here "id" is the parameter name and
-                        "/teams/123" will display team with id 123, based on record\'s "id" attribute. If you set "/teams/:slug" component will try to find the record by slug.' ,
-                    'readOnly'                  => 'Read only',
-                    'readOnlyDescr'             => 'Check this box if page doesn\'t need to handle record creation/update/deletion. If checked, parameters below are optional.',
-                    'createRecordKeyword'       => 'Create model keyword.',
-                    'createRecordKeywordDescr'  => 'Specify a keyword that indicates new record creation. The default keyword is "create", for example "/teams/create" will open a blank for to create a new team.',
-                    'recordActionParam'         => 'Action param. name',
-                    'recordlActionParamDescr'   => 'The URL parameter that helps you Edit or Delete a record. For example "/teams/:id/:action?".
-                        Here "action" is the parameter name that is used to specify the action we want: "/teams/:id/update" or "/teams/:id/delete"',
-                    'actionUpdateKeyword'       => 'Update action keyword',
-                    'actionUpdateKeywordDescr'  => 'Specify a keyword for editing record. The default keyword is "update", for example "/teams/123/update" will open form for editing team with id 123.',
-                    'actionDeleteKeyword'       => 'Delete action keyword',
-                    'actionDeleteKeywordDescr'  => 'Specify a keyword for deleting record. The default keyword is "delete", for example "/teams/123/delete" will team with id 123.',
+                    'recordKeyParam'            => 'Model kulcs paraméter neve',
+                    'recordKeyParamDescr'       => 'A URL paraméter és a model attríbutum neve, ami alapján be lehet azonosítani a modelt, pl. "/csapatok/:id". 
+                        Itt az "id" a paraméter neve és a "csapatok/123" a 123-as azonosítóval rendelkező csapatot fogja visszatéríteni',
+                    'readOnly'                  => 'Csak olvasás',
+                    'readOnlyDescr'             => 'Jelöld be ezt a négyzetet, ha az oldal nem foglalkozik rekord létrehozással/szerkesztéssel/törléssel. Ha be van jelölve, akkor az alábbi paraméterek opcionálisak.',
+                    'createRecordKeyword'       => 'Új rekord kulcsszó',
+                    'createRecordKeywordDescr'  => 'Add meg a kulcsszót, ami az új rekord létrehozását jelzi. Az alapértelmezett kulcsszó a 
+                        "create", pl. "/csapatok/create" egy üres űrlapot fog megnyitni egy új csapat létrehozásához.',
+                    'recordActionParam'         => 'Akció URL paraméter neve',
+                    'recordlActionParamDescr'   => 'A URL paraméter, ami lehetővé teszi a rekord szerkesztését vagy törlését. Például "/csapatok/:id/:action?".
+                        Itt az "action" a paraméter neve, ami alapján a szerkesztés vagy törlés akciót fogja végrehajtani: "/csapatok/:id/update" vagy "/csapatok/:id/delete"',
+                    'actionUpdateKeyword'       => 'Szerkesztési akció kulcsszó',
+                    'actionUpdateKeywordDescr'  => 'Add meg a kulcsszót, ami a rekord szerkesztését jelzi. Az alapértelmezett kulcsszó a 
+                        "update", pl. "/csapatok/123/update" egy űrlapot fog megnyitni a 123-as azonosítójú csapat szerkesztéséhez.',
+                    'actionDeleteKeyword'       => 'Törlési akció kulcsszó',
+                    'actionDeleteKeywordDescr'  => 'Add meg a kulcsszót, ami a rekord törlését jelzi. Az alapértelmezett kulcsszó a 
+                        "delete", pl. "/csapatok/123/delete" törli a 123-as azonosítójú csapatot.',
                 ],
                 'propertiesValidation' => [
-                    'formNotSelected'       => "Please select a form from the dropdown list. If the form you're looking for is not there, you need to create it in the Forms menu.",
-                    'recordKeyNotSelected'  => "Record key parameter is not specified."
+                    'formNotSelected'       => "Válassz ki egy űrlapot a legördülő listából. Ha az űrlap, amit keresel nincs a listában, akkor létre kell hoznod a Űrlapok menüben.",
+                    'recordKeyNotSelected'  => "A rekord kulcs paraméter nincs megadva.",
                 ]
             ],
             'select'      => 'Kiválasztás',

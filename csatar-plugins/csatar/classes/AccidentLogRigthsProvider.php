@@ -3,6 +3,7 @@
 namespace Csatar\Csatar\Classes;
 
 use Csatar\Csatar\Models\AccidentLogRecord;
+use Csatar\Csatar\Models\ModelExtended;
 use Model;
 use RainLab\User\Models\User;
 
@@ -57,10 +58,7 @@ class AccidentLogRigthsProvider
         }
 
         $rights         = $recordGeneralRights;
-        $fields         = $record->fillable ?? [];
-        $relationArrays = ['belongsTo', 'belongsToMany', 'hasMany', 'attachOne', 'attachMany', 'hasOne', 'morphTo', 'morphOne',
-            'morphMany', 'morphToMany', 'morphedByMany', 'attachMany', 'hasManyThrough', 'hasOneThrough'
-        ];
+        list($fields, $relationArrays) = ModelExtended::getFieldsAndRelationArrays($record);
 
         foreach ($relationArrays as $relationArray) {
             $fields = array_merge($fields, array_keys($record->$relationArray));

@@ -1532,4 +1532,22 @@ class Scout extends OrganizationBase
         }
     }
 
+    public static function getScoutOptionsForSelect(string $searchTerm): array
+    {
+        $queryResults = Db::table('csatar_csatar_scouts')->whereRaw("CONCAT(family_name, ' ', given_name, ' ', ecset_code) like ?", ['%' . $searchTerm . '%'])->paginate(15);
+        $results      = [];
+        foreach ($queryResults as $result) {
+            $results[] = [
+                'id' => $result->ecset_code,
+                'text' => $result->family_name . ' ' . $result->given_name . ' - ' . $result->ecset_code,
+            ];
+        }
+
+        return [
+            'results' => $results,
+            'pagination' => [
+                'more' => true
+            ],
+        ];
+    }
 }
