@@ -266,7 +266,14 @@ class Association extends OrganizationBase
             return [];
         }
 
-        return AgeGroup::where('association_id', $this->id)->lists('name', 'id');
+        return AgeGroup::where('association_id', $this->id)
+            ->get()
+            ->mapWithKeys(function ($association) {
+                return [
+                    $association->id => $association->name,
+                ];
+            })
+            ->prepend(e(trans('csatar.csatar::lang.plugin.admin.general.select')), 'null');
     }
 
 }
