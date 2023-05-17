@@ -118,7 +118,7 @@ class Song extends PermissionBasedAccess
     ];
 
     public $belongsToMany = [
-        'agegroups' => [
+        'age_groups' => [
             '\Csatar\Csatar\Models\AgeGroup',
             'table' => 'csatar_knowledgerepository_age_group_song',
             'label' => 'csatar.csatar::lang.plugin.admin.ageGroups.ageGroups',

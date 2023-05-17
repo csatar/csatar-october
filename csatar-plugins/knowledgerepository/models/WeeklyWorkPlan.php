@@ -93,9 +93,10 @@ class WeeklyWorkPlan extends PatrolWorkPlanBase
      */
     public $rules = [
         'patrol' => 'required',
+        'start_date_time' => 'required',
         'ovamtvWorkPlan' => 'required',
-        'new_material_id' => 'required',
-        'old_material_id' => 'required',
+        'newMaterials' => 'required',
+        'oldMaterials' => 'required',
     ];
 
     public $fillable = [
@@ -136,16 +137,6 @@ class WeeklyWorkPlan extends PatrolWorkPlanBase
         ],
         'creator' => ['Csatar\Csatar\Models\Scout', 'key' => 'creator_csatar_code', 'otherKey' => 'ecset_code'],
         'updater' => ['Csatar\Csatar\Models\Scout', 'key' => 'creator_csatar_code', 'otherKey' => 'ecset_code'],
-        'newMaterial' => [
-            'Csatar\KnowledgeRepository\Models\TrialSystem',
-            'label' => 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.newMaterial',
-            'key' => 'new_material_id',
-        ],
-        'oldMaterial' => [
-            'Csatar\KnowledgeRepository\Models\TrialSystem',
-            'label' => 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.oldMaterial',
-            'key' => 'old_material_id',
-        ],
     ];
 
     public $belongsToMany = [
@@ -168,7 +159,21 @@ class WeeklyWorkPlan extends PatrolWorkPlanBase
             'table' => 'csatar_knowledgerepository_weekly_work_plan_scout',
             'label' => 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.scouts',
             'scope' => [self::class, 'filterScoutsByPatrolId']
-        ]
+        ],
+        'newMaterials' => [
+            'Csatar\KnowledgeRepository\Models\TrialSystem',
+            'label' => 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.newMaterial',
+            'table' => 'csatar_knowledgerepository_weekly_work_plan_material',
+            'key' => 'weekly_work_plan_id',
+            'otherKey' => 'new_material_id',
+        ],
+        'oldMaterials' => [
+            'Csatar\KnowledgeRepository\Models\TrialSystem',
+            'label' => 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.oldMaterial',
+            'table' => 'csatar_knowledgerepository_weekly_work_plan_material',
+            'key' => 'weekly_work_plan_id',
+            'otherKey' => 'old_material_id',
+        ],
     ];
 
     public static function filterScoutsByPatrolId($query, $related, $parent)
@@ -450,7 +455,7 @@ class WeeklyWorkPlan extends PatrolWorkPlanBase
         return $options;
     }
 
-    public function getNewMaterialIdOptions() {
+    public function getNewMaterialsOptions() {
         if (empty($this->ovamtv_work_plan_id)) {
             return [];
         }
@@ -467,7 +472,7 @@ class WeeklyWorkPlan extends PatrolWorkPlanBase
 
     }
 
-    public function getOldMaterialIdOptions() {
+    public function getOldMaterialsOptions() {
         if (empty($this->ovamtv_work_plan_id)) {
             return [];
         }
@@ -536,11 +541,22 @@ class WeeklyWorkPlan extends PatrolWorkPlanBase
     }
 
     public function getNewMaterialEffectiveKnowledgeAttribute() {
-        return $this->newMaterial->effective_knowledge ?? '';
+        return $this->getEffectiveKnowledgeConcatenated($this->newMaterials); //TODO
     }
 
     public function getOldMaterialEffectiveKnowledgeAttribute() {
-        return $this->oldMaterial->effective_knowledge ?? '';
+        return $this->getEffectiveKnowledgeConcatenated($this->oldMaterials);  //TODO
+    }
+
+    public function getEffectiveKnowledgeConcatenated($trialSystems) {
+        $effectiveKnowledge = '';
+
+        foreach ($trialSystems as $trialSystem) {
+            $effectiveKnowledge .= '<h6>' . $trialSystem->name . '</h6>';
+            $effectiveKnowledge .= $trialSystem->pivot->effective_knowledge . "<br>";
+        }
+
+        return $effectiveKnowledge;
     }
 
     public function getAttachmentsAttribute()

@@ -162,3 +162,6 @@
 1.0.55:
     - 'Created table csatar_knowledgerepository_weekly_work_plan_scout'
     - builder_table_create_csatar_knowledgerepository_weekly_work_plan_scout.php
+1.0.56:
+    - 'Created table csatar_knowledgerepository_weekly_work_plan_material'
+    - builder_table_create_csatar_knowledgerepository_weekly_work_plan_material.php

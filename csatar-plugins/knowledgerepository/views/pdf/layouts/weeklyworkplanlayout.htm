@@ -115,12 +115,22 @@ name = "Weekly Work Plan layout"
 
     <table class="no-border">
         <tr>
-            <td>{{ 'Új anyag'|_ }}: </td><td> {{ weeklyWorkPlan.newMaterial.name }}</td>
+            <td>{{ 'Új anyag'|_ }}: </td>
+            <td>
+                {% for material in weeklyWorkPlan.newMaterials %}
+                    {{ material.name }}{% if not loop.last %}, {% endif %}
+                {% endfor %}
+            </td>
         </tr>
         <tr>
             <td colspan="2"> {{ weeklyWorkPlan.newMaterial.effective_knowledge|raw }}</td>
         <tr>
-            <td>{{ 'Régi anyag'|_ }}: </td><td> {{ weeklyWorkPlan.oldMaterial.name }}</td>
+            <td>{{ 'Régi anyag'|_ }}: </td>
+            <td>
+                {% for material in weeklyWorkPlan.oldMaterials %}
+                    {{ material.name }}{% if not loop.last %}<br> {% endif %}
+                {% endfor %}
+            </td>
         </tr>
         <tr>
             <td colspan="2"> {{ weeklyWorkPlan.oldMaterial.effective_knowledge|raw }}</td>

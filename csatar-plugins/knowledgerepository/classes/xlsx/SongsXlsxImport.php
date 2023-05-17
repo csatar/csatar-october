@@ -101,7 +101,7 @@ class SongsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHeadingRo
 
         $pivotRelationIds = [];
 
-        $pivotRelationIds['agegroups'] = $this->getModelIds($row, $cellsArray['korosztaly'] ?? '', AgeGroup::class, 'name', 'association_id', $this->associationId) ?? null;
+        $pivotRelationIds['age_groups'] = $this->getModelIds($row, $cellsArray['korosztaly'] ?? '', AgeGroup::class, 'name', 'association_id', $this->associationId) ?? null;
 
         $pivotRelationIds['trial_systems'] = $this->getModelIds($row, $cellsArray['probarendszer'] ?? '', TrialSystem::class, 'name', null, null) ?? null;
 
