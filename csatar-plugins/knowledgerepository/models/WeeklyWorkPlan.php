@@ -509,7 +509,10 @@ class WeeklyWorkPlan extends PatrolWorkPlanBase
         $tools = [];
 
         foreach ($this->activityTypes as $activityType) {
-            $toolsArray = $activityType->pivot->programmable ? $activityType->pivot->programmable->tools->pluck('name')->toArray() : null;
+            if (isset($activityType->pivot->programmable->tools)) {
+                $toolsArray = $activityType->pivot->programmable->tools->pluck('name')->toArray();
+            }
+
             if (!empty($toolsArray)) {
                 $tools[] = $toolsArray;
             }

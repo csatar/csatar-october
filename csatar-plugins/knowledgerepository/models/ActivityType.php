@@ -65,6 +65,15 @@ class ActivityType extends Model
         } else {
             $fields->{'pivot[programmable_id]'}->required = true;
         }
+
+        if (empty($pivotData['sort_order']) && !isset($this->pivot['programmable_id'])) {
+            $fields->{'pivot[sort_order]'}->value = $this->getDefaultSortOrderValue();
+        }
+
+        if (!empty($pivotData['sort_order'])) {
+            $fields->{'pivot[sort_order]'}->value = $pivotData['sort_order'];
+        }
+
     }
 
     public function getProgrammableTypeOptions() {
@@ -132,6 +141,15 @@ class ActivityType extends Model
                 'oldMaterials',
             ])
             ->first();
+    }
+
+    public function getDefaultSortOrderValue() {
+        $weeklyWorkPlan = $this->getWeeklyWorkPlan();
+        if (empty($weeklyWorkPlan)) {
+            return;
+        }
+
+        return $weeklyWorkPlan->activityTypes->max('pivot.sort_order') + 1;;
     }
 
     public function getWeeklyWorkPlanTrialSystemIds() {
