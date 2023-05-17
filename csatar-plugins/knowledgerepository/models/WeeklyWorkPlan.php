@@ -541,11 +541,11 @@ class WeeklyWorkPlan extends PatrolWorkPlanBase
     }
 
     public function getNewMaterialEffectiveKnowledgeAttribute() {
-        return $this->getEffectiveKnowledgeConcatenated($this->newMaterials); //TODO
+        return $this->getEffectiveKnowledgeConcatenated($this->newMaterials);
     }
 
     public function getOldMaterialEffectiveKnowledgeAttribute() {
-        return $this->getEffectiveKnowledgeConcatenated($this->oldMaterials);  //TODO
+        return $this->getEffectiveKnowledgeConcatenated($this->oldMaterials);
     }
 
     public function getEffectiveKnowledgeConcatenated($trialSystems) {
