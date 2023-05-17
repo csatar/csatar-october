@@ -1428,7 +1428,7 @@ class Scout extends OrganizationBase
     }
 
     /**
-     * @param $fields
+     * @param  $fields
      * @return void
      */
     public function handleTroopDropdown(&$fields)
@@ -1447,8 +1447,8 @@ class Scout extends OrganizationBase
     }
 
     /**
-     * @param $fields
-     * @param $team_id
+     * @param  $fields
+     * @param  $team_id
      * @return void
      */
     public function handlePatrolDopdown(&$fields): void
@@ -1472,7 +1472,7 @@ class Scout extends OrganizationBase
     }
 
     /**
-     * @param $fields
+     * @param  $fields
      * @return void
      */
     public function handleLegalRelationshipDropdown(&$fields): void
@@ -1484,7 +1484,7 @@ class Scout extends OrganizationBase
     }
 
     /**
-     * @param $fields
+     * @param  $fields
      * @return void
      */
     public function handlePersonalIdentificationNumberField(&$fields): void
@@ -1503,7 +1503,7 @@ class Scout extends OrganizationBase
     }
 
     /**
-     * @param $fields
+     * @param  $fields
      * @return void
      */
     public function handleAddressFields(&$fields): void
@@ -1522,7 +1522,7 @@ class Scout extends OrganizationBase
     }
 
     /**
-     * @param $fields
+     * @param  $fields
      * @return void
      */
     public function handleCitizenshipField(&$fields): void
@@ -1530,6 +1530,25 @@ class Scout extends OrganizationBase
         if (isset($fields->citizenship_country) && empty($fields->citizenship_country->value)) {
             $fields->citizenship_country->value = Country::where('code', 'RO')->first()->id ?? null;
         }
+    }
+
+    public static function getScoutOptionsForSelect(string $searchTerm): array
+    {
+        $queryResults = Db::table('csatar_csatar_scouts')->whereRaw("CONCAT(family_name, ' ', given_name, ' ', ecset_code) like ?", ['%' . $searchTerm . '%'])->paginate(15);
+        $results      = [];
+        foreach ($queryResults as $result) {
+            $results[] = [
+                'id' => $result->ecset_code,
+                'text' => $result->family_name . ' ' . $result->given_name . ' - ' . $result->ecset_code,
+            ];
+        }
+
+        return [
+            'results' => $results,
+            'pagination' => [
+                'more' => true
+            ],
+        ];
     }
 
 }

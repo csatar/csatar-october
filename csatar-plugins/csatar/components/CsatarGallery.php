@@ -83,6 +83,60 @@ class CsatarGallery extends Gallery
         }
     }
 
+    /**
+     * @param $data
+     * @return void
+     */
+    public function validateData($data): void
+    {
+        $rules = [
+            'name'        => 'required|between:3,64',
+            'description' => 'max:255',
+            'image'       => 'nullable',
+            'images.*'    => 'mimes:jpeg,jpg,png',
+        ];
+
+        $customMessages = [
+            'name.required'   => Lang::get('csatar.csatar::lang.plugin.admin.gallery.rules.nameRequired'),
+            'name.between'    => Lang::get('csatar.csatar::lang.plugin.admin.gallery.rules.nameBetween'),
+            'description.max' => Lang::get('csatar.csatar::lang.plugin.admin.gallery.rules.descriptionMax')
+        ];
+
+        $validation = Validator::make(
+            $data,
+            $rules,
+            $customMessages
+        );
+
+        if ($validation->fails()) {
+            throw new ValidationException($validation);
+        }
+    }
+
+    /**
+     * @param $gallery
+     * @return void
+     */
+    public function addImagesToGallery(&$gallery): void
+    {
+        foreach (Input::file('images') as $file) {
+            $newFile       = new File();
+            $newFile->data = $file;
+            $newFile->save();
+
+            list($width, $height) = getimagesize($newFile->getLocalPath());
+
+            if ($width > 1920) {
+                $resizer = new Resizer();
+                $resizer::open($newFile->getLocalPath())
+                    ->resize(1920, null, ['mode' => 'auto'])
+                    ->save($newFile->getLocalPath());
+            }
+
+            $gallery->images()->add($newFile);
+        }
+    }
+
     protected function getGallery()
     {
         $gallery = GalleryModel::find($this->gallery_id);
@@ -128,28 +182,7 @@ class CsatarGallery extends Gallery
     {
         $data = Input::all();
 
-        $rules = [
-            'name'            => 'required|between:3,64',
-            'description'     => 'max:255',
-            'image'           => 'nullable',
-            'images.*'          => 'mimes:jpeg,jpg,png',
-        ];
-
-        $customMessages = [
-            'name.required' => Lang::get('csatar.csatar::lang.plugin.admin.gallery.rules.nameRequired'),
-            'name.between' => Lang::get('csatar.csatar::lang.plugin.admin.gallery.rules.nameBetween'),
-            'description.max'  => Lang::get('csatar.csatar::lang.plugin.admin.gallery.rules.descriptionMax')
-        ];
-
-        $validation = Validator::make(
-            $data,
-            $rules,
-            $customMessages
-        );
-
-        if ($validation->fails()) {
-            throw new ValidationException($validation);
-        }
+        $this->validateData($data);
 
         $gallery       = new GalleryModel();
         $gallery->name = post('name');
@@ -167,22 +200,7 @@ class CsatarGallery extends Gallery
 
         \Flash::success('A galéria sikeresen elkészült.');
 
-        foreach (Input::file('images') as $file) {
-            $newFile       = new File();
-            $newFile->data = $file;
-            $newFile->save();
-
-            list($width, $height) = getimagesize($newFile->getLocalPath());
-
-            if ($width > 1920) {
-                $resizer = new Resizer();
-                $resizer::open($newFile->getLocalPath())
-                    ->resize(1920, null, ['mode' => 'auto'])
-                    ->save($newFile->getLocalPath());
-            }
-
-            $gallery->images()->add($newFile);
-        }
+        $this->addImagesToGallery($gallery);
 
         $gallery->save();
 
@@ -202,28 +220,7 @@ class CsatarGallery extends Gallery
     {
         $data = Input::all();
 
-        $rules = [
-            'name'            => 'required|between:3,64',
-            'description'     => 'max:255',
-            'image'           => 'nullable',
-            'images.*'          => 'mimes:jpeg,jpg,png',
-        ];
-
-        $customMessages = [
-            'name.required' => Lang::get('csatar.csatar::lang.plugin.admin.gallery.rules.nameRequired'),
-            'name.between' => Lang::get('csatar.csatar::lang.plugin.admin.gallery.rules.nameBetween'),
-            'description.max'  => Lang::get('csatar.csatar::lang.plugin.admin.gallery.rules.descriptionMax')
-        ];
-
-        $validation = Validator::make(
-            $data,
-            $rules,
-            $customMessages
-        );
-
-        if ($validation->fails()) {
-            throw new ValidationException($validation);
-        }
+        $this->validateData($data);
 
         $gallery       = GalleryModel::find(post('gallery_id'));
         $gallery->name = post('name');
@@ -243,22 +240,7 @@ class CsatarGallery extends Gallery
         \Flash::success('A galéria sikeresen módosult.');
 
         if (Input::file('images') != []) {
-            foreach (Input::file('images') as $file) {
-                $newFile       = new File();
-                $newFile->data = $file;
-                $newFile->save();
-
-                list($width, $height) = getimagesize($newFile->getLocalPath());
-
-                if ($width > 1920) {
-                    $resizer = new Resizer();
-                    $resizer::open($newFile->getLocalPath())
-                        ->resize(1920, null, ['mode' => 'auto'])
-                        ->save($newFile->getLocalPath());
-                }
-
-                $gallery->images()->add($newFile);
-            }
+            $this->addImagesToGallery($gallery);
         }
 
         $gallery->save();

@@ -9,7 +9,7 @@ use Csatar\Csatar\Classes\Enums\Gender;
 use Csatar\Csatar\Classes\GoogleCalendar;
 use Csatar\Csatar\Models\MandateType;
 use Csatar\Csatar\Models\Patrol;
-use Csatar\Csatar\Models\PermissionBasedAccess;
+use Csatar\Csatar\Models\PatrolWorkPlanBase;
 use Csatar\Csatar\Models\Scout;
 use Lang;
 use Model;
@@ -18,7 +18,7 @@ use ValidationException;
 /**
  * Model
  */
-class OvamtvWorkPlan extends PermissionBasedAccess
+class OvamtvWorkPlan extends PatrolWorkPlanBase
 {
     use \October\Rain\Database\Traits\Validation;
 
@@ -239,42 +239,6 @@ class OvamtvWorkPlan extends PermissionBasedAccess
 
         $gender = $patrol->gender ? Gender::getOptionsWithLabels()[$patrol->gender] ?? null : null;
         return $patrol->extended_name . ($gender ? ' - ' . $gender : '');
-    }
-
-    public function getMandates($mandateTypeId) {
-        $date = $this->created_at ?? date('Y-m-d');
-
-        return $this->patrol->mandates()
-            ->where('mandate_type_id', $mandateTypeId)
-            ->where('start_date', '<=', $date)
-            ->where(function ($query) use ($date) {
-                $query->where('end_date', '>=', $date)
-                    ->orWhereNull('end_date');
-            })
-            ->get() ?? null;
-    }
-
-    public function getPatrolLeader() {
-        $patrolLeaderMandateTypeId = MandateType::where('name', Constants::MANDATE_TYPE_PATROL_LEADER)
-            ->where('association_id', $this->getAssociation()->id)
-            ->first()->id;
-
-        return $this->getMandates($patrolLeaderMandateTypeId)->first()->scout->full_name ?? null;
-    }
-
-    public function getDeputyPatrolLeaders() {
-        $deputyPatrolLeaderMandateTypeId = MandateType::where('name', Constants::MANDATE_TYPE_DEPUTY_PATROL_LEADER)
-            ->where('association_id', $this->getAssociation()->id)
-            ->first()->id;
-
-        $mandates            = $this->getMandates($deputyPatrolLeaderMandateTypeId);
-        $deputyPatrolLeaders = [];
-
-        foreach ($mandates as $mandate) {
-            $deputyPatrolLeaders[] = $mandate->scout->full_name;
-        }
-
-        return implode(', ', $deputyPatrolLeaders);
     }
 
     public function getDefaultValueForPatrolMembers() {

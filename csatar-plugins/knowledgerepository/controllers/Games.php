@@ -4,6 +4,7 @@ namespace Csatar\KnowledgeRepository\Controllers;
 use BackendMenu;
 use Backend\Classes\Controller;
 use Csatar\Csatar\Models\Association;
+use Csatar\Csatar\Models\Scout;
 use Csatar\KnowledgeRepository\Classes\Xlsx\GamesXlsxImport;
 use Db;
 use Flash;
@@ -41,22 +42,8 @@ class Games extends Controller
     }
 
     public function onGetScoutOptions() {
-        $searchTerm   = post('term');
-        $queryResults = Db::table('csatar_csatar_scouts')->whereRaw("CONCAT(family_name, ' ', given_name, ' ', ecset_code) like ?", ['%' . $searchTerm . '%'])->paginate(15);
-        $results      = [];
-        foreach ($queryResults as $result) {
-            $results[] = [
-                'id' => $result->ecset_code,
-                'text' => $result->family_name . ' ' . $result->given_name . ' - ' . $result->ecset_code,
-            ];
-        }
-
-        return [
-            'results' => $results,
-            'pagination' => [
-                'more' => true
-            ],
-        ];
+        $searchTerm = post('term');
+        return Scout::getScoutOptionsForSelect($searchTerm);
     }
 
     public function onImportGames(){

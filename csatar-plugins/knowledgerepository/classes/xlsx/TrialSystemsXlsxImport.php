@@ -27,7 +27,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class TrialSystemsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHeadingRow, SkipsOnFailure, WithMultipleSheets, SkipsUnknownSheets
 {
-    use Importable, RemembersRowNumber, SkipsFailures;
+    use Importable, RemembersRowNumber, SkipsFailures, XlsxImportHelper;
 
     private $associationId;
 
@@ -149,36 +149,6 @@ class TrialSystemsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHe
         foreach ($pivotRelationIds as $relationName => $relationIds) {
             $trialSystem->{$relationName}()->sync($relationIds);
         }
-    }
-
-    public function getModelIds($row, string $searchFor, string $modelName, string $columnName, string $secondaryColumnName = null, $secondaryColumnValue = null, bool $createIfNotFound = false): array
-    {
-        $searchFor = array_map('trim', explode('|', $searchFor));
-        $searchFor = array_map('strtolower', $searchFor);
-        $ids       = $modelName::whereIn(DB::raw('LOWER(' . $columnName . ')'), $searchFor)->when($secondaryColumnName, function ($query) use ($secondaryColumnName, $secondaryColumnValue) {
-            $query->where($secondaryColumnName, $secondaryColumnValue);
-        })->get();
-        $unmatched = array_diff($searchFor, array_map('strtolower', $ids->pluck($columnName)->toArray()));
-        if (!empty($unmatched) && !$createIfNotFound) {
-            $modelNameForLangKey = (new \ReflectionClass($modelName))->getShortName();
-            $this->errors[$row->getRowIndex()][] = Lang::get('csatar.knowledgerepository::lang.plugin.admin.messages.cannotFind' . $modelNameForLangKey) . implode(', ', $unmatched);
-        }
-
-        if ($createIfNotFound && !empty($unmatched)) {
-            foreach ($unmatched as $unmatchedItem) {
-                $model = new $modelName();
-                $model->$columnName = $unmatchedItem;
-
-                if ($secondaryColumnName) {
-                    $model->$secondaryColumnName = $secondaryColumnValue;
-                }
-
-                $model->save();
-                $ids->push($model);
-            }
-        }
-
-        return $ids->pluck('id')->toArray();
     }
 
     /**
