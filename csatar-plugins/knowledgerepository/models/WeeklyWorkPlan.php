@@ -200,6 +200,11 @@ class WeeklyWorkPlan extends PatrolWorkPlanBase
     }
 
     public function filterFields($fields, $context = null) {
+        
+        if (empty($fields)) {
+            return;
+        }
+
         $this->handlePatrolName($fields);
         $this->handlePatrolLeaderField($fields);
         $this->handleDeputyPatrolLeadersField($fields);
@@ -281,24 +286,28 @@ class WeeklyWorkPlan extends PatrolWorkPlanBase
     }
 
     public function handlePatrolName(&$fields){
-        if (empty($this->patrol_name)) {
+        if (empty($this->patrol_name) && isset($fields->patrol_name)) {
             $fields->patrol_name->value = $this->patrol->name;
         }
     }
 
     public function handlePatrolLeaderField(&$fields){
-        if (!empty($this->patrol_id)) {
+        if (!empty($this->patrol_id) && isset($fields->patrol_leader)) {
             $fields->patrol_leader->value = $this->getPatrolLeader();
         }
     }
 
     public function handleDeputyPatrolLeadersField(&$fields){
-        if (!empty($this->patrol_id)) {
+        if (!empty($this->patrol_id) && isset($fields->deputy_patrol_leaders)) {
             $fields->deputy_patrol_leaders->value = $this->getDeputyPatrolLeaders();
         }
     }
 
     public function handleScoutsPivotField(&$fields){
+        if (!isset($fields->scouts)) {
+            return;
+        }
+
         if (isset($fields->scouts->config['formBuilder']['preview']) && $fields->scouts->config['formBuilder']['preview'] === true) {
             $fields->scouts->hidden = true;
             return;
@@ -316,12 +325,20 @@ class WeeklyWorkPlan extends PatrolWorkPlanBase
     }
 
     public function handleScoutsListField(&$fields){
+        if (!isset($fields->scouts_list)) {
+            return;
+        }
+
         if (!isset($fields->scouts_list->config['formBuilder']['preview']) || empty($this->id) || $this->scouts->isEmpty()) {
             $fields->scouts_list->hidden = true;
         }
     }
 
     public function handleStartDateTimeField(&$fields){
+        if (!isset($fields->start_date_time)) {
+            return;
+        }
+
         if (empty($this->start_date_time) && !empty($this->patrol_id)) {
             $previousWeeklyWorkPlans = WeeklyWorkPlan::where('patrol_id', $this->patrol_id)
                 ->where('id', '!=', $this->id)
@@ -353,22 +370,57 @@ class WeeklyWorkPlan extends PatrolWorkPlanBase
 
     public function hideFieldsOnCreate(&$fields){
         if (empty($this->id)) {
-            $fields->spareGames->cssClass  = 'd-none';
-            $fields->spareGames->cssClass  = 'd-none';
-            $fields->tools->cssClass       = 'd-none';
-            $fields->extra_tools->cssClass = 'd-none';
-            $fields->evaluation->cssClass  = 'd-none';
+            if (isset($fields->spareGames)) {
+                $fields->spareGames->cssClass  = 'd-none';
+            }
 
-            $fields->new_material_effective_knowledge->cssClass = 'd-none';
-            $fields->old_material_effective_knowledge->cssClass = 'd-none';
+            if (isset($fields->tools)) {
+                $fields->tools->cssClass       = 'd-none';
+            }
 
-            $fields->attachments->cssClass         = 'd-none';
-            $fields->creator_csatar_code->cssClass = 'd-none';
-            $fields->updater_csatar_code->cssClass = 'd-none';
-            $fields->scouts->cssClass      = 'd-none';
-            $fields->scouts_list->cssClass = 'd-none';
-            $fields->programNote->cssClass = 'd-none';
-            $fields->_ruler4->cssClass     = 'd-none';
+            if (isset($fields->extra_tools)) {
+                $fields->extra_tools->cssClass = 'd-none';
+            }
+
+            if (isset($fields->evaluation)) {
+                $fields->evaluation->cssClass  = 'd-none';
+            }
+
+            if (isset($fields->new_material_effective_knowledge)) {
+                $fields->new_material_effective_knowledge->cssClass = 'd-none';
+            }
+
+            if (isset($fields->old_material_effective_knowledge)) {
+                $fields->old_material_effective_knowledge->cssClass = 'd-none';
+            }
+
+            if (isset($fields->attachments)) {
+                $fields->attachments->cssClass         = 'd-none';
+            }
+
+            if (isset($fields->creator_csatar_code)) {
+                $fields->creator_csatar_code->cssClass = 'd-none';
+            }
+
+            if (isset($fields->updater_csatar_code)) {
+                $fields->updater_csatar_code->cssClass = 'd-none';
+            }
+
+            if (isset($fields->scouts)) {
+                $fields->scouts->cssClass      = 'd-none';
+            }
+
+            if (isset($fields->scouts_list)) {
+                $fields->scouts_list->cssClass = 'd-none';
+            }
+
+            if (isset($fields->programNote)) {
+                $fields->programNote->cssClass = 'd-none';
+            }
+
+            if (isset($fields->_ruler4)) {
+                $fields->_ruler4->cssClass     = 'd-none';
+            }
         }
     }
 

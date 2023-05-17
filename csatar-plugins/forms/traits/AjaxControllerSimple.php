@@ -404,6 +404,8 @@ trait AjaxControllerSimple {
             $rules     = !empty($model->rules) ? $model->rules : [];
         }
 
+        $pivotData = $this->updateNullStringToNull($pivotData);
+
         $this->handlePivotRelationValidation($model, $pivotData, $rules, $isHasManyRelation, $record, $relationName);
 
         if ($model && method_exists($model, 'beforeSaveFromForm')) {
@@ -510,6 +512,8 @@ trait AjaxControllerSimple {
             $error = e(trans('csatar.forms::lang.errors.noDataArray'));
             throw new ApplicationException($error);
         }
+
+        $data = $this->updateNullStringToNull($data);
 
         // until this point record was displayed based on rights cached in session
         $this->currentUserRights = $this->getRights($record, true); // now we get rights from database and ignore session
@@ -1898,6 +1902,16 @@ trait AjaxControllerSimple {
         }
 
         return [$value, $mainCardVariablesToPass, $continue];
+    }
+
+    public function updateNullStringToNull($data) {
+        if (!is_array($data)) {
+            return $data;
+        }
+
+        return array_map(function($value) {
+            return $value === "null" ? null : $value;
+        }, $data);
     }
 
 }
