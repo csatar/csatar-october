@@ -1,6 +1,7 @@
 <?php
 namespace Csatar\KnowledgeRepository\Models;
 
+use Csatar\Csatar\Classes\Constants;
 use Input;
 use Model;
 use Csatar\KnowledgeRepository\Models\WeeklyWorkPlan;
@@ -74,27 +75,49 @@ class ActivityType extends Model
 
     public function getProgrammableIdOptions() {
         $trialSystemIds = $this->getWeeklyWorkPlanTrialSystemIds();
+        $ageGroupIds    = [$this->getWeeklyWorkPlanPatrolAgeGroupId(), $this->getMixedAgeGroupIdInAssociation()];
+
+        $shouldFilterByAgeGroup    = $this->model != '\Csatar\KnowledgeRepository\Models\Methodology';
+        $shouldFilterByTrialSystem = $this->model == '\Csatar\KnowledgeRepository\Models\Methodology';
 
         if (empty($this->model)) {
             return [];
         }
 
-        return $this->model::whereHas('trial_systems', function ($query) use ($trialSystemIds) {
-            $query->whereIn('id', $trialSystemIds);
-        })
-        ->when(!empty($this->categories), function ($query) {
-            foreach ($this->categories as $key => $category) {
-                $query->whereHas($key, function ($query) use ($category) {
-                    $query->whereIn('name', $category);
+        $return = $this->model::whereNotNull('approved_at')
+            ->when($shouldFilterByAgeGroup, function ($query) use ($ageGroupIds) {
+                $query->whereHas('age_groups', function ($query) use ($ageGroupIds) {
+                    $query->whereIn('id', $ageGroupIds);
                 });
-            }
-        })
-        ->get()
-        ->mapWithKeys(function ($item) {
-            return [$item->id => $item->name ?? $item->title ?? $item->id];
-        })
-        ->prepend(e(trans('csatar.csatar::lang.plugin.admin.general.select')), 'null')
-        ->toArray();
+            })
+            ->when(!empty($this->categories), function ($query) {
+                foreach ($this->categories as $key => $category) {
+                    $query->whereHas($key, function ($query) use ($category) {
+                        $query->whereIn('name', $category);
+                    });
+                }
+            })
+            ->when($shouldFilterByTrialSystem, function ($query) use ($trialSystemIds) {
+                $query->whereHas('trial_systems', function ($query) use ($trialSystemIds) {
+                    $query->whereIn('id', $trialSystemIds);
+                });
+            })
+            ->withCount([
+                'trial_systems' => function ($query) use ($trialSystemIds) {
+                    if (!empty($trialSystemIds)) {
+                        $query->whereIn('id', $trialSystemIds);
+                    }
+                },
+            ])
+            ->orderBy('trial_systems_count', 'desc')
+            ->get()
+            ->mapWithKeys(function ($item) {
+                return [$item->id => $item->name ?? $item->title ?? $item->id];
+            })
+            ->prepend(e(trans('csatar.csatar::lang.plugin.admin.general.select')), 'null')
+            ->toArray();
+
+        return $return;
     }
 
     public function getWeeklyWorkPlan() {
@@ -105,8 +128,8 @@ class ActivityType extends Model
 
         return WeeklyWorkPlan::where('id', $weeklyWorkPlanId)
             ->with([
-                'newMaterial',
-                'oldMaterial',
+                'newMaterials',
+                'oldMaterials',
             ])
             ->first();
     }
@@ -119,15 +142,41 @@ class ActivityType extends Model
 
         $ids = [];
 
-        if ($weeklyWorkPlan->newMaterial) {
-            $ids[] = $weeklyWorkPlan->newMaterial->id;
+        if ($weeklyWorkPlan->newMaterials) {
+            $ids[] = $weeklyWorkPlan->newMaterials->pluck('id')->toArray();
         }
 
-        if ($weeklyWorkPlan->oldMaterial) {
-            $ids[] = $weeklyWorkPlan->oldMaterial->id;
+        if ($weeklyWorkPlan->oldMaterials) {
+            $ids[] = $weeklyWorkPlan->oldMaterials->pluck('id')->toArray();
         }
 
-        return $ids;
+        return array_flatten($ids);
+    }
+
+    public function getWeeklyWorkPlanPatrolAgeGroupId() {
+        $weeklyWorkPlan = $this->getWeeklyWorkPlan();
+        if (empty($weeklyWorkPlan)) {
+            return;
+        }
+
+        return $weeklyWorkPlan->patrol->age_group_id;
+    }
+
+    public function getMixedAgeGroupIdInAssociation() {
+        $weeklyWorkPlan = $this->getWeeklyWorkPlan();
+        if (empty($weeklyWorkPlan)) {
+            return;
+        }
+
+        return $weeklyWorkPlan
+            ->patrol
+            ->team
+            ->district
+            ->association
+            ->ageGroups
+            ->where('name', Constants::MIXED_AGE_GROUP_NAME)
+            ->first()
+            ->id ?? null;
     }
 
     public function getWhenAttribute()

@@ -70,7 +70,7 @@ fields:
         descriptionFrom: description
         span: auto
         type: relation
-    agegroups:
+    age_groups:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.ageGroup'
         span: auto
         type: taglist

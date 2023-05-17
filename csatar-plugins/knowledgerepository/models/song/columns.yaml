@@ -106,13 +106,13 @@ columns:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.ageGroup'
         type: text
         select: name
-        relation: agegroups
+        relation: age_groups
         recordList:
           sortable: true
           filterable: true
           filterConfig:
             type: relation
-            relationName: agegroups
+            relationName: age_groups
             keyFrom: id
             labelFrom: name
             selectType: checkbox

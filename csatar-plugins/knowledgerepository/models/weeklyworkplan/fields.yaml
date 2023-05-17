@@ -38,15 +38,19 @@ fields:
         type: ruler
         formBuilder:
             ignoreUserRights: 1
-    new_material_id:
+    newMaterials:
         label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.newMaterial'
         span: auto
-        type: dropdown
+        type: taglist
+        customTags: false
+        useKey: true
         dependsOn: ovamtvWorkPlan
-    old_material_id:
+    oldMaterials:
         label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.oldMaterial'
         span: auto
-        type: dropdown
+        type: taglist
+        customTags: false
+        useKey: true
         dependsOn: ovamtvWorkPlan
     _ruler2:
         type: ruler

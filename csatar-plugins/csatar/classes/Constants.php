@@ -26,5 +26,5 @@ class Constants
     public const MANDATE_TYPE_PATROL_LEADER        = 'Őrsvezető';
     public const MANDATE_TYPE_DEPUTY_PATROL_LEADER = 'Segédőrsvezető';
 
-
+    public const MIXED_AGE_GROUP_NAME = 'Vegyes';
 }
