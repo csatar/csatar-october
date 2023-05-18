@@ -142,7 +142,11 @@ trait AjaxControllerSimple {
             $html .= $this->renderValidationTags($record);
         }
 
-        $html .= $this->renderPivotSection($record, !$preview);
+        if (array_key_exists('pivotPlaceholder', $config->fields)) {
+            $html = str_replace('PIVOT_PLACEHOLDER', $this->renderPivotSection($record, !$preview), $html);
+        } else {
+            $html .= $this->renderPivotSection($record, !$preview);
+        }
 
         $variablesToPass = [
             'form' => $html,
@@ -153,7 +157,7 @@ trait AjaxControllerSimple {
             'recordKeyValue' => $record->{$this->recordKeyParam ?? Input::get('recordKeyParam')} ?? 'new',
             'from_id' => $form->id,
             'preview' => $preview,
-            'redirectOnClose' => Input::old('redirectOnClose') ?? \Url::previous(),
+            'redirectOnClose' => $this->getPreviousUrl($this->formUniqueId),
             'actionUpdateKeyword' => $this->actionUpdateKeyword,
             'messageAbout2faFields' => $messageAbout2faFields,
         ];
@@ -1914,4 +1918,15 @@ trait AjaxControllerSimple {
         }, $data);
     }
 
+    public function getPreviousUrl($formUniqueId) {
+        $key = "previous_url_" . $formUniqueId;
+
+        if (!Session::has($key))
+        {
+            Session::put($key, \Url::previous());
+            return \Url::previous();
+        }
+
+        return Session::get($key);
+    }
 }

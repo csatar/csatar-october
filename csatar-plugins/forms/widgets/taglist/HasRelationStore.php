@@ -15,10 +15,15 @@ trait HasRelationStore
      */
     protected function getLoadValueFromRelation($names)
     {
+
         // Take value from options
         if ($this->formField->hasOptions()) {
             if (!$names) {
                 return [];
+            }
+
+            if ($this->useKey) {
+                return $names;
             }
 
             $result = (new Collection($this->formField->options()))

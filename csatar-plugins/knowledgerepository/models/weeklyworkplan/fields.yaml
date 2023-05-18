@@ -40,20 +40,36 @@ fields:
             ignoreUserRights: 1
     newMaterials:
         label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.newMaterial'
-        span: auto
+        span: full
         type: taglist
         customTags: false
         useKey: true
+        options: true
         dependsOn: ovamtvWorkPlan
     oldMaterials:
         label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.oldMaterial'
-        span: auto
+        span: full
         type: taglist
         customTags: false
         useKey: true
+        options: true
         dependsOn: ovamtvWorkPlan
     _ruler2:
         type: ruler
+        formBuilder:
+            ignoreUserRights: 1
+    programNote:
+        label: ''
+        path: $/csatar/knowledgerepository/models/weeklyworkplan/programnote.htm
+        type: partial
+        span: full
+        formBuilder:
+            ignoreUserRights: 1
+    pivotPlaceholder:
+        label: ''
+        path: $/csatar/knowledgerepository/models/weeklyworkplan/pivotplaceholder.htm
+        type: partial
+        span: full
         formBuilder:
             ignoreUserRights: 1
     spareGames:
@@ -100,16 +116,6 @@ fields:
         type: ruler
         formBuilder:
             ignoreUserRights: 1
-    creator_csatar_code:
-        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.creatorCsatarCode'
-        path: $/csatar/knowledgerepository/models/weeklyworkplan/creator.htm
-        type: partial
-        span: auto
-    updater_csatar_code:
-        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.updaterCsatarCode'
-        path: $/csatar/knowledgerepository/models/weeklyworkplan/updater.htm
-        type: partial
-        span: auto
     scouts:
         label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.scouts'
         span: full
@@ -120,10 +126,13 @@ fields:
         span: full
         type: text
         readOnly: true
-    programNote:
-        label: ''
-        path: $/csatar/knowledgerepository/models/weeklyworkplan/programnote.htm
+    creator_csatar_code:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.creatorCsatarCode'
+        path: $/csatar/knowledgerepository/models/weeklyworkplan/creator.htm
         type: partial
-        span: full
-        formBuilder:
-            ignoreUserRights: 1
+        span: auto
+    updater_csatar_code:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.updaterCsatarCode'
+        path: $/csatar/knowledgerepository/models/weeklyworkplan/updater.htm
+        type: partial
+        span: auto

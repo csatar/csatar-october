@@ -497,7 +497,7 @@ class WeeklyWorkPlan extends PatrolWorkPlanBase
         $previousActivitiesDuration = $this->activityTypes->whereBetween('pivot.sort_order', [0, $sortOrder - 1])
             ->sum('pivot.duration');
 
-        return date('H:i:s', strtotime($this->start_date_time) + ($previousActivitiesDuration * 60));
+        return date('H:i', strtotime($this->start_date_time) + ($previousActivitiesDuration * 60));
 
     }
 
@@ -556,7 +556,7 @@ class WeeklyWorkPlan extends PatrolWorkPlanBase
 
         foreach ($trialSystems as $trialSystem) {
             $effectiveKnowledge .= '<h6>' . $trialSystem->name . '</h6>';
-            $effectiveKnowledge .= $trialSystem->pivot->effective_knowledge . "<br>";
+            $effectiveKnowledge .= $trialSystem->effective_knowledge . "<br>";
         }
 
         return $effectiveKnowledge;

@@ -173,14 +173,17 @@ class RichEditor extends FormWidgetBase
      */
     protected function loadAssets()
     {
-        $this->addCss('css/richeditor.css', 'core');
-        $this->addJs('js/build-min.js', 'core');
-        $this->addJs('js/build-plugins-min.js', 'core');
-        $this->addJs('/modules/backend/formwidgets/codeeditor/assets/js/build-min.js', 'core');
+        if(\App::runningInBackend()) {
+            $this->addCss('css/richeditor.css', 'core');
+            $this->addJs('js/build-min.js', 'core');
+            $this->addJs('js/build-plugins-min.js', 'core');
+            $this->addJs('/modules/backend/formwidgets/codeeditor/assets/js/build-min.js', 'core');
 
-        if ($lang = $this->getValidEditorLang()) {
-            $this->addJs('vendor/froala/js/languages/' . $lang . '.js', 'core');
+            if ($lang = $this->getValidEditorLang()) {
+                $this->addJs('vendor/froala/js/languages/' . $lang . '.js', 'core');
+            }
         }
+
     }
 
     /**
