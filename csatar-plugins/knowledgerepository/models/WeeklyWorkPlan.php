@@ -205,7 +205,7 @@ class WeeklyWorkPlan extends PatrolWorkPlanBase
     }
 
     public function filterFields($fields, $context = null) {
-        
+
         if (empty($fields)) {
             return;
         }
@@ -376,11 +376,11 @@ class WeeklyWorkPlan extends PatrolWorkPlanBase
     public function hideFieldsOnCreate(&$fields){
         if (empty($this->id)) {
             if (isset($fields->spareGames)) {
-                $fields->spareGames->cssClass  = 'd-none';
+                $fields->spareGames->cssClass = 'd-none';
             }
 
             if (isset($fields->tools)) {
-                $fields->tools->cssClass       = 'd-none';
+                $fields->tools->cssClass = 'd-none';
             }
 
             if (isset($fields->extra_tools)) {
@@ -388,7 +388,7 @@ class WeeklyWorkPlan extends PatrolWorkPlanBase
             }
 
             if (isset($fields->evaluation)) {
-                $fields->evaluation->cssClass  = 'd-none';
+                $fields->evaluation->cssClass = 'd-none';
             }
 
             if (isset($fields->new_material_effective_knowledge)) {
@@ -400,7 +400,7 @@ class WeeklyWorkPlan extends PatrolWorkPlanBase
             }
 
             if (isset($fields->attachments)) {
-                $fields->attachments->cssClass         = 'd-none';
+                $fields->attachments->cssClass = 'd-none';
             }
 
             if (isset($fields->creator_csatar_code)) {
@@ -412,7 +412,7 @@ class WeeklyWorkPlan extends PatrolWorkPlanBase
             }
 
             if (isset($fields->scouts)) {
-                $fields->scouts->cssClass      = 'd-none';
+                $fields->scouts->cssClass = 'd-none';
             }
 
             if (isset($fields->scouts_list)) {
@@ -424,7 +424,7 @@ class WeeklyWorkPlan extends PatrolWorkPlanBase
             }
 
             if (isset($fields->_ruler4)) {
-                $fields->_ruler4->cssClass     = 'd-none';
+                $fields->_ruler4->cssClass = 'd-none';
             }
         }
     }
