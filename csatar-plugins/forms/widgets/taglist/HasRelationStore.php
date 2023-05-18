@@ -32,6 +32,7 @@ trait HasRelationStore
                 })
                 ->all();
         }
+
         // Take existing relationship
         else {
             $result = $this->getRelationObject()->pluck($this->relationKey)->all();
@@ -81,6 +82,7 @@ trait HasRelationStore
                 ->all()
             ;
         }
+
         // Options from model
         else {
             $existingTags = $relationModel
