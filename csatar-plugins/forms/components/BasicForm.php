@@ -24,30 +24,35 @@ class BasicForm extends ComponentBase  {
 
     /**
      * Session key for deferred bindings
+     *
      * @var mixed
      */
     public $sessionKey = null;
 
     /**
      * The relation model
+     *
      * @var type
      */
     public $relation = null;
 
     /**
      * The Id of the form
+     *
      * @var int
      */
     public $formId = null;
 
     /**
      * The form
+     *
      * @var Form
      */
     public $form = null;
 
     /**
      * The unique Id of the form instance
+     *
      * @var type
      */
     public $formUniqueId = null;
@@ -55,12 +60,14 @@ class BasicForm extends ComponentBase  {
     /**
      * The URL parameter and DB column
      * to identify a record(id, slug etc.)
+     *
      * @var int
      */
     public $recordKeyParam = null;
 
     /**
      * To pass additional html data for rendering to the form
+     *
      * @var string
      */
     public $additionalData = null;
@@ -68,18 +75,21 @@ class BasicForm extends ComponentBase  {
     /**
      * Special validation exceptions, generated outside
      * the standard validation flow
+     *
      * @var array
      */
     public array $specialValidationExceptions = [];
 
     /**
      * The value of the key parameter
+     *
      * @var string
      */
     public $recordKeyValue = null;
 
     /**
      * Component property, if true, form is displayed in preview mode
+     *
      * @var mixed
      */
     public $readOnly = null;
@@ -87,24 +97,28 @@ class BasicForm extends ComponentBase  {
     /**
      * If value of $recordKeyValue == $createRecordKeyword
      * an empty form will be rendered to create new record
+     *
      * @var boolean
      */
     public $createRecordKeyword = null;
 
     /**
      * The URL parameter to specify update/delete action
+     *
      * @var string
      */
     public $recordActionParam = null;
 
     /**
      * Keyword for update action
+     *
      * @var string
      */
     public $actionUpdateKeyword = null;
 
     /**
      * Keyword for delete action
+     *
      * @var string
      */
     public $actionDeleteKeyword = null;
@@ -112,30 +126,35 @@ class BasicForm extends ComponentBase  {
 
     /**
      * Data model
+     *
      * @var Model
      */
     public $record = null;
 
     /**
      * Contains the rendered component
+     *
      * @var string
      */
     public $renderedComponent = null;
 
     /**
      * Current user rights for the record/model
+     *
      * @var array
      */
     public $currentUserRights = null;
 
     /**
      * List of fields that require 2FA for any CRUD action
+     *
      * @var array
      */
     public $fieldsThatRequire2FA = null;
 
     /**
      * To store custom messages for special cases when no error or validation error is thrown
+     *
      * @var array
      */
     public $messages = null;
@@ -178,6 +197,7 @@ class BasicForm extends ComponentBase  {
 
     /**
      * Register component details
+     *
      * @return array
      */
     public function componentDetails()
@@ -190,6 +210,7 @@ class BasicForm extends ComponentBase  {
 
     /**
      * Register properties
+     *
      * @return array
      */
     public function defineProperties()
@@ -270,6 +291,7 @@ class BasicForm extends ComponentBase  {
 
     /**
      * Renders the frontend
+     *
      * @return mixed
      */
     public function onRun() {
@@ -298,7 +320,6 @@ class BasicForm extends ComponentBase  {
             $this->initCreateMode();
             return;
         }
-
 
         switch ($action) {
             case $this->actionUpdateKeyword:
