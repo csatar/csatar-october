@@ -150,7 +150,7 @@ class ActivityType extends Model
         }
 
         return $weeklyWorkPlan->activityTypes->max('pivot.sort_order') + 1;
-;
+
     }
 
     public function getWeeklyWorkPlanTrialSystemIds() {
