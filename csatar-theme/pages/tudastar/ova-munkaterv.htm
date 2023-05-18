@@ -32,7 +32,7 @@ public function generatePdf(int $id) {
     $ovamtvWorkPlan = \Csatar\KnowledgeRepository\Models\OvamtvWorkPlan::find($id);
 
     $data = [
-    'css' => \File::get(plugins_path('csatar/knowledgerepository/assets/css/workPlan.css')),
+    'css' => \File::get(plugins_path('csatar/csatar/assets/css/commonPdf.css')),
     'ovaworkPlan' => $ovamtvWorkPlan,
     ];
 
