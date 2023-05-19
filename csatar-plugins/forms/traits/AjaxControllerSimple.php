@@ -539,7 +539,7 @@ trait AjaxControllerSimple {
         }
 
         // validate the form
-        $form   = Form::find($this->formId ?? Input::get('formId'));
+        $form     = Form::find($this->formId ?? Input::get('formId'));
         $config = $this->makeConfig($form->getFieldsConfig());
 
         $attributeNames = $this->getAttributeNames($config);
