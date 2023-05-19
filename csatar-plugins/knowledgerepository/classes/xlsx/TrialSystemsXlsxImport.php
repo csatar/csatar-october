@@ -97,7 +97,6 @@ class TrialSystemsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHe
             $trialSystem->id_string      = $cellsArray['id'];
         }
 
-
         $trialSystem->trial_system_category_id = $this->getModelIds($row, $cellsArray['kategoria'], TrialSystemCategory::class, 'name', null, null, true)[0] ?? null;
 
         $trialSystem->trial_system_topic_id = $this->getModelIds($row, $cellsArray['tema'], TrialSystemTopic::class, 'name', null, null, true)[0] ?? null;
