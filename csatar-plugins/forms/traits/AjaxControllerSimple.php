@@ -1687,7 +1687,7 @@ trait AjaxControllerSimple {
      * @param  $relationName
      * @return void
      */
-    public function handlePivotRelationValidation($model, $pivotData, array $rules, bool $isHasManyRelation, $record, $relationName): void
+    public function handlePivotRelationValidation($model, &$pivotData, array $rules, bool $isHasManyRelation, $record, $relationName): void
     {
         if ($model && method_exists($model, 'beforeValidateFromForm')) {
             $model->beforeValidateFromForm($pivotData);
