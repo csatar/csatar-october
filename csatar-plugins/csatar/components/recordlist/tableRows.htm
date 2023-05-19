@@ -15,7 +15,7 @@
                onclick="filterSortPaginate('{{ __SELF__.alias }}', 1)"
                class="btn btn-sm rounded btn-light"
                {{ records.currentPage == '1' ? 'disabled' : '' }}
-            >{{ 'Első'|_ }}
+            ><span class="d-none d-lg-inline-block">{{ 'Első'|_ }} </span><<
             </button>
         </li>
         <li class="ps-0 pe-1 pt-1">
@@ -23,7 +23,7 @@
                 onclick="filterSortPaginate('{{ __SELF__.alias }}', {{ records.currentPage-1 }})"
                 class="btn btn-sm rounded btn-light"
                 {{ records.currentPage == '1' ? 'disabled' : '' }}
-            >&larr; {{ 'Előző'|_ }}
+            ><span class="d-none d-lg-inline-block">{{ 'Előző'|_ }} </span><
             </button>
         </li>
 
@@ -45,14 +45,14 @@
                onclick="filterSortPaginate('{{ __SELF__.alias }}', {{ records.currentPage+1 }})"
                class="btn btn-sm rounded btn-light"
                {{ records.currentPage == records.lastPage ? 'disabled' : '' }}
-            >{{ 'Következő'|_ }} &rarr;</button>
+            ><span class="d-none d-lg-inline-block">{{ 'Következő'|_ }} </span>></button>
         </li>
         <li class="ps-0 pe-1 pt-1">
             <button href="javascript:"
                onclick="filterSortPaginate('{{ __SELF__.alias }}', {{ records.lastPage }})"
                class="btn btn-sm rounded btn-light"
                {{ records.currentPage == records.lastPage ? 'disabled' : '' }}
-            >{{ 'Utolsó'|_ }}
+            ><span class="d-none d-lg-inline-block">{{ 'Utolsó'|_ }} </span>>>
             </button>
         </li>
     {% endif %}
