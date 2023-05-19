@@ -63,7 +63,6 @@ class TeamReports extends ComponentBase
         }
     }
 
-
     public function listWaitingForApproval(): void
     {
         $this->waitingForApprovalMode = true;
@@ -141,9 +140,9 @@ class TeamReports extends ComponentBase
         $this->teamReports = TeamReport::where('team_id', $this->id)->orderBy('year', 'desc')->get();
 
         // determine whether the Team Report Create button should be shown
-        $month                      = date('n');
-        $year                       = $month <= 5 ? date('Y') - 1 : date('Y');
-        $hasPermission              = isset($this->permissions['teamReports']['create']) && $this->permissions['teamReports']['create'] > 0;
+        $month         = date('n');
+        $year          = $month <= 5 ? date('Y') - 1 : date('Y');
+        $hasPermission = isset($this->permissions['teamReports']['create']) && $this->permissions['teamReports']['create'] > 0;
         $isInTeamReportSubmitPeriod = false;
         if ($association = $this->team->getAssociation()) {
             $isInTeamReportSubmitPeriod = Carbon::now()->gte(new Carbon($association->team_report_submit_start_date))
@@ -164,7 +163,7 @@ class TeamReports extends ComponentBase
             });
 
             // count the scouts
-            $scoutsCount                         = 0;
+            $scoutsCount = 0;
             $scoutsDataCountPerLegalRelationship = [];
             foreach ($scouts as $scout) {
                 foreach ($scout as $item) {
