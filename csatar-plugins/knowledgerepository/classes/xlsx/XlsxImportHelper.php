@@ -5,10 +5,10 @@ namespace Csatar\KnowledgeRepository\Classes\Xlsx;
 use DB;
 trait XlsxImportHelper {
 
-    public function getModelIds($row, string $searchFor, string $modelName, string $columnName, string $secondaryColumnName = null, $secondaryColumnValue = null, bool $createIfNotFound = false): array
+    public function getModelIds($row, $searchFor, string $modelName, string $columnName, string $secondaryColumnName = null, $secondaryColumnValue = null, bool $createIfNotFound = false): ?array
     {
         if (empty($searchFor)) {
-            return [];
+            return null;
         }
 
         $searchFor = array_map('trim', explode('|', $searchFor));

@@ -83,37 +83,25 @@ class GamesXlsxImport implements ToModel, WithHeadingRow, WithValidation, SkipsO
 
         $pivotRelationIds = [];
 
-        if (isset($row['letszam'])) {
-            $pivotRelationIds['headcounts'] = $this->getModelIds(null, $row['letszam'], Headcount::class, 'description');
-        }
+        $pivotRelationIds['headcounts'] = $this->getModelIds(null, $row['letszam'], Headcount::class, 'description');
 
-        if (isset($row['idotartam'])) {
-            $pivotRelationIds['durations'] = $this->getModelIds(null, $row['idotartam'], Duration::class, 'name');
-        }
+        $pivotRelationIds['durations'] = $this->getModelIds(null, $row['idotartam'], Duration::class, 'name');
 
-        if (isset($row['korosztaly'])) {
-            $pivotRelationIds['age_groups'] = $this->getModelIds(null, $row['korosztaly'], AgeGroup::class, 'name', 'association_id', $this->associationId);
-        }
+        $pivotRelationIds['age_groups'] = $this->getModelIds(null, $row['korosztaly'], AgeGroup::class, 'name', 'association_id', $this->associationId);
 
-        if (isset($row['helyszin'])) {
-            $pivotRelationIds['locations'] = $this->getModelIds(null, $row['helyszin'], Location::class, 'name');
-        }
+        $pivotRelationIds['locations'] = $this->getModelIds(null, $row['helyszin'], Location::class, 'name');
 
-        if (isset($row['cel'])) {
-            $pivotRelationIds['game_development_goals'] = $this->getModelIds(null, $row['cel'], GameDevelopmentGoal::class, 'name');
-        }
+        $pivotRelationIds['game_development_goals'] = $this->getModelIds(null, $row['cel'], GameDevelopmentGoal::class, 'name');
 
-        if (isset($row['tipus'])) {
-            $pivotRelationIds['game_types'] = $this->getModelIds(null, $row['tipus'], GameType::class, 'name');
-        }
+        $pivotRelationIds['game_types'] = $this->getModelIds(null, $row['tipus'], GameType::class, 'name');
 
-        if (isset($row['probarendszer'])) {
-            $pivotRelationIds['trial_systems'] = $this->getModelIds(null, $row['probarendszer'], TrialSystem::class, 'id_string', 'association_id', $this->associationId);
-        }
+        $pivotRelationIds['trial_systems'] = $this->getModelIds(null, $row['probarendszer'], TrialSystem::class, 'id_string', 'association_id', $this->associationId);
 
-        if (isset($row['kellekek'])) {
-            $pivotRelationIds['tools'] = $this->getModelIds(null, $row['kellekek'], Tool::class, 'name', null, null, true);
-        }
+        $pivotRelationIds['tools'] = $this->getModelIds(null, $row['kellekek'], Tool::class, 'name', null, null, true);
+
+        $pivotRelationIds = array_filter($pivotRelationIds, function ($value) {
+            return $value !== null;
+        });
 
         if (!empty($this->errors[$this->getRowNumber()])) {
             return;

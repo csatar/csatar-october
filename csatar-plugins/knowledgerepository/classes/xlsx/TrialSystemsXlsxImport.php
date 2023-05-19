@@ -97,29 +97,18 @@ class TrialSystemsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHe
             $trialSystem->id_string      = $cellsArray['id'];
         }
 
-        if (isset($cellsArray['kategoria'])) {
-            $trialSystem->trial_system_category_id = $this->getModelIds($row, $cellsArray['kategoria'], TrialSystemCategory::class, 'name', null, null, true)[0] ?? null;
-        }
 
-        if (isset($cellsArray['tema'])) {
-            $trialSystem->trial_system_topic_id = $this->getModelIds($row, $cellsArray['tema'], TrialSystemTopic::class, 'name', null, null, true)[0] ?? null;
-        }
+        $trialSystem->trial_system_category_id = $this->getModelIds($row, $cellsArray['kategoria'], TrialSystemCategory::class, 'name', null, null, true)[0] ?? null;
 
-        if (isset($cellsArray['subtopic'])) {
-            $trialSystem->trial_system_sub_topic_id = $this->getModelIds($row, $cellsArray['altema'], TrialSystemSubTopic::class, 'name', null, null, true)[0] ?? null;
-        }
+        $trialSystem->trial_system_topic_id = $this->getModelIds($row, $cellsArray['tema'], TrialSystemTopic::class, 'name', null, null, true)[0] ?? null;
 
-        if (isset($cellsArray['korosztaly'])) {
-            $trialSystem->age_group_id = $this->getModelIds($row, $cellsArray['korosztaly'], AgeGroup::class, 'name', 'association_id', $this->associationId)[0] ?? null;
-        }
+        $trialSystem->trial_system_sub_topic_id = $this->getModelIds($row, $cellsArray['altema'], TrialSystemSubTopic::class, 'name', null, null, true)[0] ?? null;
 
-        if (isset($cellsArray['tipus'])) {
-            $trialSystem->trial_system_type_id = $this->getModelIds($row, $cellsArray['tipus'], TrialSystemType::class, 'name', null, null, true)[0] ?? null;
-        }
+        $trialSystem->age_group_id = $this->getModelIds($row, $cellsArray['korosztaly'], AgeGroup::class, 'name', 'association_id', $this->associationId)[0] ?? null;
 
-        if (isset($cellsArray['proba'])) {
-            $trialSystem->trial_system_trial_type_id = $this->getModelIds($row, $cellsArray['proba'], TrialSystemTrialType::class, 'name', null, null, true)[0] ?? null;
-        }
+        $trialSystem->trial_system_type_id = $this->getModelIds($row, $cellsArray['tipus'], TrialSystemType::class, 'name', null, null, true)[0] ?? null;
+
+        $trialSystem->trial_system_trial_type_id = $this->getModelIds($row, $cellsArray['proba'], TrialSystemTrialType::class, 'name', null, null, true)[0] ?? null;
 
         if (!empty($this->errors[$row->getRowIndex()])) {
             return;
