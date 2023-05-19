@@ -142,7 +142,11 @@ trait AjaxControllerSimple {
             $html .= $this->renderValidationTags($record);
         }
 
-        $html .= $this->renderPivotSection($record, !$preview);
+        if (array_key_exists('pivotPlaceholder', $config->fields)) {
+            $html = str_replace('PIVOT_PLACEHOLDER', $this->renderPivotSection($record, !$preview), $html);
+        } else {
+            $html .= $this->renderPivotSection($record, !$preview);
+        }
 
         $variablesToPass = [
             'form' => $html,
@@ -153,7 +157,7 @@ trait AjaxControllerSimple {
             'recordKeyValue' => $record->{$this->recordKeyParam ?? Input::get('recordKeyParam')} ?? 'new',
             'from_id' => $form->id,
             'preview' => $preview,
-            'redirectOnClose' => Input::old('redirectOnClose') ?? \Url::previous(),
+            'redirectOnClose' => $this->getPreviousUrl($this->formUniqueId),
             'actionUpdateKeyword' => $this->actionUpdateKeyword,
             'messageAbout2faFields' => $messageAbout2faFields,
         ];
@@ -488,6 +492,7 @@ trait AjaxControllerSimple {
 
     /**
      * Edits a relation
+     *
      * @return boolean
      */
     public function onEditRelated()
@@ -1001,7 +1006,7 @@ trait AjaxControllerSimple {
     }
 
     /**
-     * @param $record
+     * @param  $record
      * @return void
      * Presets new record with required values that are not selectable from the from
      * and should be set before form rendering
@@ -1027,7 +1032,7 @@ trait AjaxControllerSimple {
     }
 
     /**
-     * @param $record
+     * @param  $record
      * @return void
      * Presets new record with required values that are not selectable from the from
      * and should be set before form rendering
@@ -1304,10 +1309,10 @@ trait AjaxControllerSimple {
     }
 
     /**
-     * @param $relationName
-     * @param bool $isHasManyRelation
-     * @param $record
-     * @param mixed $records
+     * @param  $relationName
+     * @param  bool $isHasManyRelation
+     * @param  $record
+     * @param  mixed $records
      * @return array
      */
     public function getDeferredRecords($relationName, bool $isHasManyRelation, $record, $records): array
@@ -1329,9 +1334,9 @@ trait AjaxControllerSimple {
     }
 
     /**
-     * @param bool $isHasManyRelation
-     * @param $defRecord
-     * @param $relatedRecord
+     * @param  bool $isHasManyRelation
+     * @param  $defRecord
+     * @param  $relatedRecord
      * @return object
      */
     public function handleDeferredRecord(bool $isHasManyRelation, $defRecord, $relatedRecord): object
@@ -1352,9 +1357,9 @@ trait AjaxControllerSimple {
     }
 
     /**
-     * @param $data
-     * @param $key
-     * @param $relatedRecord
+     * @param  $data
+     * @param  $key
+     * @param  $relatedRecord
      * @return string
      */
     public function getColPartial($data, $key, $relatedRecord): string
@@ -1383,12 +1388,12 @@ trait AjaxControllerSimple {
     }
 
     /**
-     * @param $defRecords
-     * @param bool $isHasManyRelation
-     * @param $key
-     * @param $relatedRecord
-     * @param $attributesToDisplay
-     * @param $relationName
+     * @param  $defRecords
+     * @param  bool $isHasManyRelation
+     * @param  $key
+     * @param  $relatedRecord
+     * @param  $attributesToDisplay
+     * @param  $relationName
      * @return string
      */
     public function generatePivotTableRow($defRecords, bool $isHasManyRelation, $key, $relatedRecord, $attributesToDisplay, $relationName): string
@@ -1421,8 +1426,8 @@ trait AjaxControllerSimple {
     }
 
     /**
-     * @param array $attributesArray
-     * @param array $needles
+     * @param  array $attributesArray
+     * @param  array $needles
      * @return array
      */
     public function getFieldsThatRequire2FAForMessage(array $attributesArray, array $needles): array
@@ -1442,7 +1447,7 @@ trait AjaxControllerSimple {
     }
 
     /**
-     * @param $config
+     * @param  $config
      * @return array
      */
     public function getAttributeNames($config): array
@@ -1484,9 +1489,9 @@ trait AjaxControllerSimple {
     }
 
     /**
-     * @param array $extraFields
-     * @param array $attributeNames
-     * @param array $rules
+     * @param  array $extraFields
+     * @param  array $attributeNames
+     * @param  array $rules
      * @return array
      */
     public function handleExtraFieldsValidationSettings(array $extraFields, array $attributeNames, array $rules): array
@@ -1505,10 +1510,10 @@ trait AjaxControllerSimple {
     }
 
     /**
-     * @param $data
-     * @param array $rules
-     * @param $record
-     * @param array $attributeNames
+     * @param  $data
+     * @param  array $rules
+     * @param  $record
+     * @param  array $attributeNames
      * @return void
      */
     public function validateFormData($data, array $rules, $record, array $attributeNames): void
@@ -1543,8 +1548,8 @@ trait AjaxControllerSimple {
     }
 
     /**
-     * @param array $extraFields
-     * @param $data
+     * @param  array $extraFields
+     * @param  $data
      * @return array
      */
     public function resolveExtraFieldsData(array $extraFields, $data): array
@@ -1562,8 +1567,8 @@ trait AjaxControllerSimple {
     }
 
     /**
-     * @param $record
-     * @param array $data
+     * @param  $record
+     * @param  array $data
      * @return array
      */
     public function resolveBelongsToRelations($record, array $data): array
@@ -1587,8 +1592,8 @@ trait AjaxControllerSimple {
     }
 
     /**
-     * @param $record
-     * @param array $data
+     * @param  $record
+     * @param  array $data
      * @return object
      */
     public function resolveBelongsToManyRelations($record, array $data): object
@@ -1626,8 +1631,8 @@ trait AjaxControllerSimple {
     }
 
     /**
-     * @param $record
-     * @param array $data
+     * @param  $record
+     * @param  array $data
      * @return mixed
      */
     public function saveNewRecord($record, array $data)
@@ -1674,12 +1679,12 @@ trait AjaxControllerSimple {
     }
 
     /**
-     * @param $model
-     * @param $pivotData
-     * @param array $rules
-     * @param bool $isHasManyRelation
-     * @param $record
-     * @param $relationName
+     * @param  $model
+     * @param  $pivotData
+     * @param  array $rules
+     * @param  bool $isHasManyRelation
+     * @param  $record
+     * @param  $relationName
      * @return void
      */
     public function handlePivotRelationValidation($model, $pivotData, array $rules, bool $isHasManyRelation, $record, $relationName): void
@@ -1711,7 +1716,7 @@ trait AjaxControllerSimple {
     }
 
     /**
-     * @param $widget
+     * @param  $widget
      * @return array
      */
     public function gatherAllCardsAndFieldsInArrays($widget): array
@@ -1780,9 +1785,9 @@ trait AjaxControllerSimple {
     }
 
     /**
-     * @param $fieldsToPass
-     * @param $mainCardVariablesToPass
-     * @param $sheetCardVariablesToPass
+     * @param  $fieldsToPass
+     * @param  $mainCardVariablesToPass
+     * @param  $sheetCardVariablesToPass
      * @return array
      */
     public function setTheAppropriateFieldArrayForEachOfTheCards($fieldsToPass, $mainCardVariablesToPass, $sheetCardVariablesToPass): array
@@ -1831,10 +1836,10 @@ trait AjaxControllerSimple {
     }
 
     /**
-     * @param $field
-     * @param $key
-     * @param array $mainCardVariablesToPass
-     * @param array $sheetCardVariablesToPass
+     * @param  $field
+     * @param  $key
+     * @param  array $mainCardVariablesToPass
+     * @param  array $sheetCardVariablesToPass
      * @return array
      */
     public function handleCards($field, $key, array $mainCardVariablesToPass, array $sheetCardVariablesToPass): array
@@ -1862,10 +1867,10 @@ trait AjaxControllerSimple {
     }
 
     /**
-     * @param $key
-     * @param $widget
-     * @param $field
-     * @param $mainCardVariablesToPass
+     * @param  $key
+     * @param  $widget
+     * @param  $field
+     * @param  $mainCardVariablesToPass
      * @return array
      */
     public function retrieveTheValueForTheField($key, $widget, $field, $mainCardVariablesToPass): array
@@ -1912,6 +1917,17 @@ trait AjaxControllerSimple {
         return array_map(function($value) {
             return $value === "null" ? null : $value;
         }, $data);
+    }
+
+    public function getPreviousUrl($formUniqueId) {
+        $key = "previous_url_" . $formUniqueId;
+
+        if (!Session::has($key)) {
+            Session::put($key, \Url::previous());
+            return \Url::previous();
+        }
+
+        return Session::get($key);
     }
 
 }

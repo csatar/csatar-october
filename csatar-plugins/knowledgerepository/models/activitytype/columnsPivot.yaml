@@ -1,6 +1,9 @@
 columns:
     when:
         label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.when'
+    duration_minute:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.duration'
+        type: text
     type_name:
         label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.typeName'
         type: text
@@ -12,6 +15,3 @@ columns:
         type: text
         searchable: true
         sortable: true
-    'pivot[duration]':
-        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.duration'
-        type: text

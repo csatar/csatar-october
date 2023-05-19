@@ -4,6 +4,7 @@ namespace Csatar\KnowledgeRepository\Models;
 use Csatar\Csatar\Classes\Constants;
 use Input;
 use Model;
+use Lang;
 use Csatar\KnowledgeRepository\Models\WeeklyWorkPlan;
 
 /**
@@ -66,11 +67,11 @@ class ActivityType extends Model
             $fields->{'pivot[programmable_id]'}->required = true;
         }
 
-        if (empty($pivotData['sort_order']) && !isset($this->pivot['programmable_id'])) {
+        if (empty($pivotData['sort_order']) && !isset($this->pivot['sort_order'])) {
             $fields->{'pivot[sort_order]'}->value = $this->getDefaultSortOrderValue();
         }
 
-        if (!empty($pivotData['sort_order'])) {
+        if (!empty($pivotData['sort_order']) && !isset($this->pivot['sort_order'])) {
             $fields->{'pivot[sort_order]'}->value = $pivotData['sort_order'];
         }
 
@@ -201,6 +202,12 @@ class ActivityType extends Model
     public function getWhenAttribute()
     {
         return $this->pivot->getParent($this->pivot->weekly_work_plan_id)->getActivityStartDateTimeBySortOrder($this->pivot->sort_order);
+    }
+
+    public function getDurationMinuteAttribute()
+    {
+        $value = $this->pivot->duration ? $this->pivot->duration . ' ' . Lang::get('csatar.knowledgerepository::lang.plugin.admin.general.minute') : '';
+        return $value;
     }
 
     public function getTypeNameAttribute()

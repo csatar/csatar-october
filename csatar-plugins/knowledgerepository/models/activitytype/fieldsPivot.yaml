@@ -14,13 +14,36 @@ fields:
         type: dropdown
     'pivot[duration]':
         label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.duration'
-        type: number
+        type: text
         required: 1
         dependsOn:
             - 'pivot[programmable_id]'
     'pivot[description]':
         label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.how'
-        type: textarea
+        type: richeditor
+        toolbarButtons:
+            - paragraphFormat
+            - paragraphStyle
+            - bold
+            - italic
+            - underline
+            - strikeThrough
+            - align
+            - formatOL
+            - formatUL
+            - outdent
+            - indent
+            - quote,
+            -   -
+            - undo
+            - redo
+            - insertLink
+            - insertImage
+            - insertFile
+            - insertTable
+            - insertHR
+            - clearFormatting
+            - html
         dependsOn:
             - 'pivot[programmable_id]'
     'pivot[sort_order]':
