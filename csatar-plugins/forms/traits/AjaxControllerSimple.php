@@ -510,7 +510,7 @@ trait AjaxControllerSimple {
 
     public function onSave()
     {
-        $isNew  = Input::get('recordKeyValue') == 'new' ? true : false;
+        $isNew    = Input::get('recordKeyValue') == 'new' ? true : false;
         $record = $this->record;
 
         if (!$data = Input::get('data')) {
