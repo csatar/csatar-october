@@ -71,16 +71,16 @@ name = "Weekly Work Plan layout"
         <table class="no-border">
             <tr>
                 <th>{{ 'Mikor'|_ }}</th>
+                <th>{{ 'Időtartam'|_ }}</th>
                 <th>{{ 'Típus / Név'|_ }}</th>
                 <th>{{ 'Hogyan'|_ }}</th>
-                <th>{{ 'Időtartam'|_ }}</th>
             </tr>
             {% for activity in weeklyWorkPlan.activityTypes %}
                 <tr>
                     <td>{{ activity.when }}</td>
-                    <td>{{ activity.type_name }}</td>
-                    <td>{{ activity.pivot.description }}</td>
                     <td>{{ activity.pivot.duration }}</td>
+                    <td>{{ activity.type_name }}</td>
+                    <td>{{ activity.pivot.description|raw }}</td>
                 </tr>
             {% endfor %}
         </table>
