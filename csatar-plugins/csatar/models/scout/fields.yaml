@@ -231,7 +231,7 @@ fields:
         formBuilder:
             type: card
             position: sheets
-            class: 'col-lg-4 col-md-12 col-sm-12'
+            class: 'col-xl-4 col-lg-6 col-md-12 col-sm-12'
             color: csat-data-birth
             order: 1
     birthdate:
@@ -278,7 +278,7 @@ fields:
         formBuilder:
             type: card
             position: sheets
-            class: 'col-lg-4 col-md-12 col-sm-12'
+            class: 'col-xl-4 col-lg-6 col-md-12 col-sm-12'
             color: csat-data-address
             order: 2
     address_country:
@@ -350,7 +350,7 @@ fields:
         formBuilder:
             type: card
             position: sheets
-            class: 'col-lg-4 col-md-12 col-sm-12'
+            class: 'col-xl-4 col-lg-6 col-md-12 col-sm-12'
             color: csat-data-occupation
             order: 3
     occupation:
@@ -376,7 +376,7 @@ fields:
         formBuilder:
             type: card
             position: sheets
-            class: 'col-lg-4 col-md-12 col-sm-12'
+            class: 'col-xl-4 col-lg-6 col-md-12 col-sm-12'
             color: csat-data-parent
             order: 4
     mothers_name:
@@ -410,7 +410,7 @@ fields:
         formBuilder:
             type: card
             position: sheets
-            class: 'col-lg-4 col-md-12 col-sm-12'
+            class: 'col-xl-4 col-lg-6 col-md-12 col-sm-12'
             color: csat-data-parent
             order: 5
     fathers_name:
@@ -444,7 +444,7 @@ fields:
         formBuilder:
             type: card
             position: sheets
-            class: 'col-lg-4 col-md-12 col-sm-12'
+            class: 'col-xl-4 col-lg-6 col-md-12 col-sm-12'
             color: csat-data-parent
             order: 6
     legal_representative_name:
