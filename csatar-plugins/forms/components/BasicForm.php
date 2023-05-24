@@ -601,8 +601,6 @@ class BasicForm extends ComponentBase  {
         $this->addJs('/modules/backend/formwidgets/codeeditor/assets/js/build-min.js', 'core');
     }
 
-
-
     private function isObligatory(string $attribute): bool
     {
         return $this->rightsCollectionHasKey($attribute)
