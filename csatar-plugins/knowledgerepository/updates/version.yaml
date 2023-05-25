@@ -165,3 +165,6 @@
 1.0.56:
     - 'Created table csatar_knowledgerepository_weekly_work_plan_material'
     - builder_table_create_csatar_knowledgerepository_weekly_work_plan_material.php
+1.0.57:
+    - 'Updated table csatar_csatar_patrols'
+    - builder_table_update_csatar_csatar_patrols_3.php
