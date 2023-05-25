@@ -990,7 +990,7 @@ trait AjaxControllerSimple {
         if (array_key_exists($relationName, $record->belongsToMany)) {
             $relationConfigArray = $record->belongsToMany[$relationName];
             if (array_key_exists('pivotModel', $relationConfigArray)) {
-                return new $relationConfigArray['pivotModel']($record, [], '');
+                return $relationConfigArray['pivotModel']::fromAttributes($record, [], '');
             }
         } else if ($isHasManyRelation) {
             $relationConfigArray = $record->hasMany[$relationName];
