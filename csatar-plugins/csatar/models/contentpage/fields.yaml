@@ -25,7 +25,7 @@ fields:
             - outdent
             - indent
             - quote,
-            -   -
+            - |
             - undo
             - redo
             - insertLink
