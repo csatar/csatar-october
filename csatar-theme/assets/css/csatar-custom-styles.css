@@ -1704,10 +1704,10 @@ td, .td {
     vertical-align: top;
 }
 
-table tr:nth-child(odd) td, div div.row:nth-child(odd) div.td {
+table tr:nth-child(odd) td, div div.row:nth-child(odd) div.td:not(.nottable) {
     background-color: #F5F5F5;
 }
-table tr:nth-child(even) td, div div.row:nth-child(even) div.td {
+table tr:nth-child(even) td, div div.row:nth-child(even) div.td:not(.nottable) {
     background-color: white;
 }
 

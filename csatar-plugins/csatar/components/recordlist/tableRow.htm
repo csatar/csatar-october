@@ -30,8 +30,8 @@
                     {% set tooltip = value %}
                 {% endif %}
                 <div class="col-12 col-md-4 col-lg mb-2 mb-lg-0 overflow-hidden" data-bs-toggle="tooltip" title="{{ tooltip }}">
-                    <div class="td label d-block d-lg-none">{{ column['label'] }}</div>
-                    <div class="td data grid-ellipsis">{{ value }}</div>
+                    <div class="td label d-block d-lg-none nottable">{{ column['label'] }}</div>
+                    <div class="td data grid-ellipsis nottable">{{ value }}</div>
                 </div>
             {% endfor %}
         </div>
