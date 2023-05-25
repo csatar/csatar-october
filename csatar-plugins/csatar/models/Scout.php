@@ -1141,9 +1141,9 @@ class Scout extends OrganizationBase
         return $this->id === $scout->id;
     }
 
-    public static function getOrganizationTypeModelNameUserFriendly()
+    public static function getOrganizationTypeModelNameUserFriendly($lang = null)
     {
-        return Lang::get('csatar.csatar::lang.plugin.admin.scout.scout');
+        return Lang::get('csatar.csatar::lang.plugin.admin.scout.scout', [], $lang);
     }
 
     public function getScoutOptions($scopes = null){

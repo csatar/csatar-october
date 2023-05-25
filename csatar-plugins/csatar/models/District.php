@@ -260,9 +260,9 @@ class District extends OrganizationBase
         return $this->association->id;
     }
 
-    public static function getOrganizationTypeModelNameUserFriendly()
+    public static function getOrganizationTypeModelNameUserFriendly($lang = null)
     {
-        return Lang::get('csatar.csatar::lang.plugin.admin.district.district');
+        return Lang::get('csatar.csatar::lang.plugin.admin.district.district', [], $lang);
     }
 
     public function getAssociation() {

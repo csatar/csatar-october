@@ -180,9 +180,9 @@ class OrganizationBase extends PermissionBasedAccess
         return isset($this->attributes['name']) ? $this->attributes['name'] : '';
     }
 
-    public static function getOrganizationTypeModelNameUserFriendly()
+    public static function getOrganizationTypeModelNameUserFriendly($lang = null)
     {
-        return Lang::get('csatar.csatar::lang.plugin.admin.organizationBase.organizationBase');
+        return Lang::get('csatar.csatar::lang.plugin.admin.organizationBase.organizationBase', [], $lang);
     }
 
     public function filterNameForWords($name, $filterWords){

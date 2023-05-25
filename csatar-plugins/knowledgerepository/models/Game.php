@@ -163,9 +163,9 @@ class Game extends PermissionBasedAccess
         return $this->association ?? null;
     }
 
-    public static function getOrganizationTypeModelNameUserFriendly()
+    public static function getOrganizationTypeModelNameUserFriendly($lang = null)
     {
-        return Lang::get('csatar.knowledgerepository::lang.plugin.admin.game.game');
+        return Lang::get('csatar.knowledgerepository::lang.plugin.admin.game.game', [], $lang);
     }
 
     public function scopeApproved($query)

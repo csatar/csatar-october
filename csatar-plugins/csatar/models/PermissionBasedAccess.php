@@ -211,7 +211,7 @@ class PermissionBasedAccess extends Model
         return $result;
     }
 
-    public static function getOrganizationTypeModelNameUserFriendly()
+    public static function getOrganizationTypeModelNameUserFriendly($lang = null)
     {
         return '';
     }

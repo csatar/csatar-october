@@ -416,9 +416,9 @@ class Team extends OrganizationBase
         return $this->district->association->id;
     }
 
-    public static function getOrganizationTypeModelNameUserFriendly()
+    public static function getOrganizationTypeModelNameUserFriendly($lang = null)
     {
-        return Lang::get('csatar.csatar::lang.plugin.admin.team.team');
+        return Lang::get('csatar.csatar::lang.plugin.admin.team.team', [], $lang);
     }
 
     public function getAssociation() {

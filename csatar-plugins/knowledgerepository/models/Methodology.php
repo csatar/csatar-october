@@ -165,9 +165,9 @@ class Methodology extends PermissionBasedAccess
         return $this->association ?? null;
     }
 
-    public static function getOrganizationTypeModelNameUserFriendly()
+    public static function getOrganizationTypeModelNameUserFriendly($lang = null)
     {
-        return Lang::get('csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.methodology');
+        return Lang::get('csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.methodology', [], $lang);
     }
 
     public function scopeApproved($query)

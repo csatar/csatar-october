@@ -248,9 +248,9 @@ class WeeklyWorkPlan extends PatrolWorkPlanBase
         return $this->patrol ?? null;
     }
 
-    public static function getOrganizationTypeModelNameUserFriendly()
+    public static function getOrganizationTypeModelNameUserFriendly($lang = null)
     {
-        return Lang::get('csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.weeklyWorkPlan');
+        return Lang::get('csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.weeklyWorkPlan', [], $lang);
     }
 
     public function getActivitiesToAttach() {

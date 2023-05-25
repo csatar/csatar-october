@@ -412,9 +412,9 @@ class Patrol extends OrganizationBase
         return $this->team->district->association->id;
     }
 
-    public static function getOrganizationTypeModelNameUserFriendly()
+    public static function getOrganizationTypeModelNameUserFriendly($lang = null)
     {
-        return Lang::get('csatar.csatar::lang.plugin.admin.patrol.patrol');
+        return Lang::get('csatar.csatar::lang.plugin.admin.patrol.patrol', [], $lang);
     }
 
     public function getAssociation() {
