@@ -4,7 +4,7 @@ namespace Csatar\Csatar\Models;
 use Csatar\Csatar\Classes\RightsMatrix;
 use Model;
 use Db;
-use RainLab\Builder\Classes\ModelModel;
+use RainLab\Builder\Models\ModelModel;
 use RainLab\Builder\Classes\PluginCode;
 use Yaml;
 use Lang;
