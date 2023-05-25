@@ -20,6 +20,7 @@ public function onAcceptPersonalData(){
         return \Redirect::refresh();
     }
 }
+
 ?>
 ==
 <div class="container">
@@ -37,9 +38,23 @@ public function onAcceptPersonalData(){
     {% if user.scout.isOwnModel(scout) and not scout.isPersonalDataAccepted()
         and this.param.action == false
         and this.param[this.controller.vars.basicForm.recordKeyParam] != this.controller.vars.basicForm.createRecordKeyword %}
-        <form data-request="onAcceptPersonalData" data-request-loading>
-            <button type="submit" class="btn rounded btn-primary" value="{{ 'Személyes adataim jóváhagyása' | _ }}"><i class="csat-check-fill-wh-sm"></i> {{ 'Személyes adataim jóváhagyása' | _ }}</button>
-        </form>
+
+        <button data-request="onAcceptPersonalData" data-request-loading="true"
+                type="submit"
+                class="btn rounded btn-primary"
+                value="{{ 'Személyes adataim jóváhagyása' | _ }}">
+            <i class="csat-check-fill-wh-sm"></i>
+            {{ 'Személyes adataim jóváhagyása' | _ }}
+        </button>
+
+    <button
+            type="button"
+            data-request="onDoSomething"
+            class="btn btn-default">
+        Do Something
+    </button>
+
+
     {% endif %}
 
     {% component 'basicForm' %}

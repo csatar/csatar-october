@@ -20,8 +20,8 @@
 
 <form data-request="{{ __SELF__ }}::onSave"
       data-request-loading="#fs-saving-loader"
-      data-request-validate
-      data-request-flash
+      data-request-validate="true"
+      data-request-flash="true"
       data-request-complete="window.positionValidationTags();">
 
     {{ form | raw }}

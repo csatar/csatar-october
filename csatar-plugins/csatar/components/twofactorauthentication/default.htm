@@ -18,9 +18,10 @@
                             {% endif %}
                             <form
                                 data-request="{{ __SELF__ }}::onVerifyCode"
-                                data-request-validate
+                                data-request-validate="true"
                                 novalidate
-                                data-request-flash>
+                                data-request-flash="true">
+
                                 <div class="form-group">
                                     <label for="code">{{ 'Ellenőrző kód:' | _ }}</label>
                                     <input name="code" type="text" class="form-control rounded bg-white" id="code" placeholder="{{ 'Írd be a kódot' | _ }}">

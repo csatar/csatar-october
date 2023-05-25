@@ -1,7 +1,7 @@
 <div class="ms-3 ms-lg-0 col-12 col-lg-1">
     {% if canUpdate %}
         <button
-                class="btn btn-xs rounded btn-primary m-1" data-request-flash
+                class="btn btn-xs rounded btn-primary m-1" data-request-flash="true"
                 data-request="onModifyPivotRelation"
                 data-request-data="relationName: '{{ relationName }}', relationId: '{{ relationId }}'"
                 onclick="document.getElementById('add-edit-{{ relationName }}').scrollIntoView({ behavior: 'smooth' });"
@@ -17,7 +17,7 @@
 
     {% if canDelete %}
         <button
-                class="btn btn-xs rounded btn-danger m-1" data-request-flash
+                class="btn btn-xs rounded btn-danger m-1" data-request-flash="true"
                 data-request="onDeletePivotRelation"
                 data-request-data="relationName: '{{ relationName }}', relationId: '{{ relationId }}'"
         >
@@ -31,7 +31,7 @@
     {% endif %}
     {% if sortOrder %}
         <button
-                class="btn btn-xs rounded btn-primary m-1" data-request-flash
+                class="btn btn-xs rounded btn-primary m-1" data-request-flash="true"
                 data-request="onChangeSortOrder"
                 data-request-data="
                     relationName: '{{ relationName }}',
@@ -42,7 +42,7 @@
             <i class="csat-arrowup-out-wh-sm"></i>
         </button>
         <button
-                class="btn btn-xs rounded btn-primary m-1" data-request-flash
+                class="btn btn-xs rounded btn-primary m-1" data-request-flash="true"
                 data-request="onChangeSortOrder"
                 data-request-data="
                         relationName: '{{ relationName }}',

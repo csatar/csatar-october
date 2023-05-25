@@ -14,7 +14,7 @@ tooltip
 
 {% if permissionValue > 0 %}
 <form action="{{ actionUrl }}" method="post">
-    {% for key, value in hiddenInputs if hiddenInputs %}
+    {% for key, value in hiddenInputs %}
         <input type="hidden" name="{{ key }}" value="{{ value }}">
     {% endfor %}
     <button

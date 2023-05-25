@@ -24,7 +24,7 @@ tooltip
     <button
         class="btn rounded {{ btnExtraClasses }}"
         {{ dataId ? 'data-id="' ~ dataId ~ '"' : '' }}
-        data-request-flash
+        data-request-flash="true"
         data-request="{{ dataRequest }}"
         data-request-complete="$.oc.stripeLoadIndicator.hide();"
         data-request-loading="{{ dataRequestLoading }}"
