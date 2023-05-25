@@ -15,10 +15,6 @@ class WeeklyWorkPlanActivityTypePivot extends CsatarPivot
      */
     public $table = 'csatar_knowledgerepository_weekly_work_plan_activity_type';
 
-    public function filterFields($fields, $context = null) {
-        $fields->programmable_type->options = [];
-    }
-
     /**
      * @var array Fillable values
      */

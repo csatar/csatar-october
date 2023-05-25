@@ -213,8 +213,8 @@ class Mandate extends Model
     /**
      * Handle the mandate type - mandate model dependencies
      */
-    public function filterFields($fields, $context = null)
-    {
+
+    public function getScoutOptions() {
         $this->mandate_model_type = !$this->mandate_model_type ? $this->belongsTo['mandate_model'] : $this->mandate_model_type;
         $mandate_model_id         = null;
         $mandate_model_type       = null;
@@ -252,7 +252,8 @@ class Mandate extends Model
         }
 
         asort($options);
-        $fields->scout->options = $options;
+
+        return $options;
     }
 
     /**
