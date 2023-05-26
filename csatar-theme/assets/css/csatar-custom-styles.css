@@ -657,7 +657,7 @@ div.ss-search-form__results::-webkit-scrollbar-button:single-button:vertical:inc
     }
 }
 
-.flash-message.static {
+.oc-flash-message.static {
     border-radius: 12px;
     font-family: geomanist !important;
     font-weight: 400 !important;
@@ -667,22 +667,26 @@ div.ss-search-form__results::-webkit-scrollbar-button:single-button:vertical:inc
     padding: 10px 0px;
 }
 
-.flash-message.success {
+.flash-message.success,
+.oc-flash-message.success {
     background: #78863F !important;
     color: #FFFFFF;
 }
 
-.flash-message.info {
+.flash-message.info,
+.oc-flash-message.info {
     background: #5BA3B3 !important;
     color: #FFFFFF;
 }
 
-.flash-message.warning {
+.flash-message.warning,
+.oc-flash-message.warning {
     background: #FFCE00 !important;
     color: #303030;
 }
 
-.flash-message.error {
+.flash-message.error,
+.oc-flash-message.error {
     background: #B83222 !important;
     color: #FFFFFF;
 }

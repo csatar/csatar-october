@@ -5,9 +5,7 @@
             <?php foreach ($errors as $rowErrors): ?>
             <li>
                 <?= $rowErrors->row() ?>. <?= e(trans('csatar.knowledgerepository::lang.plugin.admin.general.row')) ?>:<br>
-                <?php foreach ($rowErrors->errors()[0] as $error): ?>
-                    <?= e($error) ?><br>
-                <?php endforeach; ?>
+                    <?= $rowErrors->errors()[0] ?><br>
             </li>
             <?php endforeach; ?>
         </ul>
