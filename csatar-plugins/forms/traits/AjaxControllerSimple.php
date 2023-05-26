@@ -418,10 +418,11 @@ trait AjaxControllerSimple {
             $model->beforeSaveFromForm($pivotData);
         }
 
+        $pivotData = $pivotData['pivot'] ?? $pivotData;
+
         if ($edit && !$isHasManyRelation && $record->id) {  // edit relation, regular pivot, existing record
-            $attachedModel = $record->{$relationName}->find($relationId)->pivot;
-            $attachedModel = $attachedModel->fill($pivotData);
-            $attachedModel->save();
+            $attachedModel = $record->{$relationName}->find($relationId);
+            $record->{$relationName}()->updateExistingPivot($attachedModel, $pivotData['pivot']);
         } else if ($edit && !$isHasManyRelation && !$record->id) {    // edit relation, regular pivot, new record
             $defRecord = DeferredBinding::where('master_field', $relationName)
                         ->where('session_key', $this->sessionKey)
@@ -431,8 +432,7 @@ trait AjaxControllerSimple {
             $defRecord->save();
         } else if ($edit) {   // edit relation, polimorphic
             $attachedModel = $record->$relationName()->getRelated()->find($relationId);
-            $attachedModel = $attachedModel->fill($pivotData);
-            $attachedModel->save();
+            $record->{$relationName}()->updateExistingPivot($attachedModel, $pivotData['pivot']);
         } else if (!$isHasManyRelation) { // add relation, regular pivot
             if (!$record->id) {      // new record
                 $modelToAttach = $record->$relationName()->getRelated()->find($relationId);
@@ -480,8 +480,8 @@ trait AjaxControllerSimple {
 
         $attachedModel1->pivot->sort_order = $sortOrder + $change;
         $attachedModel2->pivot->sort_order = $sortOrder;
-        $attachedModel1->pivot->save();
-        $attachedModel2->pivot->save();
+        $record->{$relationName}()->updateExistingPivot($attachedModel1, ['sort_order' => $sortOrder + $change]);
+        $record->{$relationName}()->updateExistingPivot($attachedModel2, ['sort_order' => $sortOrder]);
 
         $record->refresh();
 

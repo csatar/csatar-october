@@ -986,15 +986,12 @@ class SeederData extends Seeder
             $association->forceSave();
 
             $this->seedMandateTypesForAssociation($association);
-
-            // update the membership fee value for RMCSSZ - Member
-            if ($association->name == 'Romániai Magyar Cserkészszövetség') {
-                // membership fee
-                $legal_relationship = $association->legal_relationships->where('id', $legalRelationship2->id)->first();
-                if (isset($legal_relationship)) {
-                    $legal_relationship->pivot->membership_fee = $legal_relationship->pivot->membership_fee ?? 50;
-                    $legal_relationship->pivot->save();
-                }
+        }
+        // update the membership fee value for RMCSSZ - Member
+        if ($association = Association::where('name', 'Romániai Magyar Cserkészszövetség')->first()) {
+            $legal_relationship = $association->legal_relationships->where('id', $legalRelationship2->id)->first();
+            if (isset($legal_relationship) && $legal_relationship->pivot->membership_fee == 0) {
+                $association->legal_relationships()->updateExistingPivot($legal_relationship, ['membership_fee' => 50]);
             }
         }
 
