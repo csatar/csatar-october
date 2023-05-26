@@ -558,6 +558,8 @@ trait AjaxControllerSimple {
             $model->beforeSaveFromForm($pivotData);
         }
 
+        $pivotData = $pivotData['pivot'] ?? $pivotData;
+
         if ($edit && !$isHasManyRelation && $record->id) {  // edit relation, regular pivot, existing record
             $attachedModel = $record->{$relationName}->find($relationId)->pivot;
             $attachedModel = $attachedModel->fill($pivotData);
