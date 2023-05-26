@@ -401,8 +401,10 @@ trait AjaxControllerSimple {
         $model = $edit ? $relatedModelName::find($relationId) : $this->getPivotModelIfSet($relationName);
 
         if (isset(Input::get($relationName)['pivot'])) {
-            $pivotData = Input::get($relationName)['pivot'];
-            $rules     = $record->{$relationName}->find($relationId)->pivot->rules ?? $model->rules ?? [];
+            $pivotData  = array_merge(Input::get($relationName), Input::get($relationName)['pivot']);
+            $modelRules = $model->rules ?? [];
+            $pivotRules = $record->{$relationName}->find($relationId)->pivot->rules ?? $model->rules ?? [];
+            $rules      = array_merge($modelRules, $pivotRules);
         } else {
             $pivotData = Input::get($relationName);
             $rules     = !empty($model->rules) ? $model->rules : [];
