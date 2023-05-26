@@ -56,7 +56,7 @@ function addKeywordCheckbox(element){
     filterSortPaginate(alias);
 }
 
-function filterSortPaginate(componentAlias, page = 1, sortColumn = '', sortDirection = '', changedColumn = null) {
+function filterSortPaginate(componentAlias, page = 1, sortColumn = '', sortDirection = '', changedColumn = null, callBackend = true) {
     let selected = {};
     selected[componentAlias] = [];
     let activeFilters = {};
@@ -92,17 +92,18 @@ function filterSortPaginate(componentAlias, page = 1, sortColumn = '', sortDirec
     }
 
     activeFilters = JSON.stringify(activeFilters);
-    $.request(componentAlias + '::onFilterSortPaginate', {
-        data: {
-            componentAlias: componentAlias,
-            activeFilters: activeFilters,
-            page: page,
-            sortColumn: sortColumn,
-            sortDirection: sortDirection,
-            changedColumn: changedColumn
-        }
-    });
-
+    if (callBackend) {
+        $.request(componentAlias + '::onFilterSortPaginate', {
+            data: {
+                componentAlias: componentAlias,
+                activeFilters: activeFilters,
+                page: page,
+                sortColumn: sortColumn,
+                sortDirection: sortDirection,
+                changedColumn: changedColumn
+            }
+        });
+    }
 }
 
 function removeFilter(elementId, componentAlias){
