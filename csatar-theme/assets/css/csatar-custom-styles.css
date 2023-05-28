@@ -1503,14 +1503,6 @@ div.card.csat-resp-gdtable > div.row > div.col, div.col-6, div.col-md-4, div.col
     .csat-border-lg-none {
         border-width: 0px !important;
     }
-
-    #tableRows-recordList > a:nth-child(odd) > div > div > div > div > div.td.data.grid-ellipsis {
-        background-color: #F5F5F5;
-    }
-    
-    #tableRows-recordList > a:nth-child(even) > div > div > div > div > div.td.data.grid-ellipsis {
-        background-color: white;
-    }
 }
 
 @media (max-width: 991px) {
@@ -1704,15 +1696,28 @@ td, .td {
     vertical-align: top;
 }
 
-table tr:nth-child(odd) td, div div.row:nth-child(odd) div.td {
-    background-color: #F5F5F5;
-}
-table tr:nth-child(even) td, div div.row:nth-child(even) div.td {
-    background-color: white;
-}
-
 .table_top_no_border {
     border-top: none !important;
+}
+
+/* Alternating line colors for grids and tables */
+
+@media (min-width: 992px) {
+    div.table.csat-grid a:nth-child(odd) div.td, div.csat-grid div.tr:nth-child(odd) div.td {
+        background-color: #F5F5F5;
+    }
+    
+    div.table.csat-grid a:nth-child(even) div.td, div.csat-grid div.tr:nth-child(even) div.td {
+        background-color: white;
+    }
+}
+
+table tr:nth-child(odd) td {
+    background-color: #F5F5F5;
+}
+
+table tr:nth-child(even) td {
+    background-color: white;
 }
 
 /* Pick a date calendar */
