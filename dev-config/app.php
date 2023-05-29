@@ -56,7 +56,7 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
-    'asset_url' => env('ASSET_URL', null),
+    'asset_url' => env('ASSET_URL'),
 
     /*
     |--------------------------------------------------------------------------
@@ -95,7 +95,7 @@ return [
     |
     */
 
-    'key' => env('APP_KEY', '0123456789ABCDEFGHIJKLMNOPQRSTUV'),
+    'key' => env('APP_KEY'),
 
     'cipher' => 'AES-256-CBC',
 
@@ -112,8 +112,12 @@ return [
 
     'providers' => array_merge(include(base_path('modules/system/providers.php')), [
 
-        // 'Illuminate\Html\HtmlServiceProvider', // Example
-        'System\ServiceProvider',
+        // Core Service Provider
+        System\ServiceProvider::class,
+
+        // Package Service Providers...
+        // Illuminate\Html\HtmlServiceProvider::class, // Example
+
     ]),
 
     /*
@@ -129,7 +133,8 @@ return [
 
     'aliases' => array_merge(include(base_path('modules/system/aliases.php')), [
 
-        // 'Str' => 'Illuminate\Support\Str', // Example
+        // 'Str' => Illuminate\Support\Str::class, // Example
+
     ]),
 
     /*
@@ -144,10 +149,10 @@ return [
     |-------------------------------- WARNING! --------------------------------
     |
     | Before you change this value, consider carefully if that is actually
-    | what you want to do. It is HIGHLY recommended that this is always set
-    | to UTC (as your server & DB timezone should be as well) and instead you
-    | use cms.backendTimezone to set the default timezone used in the backend
-    | to display dates & times.
+    | what you want to do. It is highly recommended that this is always set
+    | to UTC (as your server & DB timezone should be as well) and instead
+    | you can use backend.timezone or cms.timezone to set the default
+    | timezone used to display dates & times.
     |
     */
 

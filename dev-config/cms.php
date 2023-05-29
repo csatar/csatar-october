@@ -15,19 +15,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Safe Mode
-    |--------------------------------------------------------------------------
-    |
-    | If safe mode is enabled, the PHP code section is disabled in the CMS
-    | for security reasons. If set to null, safe mode is enabled when
-    | debug mode (app.debug) is disabled.
-    |
-    */
-
-    'safe_mode' => env('CMS_SAFE_MODE', null),
-
-    /*
-    |--------------------------------------------------------------------------
     | Database Themes
     |--------------------------------------------------------------------------
     |
@@ -36,8 +23,7 @@ return [
     | not be stored in the file system.
     |
     | false - All theme templates are sourced from the filesystem.
-    | true  - Source theme templates from the database with fallback to the filesytem.
-    | null  - Setting equal to the inverse of app.debug: debug enabled, this disabled.
+    | true  - Source theme templates from the database with fallback to the filesystem.
     |
     */
 
@@ -59,6 +45,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Frontend Timezone
+    |--------------------------------------------------------------------------
+    |
+    | This acts as the default setting for a frontend user's timezone used when
+    | converting dates from the system setting, typically set to UTC.
+    |
+    */
+
+    'timezone' => 'UTC',
+
+    /*
+    |--------------------------------------------------------------------------
     | Template Caching
     |--------------------------------------------------------------------------
     |
@@ -69,8 +67,6 @@ return [
     */
 
     'template_cache_ttl' => 1440,
-
-    'template_cache_driver' => 'file',
 
     /*
     |--------------------------------------------------------------------------
@@ -108,7 +104,7 @@ return [
     |
     */
 
-    'url_cache_ttl' => 10,
+    'url_cache_ttl' => 60,
 
     /*
     |--------------------------------------------------------------------------
@@ -139,7 +135,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Check import timestamps when combining assets
+    | Check Import Timestamps When Combining Assets
     |--------------------------------------------------------------------------
     |
     | If deep hashing is enabled, the combiner cache will be reset when a change
@@ -153,7 +149,22 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Force bytecode invalidation
+    | Site Redirect Policy
+    |--------------------------------------------------------------------------
+    |
+    | Controls the behavior when the root URL is opened without a matched site.
+    |
+    | detect    - detect the site based on the browser language
+    | primary   - use the primary site
+    | <site_id> - use a specific site identifier (id)
+    |
+    */
+
+    'redirect_policy' => env('CMS_REDIRECT_POLICY', 'detect'),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Force Bytecode Invalidation
     |--------------------------------------------------------------------------
     |
     | When using Opcache with opcache.validate_timestamps set to 0 or APC
@@ -163,5 +174,47 @@ return [
     */
 
     'force_bytecode_invalidation' => true,
+
+    /*
+    |--------------------------------------------------------------------------
+    | Safe Mode
+    |--------------------------------------------------------------------------
+    |
+    | If safe mode is enabled, the PHP code section is disabled in the CMS
+    | for security reasons. If set to null, safe mode is enabled when
+    | debug mode (app.debug) is disabled.
+    |
+    */
+
+    'safe_mode' => env('CMS_SAFE_MODE', null),
+
+    /*
+    |--------------------------------------------------------------------------
+    | V1 Security Policy
+    |--------------------------------------------------------------------------
+    |
+    | When using safe mode configuration, the Twig sandbox becomes very strict and
+    | uses an allow-list to protect calling unapproved methods. Instead, you may
+    | use V1, which is a more relaxed policy that uses a block-list, it blocks
+    | most of the unsecure methods but is not as secure as an allow-list.
+    |
+    */
+
+    'security_policy_v1' => env('CMS_SECURITY_POLICY_V1', false),
+
+    /*
+    |--------------------------------------------------------------------------
+    | V1 Exception Policy
+    |--------------------------------------------------------------------------
+    |
+    | When debug mode is off, throwing exceptions in AJAX will display a generic
+    | message, except for specific exception types such as ApplicationException
+    | and ValidationException (allow-list). Instead, you may use V1, which is
+    | a more relaxed policy that allows all messages and blocks common exception
+    | types (block-list) but may still leak information in rare cases.
+    |
+    */
+
+    'exception_policy_v1' => env('CMS_EXCEPTION_POLICY_V1', false),
 
 ];
