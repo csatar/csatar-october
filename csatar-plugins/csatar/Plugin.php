@@ -437,4 +437,5 @@ class Plugin extends PluginBase
         $version = \System\Models\PluginVersion::where('code', 'Csatar.Csatar')->first()->version ?? '0.0.0';
         return intval(str_replace('.', '', $version));
     }
+
 }
