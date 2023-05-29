@@ -1313,6 +1313,7 @@ class Scout extends OrganizationBase
             if ($field != null) {
                 $field->value = array_values($array)[0];
             }
+
             $this->address_location = array_values($array)[0];
         }
 

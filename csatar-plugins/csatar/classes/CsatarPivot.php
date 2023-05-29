@@ -12,6 +12,7 @@ class CsatarPivot extends Pivot
         if (!empty($this->pivotParent) && is_object($this->pivotParent)) {
             return get_class($this->pivotParent);
         }
+
         return null;
     }
 

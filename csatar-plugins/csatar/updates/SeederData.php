@@ -987,6 +987,7 @@ class SeederData extends Seeder
 
             $this->seedMandateTypesForAssociation($association);
         }
+
         // update the membership fee value for RMCSSZ - Member
         if ($association = Association::where('name', 'Romániai Magyar Cserkészszövetség')->first()) {
             $legal_relationship = $association->legal_relationships->where('id', $legalRelationship2->id)->first();

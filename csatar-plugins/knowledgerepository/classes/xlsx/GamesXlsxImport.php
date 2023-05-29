@@ -146,6 +146,7 @@ class GamesXlsxImport implements ToModel, WithHeadingRow, WithValidation, SkipsO
                 if (is_array($error)) {
                     $error = implode("\n", $error);
                 }
+
                 $validator->errors()->add($this->getRowNumber(), $error);
             }
         });

@@ -15,6 +15,7 @@ class BuilderTableUpdateCsatarCsatarPatrols3 extends Migration
             if (!Schema::hasColumn('csatar_csatar_patrols', 'trial_system_trial_type_id')) {
                 $table->integer('trial_system_trial_type_id')->unsigned()->nullable();
             }
+
             // check if foreign key exists
             if (Schema::hasColumn('csatar_csatar_patrols', 'trial_system_trial_type_id')
                 && !Schema::hasColumn('csatar_csatar_patrols', 'patrol_trial_system_trial_type_foreign')
