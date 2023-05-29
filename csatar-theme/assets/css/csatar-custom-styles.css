@@ -184,11 +184,22 @@ p.justify {
     line-height: 1.7;
 }
 
+.p-small-card {
+    font-family: geomanist !important;
+    font-weight: 200;
+    font-size: calc(0.8rem + 0.2vw);
+    line-height: 1;
+}
+
 .p-title {
     font-family: geomanist !important;
     font-weight: 400;
     font-size: calc(0.9rem + 0.2vw);
     line-height: 1.5;
+}
+
+.cardtitle {
+    max-width: 90%;
 }
 
 .p-gallery {
@@ -258,6 +269,10 @@ body>p.flash-message.success, body>p.flash-message.info, body>p.flash-message.wa
 
 label {
     font-weight: 300;
+}
+
+.td.label {
+    font-weight: 400;
 }
 
 .font-pw-400 {
@@ -1488,15 +1503,6 @@ div.card.csat-resp-gdtable > div.row > div.col, div.col-6, div.col-md-4, div.col
     .csat-border-lg-none {
         border-width: 0px !important;
     }
-
-    div.table.csat-grid > div:nth-child(odd) > div > div .td {
-        background-color: #F5F5F5;
-        }
-
-    div.table.csat-grid > div:nth-child(even) > div > div .td {
-        background-color: white;
-        }
-
 }
 
 @media (max-width: 991px) {
@@ -1640,7 +1646,13 @@ table.fixed {
 th, td, .th, .td, .th-grid {
     border-radius: 12px;
     padding: 4px;
-    min-height: 35px;
+}
+
+@media (min-width: 992px) {
+
+    th, td, .th, .td, .th-grid {
+        min-height: 35px;
+    }
 }
 
 #tableRows .td {
@@ -1684,15 +1696,28 @@ td, .td {
     vertical-align: top;
 }
 
-table tr:nth-child(odd) td, div div.row:nth-child(odd) div.td {
-    background-color: #F5F5F5;
-}
-table tr:nth-child(even) td, div div.row:nth-child(even) div.td {
-    background-color: white;
-}
-
 .table_top_no_border {
     border-top: none !important;
+}
+
+/* Alternating line colors for grids and tables */
+
+@media (min-width: 992px) {
+    div.table.csat-grid a:nth-child(odd) div.td, div.csat-grid div.tr:nth-child(odd) div.td {
+        background-color: #F5F5F5;
+    }
+    
+    div.table.csat-grid a:nth-child(even) div.td, div.csat-grid div.tr:nth-child(even) div.td {
+        background-color: white;
+    }
+}
+
+table tr:nth-child(odd) td {
+    background-color: #F5F5F5;
+}
+
+table tr:nth-child(even) td {
+    background-color: white;
 }
 
 /* Pick a date calendar */
