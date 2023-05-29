@@ -31,6 +31,8 @@ use Validator;
  */
 class Plugin extends PluginBase
 {
+    public $runMigrations = false;
+
     /**
      * @var array Plugin dependencies
      */
@@ -82,6 +84,8 @@ class Plugin extends PluginBase
             // if Csatar.Csatar version is lower than a specific version the below code should not run
             return;
         }
+
+        $this->runMigrations = true;
 
         $this->initHistoryService();
 
