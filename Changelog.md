@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-488 - Migration to OctoberCMS 3.0
 - CodeFactor issue fix: Duplicate Code
 - CodeFactor issue fix: maintainability
 - CS-583 - CodeFactor issue fix: reduced complexity in form builder methods
