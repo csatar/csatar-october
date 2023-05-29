@@ -77,7 +77,7 @@ class TestData extends Seeder
             $district_1->contact_email           = 'erika@yahoo.com';
             $district_1->leadership_presentation = 'A';
             $district_1->description = 'A';
-            $district_1->status = Status::ACTIVE;
+            $district_1->status      = Status::ACTIVE;
             $district_1->forceSave();
         }
 
@@ -94,7 +94,7 @@ class TestData extends Seeder
             $district_2->contact_email           = 'a@aa.com';
             $district_2->leadership_presentation = '-';
             $district_2->description = '-';
-            $district_2->status = Status::ACTIVE;
+            $district_2->status      = Status::ACTIVE;
             $district_2->forceSave();
 
             $district_3          = District::firstOrNew([
@@ -108,7 +108,7 @@ class TestData extends Seeder
             $district_3->contact_email           = 'a@aa.com';
             $district_3->leadership_presentation = '-';
             $district_3->description = '-';
-            $district_3->status = Status::ACTIVE;
+            $district_3->status      = Status::ACTIVE;
             $district_3->forceSave();
 
             $district_4          = District::firstOrNew([
@@ -281,7 +281,7 @@ class TestData extends Seeder
                 'team_id' => $team_6->id,
             ]);
             $troop_1->ignoreValidation = true;
-            $troop_1->status = Status::ACTIVE;
+            $troop_1->status           = Status::ACTIVE;
             $troop_1->forceSave();
 
             $troop_2 = Troop::firstOrNew([
@@ -289,7 +289,7 @@ class TestData extends Seeder
                 'team_id' => $team_6->id,
             ]);
             $troop_2->ignoreValidation = true;
-            $troop_2->status = Status::ACTIVE;
+            $troop_2->status           = Status::ACTIVE;
             $troop_2->forceSave();
         }
 
@@ -299,7 +299,7 @@ class TestData extends Seeder
                 'team_id' => $team_7->id,
             ]);
             $troop_3->ignoreValidation = true;
-            $troop_3->status = Status::ACTIVE;
+            $troop_3->status           = Status::ACTIVE;
             $troop_3->forceSave();
 
             $troop_4 = Troop::firstOrNew([
@@ -307,7 +307,7 @@ class TestData extends Seeder
                 'team_id' => $team_7->id,
             ]);
             $troop_4->ignoreValidation = true;
-            $troop_4->status = Status::ACTIVE;
+            $troop_4->status           = Status::ACTIVE;
             $troop_4->forceSave();
 
             $troop_5 = Troop::firstOrNew([
@@ -315,7 +315,7 @@ class TestData extends Seeder
                 'team_id' => $team_7->id,
             ]);
             $troop_5->ignoreValidation = true;
-            $troop_5->status = Status::ACTIVE;
+            $troop_5->status           = Status::ACTIVE;
             $troop_5->forceSave();
         }
 
@@ -331,7 +331,7 @@ class TestData extends Seeder
 
             $patrol_1->age_group_id     = $this->getFirstAgeGroupInAssociation($team_6->id);
             $patrol_1->ignoreValidation = true;
-            $patrol_1->status = Status::ACTIVE;
+            $patrol_1->status           = Status::ACTIVE;
             $patrol_1->forceSave();
 
             $patrol_2 = Patrol::firstOrNew([
@@ -344,7 +344,7 @@ class TestData extends Seeder
 
             $patrol_2->age_group_id     = $this->getFirstAgeGroupInAssociation($team_6->id);
             $patrol_2->ignoreValidation = true;
-            $patrol_2->status = Status::ACTIVE;
+            $patrol_2->status           = Status::ACTIVE;
             $patrol_2->forceSave();
 
             $patrol_3 = Patrol::firstOrNew([
@@ -353,7 +353,7 @@ class TestData extends Seeder
             ]);
             $patrol_3->age_group_id     = $this->getFirstAgeGroupInAssociation($team_6->id);
             $patrol_3->ignoreValidation = true;
-            $patrol_3->status = Status::ACTIVE;
+            $patrol_3->status           = Status::ACTIVE;
             $patrol_3->forceSave();
         }
 
@@ -368,7 +368,7 @@ class TestData extends Seeder
 
             $patrol_4->age_group_id     = $this->getFirstAgeGroupInAssociation($team_7->id);
             $patrol_4->ignoreValidation = true;
-            $patrol_4->status = Status::ACTIVE;
+            $patrol_4->status           = Status::ACTIVE;
             $patrol_4->forceSave();
 
             $patrol_5 = Patrol::firstOrNew([
@@ -381,7 +381,7 @@ class TestData extends Seeder
 
             $patrol_5->age_group_id     = $this->getFirstAgeGroupInAssociation($team_7->id);
             $patrol_5->ignoreValidation = true;
-            $patrol_5->status = Status::ACTIVE;
+            $patrol_5->status           = Status::ACTIVE;
             $patrol_5->forceSave();
 
             $patrol_6 = Patrol::firstOrNew([
@@ -390,7 +390,7 @@ class TestData extends Seeder
             ]);
             $patrol_6->age_group_id     = $this->getFirstAgeGroupInAssociation($team_7->id);
             $patrol_6->ignoreValidation = true;
-            $patrol_6->status = Status::ACTIVE;
+            $patrol_6->status           = Status::ACTIVE;
             $patrol_6->forceSave();
 
             $patrol_7 = Patrol::firstOrNew([
@@ -403,7 +403,7 @@ class TestData extends Seeder
 
             $patrol_7->age_group_id     = $this->getFirstAgeGroupInAssociation($team_7->id);
             $patrol_7->ignoreValidation = true;
-            $patrol_7->status = Status::ACTIVE;
+            $patrol_7->status           = Status::ACTIVE;
             $patrol_7->forceSave();
         }
 

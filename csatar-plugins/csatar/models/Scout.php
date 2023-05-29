@@ -1476,8 +1476,8 @@ class Scout extends OrganizationBase
     }
 
     public function getPatrolOptions() {
-        $options = [];
-        $team_id = $this->team_id;
+        $options  = [];
+        $team_id  = $this->team_id;
         $troop_id = $this->troop_id;
 
         $options += ['null' => e(trans('csatar.csatar::lang.plugin.admin.general.select'))];
