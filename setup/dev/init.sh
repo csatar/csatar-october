@@ -77,7 +77,7 @@ if [ -z "$containerName" ]; then
     while [ "$(docker ps -a -f name="$containerName" | grep -w "$containerName")" ]; do
         containerName="csatar-octobercms3-${counter}"
 
-        counter=`expr $counter + 1`
+        counter=$((counter + 1))
     done
 
     if [ "$counter" -gt 1 ]; then
