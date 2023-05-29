@@ -281,7 +281,7 @@ class RecordList extends RainRecordList {
     public function getTableHeaderConfig() {
         $headerConfig = [];
         foreach ($this->columnsConfig->columns as $column => $config) {
-            if (!isset($config['recordList'])) {
+            if (!isset($config['recordList']) || isset($config['recordList']['hideInTable'])) {
                 continue;
             }
 
@@ -498,7 +498,7 @@ class RecordList extends RainRecordList {
         // this method should work without recordList['filterConfig'] set, because not all columns should be filterable
         $rowConfig = [];
         foreach ($this->columnsConfig->columns as $column => $config) {
-            if (!isset($config['recordList'])) {
+            if (!isset($config['recordList']) || isset($config['recordList']['hideInTable'])) {
                 continue;
             }
 
@@ -566,7 +566,8 @@ class RecordList extends RainRecordList {
         $this->filtersConfig = $this->page['filtersConfig'] = $this->getFiltersConfig();
         foreach ($this->filtersConfig as $column => $config) {
             if (isset($config['filterConfig']['dependsOn']) && Input::get('changedColumn') == $config['filterConfig']['dependsOn']) {
-                $partialArray['#filter-' . $column . '-' . $componentAlias] = $this->renderPartial('@filter', ['column' => $column, 'config' => $config]);
+                $refresh = in_array($column, array_keys($filters));
+                $partialArray['#filter-' . $column . '-' . $componentAlias] = $this->renderPartial('@filter', ['column' => $column, 'config' => $config, 'refreshFilters' => $refresh]);
             }
         }
 
