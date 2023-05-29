@@ -1499,6 +1499,10 @@ div.card.csat-resp-gdtable > div.row > div.col, div.col-6, div.col-md-4, div.col
     padding: 2px;
 }
 
+div.csat-resp-gdtable div.td.label, div.td {
+    line-height: 1.2;
+}
+
 @media (min-width: 992px) {
     .csat-border-lg-none {
         border-width: 0px !important;
