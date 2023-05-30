@@ -9,7 +9,11 @@ class CsatarPivot extends Pivot
 
     public function getParentClass()
     {
-        return get_class($this->parent);
+        if (!empty($this->pivotParent) && is_object($this->pivotParent)) {
+            return get_class($this->pivotParent);
+        }
+
+        return null;
     }
 
     public function getForeignKey()
@@ -23,11 +27,11 @@ class CsatarPivot extends Pivot
     }
 
     public function getParent($id = null) {
-        return $this->parent->id ? $this->parent : $this->getParentById($id);
+        return $this->parent ? $this->parent : $this->getParentById($id);
     }
 
     public function getParentById($id) {
-        return $this->getParentClass()::find($id);
+        return $this->getParentClass() ? $this->getParentClass()::find($id) : null;
     }
 
 }

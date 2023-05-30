@@ -3,6 +3,7 @@
 namespace Csatar\KnowledgeRepository\Classes\Xlsx;
 
 use DB;
+use Lang;
 trait XlsxImportHelper {
 
     public function getModelIds($row, $searchFor, string $modelName, string $columnName, string $secondaryColumnName = null, $secondaryColumnValue = null, bool $createIfNotFound = false): ?array

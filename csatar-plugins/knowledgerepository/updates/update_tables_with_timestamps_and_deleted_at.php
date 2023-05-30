@@ -69,11 +69,6 @@ class UpdateTablesWithTimestampsAndDeletedAt extends Migration
         {
             $table->timestamp('deleted_at')->nullable();
         });
-
-        Schema::table('csatar_knowledgerepository_methodologies', function($table)
-        {
-            $table->timestamp('deleted_at')->nullable();
-        });
     }
 
     public function down()
@@ -135,11 +130,6 @@ class UpdateTablesWithTimestampsAndDeletedAt extends Migration
         });
 
         Schema::table('csatar_knowledgerepository_games', function($table)
-        {
-            $table->dropColumn('deleted_at');
-        });
-
-        Schema::table('csatar_knowledgerepository_methodologies', function($table)
         {
             $table->dropColumn('deleted_at');
         });

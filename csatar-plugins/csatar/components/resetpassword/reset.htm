@@ -16,8 +16,9 @@
                             <form
                                 data-request="{{ __SELF__ }}::onResetPassword"
                                 data-request-update="'{{ __SELF__ }}::complete': '#partialUserResetForm'"
-                                data-request-validate=""
-                                data-request-flash>
+                                data-request-validate="true"
+                                data-request-flash="true">
+
                                 <div class="form-group">
                                     <label for="resetCode" class="p-title ms-3">{{ 'Aktiváló kód' | _ }}</label>
                                     <input name="code" type="text" class="form-control" id="resetCode" placeholder="{{ 'Másold be az aktiváló kódot' | _ }}" value="{{ __SELF__.code }}">

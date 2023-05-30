@@ -583,7 +583,7 @@ class BasicForm extends ComponentBase  {
     {
 
         $this->addCss('/plugins/csatar/forms/assets/css/storm.css');
-        $this->addJs('/modules/system/assets/ui/storm-min.js');
+        $this->addJs('/plugins/csatar/forms/assets/vendor/storm-min.js');
         $this->addCss('/plugins/csatar/forms/assets/css/storm-select2.css');
 
         if ($this->recordKeyValue !== $this->createRecordKeyword && $action != $this->actionUpdateKeyword) {

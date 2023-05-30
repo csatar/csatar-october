@@ -153,9 +153,9 @@ class OvamtvWorkPlan extends PatrolWorkPlanBase
         return $this->patrol_id ? $this->patrol : null;
     }
 
-    public static function getOrganizationTypeModelNameUserFriendly()
+    public static function getOrganizationTypeModelNameUserFriendly($lang = null)
     {
-        return Lang::get('csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.ovamtvWorkPlan');
+        return Lang::get('csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.ovamtvWorkPlan', [], $lang);
     }
 
     public function filterFields($fields, $context = null) {

@@ -250,7 +250,9 @@ class MandateType extends Model
                 ->lists('name', 'id')
                 ;
         } else {
-            return MandateType::orderBy('name', 'asc')->lists('association_id', 'id');
+            return MandateType::orderBy('name', 'asc')
+                ->select(Db::raw("concat(association_id, ' - ', name) as name, id"))
+                ->lists('name', 'id');
         }
     }
 

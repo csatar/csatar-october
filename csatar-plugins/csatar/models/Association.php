@@ -217,9 +217,9 @@ class Association extends OrganizationBase
         return $this->id;
     }
 
-    public static function getOrganizationTypeModelNameUserFriendly()
+    public static function getOrganizationTypeModelNameUserFriendly($lang = null)
     {
-        return Lang::get('csatar.csatar::lang.plugin.admin.association.association');
+        return Lang::get('csatar.csatar::lang.plugin.admin.association.association', [], $lang);
     }
 
     public function getPersonalIdentificationNumberValidatorOptions() {

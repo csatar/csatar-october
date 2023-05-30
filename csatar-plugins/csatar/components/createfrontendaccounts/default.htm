@@ -3,8 +3,8 @@
 
 <div id="scoutList">
     <form data-request="onCreateFrontendAccounts"
-        data-request-loading
-        data-request-flash>
+        data-request-flash="true">
+
 
         {% partial "@formButton"
             permissionValue = permissions['MODEL_GENERAL']['create']
@@ -23,11 +23,9 @@
                     <input class="form-check-input me-2" type="checkbox" value="{{ record.id }}" id="scout-{{ record.id }}" name="scouts[]"/>
                 {% endif %}
                 <label class="form-check-label" for="scout-{{ record.id }}">
-                    {% spaceless %}
                     <a href="/tag/{{ record.ecset_code }}">
                         {{ record.getFullName() }}
                     </a>
-                    {% endspaceless %}
                 </label>
             </div>
         {% endfor %}

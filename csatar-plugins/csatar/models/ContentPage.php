@@ -41,9 +41,9 @@ class ContentPage extends PermissionBasedAccess
         'model' => []
     ];
 
-    public static function getOrganizationTypeModelNameUserFriendly()
+    public static function getOrganizationTypeModelNameUserFriendly($lang = null)
     {
-        return Lang::get('csatar.csatar::lang.plugin.admin.general.contentPage');
+        return Lang::get('csatar.csatar::lang.plugin.admin.general.contentPage', [], $lang);
     }
 
 }

@@ -62,9 +62,9 @@ class WorkPlan extends PermissionBasedAccess
         };
     }
 
-    public static function getOrganizationTypeModelNameUserFriendly()
+    public static function getOrganizationTypeModelNameUserFriendly($lang = null)
     {
-        return Lang::get('csatar.knowledgerepository::lang.plugin.admin.workPlan.workPlan');
+        return Lang::get('csatar.knowledgerepository::lang.plugin.admin.workPlan.workPlan', [], $lang);
     }
 
     public function getAssociation() {

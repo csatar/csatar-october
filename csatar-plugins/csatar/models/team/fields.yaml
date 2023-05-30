@@ -176,7 +176,7 @@ fields:
             - outdent
             - indent
             - quote,
-            -   -
+            - |
             - undo
             - redo
             - insertLink
@@ -219,7 +219,7 @@ fields:
             - outdent
             - indent
             - quote,
-            -   -
+            - |
             - undo
             - redo
             - insertLink
@@ -262,7 +262,7 @@ fields:
             - outdent
             - indent
             - quote,
-            -   -
+            - |
             - undo
             - redo
             - insertLink

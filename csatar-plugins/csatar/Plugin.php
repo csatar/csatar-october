@@ -31,6 +31,8 @@ use Validator;
  */
 class Plugin extends PluginBase
 {
+    public $runMigrations = false;
+
     /**
      * @var array Plugin dependencies
      */
@@ -77,10 +79,13 @@ class Plugin extends PluginBase
      * @return array
      */
     public function boot()
-    {if (!Schema::hasTable('system_plugin_versions') || intval(str_replace('.', '', \System\Models\PluginVersion::getVersion('Csatar.Csatar'))) < 1070) {
+    {
+        if (!Schema::hasTable('system_plugin_versions') || $this->getPluginVersion() < 1070) {
             // if Csatar.Csatar version is lower than a specific version the below code should not run
             return;
         }
+
+        $this->runMigrations = true;
 
         $this->initHistoryService();
 
@@ -425,6 +430,12 @@ class Plugin extends PluginBase
                 new GallerySearchProvider()
             ];
         });
+    }
+
+    public function getPluginVersion(): int
+    {
+        $version = \System\Models\PluginVersion::where('code', 'Csatar.Csatar')->first()->version ?? '0.0.0';
+        return intval(str_replace('.', '', $version));
     }
 
 }

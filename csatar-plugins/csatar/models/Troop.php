@@ -208,7 +208,7 @@ class Troop extends OrganizationBase
                 return;
             }
 
-            $troopsActive = $structureTree[$associationId]['districtsActive'][$districtId]['teamsActive'][$teamId]['troopsActive'];
+            $troopsActive = $structureTree[$associationId]['districtsActive'][$districtId]['teamsActive'][$teamId]['troopsActive'] ?? [];
 
             $troopsActive[$this->id]['id']            = $this->id;
             $troopsActive[$this->id]['name']          = $this->name;
@@ -312,9 +312,9 @@ class Troop extends OrganizationBase
         return $this->team->district->association->id;
     }
 
-    public static function getOrganizationTypeModelNameUserFriendly()
+    public static function getOrganizationTypeModelNameUserFriendly($lang = null)
     {
-        return Lang::get('csatar.csatar::lang.plugin.admin.troop.troop');
+        return Lang::get('csatar.csatar::lang.plugin.admin.troop.troop', [], $lang);
     }
 
     public function getAssociation() {

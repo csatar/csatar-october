@@ -72,9 +72,9 @@ class TrialSystem extends PermissionBasedAccess
         ]
     ];
 
-    public static function getOrganizationTypeModelNameUserFriendly()
+    public static function getOrganizationTypeModelNameUserFriendly($lang = null)
     {
-        return Lang::get('csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystem');
+        return Lang::get('csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystem', [], $lang);
     }
 
     public function getAssociationId()

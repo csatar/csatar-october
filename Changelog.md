@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-488 - Migration to OctoberCMS 3.0
 - CS-585 - Fixed card title line break in case of long titles
 - CS-585 - Fixed distance and line height of texts inside cards
 - CS-585 - Fixed the display of the list component on mobile

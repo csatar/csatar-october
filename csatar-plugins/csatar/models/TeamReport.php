@@ -237,9 +237,9 @@ class TeamReport extends PermissionBasedAccess
         return [];
     }
 
-    public static function getOrganizationTypeModelNameUserFriendly()
+    public static function getOrganizationTypeModelNameUserFriendly($lang = null)
     {
-        return Lang::get('csatar.csatar::lang.plugin.admin.teamReport.teamReport');
+        return Lang::get('csatar.csatar::lang.plugin.admin.teamReport.teamReport', [], $lang);
     }
 
     public function getAssociation() {

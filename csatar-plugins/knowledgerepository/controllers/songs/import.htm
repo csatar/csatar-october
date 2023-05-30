@@ -10,10 +10,9 @@
 <?php Block::endPut() ?>
 
 <form data-request="onImportSongs"
-      data-request-files
-      data-request-loading
-      data-request-validate
-      data-request-flash
+      data-request-files="true"
+      data-request-validate="true"
+      data-request-flash="true"
       data-request-complete="$.oc.stripeLoadIndicator.hide();"
       class='layout'>
 

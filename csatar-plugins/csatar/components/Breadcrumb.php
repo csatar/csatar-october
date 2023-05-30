@@ -144,7 +144,7 @@ class Breadcrumb extends ComponentBase
 
     private function getRecordUrl (PermissionBasedAccess $model, string $modelName, bool $isLastDescendant = false): void
     {
-        $modelNameUserFriendly = $modelName::getOrganizationTypeModelNameUserFriendly();
+        $modelNameUserFriendly = $modelName::getOrganizationTypeModelNameUserFriendly('hu');
         $recordName            = isset($this->modelLinkTitleMap[$modelName]) ? $model->{$this->modelLinkTitleMap[$modelName]} : '';
         $modelSlug = str_slug($modelNameUserFriendly);
         $url       = $this->controller->pageUrl($modelSlug, [ 'id' => $model->id ] );

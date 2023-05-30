@@ -17,9 +17,10 @@
                             <form
                                 data-request="{{ __SELF__ }}::onRestorePassword"
                                 data-request-update="'{{ __SELF__ }}::reset': '#partialUserResetForm'"
-                                data-request-validate=""
+                                data-request-validate="true"
                                 novalidate
-                                data-request-flash>
+                                data-request-flash="true">
+
                                 <div class="form-group">
                                     <label for="userRestoreEmail">{{ 'E-mail:' | _ }}</label>
                                     <input name="email" type="email" class="form-control rounded bg-white" id="userRestoreEmail" placeholder="{{ 'Írd be az e-mail címedet' | _ }}">

@@ -135,9 +135,9 @@ class Song extends PermissionBasedAccess
         'attachements' => ['System\Models\File'],
     ];
 
-    public static function getOrganizationTypeModelNameUserFriendly()
+    public static function getOrganizationTypeModelNameUserFriendly($lang = null)
     {
-        return Lang::get('csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.song');
+        return Lang::get('csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.song', [], $lang);
     }
 
     public function beforeCreate()

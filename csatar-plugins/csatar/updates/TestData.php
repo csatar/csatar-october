@@ -2,6 +2,7 @@
 namespace Csatar\Csatar\Updates;
 
 use Csatar\Csatar\Classes\Constants;
+use Csatar\Csatar\Classes\Enums\Status;
 use RainLab\Builder\Classes\ComponentHelper;
 use Seeder;
 use Csatar\Csatar\Models\Association;
@@ -76,7 +77,8 @@ class TestData extends Seeder
             $district_1->contact_email           = 'erika@yahoo.com';
             $district_1->leadership_presentation = 'A';
             $district_1->description = 'A';
-            $district_1->save();
+            $district_1->status      = Status::ACTIVE;
+            $district_1->forceSave();
         }
 
         $association_rmcssz = Association::where('name', 'Romániai Magyar Cserkészszövetség')->first();
@@ -92,7 +94,8 @@ class TestData extends Seeder
             $district_2->contact_email           = 'a@aa.com';
             $district_2->leadership_presentation = '-';
             $district_2->description = '-';
-            $district_2->save();
+            $district_2->status      = Status::ACTIVE;
+            $district_2->forceSave();
 
             $district_3          = District::firstOrNew([
                 'name' => $this::DATA['district'][2],
@@ -105,7 +108,8 @@ class TestData extends Seeder
             $district_3->contact_email           = 'a@aa.com';
             $district_3->leadership_presentation = '-';
             $district_3->description = '-';
-            $district_3->save();
+            $district_3->status      = Status::ACTIVE;
+            $district_3->forceSave();
 
             $district_4          = District::firstOrNew([
                 'name' => $this::DATA['district'][3],
@@ -117,8 +121,8 @@ class TestData extends Seeder
             $district_4->contact_name            = 'Székely István';
             $district_4->contact_email           = 'a@aa.com';
             $district_4->leadership_presentation = '-';
-            $district_4->description = '-';
-            $district_4->save();
+            $district_4->status = Status::ACTIVE;
+            $district_4->forceSave();
         }
 
         // teams
@@ -140,7 +144,8 @@ class TestData extends Seeder
             $team_1->juridical_person_address      = 'Balassagyarmat, Ady Endre utca, 10';
             $team_1->juridical_person_tax_number   = '06548';
             $team_1->juridical_person_bank_account = 'EM66544';
-            $team_1->save();
+            $team_1->status = Status::ACTIVE;
+            $team_1->forceSave();
         }
 
         if (isset($district_2)) {
@@ -161,7 +166,8 @@ class TestData extends Seeder
             $team_2->juridical_person_address      = 'Abcde';
             $team_2->juridical_person_tax_number   = '01234';
             $team_2->juridical_person_bank_account = '01234';
-            $team_2->save();
+            $team_2->status = Status::ACTIVE;
+            $team_2->forceSave();
 
             $team_3 = Team::firstOrNew([
                 'name' => $this::DATA['team'][2],
@@ -180,7 +186,8 @@ class TestData extends Seeder
             $team_3->juridical_person_address      = 'Abcde';
             $team_3->juridical_person_tax_number   = '01234';
             $team_3->juridical_person_bank_account = '01234';
-            $team_3->save();
+            $team_3->status = Status::ACTIVE;
+            $team_3->forceSave();
 
             $team_4 = Team::firstOrNew([
                 'name' => $this::DATA['team'][3],
@@ -199,7 +206,8 @@ class TestData extends Seeder
             $team_4->juridical_person_address      = 'Abcde';
             $team_4->juridical_person_tax_number   = '01234';
             $team_4->juridical_person_bank_account = '01234';
-            $team_4->save();
+            $team_4->status = Status::ACTIVE;
+            $team_4->forceSave();
         }
 
         if (isset($district_3)) {
@@ -220,7 +228,8 @@ class TestData extends Seeder
             $team_5->juridical_person_address      = 'Abcde';
             $team_5->juridical_person_tax_number   = '01234';
             $team_5->juridical_person_bank_account = '01234';
-            $team_5->save();
+            $team_5->status = Status::ACTIVE;
+            $team_5->forceSave();
         }
 
         if (isset($district_4)) {
@@ -241,7 +250,8 @@ class TestData extends Seeder
             $team_6->juridical_person_address      = 'Abcde';
             $team_6->juridical_person_tax_number   = '01234';
             $team_6->juridical_person_bank_account = '01234';
-            $team_6->save();
+            $team_6->status = Status::ACTIVE;
+            $team_6->forceSave();
 
             $team_7 = Team::firstOrNew([
                 'name' => $this::DATA['team'][6],
@@ -260,7 +270,8 @@ class TestData extends Seeder
             $team_7->juridical_person_address      = 'Abcde';
             $team_7->juridical_person_tax_number   = '01234';
             $team_7->juridical_person_bank_account = '01234';
-            $team_7->save();
+            $team_7->status = Status::ACTIVE;
+            $team_7->forceSave();
         }
 
         // troops
@@ -270,14 +281,16 @@ class TestData extends Seeder
                 'team_id' => $team_6->id,
             ]);
             $troop_1->ignoreValidation = true;
-            $troop_1->save();
+            $troop_1->status           = Status::ACTIVE;
+            $troop_1->forceSave();
 
             $troop_2 = Troop::firstOrNew([
                 'name' => $this::DATA['troop'][1],
                 'team_id' => $team_6->id,
             ]);
             $troop_2->ignoreValidation = true;
-            $troop_2->save();
+            $troop_2->status           = Status::ACTIVE;
+            $troop_2->forceSave();
         }
 
         if (isset($team_7)) {
@@ -286,21 +299,24 @@ class TestData extends Seeder
                 'team_id' => $team_7->id,
             ]);
             $troop_3->ignoreValidation = true;
-            $troop_3->save();
+            $troop_3->status           = Status::ACTIVE;
+            $troop_3->forceSave();
 
             $troop_4 = Troop::firstOrNew([
                 'name' => $this::DATA['troop'][3],
                 'team_id' => $team_7->id,
             ]);
             $troop_4->ignoreValidation = true;
-            $troop_4->save();
+            $troop_4->status           = Status::ACTIVE;
+            $troop_4->forceSave();
 
             $troop_5 = Troop::firstOrNew([
                 'name' => $this::DATA['troop'][4],
                 'team_id' => $team_7->id,
             ]);
             $troop_5->ignoreValidation = true;
-            $troop_5->save();
+            $troop_5->status           = Status::ACTIVE;
+            $troop_5->forceSave();
         }
 
         // patrols
@@ -315,7 +331,8 @@ class TestData extends Seeder
 
             $patrol_1->age_group_id     = $this->getFirstAgeGroupInAssociation($team_6->id);
             $patrol_1->ignoreValidation = true;
-            $patrol_1->save();
+            $patrol_1->status           = Status::ACTIVE;
+            $patrol_1->forceSave();
 
             $patrol_2 = Patrol::firstOrNew([
                 'name' => $this::DATA['patrol'][1],
@@ -327,7 +344,8 @@ class TestData extends Seeder
 
             $patrol_2->age_group_id     = $this->getFirstAgeGroupInAssociation($team_6->id);
             $patrol_2->ignoreValidation = true;
-            $patrol_2->save();
+            $patrol_2->status           = Status::ACTIVE;
+            $patrol_2->forceSave();
 
             $patrol_3 = Patrol::firstOrNew([
                 'name' => $this::DATA['patrol'][2],
@@ -335,7 +353,8 @@ class TestData extends Seeder
             ]);
             $patrol_3->age_group_id     = $this->getFirstAgeGroupInAssociation($team_6->id);
             $patrol_3->ignoreValidation = true;
-            $patrol_3->save();
+            $patrol_3->status           = Status::ACTIVE;
+            $patrol_3->forceSave();
         }
 
         if (isset($team_7)) {
@@ -349,7 +368,8 @@ class TestData extends Seeder
 
             $patrol_4->age_group_id     = $this->getFirstAgeGroupInAssociation($team_7->id);
             $patrol_4->ignoreValidation = true;
-            $patrol_4->save();
+            $patrol_4->status           = Status::ACTIVE;
+            $patrol_4->forceSave();
 
             $patrol_5 = Patrol::firstOrNew([
                 'name' => $this::DATA['patrol'][4],
@@ -361,7 +381,8 @@ class TestData extends Seeder
 
             $patrol_5->age_group_id     = $this->getFirstAgeGroupInAssociation($team_7->id);
             $patrol_5->ignoreValidation = true;
-            $patrol_5->save();
+            $patrol_5->status           = Status::ACTIVE;
+            $patrol_5->forceSave();
 
             $patrol_6 = Patrol::firstOrNew([
                 'name' => $this::DATA['patrol'][5],
@@ -369,7 +390,8 @@ class TestData extends Seeder
             ]);
             $patrol_6->age_group_id     = $this->getFirstAgeGroupInAssociation($team_7->id);
             $patrol_6->ignoreValidation = true;
-            $patrol_6->save();
+            $patrol_6->status           = Status::ACTIVE;
+            $patrol_6->forceSave();
 
             $patrol_7 = Patrol::firstOrNew([
                 'name' => $this::DATA['patrol'][6],
@@ -381,7 +403,8 @@ class TestData extends Seeder
 
             $patrol_7->age_group_id     = $this->getFirstAgeGroupInAssociation($team_7->id);
             $patrol_7->ignoreValidation = true;
-            $patrol_7->save();
+            $patrol_7->status           = Status::ACTIVE;
+            $patrol_7->forceSave();
         }
 
         // seed contact form settings - temp solution

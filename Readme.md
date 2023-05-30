@@ -1,6 +1,6 @@
 # CSATÁR
 
-You're reading the root readme file of the RMCS's CSATÁR project.
+You're reading the root readme file of the RMCSSZ's CSATÁR project.
 
 ## Git Setup
 

@@ -483,9 +483,6 @@ class Scout extends OrganizationBase
      * Handle the team-troop-patrol dependencies
      */
     public function filterFields($fields, $context = null) {
-        $this->handleTroopDropdown($fields);
-        $this->handlePatrolDopdown($fields);
-        $this->handleLegalRelationshipDropdown($fields);
         $this->handlePersonalIdentificationNumberField($fields);
         $this->handleAddressFields($fields);
         $this->handleCitizenshipField($fields);
@@ -1144,9 +1141,9 @@ class Scout extends OrganizationBase
         return $this->id === $scout->id;
     }
 
-    public static function getOrganizationTypeModelNameUserFriendly()
+    public static function getOrganizationTypeModelNameUserFriendly($lang = null)
     {
-        return Lang::get('csatar.csatar::lang.plugin.admin.scout.scout');
+        return Lang::get('csatar.csatar::lang.plugin.admin.scout.scout', [], $lang);
     }
 
     public function getScoutOptions($scopes = null){
@@ -1268,7 +1265,7 @@ class Scout extends OrganizationBase
         return [];
     }
 
-    public function setAddressCountyOptions(&$field)
+    public function setAddressCountyOptions(&$field = null)
     {
         $savedCounty = $this->original['address_county'] ?? null;
         $array       = [];
@@ -1284,14 +1281,18 @@ class Scout extends OrganizationBase
             if ($this->address_county != $savedCounty) {
                 $array[$this->address_county] = $this->address_county;
             }
-        } else {
+        } elseif ($field != null) {
             $field->value = array_values($array)[0];
         }
 
-        $field->options = $array;
+        if ($field != null) {
+            $field->options = $array;
+        } else {
+            return $array;
+        }
     }
 
-    public function setAddressLocationOptions(&$field)
+    public function setAddressLocationOptions(&$field = null)
     {
         $savedLocation = $this->original['address_location'] ?? null;
         $array         = [];
@@ -1309,14 +1310,21 @@ class Scout extends OrganizationBase
                 $array[$this->address_location] = $this->address_location;
             }
         } else {
-            $field->value           = array_values($array)[0];
+            if ($field != null) {
+                $field->value = array_values($array)[0];
+            }
+
             $this->address_location = array_values($array)[0];
         }
 
-        $field->options = $array;
+        if ($field != null) {
+            $field->options = $array;
+        } else {
+            return $array;
+        }
     }
 
-    public function setAddressStreetOptions(&$field)
+    public function setAddressStreetOptions(&$field = null)
     {
         $savedStreet = $this->original['address_street'] ?? null;
         $array       = [];
@@ -1343,11 +1351,15 @@ class Scout extends OrganizationBase
             if ($this->address_street != $savedStreet) {
                 $array[$this->address_street] = $this->address_street;
             }
-        } else {
+        } elseif ($field != null) {
             $field->value = array_values($array)[0];
         }
 
-        $field->options = $array;
+        if ($field != null) {
+            $field->options = $array;
+        } else {
+            return $array;
+        }
     }
 
     public function getAddressCountryAttribute()
@@ -1427,23 +1439,16 @@ class Scout extends OrganizationBase
         return $value ? Carbon::parse($value)->format('Y-m-d') : null;
     }
 
-    /**
-     * @param  $fields
-     * @return void
-     */
-    public function handleTroopDropdown(&$fields)
-    {
-        // populate the Troop and Patrol dropdowns with troops and patrols that belong to the selected team
-        if (isset($fields->troop)) {
-            $fields->troop->options = [];
-            $team_id = $this->team_id;
-            if ($team_id) {
-                $fields->troop->options += ['null' => e(trans('csatar.csatar::lang.plugin.admin.general.select'))];
-                foreach (\Csatar\Csatar\Models\Troop::teamId($team_id)->get() as $troop) {
-                    $fields->troop->options += [$troop['id'] => $troop['extendedName']];
-                }
+    public function getTroopOptions() {
+        $options = [];
+        if ($this->team_id) {
+            $options += ['null' => e(trans('csatar.csatar::lang.plugin.admin.general.select'))];
+            foreach (\Csatar\Csatar\Models\Troop::teamId($this->team_id)->get() as $troop) {
+                $options += [$troop['id'] => $troop['extendedName']];
             }
         }
+
+        return $options;
     }
 
     /**
@@ -1471,16 +1476,27 @@ class Scout extends OrganizationBase
         }
     }
 
-    /**
-     * @param  $fields
-     * @return void
-     */
-    public function handleLegalRelationshipDropdown(&$fields): void
-    {
-        // populate the Legal Relationships dropdown with legal relationships that belong to the selected team's association
-        if (isset($fields->legal_relationship)) {
-            $fields->legal_relationship->options = $this->team ? \Csatar\Csatar\Models\LegalRelationship::associationId($this->team->district->association->id)->lists('name', 'id') : [];
+    public function getPatrolOptions() {
+        $options  = [];
+        $team_id  = $this->team_id;
+        $troop_id = $this->troop_id;
+
+        $options += ['null' => e(trans('csatar.csatar::lang.plugin.admin.general.select'))];
+        if ($troop_id && $troop_id != 'null') { // important, 'null' is string at this point
+            foreach (\Csatar\Csatar\Models\Patrol::troopId($troop_id)->get() as $patrol) {
+                $options += [$patrol['id'] => $patrol['extendedName']];
+            }
+        } else if ($team_id) {
+            foreach (\Csatar\Csatar\Models\Patrol::teamId($team_id)->get() as $patrol) {
+                $options += [$patrol['id'] => $patrol['extendedName']];
+            }
         }
+
+        return $options;
+    }
+
+    public function getLegalRelationshipOptions() {
+        return $this->team ? \Csatar\Csatar\Models\LegalRelationship::associationId($this->team->district->association->id)->lists('name', 'id') : [];
     }
 
     /**
@@ -1519,6 +1535,18 @@ class Scout extends OrganizationBase
         if (isset($fields->address_street)) {
             $this->setAddressStreetOptions($fields->address_street);
         }
+    }
+
+    public function getAddressCountyOptions() {
+        return $this->setAddressCountyOptions();
+    }
+
+    public function getAddressLocationOptions() {
+        return $this->setAddressLocationOptions();
+    }
+
+    public function getAddressStreetOptions() {
+        return $this->setAddressStreetOptions();
     }
 
     /**
