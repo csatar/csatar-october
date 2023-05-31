@@ -57,3 +57,11 @@
         </div>
     {% endif %}
 </div>
+
+{% if refreshFilters %}
+    <script>
+        $(document).ready(function() {
+            filterSortPaginate('{{ __SELF__.alias }}', 1, '', '', null, false);
+        });
+    </script>
+{% endif %}
