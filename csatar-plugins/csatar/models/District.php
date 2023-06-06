@@ -301,6 +301,9 @@ class District extends OrganizationBase
     }
 
     public function getParentTree() {
+        if (empty($this->association)) {
+            return null;
+        }
         return '(' . $this->association->text_for_search_results_tree . ')';
     }
 
