@@ -1,4 +1,22 @@
 columns:
+    association_id:
+      label: 'csatar.csatar::lang.plugin.admin.association.association'
+      type: text
+      searchable: true
+      sortable: true
+      select: name
+      relation: association
+      recordList:
+        sortable: true
+        filterable: true
+        hideInTable: true
+        filterConfig:
+          type: relation
+          relationName: association
+          keyFrom: id
+          labelFrom: name
+          selectType: radio
+          defaultFrom: getAssociationIdByUser
     uploader_csatar_code:
         label: 'csatar.knowledgerepository::lang.plugin.admin.game.uploader'
         type: text
@@ -8,9 +26,73 @@ columns:
     name:
         label: 'csatar.knowledgerepository::lang.plugin.admin.game.name'
         type: text
+        recordList:
+            sortable:
+                default: asc
+            filterable: true
+            filterConfig:
+                type: freeText
+    age_groups:
+        label: 'csatar.csatar::lang.plugin.admin.ageGroups.ageGroups'
+        type: text
+        relation: age_groups
+        valueFrom: name
+        recordList:
+            sortable: true
+            filterable: true
+            filterConfig:
+                type: relation
+                relationName: age_groups
+                keyFrom: id
+                labelFrom: name
+                selectType: checkbox
+                dependsOn: association_id
+    game_types:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.gameTypes'
+        type: text
+        relation: game_types
+        valueFrom: name
+        recordList:
+            sortable: true
+            filterable: true
+            filterConfig:
+                type: relation
+                relationName: game_types
+                keyFrom: id
+                labelFrom: name
+                selectType: checkbox
+    locations:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.locations'
+        type: text
+        relation: locations
+        valueFrom: name
+        recordList:
+            sortable: true
+            filterable: true
+            filterConfig:
+                type: relation
+                relationName: locations
+                keyFrom: id
+                labelFrom: name
+                selectType: checkbox
+    headcounts:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.headCount'
+        type: text
+        relation: headcounts
+        valueFrom: name
+        recordList:
+            sortable: true
+            filterable: true
+            filterConfig:
+                type: relation
+                relationName: headcounts
+                keyFrom: id
+                labelFrom: name
+                selectType: checkbox
     description:
         label: 'csatar.knowledgerepository::lang.plugin.admin.general.description'
         type: text
+        recordList: true
     link:
         label: Link
         type: text

@@ -1,12 +1,12 @@
 <?php
 namespace Csatar\KnowledgeRepository\Models;
 
-use Model;
+use Csatar\Csatar\Models\ModelExtended;
 
 /**
  * Model
  */
-class Tool extends Model
+class Tool extends ModelExtended
 {
     use \October\Rain\Database\Traits\Validation;
 
@@ -66,5 +66,10 @@ class Tool extends Model
             'label' => 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.methodologies'
         ]
     ];
+
+    public function scopeApproved($query)
+    {
+        return $query->where('is_approved', true);
+    }
 
 }

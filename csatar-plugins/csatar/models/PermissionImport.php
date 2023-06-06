@@ -17,7 +17,7 @@ class PermissionImport extends \Backend\Models\ImportModel
     public function importData($results, $sessionKey = null)
     {
         $mandateTypesWithAssociation = (collect($results))->unique( function ($item) {
-            return $item['association'].$item['mandate_type'];
+            return $item['association'] . $item['mandate_type'];
         });
 
         $mandateTypesWithAssociation = $mandateTypesWithAssociation->mapToGroups(function ($item, $key) {

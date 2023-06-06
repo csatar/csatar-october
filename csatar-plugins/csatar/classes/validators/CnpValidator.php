@@ -7,7 +7,7 @@ use Rainlab\Location\Models\Country;
 // based on https://github.com/laravel-enso/cnp-validator
 class CnpValidator
 {
-    private const HashTable = [2, 7, 9, 1, 4, 6, 3, 5, 8, 2, 7, 9];
+    private const HASHTABLE = [2, 7, 9, 1, 4, 6, 3, 5, 8, 2, 7, 9];
     private $cnp;
 
     public function validate($attribute, $value, $params): bool
@@ -73,8 +73,8 @@ class CnpValidator
     private function hash()
     {
         $hash = array_reduce(
-            array_keys(self::HashTable),
-            fn ($hash, $key) => $hash += (int) $this->cnp[$key] * self::HashTable[$key]
+            array_keys(self::HASHTABLE),
+            fn ($hash, $key) => $hash += (int) $this->cnp[$key] * self::HASHTABLE[$key]
         ) % 11;
 
         return $hash === 10 ? 1 : $hash;

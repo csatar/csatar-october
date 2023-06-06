@@ -3,8 +3,14 @@
 <button class="btn btn-sm rounded btn-primary"
         data-request="onSavePivotRelation"
         data-request-data="relationName: '{{ relationName }}', relationId: {{ relationId }}, edit: '{{ edit }}'"
-        data-request-complete="window.positionValidationTags(true);"><i class="csat-save-fill-wh-sm"></i> {{ 'Mentés'|_ }}</button>
+        data-request-complete="window.positionValidationTags(true);"><i class="csat-save-fill-wh-sm"></i> {{ 'Mentés'|_ }}
+</button>
+<input type="hidden" name="relationName" value="{{ relationName }}">
+<input type="hidden" name="relationId" value="{{ relationId }}">
+<input type="hidden" name="edit" value="{{ edit }}">
+
 {% if not edit %}
         <button class="btn btn-sm rounded btn-light" data-request="{{ __SELF__}}::onListAttachOptions" data-request-data="relationName: '{{ relationName }}'">{{ 'Vissza'|_ }}</button>
 {% endif %}
 <button class="btn btn-sm rounded btn-light" data-request="onCloseAddEditArea" data-request-data="relationName: '{{ relationName }}'">{{ 'Mégse'|_ }}</button>
+

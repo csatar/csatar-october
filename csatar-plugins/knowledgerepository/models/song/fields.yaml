@@ -70,7 +70,7 @@ fields:
         descriptionFrom: description
         span: auto
         type: relation
-    agegroups:
+    age_groups:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.ageGroup'
         span: auto
         type: taglist
@@ -79,7 +79,7 @@ fields:
         customTags: false
         dependsOn: association
         nameFrom: name
-    trialsystems:
+    trial_systems:
         label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystems'
         span: auto
         type: taglist

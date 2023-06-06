@@ -1,0 +1,138 @@
+fields:
+    patrol:
+        label: 'csatar.csatar::lang.plugin.admin.patrol.patrol'
+        nameFrom: extendedName
+        descriptionFrom: description
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        span: full
+        required: 1
+        type: relation
+        readOnly: true
+        cssClass: d-none
+    patrol_name:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.patrol'
+        span: auto
+        type: text
+        readOnly: true
+    patrol_leader:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.patrolLeader'
+        span: auto
+        type: text
+        readOnly: true
+    deputy_patrol_leaders:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.deputyPatrolLeaders'
+        span: auto
+        type: text
+        readOnly: true
+    ovamtvWorkPlan:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.ovamtvWorkPlan'
+        span: auto
+        type: dropdown
+        nameFrom: name
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+    start_date_time:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.startDateTime'
+        span: auto
+        type: datepicker
+    _ruler1:
+        type: ruler
+        formBuilder:
+            ignoreUserRights: 1
+    newMaterials:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.newMaterial'
+        span: full
+        type: taglist
+        customTags: false
+        useKey: true
+        options: true
+        dependsOn: ovamtvWorkPlan
+    oldMaterials:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.oldMaterial'
+        span: full
+        type: taglist
+        customTags: false
+        useKey: true
+        options: true
+        dependsOn: ovamtvWorkPlan
+    _ruler2:
+        type: ruler
+        formBuilder:
+            ignoreUserRights: 1
+    programNote:
+        label: ''
+        path: $/csatar/knowledgerepository/models/weeklyworkplan/programnote.htm
+        type: partial
+        span: full
+        formBuilder:
+            ignoreUserRights: 1
+    pivotPlaceholder:
+        label: ''
+        path: $/csatar/knowledgerepository/models/weeklyworkplan/pivotplaceholder.htm
+        type: partial
+        span: full
+        formBuilder:
+            ignoreUserRights: 1
+    spareGames:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.spareGames'
+        span: full
+        type: taglist
+        mode: relation
+        useKey: true
+        customTags: false
+        nameFrom: name
+    advertisement:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.advertisement'
+        span: full
+        type: textarea
+    tools:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.tools'
+        span: full
+        type: textarea
+        readOnly: true
+    extra_tools:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.extraTools'
+        span: full
+        type: textarea
+    evaluation:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.evaluation'
+        span: full
+        type: textarea
+    new_material_effective_knowledge:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.newMaterialEffectiveKnowledge'
+        span: full
+        path: $/csatar/knowledgerepository/models/weeklyworkplan/nmek.htm
+        type: partial
+    old_material_effective_knowledge:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.oldMaterialEffectiveKnowledge'
+        span: full
+        path: $/csatar/knowledgerepository/models/weeklyworkplan/omek.htm
+        type: partial
+    attachments:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.attachments'
+        span: full
+        path: $/csatar/knowledgerepository/models/weeklyworkplan/attachments.htm
+        type: partial
+    _ruler4:
+        type: ruler
+        formBuilder:
+            ignoreUserRights: 1
+    scouts:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.scouts'
+        span: full
+        type: relation
+        nameFrom: name
+    scouts_list:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.scoutsList'
+        span: full
+        type: text
+        readOnly: true
+    creator_csatar_code:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.creatorCsatarCode'
+        path: $/csatar/knowledgerepository/models/weeklyworkplan/creator.htm
+        type: partial
+        span: auto
+    updater_csatar_code:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.updaterCsatarCode'
+        path: $/csatar/knowledgerepository/models/weeklyworkplan/updater.htm
+        type: partial
+        span: auto

@@ -146,33 +146,6 @@
     font-style: normal
 }
 
-[class*=" icon-"], [class^=icon-] {
-    font-family: FontAwesome;
-    font-weight: 400;
-    font-style: normal;
-    text-decoration: inherit;
-    -webkit-font-smoothing: antialiased;
-    display: inline;
-    width: auto;
-    height: auto;
-    line-height: normal;
-    vertical-align: baseline;
-    background-image: none;
-    background-position: 0 0;
-    background-repeat: repeat;
-    margin-top: 0
-}
-
-[class*=" oc-icon-"]:before, [class^=oc-icon-]:before {
-    display: inline-block;
-    margin-right: 8px;
-    font-family: FontAwesome;
-    font-style: normal;
-    text-decoration: inherit;
-    -webkit-font-smoothing: antialiased;
-    vertical-align: baseline
-}
-
 label {
     display: inline-block;
     font-size: calc(0.9rem + 0.2vw);
@@ -819,32 +792,31 @@ div.input-with-icon.input-with-icon.right-align {
 }
 
 @font-face {
-    font-family:octo-icon;
-    src:url(font/octo-icon.eot?symvb&v=1.0.1);
-    src:url(font/octo-icon.eot?symvb#iefix&v=1.0.1) format('embedded-opentype'),
+    font-family: octo-icon;
+    src: url(font/octo-icon.eot?symvb&v=1.0.1);
+    src: url(font/octo-icon.eot?symvb#iefix&v=1.0.1) format('embedded-opentype'),
     url(font/octo-icon.ttf?symvb&v=1.0.1) format('truetype'),
     url(font/octo-icon.woff?symvb&v=1.0.1) format('woff'),
     url(font/octo-icon.svg?symvb#octo-icon&v=1.0.1) format('svg');
-    font-weight:400;
-    font-style:normal;
-    font-display:block
+    font-weight: 400;
+    font-style: normal;
+    font-display: block
 }
-[class*=" icon-"],
-[class^=icon-] {
-    font-family:FontAwesome;
-    font-weight:400;
-    font-style:normal;
-    text-decoration:inherit;
-    -webkit-font-smoothing:antialiased;
-    display:inline;
-    width:auto;
-    height:auto;
-    line-height:normal;
-    vertical-align:baseline;
-    background-image:none;
-    background-position:0 0;
-    background-repeat:repeat;
-    margin-top:0
+[class*=" icon-"], [class^=icon-] {
+    font-family: FontAwesome;
+    font-weight: 400;
+    font-style: normal;
+    text-decoration: inherit;
+    -webkit-font-smoothing: antialiased;
+    display: inline;
+    width: auto;
+    height: auto;
+    line-height: normal;
+    vertical-align: baseline;
+    background-image: none;
+    background-position: 0 0;
+    background-repeat: repeat;
+    margin-top: 0
 }
 [class*=" icon-"]:before,
 [class^=icon-]:before {
@@ -860,8 +832,7 @@ div.input-with-icon.input-with-icon.right-align {
 [class^=icon-].pull-right {
     margin-left:.3em
 }
-[class*=" oc-icon-"]:before,
-[class^=oc-icon-]:before {
+[class*=" oc-icon-"]:before, [class^=oc-icon-]:before {
     display:inline-block;
     margin-right:8px;
     font-family:FontAwesome;

@@ -27,7 +27,7 @@ use PhpOffice\PhpSpreadsheet\Spreadsheet;
 
 class TrialSystemsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHeadingRow, SkipsOnFailure, WithMultipleSheets, SkipsUnknownSheets
 {
-    use Importable, RemembersRowNumber, SkipsFailures;
+    use Importable, RemembersRowNumber, SkipsFailures, XlsxImportHelper;
 
     private $associationId;
 
@@ -97,29 +97,17 @@ class TrialSystemsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHe
             $trialSystem->id_string      = $cellsArray['id'];
         }
 
-        if (isset($cellsArray['kategoria'])) {
-            $trialSystem->trial_system_category_id = $this->getModelIds($row, $cellsArray['kategoria'], TrialSystemCategory::class, 'name', null, null, true)[0] ?? null;
-        }
+        $trialSystem->trial_system_category_id = $this->getModelIds($row, $cellsArray['kategoria'], TrialSystemCategory::class, 'name', null, null, true)[0] ?? null;
 
-        if (isset($cellsArray['tema'])) {
-            $trialSystem->trial_system_topic_id = $this->getModelIds($row, $cellsArray['tema'], TrialSystemTopic::class, 'name', null, null, true)[0] ?? null;
-        }
+        $trialSystem->trial_system_topic_id = $this->getModelIds($row, $cellsArray['tema'], TrialSystemTopic::class, 'name', null, null, true)[0] ?? null;
 
-        if (isset($cellsArray['subtopic'])) {
-            $trialSystem->trial_system_sub_topic_id = $this->getModelIds($row, $cellsArray['altema'], TrialSystemSubTopic::class, 'name', null, null, true)[0] ?? null;
-        }
+        $trialSystem->trial_system_sub_topic_id = $this->getModelIds($row, $cellsArray['altema'], TrialSystemSubTopic::class, 'name', null, null, true)[0] ?? null;
 
-        if (isset($cellsArray['korosztaly'])) {
-            $trialSystem->age_group_id = $this->getModelIds($row, $cellsArray['korosztaly'], AgeGroup::class, 'name', 'association_id', $this->associationId)[0] ?? null;
-        }
+        $trialSystem->age_group_id = $this->getModelIds($row, $cellsArray['korosztaly'], AgeGroup::class, 'name', 'association_id', $this->associationId)[0] ?? null;
 
-        if (isset($cellsArray['tipus'])) {
-            $trialSystem->trial_system_type_id = $this->getModelIds($row, $cellsArray['tipus'], TrialSystemType::class, 'name', null, null, true)[0] ?? null;
-        }
+        $trialSystem->trial_system_type_id = $this->getModelIds($row, $cellsArray['tipus'], TrialSystemType::class, 'name', null, null, true)[0] ?? null;
 
-        if (isset($cellsArray['proba'])) {
-            $trialSystem->trial_system_trial_type_id = $this->getModelIds($row, $cellsArray['proba'], TrialSystemTrialType::class, 'name', null, null, true)[0] ?? null;
-        }
+        $trialSystem->trial_system_trial_type_id = $this->getModelIds($row, $cellsArray['proba'], TrialSystemTrialType::class, 'name', null, null, true)[0] ?? null;
 
         if (!empty($this->errors[$row->getRowIndex()])) {
             return;
@@ -149,36 +137,6 @@ class TrialSystemsXlsxImport implements OnEachRow, WithHeadingRow, WithGroupedHe
         foreach ($pivotRelationIds as $relationName => $relationIds) {
             $trialSystem->{$relationName}()->sync($relationIds);
         }
-    }
-
-    public function getModelIds($row, string $searchFor, string $modelName, string $columnName, string $secondaryColumnName = null, $secondaryColumnValue = null, bool $createIfNotFound = false): array
-    {
-        $searchFor = array_map('trim', explode('|', $searchFor));
-        $searchFor = array_map('strtolower', $searchFor);
-        $ids       = $modelName::whereIn(DB::raw('LOWER(' . $columnName . ')'), $searchFor)->when($secondaryColumnName, function ($query) use ($secondaryColumnName, $secondaryColumnValue) {
-            $query->where($secondaryColumnName, $secondaryColumnValue);
-        })->get();
-        $unmatched = array_diff($searchFor, array_map('strtolower', $ids->pluck($columnName)->toArray()));
-        if (!empty($unmatched) && !$createIfNotFound) {
-            $modelNameForLangKey = (new \ReflectionClass($modelName))->getShortName();
-            $this->errors[$row->getRowIndex()][] = Lang::get('csatar.knowledgerepository::lang.plugin.admin.messages.cannotFind' . $modelNameForLangKey) . implode(', ', $unmatched);
-        }
-
-        if ($createIfNotFound && !empty($unmatched)) {
-            foreach ($unmatched as $unmatchedItem) {
-                $model = new $modelName();
-                $model->$columnName = $unmatchedItem;
-
-                if ($secondaryColumnName) {
-                    $model->$secondaryColumnName = $secondaryColumnValue;
-                }
-
-                $model->save();
-                $ids->push($model);
-            }
-        }
-
-        return $ids->pluck('id')->toArray();
     }
 
     /**

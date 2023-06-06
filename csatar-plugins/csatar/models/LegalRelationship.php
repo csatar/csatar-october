@@ -1,12 +1,12 @@
 <?php
 namespace Csatar\Csatar\Models;
 
-use Model;
+use Csatar\Csatar\Models\ModelExtended;
 
 /**
  * Model
  */
-class LegalRelationship extends Model
+class LegalRelationship extends ModelExtended
 {
     use \October\Rain\Database\Traits\Validation;
 
@@ -58,7 +58,9 @@ class LegalRelationship extends Model
      */
     public function scopeAssociationId($query, $id)
     {
-        return $query->join('csatar_csatar_associations_legal_relationships', 'csatar_csatar_legal_relationships.id', '=', 'csatar_csatar_associations_legal_relationships.legal_relationship_id')->where('association_id', $id);
+        return $query
+            ->join('csatar_csatar_associations_legal_relationships', 'csatar_csatar_legal_relationships.id', '=', 'csatar_csatar_associations_legal_relationships.legal_relationship_id')
+            ->where('association_id', $id);
     }
 
     public static function getInvalidDataId()

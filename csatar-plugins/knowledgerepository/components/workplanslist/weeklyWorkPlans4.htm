@@ -1,0 +1,35 @@
+{% set buttonId = 'patrol-workplans-weekly-' ~ patrolId ~ '-' ~ ovamtv.id ~ '-' ~ year %}
+{% set collapseId = 'flush-collapse-' ~ buttonId %}
+<div class="accordion accordion-flush mt-2">
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="{{ buttonId }}">
+            <button class="accordion-button py-2 collapsed"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#{{ collapseId }}"
+                    aria-expanded="false"
+                    aria-controls="{{ collapseId }}"
+            >
+                <span>{{ 'Heti munkatervek'|_ }}</span>
+            </button>
+        </h2>
+        <div id="{{ collapseId }}"
+             class="accordion-collapse collapse"
+             aria-labelledby="flush-heading"
+             data-bs-parent="#{{ buttonId }}"
+        >
+            <div class="accordion-body py-2">
+                <ul>
+                    {% for weekWorkPlan in ovamtv.weeklyWorkPlans %}
+                        <li>
+                            <a href="/heti-munkaterv/{{ weekWorkPlan.id }}" title="{{ 'Heti munkaterv'|_ }}">
+                                <span>{{ weekWorkPlan.start_date_time }} - MTV</span>
+                                <span class="bi bi-box-arrow-up-right"></span>
+                            </a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

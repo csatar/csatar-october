@@ -94,6 +94,20 @@
                         btnLabel = 'Kéthavi ŐVáMTV létrehozása' |_
                     %}
                 </div>
+
+                {% if permissions['weeklyWorkPlans'] %}
+                    <div class="me-2">
+                        {% partial "@formWithButton"
+                        permissionValue = permissions['weeklyWorkPlans']['create']
+                        actionUrl = '/heti-munkaterv/letrehozas'
+                        hiddenInputs = { 'team': teamId, 'patrol': patrolId }
+                        btnExtraClasses = 'btn-sm btn-primary'
+                        btnValue = 'Heti munkaterv létrehozása' |_
+                        btnIconClass = 'csat-add-fill-wh-sm'
+                        btnLabel = 'Heti munkaterv létrehozása' |_
+                        %}
+                    </div>
+                {% endif %}
             </div>
 
             {% component 'workPlansList' %}

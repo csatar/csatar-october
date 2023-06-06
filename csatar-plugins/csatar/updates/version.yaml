@@ -252,3 +252,6 @@
 1.0.87:
     - 'Updated table csatar_csatar_patrols'
     - builder_table_update_csatar_csatar_patrols_3.php
+1.0.88:
+    - 'Updated table csatar_csatar_associations'
+    - builder_table_update_csatar_csatar_associations_6.php

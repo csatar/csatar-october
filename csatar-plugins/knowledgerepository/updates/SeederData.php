@@ -18,6 +18,7 @@ use Csatar\KnowledgeRepository\Models\TrialSystemSubTopic;
 use Csatar\KnowledgeRepository\Models\TrialSystemTrialType;
 use Csatar\KnowledgeRepository\Models\TrialSystemType;
 use Csatar\KnowledgeRepository\Models\TrialSystemCategory;
+use Csatar\KnowledgeRepository\Models\ActivityType;
 use Csatar\Forms\Models\Form;
 use Db;
 use Seeder;
@@ -322,6 +323,10 @@ class SeederData extends Seeder
                 'title' => 'Dal',
                 'model' => 'Csatar\KnowledgeRepository\Models\Song',
             ],
+            [
+                'title' => 'Heti munkaterv',
+                'model' => 'Csatar\KnowledgeRepository\Models\WeeklyWorkPlan',
+            ],
         ],
         'trialSystemTopics' => [
             'A cserkészet története',
@@ -474,6 +479,22 @@ class SeederData extends Seeder
             [
                 'name' => 'Mindkettő',
                 'sort_order' => 3
+            ],
+            [
+                'name' => 'Új elmélet',
+                'sort_order' => 4
+            ],
+            [
+                'name' => 'Új gyakorlat',
+                'sort_order' => 5
+            ],
+            [
+                'name' => 'Régi elmélet',
+                'sort_order' => 6
+            ],
+            [
+                'name' => 'Régi gyakorlat',
+                'sort_order' => 7
             ],
         ],
         'songTypes' => [
@@ -787,7 +808,132 @@ class SeederData extends Seeder
                 'name' => 'lassú',
                 'description' => 'lassú tempójú népdalok (keserves, sirató) - nem lehet rá menetelni'
             ]
-        ]
+        ],
+        'activityTypes' => [
+            [
+                'name' => 'Nyitó szertartás',
+                'model' => '',
+                'categories' => [],
+                'tooltip' => 'Az őrsi foglalkozás első mozzanata, olyan tevékenység, ami megnyitja az őrsi munkát. Ez csak az őrsre jellemző és a legjobb, ha titokként élik meg, ezt követi az induló és a közös ima.'
+            ],
+            [
+                'name' => 'Új elmélet',
+                'model' => '\Csatar\KnowledgeRepository\Models\Methodology',
+                'categories' => [],
+                'tooltip' => 'Olyan elméleti témát ismertető tevékenység, amelyet az őrs még nem ismer. Mivel számos olyan elméleti próbapont létezik, amely nem kézzel fogható, a tevékenység módszerei próbálják könnyen tanulhatóvá tenni az új elméletet, de ne feledjétek a „cselekedve tanulás” elvét.',
+            ],
+            [
+                'name' => 'Régi elmélet',
+                'model' => '\Csatar\KnowledgeRepository\Models\Methodology',
+                'categories' => [],
+                'tooltip' => 'Olyan tevékenység, mely során egy elméleti témát átismételhet, vagy feleleveníthet az őrs. A régi elmélet egyszer valamikor új elméletként jelent meg a múltban az őrs foglalkozásán.',
+            ],
+            [
+                'name' => 'Új gyakorlat',
+                'model' => '\Csatar\KnowledgeRepository\Models\Methodology',
+                'categories' => [],
+                'tooltip' => 'Olyan gyakorlati témát feldolgozó tevékenység, amelyet az őrs még nem ismer. Rengeteg valós életben alkalmazható cserkésztudást lehet felhalmozni, az új gyakorlat módszereinek célja a gyakorlat könnyű elsajátítása.',
+            ],
+            [
+                'name' => 'Régi gyakorlat',
+                'model' => '\Csatar\KnowledgeRepository\Models\Methodology',
+                'categories' => [],
+                'tooltip' => 'Olyan tevékenység, mely során egy gyakorlati témát átismételhet, vagy feleleveníthet az őrs. A régi gyakorlat egyszer valamikor új gyakorlatként jelent meg a múltban az őrs foglalkozásán.',
+            ],
+            [
+                'name' => 'Új anyag',
+                'model' => '\Csatar\KnowledgeRepository\Models\Methodology',
+                'categories' => [],
+                'tooltip' => 'Az új elmélet és az új gyakorlat témái. A foglalkozáson ezekkel az újdonságokkal fog szembesülni az őrs.',
+            ],
+            [
+                'name' => 'Régi anyag',
+                'model' => '\Csatar\KnowledgeRepository\Models\Methodology',
+                'categories' => [],
+                'tooltip' => 'Az új elmélet és az új gyakorlat témái. A foglalkozáson ezekkel az újdonságokkal fog szembesülni az őrs.',
+            ],
+            [
+                'name' => 'Játék',
+                'model' => '\Csatar\KnowledgeRepository\Models\Game',
+                'categories' => [],
+                'tooltip' => 'Az őrsi foglalkozás során felbukkanó játék. A foglalkozás során figyel arra, hogy annak hangulatgörbéjének feleljen meg. Több típusa ismert, azokat lentebb láthatod.',
+            ],
+            [
+                'name' => 'Dal',
+                'model' => '\Csatar\KnowledgeRepository\Models\Song',
+                'categories' => [],
+                'tooltip' => 'Az őrsi foglalkozás során felbukkanó dal. A foglalkozás során figyel arra, hogy annak hangulatgörbéjének feleljen meg. Több típusa ismert, azokat lentebb láthatod.',
+            ],
+            [
+                'name' => 'Új játék',
+                'model' => '\Csatar\KnowledgeRepository\Models\Game',
+                'categories' => [],
+                'tooltip' => 'Az őrsi foglalkozás során felbukkanó olyan játék, melyet az őrs még nem ismer, ezért most fog vele megismerkedni.'
+            ],
+            [
+                'name' => 'Új dal',
+                'model' => '\Csatar\KnowledgeRepository\Models\Song',
+                'categories' => [],
+                'tooltip' => 'Az őrsi foglalkozás során felbukkanó olyan dal, melyet az őrs még nem ismer, ezért most fog vele megismerkedni.',
+            ],
+            [
+                'name' => 'Mozgós, erőkifejtős játék',
+                'model' => '\Csatar\KnowledgeRepository\Models\Game',
+                'categories' => [
+                    'game_types' => [
+                        'Erőkifejtő, sok mozgás igénylő',
+                    ],
+                ],
+                'tooltip' => 'Olyan játék, amely során intenzívebb mozgást kell végezzenek a játékosok. A játék végén mindenki energiáját próbáljuk csökkenteni. Pl. Fogócska. A (kis)cserkészed fáradtan érkezik a foglalkozásra, ekkor szerez magának kellő energiát, hogy a foglalkozáson a legjobban teljesítsen (ekkor fog ő igazán megérkezni).',
+            ],
+            [
+                'name' => 'Mozgós játék',
+                'model' => '\Csatar\KnowledgeRepository\Models\Game',
+                'categories' => [
+                    'game_types' => [
+                        'Kevés mozgást igénylő',
+                    ],
+                ],
+                'tooltip' => 'Olyan játék, ami megmozgatja a játékosokat, felpezsdíti a résztvevőit. Pl. Bangalo, Forró szél fújja... stb.',
+            ],
+            [
+                'name' => 'Kevés mozgást igénylő játék, ügyességi, koncentrációs játék',
+                'model' => '\Csatar\KnowledgeRepository\Models\Game',
+                'categories' => [
+                    'game_types' => [
+                        'Kevés mozgást igénylő',
+                        'Koncentrációs, mozgós',
+                    ],
+                ],
+                'tooltip' => 'Olyan játék, amely megmozgatja a játékosokat, de nem igényel különösebb megterhelést. Pl. Merekete, Tralla-lelo, stb. Tulajdonképpen az őrsgyűlésre érkezőket, „lenyugtatod”, hogy tudjanak figyelni az átadott anyagra.',
+            ],
+            [
+                'name' => 'El nem mozdulós játék',
+                'model' => '\Csatar\KnowledgeRepository\Models\Game',
+                'categories' => [
+                    'game_types' => [
+                        'Elnemmozdulós',
+                    ],
+                ],
+                'tooltip' => 'Olyan játék, ami során nem mozognak a játékosok, itt éred el, hogy teljes az anyagra tudjanak majd figyelni, mindig az átadott anyag előtt játszandó. Pl. Epoitajtaje, Irikiri',
+            ],
+            [
+                'name' => 'Mozgós, szórakoztató játék',
+                'model' => '\Csatar\KnowledgeRepository\Models\Game',
+                'categories' => [
+                    'game_types' => [
+                        'Szórakoztató',
+                    ],
+                ],
+                'tooltip' => 'A foglalkozás második felébben a két/négy átadott anyag között, amelynek feladata újra felpezsdíteni a kíváncsiságot. Fontos, hogy ebben az esetben a nevetés, szaladás legyen a cél.',
+            ],
+            [
+                'name' => 'Záró szertartás',
+                'model' => '',
+                'categories' => [],
+                'tooltip' => 'Az őrsi foglalkozás utolsó mozzanata, olyan tevékenység, ami bezárja az őrsi munkát. Ahogyan elkezdtétek ugyan úgy fejezzétek be. Fontos, hogy a szertartás az utolsó mozzanat, így lesz kerek az egész őrsi foglalkozás.',
+            ],
+        ],
     ];
 
     public function run()
@@ -962,6 +1108,17 @@ class SeederData extends Seeder
             ]);
             $folkSongRhythm->description = $folkSongRhythmData['description'];
             $folkSongRhythm->save();
+        }
+
+        // Activity Types
+        foreach ($this::DATA['activityTypes'] as $activityTypeData) {
+            $activityType        = ActivityType::firstOrNew([
+                'name' => $activityTypeData['name'],
+            ]);
+            $activityType->model = $activityTypeData['model'];
+            $activityType->categories = $activityTypeData['categories'];
+            $activityType->tooltip    = $activityTypeData['tooltip'];
+            $activityType->save();
         }
     }
 

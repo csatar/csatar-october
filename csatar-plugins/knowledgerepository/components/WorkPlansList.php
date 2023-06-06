@@ -31,9 +31,9 @@ class WorkPlansList extends ComponentBase
     public function onRender()
     {
         $this->organizationUnit = $this->page->controller->vars["basicForm"]->record;
-        $this->isPatrolPage = get_class($this->organizationUnit) == 'Csatar\Csatar\Models\Patrol' ? true : false;
-        $this->isTroopPage = get_class($this->organizationUnit) == 'Csatar\Csatar\Models\Troop' ? true : false;
-        $this->workPlans = $this->getWorkPlans();
+        $this->isPatrolPage     = get_class($this->organizationUnit) == 'Csatar\Csatar\Models\Patrol' ? true : false;
+        $this->isTroopPage      = get_class($this->organizationUnit) == 'Csatar\Csatar\Models\Troop' ? true : false;
+        $this->workPlans        = $this->getWorkPlans();
     }
 
     public function getWorkPlans()
@@ -46,7 +46,7 @@ class WorkPlansList extends ComponentBase
             $ovamtvWorkPlans = isset($this->organizationUnit->ovamtvWorkPlans) ? $this->organizationUnit->ovamtvWorkPlans->load('patrol') : collect([]);
         }
 
-        $workPlansDates = !$this->isPatrolPage && !$this->isTroopPage ? $workPlans->pluck('year')->toArray() : [];
+        $workPlansDates       = !$this->isPatrolPage && !$this->isTroopPage ? $workPlans->pluck('year')->toArray() : [];
         $ovamtvWorkPlansDates = $ovamtvWorkPlans->pluck('start_date')->map(function ($date) {
             return $this->getScountingYear($date);
         })->toArray();
@@ -81,12 +81,14 @@ class WorkPlansList extends ComponentBase
     }
 
     public function getScountingYear($dateString) {
-        $date = new \DateTime($dateString);
-        $year = $date->format('Y');
+        $date  = new \DateTime($dateString);
+        $year  = $date->format('Y');
         $month = $date->format('m');
         if ($month < 9) {
             $year--;
         }
+
         return (int) $year;
     }
+
 }

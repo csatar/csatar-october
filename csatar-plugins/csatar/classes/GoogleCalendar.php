@@ -6,6 +6,7 @@ use Google_Client;
 use Google_Service_Calendar;
 class GoogleCalendar
 {
+
     public static function getEvents(array $calendarIds, $timeMin = null, $timeMax = null)
     {
         $events = [];
@@ -18,6 +19,7 @@ class GoogleCalendar
 
         return collect($events);
     }
+
     public static function getClient() {
         $authFile = plugins_path('csatar/csatar/assets/service_account_keys.json');
 
@@ -37,10 +39,10 @@ class GoogleCalendar
             $timeMin = date('c', strtotime($timeMin));
         }
 
-        $optParams  = [
+        $optParams = [
             'maxResults'   => 100,
             'orderBy'      => 'startTime',
-            'singleEvents' => TRUE,
+            'singleEvents' => true,
             'timeMin'      => $timeMin ?? date('c'),
         ];
 
@@ -50,12 +52,10 @@ class GoogleCalendar
 
         $service = new Google_Service_Calendar($client);
         $results = $service->events->listEvents($calendarId, $optParams);
-        $events = [];
+        $events  = [];
 
         if (count($results->getItems()) == 0) {
-
         } else {
-
             foreach ($results->getItems() as $event) {
                 $start = $event->start->dateTime;
                 $end   = $event->end->dateTime;
@@ -76,10 +76,10 @@ class GoogleCalendar
                     'location'   => $event->getLocation(),
                     'organizer'  => $event->getOrganizer()->getDisplayName() ?? $event->getOrganizer()->getEmail(),
                 ];
-
             }
         }
 
         return $events;
     }
+
 }

@@ -32,7 +32,7 @@ public function generatePdf(int $workPlanId) {
     $workPlan = \Csatar\KnowledgeRepository\Models\WorkPlan::find($workPlanId);
 
     $data = [
-        'css' => \File::get(plugins_path('csatar/knowledgerepository/assets/css/workPlan.css')),
+        'css' => \File::get(plugins_path('csatar/csatar/assets/commonPdf.css')),
         'workPlan' => $workPlan,
     ];
 

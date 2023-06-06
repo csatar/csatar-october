@@ -324,7 +324,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
 
         if (!post('first_row_titles')) {
             array_walk($firstRow, function (&$value, $key) {
-                $value = 'Column #'.($key + 1);
+                $value = 'Column #' . ($key + 1);
             });
         }
 
@@ -441,7 +441,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
             $reference = $model->export($columns, $exportOptions);
             $fileUrl   = $this->controller->actionUrl(
                 'download',
-                $reference.'/'.$this->exportFileName
+                $reference . '/' . $this->exportFileName
             );
 
             $this->vars['fileUrl']   = $fileUrl;
@@ -679,7 +679,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
      */
     public function importExportMakePartial($partial, $params = [])
     {
-        $contents = $this->controller->makePartial('import_export_'.$partial, $params + $this->vars, false);
+        $contents = $this->controller->makePartial('import_export_' . $partial, $params + $this->vars, false);
 
         if (!$contents) {
             $contents = $this->makePartial($partial, $params);
@@ -695,7 +695,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
      */
     protected function checkPermissionsForType($type)
     {
-        if (($permissions = $this->getConfig($type.'[permissions]')) &&
+        if (($permissions = $this->getConfig($type . '[permissions]')) &&
             (!BackendAuth::getUser()->hasAnyAccess((array) $permissions))
         ) {
             return Response::make(View::make('backend::access_denied'), 403);
@@ -708,11 +708,11 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
             return null;
         }
 
-        if ($fieldConfig = $this->getConfig($type.'[form]')) {
+        if ($fieldConfig = $this->getConfig($type . '[form]')) {
             $widgetConfig            = $this->makeConfig($fieldConfig);
             $widgetConfig->model     = $this->getModelForType($type);
-            $widgetConfig->alias     = $type.'OptionsForm';
-            $widgetConfig->arrayName = ucfirst($type).'Options';
+            $widgetConfig->alias     = $type . 'OptionsForm';
+            $widgetConfig->arrayName = ucfirst($type) . 'Options';
 
             return $this->makeWidget('Backend\Widgets\Form', $widgetConfig);
         }
@@ -722,13 +722,13 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
 
     protected function getModelForType($type)
     {
-        $cacheProperty = $type.'Model';
+        $cacheProperty = $type . 'Model';
 
         if ($this->{$cacheProperty} !== null) {
             return $this->{$cacheProperty};
         }
 
-        $modelClass = $this->getConfig($type.'[modelClass]');
+        $modelClass = $this->getConfig($type . '[modelClass]');
         if (!$modelClass) {
             throw new ApplicationException(Lang::get('backend::lang.import_export.missing_model_class_error', [
                 'type' => $type
@@ -760,7 +760,7 @@ class ImportExportControllerForScoutImport extends ControllerBehavior
 
     protected function getRedirectUrlForType($type)
     {
-        $redirect = $this->getConfig($type.'[redirect]');
+        $redirect = $this->getConfig($type . '[redirect]');
 
         if ($redirect !== null) {
             return $redirect ? Backend::url($redirect) : 'javascript:;';

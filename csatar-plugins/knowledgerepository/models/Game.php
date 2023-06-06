@@ -98,6 +98,7 @@ class Game extends PermissionBasedAccess
             '\Csatar\KnowledgeRepository\Models\Tool',
             'table' => 'csatar_knowledgerepository_game_tool',
             'label' => 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.tools',
+            'scope' => 'approved',
         ],
         'headcounts' => [
             '\Csatar\KnowledgeRepository\Models\Headcount',
@@ -129,6 +130,13 @@ class Game extends PermissionBasedAccess
             '\Csatar\KnowledgeRepository\Models\TrialSystem',
             'table' => 'csatar_knowledgerepository_game_trial_system',
             'label' => 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystems',
+        ],
+    ];
+
+    public $morphOne = [
+        'photo' => [
+            \Csatar\KnowledgeRepository\Models\ActivityType::class,
+            'name' => 'programmable',
         ],
     ];
 

@@ -384,6 +384,7 @@ class Scout extends OrganizationBase
             }
 
             $teamsActive = $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'];
+
             $teamsActive[$this->team->id]['scoutsActive'][$this->id]['family_name'] = $this->family_name;
             $teamsActive[$this->team->id]['scoutsActive'][$this->id]['given_name']  = $this->given_name;
             $teamsActive[$this->team->id]['scoutsActive'][$this->id]['full_name']   = $this->full_name;
@@ -393,33 +394,45 @@ class Scout extends OrganizationBase
             $teamsActive[$this->team->id]['scoutsActive'][$this->id]['legal_relationship']      = $this->legal_relationship ? $this->legal_relationship->toArray() : null;
 
             if (isset($this->patrol_id)) {
-                $teamsActive[$this->team->id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['family_name'] = $this->family_name;
-                $teamsActive[$this->team->id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['given_name']  = $this->given_name;
-                $teamsActive[$this->team->id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['full_name']   = $this->full_name;
-                $teamsActive[$this->team->id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['ecset_code']  = $this->ecset_code;
-                $teamsActive[$this->team->id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['legal_relationship_id']   = $this->legal_relationship_id;
-                $teamsActive[$this->team->id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['legal_relationship_name'] = $this->legal_relationship_name;
-                $teamsActive[$this->team->id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['legal_relationship']      = $this->legal_relationship ? $this->legal_relationship->toArray() : null;
+                $scoutsActive = $teamsActive[$this->team->id]['patrolsActive'][$this->patrol_id]['scoutsActive'];
+
+                $scoutsActive[$this->id]['family_name'] = $this->family_name;
+                $scoutsActive[$this->id]['given_name']  = $this->given_name;
+                $scoutsActive[$this->id]['full_name']   = $this->full_name;
+                $scoutsActive[$this->id]['ecset_code']  = $this->ecset_code;
+                $scoutsActive[$this->id]['legal_relationship_id']   = $this->legal_relationship_id;
+                $scoutsActive[$this->id]['legal_relationship_name'] = $this->legal_relationship_name;
+                $scoutsActive[$this->id]['legal_relationship']      = $this->legal_relationship ? $this->legal_relationship->toArray() : null;
+
+                $teamsActive[$this->team->id]['patrolsActive'][$this->patrol_id]['scoutsActive'] = $scoutsActive;
             }
 
             if (isset($this->troop_id)) {
-                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['scoutsActive'][$this->id]['family_name'] = $this->family_name;
-                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['scoutsActive'][$this->id]['given_name']  = $this->given_name;
-                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['scoutsActive'][$this->id]['full_name']   = $this->full_name;
-                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['scoutsActive'][$this->id]['ecset_code']  = $this->ecset_code;
-                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['scoutsActive'][$this->id]['legal_relationship_id']   = $this->legal_relationship_id;
-                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['scoutsActive'][$this->id]['legal_relationship_name'] = $this->legal_relationship_name;
-                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['scoutsActive'][$this->id]['legal_relationship']      = $this->legal_relationship ? $this->legal_relationship->toArray() : null;
+                $scoutsActive = $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['scoutsActive'];
+
+                $scoutsActive[$this->id]['family_name'] = $this->family_name;
+                $scoutsActive[$this->id]['given_name']  = $this->given_name;
+                $scoutsActive[$this->id]['full_name']   = $this->full_name;
+                $scoutsActive[$this->id]['ecset_code']  = $this->ecset_code;
+                $scoutsActive[$this->id]['legal_relationship_id']   = $this->legal_relationship_id;
+                $scoutsActive[$this->id]['legal_relationship_name'] = $this->legal_relationship_name;
+                $scoutsActive[$this->id]['legal_relationship']      = $this->legal_relationship ? $this->legal_relationship->toArray() : null;
+
+                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['scoutsActive'] = $scoutsActive;
             }
 
             if (isset($this->troop_id) && isset($this->patrol_id)) {
-                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['family_name'] = $this->family_name;
-                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['given_name']  = $this->given_name;
-                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['full_name']   = $this->full_name;
-                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['ecset_code']  = $this->ecset_code;
-                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['legal_relationship_id']   = $this->legal_relationship_id;
-                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['legal_relationship_name'] = $this->legal_relationship_name;
-                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->patrol_id]['scoutsActive'][$this->id]['legal_relationship']      = $this->legal_relationship ? $this->legal_relationship->toArray() : null;
+                $scoutsActive = $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->patrol_id]['scoutsActive'];
+
+                $scoutsActive[$this->id]['family_name'] = $this->family_name;
+                $scoutsActive[$this->id]['given_name']  = $this->given_name;
+                $scoutsActive[$this->id]['full_name']   = $this->full_name;
+                $scoutsActive[$this->id]['ecset_code']  = $this->ecset_code;
+                $scoutsActive[$this->id]['legal_relationship_id']   = $this->legal_relationship_id;
+                $scoutsActive[$this->id]['legal_relationship_name'] = $this->legal_relationship_name;
+                $scoutsActive[$this->id]['legal_relationship']      = $this->legal_relationship ? $this->legal_relationship->toArray() : null;
+
+                $teamsActive[$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->patrol_id]['scoutsActive'] = $scoutsActive;
             }
 
             $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'] = $teamsActive;
@@ -470,63 +483,12 @@ class Scout extends OrganizationBase
      * Handle the team-troop-patrol dependencies
      */
     public function filterFields($fields, $context = null) {
-        // populate the Troop and Patrol dropdowns with troops and patrols that belong to the selected team
-        if (isset($fields->troop)) {
-            $fields->troop->options = [];
-            $team_id = $this->team_id;
-            if ($team_id) {
-                $fields->troop->options += ['null' => e(trans('csatar.csatar::lang.plugin.admin.general.select'))];
-                foreach (\Csatar\Csatar\Models\Troop::teamId($team_id)->get() as $troop) {
-                    $fields->troop->options += [$troop['id'] => $troop['extendedName']];
-                }
-            }
-        }
-
-        // populate the Patrol dropdown with patrols that belong to the selected team and to the selected troop
-        if (isset($fields->patrol)) {
-            $fields->patrol->options = [];
-            $troop_id = $this->troop_id;
-            $fields->patrol->options += ['null' => e(trans('csatar.csatar::lang.plugin.admin.general.select'))];
-            if ($troop_id && $troop_id != 'null') { // important, 'null' is string at this point
-                foreach (\Csatar\Csatar\Models\Patrol::troopId($troop_id)->get() as $patrol) {
-                    $fields->patrol->options += [$patrol['id'] => $patrol['extendedName']];
-                }
-            } else if ($team_id) {
-                foreach (\Csatar\Csatar\Models\Patrol::teamId($team_id)->get() as $patrol) {
-                    $fields->patrol->options += [$patrol['id'] => $patrol['extendedName']];
-                }
-            }
-        }
-
-        // populate the Legal Relationships dropdown with legal relationships that belong to the selected team's association
-        if (isset($fields->legal_relationship)) {
-            $fields->legal_relationship->options = $this->team ? \Csatar\Csatar\Models\LegalRelationship::associationId($this->team->district->association->id)->lists('name', 'id') : [];
-        }
-
-        if (isset($fields->personal_identification_number)
-            && !$this->shouldNotValidateCnp()
-            && !empty($fields->personal_identification_number->value)
-            && in_array('cnp', $this->getPersonalIdentificationNumberValidators())
-            && ((isset($this->original['personal_identification_number']) && $this->original['personal_identification_number'] != $fields->personal_identification_number->value) || empty($this->original))
-        ) {
-            $fields->birthdate->value = $this->getBirthDateFromCNP($fields->personal_identification_number->value);
-        }
-
-        if (isset($fields->address_county)) {
-            $this->setAddressCountyOptions($fields->address_county);
-        }
-
-        if (isset($fields->address_location)) {
-            $this->setAddressLocationOptions($fields->address_location);
-        }
-
-        if (isset($fields->address_street)) {
-            $this->setAddressStreetOptions($fields->address_street);
-        }
-
-        if (isset($fields->citizenship_country) && empty($fields->citizenship_country->value)) {
-            $fields->citizenship_country->value = Country::where('code', 'RO')->first()->id ?? null;
-        }
+        $this->handleTroopDropdown($fields);
+        $this->handlePatrolDopdown($fields);
+        $this->handleLegalRelationshipDropdown($fields);
+        $this->handlePersonalIdentificationNumberField($fields);
+        $this->handleAddressFields($fields);
+        $this->handleCitizenshipField($fields);
 
         $fields->is_active->value = $this->inactivated_at == null;
     }
@@ -668,7 +630,21 @@ class Scout extends OrganizationBase
         if ($useCase === 'formBuilder') {
             // Important to extend the eager load settings, not to overwrite them!
             $eagerLoadSettings = array_merge_recursive($eagerLoadSettings, [
-                'allergies', 'chronic_illnesses', 'food_sensitivities', 'promises', 'tests', 'special_tests', 'professional_qualifications', 'special_qualifications', 'leadership_qualifications', 'training_qualifications', 'team', 'team.district', 'team.district.association', 'troop', 'patrol'
+                'allergies',
+                'chronic_illnesses',
+                'food_sensitivities',
+                'promises',
+                'tests',
+                'special_tests',
+                'professional_qualifications',
+                'special_qualifications',
+                'leadership_qualifications',
+                'training_qualifications',
+                'team',
+                'team.district',
+                'team.district.association',
+                'troop',
+                'patrol',
             ]);
         }
 
@@ -763,7 +739,7 @@ class Scout extends OrganizationBase
         if (!empty($organization) && $mandates = $this->getMandatesForOrganization($organization, true)) {
             foreach ($mandates as $mandate) {
                 $mandate->ignoreValidation = true;
-                $mandate->end_date         = (new DateTime($mandate->end_date) > new DateTime() || is_null($mandate->end_date)) ? date('Y-m-d') : $mandate->end_date;
+                $mandate->end_date         = (new DateTime($mandate->end_date) > new DateTime() || $mandate->end_date == null) ? date('Y-m-d') : $mandate->end_date;
                 $mandate->save();
             }
         }
@@ -803,15 +779,18 @@ class Scout extends OrganizationBase
         if ($fields) {
             foreach ($fields as $field) {
                 if (!isset($field->pivot->date)) {
-                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.dateRequiredError'))]);
+                    $error = Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.dateRequiredError');
+                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], $error)]);
                 }
 
                 if (!isset($field->pivot->location) || $field->pivot->location == '') {
-                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.locationRequiredError'))]);
+                    $error = Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.locationRequiredError');
+                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], $error)]);
                 }
 
                 if (new \DateTime($field->pivot->date) > new \DateTime()) {
-                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.dateInTheFutureError'))]);
+                    $error = Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.dateInTheFutureError');
+                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], $error)]);
                 }
             }
         }
@@ -823,15 +802,18 @@ class Scout extends OrganizationBase
             $this->validatePivotDateAndLocationFields($fields, $category);
             foreach ($fields as $field) {
                 if (!isset($field->pivot->qualification_certificate_number) || $field->pivot->qualification_certificate_number == '') {
-                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.qualificationCertificateNumberRequiredError'))]);
+                    $error = Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.qualificationCertificateNumberRequiredError');
+                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], $error)]);
                 }
 
                 if (!isset($field->pivot->training_id) || $field->pivot->training_id == '') {
-                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.qualificationRequiredError'))]);
+                    $error = Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.qualificationRequiredError');
+                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], $error)]);
                 }
 
                 if (!isset($field->pivot->qualification_leader) || $field->pivot->qualification_leader == '') {
-                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.qualificationLeaderRequiredError'))]);
+                    $error = Lang::get('csatar.csatar::lang.plugin.admin.scout.validationExceptions.qualificationLeaderRequiredError');
+                    throw new \ValidationException(['' => str_replace(['%name', '%category'], [$field->name, $category], $error)]);
                 }
             }
         }
@@ -991,7 +973,7 @@ class Scout extends OrganizationBase
 
         if (!empty($sessionRecord) && $sessionRecordForAssociation = $sessionRecord->where('associationId', $associationId)->first()) {
             if ($sessionRecordForAssociation['savedToSession'] >= $savedAfterDate) {
-                // TODO: implement touch scout when mandate is added or removed CS-288
+                // implement touch scout when mandate is added or removed CS-288
                 return new Collection($sessionRecordForAssociation['mandates']);
             }
         }
@@ -1016,7 +998,7 @@ class Scout extends OrganizationBase
         $sessionRecord = $sessionRecord->replace([ $associationId => [
             'associationId' => $associationId,
             'savedToSession' => date('Y-m-d H:i'),
-            'mandates'=> ($scoutMandates)->toArray(),
+            'mandates' => ($scoutMandates)->toArray(),
         ]
         ]);
 
@@ -1031,7 +1013,7 @@ class Scout extends OrganizationBase
 
         if (!empty($sessionRecord) && $sessionRecordForAssociation = $sessionRecord->where('associationId', $associationId)->first()) {
             if ($sessionRecordForAssociation['savedToSession'] >= $savedAfterDate) {
-                // TODO: implement touch scout when mandate is added or removed CS-288
+                // implement touch scout when mandate is added or removed CS-288
                 return $sessionRecordForAssociation['mandateTypeIds'];
             }
         }
@@ -1040,12 +1022,17 @@ class Scout extends OrganizationBase
             $sessionRecord = new Collection([]);
         }
 
-        $scoutMandateTypeIds = array_merge($this->getMandatesInAssociation($associationId, $savedAfterDate)->pluck('mandate_type_id')->toArray(), MandateType::getScoutMandateTypeIdInAssociation($associationId));
+        $scoutMandateTypeIds = array_merge(
+            $this->getMandatesInAssociation($associationId, $savedAfterDate)
+                ->pluck('mandate_type_id')
+                ->toArray(),
+            MandateType::getScoutMandateTypeIdInAssociation($associationId)
+        );
 
         $sessionRecord = $sessionRecord->replace([ $associationId => [
             'associationId' => $associationId,
             'savedToSession' => date('Y-m-d H:i'),
-            'mandateTypeIds'=> $scoutMandateTypeIds,
+            'mandateTypeIds' => $scoutMandateTypeIds,
         ]
         ]);
 
@@ -1217,7 +1204,7 @@ class Scout extends OrganizationBase
 
     public function isPersonalDataAccepted(): bool
     {
-        return !is_null($this->accepted_at);
+        return $this->accepted_at !== null;
     }
 
     public function setPersonalDataAccepted(): bool
@@ -1322,7 +1309,7 @@ class Scout extends OrganizationBase
                 $array[$this->address_location] = $this->address_location;
             }
         } else {
-            $field->value = array_values($array)[0];
+            $field->value           = array_values($array)[0];
             $this->address_location = array_values($array)[0];
         }
 
@@ -1335,7 +1322,11 @@ class Scout extends OrganizationBase
         $array       = [];
 
         if ($this->address_zipcode != null) {
-            $locationsArray = Locations::where('country', '=', $this->address_country)->where('code', '=', $this->address_zipcode)->where('city', '=', $this->address_location)->where('street', '!=', '')->get();
+            $locationsArray = Locations::where('country', '=', $this->address_country)
+                ->where('code', '=', $this->address_zipcode)
+                ->where('city', '=', $this->address_location)
+                ->where('street', '!=', '')
+                ->get();
             if (!empty($locationsArray)) {
                 foreach ($locationsArray as $location) {
                     $street         = $location['street_type'] . ' ' . $location['street'];
@@ -1435,4 +1426,129 @@ class Scout extends OrganizationBase
     {
         return $value ? Carbon::parse($value)->format('Y-m-d') : null;
     }
+
+    /**
+     * @param  $fields
+     * @return void
+     */
+    public function handleTroopDropdown(&$fields)
+    {
+        // populate the Troop and Patrol dropdowns with troops and patrols that belong to the selected team
+        if (isset($fields->troop)) {
+            $fields->troop->options = [];
+            $team_id = $this->team_id;
+            if ($team_id) {
+                $fields->troop->options += ['null' => e(trans('csatar.csatar::lang.plugin.admin.general.select'))];
+                foreach (\Csatar\Csatar\Models\Troop::teamId($team_id)->get() as $troop) {
+                    $fields->troop->options += [$troop['id'] => $troop['extendedName']];
+                }
+            }
+        }
+    }
+
+    /**
+     * @param  $fields
+     * @param  $team_id
+     * @return void
+     */
+    public function handlePatrolDopdown(&$fields): void
+    {
+        // populate the Patrol dropdown with patrols that belong to the selected team and to the selected troop
+        if (isset($fields->patrol)) {
+            $team_id = $this->team_id;
+            $fields->patrol->options = [];
+            $troop_id = $this->troop_id;
+            $fields->patrol->options += ['null' => e(trans('csatar.csatar::lang.plugin.admin.general.select'))];
+            if ($troop_id && $troop_id != 'null') { // important, 'null' is string at this point
+                foreach (\Csatar\Csatar\Models\Patrol::troopId($troop_id)->get() as $patrol) {
+                    $fields->patrol->options += [$patrol['id'] => $patrol['extendedName']];
+                }
+            } else if ($team_id) {
+                foreach (\Csatar\Csatar\Models\Patrol::teamId($team_id)->get() as $patrol) {
+                    $fields->patrol->options += [$patrol['id'] => $patrol['extendedName']];
+                }
+            }
+        }
+    }
+
+    /**
+     * @param  $fields
+     * @return void
+     */
+    public function handleLegalRelationshipDropdown(&$fields): void
+    {
+        // populate the Legal Relationships dropdown with legal relationships that belong to the selected team's association
+        if (isset($fields->legal_relationship)) {
+            $fields->legal_relationship->options = $this->team ? \Csatar\Csatar\Models\LegalRelationship::associationId($this->team->district->association->id)->lists('name', 'id') : [];
+        }
+    }
+
+    /**
+     * @param  $fields
+     * @return void
+     */
+    public function handlePersonalIdentificationNumberField(&$fields): void
+    {
+        if (isset($fields->personal_identification_number)
+            && !$this->shouldNotValidateCnp()
+            && !empty($fields->personal_identification_number->value)
+            && in_array('cnp', $this->getPersonalIdentificationNumberValidators())
+            && ((isset($this->original['personal_identification_number'])
+                    && $this->original['personal_identification_number'] != $fields->personal_identification_number->value)
+                || empty($this->original)
+            )
+        ) {
+            $fields->birthdate->value = $this->getBirthDateFromCNP($fields->personal_identification_number->value);
+        }
+    }
+
+    /**
+     * @param  $fields
+     * @return void
+     */
+    public function handleAddressFields(&$fields): void
+    {
+        if (isset($fields->address_county)) {
+            $this->setAddressCountyOptions($fields->address_county);
+        }
+
+        if (isset($fields->address_location)) {
+            $this->setAddressLocationOptions($fields->address_location);
+        }
+
+        if (isset($fields->address_street)) {
+            $this->setAddressStreetOptions($fields->address_street);
+        }
+    }
+
+    /**
+     * @param  $fields
+     * @return void
+     */
+    public function handleCitizenshipField(&$fields): void
+    {
+        if (isset($fields->citizenship_country) && empty($fields->citizenship_country->value)) {
+            $fields->citizenship_country->value = Country::where('code', 'RO')->first()->id ?? null;
+        }
+    }
+
+    public static function getScoutOptionsForSelect(string $searchTerm): array
+    {
+        $queryResults = Db::table('csatar_csatar_scouts')->whereRaw("CONCAT(family_name, ' ', given_name, ' ', ecset_code) like ?", ['%' . $searchTerm . '%'])->paginate(15);
+        $results      = [];
+        foreach ($queryResults as $result) {
+            $results[] = [
+                'id' => $result->ecset_code,
+                'text' => $result->family_name . ' ' . $result->given_name . ' - ' . $result->ecset_code,
+            ];
+        }
+
+        return [
+            'results' => $results,
+            'pagination' => [
+                'more' => true
+            ],
+        ];
+    }
+
 }

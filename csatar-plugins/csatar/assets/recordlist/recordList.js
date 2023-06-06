@@ -7,11 +7,11 @@ $(document).ready(function() {
         }
     });
 
-    $('.searchButton').on('click', function(event){
+    $('.searchButton').on('click', function(){
         addKeywordCheckbox($('#' + $(this).data('input-id')));
     });
 
-    $('#sort').on('change', function(event){
+    $('#sort').on('change', function(){
         let selectedOption = $(this).find('option:selected');
         let sortColumn = selectedOption.data('column');
         let sortDirection = selectedOption.data('direction');
@@ -56,7 +56,7 @@ function addKeywordCheckbox(element){
     filterSortPaginate(alias);
 }
 
-function filterSortPaginate(componentAlias, page = 1, sortColumn = '', sortDirection = '') {
+function filterSortPaginate(componentAlias, page = 1, sortColumn = '', sortDirection = '', changedColumn = null, callBackend = true) {
     let selected = {};
     selected[componentAlias] = [];
     let activeFilters = {};
@@ -92,16 +92,18 @@ function filterSortPaginate(componentAlias, page = 1, sortColumn = '', sortDirec
     }
 
     activeFilters = JSON.stringify(activeFilters);
-    $.request(componentAlias + '::onFilterSortPaginate', {
-        data: {
-            componentAlias: componentAlias,
-            activeFilters: activeFilters,
-            page: page,
-            sortColumn: sortColumn,
-            sortDirection: sortDirection
-        }
-    });
-
+    if (callBackend) {
+        $.request(componentAlias + '::onFilterSortPaginate', {
+            data: {
+                componentAlias: componentAlias,
+                activeFilters: activeFilters,
+                page: page,
+                sortColumn: sortColumn,
+                sortDirection: sortDirection,
+                changedColumn: changedColumn
+            }
+        });
+    }
 }
 
 function removeFilter(elementId, componentAlias){
@@ -114,12 +116,4 @@ function removeAllFilters(componentAlias){
         $(this).prop( "checked", false );
     });
     filterSortPaginate(componentAlias);
-}
-
-function collapseOtherFilters(currentFilterId){
-    $('.collapsable-filter').each(function(){
-        if ($(this).attr('id') != currentFilterId) {
-            $(this).collapse('hide');
-        }
-    });
 }

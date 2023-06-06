@@ -166,7 +166,7 @@ class MandatePermission extends Model
     public function getModelOptions(){
         $modelOptions = self::distinct()->orderBy('model', 'asc')->lists('model', 'model');
         array_walk($modelOptions, function (&$item) {
-            if (class_exists($item) && method_exists($item, 'getOrganizationTypeModelNameUserFriendly')){
+            if (class_exists($item) && method_exists($item, 'getOrganizationTypeModelNameUserFriendly')) {
                 $item = ($item)::getOrganizationTypeModelNameUserFriendly();
             }
         });

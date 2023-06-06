@@ -200,3 +200,7 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.general.googleCalendarId'
         span: auto
         type: text
+    special_workplan_age_group_id:
+        label: 'csatar.csatar::lang.plugin.admin.general.specialWorkplanAgeGroupId'
+        span: auto
+        type: dropdown

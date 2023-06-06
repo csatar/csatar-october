@@ -1,0 +1,79 @@
+title = "Heti munkaterv"
+layout = "default"
+url = "/heti-munkaterv/:id/:action?"
+
+[basicForm]
+formSlug = "heti-munkaterv"
+recordKeyParam = "id"
+recordActionParam = "action"
+createRecordKeyword = "letrehozas"
+actionUpdateKeyword = "modositas"
+actionDeleteKeyword = "torles"
+
+[partials]
+==
+<?php
+use Renatio\DynamicPDF\Classes\PDF;
+
+public function onDownloadPdf(){
+
+    if (!$id = Input::get('id')) {
+        return;
+    }
+
+    $fileName = $this->generatePdf($id);
+
+    return Redirect::to("/letoltes/pdf/$fileName");
+}
+
+public function generatePdf(int $weeklyWorkPlanId) {
+    $templateCode = 'csatar.knowledgerepository::pdf.weeklyworkplantemplate';
+
+    $weeklyWorkPlan = \Csatar\KnowledgeRepository\Models\WeeklyWorkPlan::find($weeklyWorkPlanId);
+
+    $data = [
+        'css' => \File::get(plugins_path('csatar/csatar/assets/commonPdf.css')),
+        'weeklyWorkPlan' => $weeklyWorkPlan,
+    ];
+
+    $fileName = $weeklyWorkPlan->start_date_time . '.pdf';
+    PDF::loadTemplate($templateCode, $data)
+        ->setOption(['isHtml5ParserEnabled' => true, 'isRemoteEnabled' => true])
+        ->save(temp_path($fileName));
+
+    return $fileName;
+}
+?>
+==
+{% set weeklyWorkPlanId = this.controller.param('id') %}
+<div class="container">
+    {% if this.param[this.controller.vars.basicForm.recordKeyParam] != this.controller.vars.basicForm.createRecordKeyword
+        and this.param[this.controller.vars.basicForm.recordActionParam] != this.controller.vars.basicForm.actionUpdateKeyword %}
+        {% partial "@simpleATagButton"
+            permissionValue = this.controller.vars.basicForm.currentUserRights['MODEL_GENERAL']['update']
+            targetUrl = '/heti-munkaterv/'~weeklyWorkPlanId~'/modositas'
+            btnExtraClasses = 'btn-sm btn-primary'
+            btnIconClass = 'csat-edit-fill-wh-sm'
+            btnLabel = 'Munkaterv szerkesztése' |_
+        %}
+    {% endif %}
+
+    <div class="text-right">
+        <img class="float-end" src="{{ 'assets/images/weekly-workplan.png' | theme }}">
+    </div>
+
+    {% component 'basicForm' %}
+
+    {% if user.scout and this.controller.vars.basicForm.record.created_at is not null %}
+        {% partial '@dataRequestButton'
+            permissionValue = 1
+            dataRequest = 'onDownloadPdf'
+            dataRequestData = 'id: ' ~ this.controller.vars.basicForm.record.id
+            dataRequestLoading = '#fs-saving-loader'
+            btnExtraClasses = 'btn-sm btn-primary'
+            btnIconClass = 'csat-arrowdown-fill-wh-sm'
+            btnLabel = 'Munkaterv letöltése' |_
+        %}
+    {% endif %}
+
+</div>

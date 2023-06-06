@@ -108,26 +108,22 @@ class Methodology extends PermissionBasedAccess
         'headcounts' => [
             '\Csatar\KnowledgeRepository\Models\Headcount',
             'table' => 'csatar_knowledgerepository_headcount_methodology',
-            'pivotModel' => '\Csatar\KnowledgeRepository\Models\HeadcountMethodologyPivot',
             'label' => 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.headCounts'
         ],
         'tools' => [
             '\Csatar\KnowledgeRepository\Models\Tool',
             'table' => 'csatar_knowledgerepository_methodology_tool',
-            'pivotModel' => '\Csatar\KnowledgeRepository\Models\MethodologyToolPivot',
             'label' => 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.tools'
         ],
         'agegroups' => [
             '\Csatar\Csatar\Models\AgeGroup',
             'table' => 'csatar_knowledgerepository_age_group_methodology',
-            'pivotModel' => '\Csatar\KnowledgeRepository\Models\AgeGroupMethodologyPivot',
             'label' => 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.ageGroup',
             'scope' => [self::class, 'filterAgeGroupByAssociation']
         ],
         'locations' => [
             '\Csatar\KnowledgeRepository\Models\Location',
             'table' => 'csatar_knowledgerepository_location_methodology',
-            'pivotModel' => '\Csatar\KnowledgeRepository\Models\LocationMethodologyPivot',
             'label' => 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.locations'
         ],
         'trial_systems' => [

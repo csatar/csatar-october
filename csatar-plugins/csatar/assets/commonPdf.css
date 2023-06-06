@@ -55,7 +55,6 @@ hr {
 
 table, div.table {
     width:100%;
-    table-layout: fixed;
     overflow-wrap: break-word;
     border-collapse: separate !important;
     border-spacing: 4px;
@@ -106,4 +105,18 @@ table tr:nth-child(odd) td, div div.row:nth-child(odd) div.td {
 }
 table tr:nth-child(even) td, div div.row:nth-child(even) div.td {
     background-color: white;
+}
+
+.page-break {
+    page-break-after: always;
+}
+
+h6 {
+    font-size: 13px;
+    font-style: italic;
+}
+
+p {
+    padding-left: 20px;
+    padding-right: 20px;
 }

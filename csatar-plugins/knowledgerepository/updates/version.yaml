@@ -147,3 +147,21 @@
 1.0.50:
     - 'Created table csatar_knowledgerepository_ovamtv_work_plan_materials'
     - builder_table_create_csatar_knowledgerepository_ovamtv_work_plan_materials.php
+1.0.51:
+    - 'Created table csatar_knowledgerepository_weekly_work_plans'
+    - builder_table_create_csatar_knowledgerepository_weekly_work_plans.php
+1.0.52:
+    - 'Created table csatar_knowledgerepository_activity_types'
+    - builder_table_create_csatar_knowledgerepository_activity_types.php
+1.0.53:
+    - 'Created table csatar_knowledgerepository_weekly_work_plan_activity_ty'
+    - builder_table_create_csatar_knowledgerepository_weekly_work_plan_activity_type.php
+1.0.54:
+    - 'Created table csatar_knowledgerepository_weekly_work_plan_spare_game'
+    - builder_table_create_csatar_knowledgerepository_weekly_work_plan_spare_game.php
+1.0.55:
+    - 'Created table csatar_knowledgerepository_weekly_work_plan_scout'
+    - builder_table_create_csatar_knowledgerepository_weekly_work_plan_scout.php
+1.0.56:
+    - 'Created table csatar_knowledgerepository_weekly_work_plan_material'
+    - builder_table_create_csatar_knowledgerepository_weekly_work_plan_material.php

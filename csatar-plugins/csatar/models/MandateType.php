@@ -235,7 +235,7 @@ class MandateType extends Model
         $sessionRecord = $sessionRecord->replace([ $associationId => [
             'associationId' => $associationId,
             'savedToSession' => date('Y-m-d H:i'),
-            'guestMandateTypeId'=> $guestMandateType ? $guestMandateType->id : null,
+            'guestMandateTypeId' => $guestMandateType ? $guestMandateType->id : null,
         ]
         ]);
 
@@ -267,7 +267,9 @@ class MandateType extends Model
     }
 
     public function getModelOptions(){
-        return MandateType::distinct()->where('organization_type_model_name', '<>', self::MODEL_NAME_GUEST)->orderBy('organization_type_model_name', 'asc')->lists('organization_type_model_name', 'organization_type_model_name');
+        return MandateType::distinct()
+            ->where('organization_type_model_name', '<>', self::MODEL_NAME_GUEST)->orderBy('organization_type_model_name', 'asc')
+            ->lists('organization_type_model_name', 'organization_type_model_name');
     }
 
     public static function getMandatesTypesForMatrix () {

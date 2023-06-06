@@ -99,11 +99,5 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 # Copy install from previous image
 COPY --chown=www-data:www-data --from=intermediate /var/www/html /var/www/html
 
-# Sets user to www-data
-USER www-data
-
-# Returns to root user
-USER root
-
 # Provides container inside image for data persistence
 VOLUME ["/var/www/html"]

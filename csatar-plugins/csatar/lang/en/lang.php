@@ -57,6 +57,7 @@ return [
                 'activeMembersCount' => 'Active members count',
                 'clearFilters' => 'Clear filters',
                 'googleCalendarId' => 'Google Calendar ID',
+                'specialWorkplanAgeGroupId' => 'Special workplan age group',
                 'back' => 'Back',
                 'canNotDeleteUser' => 'It is not possible to delete the user that are connected to scouts or have history records! Please deactivate the user instead.',
             ],

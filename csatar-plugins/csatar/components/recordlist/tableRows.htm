@@ -8,21 +8,52 @@
 {% else %}
 <p>{{ noRecordsMessage }}</p>
 {% endfor %}
-
-<ul class="pagination mt-2">
+<ul class="pagination mt-2 justify-content-center">
     {% if records.lastPage > 1 %}
-        {% if records.currentPage > 1 %}
-        <li><a href="javascript:" onclick="filterSortPaginate('{{ __SELF__.alias }}', {{ records.currentPage-1 }})">&larr; {{ 'Előző'|_ }}</a></li>
-        {% endif %}
-
-        {% for page in 1..records.lastPage %}
-        <li class="{{ records.currentPage == page ? 'active' : null }}">
-            <a href="javascript:" onclick="filterSortPaginate('{{ __SELF__.alias }}', {{ page }})">{{ page }}</a>
+        <li class="ps-0 pe-1 pt-1">
+            <button href="javascript:"
+               onclick="filterSortPaginate('{{ __SELF__.alias }}', 1)"
+               class="btn btn-sm rounded btn-light"
+               {{ records.currentPage == '1' ? 'disabled' : '' }}
+            ><span class="d-none d-lg-inline-block">{{ 'Első'|_ }} </span> <<
+            </button>
         </li>
-        {% endfor %}
+        <li class="ps-0 pe-1 pt-1">
+            <button href="javascript:"
+                onclick="filterSortPaginate('{{ __SELF__.alias }}', {{ records.currentPage-1 }})"
+                class="btn btn-sm rounded btn-light"
+                {{ records.currentPage == '1' ? 'disabled' : '' }}
+            ><span class="d-none d-lg-inline-block">{{ 'Előző'|_ }} </span> <
+            </button>
+        </li>
 
-        {% if records.lastPage > records.currentPage %}
-        <li><a href="javascript:" onclick="filterSortPaginate('{{ __SELF__.alias }}', {{ records.currentPage+1 }})">{{ 'Következő'|_ }} &rarr;</a></li>
-        {% endif %}
+        <li class="ps-0 pe-1 pt-1">
+            <select onchange="filterSortPaginate('{{ __SELF__.alias }}', this.value)">
+                {% for page in 1..records.lastPage %}
+                <option
+                        value="{{ page }}"
+                        {{ records.currentPage == page ? 'selected' : '' }}
+                >
+                    {{ page }}
+                </option>
+                {% endfor %}
+            </select>
+        </li>
+
+        <li class="ps-0 pe-1 pt-1">
+            <button href="javascript:"
+               onclick="filterSortPaginate('{{ __SELF__.alias }}', {{ records.currentPage+1 }})"
+               class="btn btn-sm rounded btn-light"
+               {{ records.currentPage == records.lastPage ? 'disabled' : '' }}
+            ><span class="d-none d-lg-inline-block">{{ 'Következő'|_ }}</span> ></button>
+        </li>
+        <li class="ps-0 pe-1 pt-1">
+            <button href="javascript:"
+               onclick="filterSortPaginate('{{ __SELF__.alias }}', {{ records.lastPage }})"
+               class="btn btn-sm rounded btn-light"
+               {{ records.currentPage == records.lastPage ? 'disabled' : '' }}
+            ><span class="d-none d-lg-inline-block">{{ 'Utolsó'|_ }} </span> >>
+            </button>
+        </li>
     {% endif %}
 </ul>

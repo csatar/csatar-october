@@ -147,7 +147,7 @@ class Breadcrumb extends ComponentBase
         $modelNameUserFriendly = $modelName::getOrganizationTypeModelNameUserFriendly();
         $recordName            = isset($this->modelLinkTitleMap[$modelName]) ? $model->{$this->modelLinkTitleMap[$modelName]} : '';
         $modelSlug = str_slug($modelNameUserFriendly);
-        $url       = $this->controller->pageUrl($modelSlug, [ 'id'=> $model->id ] );
+        $url       = $this->controller->pageUrl($modelSlug, [ 'id' => $model->id ] );
         $this->urlList[] = [
             'linkTitle' => !empty($recordName) ? $recordName : $modelNameUserFriendly,
             'url'       => $isLastDescendant ? '' : $url,

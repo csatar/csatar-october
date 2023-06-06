@@ -65,7 +65,7 @@ class CheckScoutStatus extends ComponentBase
         $team = Team::where('id', $scout->team_id)->get()->first();
 
         $variablesToPass = [
-            'code' =>   $this->scoutCode,
+            'code' => $this->scoutCode,
             'is_active' => $scout->inactivated_at == null ? true : false,
             'is_exists' => true,
             'team_id' => $team->id,
@@ -99,7 +99,7 @@ class CheckScoutStatus extends ComponentBase
             throw new ValidationException($validation);
         }
 
-        return Redirect::to('/tag-lekerdezes/'. $data['ecsk_code']);
+        return Redirect::to('/tag-lekerdezes/' . $data['ecsk_code']);
     }
 
 }

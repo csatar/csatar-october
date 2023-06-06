@@ -118,6 +118,10 @@ class Patrol extends OrganizationBase
         'status'
     ];
 
+    public $additionalFieldsForPermissionMatrix = [
+        'weeklyWorkPlans',
+    ];
+
     protected $nullable = [
         'email',
         'website',
@@ -280,14 +284,20 @@ class Patrol extends OrganizationBase
                 return;
             }
 
-            $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['patrolsActive'][$this->id]['name']          = $this->name;
-            $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['patrolsActive'][$this->id]['extended_name'] = $this->extended_name;
+            $associationId = $this->team->district->association_id;
+            $districtId    = $this->team->district_id;
+            $teamId        = $this->team->id;
+            $teamsActive   = $structureTree[$associationId]['districtsActive'][$districtId]['teamsActive'];
+
+            $teamsActive[$teamId]['patrolsActive'][$this->id]['name']          = $this->name;
+            $teamsActive[$teamId]['patrolsActive'][$this->id]['extended_name'] = $this->extended_name;
 
             if (isset($this->troop_id)) {
-                $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->id]['name']          = $this->name;
-                $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'][$this->team->id]['troopsActive'][$this->troop_id]['patrolsActive'][$this->id]['extended_name'] = $this->extended_name;
+                $teamsActive[$teamId]['troopsActive'][$this->troop_id]['patrolsActive'][$this->id]['name']          = $this->name;
+                $teamsActive[$teamId]['troopsActive'][$this->troop_id]['patrolsActive'][$this->id]['extended_name'] = $this->extended_name;
             }
 
+            $structureTree[$associationId]['districtsActive'][$districtId]['teamsActive'] = $teamsActive;
             Cache::forever('structureTree', $structureTree);
         }
     }
@@ -355,7 +365,7 @@ class Patrol extends OrganizationBase
         if ($this->team_id) {
             $team = $this->team;
             return AgeGroup::select(
-                DB::raw("CONCAT(NAME, IF(note, CONCAT(' (',note, ')'), '')) AS name"),'id')
+                DB::raw("CONCAT(NAME, IF(note, CONCAT(' (',note, ')'), '')) AS name"), 'id')
                 ->where('association_id', $team->district->association->id)
                 ->orderBy('sort_order')
                 ->lists('name', 'id')

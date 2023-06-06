@@ -66,7 +66,7 @@ class TrialSystems extends Controller
         if (empty($xlsxFile)
             || !$xlsxFile->isValid()
             || ($xlsxFile->getMimeType() != 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-            && $xlsxFile->getMimeType() !='application/vnd.ms-excel')
+            && $xlsxFile->getMimeType() != 'application/vnd.ms-excel')
         ) {
             Flash::error(Lang::get('csatar.csatar::lang.plugin.component.organizationUnitFrontend.csv.fileMissingOrInvalid'));
             return;

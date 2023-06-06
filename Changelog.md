@@ -2,6 +2,17 @@
 
 ## Unreleased
 
+- CS-585 - Fixed card title line break in case of long titles
+- CS-585 - Fixed distance and line height of texts inside cards
+- CS-585 - Fixed the display of the list component on mobile
+- CodeFactor issue fix: Duplicate Code
+- CodeFactor issue fix: maintainability
+- CS-583 - CodeFactor issue fix: reduced complexity in form builder methods
+- CS-570 - Improved pagination in record list component, fixed row height in record list component
+- CS-413 - Changed every "Scout systemdata" and "Knowledge repository parameter" model's base model to ModelExtended model
+- CS-564 - Added weekly form plan to patrol, frontend from, list and PDF download
+- CS-571 - Added association filter to the Knowledge repository models
+
 ## 1.13.0
 ### 2023-05-12
 

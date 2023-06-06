@@ -51,7 +51,8 @@ class Mandate extends Model
                             Patrol::getModelName() :
                             OrganizationBase::getModelName()))));
 
-        // on the BE, when changing the Mandate Type on the form, which is shown after the Mandate Create button has been clicked: modify the mandate_model relation type, in order to the mandate_model relation to be set
+        // on the BE, when changing the Mandate Type on the form, which is shown after the Mandate Create button has been clicked:
+        // modify the mandate_model relation type, in order to the mandate_model relation to be set
         if ($this->belongsTo['mandate_model'] == OrganizationBase::getModelName()) {
             $mandate         = Input::get('Mandate');
             $mandate_type_id = $mandate ? $mandate['mandate_type'] : null;
@@ -193,7 +194,8 @@ class Mandate extends Model
                 continue;
             }
 
-            // check that the date isn't (partially) overlapping with a different assignment for the same period: if the overlapping is not enabled or if it's the same user: overlap if max(start1, start2) < min(end1, end2)
+            // check that the date isn't (partially) overlapping with a different assignment for the same period:
+            // if the overlapping is not enabled or if it's the same user: overlap if max(start1, start2) < min(end1, end2)
             if (!$mandateType->overlap_allowed && $mandate->scout_id . '' != $scoutId) {
                 $mandateStartDate = new DateTime($mandate['start_date']);
                 $mandateEndDate   = isset($mandate['end_date']) ? new DateTime($mandate['end_date']) : null;

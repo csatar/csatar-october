@@ -22,4 +22,5 @@ class BuilderTableUpdateCsatarCsatarScouts8 extends Migration
             $table->date('birthdate')->nullable()->unsigned(false)->default(null)->comment(null)->change();
         });
     }
+
 }

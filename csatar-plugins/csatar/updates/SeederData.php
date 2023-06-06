@@ -728,6 +728,36 @@ class SeederData extends Seeder
 
     public function run()
     {
+        $this->seedAllergies();
+        $this->seedRelationships();
+        $this->seedTests();
+        $this->seedSpecialDiets();
+        $this->seedReligions();
+        $this->seedTshirtSizes();
+        $this->seedChronicIllnesses();
+        $this->seedHierarchies();
+        $this->seedCurrencies();
+        $this->seedAssociations();
+        $this->seedFoodSensitivities();
+        $this->seedPromises();
+        $this->seedProfessionalQualifications();
+        $this->seedLeadershipQualifications();
+        $this->seedForms();
+        $this->seedTrainings();
+        $this->seedAgeGroups();
+        $this->seedUserGroups();
+        $this->seedContactPageData();
+        $this->seedSiteSearchPluginSettings();
+        $this->seedBackendRoles();
+        $this->seedCountryNameTranslations();
+        $this->seedGoogleCalendarParams();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function seedAllergies()
+    {
         // allergies
         foreach ($this::DATA['allergy'] as $name) {
             $allergy = Allergy::firstOrCreate([
@@ -735,6 +765,14 @@ class SeederData extends Seeder
             ]);
         }
 
+        return $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function seedRelationships()
+    {
         // legal relationships
         foreach ($this::DATA['legalRelationship'] as $name) {
             $legalRelationship = LegalRelationship::firstOrCreate([
@@ -742,6 +780,14 @@ class SeederData extends Seeder
             ]);
         }
 
+        return $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function seedTests()
+    {
         // special tests
         foreach ($this::DATA['specialTest'] as $name) {
             $specialTest = SpecialTest::firstOrCreate([
@@ -749,6 +795,14 @@ class SeederData extends Seeder
             ]);
         }
 
+        return $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function seedSpecialDiets()
+    {
         // special diets
         foreach ($this::DATA['specialDiet'] as $name) {
             $specialDiet = SpecialDiet::firstOrCreate([
@@ -756,6 +810,14 @@ class SeederData extends Seeder
             ]);
         }
 
+        return $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function seedReligions()
+    {
         // religions
         foreach ($this::DATA['religion'] as $name) {
             $religion = Religion::firstOrCreate([
@@ -763,6 +825,14 @@ class SeederData extends Seeder
             ]);
         }
 
+        return $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function seedTshirtSizes()
+    {
         // t-shirt sizes
         foreach ($this::DATA['tShirtSize'] as $name) {
             $tshirtSize = TShirtSize::firstOrCreate([
@@ -770,6 +840,14 @@ class SeederData extends Seeder
             ]);
         }
 
+        return $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function seedChronicIllnesses()
+    {
         // chronic illnesses
         foreach ($this::DATA['chronicIllness'] as $name) {
             $chronicIllness = ChronicIllness::firstOrCreate([
@@ -777,6 +855,14 @@ class SeederData extends Seeder
             ]);
         }
 
+        return $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function seedHierarchies()
+    {
         // hierarchy
         $idOfLastElement = null;
         foreach ($this::DATA['hierarchy'] as $name) {
@@ -789,13 +875,27 @@ class SeederData extends Seeder
             $idOfLastElement = $hierachyItem->id;
         }
 
+        return $name;
+    }
+
+    /**
+     * @return void
+     */
+    public function seedCurrencies(): void
+    {
         // currencies
         foreach ($this::DATA['currency'] as $code) {
             $currency = Currency::firstOrCreate([
                 'code' => $code
             ]);
         }
+    }
 
+    /**
+     * @return mixed
+     */
+    public function seedAssociations()
+    {
         // associations
         $legalRelationship1 = LegalRelationship::where('name', 'Alakuló csapat tag')->first();
         $legalRelationship2 = LegalRelationship::where('name', 'Tag')->first();
@@ -813,52 +913,58 @@ class SeederData extends Seeder
             switch ($name) {
                 case 'Horvátországi magyar cserkészek':
                     $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'H';
-                    $association->currency_id       = Currency::where('code', 'HRK')->first()->id;
+                    $association->currency_id       = $association->currency_id ?? Currency::where('code', 'HRK')->first()->id;
                     $association->team_fee          = $association->team_fee ?? 0;
                     $association->name_abbreviation = $association->name_abbreviation ?? 'HZMCS';
                     break;
                 case 'Kárpátaljai Magyar Cserkészszövetség':
-                    $association->currency_id       = Currency::where('code', 'UAH')->first()->id;
+                    $association->currency_id       = $association->currency_id ?? Currency::where('code', 'UAH')->first()->id;
                     $association->team_fee          = $association->team_fee ?? 0;
                     $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'KÁ';
                     $association->name_abbreviation = $association->name_abbreviation ?? 'KáMCSSZ';
                     break;
                 case 'Külföldi Magyar Cserkészszövetség':
                     $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'KÜ';
-                    $association->currency_id       = Currency::where('code', 'EUR')->first()->id;
+                    $association->currency_id       = $association->currency_id ?? Currency::where('code', 'EUR')->first()->id;
                     $association->team_fee          = $association->team_fee ?? 0;
                     $association->name_abbreviation = $association->name_abbreviation ?? 'KMCSSZ';
                     break;
                 case 'Magyar Cserkészszövetség':
                     $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'M';
-                    $association->currency_id       = Currency::where('code', 'HUF')->first()->id;
+                    $association->currency_id       = $association->currency_id ?? Currency::where('code', 'HUF')->first()->id;
                     $association->team_fee          = $association->team_fee ?? 0;
                     $association->name_abbreviation = $association->name_abbreviation ?? 'MCSSZ';
                     break;
                 case 'Romániai Magyar Cserkészszövetség':
                     $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'E';
-                    $association->currency_id       = Currency::where('code', 'RON')->first()->id;
+                    $association->currency_id       = $association->currency_id ?? Currency::where('code', 'RON')->first()->id;
                     $association->team_fee          = $association->team_fee ?? 300;
                     $association->name_abbreviation = $association->name_abbreviation ?? 'RMCSSZ';
                     $association->country           = 'Románia';
                     break;
                 case 'Szlovákiai Magyar Cserkészszövetség':
                     $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'F';
-                    $association->currency_id       = Currency::where('code', 'EUR')->first()->id;
+                    $association->currency_id       = $association->currency_id ?? Currency::where('code', 'EUR')->first()->id;
                     $association->team_fee          = $association->team_fee ?? 0;
                     $association->name_abbreviation = $association->name_abbreviation ?? 'SZMCS';
                     break;
                 case 'Vajdasági Magyar Cserkészszövetség':
                     $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'D';
-                    $association->currency_id       = Currency::where('code', 'RSD')->first()->id;
+                    $association->currency_id       = $association->currency_id ?? Currency::where('code', 'RSD')->first()->id;
                     $association->team_fee          = $association->team_fee ?? 0;
                     $association->name_abbreviation = $association->name_abbreviation ?? 'VMCSZ';
+                    break;
+                case 'Honi Cserkész Szövetség':
+                    $association->ecset_code_suffix = $association->ecset_code_suffix ?? 'HU';
+                    $association->currency_id       = $association->currency_id ?? Currency::where('code', 'HUF')->first()->id;
+                    $association->team_fee          = $association->team_fee ?? 0;
+                    $association->name_abbreviation = $association->name_abbreviation ?? 'HCSSZ';
                     break;
                 default:
                     break;
             }
 
-            $association->save();
+            $association->forceSave();
 
             // associations - legal relationships pivot
             if ($association->legal_relationships->where('id', $legalRelationship1->id)->first() == null) {
@@ -877,38 +983,9 @@ class SeederData extends Seeder
                 $association->legal_relationships()->attach($legalRelationship4, ['membership_fee' => 0]);
             }
 
-            $association->save();
+            $association->forceSave();
 
-            // mandate types
-            $mandateTypes = [];
-            if (isset($this::DATA['mandateType'][$association->name])) {
-                foreach ($this::DATA['mandateType'][$association->name] as $mandateType) {
-                    $mandateType['association_id'] = $association->id;
-                    if (isset($mandateType['parent'])) {
-                        foreach ($mandateTypes as $item) {
-                            if ($item->name == $mandateType['parent']) {
-                                $mandateType['parent_id'] = $item->id;
-                                break;
-                            }
-                        }
-
-                        unset($mandateType['parent']);
-                    }
-
-                    $newMandateType           = MandateType::firstOrCreate([
-                        'name' => $mandateType['name'],
-                        'association_id' => $mandateType['association_id'],
-                        'organization_type_model_name' => $mandateType['organization_type_model_name'],
-                    ]);
-                    $newMandateType->required = $mandateType['required'] ?? false;
-                    $newMandateType->overlap_allowed = $mandateType['overlap_allowed'] ?? false;
-                    $newMandateType->parent_id       = $mandateType['parent_id'] ?? null;
-                    $newMandateType->is_vk           = $mandateType['is_vk'] ?? 0;
-                    $newMandateType->save();
-
-                    $mandateTypes[] = $newMandateType;
-                }
-            }
+            $this->seedMandateTypesForAssociation($association);
 
             // update the membership fee value for RMCSSZ - Member
             if ($association->name == 'Romániai Magyar Cserkészszövetség') {
@@ -921,6 +998,14 @@ class SeederData extends Seeder
             }
         }
 
+        return $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function seedFoodSensitivities()
+    {
         // food sensitivities
         foreach ($this::DATA['foodSensitivity'] as $name) {
             $foodSensitivity = FoodSensitivity::firstOrCreate([
@@ -928,18 +1013,27 @@ class SeederData extends Seeder
             ]);
         }
 
-        // promises
-        $promises = [
-            'Kiscserkész igéret',
-            'Cserkész fogadalom',
-        ];
+        return $name;
+    }
 
+    /**
+     * @return void
+     */
+    public function seedPromises(): void
+    {
+        // promises
         foreach ($this::DATA['promise'] as $name) {
             $promise = Promise::firstOrCreate([
                 'name' => $name
             ]);
         }
+    }
 
+    /**
+     * @return mixed
+     */
+    public function seedProfessionalQualifications()
+    {
         // professional qualifications
         foreach ($this::DATA['professionalQualification'] as $name) {
             $professionalQualification = ProfessionalQualification::firstOrCreate([
@@ -947,6 +1041,14 @@ class SeederData extends Seeder
             ]);
         }
 
+        return $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function seedLeadershipQualifications()
+    {
         // leadership qualifications
         foreach ($this::DATA['leadershipQualification'] as $name) {
             $leadershipQualification = LeadershipQualification::firstOrCreate([
@@ -954,6 +1056,14 @@ class SeederData extends Seeder
             ]);
         }
 
+        return $name;
+    }
+
+    /**
+     * @return void
+     */
+    public function seedForms(): void
+    {
         // seeders for the Forms plugin
         foreach (Form::all() as $form) {
             $form->slugAttributes();
@@ -963,14 +1073,26 @@ class SeederData extends Seeder
         foreach ($this::DATA['form'] as $form) {
             $item = Form::firstOrCreate($form);
         }
+    }
 
+    /**
+     * @return void
+     */
+    public function seedTrainings(): void
+    {
         // trainings
         foreach ($this::DATA['trainings'] as $training) {
             Training::firstOrCreate([
                 'name' => $training,
             ]);
         }
+    }
 
+    /**
+     * @return void
+     */
+    public function seedAgeGroups(): void
+    {
         // ageGroups for associations
         foreach ($this::DATA['ageGroups'] as $associationName => $ageGroups) {
             $associationId = Association::where('name', $associationName)->first()->id ?? 0;
@@ -983,7 +1105,13 @@ class SeederData extends Seeder
                 $newAgeGroup->save();
             }
         }
+    }
 
+    /**
+     * @return void
+     */
+    public function seedUserGroups(): void
+    {
         // userGroups
         foreach ($this::DATA['userGroups'] as $name) {
             $allergy = UserGroup::firstOrCreate([
@@ -991,7 +1119,13 @@ class SeederData extends Seeder
                 'code' => str_slug($name[0]),
             ]);
         }
+    }
 
+    /**
+     * @return void
+     */
+    public function seedContactPageData(): void
+    {
         // contact page data
         $contactSettings = ContactSettings::instance();
         foreach ($this::DATA['contactSettings'] as $contact_key => $contact_value) {
@@ -1001,7 +1135,13 @@ class SeederData extends Seeder
         }
 
         $contactSettings->save();
+    }
 
+    /**
+     * @return void
+     */
+    public function seedSiteSearchPluginSettings(): void
+    {
         // seed site search plugin settings
         $sitesearchSettings = '{"mark_results":"1","log_queries":"0","excerpt_length":"250","log_keep_days":365,"rainlab_blog_enabled":"0","rainlab_blog_label":"Blog","rainlab_blog_page":"403","rainlab_pages_enabled":"0","rainlab_pages_label":"Page","indikator_news_enabled":"0","indikator_news_label":"News","indikator_news_posturl":"\/news","octoshop_products_enabled":"0","octoshop_products_label":"","octoshop_products_itemurl":"\/product","snipcartshop_products_enabled":"0","snipcartshop_products_label":"","jiri_jkshop_enabled":"0","jiri_jkshop_label":"","jiri_jkshop_itemurl":"\/product","radiantweb_problog_enabled":"0","radiantweb_problog_label":"Blog","arrizalamin_portfolio_enabled":"0","arrizalamin_portfolio_label":"Portfolio","arrizalamin_portfolio_url":"\/portfolio\/project","vojtasvoboda_brands_enabled":"0","vojtasvoboda_brands_label":"Brands","vojtasvoboda_brands_url":"\/brand","responsiv_showcase_enabled":"0","responsiv_showcase_label":"Showcase","responsiv_showcase_url":"\/showcase\/project","graker_photoalbums_enabled":"0","graker_photoalbums_label":"PhotoAlbums","graker_photoalbums_album_page":"403","graker_photoalbums_photo_page":"403","cms_pages_enabled":"0","cms_pages_label":"Page"}';
 
@@ -1009,14 +1149,20 @@ class SeederData extends Seeder
             ->updateOrInsert(
                 ['item' => 'offline_sitesearch_settings'],
                 ['value' => $sitesearchSettings],
-          );
+            );
+    }
 
+    /**
+     * @return void
+     */
+    public function seedBackendRoles(): void
+    {
         // seed RMCSSZ Iroda backend role
         Db::table('backend_user_roles')
             ->updateOrInsert(
                 ['code' => 'rmcssz-iroda'],
                 [
-                    'name' => 'RMCSSZ Iroda',
+                    'name'        => 'RMCSSZ Iroda',
                     'permissions' => '{"rainlab.users.access_users":"1","rainlab.users.access_groups":"1","rainlab.users.impersonate_user":"1","pollozen.simplegallery.manage_galleries":"1","csatar.manage.data":"1","janvince.smallcontactform.access_messages":"1","janvince.smallcontactform.delete_messages":"1","janvince.smallcontactform.export_messages":"1"}'
                 ],
             );
@@ -1026,7 +1172,7 @@ class SeederData extends Seeder
             ->updateOrInsert(
                 ['code' => 'rmcssz-tudastaras'],
                 [
-                    'name' => 'RMCSSZ Tudástáras',
+                    'name'        => 'RMCSSZ Tudástáras',
                     'permissions' => '{"backend.access_dashboard":"1","csatar.manage.knowledgerepository":"1"}'
                 ],
             );
@@ -1036,11 +1182,17 @@ class SeederData extends Seeder
             ->updateOrInsert(
                 ['code' => 'rmcssz-leltaros'],
                 [
-                    'name' => 'RMCSSZ Leltáros',
+                    'name'        => 'RMCSSZ Leltáros',
                     'permissions' => '{"backend.access_dashboard":"1","csatar.manage.inventory":"1"}'
                 ],
             );
+    }
 
+    /**
+     * @return void
+     */
+    public function seedCountryNameTranslations(): void
+    {
         foreach ($this::DATA['countryNamesHungarianTranslations'] as $enCountryName => $huCountryName) {
             $country = Country::where('name', $enCountryName)->first();
             if ($country) {
@@ -1049,7 +1201,13 @@ class SeederData extends Seeder
                 $country->save();
             }
         }
+    }
 
+    /**
+     * @return void
+     */
+    public function seedGoogleCalendarParams(): void
+    {
         foreach ($this::DATA['googleCalendarParams'] as $params) {
             $class = '\Csatar\Csatar\Models\\' . $params['model'];
             $model = $class::where('name', $params['modelName'])->first();
@@ -1057,6 +1215,44 @@ class SeederData extends Seeder
             if ($model) {
                 $model->google_calendar_id = $params['google_calendar_id'];
                 $model->forceSave();
+            }
+        }
+    }
+
+    /**
+     * @param $association
+     * @return void
+     */
+    public function seedMandateTypesForAssociation($association): void
+    {
+        // mandate types
+        $mandateTypes = [];
+        if (isset($this::DATA['mandateType'][$association->name])) {
+            foreach ($this::DATA['mandateType'][$association->name] as $mandateType) {
+                $mandateType['association_id'] = $association->id;
+                if (isset($mandateType['parent'])) {
+                    foreach ($mandateTypes as $item) {
+                        if ($item->name == $mandateType['parent']) {
+                            $mandateType['parent_id'] = $item->id;
+                            break;
+                        }
+                    }
+
+                    unset($mandateType['parent']);
+                }
+
+                $newMandateType           = MandateType::firstOrCreate([
+                    'name'                         => $mandateType['name'],
+                    'association_id'               => $mandateType['association_id'],
+                    'organization_type_model_name' => $mandateType['organization_type_model_name'],
+                ]);
+                $newMandateType->required = $mandateType['required'] ?? false;
+                $newMandateType->overlap_allowed = $mandateType['overlap_allowed'] ?? false;
+                $newMandateType->parent_id       = $mandateType['parent_id'] ?? null;
+                $newMandateType->is_vk           = $mandateType['is_vk'] ?? 0;
+                $newMandateType->save();
+
+                $mandateTypes[] = $newMandateType;
             }
         }
     }

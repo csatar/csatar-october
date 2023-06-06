@@ -1,0 +1,25 @@
+columns:
+    patrol_name:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.patrol'
+        type: text
+    patrol_leader_name:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.patrolLeader'
+        type: text
+    deputy_patrol_leader_name:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.deputyPatrolLeaders'
+        type: text
+    start_date_time:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.startDateTime'
+        type: text
+    advertisement:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.advertisement'
+        type: text
+    extra_tools:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.extraTools'
+        type: text
+    created_at:
+        label: 'csatar.csatar::lang.plugin.admin.general.createdAt'
+        type: datetime
+    updated_at:
+        label: 'csatar.csatar::lang.plugin.admin.general.updatedAt'
+        type: datetime

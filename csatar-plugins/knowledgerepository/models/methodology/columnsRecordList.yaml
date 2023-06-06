@@ -1,0 +1,89 @@
+columns:
+    association_id:
+        label: 'csatar.csatar::lang.plugin.admin.association.association'
+        type: text
+        searchable: true
+        sortable: true
+        select: name
+        relation: association
+        recordList:
+            sortable: true
+            filterable: true
+            hideInTable: true
+            filterConfig:
+                type: relation
+                relationName: association
+                keyFrom: id
+                labelFrom: name
+                selectType: radio
+                defaultFrom: getAssociationIdByUser
+    name:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.methodologyName'
+        type: text
+        searchable: true
+        sortable: true
+        recordList:
+            sortable:
+                default: asc
+            filterable: true
+            filterConfig:
+                type: freeText
+    trial_systems:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.trialSystem.trialSystem'
+        type: text
+        relation: trial_systems
+        valueFrom: name
+        recordList:
+            sortable: true
+            filterable: true
+            filterConfig:
+                type: relation
+                relationName: trial_systems
+                keyFrom: id
+                labelFrom: name
+                selectType: checkbox
+                dependsOn: association_id
+    timeframe:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.duration'
+        type: text
+        relation: timeframe
+        valueFrom: name
+        recordList:
+            sortable: true
+            filterable: true
+            filterConfig:
+                type: relation
+                relationName: timeframe
+                keyFrom: id
+                labelFrom: name
+                selectType: checkbox
+    agegroups:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.ageGroup'
+        type: text
+        select: name
+        relation: agegroups
+        recordList:
+            sortable: true
+            filterable: true
+            filterConfig:
+                type: relation
+                relationName: agegroups
+                keyFrom: id
+                labelFrom: name
+                selectType: checkbox
+                dependsOn: association_id
+    locations:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.locations'
+        type: text
+        select: name
+        relation: locations
+        recordList:
+            sortable: true
+            filterable: true
+            filterConfig:
+                type: relation
+                relationName: locations
+                keyFrom: id
+                labelFrom: name
+                selectType: checkbox
+

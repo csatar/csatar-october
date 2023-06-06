@@ -29,7 +29,7 @@ use Lang;
 
 class GamesXlsxImport implements ToModel, WithHeadingRow, WithValidation, SkipsOnFailure, WithMultipleSheets, SkipsUnknownSheets
 {
-    use Importable, RemembersRowNumber, SkipsFailures;
+    use Importable, RemembersRowNumber, SkipsFailures, XlsxImportHelper;
 
     private $associationId;
     private $uploaderCsatarCode;
@@ -83,37 +83,25 @@ class GamesXlsxImport implements ToModel, WithHeadingRow, WithValidation, SkipsO
 
         $pivotRelationIds = [];
 
-        if (isset($row['letszam'])) {
-            $pivotRelationIds['headcounts'] = $this->getModelIds($row['letszam'], Headcount::class, 'description');
-        }
+        $pivotRelationIds['headcounts'] = $this->getModelIds(null, $row['letszam'], Headcount::class, 'description');
 
-        if (isset($row['idotartam'])) {
-            $pivotRelationIds['durations'] = $this->getModelIds($row['idotartam'], Duration::class, 'name');
-        }
+        $pivotRelationIds['durations'] = $this->getModelIds(null, $row['idotartam'], Duration::class, 'name');
 
-        if (isset($row['korosztaly'])) {
-            $pivotRelationIds['age_groups'] = $this->getModelIds($row['korosztaly'], AgeGroup::class, 'name', 'association_id', $this->associationId);
-        }
+        $pivotRelationIds['age_groups'] = $this->getModelIds(null, $row['korosztaly'], AgeGroup::class, 'name', 'association_id', $this->associationId);
 
-        if (isset($row['helyszin'])) {
-            $pivotRelationIds['locations'] = $this->getModelIds($row['helyszin'], Location::class, 'name');
-        }
+        $pivotRelationIds['locations'] = $this->getModelIds(null, $row['helyszin'], Location::class, 'name');
 
-        if (isset($row['cel'])) {
-            $pivotRelationIds['game_development_goals'] = $this->getModelIds($row['cel'], GameDevelopmentGoal::class, 'name');
-        }
+        $pivotRelationIds['game_development_goals'] = $this->getModelIds(null, $row['cel'], GameDevelopmentGoal::class, 'name');
 
-        if (isset($row['tipus'])) {
-            $pivotRelationIds['game_types'] = $this->getModelIds($row['tipus'], GameType::class, 'name');
-        }
+        $pivotRelationIds['game_types'] = $this->getModelIds(null, $row['tipus'], GameType::class, 'name');
 
-        if (isset($row['probarendszer'])) {
-            $pivotRelationIds['trial_systems'] = $this->getModelIds($row['probarendszer'], TrialSystem::class, 'id_string', 'association_id', $this->associationId);
-        }
+        $pivotRelationIds['trial_systems'] = $this->getModelIds(null, $row['probarendszer'], TrialSystem::class, 'id_string', 'association_id', $this->associationId);
 
-        if (isset($row['kellekek'])) {
-            $pivotRelationIds['tools'] = $this->getModelIds($row['kellekek'], Tool::class, 'name', null, null, true);
-        }
+        $pivotRelationIds['tools'] = $this->getModelIds(null, $row['kellekek'], Tool::class, 'name', null, null, true);
+
+        $pivotRelationIds = array_filter($pivotRelationIds, function ($value) {
+            return $value !== null;
+        });
 
         if (!empty($this->errors[$this->getRowNumber()])) {
             return;
@@ -143,36 +131,6 @@ class GamesXlsxImport implements ToModel, WithHeadingRow, WithValidation, SkipsO
         foreach ($pivotRelationIds as $relationName => $relationIds) {
             $game->{$relationName}()->sync($relationIds);
         }
-    }
-
-    public function getModelIds(string $searchFor, string $modelName, string $columnName, string $secondaryColumnName = null, $secondaryColumnValue = null, bool $createIfNotFound = false): array
-    {
-        $searchFor = array_map('trim', explode('|', $searchFor));
-        $searchFor = array_map('strtolower', $searchFor);
-        $ids       = $modelName::whereIn(DB::raw('LOWER(' . $columnName . ')'), $searchFor)->when($secondaryColumnName, function ($query) use ($secondaryColumnName, $secondaryColumnValue) {
-            $query->where($secondaryColumnName, $secondaryColumnValue);
-        })->get();
-        $unmatched = array_diff($searchFor, array_map('strtolower', $ids->pluck($columnName)->toArray()));
-        if (!empty($unmatched) && !$createIfNotFound) {
-            $modelNameForLangKey = (new \ReflectionClass($modelName))->getShortName();
-            $this->errors[$this->getRowNumber()][] = Lang::get('csatar.knowledgerepository::lang.plugin.admin.messages.cannotFind' . $modelNameForLangKey) . implode(', ', $unmatched);
-        }
-
-        if ($createIfNotFound && !empty($unmatched)) {
-            foreach ($unmatched as $unmatchedItem) {
-                $model = new $modelName();
-                $model->$columnName = $unmatchedItem;
-
-                if ($secondaryColumnName) {
-                    $model->$secondaryColumnName = $secondaryColumnValue;
-                }
-
-                $model->save();
-                $ids->push($model);
-            }
-        }
-
-        return $ids->pluck('id')->toArray();
     }
 
     public function rules(): array

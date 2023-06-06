@@ -10,6 +10,9 @@
 
     <exclude-pattern>*/src/Standards/*/Tests/*\.(inc|css|js)$</exclude-pattern>
     <exclude-pattern>*/tests/Core/*/*\.(inc|css|js)$</exclude-pattern>
+    <exclude-pattern>csatar-plugins/csatar/lang/*</exclude-pattern>
+    <exclude-pattern>csatar-plugins/forms/lang/*</exclude-pattern>
+    <exclude-pattern>csatar-plugins/knowledgerepository/lang/*</exclude-pattern>
 
     <arg name="basepath" value="."/>
     <arg name="colors"/>
@@ -41,11 +44,14 @@
 <!--    <rule ref="Squiz.Commenting.VariableComment"/>-->
     <rule ref="Squiz.Scope.MethodScope"/>
     <rule ref="Squiz.WhiteSpace.ControlStructureSpacing"/>
-    <rule ref="Squiz.WhiteSpace.OperatorSpacing"/>
+    <rule ref="Squiz.WhiteSpace.OperatorSpacing">
+        <properties>
+            <property name="ignoreNewlines" value="true" />
+        </properties>
+    </rule>
     <rule ref="Squiz.WhiteSpace.SuperfluousWhitespace"/>
     <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
     <rule ref="Generic.Commenting.Todo"/>
-    <rule ref="Generic.ControlStructures.DisallowYodaConditions"/>
     <rule ref="Generic.ControlStructures.InlineControlStructure"/>
     <rule ref="Generic.Formatting.DisallowMultipleStatements"/>
     <rule ref="Generic.Formatting.SpaceAfterCast"/>

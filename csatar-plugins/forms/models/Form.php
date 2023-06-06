@@ -38,8 +38,6 @@ class Form extends Model
     public function beforeSave()
     {
         $this->getModelName();
-
-        // TODO in v2: before save check if yaml file exists...
     }
 
     /*

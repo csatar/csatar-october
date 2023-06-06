@@ -24,30 +24,35 @@ class BasicForm extends ComponentBase  {
 
     /**
      * Session key for deferred bindings
+     *
      * @var mixed
      */
     public $sessionKey = null;
 
     /**
      * The relation model
+     *
      * @var type
      */
     public $relation = null;
 
     /**
      * The Id of the form
+     *
      * @var int
      */
     public $formId = null;
 
     /**
      * The form
+     *
      * @var Form
      */
     public $form = null;
 
     /**
      * The unique Id of the form instance
+     *
      * @var type
      */
     public $formUniqueId = null;
@@ -55,12 +60,14 @@ class BasicForm extends ComponentBase  {
     /**
      * The URL parameter and DB column
      * to identify a record(id, slug etc.)
+     *
      * @var int
      */
     public $recordKeyParam = null;
 
     /**
      * To pass additional html data for rendering to the form
+     *
      * @var string
      */
     public $additionalData = null;
@@ -68,18 +75,21 @@ class BasicForm extends ComponentBase  {
     /**
      * Special validation exceptions, generated outside
      * the standard validation flow
+     *
      * @var array
      */
     public array $specialValidationExceptions = [];
 
     /**
      * The value of the key parameter
+     *
      * @var string
      */
     public $recordKeyValue = null;
 
     /**
      * Component property, if true, form is displayed in preview mode
+     *
      * @var mixed
      */
     public $readOnly = null;
@@ -87,24 +97,28 @@ class BasicForm extends ComponentBase  {
     /**
      * If value of $recordKeyValue == $createRecordKeyword
      * an empty form will be rendered to create new record
+     *
      * @var boolean
      */
     public $createRecordKeyword = null;
 
     /**
      * The URL parameter to specify update/delete action
+     *
      * @var string
      */
     public $recordActionParam = null;
 
     /**
      * Keyword for update action
+     *
      * @var string
      */
     public $actionUpdateKeyword = null;
 
     /**
      * Keyword for delete action
+     *
      * @var string
      */
     public $actionDeleteKeyword = null;
@@ -112,30 +126,35 @@ class BasicForm extends ComponentBase  {
 
     /**
      * Data model
+     *
      * @var Model
      */
     public $record = null;
 
     /**
      * Contains the rendered component
+     *
      * @var string
      */
     public $renderedComponent = null;
 
     /**
      * Current user rights for the record/model
+     *
      * @var array
      */
     public $currentUserRights = null;
 
     /**
      * List of fields that require 2FA for any CRUD action
+     *
      * @var array
      */
     public $fieldsThatRequire2FA = null;
 
     /**
      * To store custom messages for special cases when no error or validation error is thrown
+     *
      * @var array
      */
     public $messages = null;
@@ -144,10 +163,17 @@ class BasicForm extends ComponentBase  {
      * Initialise plugin and parse request
      */
     public function init() {
-
         if (post('redirect')) {
             return;
         }
+
+        $this->controller->bindEvent('ajax.beforeRunHandler', function ($handler) {
+            //check if handler starts with "relation"
+            if (substr($handler, 0, 13) === 'pivotRelation' && strpos($handler, '::')) {
+                [$componentAlias, $handlerName] = explode('::', $handler);
+                return $this->$handlerName($componentAlias);
+            }
+        });
 
         $this->getForm();
         $this->setOrGetFormUniqueId();
@@ -171,6 +197,7 @@ class BasicForm extends ComponentBase  {
 
     /**
      * Register component details
+     *
      * @return array
      */
     public function componentDetails()
@@ -183,6 +210,7 @@ class BasicForm extends ComponentBase  {
 
     /**
      * Register properties
+     *
      * @return array
      */
     public function defineProperties()
@@ -263,6 +291,7 @@ class BasicForm extends ComponentBase  {
 
     /**
      * Renders the frontend
+     *
      * @return mixed
      */
     public function onRun() {
@@ -272,72 +301,38 @@ class BasicForm extends ComponentBase  {
             return $handler;
         }
 
+        $action = $this->properties['action'] ?? $this->param($this->recordActionParam ?? null) ?? null;
+
         $this->getComponentSettings();
 
-        // Render frontend
-// $this->addCss('/modules/system/assets/ui/storm.css');
-        $this->addCss('/plugins/csatar/forms/assets/css/storm-select2.css');
-        $this->addCss('/plugins/csatar/forms/assets/css/storm.css');
-        $this->addJs('/modules/system/assets/ui/storm-min.js');
-        $this->addJs('/plugins/csatar/forms/assets/vendor/dropzone/dropzone.js');
-        $this->addJs('/plugins/csatar/forms/assets/js/uploader.js');
-        $this->addJs('/plugins/csatar/forms/assets/js/positionValidationTags.js');
-        $this->addJs('/plugins/csatar/forms/assets/js/addCheckboxClass.js');
+        $this->injectAssets($action);
 
         if ($this->properties['subForm'] && empty($this->record->id)) {
             return;
         }
 
         if ($this->readOnly) {
-            // check if user has permissions to view record
-            if (!$this->canRead('MODEL_GENERAL')) {
-                \App::abort(403, 'Access denied!');
-            }
-
-            $this->renderedComponent = $this->createForm(true);
+            $this->initReadOnlyMode();
+            return;
         }
 
-        if ($this->recordKeyValue === $this->createRecordKeyword && !$this->readOnly) {
-            // check if user has permissions to create record
-            if (!$this->canCreate('MODEL_GENERAL')) {
-                \App::abort(403, 'Access denied!');
-            }
-
-            $this->renderedComponent = $this->createForm();
+        if ($this->recordKeyValue === $this->createRecordKeyword) {
+            $this->initCreateMode();
+            return;
         }
 
-        if ($this->recordKeyValue !== $this->createRecordKeyword && !$this->readOnly && $this->recordActionParam) {
-            $action = $this->properties['action'] ?? $this->param($this->recordActionParam) ?? null;
-            switch ($action) {
-                case $this->actionUpdateKeyword:
-                    // check if user has permissions to update record
-                    if (!$this->canUpdate('MODEL_GENERAL')) {
-                        \App::abort(403, 'Access denied!');
-                    }
-
-                    if (!Auth::check()) {
-                        return Redirect::to('/bejelentkezes');
-                    }
-
-                    $this->renderedComponent = $this->createForm();
-                    break;
-                case $this->actionDeleteKeyword:
-                    $this->currentUserRights = $this->getRights($this->record, true); // getting user rights from database before delete
-                    if (!$this->canDelete('MODEL_GENERAL')) {
-                        \App::abort(403, 'Access denied!');
-                    }
-
-                    $this->renderedComponent = $this->onDelete();
-                    break;
-                default:
-                    if (!$this->canRead('MODEL_GENERAL')) {
-                        \App::abort(403, 'Access denied!');
-                    }
-
-                    $this->readOnly          = true;
-                    $this->renderedComponent = $this->createForm(true);
-            }
+        switch ($action) {
+            case $this->actionUpdateKeyword:
+                $this->initUpdateMode();
+                break;
+            case $this->actionDeleteKeyword:
+                $this->initDeleteMode();
+                break;
+            default:
+                $this->readOnly = true;
+                $this->initReadOnlyMode();
         }
+
     }
 
     private function getForm() {
@@ -377,7 +372,6 @@ class BasicForm extends ComponentBase  {
         }
 
         if (!$record) {
-            // TODO handle trashed records
             return null;
         }
 
@@ -436,6 +430,7 @@ class BasicForm extends ComponentBase  {
         if (empty($userRightsForParent[$relationName])) {
             return [];
         }
+
         $this->currentUserRights['MODEL_GENERAL']['create'] = $userRightsForParent[$relationName]['create'];
         $this->currentUserRights['MODEL_GENERAL']['update'] = $userRightsForParent[$relationName]['update'];
         $this->currentUserRights['MODEL_GENERAL']['read']   = $userRightsForParent[$relationName]['read'];
@@ -456,7 +451,7 @@ class BasicForm extends ComponentBase  {
     }
 
     public function setOrGetFormUniqueId(){
-        $this->formUniqueId = Input::get('formUniqueId') ?? uniqid();
+        $this->formUniqueId = Input::get('formUniqueId') ?? Input::old('formUniqueId') ?? uniqid();
     }
 
     public function setOrGetSessionKey(){
@@ -527,6 +522,83 @@ class BasicForm extends ComponentBase  {
             && is_array($this->currentUserRights[$attribute])
             && isset($this->currentUserRights[$attribute]['delete'])
             && $this->currentUserRights[$attribute]['delete'] > 0;
+    }
+
+    /**
+     * @return void
+     */
+    public function initReadOnlyMode(): void
+    {
+        // check if user has permissions to view record
+        if (!$this->canRead('MODEL_GENERAL')) {
+            \App::abort(403, 'Access denied!');
+        }
+
+        $this->renderedComponent = $this->createForm(true);
+    }
+
+    /**
+     * @return void
+     */
+    public function initCreateMode(): void
+    {
+        // check if user has permissions to create record
+        if (!$this->canCreate('MODEL_GENERAL')) {
+            \App::abort(403, 'Access denied!');
+        }
+
+        $this->renderedComponent = $this->createForm();
+    }
+
+    /**
+     * @return void
+     */
+    public function initUpdateMode(): void
+    {
+        // check if user has permissions to update record
+        if (!$this->canUpdate('MODEL_GENERAL')) {
+            \App::abort(403, 'Access denied!');
+        }
+
+        $this->renderedComponent = $this->createForm();
+    }
+
+    /**
+     * @return void
+     */
+    public function initDeleteMode(): void
+    {
+        $this->currentUserRights = $this->getRights($this->record, true); // getting user rights from database before delete
+        if (!$this->canDelete('MODEL_GENERAL')) {
+            \App::abort(403, 'Access denied!');
+        }
+
+        $this->renderedComponent = $this->onDelete();
+    }
+
+    /**
+     * @return void
+     */
+    public function injectAssets($action): void
+    {
+
+        $this->addCss('/plugins/csatar/forms/assets/css/storm.css');
+        $this->addJs('/modules/system/assets/ui/storm-min.js');
+        $this->addCss('/plugins/csatar/forms/assets/css/storm-select2.css');
+
+        if ($this->recordKeyValue !== $this->createRecordKeyword && $action != $this->actionUpdateKeyword) {
+            return;
+        }
+
+        $this->addJs('/plugins/csatar/forms/assets/vendor/dropzone/dropzone.js');
+        $this->addJs('/plugins/csatar/forms/assets/js/uploader.js');
+        $this->addJs('/plugins/csatar/forms/assets/js/positionValidationTags.js');
+        $this->addJs('/plugins/csatar/forms/assets/js/addCheckboxClass.js');
+
+        $this->addCss('/plugins/csatar/forms/widgets/richeditor/assets/css/richeditor.css', 'core');
+        $this->addJs('/plugins/csatar/forms/widgets/richeditor/assets/js/build-min.js', 'core');
+        $this->addJs('/plugins/csatar/forms/widgets/richeditor/assets/js/build-plugins-min.js', 'core');
+        $this->addJs('/modules/backend/formwidgets/codeeditor/assets/js/build-min.js', 'core');
     }
 
     private function isObligatory(string $attribute): bool

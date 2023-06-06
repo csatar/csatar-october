@@ -79,51 +79,14 @@ class Plugin extends PluginBase
      * @return array
      */
     public function boot()
-    {
-        HistoryService::init([
-            '\RainLab\User\Models\User' => [
-                'extraEventListeners' => [
-                    'rainlab.user.login' => 'historyRecordEvent',
-                    'rainlab.user.register' => 'historyRecordEvent',
-                    'rainlab.user.activate' => 'historyRecordEvent',
-                    'rainlab.user.deactivate' => 'historyRecordEvent',
-                    'rainlab.user.reactivate' => 'historyRecordEvent',
-                    'csatar.twoFA.authenticated' => 'historyRecordEvent',
-                    'csatar.oauthRegistration' => 'historyRecordEvent',
-                    'csatar.oauthLogin' => 'historyRecordEvent',
-                ],
-                'extraEvents' => [
-                    'model.auth.beforeImpersonate' => 'historyRecordEvent',
-                    'model.auth.afterImpersonate' => 'historyRecordEvent',
-                ],
-            ],
-            '\RainLab\User\Models\UserGroup' => null,
-            '\Backend\Models\User' => [
-                'extraEventListeners' => [
-                    'backend.user.login' => 'historyRecordEvent',
-                ],
-            ],
-            '\Backend\Models\UserGroup' => null,
-            '\Backend\Models\UserRole' => null,
-            '\PolloZen\SimpleGallery\Models\Gallery' => null,
-            '\Csatar\Csatar\Models\MandatePermission' => [
-                'basicEvents' => false,
-                'relationEvents' => false,
-                'extraEventListeners' => [
-                    'mandatePermission.afterSave' => 'historyAfterSave',
-                    'mandatePermission.afterDelete' => 'historyAfterDelete',
-                ],
-            ],
-        ]);
-
-        if (!Schema::hasTable('system_plugin_versions') || intval(str_replace('.', '', \System\Models\PluginVersion::getVersion('Csatar.Csatar'))) < 1070) {
+    {if (!Schema::hasTable('system_plugin_versions') || intval(str_replace('.', '', \System\Models\PluginVersion::getVersion('Csatar.Csatar'))) < 1070) {
             // if Csatar.Csatar version is lower than a specific version the below code should not run
             return;
         }
 
-        if (class_exists('RainLab\User\Models\User')) {
+        $this->initHistoryService();
+
             $this->extendUser();
-        }
 
         App::error(function (\October\Rain\Auth\AuthException $exception) {
             return Lang::get('csatar.csatar::lang.frontEnd.authException');
@@ -148,104 +111,13 @@ class Plugin extends PluginBase
             return Redirect::to('/bejelentkezes');
         });
 
-        Event::listen('flynsarmy.sociallogin.registerUser', function ($provider_details, $user_details) {
+        $this->handleSocialLoginEvents();
 
-            if (empty($user_details->email)) {
-                throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.canNotRegisterLoginWithoutEmail'), 2);
-            }
+        $this->handleExtensionOfSimpleGalleryPlugin();
 
-            $scout = Scout::where('email', $user_details->email)->first();
+        $this->handleMandteTypeIdCaching();
 
-            if (empty($scout)) {
-                throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.canNotFindScoutWithEmail'), 3);
-            }
-
-            if (empty($scout->user_id)) {
-                throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.onlyExistingUsersCanLogin'), 1);
-            }
-
-            Event::fire('csatar.oauthRegistration', [$scout]);
-
-        });
-
-        Event::listen('flynsarmy.sociallogin.handleLogin', function (array $provider_details, array $user_details, User $user) {
-
-            if (empty($user_details['profile']->email)) {
-                throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.canNotRegisterLoginWithoutEmail'), 2);
-            }
-
-            $scout = Scout::where('email', $user_details['profile']->email)->first();
-
-            if (empty($scout)) {
-                throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.canNotFindScoutWithEmail'), 3);
-            }
-
-            if (empty($user)) {
-                throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.canNotFindUser'), 5);
-            }
-
-            // check if scout already has a user_id and if that matches or not the returned user's id
-            if (!empty($scout->user_id) && $scout->user_id != $user->id) {
-                throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.userIdAndScoutUserIdMismatch'), 6);
-            }
-
-            // if scout doesn't have a user_id, set the returned user's id as user_id
-            if (empty($scout->user_id)) {
-                $scout->user_id = $user->id;
-                $scout->save();
-            }
-
-            Event::fire('csatar.oauthLogin', [$scout]);
-
-        });
-
-        if (class_exists('PolloZen\SimpleGallery\Controllers\Gallery')) {
-            SimpleGalleryController::extendFormFields(function($form, $model, $context) {
-                if ($form->arrayName === 'Gallery[images]') {
-                    $form->addFields([
-                        'is_public' => [
-                            'label' => 'Public',
-                            'type'  => 'checkbox',
-                            'default'   => false
-                        ]
-                    ]);
-                }
-
-                $form->addFields([
-                    'sort_order' => [
-                        'label' => 'csatar.csatar::lang.plugin.admin.general.sortOrder',
-                        'type'  => 'number',
-                        'default'   => 0
-                    ]
-                ]);
-            });
-        }
-
-        if (class_exists('PolloZen\SimpleGallery\Models\Gallery')) {
-            \PolloZen\SimpleGallery\Models\Gallery::extend(function($model) {
-                $model->morphTo = [
-                    'model' => []
-                ];
-                $model->hasMany = [
-                    'galleryPivot' => [
-                        \Csatar\Csatar\Models\GalleryModelPivot::class,
-                        'table' => 'csatar_csatar_gallery_model',
-                    ],
-                ];
-            });
-        }
-
-        Event::listen('rainlab.user.login', function($user) {
-            if (!empty($user->scout)) {
-                $user->scout->saveMandateTypeIdsForEveryAssociationToSession();
-            }
-        });
-
-        Event::listen('offline.sitesearch.extend', function () {
-            return [ new OrganizationSearchProvider(), new ContentPageSearchProvider(), new GallerySearchProvider() ];
-        });
-
-        $this->saveGuestMandateTypeIdsForEveryAssociationToSession();
+        $this->handleExtensionOfSiteSearchPlugin();
 
         Validator::extend('cnp', CnpValidator::class);
     }
@@ -316,29 +188,30 @@ class Plugin extends PluginBase
 
     protected function extendUser()
     {
-        User::extend(function($model) {
+        if (class_exists('RainLab\User\Models\User')) {
+            User::extend(function ($model) {
 
-            $model->hasOne['scout'] = [
-                \Csatar\Csatar\Models\Scout::class
-            ];
+                $model->hasOne['scout'] = [
+                    \Csatar\Csatar\Models\Scout::class
+                ];
 
-            $model->hasMany['historyRecords'] = [
-                \Csatar\Csatar\Models\History::class,
-                'key' => 'fe_user_id',
-            ];
+                $model->hasMany['historyRecords'] = [
+                    \Csatar\Csatar\Models\History::class,
+                    'key' => 'fe_user_id',
+                ];
 
-            $model->attributeNames = [
-                'password'              => Lang::get('csatar.csatar::lang.plugin.admin.general.password'),
-                'password_confirmation' => Lang::get('csatar.csatar::lang.plugin.admin.general.password_confirmation'),
-            ];
+                $model->attributeNames = [
+                    'password'              => Lang::get('csatar.csatar::lang.plugin.admin.general.password'),
+                    'password_confirmation' => Lang::get('csatar.csatar::lang.plugin.admin.general.password_confirmation'),
+                ];
 
-            $model->bindEvent('model.beforeDelete', function () use ($model) {
-                if (isset($model->scout) || $model->historyRecords->isNotEmpty()) {
-                    throw new ApplicationException(e(trans('csatar.csatar::lang.plugin.admin.general.canNotDeleteUser')));
-                }
+                $model->bindEvent('model.beforeDelete', function () use ($model) {
+                    if (isset($model->scout) || $model->historyRecords->isNotEmpty()) {
+                        throw new ApplicationException(e(trans('csatar.csatar::lang.plugin.admin.general.canNotDeleteUser')));
+                    }
+                });
             });
-
-        });
+        }
     }
 
     public function saveGuestMandateTypeIdsForEveryAssociationToSession(){
@@ -383,6 +256,176 @@ class Plugin extends PluginBase
             }
         })
             ->dailyAt('00:15');
+    }
+
+    /**
+     * @return void
+     */
+    public function initHistoryService(): void
+    {
+        HistoryService::init([
+            '\RainLab\User\Models\User'               => [
+                'extraEventListeners' => [
+                    'rainlab.user.login'         => 'historyRecordEvent',
+                    'rainlab.user.register'      => 'historyRecordEvent',
+                    'rainlab.user.activate'      => 'historyRecordEvent',
+                    'rainlab.user.deactivate'    => 'historyRecordEvent',
+                    'rainlab.user.reactivate'    => 'historyRecordEvent',
+                    'csatar.twoFA.authenticated' => 'historyRecordEvent',
+                    'csatar.oauthRegistration'   => 'historyRecordEvent',
+                    'csatar.oauthLogin'          => 'historyRecordEvent',
+                ],
+                'extraEvents'         => [
+                    'model.auth.beforeImpersonate' => 'historyRecordEvent',
+                    'model.auth.afterImpersonate'  => 'historyRecordEvent',
+                ],
+            ],
+            '\RainLab\User\Models\UserGroup'          => null,
+            '\Backend\Models\User'                    => [
+                'extraEventListeners' => [
+                    'backend.user.login' => 'historyRecordEvent',
+                ],
+            ],
+            '\Backend\Models\UserGroup'               => null,
+            '\Backend\Models\UserRole'                => null,
+            '\PolloZen\SimpleGallery\Models\Gallery'  => null,
+            '\Csatar\Csatar\Models\MandatePermission' => [
+                'basicEvents'         => false,
+                'relationEvents'      => false,
+                'extraEventListeners' => [
+                    'mandatePermission.afterSave'   => 'historyAfterSave',
+                    'mandatePermission.afterDelete' => 'historyAfterDelete',
+                ],
+            ],
+        ]);
+    }
+
+    /**
+     * @return void
+     * @throws OauthException
+     */
+    public function handleSocialLoginEvents(): void
+    {
+        Event::listen('flynsarmy.sociallogin.registerUser', function ($provider_details, $user_details) {
+
+            if (empty($user_details->email)) {
+                throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.canNotRegisterLoginWithoutEmail'), 2);
+            }
+
+            $scout = Scout::where('email', $user_details->email)->first();
+
+            if (empty($scout)) {
+                throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.canNotFindScoutWithEmail'), 3);
+            }
+
+            if (empty($scout->user_id)) {
+                throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.onlyExistingUsersCanLogin'), 1);
+            }
+
+            Event::fire('csatar.oauthRegistration', [$scout]);
+
+        });
+
+        Event::listen('flynsarmy.sociallogin.handleLogin', function (array $provider_details, array $user_details, User $user) {
+
+            if (empty($user_details['profile']->email)) {
+                throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.canNotRegisterLoginWithoutEmail'), 2);
+            }
+
+            $scout = Scout::where('email', $user_details['profile']->email)->first();
+
+            if (empty($scout)) {
+                throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.canNotFindScoutWithEmail'), 3);
+            }
+
+            if (empty($user)) {
+                throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.canNotFindUser'), 5);
+            }
+
+            // check if scout already has a user_id and if that matches or not the returned user's id
+            if (!empty($scout->user_id) && $scout->user_id != $user->id) {
+                throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.userIdAndScoutUserIdMismatch'), 6);
+            }
+
+            // if scout doesn't have a user_id, set the returned user's id as user_id
+            if (empty($scout->user_id)) {
+                $scout->user_id = $user->id;
+                $scout->save();
+            }
+
+            Event::fire('csatar.oauthLogin', [$scout]);
+
+        });
+    }
+
+    /**
+     * @return void
+     */
+    public function handleExtensionOfSimpleGalleryPlugin(): void
+    {
+        if (class_exists('PolloZen\SimpleGallery\Controllers\Gallery')) {
+            SimpleGalleryController::extendFormFields(function ($form, $model, $context) {
+                if ($form->arrayName === 'Gallery[images]') {
+                    $form->addFields([
+                        'is_public' => [
+                            'label'   => 'Public',
+                            'type'    => 'checkbox',
+                            'default' => false
+                        ]
+                    ]);
+                }
+
+                $form->addFields([
+                    'sort_order' => [
+                        'label'   => 'csatar.csatar::lang.plugin.admin.general.sortOrder',
+                        'type'    => 'number',
+                        'default' => 0
+                    ]
+                ]);
+            });
+        }
+
+        if (class_exists('PolloZen\SimpleGallery\Models\Gallery')) {
+            \PolloZen\SimpleGallery\Models\Gallery::extend(function ($model) {
+                $model->morphTo = [
+                    'model' => []
+                ];
+                $model->hasMany = [
+                    'galleryPivot' => [
+                        \Csatar\Csatar\Models\GalleryModelPivot::class,
+                        'table' => 'csatar_csatar_gallery_model',
+                    ],
+                ];
+            });
+        }
+    }
+
+    /**
+     * @return void
+     */
+    public function handleMandteTypeIdCaching(): void
+    {
+        Event::listen('rainlab.user.login', function ($user) {
+            if (!empty($user->scout)) {
+                $user->scout->saveMandateTypeIdsForEveryAssociationToSession();
+            }
+        });
+
+        $this->saveGuestMandateTypeIdsForEveryAssociationToSession();
+    }
+
+    /**
+     * @return void
+     */
+    public function handleExtensionOfSiteSearchPlugin(): void
+    {
+        Event::listen('offline.sitesearch.extend', function () {
+            return [
+                new OrganizationSearchProvider(),
+                new ContentPageSearchProvider(),
+                new GallerySearchProvider()
+            ];
+        });
     }
 
 }

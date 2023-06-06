@@ -67,19 +67,73 @@ class CsatarGallery extends Gallery
     private function prepareMarkup()
     {
         $this->galleryMarkup = $this->property('markup');
-        if ($this->property('markup')=='plugin') {
+        if ($this->property('markup') == 'plugin') {
             $this->addCss('/plugins/pollozen/simplegallery/assets/css/owl.carousel.min.css');
             $this->addCss('/plugins/pollozen/simplegallery/assets/css/owl.theme.default.min.css');
             $this->addJs('/plugins/pollozen/simplegallery/assets/js/owl.awesome.carousel.min.js');
             $this->addJs('/plugins/pollozen/simplegallery/assets/js/pz.js');
         }
 
-        if ($this->property('markup')=='masonry') {
+        if ($this->property('markup') == 'masonry') {
             $this->addCss('/plugins/pollozen/simplegallery/assets/css/galleries.css');
             $this->addJs('/plugins/pollozen/simplegallery/assets/js/imagesloaded.pkgd.min.js');
             $this->addJs('/plugins/pollozen/simplegallery/assets/js/isotope.pkgd.min.js');
             $this->addJs('/plugins/pollozen/simplegallery/assets/js/isotope.pkgd.min.js');
             $this->addJs('/plugins/pollozen/simplegallery/assets/js/pz.js');
+        }
+    }
+
+    /**
+     * @param $data
+     * @return void
+     */
+    public function validateData($data): void
+    {
+        $rules = [
+            'name'        => 'required|between:3,64',
+            'description' => 'max:255',
+            'image'       => 'nullable',
+            'images.*'    => 'mimes:jpeg,jpg,png',
+        ];
+
+        $customMessages = [
+            'name.required'   => Lang::get('csatar.csatar::lang.plugin.admin.gallery.rules.nameRequired'),
+            'name.between'    => Lang::get('csatar.csatar::lang.plugin.admin.gallery.rules.nameBetween'),
+            'description.max' => Lang::get('csatar.csatar::lang.plugin.admin.gallery.rules.descriptionMax')
+        ];
+
+        $validation = Validator::make(
+            $data,
+            $rules,
+            $customMessages
+        );
+
+        if ($validation->fails()) {
+            throw new ValidationException($validation);
+        }
+    }
+
+    /**
+     * @param $gallery
+     * @return void
+     */
+    public function addImagesToGallery(&$gallery): void
+    {
+        foreach (Input::file('images') as $file) {
+            $newFile       = new File();
+            $newFile->data = $file;
+            $newFile->save();
+
+            list($width, $height) = getimagesize($newFile->getLocalPath());
+
+            if ($width > 1920) {
+                $resizer = new Resizer();
+                $resizer::open($newFile->getLocalPath())
+                    ->resize(1920, null, ['mode' => 'auto'])
+                    ->save($newFile->getLocalPath());
+            }
+
+            $gallery->images()->add($newFile);
         }
     }
 
@@ -128,28 +182,7 @@ class CsatarGallery extends Gallery
     {
         $data = Input::all();
 
-        $rules = [
-            'name'            => 'required|between:3,64',
-            'description'     => 'max:255',
-            'image'           => 'nullable',
-            'images.*'          => 'mimes:jpeg,jpg,png',
-        ];
-
-        $customMessages = [
-            'name.required' => Lang::get('csatar.csatar::lang.plugin.admin.gallery.rules.nameRequired'),
-            'name.between' => Lang::get('csatar.csatar::lang.plugin.admin.gallery.rules.nameBetween'),
-            'description.max'  => Lang::get('csatar.csatar::lang.plugin.admin.gallery.rules.descriptionMax')
-        ];
-
-        $validation = Validator::make(
-            $data,
-            $rules,
-            $customMessages
-        );
-
-        if ($validation->fails()) {
-            throw new ValidationException($validation);
-        }
+        $this->validateData($data);
 
         $gallery       = new GalleryModel();
         $gallery->name = post('name');
@@ -161,28 +194,13 @@ class CsatarGallery extends Gallery
             throw new ValidationException(['images' => 'Képet feltölteni kötelező!']);
         }
 
-        if (sizeof(Input::file('images')) > 30) {
+        if (count(Input::file('images')) > 30) {
             throw new ValidationException(['images' => 'Maximum 30 képet lehet feltölteni a galériához!']);
         }
 
         \Flash::success('A galéria sikeresen elkészült.');
 
-        foreach (Input::file('images') as $file) {
-            $newFile       = new File();
-            $newFile->data = $file;
-            $newFile->save();
-
-            list($width, $height) = getimagesize($newFile->getLocalPath());
-
-            if ($width > 1920) {
-                $resizer = new Resizer();
-                $resizer::open($newFile->getLocalPath())
-                    ->resize(1920, null, ['mode' => 'auto'])
-                    ->save($newFile->getLocalPath());
-            }
-
-            $gallery->images()->add($newFile);
-        }
+        $this->addImagesToGallery($gallery);
 
         $gallery->save();
 
@@ -202,28 +220,7 @@ class CsatarGallery extends Gallery
     {
         $data = Input::all();
 
-        $rules = [
-            'name'            => 'required|between:3,64',
-            'description'     => 'max:255',
-            'image'           => 'nullable',
-            'images.*'          => 'mimes:jpeg,jpg,png',
-        ];
-
-        $customMessages = [
-            'name.required' => Lang::get('csatar.csatar::lang.plugin.admin.gallery.rules.nameRequired'),
-            'name.between' => Lang::get('csatar.csatar::lang.plugin.admin.gallery.rules.nameBetween'),
-            'description.max'  => Lang::get('csatar.csatar::lang.plugin.admin.gallery.rules.descriptionMax')
-        ];
-
-        $validation = Validator::make(
-            $data,
-            $rules,
-            $customMessages
-        );
-
-        if ($validation->fails()) {
-            throw new ValidationException($validation);
-        }
+        $this->validateData($data);
 
         $gallery       = GalleryModel::find(post('gallery_id'));
         $gallery->name = post('name');
@@ -234,7 +231,7 @@ class CsatarGallery extends Gallery
             throw new ValidationException(['images' => 'Képet feltölteni kötelező!']);
         }
 
-        $imagesSize = empty(Input::file('images')) ? 0 : sizeof(Input::file('images'));
+        $imagesSize = empty(Input::file('images')) ? 0 : count(Input::file('images'));
 
         if (($imagesSize + $gallery->images()->count()) > 30) {
             throw new ValidationException(['images' => 'Maximum 30 képet lehet feltölteni a galériához!']);
@@ -243,22 +240,7 @@ class CsatarGallery extends Gallery
         \Flash::success('A galéria sikeresen módosult.');
 
         if (Input::file('images') != []) {
-            foreach (Input::file('images') as $file) {
-                $newFile       = new File();
-                $newFile->data = $file;
-                $newFile->save();
-
-                list($width, $height) = getimagesize($newFile->getLocalPath());
-
-                if ($width > 1920) {
-                    $resizer = new Resizer();
-                    $resizer::open($newFile->getLocalPath())
-                        ->resize(1920, null, ['mode' => 'auto'])
-                        ->save($newFile->getLocalPath());
-                }
-
-                $gallery->images()->add($newFile);
-            }
+            $this->addImagesToGallery($gallery);
         }
 
         $gallery->save();
@@ -305,7 +287,10 @@ class CsatarGallery extends Gallery
     public function onDeleteGallery()
     {
         $gallery = GalleryModel::find(post('gallery_id'));
-        $pivot   = GalleryModelPivot::where('model_type', "Csatar\Csatar\Models\\" . $this->property('model_name'))->where('model_id', $this->property('model_id'))->where('gallery_id', $gallery->id)->first();
+        $pivot   = GalleryModelPivot::where('model_type', "Csatar\Csatar\Models\\" . $this->property('model_name'))
+            ->where('model_id', $this->property('model_id'))
+            ->where('gallery_id', $gallery->id)
+            ->first();
         $pivot->delete();
         $gallery->delete();
 
@@ -333,7 +318,10 @@ class CsatarGallery extends Gallery
 
     public function onReturnBack()
     {
-        $pivot = GalleryModelPivot::where('model_type', "Csatar\Csatar\Models\\" . $this->property('model_name'))->where('model_id', $this->property('model_id'))->where('gallery_id', post('gallery_id'))->first();
+        $pivot = GalleryModelPivot::where('model_type', "Csatar\Csatar\Models\\" . $this->property('model_name'))
+            ->where('model_id', $this->property('model_id'))
+            ->where('gallery_id', post('gallery_id'))
+            ->first();
 
         if ($pivot->parent_id != null) {
             return $this->onOpenGallery($pivot->parent_id);

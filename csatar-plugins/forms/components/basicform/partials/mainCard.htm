@@ -4,11 +4,11 @@
             <div class="d-flex justify-content-center pt-2 bg-white">
                 {% if customImage == true %}
                     <div class="ratio ratio-1x1 w-75">
-                        <img class="rounded-circle csat-data-profile-img not-auto-height" src="{{ image }}" alt="" />
+                        <img class="rounded-circle csat-data-profile-img not-auto-height" src="{{ image|resize(300, 300) }}" alt="" />
                     </div>
                 {% else %}
                     <div class="ratio ratio-1x1 w-75">
-                        <img class="rounded-circle csat-data-profile-img not-auto-height" src="{{ image | theme }}" alt="" />
+                        <img class="rounded-circle csat-data-profile-img not-auto-height" src="{{ image|resize(300, 300) | theme }}" alt="" />
                     </div>
                 {% endif %}
             </div>

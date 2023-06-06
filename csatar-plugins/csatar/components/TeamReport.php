@@ -17,7 +17,25 @@ use Session;
 
 class TeamReport extends ComponentBase
 {
-    public $id, $teamId, $action, $year, $teamReport, $team, $scouts, $teamFee, $totalAmount, $currency, $status, $basicForm, $redirectFromWaitingForApproval, $errors, $permissions, $confirmDeleteMessage, $confirmRefreshMessage, $legalRelationshipsInAssociation, $scoutsWithoutRegistrationForm;
+    public $id;
+    public $teamId;
+    public $action;
+    public $year;
+    public $teamReport;
+    public $team;
+    public $scouts;
+    public $teamFee;
+    public $totalAmount;
+    public $currency;
+    public $status;
+    public $basicForm;
+    public $redirectFromWaitingForApproval;
+    public $errors;
+    public $permissions;
+    public $confirmDeleteMessage;
+    public $confirmRefreshMessage;
+    public $legalRelationshipsInAssociation;
+    public $scoutsWithoutRegistrationForm;
 
     public function init()
     {
@@ -237,7 +255,9 @@ class TeamReport extends ComponentBase
                 'legal_relationship'       => $scout->legal_relationship,
                 'legal_relationship_id'    => $scout->legal_relationship->id ?? null,
                 'leadership_qualification' => $scout->leadership_qualifications->sortByDesc(function ($item, $key) {
-                    return $item->id; // currently leadership qualifications are seeded in the correct order, so the highest id is the highest qualification, but if this changes, this should be changed to sort by the qualification level, and qualification level should be added to the leadership_qualifications table
+                    return $item->id;
+                    // currently leadership qualifications are seeded in the correct order, so the highest id is the highest qualification,
+                    // but if this changes, this should be changed to sort by the qualification level, and qualification level should be added to the leadership_qualifications table
                 })->values()->first(),
                 'ecset_code'               => $scout->ecset_code,
                 'membership_fee'           => $membership_fee,
