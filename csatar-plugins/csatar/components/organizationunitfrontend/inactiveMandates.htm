@@ -28,8 +28,8 @@
                         <div class="row px-3 py-1 py-lg-0 px-lg-3">
                             {% for key, inactiveMandatesColumn in __SELF__.inactiveMandatesColumns %}
                             <div class="col-6 col-lg">
-                                <p class="td label d-block d-lg-none">{{ label }}</p>
-                                <p class="td data">
+                                <div class="td label d-block d-lg-none">{{ label }}</div>
+                                <div class="td data">
                                     {% set value = inactiveMandatesColumn['nameFrom'] ? inactiveMandate[key][inactiveMandatesColumn['nameFrom']] : inactiveMandate[key] %}
                                     {% if inactiveMandatesColumn['link'] %}
                                         {% set linkParam = inactiveMandate[key][inactiveMandatesColumn['linkParam']] %}
@@ -37,7 +37,7 @@
                                     {% endif %}
 
                                     {{ inactiveMandatesColumn['link'] ? link|raw : value }}
-                                </p>
+                                </div>
                             </div>
                             {% endfor %}
                         </div>
