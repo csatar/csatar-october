@@ -1406,17 +1406,17 @@ class Scout extends OrganizationBase
 
     public function getParentTree() {
         $tree = [
-            $this->team->district->association->text_for_search_results_tree,
-            $this->team->district->text_for_search_results_tree,
-            $this->team->text_for_search_results_tree,
+            $this->team->district->association->text_for_search_results_tree ?? null,
+            $this->team->district->text_for_search_results_tree ?? null,
+            $this->team->text_for_search_results_tree ?? null,
         ];
 
         if (isset($this->troop_id)) {
-            $tree[] = $this->troop->text_for_search_results_tree;
+            $tree[] = $this->troop->text_for_search_results_tree ?? null;
         }
 
         if (isset($this->patrol_id)) {
-            $tree[] = $this->patrol->text_for_search_results_tree;
+            $tree[] = $this->patrol->text_for_search_results_tree ?? null;
         }
 
         return '(' . implode(' - ', $tree) . ')';

@@ -3,6 +3,7 @@ namespace Csatar\Csatar;
 
 use App;
 use Backend;
+use Carbon\Carbon;
 use Csatar\Csatar\Classes\Exceptions\OauthException;
 use Csatar\Csatar\Classes\HistoryService;
 use Csatar\Csatar\Classes\SearchProviders\ContentPageSearchProvider;
@@ -17,6 +18,7 @@ use Event;
 use Input;
 use Lang;
 use Media\Classes\MediaLibrary;
+use October\Rain\Exception\ApplicationException;
 use PolloZen\SimpleGallery\Controllers\Gallery as SimpleGalleryController;
 use RainLab\User\Models\User;
 use Redirect;
@@ -84,7 +86,7 @@ class Plugin extends PluginBase
 
         $this->initHistoryService();
 
-        $this->extendUser();
+            $this->extendUser();
 
         App::error(function (\October\Rain\Auth\AuthException $exception) {
             return Lang::get('csatar.csatar::lang.frontEnd.authException');
@@ -208,7 +210,6 @@ class Plugin extends PluginBase
                         throw new ApplicationException(e(trans('csatar.csatar::lang.plugin.admin.general.canNotDeleteUser')));
                     }
                 });
-
             });
         }
     }
