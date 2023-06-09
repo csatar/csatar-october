@@ -2,7 +2,15 @@
 
 ## Unreleased
 
+- CS-585 - Changed and optimized the display of the list component on mobile
 - CS-488 - Migration to OctoberCMS 3.0
+
+## 1.14.0
+### 2023-06-06
+
+- CS-585 - Fixed card title line break in case of long titles
+- CS-585 - Fixed distance and line height of texts inside cards
+- CS-585 - Fixed the display of the list component on mobile
 - CodeFactor issue fix: Duplicate Code
 - CodeFactor issue fix: maintainability
 - CS-583 - CodeFactor issue fix: reduced complexity in form builder methods

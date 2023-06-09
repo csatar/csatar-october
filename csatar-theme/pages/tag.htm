@@ -80,7 +80,7 @@ public function onAcceptPersonalData(){
     <div class="table csat-grid">
         <div class="tr d-none d-lg-block">
             <div class="card csat-resp-gdtable csat-border-lg-none">
-                <div class="row">
+                <div class="row px-3">
                     <div class="col-6 col-lg">
                         <div class="th-grid">{{ 'Megbízatás neve'|_ }}</div>
                     </div>
@@ -100,28 +100,28 @@ public function onAcceptPersonalData(){
             </div>
         </div>
         {% for mandate in mandatesInactive %}
-        <div class="tr">
+        <div class="tr py-md-0 px-0">
             <div class="card csat-resp-gdtable csat-border-lg-none pt-lg-0 pt-3">
-                <div class="row">
+                <div class="row px-3 py-1 py-lg-0 px-lg-3">
                     <div class="col-6 col-lg">
                         <p class="td label d-block d-lg-none">{{ 'Megbízatás neve'|_ }}</p>
-                        <p class="td">{{ mandate.mandate_type.name }}</p>
+                        <p class="td data">{{ mandate.mandate_type.name }}</p>
                     </div>
                     <div class="col-6 col-lg">
                         <p class="td label d-block d-lg-none">{{ 'Szervezeti egység'|_ }}</p>
-                        <p class="td">{{ mandate.mandate_model_name }}</p>
+                        <p class="td data">{{ mandate.mandate_model_name }}</p>
                     </div>
                     <div class="col-6 col-lg">
                         <p class="td label d-block d-lg-none">{{ 'Megbízatás kezdete'|_ }}</p>
-                        <p class="td">{{ mandate.start_date }}</p>
+                        <p class="td data">{{ mandate.start_date }}</p>
                     </div>
                     <div class="col-6 col-lg">
                         <p class="td label d-block d-lg-none">{{ 'Megbízatás vége'|_ }}</p>
-                        <p class="td">{{ mandate.end_date }}</p>
+                        <p class="td data">{{ mandate.end_date }}</p>
                     </div>
                     <div class="col-6 col-lg">
                         <p class="td label d-block d-lg-none">{{ 'Megjegyzés'|_ }}</p>
-                        <p class="td">{{ mandate.comment }}</p>
+                        <p class="td data">{{ mandate.comment }}</p>
                     </div>
                 </div>
             </div>

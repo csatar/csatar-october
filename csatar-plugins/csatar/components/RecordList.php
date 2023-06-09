@@ -281,7 +281,7 @@ class RecordList extends RainRecordList {
     public function getTableHeaderConfig() {
         $headerConfig = [];
         foreach ($this->columnsConfig->columns as $column => $config) {
-            if (!isset($config['recordList'])) {
+            if (!isset($config['recordList']) || isset($config['recordList']['hideInTable'])) {
                 continue;
             }
 
@@ -498,7 +498,7 @@ class RecordList extends RainRecordList {
         // this method should work without recordList['filterConfig'] set, because not all columns should be filterable
         $rowConfig = [];
         foreach ($this->columnsConfig->columns as $column => $config) {
-            if (!isset($config['recordList'])) {
+            if (!isset($config['recordList']) || isset($config['recordList']['hideInTable'])) {
                 continue;
             }
 
@@ -548,10 +548,6 @@ class RecordList extends RainRecordList {
         $sortDirection  = Input::get('sortDirection');
         $this->prepareVars();
 
-        if (!empty($filters)) {
-            $this->activeFilters = $this->page['activeFilters'] = $filters;
-        }
-
         if (!empty($pageNumber)) {
             $this->pageNumber = $pageNumber;
         }
@@ -565,9 +561,17 @@ class RecordList extends RainRecordList {
 
         $this->filtersConfig = $this->page['filtersConfig'] = $this->getFiltersConfig();
         foreach ($this->filtersConfig as $column => $config) {
-            if (isset($config['filterConfig']['dependsOn']) && Input::get('changedColumn') == $config['filterConfig']['dependsOn']) {
-                $partialArray['#filter-' . $column . '-' . $componentAlias] = $this->renderPartial('@filter', ['column' => $column, 'config' => $config]);
+            if (isset($config['filterConfig']['dependsOn']) && (Input::get('changedColumn') == $config['filterConfig']['dependsOn'] || (empty(Input::get('changedColumn')) && empty($filters[$config['filterConfig']['dependsOn']])))) {
+                $refresh = in_array($column, array_keys($filters));
+                if (Input::get('changedColumn') == $config['filterConfig']['dependsOn']) {
+                    unset($filters[$column]);
+                }
+                $partialArray['#filter-' . $column . '-' . $componentAlias] = $this->renderPartial('@filter', ['column' => $column, 'config' => $config, 'refreshFilters' => $refresh]);
             }
+        }
+
+        if (!empty($filters)) {
+            $this->activeFilters = $this->page['activeFilters'] = $filters;
         }
 
         $this->records = $this->page['records'] = $this->listRecords();

@@ -9,6 +9,7 @@ columns:
         recordList:
             sortable: true
             filterable: true
+            hideInTable: true
             filterConfig:
                 type: relation
                 relationName: association
