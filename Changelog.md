@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+- CS-585 - Changed and optimized the display of the list component on mobile
+
 ## 1.14.0
 ### 2023-06-06
 
