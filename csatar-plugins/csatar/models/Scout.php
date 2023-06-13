@@ -383,7 +383,7 @@ class Scout extends OrganizationBase
                 return;
             }
 
-            $teamsActive = $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'];
+            $teamsActive = $structureTree[$this->team->district->association_id]['districtsActive'][$this->team->district_id]['teamsActive'] ?? [];
 
             $teamsActive[$this->team->id]['scoutsActive'][$this->id]['family_name'] = $this->family_name;
             $teamsActive[$this->team->id]['scoutsActive'][$this->id]['given_name']  = $this->given_name;

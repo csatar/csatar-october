@@ -93,9 +93,9 @@ class Mandate extends Model
      * @var array Validation rules
      */
     public $rules = [
-        'mandate_type' => 'required',
-        'mandate_model' => 'required',
-        'scout' => 'required',
+        'mandate_type_id' => 'required',
+        'mandate_model_id' => 'required',
+        'scout_id' => 'required',
         'start_date' => 'required',
         'end_date' => 'nullable',
     ];

@@ -14,7 +14,7 @@
 7. If you were able to create the admin account, contact hupu for the OctoberCMS license key, then go to http://localhost:8085/backend/system/updates and enter the license key. Please refer to https://octobercms.com/docker-dev-image/convert-to-licensed for the latest licensing instructions.
    - If the update process fails with "General Error. Status code: 500", follow these steps:
       1. open Docker Desktop, click on the running container, click "Files", then go to `var/www/html` and delete the `composer.lock` file.
-      2. In the `composer.json` file add `"flynsarmy/oc-sociallogin-plugin": "dev-master"` to the `"require": { ... }` section.
+      2. In the `composer.json` file add `"flynsarmy/oc-sociallogin-plugin": "dev-master"`, and `"google/apiclient": "^2.13"` to the `"require": { ... }` section.
       3. go back to the project directory root and run `docker exec -u root csatar-octobercms3 composer update`
    - If you run in to "file_put_contents(./composer.lock): Failed to open stream: Permission denied" error message, run `sudo chmod -R 777 {{project directory name}}`
 8. The http://localhost:8080/backend/system/updates page will show a warning message: "There are missing dependencies needed for the system to run correctly." Ignore this message for now and continue with the next step.

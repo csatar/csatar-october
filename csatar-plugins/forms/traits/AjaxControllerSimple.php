@@ -422,7 +422,7 @@ trait AjaxControllerSimple {
 
         if ($edit && !$isHasManyRelation && $record->id) {  // edit relation, regular pivot, existing record
             $attachedModel = $record->{$relationName}->find($relationId);
-            $record->{$relationName}()->updateExistingPivot($attachedModel, $pivotData['pivot']);
+            $record->{$relationName}()->updateExistingPivot($attachedModel, $pivotData);
         } else if ($edit && !$isHasManyRelation && !$record->id) {    // edit relation, regular pivot, new record
             $defRecord = DeferredBinding::where('master_field', $relationName)
                         ->where('session_key', $this->sessionKey)
