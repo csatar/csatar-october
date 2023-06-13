@@ -204,3 +204,4 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.general.specialWorkplanAgeGroupId'
         span: auto
         type: dropdown
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'

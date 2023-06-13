@@ -376,6 +376,9 @@ class CsatarGallery extends Gallery
             $mandateTypeIds = array_merge($mandateTypeIds, Auth::user()->scout->getMandateTypeIdsInOrganizationTree($team, $associationId));
             if ($this->model->troop_id != null) {
                 $troop          = Troop::find($this->model->troop_id);
+                if (empty($troop)) {
+                    return;
+                }
                 $mandateTypeIds = array_merge($mandateTypeIds, Auth::user()->scout->getMandateTypeIdsInOrganizationTree($troop, $associationId));
             }
 

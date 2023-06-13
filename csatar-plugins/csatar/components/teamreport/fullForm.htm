@@ -6,7 +6,7 @@
     {#% if __SELF__.action == 'modositas' and __SELF__.teamReport.created_at is not null and __SELF__.teamReport.submitted_at is null and not (scoutsWithoutRegistrationForm|length > 0) %#} {# this is temporary, because the team report can be submitted even if there are scouts without registration form, should be reverted with CS-476 #}
     {% if __SELF__.action == 'modositas' and __SELF__.teamReport.created_at is not null and __SELF__.teamReport.submitted_at is null %}
         {% partial '@dataRequestButton'
-            permissionValue = 1
+            permissionValue = __SELF__.permissions['submitted_at']['create']
             dataRequest = __SELF__ ~ '::onSubmit'
             dataRequestData = 'id: ' ~ __SELF__.id
             dataRequestLoading = '#fs-saving-loader'
@@ -18,7 +18,7 @@
 
     {% if __SELF__.action == 'modositas' and __SELF__.teamReport.created_at is not null and __SELF__.teamReport.submitted_at is null %}
         {% partial '@dataRequestButton'
-            permissionValue = 1
+            permissionValue = __SELF__.permissions['MODEL_GENERAL']['update']
             dataRequest = __SELF__ ~ '::onRefresh'
             dataRequestData = 'id: ' ~ __SELF__.id
             dataRequestLoading = '#fs-saving-loader'
@@ -32,7 +32,7 @@
 
     {% if __SELF__.teamReport.created_at is not null and __SELF__.teamReport.approved_at is null %}
         {% partial '@dataRequestButton'
-            permissionValue = 1
+            permissionValue = __SELF__.permissions['MODEL_GENERAL']['delete']
             dataRequest = __SELF__ ~ '::onDelete'
             dataRequestData = 'id: ' ~ __SELF__.id
             dataRequestLoading = '#fs-saving-loader'
