@@ -15,6 +15,8 @@ class Association extends OrganizationBase
 {
     use \Csatar\Csatar\Traits\History;
 
+    use \October\Rain\Database\Traits\Nullable;
+
     /**
      * @var string The database table used by the model.
      */
@@ -67,6 +69,10 @@ class Association extends OrganizationBase
         'team_report_submit_start_date',
         'team_report_submit_end_date',
         'google_calendar_id',
+    ];
+
+    public $nullable = [
+        'special_workplan_age_group_id',
     ];
 
     /**
@@ -272,8 +278,7 @@ class Association extends OrganizationBase
                 return [
                     $association->id => $association->name,
                 ];
-            })
-            ->prepend(e(trans('csatar.csatar::lang.plugin.admin.general.select')), 'null');
+            });
     }
 
 }

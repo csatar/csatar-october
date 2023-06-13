@@ -256,6 +256,11 @@ class Patrol extends OrganizationBase
         $this->updateCache();
     }
 
+    public function afterDelete()
+    {
+        $this->updateCache();
+    }
+
     public function updateCache(): void
     {
         if ($this->wasRecentlyCreated && $this->status == Status::ACTIVE) {
@@ -266,7 +271,7 @@ class Patrol extends OrganizationBase
             return;
         }
 
-        if ($this->getOriginalValue('status') != $this->status) {
+        if ($this->getOriginalValue('status') != $this->status || $this->getOriginalValue('deleted_at') != $this->deleted_at) {
             StructureTree::updateTeamTree($this->team_id);
         }
 

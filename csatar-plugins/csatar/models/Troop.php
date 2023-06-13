@@ -195,6 +195,11 @@ class Troop extends OrganizationBase
         $this->updateCache();
     }
 
+    public function afterDelete()
+    {
+        $this->updateCache();
+    }
+
     public function updateCache(): void
     {
         $associationId = $this->team->district->association_id;
@@ -223,7 +228,7 @@ class Troop extends OrganizationBase
             return;
         }
 
-        if ($this->getOriginalValue('status') != $this->status) {
+        if ($this->getOriginalValue('status') != $this->status || $this->getOriginalValue('deleted_at') != $this->deleted_at) {
             StructureTree::updateTeamTree($this->team_id);
         }
 
