@@ -5,18 +5,7 @@
         </div>
 
         <div class="col-lg-8 col-md-12 mb-3">
-            <div class="row">
 
-                <div class="d-flex mb-3">
-                    <div class="csat-2fa-circle align-self-start">
-                        <i class="csat-key-out-lg p-1"></i>
-                    </div>
-                    <div class="csat-2fa-info align-self-center">
-                        {{ 'A következő információk szerkesztéséhez két faktoros hitelesítés szükséges: Név, Státusz' | _ }}
-                    </div>
-                </div>
-
-            </div>
             <div class="row">
                 <div class="col-12 col-md-4">
                     <form>
@@ -26,6 +15,19 @@
                         </div>
                     </form>
                 </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 bg-gray">
+                    <code>
+                        <span class="code-blue">&lt;form&gt;</span><br/>
+                        &nbsp;&nbsp;<span class="code-blue">&lt;div </span><span class="code-bluel">class=</span><span class="code-red">"mb-3 csat-2fa-field"</span><span class="code-blue">&gt;</span><br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-blue">&lt;label </span><span class="code-bluel">for=</span><span class="code-red">"[ID]" </span><span class="code-bluel">class=</span><span class="code-red">"form-label"</span><span class="code-blue">&gt;</span><span class="text-black">&#123;&#123; '[Text]' &#124; _ &#125;&#125;</span><span class="code-blue">&lt;/label&gt;</span><br/>
+                        &nbsp;&nbsp;&nbsp;&nbsp;<span class="code-blue">&lt;input </span><span class="code-bluel">type=</span><span class="code-red">"text" </span><span class="code-bluel">class=</span><span class="code-red">"form-control rounded" </span><span class="code-bluel">id=</span><span class="code-red">"[ID]"</span><span class="code-blue">&gt;</span><br/>
+                        &nbsp;&nbsp;<span class="code-blue">&lt;/div&gt;</span><br/>
+                        <span class="code-blue">&lt;/form&gt;</span>
+                    </code>
+                </div>                        
             </div>
 
         </div>
