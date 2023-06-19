@@ -532,6 +532,16 @@ body>p.flash-message.error {
     color: #FFFFFF;
 }
 
+.bg-alert {
+    background-color: #f8d7da;
+}
+
+.alert-danger {
+    color: #B83222;
+    background-color: #f8d7da;
+    border-color: #B83222;
+}
+
 /* Scrollbar design */
 
 ::-webkit-scrollbar {

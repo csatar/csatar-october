@@ -2,6 +2,7 @@
 
 ## Unreleased
 
+- CS-522 - Updated the design system
 - CS-585 - Changed and optimized the display of the list component on mobile
 - CS-488 - Migration to OctoberCMS 3.0
 
