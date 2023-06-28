@@ -487,7 +487,9 @@ class Scout extends OrganizationBase
         $this->handleAddressFields($fields);
         $this->handleCitizenshipField($fields);
 
-        $fields->is_active->value = $this->inactivated_at == null;
+        if (isset($fields->is_active)) {
+            $fields->is_active->value = $this->inactivated_at == null;
+        }
     }
 
     /**
