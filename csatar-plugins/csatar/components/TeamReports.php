@@ -37,8 +37,8 @@ class TeamReports extends ComponentBase
             \App::abort(403, 'Access denied!');
         }
 
-        $newTeamReport          = new TeamReport();
-        $newTeamReport->team_id = Auth::user()->scout->team_id;
+        $newTeamReport                = new TeamReport();
+        $newTeamReport->team_id       = $this->param('id');
         $generalTeamReportPermissions = Auth::user()->scout->getRightsForModel($newTeamReport);
 
         if ($generalTeamReportPermissions['MODEL_GENERAL']['read'] < 1) {
