@@ -830,6 +830,10 @@ class Scout extends OrganizationBase
         return $fullName != ' ' ? $fullName : '';
     }
 
+    public function getLeaderTrainingHtmlAttribute() {
+        return '<a href="https://vk.rmcssz.ro/" target="_blank">VK megnyitása <span class="bi bi-box-arrow-up-right"></span></a>';
+    }
+
     public function getAssociation() {
         return $this->team->district->association ?? null;
     }

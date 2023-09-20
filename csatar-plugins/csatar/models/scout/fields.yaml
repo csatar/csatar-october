@@ -68,6 +68,25 @@ fields:
             type: card
             position: main
             class: 'col-lg-3 col-md-6 col-sm-12'
+    mainAfter:
+        label: 'Vezetőképzés'
+        span: full
+        type: section
+        formBuilder:
+            type: card
+            position: sheets
+            class: ''
+            color: 'csat-data-info'
+    leaderTrainingHtml:
+        span: auto
+        type: text
+        formBuilder:
+            type: field
+            card: mainAfter
+            order: 1
+            position: details
+            ignoreUserRights: 1
+            raw: true
     name_prefix:
         label: 'csatar.csatar::lang.plugin.admin.scout.namePrefix'
         span: auto
