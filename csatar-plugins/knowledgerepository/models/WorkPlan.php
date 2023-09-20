@@ -92,7 +92,7 @@ class WorkPlan extends PermissionBasedAccess
     }
 
     public function getTeamLeaderAttribute() {
-        $teamLeaderMandateTypeId = MandateType::where('name', Constants::MANDATE_TYPE_TEAM_LEADER)
+        $teamLeaderMandateTypeId = MandateType::whereIn('name', Constants::MANDATE_TYPE_TEAM_LEADER)
             ->where('association_id', $this->getAssociation()->id)
             ->first()->id;
 
@@ -100,7 +100,7 @@ class WorkPlan extends PermissionBasedAccess
     }
 
     public function getDeputyTeamLeadersAttribute() {
-        $deputyTeamLeaderMandateTypeId = MandateType::where('name', Constants::MANDATE_TYPE_DEPUTY_TEAM_LEADER)
+        $deputyTeamLeaderMandateTypeId = MandateType::whereIn('name', Constants::MANDATE_TYPE_DEPUTY_TEAM_LEADER)
             ->where('association_id', $this->getAssociation()->id)
             ->first()->id;
 
