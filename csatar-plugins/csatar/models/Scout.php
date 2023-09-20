@@ -489,8 +489,7 @@ class Scout extends OrganizationBase
         $this->handlePersonalIdentificationNumberField($fields);
         $this->handleAddressFields($fields);
         $this->handleCitizenshipField($fields);
-
-        $fields->is_active->value = $this->inactivated_at == null;
+        $this->handleIsActiveField($fields);
     }
 
     /**
@@ -1529,6 +1528,12 @@ class Scout extends OrganizationBase
     {
         if (isset($fields->citizenship_country) && empty($fields->citizenship_country->value)) {
             $fields->citizenship_country->value = Country::where('code', 'RO')->first()->id ?? null;
+        }
+    }
+
+    public function handleIsActiveField($fields) {
+        if (isset($fields->citizenship_country)) {
+            $fields->is_active->value = $this->inactivated_at == null;
         }
     }
 

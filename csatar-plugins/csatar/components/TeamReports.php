@@ -38,14 +38,14 @@ class TeamReports extends ComponentBase
         }
 
         $newTeamReport                = new TeamReport();
-        $newTeamReport->team_id       = $this->param('id');
+        $newTeamReport->team_id       = $this->param('id') && is_numeric($this->param('id')) ? $this->param('id') : Auth::user()->scout->team_id;
         $generalTeamReportPermissions = Auth::user()->scout->getRightsForModel($newTeamReport);
 
         if ($generalTeamReportPermissions['MODEL_GENERAL']['read'] < 1) {
             \App::abort(403, 'Access denied!');
         }
 
-        $this->permissionForCreateButton = $generalTeamReportPermissions['MODEL_GENERAL']['create'];
+        $this->permissionForCreateButton = $this->param('id') ? $generalTeamReportPermissions['MODEL_GENERAL']['create'] : false;
     }
 
     public function onRender()

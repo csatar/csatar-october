@@ -20,8 +20,8 @@ class Constants
         'hasOneThrough'
     ];
 
-    public const MANDATE_TYPE_TEAM_LEADER        = 'Csapatvezető';
-    public const MANDATE_TYPE_DEPUTY_TEAM_LEADER = 'Csapatvezető helyettes';
+    public const MANDATE_TYPE_TEAM_LEADER        = ['Csapatvezető', 'Csapatparancsnok'];
+    public const MANDATE_TYPE_DEPUTY_TEAM_LEADER = ['Csapatvezető helyettes', 'Csapatparancsnok helyettes'];
 
     public const MANDATE_TYPE_PATROL_LEADER        = 'Őrsvezető';
     public const MANDATE_TYPE_DEPUTY_PATROL_LEADER = 'Segédőrsvezető';
