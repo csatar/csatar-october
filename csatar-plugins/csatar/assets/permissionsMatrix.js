@@ -10,7 +10,14 @@ $(document).on('edit::onPaginate', function () {
     updateValuesFromSession();
 })
 
+function isPermissionsMatrixPage() {
+    return window.location.href.indexOf('permissionsmatrix') > 0;
+}
+
 function updateValuesFromSession() {
+    if (!isPermissionsMatrixPage()) {
+        return;
+    }
     $.request('onGetSessionValues', {
         success: function(data) {
             Object.keys(data).forEach((key) => {
