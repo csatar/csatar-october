@@ -675,6 +675,7 @@ return [
                     'emailAlreadyAssigned' => 'The e-mail address is already assgined to a user account.',
                     'passwordRegex' => 'The password must be at least 8 characters long, must contain a lower and uppercase letter, a number and a special character.',
                 ],
+                'login' => 'Login',
             ],
             'resetPassword' => [
                 'name' => 'Reset Password',
