@@ -72,14 +72,18 @@ fields:
         label: 'Vezetőképzés'
         span: full
         type: section
+        hidden: 1
+        cssClass: 'p-0 m-0'
         formBuilder:
             type: card
             position: sheets
             class: ''
             color: 'csat-data-info'
     leaderTrainingHtml:
-        span: auto
+        span: full
         type: text
+        hidden: 1
+        cssClass: 'p-0 m-0'
         formBuilder:
             type: field
             card: mainAfter
