@@ -42,10 +42,10 @@ function createNewUser($receivedData) {
     }
 
     global $CFG;
-    require_once($CFG->dirroot."/user/lib.php");
+    require_once($CFG->dirroot . "/user/lib.php");
 
     // create user object
-    $newUser = (object) $receivedData;
+    $newUser            = (object) $receivedData;
     $newUser->username  = generateUsername($receivedData);
     $newUser->auth      = 'manual';
     $newUser->confirmed = 1;
@@ -57,6 +57,7 @@ function generateUsername($receivedData, $num = 1) {
     if ($num > 999) {
         return '';
     }
+
     $username = strtolower($receivedData['lastname'] . $receivedData['firstname'] . ($num != 1 ? $num : ''));
 
     $charMap = [
@@ -74,7 +75,7 @@ function generateUsername($receivedData, $num = 1) {
     $username = str_replace(array_keys($charMap), array_values($charMap), $username);
 
     if (\core_user::get_user_by_username($username) !== false) {
-        return generateUsername($receivedData, $num+1);
+        return generateUsername($receivedData, $num + 1);
     }
 
     return $username;
@@ -85,7 +86,7 @@ function updateBasicData($object, $dataArray) {
 
     $updateNeeded = false;
 
-    foreach($dataArray as $key => $value) {
+    foreach ($dataArray as $key => $value) {
         if ($object->$key != $value) {
             $object->$key = $value;
             $updateNeeded = true;
@@ -98,7 +99,7 @@ function updateBasicData($object, $dataArray) {
 }
 
 function updateAdditionalData($userId, $infoData) {
-    foreach($infoData as $shortName => $value) {
+    foreach ($infoData as $shortName => $value) {
         $infoFieldId = getUserInfoFieldId($shortName);
         updateOrSetUserInfoData($userId, $infoFieldId, $value);
     }
@@ -128,7 +129,7 @@ function updateOrSetUserInfoData($userId, $infoFieldId, $value) {
     if ($record !== false && $record->data != $value) {
         $record->data = $value;
         $DB->update_record('user_info_data', $record);
-    } elseif($record == false)  {
+    } elseif ($record == false) {
         $DB->insert_record(
             'user_info_data',
             [
@@ -148,7 +149,7 @@ function prepareReceivedData() {
     if (isset($_REQUEST['data'])) {
         $receivedData = json_decode($_REQUEST['data']);
 
-        $decryptedData = openssl_decrypt(base64_decode($receivedData[0]), 'aes-256-cbc', $CFG->csatarEncryptionKey, 0, base64_decode($receivedData[1]));
+        $decryptedData    = openssl_decrypt(base64_decode($receivedData[0]), 'aes-256-cbc', $CFG->csatarEncryptionKey, 0, base64_decode($receivedData[1]));
         $unserializedData = unserialize($decryptedData);
     }
 
@@ -172,11 +173,9 @@ function loginAndRedirect($user) {
     global $CFG;
 
     if (complete_user_login($user)) {
-        redirect( $CFG->wwwroot.'/');
+        redirect( $CFG->wwwroot . '/');
     } else {
         echo "Could not login, please contact system administrator!";
         die;
     }
 }
-
-?>

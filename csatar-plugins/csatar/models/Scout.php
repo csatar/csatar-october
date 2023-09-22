@@ -833,16 +833,16 @@ class Scout extends OrganizationBase
     public function getLeaderTrainingHtmlAttribute(): string
     {
         $linkText = Lang::get('csatar.csatar::lang.plugin.component.general.login');
-        $vkUrl = \Config::get('csatar.csatar::vkUrl');
-        $vkData = $this->getVkData();
+        $vkUrl    = \Config::get('csatar.csatar::vkUrl');
+        $vkData   = $this->getVkData();
         return "<a href='$vkUrl?data=$vkData' target='_blank'>$linkText <span class='bi bi-box-arrow-up-right'></span></a>";
     }
 
     private function getVkData(): string
     {
-        $birthdate = strtotime($this->birthdate);
+        $birthdate           = strtotime($this->birthdate);
         $legalRepresentative = $this->mothers_name ? "mothers" : ($this->fathers_name ? 'fathers' : ($this->legal_representative_name ? 'legal_representative' : false));
-        $legalRepresentativeName = $legalRepresentative ? $this->{$legalRepresentative . '_name'} : '';
+        $legalRepresentativeName  = $legalRepresentative ? $this->{$legalRepresentative . '_name'} : '';
         $legalRepresentativePhone = $legalRepresentative ? $this->{$legalRepresentative . '_phone'} : '';
         $scoutData = [
             'basic' => [
@@ -864,9 +864,9 @@ class Scout extends OrganizationBase
             ],
         ];
 
-        $encryptionKey = \Config::get('csatar.csatar::moddleEncryptionKey');
+        $encryptionKey        = \Config::get('csatar.csatar::moddleEncryptionKey');
         $initializationVector = openssl_random_pseudo_bytes(16);
-        $encryptedData = openssl_encrypt(serialize($scoutData), 'aes-256-cbc', $encryptionKey, 0, $initializationVector);
+        $encryptedData        = openssl_encrypt(serialize($scoutData), 'aes-256-cbc', $encryptionKey, 0, $initializationVector);
 
         return json_encode(
             [
