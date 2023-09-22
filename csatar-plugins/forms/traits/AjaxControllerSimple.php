@@ -1782,7 +1782,7 @@ trait AjaxControllerSimple {
                     $newField['order'] = $field['formBuilder']['order'];
                 }
 
-                if ($field['type'] == 'richeditor' || (array_key_exists('raw', $field['formBuilder']) && $field['formBuilder']['raw'] == true)) {
+                if ($field['type'] == 'richeditor' || !empty($field['formBuilder']['raw'])) {
                     $newField['raw'] = true;
                 }
 
