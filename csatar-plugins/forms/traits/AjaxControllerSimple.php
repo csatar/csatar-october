@@ -184,7 +184,7 @@ trait AjaxControllerSimple {
         }
 
         // render the main card
-        $html  = '<div class="row">';
+        $html = '<div class="row">';
         if (isset($sheetCardVariablesToPass['mainAfter'])) {
             $mainCardVariablesToPass['mainAfter'] = $this->renderPartial('@partials/sheetCard', $sheetCardVariablesToPass['mainAfter']);
             unset($sheetCardVariablesToPass['mainAfter']);
