@@ -54,7 +54,7 @@ function createNewUser($receivedData) {
 }
 
 function generateUsername($receivedData, $num = 1) {
-    if ($num > 10) {
+    if ($num > 999) {
         return '';
     }
     $username = strtolower($receivedData['lastname'] . $receivedData['firstname'] . ($num != 1 ? $num : ''));
@@ -107,8 +107,7 @@ function updateAdditionalData($userId, $infoData) {
 function getUserInfoFieldId(string $shortName) {
     global $DB;
     $record = $DB->get_record('user_info_field', ['shortname' => $shortName]);
-    // echo $record ? $record->id : false;
-    // echo '<br>';
+
     return $record ? $record->id : false;
 }
 
