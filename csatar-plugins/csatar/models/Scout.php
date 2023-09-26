@@ -167,6 +167,10 @@ class Scout extends OrganizationBase
         'is_approved',
     ];
 
+    public $additionalFieldsForPermissionMatrix = [
+        'leaderTrainingHtml',
+    ];
+
     protected $jsonable = ['raw_import'];
 
     /**

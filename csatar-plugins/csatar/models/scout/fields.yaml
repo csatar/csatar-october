@@ -89,7 +89,6 @@ fields:
             card: mainAfter
             order: 1
             position: details
-            ignoreUserRights: 1
             raw: true
     name_prefix:
         label: 'csatar.csatar::lang.plugin.admin.scout.namePrefix'

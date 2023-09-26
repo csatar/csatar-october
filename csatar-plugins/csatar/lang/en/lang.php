@@ -30,6 +30,7 @@ return [
                 'logo' => 'Logo',
                 'coordinates' => 'Coordinates',
                 'ecsetCode' => 'ID number',
+                'leaderTrainingHtml' => 'Leader training login url',
                 'date' => 'Date',
                 'location' => 'Location',
                 'qualificationCertificateNumber' => 'Képesítési Igazolás Száma',

@@ -30,6 +30,7 @@ return [
                 'logo' => 'Logó',
                 'coordinates' => 'Koordináták',
                 'ecsetCode' => 'Igazolványszám',
+                'leaderTrainingHtml' => 'Vk. belépés link',
                 'date' => 'Dátum',
                 'location' => 'Helyszín',
                 'qualificationCertificateNumber' => 'Képesítési Igazolás Száma',
