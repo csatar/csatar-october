@@ -159,7 +159,7 @@ return [
                 'patrolLeader' => 'Őrsvezető',
                 'deputyPatrolLeaders' => 'Segédőrsvezető(k)',
                 'patrolMembers' => 'Őrstagok',
-                'ageGroupTest' => 'Korosztály - próba amire készül',
+                'ageGroupTest' => 'Korosztály - Próba amelyre készül',
                 'startDate' => 'Hónapok',
                 'oldMaterial' => 'Régi anyag',
                 'newMaterial' => 'Új anyag',
