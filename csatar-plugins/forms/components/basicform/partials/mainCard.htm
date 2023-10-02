@@ -1,3 +1,4 @@
+<!-- Main card start -->
 <div class="{{ class }}">
     <div class="my-2">
         {% if image %}
@@ -32,9 +33,15 @@
             </p>
             <div class="card-body rounded bg-light">
                 {% for field in fields %}
-                    <p class="p-bold mb-2 text-primary">{{ field.label ~ ': ' }}<span class="text-black card-text">{{ field.value }}</span></p>
+                    <p class="p-bold mb-2 text-primary">{{ field.label ? field.label ~ ': ' : '' }}
+                        <span class="text-black card-text">{{ field.raw ? field.value|raw : field.value }}</span>
+                    </p>
                 {% endfor %}
             </div>
         </div>
     </div>
+    {{ mainAfter|raw }}
 </div>
+
+
+<!-- Main card end -->

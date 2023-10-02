@@ -1,31 +1,29 @@
+<!-- SheetCard start -->
 <div class="{{ class }}">
-    <div class="row">
-        <div class="col">
-            <div class="{{ 'card shadow csat-data-card ' ~ color ~ ' mx-auto my-2' }}">
-                <div class="card-body rounded">
-                    <a href="{{ '#csat-data-collapse-' ~ name | replace({' ' : '-'}) }}" data-bs-toggle="collapse" aria-expanded="false" aria-controls="{{ 'csat-data-collapse-' ~ name | replace({' ' : '-'}) }}">
-                        <img class="p-2 not-auto-height" src="{{ 'assets/images/csat_data_card_deco.svg' | theme }}" alt="" />
-                    </a>
-                    <p class="p-title cardtitle">{{ name }}</p>
-                    <hr>
-                    <div class="row collapse collapse-on-sm" id="{{ 'csat-data-collapse-' ~ name | replace({' ' : '-'}) }}">
-                        {% for field in fields %}
-                            {% if name == 'Leírás' or name == 'Csapat története' or name == 'Vezetőség bemutatása' %}
-                            <div class="col-12">
-                            {% else %}
-                            <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
-                            {% endif %}
-                                <p class="p-small-card mb-0 text-subtitle">{{ field.label }}</p>
-                                {% if field.raw %}
-                                    <p class="card-text">{{ field.value|raw }}</p>
-                                {% else %}
-                                    <p class="card-text">{{ field.value }}</p>
-                                {% endif %}
-                            </div>
-                        {% endfor %}
+    <div class="{{ 'card shadow csat-data-card ' ~ color ~ ' mx-auto my-2' }}">
+        <div class="card-body rounded">
+            <a href="{{ '#csat-data-collapse-' ~ name | replace({' ' : '-'}) }}" data-bs-toggle="collapse" aria-expanded="false" aria-controls="{{ 'csat-data-collapse-' ~ name | replace({' ' : '-'}) }}">
+                <img class="p-2 not-auto-height" src="{{ 'assets/images/csat_data_card_deco.svg' | theme }}" alt="" />
+            </a>
+            <p class="p-title cardtitle">{{ name }}</p>
+            <hr>
+            <div class="row collapse collapse-on-sm" id="{{ 'csat-data-collapse-' ~ name | replace({' ' : '-'}) }}">
+                {% for field in fields %}
+                    {% if name in ['Leírás', 'Csapat története', 'Vezetőség bemutatása', 'Vezetőképzés'] %}
+                    <div class="col-12">
+                    {% else %}
+                    <div class="col-lg-6 col-md-6 col-sm-12 mb-3">
+                    {% endif %}
+                        <p class="p-small-card mb-0 text-subtitle">{{ field.label }}</p>
+                        {% if field.raw %}
+                            <p class="card-text">{{ field.value|raw }}</p>
+                        {% else %}
+                            <p class="card-text">{{ field.value }}</p>
+                        {% endif %}
                     </div>
-                </div>
+                {% endfor %}
             </div>
         </div>
     </div>
 </div>
+<!-- SheetCard end -->

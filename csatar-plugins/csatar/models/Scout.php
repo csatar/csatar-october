@@ -167,6 +167,10 @@ class Scout extends OrganizationBase
         'is_approved',
     ];
 
+    public $additionalFieldsForPermissionMatrix = [
+        'leaderTrainingHtml',
+    ];
+
     protected $jsonable = ['raw_import'];
 
     /**
@@ -828,6 +832,52 @@ class Scout extends OrganizationBase
     {
         $fullName = $this->family_name . ' ' . $this->given_name;
         return $fullName != ' ' ? $fullName : '';
+    }
+
+    public function getLeaderTrainingHtmlAttribute(): string
+    {
+        $linkText = Lang::get('csatar.csatar::lang.plugin.component.general.login');
+        $vkUrl    = \Config::get('csatar.csatar::vkUrl');
+        $vkData   = $this->getVkData();
+        return "<a href='$vkUrl?data=$vkData' target='_blank'>$linkText <span class='bi bi-box-arrow-up-right'></span></a>";
+    }
+
+    private function getVkData(): string
+    {
+        $birthdate           = strtotime($this->birthdate);
+        $legalRepresentative = $this->mothers_name ? "mothers" : ($this->fathers_name ? 'fathers' : ($this->legal_representative_name ? 'legal_representative' : false));
+        $legalRepresentativeName  = $legalRepresentative ? $this->{$legalRepresentative . '_name'} : '';
+        $legalRepresentativePhone = $legalRepresentative ? $this->{$legalRepresentative . '_phone'} : '';
+        $scoutData = [
+            'basic' => [
+                "firstname" => $this->given_name ?? '',
+                "lastname" => $this->family_name ?? '',
+                "email" => $this->email ?? '',
+            ],
+            'profile' => [
+                'ECSK' => $this->ecset_code,
+                'mobil' => $this->phone ?? '',
+                "szev" => date("Y", $birthdate),
+                "szhonap" => (Carbon::parse($this->birthdate))->locale('hu')->monthName, // This is needed because vk expects month in this format.
+                "sznap" => date("d", $birthdate),
+                "gondviselonev" => $legalRepresentativeName,
+                "gondviselotelefon" => $legalRepresentativePhone,
+                "Szemlyiszm" => $this->personal_identification_number ?? '',
+                "csszam" => $this->team->team_number ?? '',
+                "csnev" => $this->team->name ?? '',
+            ],
+        ];
+
+        $encryptionKey        = \Config::get('csatar.csatar::moddleEncryptionKey');
+        $initializationVector = openssl_random_pseudo_bytes(16);
+        $encryptedData        = openssl_encrypt(serialize($scoutData), 'aes-256-cbc', $encryptionKey, 0, $initializationVector);
+
+        return json_encode(
+            [
+                base64_encode($encryptedData),
+                base64_encode($initializationVector)
+            ]
+        );
     }
 
     public function getAssociation() {
