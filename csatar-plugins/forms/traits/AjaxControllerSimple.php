@@ -184,7 +184,12 @@ trait AjaxControllerSimple {
         }
 
         // render the main card
-        $html  = '<div class="row">';
+        $html = '<div class="row">';
+        if (isset($sheetCardVariablesToPass['mainAfter'])) {
+            $mainCardVariablesToPass['mainAfter'] = $this->renderPartial('@partials/sheetCard', $sheetCardVariablesToPass['mainAfter']);
+            unset($sheetCardVariablesToPass['mainAfter']);
+        }
+
         $html .= $this->renderPartial('@partials/mainCard', $mainCardVariablesToPass);
 
         // render the sheets
@@ -1775,7 +1780,7 @@ trait AjaxControllerSimple {
                     $newField['order'] = $field['formBuilder']['order'];
                 }
 
-                if ($field['type'] == 'richeditor') {
+                if ($field['type'] == 'richeditor' || !empty($field['formBuilder']['raw'])) {
                     $newField['raw'] = true;
                 }
 

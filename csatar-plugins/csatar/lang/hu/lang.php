@@ -30,6 +30,7 @@ return [
                 'logo' => 'Logó',
                 'coordinates' => 'Koordináták',
                 'ecsetCode' => 'Igazolványszám',
+                'leaderTrainingHtml' => 'Vk. belépés link',
                 'date' => 'Dátum',
                 'location' => 'Helyszín',
                 'qualificationCertificateNumber' => 'Képesítési Igazolás Száma',
@@ -673,6 +674,7 @@ return [
                     'emailAlreadyAssigned' => 'Ez az e-mail cím már felhasználói fiókhoz van rendelve.',
                     'passwordRegex' => 'A jelszó kell tartalmazzon legalább 8 karaktert, kis-, és nagybetűt, valamint számot vagy szimbólumot.',
                 ],
+                'login' => 'Bejelentkezés',
             ],
             'resetPassword' => [
                 'name' => 'Jelszó visszaállítása',
