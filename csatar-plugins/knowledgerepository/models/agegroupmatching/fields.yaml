@@ -1,0 +1,14 @@
+fields:
+    age_group1_id:
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        label: 'csatar.knowledgerepository::lang.plugin.admin.ageGroupMatchings.ageGroup'
+        span: auto
+        type: dropdown
+        required: 1
+    age_group2_id:
+        emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
+        label: 'csatar.knowledgerepository::lang.plugin.admin.ageGroupMatchings.matchingAgeGroup'
+        span: auto
+        type: dropdown
+        required: 1
+        dependsOn: age_group1_id

@@ -1,0 +1,9 @@
+name: 'csatar.knowledgerepository::lang.plugin.admin.sharingSettings.sharingSetting'
+form: $/csatar/knowledgerepository/models/sharingsetting/fields.yaml
+modelClass: Csatar\KnowledgeRepository\Models\SharingSetting
+defaultRedirect: csatar/knowledgerepository/sharingsettings
+create:
+    redirect: 'csatar/knowledgerepository/sharingsettings/update/:id'
+    redirectClose: csatar/knowledgerepository/sharingsettings
+update:
+    redirect: csatar/knowledgerepository/sharingsettings

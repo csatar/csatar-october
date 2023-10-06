@@ -4,13 +4,10 @@ namespace Csatar\KnowledgeRepository\Models;
 
 use Auth;
 use Carbon\Carbon;
-use Csatar\Csatar\Classes\Constants;
 use Csatar\Csatar\Classes\Enums\Gender;
 use Csatar\Csatar\Classes\GoogleCalendar;
-use Csatar\Csatar\Models\MandateType;
 use Csatar\Csatar\Models\Patrol;
 use Csatar\Csatar\Models\PatrolWorkPlanBase;
-use Csatar\Csatar\Models\Scout;
 use Lang;
 use Model;
 use ValidationException;
@@ -278,11 +275,11 @@ class OvamtvWorkPlan extends PatrolWorkPlanBase
     }
 
     public function getStartDateOptions() {
-        // if current month is september or later, start year is current year, else start year is last year
+        // If current month is september or later, start year is current year, else start year is last year.
         $scoutYearStart = date('m') >= 9 ? date('Y') . '-09-01' : date('Y', strtotime('-1 year')) . '-09-01';
 
         $startDateOptions = [];
-        // array start date options every second month from september to august as key, value month and next month name
+        // Array start date options every second month from september to August as key, value month and next month name.
         for ($i = 0; $i < 12; $i += 2) {
             $key   = date('Y-m-d', strtotime($scoutYearStart . ' +' . $i . ' month'));
             $value = date('F', strtotime($scoutYearStart . ' +' . $i . ' month')) . date('F', strtotime($scoutYearStart . ' +' . ($i + 1) . ' month'));
@@ -324,7 +321,7 @@ class OvamtvWorkPlan extends PatrolWorkPlanBase
 
         $events = GoogleCalendar::getEvents($this->getCalnedarIds(), $this->start_date, $endDate)->sortBy('start');
 
-        //format the date in the collection
+        // Format the date in the collection.
         $events->transform(function ($item, $key) {
             $item['start'] = $item['start'] ? $this->formatDateTimeFromIso($item['start']) : null;
             $item['end']   = $item['end'] ? $this->formatDateTimeFromIso($item['end']) : null;
@@ -377,6 +374,17 @@ class OvamtvWorkPlan extends PatrolWorkPlanBase
 
     public function getNameAttribute() {
         return date("Y", strtotime($this->start_date)) . ' ' . $this->getMonthLabel(date("m", strtotime($this->start_date)));
+    }
+
+    public function getAvailableAssociationsIds() {
+        $ownAssociationId = $this->getAssociation()->id;
+        $sharedAssociationIds = SharingSetting::where('association2_id', $ownAssociationId)->lists('association_id');
+
+        return array_merge([$ownAssociationId], $sharedAssociationIds);
+    }
+
+    public function getMaterialOptions() {
+        return TrialSystem::whereIn('association_id', $this->getAvailableAssociationsIds())->lists('name', 'id');
     }
 
 }

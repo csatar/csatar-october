@@ -237,7 +237,7 @@ class WeeklyWorkPlan extends PatrolWorkPlanBase
     }
 
     public function getTeam() {
-        return $this->patrol->team ? $this->team : null;
+        return $this->patrol->team ?: null;
     }
 
     public function getTroop() {
