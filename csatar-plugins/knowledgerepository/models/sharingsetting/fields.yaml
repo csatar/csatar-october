@@ -1,0 +1,12 @@
+fields:
+    association_id:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.sharingSettings.sharingAssoication'
+        span: auto
+        type: dropdown
+        required: 1
+    association2_id:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.sharingSettings.sharedWithAssociation'
+        span: auto
+        type: dropdown
+        required: 1
+        dependsOn: association_id

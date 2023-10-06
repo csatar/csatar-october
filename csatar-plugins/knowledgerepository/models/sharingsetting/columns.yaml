@@ -1,0 +1,9 @@
+columns:
+    association_id:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.sharingSettings.sharingAssoication'
+        select: '(SELECT `name` FROM `csatar_csatar_associations` WHERE id = `csatar_knowledgerepository_sharing_settings`.`association_id`)'
+        searchable: false
+    association2_id:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.sharingSettings.sharedWithAssociation'
+        select: '(SELECT `name` FROM `csatar_csatar_associations` WHERE id = `csatar_knowledgerepository_sharing_settings`.`association2_id`)'
+        searchable: false

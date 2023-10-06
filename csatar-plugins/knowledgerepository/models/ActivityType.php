@@ -2,10 +2,10 @@
 namespace Csatar\KnowledgeRepository\Models;
 
 use Csatar\Csatar\Classes\Constants;
+use Csatar\Csatar\Models\AgeGroup;
 use Input;
-use Model;
 use Lang;
-use Csatar\KnowledgeRepository\Models\WeeklyWorkPlan;
+use Model;
 
 /**
  * Model
@@ -86,6 +86,7 @@ class ActivityType extends Model
     public function getProgrammableIdOptions() {
         $trialSystemIds = $this->getWeeklyWorkPlanTrialSystemIds();
         $ageGroupIds    = [$this->getWeeklyWorkPlanPatrolAgeGroupId(), $this->getMixedAgeGroupIdInAssociation()];
+        $ageGroupIds    = array_merge($ageGroupIds, $this->getMatchingAgeGroupIds($ageGroupIds));
 
         $shouldFilterByAgeGroup    = $this->model != '\Csatar\KnowledgeRepository\Models\Methodology';
         $shouldFilterByTrialSystem = $this->model == '\Csatar\KnowledgeRepository\Models\Methodology';
@@ -274,6 +275,30 @@ class ActivityType extends Model
         if (isset($programmable->text)) {
             return $programmable->text;
         }
+    }
+
+    public function getMatchingAgeGroupIds($ageGroupIds) {
+
+        $parentAccociationId = $this->getWeeklyWorkPlan()->getAssociationId() ?? null;
+        if (empty($parentAccociationId)) {
+            return [];
+        }
+
+        // Get shared associations.
+        $sharedAssociationIds = SharingSetting::where('association2_id', $parentAccociationId)
+            ->pluck('association_id')
+            ->toArray();
+
+        // Get age groups of shared associations.
+        $sharedAgeGroupIds = AgeGroup::whereIn('association_id', $sharedAssociationIds)
+            ->pluck('id')
+            ->toArray();
+
+        // Get matching age groups.
+        return AgeGroupMatching::whereIn('age_group1_id', $ageGroupIds)
+            ->whereIn('age_group2_id', $sharedAgeGroupIds)
+            ->pluck('age_group2_id')
+            ->toArray();
     }
 
 }

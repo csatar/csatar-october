@@ -1,0 +1,10 @@
+name: 'csatar.knowledgerepository::lang.plugin.admin.ageGroupMatchings.ageGroupMatching'
+form: $/csatar/knowledgerepository/models/agegroupmatching/fields.yaml
+modelClass: Csatar\KnowledgeRepository\Models\AgeGroupMatching
+defaultRedirect: csatar/knowledgerepository/agegroupmatchings
+create:
+    redirect: 'csatar/knowledgerepository/agegroupmatchings/update/:id'
+    redirectClose: csatar/knowledgerepository/agegroupmatchings
+update:
+    redirect: csatar/knowledgerepository/agegroupmatchings
+    redirectClose: csatar/knowledgerepository/agegroupmatchings

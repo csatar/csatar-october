@@ -1,0 +1,12 @@
+list: $/csatar/knowledgerepository/models/sharingsetting/columns.yaml
+modelClass: Csatar\KnowledgeRepository\Models\SharingSetting
+title: 'csatar.knowledgerepository::lang.plugin.admin.sharingSettings.sharingSettings'
+noRecordsMessage: 'backend::lang.list.no_records'
+showSetup: true
+showCheckboxes: true
+recordsPerPage: 20
+toolbar:
+    buttons: list_toolbar
+    search:
+        prompt: 'backend::lang.list.search_prompt'
+recordUrl: 'csatar/knowledgerepository/sharingsettings/update/:id'

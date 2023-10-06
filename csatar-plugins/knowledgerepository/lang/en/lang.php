@@ -224,7 +224,21 @@ return [
                 'text' => 'Text',
                 'songAlreadyExists' => 'Song already exists with the title: :title!',
                 'overwriteExistingSongs' => 'Overwrite existing songs. If checked, the existing songs with the same title will be overwritten with the imported one!',
-            ]
+            ],
+            'sharingSettings' => [
+                'sharingSettings' => 'Sharing Settings',
+                'sharingSetting' => 'Sharing Setting',
+                'sharingAssoication' => 'Sharing Association',
+                'sharedWithAssociation' => 'Shared with association',
+                'sharingSettingsAlreadyExists' => 'Már létezik ilyen megosztási beállítás!',
+            ],
+            'ageGroupMatchings' => [
+                'ageGroupMatchings' => 'Age Group Matchings',
+                'ageGroupMatching' => 'Age Group Matching',
+                'ageGroup' => 'Age Group',
+                'matchingAgeGroup' => 'Matching Age Group',
+                'ageGroupMatchingsAlreadyExists' => 'Age group matchings already exists for these age groups!',
+            ],
         ],
         'components' => [
             'gameForm' => [

@@ -51,7 +51,8 @@ fields:
         label: 'csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.newMaterial'
         span: full
         type: taglist
-        mode: relation
+        mode: array
+        options: getMaterialOptions
         customTags: false
         useKey: true
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
@@ -59,7 +60,8 @@ fields:
         label: 'csatar.knowledgerepository::lang.plugin.admin.ovamtvWorkPlan.oldMaterial'
         span: full
         type: taglist
-        mode: relation
+        mode: array
+        options: getMaterialOptions
         customTags: false
         useKey: true
         emptyOption: 'csatar.csatar::lang.plugin.admin.general.select'
