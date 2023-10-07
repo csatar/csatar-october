@@ -18,6 +18,7 @@ use Log;
 use Lang;
 use Session;
 use Flash;
+use Csatar\Csatar\Classes\StructureTree;
 
 class PermissionsMatrix extends Controller
 {
@@ -133,10 +134,30 @@ class PermissionsMatrix extends Controller
                     Log::warning($warning);
                     \Flash::warning($warning);
                 }
+
+                if ($action === 'read' && $this->checkIfStructureModelGeneralPermissionsChanged($permissionsIdsToUpdate)) {
+                    StructureTree::updateassociationTreePermissions();
+                }
             }
         }
 
         Session::forget('permissionValueChanges');
+    }
+
+    public function checkIfStructureModelGeneralPermissionsChanged($permissionIds) {
+        $mandatePermissions = MandatePermission::whereIn('id', $permissionIds)
+            ->whereIn('model', [
+                '\Csatar\Csatar\Models\Association',
+                '\Csatar\Csatar\Models\District',
+                '\Csatar\Csatar\Models\Team',
+                '\Csatar\Csatar\Models\Troop',
+                '\Csatar\Csatar\Models\Patrol',
+                '\Csatar\Csatar\Models\Scout',
+            ])
+            ->where('field', MandatePermission::MODEL_GENERAL_VALUE)
+            ->get();
+
+        return $mandatePermissions->count() > 0;
     }
 
     public function onCancel(){

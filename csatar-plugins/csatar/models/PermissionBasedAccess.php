@@ -31,7 +31,7 @@ class PermissionBasedAccess extends Model
      */
     public function getAssociationId()
     {
-        if ($this->team_id) {
+        if ($this->team_id || $this->team) {
             return $this->team->district->association->id;
         }
 
@@ -113,7 +113,7 @@ class PermissionBasedAccess extends Model
         $sessionRecord         = Session::get('guest.rightsForModels');
         $sessionRecordForModel = $sessionRecord ? $sessionRecord->get($key) : null;
 
-        if (!empty($sessionRecordForModel)
+        if (!empty($sessionRecordForModel && !empty($sessionRecordForModel['rights']))
             && $sessionRecordForModel['savedToSession'] >= RightsMatrix::getRightsMatrixLastUpdateTime()
             && $sessionRecordForModel['rights']->count() != 0) {
             return $sessionRecordForModel['rights'];

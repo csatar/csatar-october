@@ -6,12 +6,6 @@ use Cache;
 use Lang;
 use Cms\Classes\ComponentBase;
 use Csatar\Csatar\Classes\StructureTree;
-use Csatar\Csatar\Models\Association;
-use Csatar\Csatar\Models\District;
-use Csatar\Csatar\Models\Team;
-use Csatar\Csatar\Models\Troop;
-use Csatar\Csatar\Models\Patrol;
-use Csatar\Csatar\Models\Scout;
 
 class Structure extends ComponentBase
 {
@@ -21,6 +15,7 @@ class Structure extends ComponentBase
     public $mode;
     public $permissions;
     public $showActiveScouts;
+    public $isAuthenticated;
 
     public function componentDetails()
     {
@@ -85,6 +80,8 @@ class Structure extends ComponentBase
         }
 
         $this->mode = $this->property('mode');
+
+        $this->isAuthenticated = !empty(Auth::user());
     }
 
     public function getAssociationScoutsCount($associationId)
@@ -96,4 +93,17 @@ class Structure extends ComponentBase
         return StructureTree::getDistrictScoutsCount($districtId);
     }
 
+    public function getViewRight($level, array $associationTreePermissions): bool
+    {
+        $mapping = [
+            1 => 'association',
+            2 => 'district',
+            3 => 'team',
+            4 => 'troop',
+            5 => 'patrol',
+            6 => 'scout',
+        ];
+
+        return $this->isAuthenticated || (!empty($associationTreePermissions) && $associationTreePermissions[$mapping[$level]]['guest']['read'] > 0);
+    }
 }
