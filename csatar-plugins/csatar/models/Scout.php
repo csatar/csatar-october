@@ -284,7 +284,7 @@ class Scout extends OrganizationBase
             }
 
             // if troop_id is 0, it should be set to null and $this->troop should be set to null as well
-            if ($this->troop_id === 0 || $this->troop_id === '0') {
+            if ($this->troop_id === 0 || $this->troop_id === '0' || $this->troop_id === 'null') {
                 $this->troop_id = null;
                 $this->troop    = null;
             }

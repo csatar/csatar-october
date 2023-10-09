@@ -147,7 +147,7 @@ function prepareReceivedData() {
     $unserializedData = [];
 
     if (isset($_REQUEST['data'])) {
-        $receivedData = json_decode($_REQUEST['data']);
+        $receivedData = json_decode(str_replace(' ', '+', $_REQUEST['data']));
 
         if (empty($receivedData) || strlen($receivedData[1]) < 16) {
             echo "Something went wrong, please go back to the previous page, refresh it, and try again!";
