@@ -1,0 +1,14 @@
+columns:
+    id:
+        label: id
+        type: number
+    age_group1_id:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.ageGroupMatchings.ageGroup'
+        type: text
+        sortable: true
+        select: "(SELECT concat((SELECT `name_abbreviation` FROM csatar_csatar_associations WHERE id = association_id), ' - ', name) as name FROM `csatar_csatar_age_groups` WHERE id = `csatar_knowledgerepository_age_group_matchings`.`age_group1_id`)"
+    age_group2_id:
+        label: 'csatar.knowledgerepository::lang.plugin.admin.ageGroupMatchings.matchingAgeGroup'
+        type: text
+        sortable: true
+        select: "(SELECT concat((SELECT `name_abbreviation` FROM csatar_csatar_associations WHERE id = association_id), ' - ', name) as name FROM `csatar_csatar_age_groups` WHERE id = `csatar_knowledgerepository_age_group_matchings`.`age_group2_id`)"

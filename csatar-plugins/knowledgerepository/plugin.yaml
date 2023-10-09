@@ -49,6 +49,14 @@ navigation:
                 permissions:
                     - csatar.manage.data
                     - csatar.manage.knowledgerepository
+            side-menu-sharing-settings:
+                label: 'csatar.knowledgerepository::lang.plugin.admin.sharingSettings.sharingSettings'
+                url: csatar/knowledgerepository/sharingsettings
+                icon: icon-share-alt
+            side-menu-age-group-matchings:
+                label: 'csatar.knowledgerepository::lang.plugin.admin.ageGroupMatchings.ageGroupMatchings'
+                url: csatar/knowledgerepository/agegroupmatchings
+                icon: icon-link
     main-menu-knowledge-repository-parameters:
         label: 'csatar.knowledgerepository::lang.plugin.admin.menu.knowledgeRepositoryParameters.knowledgeRepositoryParameters'
         url: /csatar/knowledgerepository/knowledgeRepositoryparameters

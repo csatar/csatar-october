@@ -225,7 +225,21 @@ return [
                 'text' => 'Szöveg',
                 'songAlreadyExists' => 'Már létezik dal a következő címmel: :title!',
                 'overwriteExistingSongs' => 'Figyelem! Ha be van jelölve, feltöltött dalok felülírják a már létező, azonos című dalokat!',
-            ]
+            ],
+            'sharingSettings' => [
+                'sharingSettings'       => 'Megosztási beállítások',
+                'sharingSetting'        => 'Megosztási beállítás',
+                'sharingAssoication'    => 'Megosztó szövetség',
+                'sharedWithAssociation' => 'Akivel megosztja',
+                'sharingSettingsAlreadyExists' => 'Már létezik ilyen megosztási beállítás!',
+            ],
+            'ageGroupMatchings' => [
+                'ageGroupMatchings' => 'Korosztály párosítások',
+                'ageGroupMatching' => 'Korosztály párosítás',
+                'ageGroup' => 'Korosztály',
+                'matchingAgeGroup' => 'Párosított korosztály',
+                'ageGroupMatchingsAlreadyExists' => 'Már létezik korosztály párosítás a ezekkel a korosztályokkal!',
+            ],
         ],
         'components' => [
             'gameForm' => [
