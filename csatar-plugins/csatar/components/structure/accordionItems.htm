@@ -26,7 +26,11 @@
             {% set array = array|sort((a, b) => a['team_number'] <=> b['team_number']) %}
         {% endif %}
         {% for item in array %}
-            {% if item[childArrayName]|length > 0 or item['scoutsActive'] | length != 0 %}
+            {% set associationTreePermissions=item['associationTreePermissions'] ?? associationTreePermissions ?? [] %}
+
+            {% set hasViewRight = __SELF__.getViewRight(level, associationTreePermissions) %}
+
+            {% if hasViewRight and (item[childArrayName]|length > 0 or item['scoutsActive'] | length != 0) %}
             <div class="accordion-item my-3">
                 {% if organizationTypeForUrl in this.page.id %}
                     {% partial __SELF__ ~ '::accordionbody'
@@ -36,6 +40,7 @@
                         child2ArrayName=child2ArrayName
                         headingId=headingId
                         collapseId=collapseId
+                        associationTreePermissions=associationTreePermissions
                     %}
                 {% else %}
                     <h2 class="accordion-header" id="{{ headingId ~ item['id'] }}">
@@ -56,6 +61,7 @@
                                 child2ArrayName=child2ArrayName
                                 headingId=headingId
                                 collapseId=collapseId
+                                associationTreePermissions=associationTreePermissions
                             %}
 
                         </div>

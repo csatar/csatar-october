@@ -38,12 +38,16 @@
             {% set active = false %}
         {% endif %}
 
-        {% if active %}
+        {% set associationTreePerimssions=item['associationTreePermissions'] ?? associationTreePerimssions ?? [] %}
+
+        {% set hasViewRight = __SELF__.getViewRight(level, associationTreePerimssions) %}
+
+        {% if active and hasViewRight %}
             {% if childArrayName and item[childArrayName]|length > 0 and level < maxLevel %}
             <li><a class="dropdown-item csat-nav-txt-wrap dropdown-toggle90">{{ item['extended_name'] }}</a>
                 <ul class="submenu dropdown-menu bg-primary {% if level == 2%}csat-menu-scroll{% endif %}">
                     <li><a class="dropdown-item dropdown-underline csat-nav-txt-wrap" href="{{ url('/') ~ '/' ~ organizationTypeForUrl ~ '/' ~ item['id'] }}">{{ item['extended_name'] }}</a>
-                        {% partial __SELF__ ~ '::menuItems' array=item[childArrayName] level=level+1 %}
+                        {% partial __SELF__ ~ '::menuItems' array=item[childArrayName] level=level+1 associationTreePerimssions=associationTreePerimssions %}
                 </ul>
                 {% else %}
             <li><a class="dropdown-item csat-nav-txt-wrap" href="{{ url('/') ~ '/' ~ organizationTypeForUrl ~ '/' ~ item['id'] }}">{{ item['extended_name'] }}</a>
