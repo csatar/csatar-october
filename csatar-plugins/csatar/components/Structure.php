@@ -106,4 +106,5 @@ class Structure extends ComponentBase
 
         return $this->isAuthenticated || (!empty($associationTreePermissions) && $associationTreePermissions[$mapping[$level]]['guest']['read'] > 0);
     }
+
 }

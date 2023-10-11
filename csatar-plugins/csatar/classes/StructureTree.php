@@ -255,20 +255,20 @@ class StructureTree
     {
         $association = Association::find($associationId);
 
-        $district                 = new District();
-        $district->association    = $association;
+        $district = new District();
+        $district->association = $association;
 
-        $team                     = new Team();
-        $team->district           = $district;
+        $team           = new Team();
+        $team->district = $district;
 
-        $troop                    = new Troop();
-        $troop->team              = $team;
+        $troop       = new Troop();
+        $troop->team = $team;
 
-        $patrol                   = new Patrol();
-        $patrol->team             = $team;
+        $patrol       = new Patrol();
+        $patrol->team = $team;
 
-        $scout                    = new Scout();
-        $scout->team              = $team;
+        $scout       = new Scout();
+        $scout->team = $team;
 
         return [
             'association' => [
