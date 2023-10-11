@@ -31,7 +31,7 @@ class PermissionBasedAccess extends Model
      */
     public function getAssociationId()
     {
-        if ($this->team_id || $this->team) {
+        if ($this->team) {
             return $this->team->district->association->id;
         }
 
