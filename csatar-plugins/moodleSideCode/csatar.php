@@ -29,11 +29,9 @@ if (!empty($user)) {
     // update additional data
     updateAdditionalData($user->id, $receivedData['profile']);
 }
-
 loginAndRedirect($user);
 
 // functions
-
 function createNewUser($receivedData) {
     // check if user with same e-mail address exists
     if (\core_user::get_user_by_email($receivedData['email']) !== false) {
@@ -59,7 +57,6 @@ function generateUsername($receivedData, $num = 1) {
     }
 
     $username = strtolower($receivedData['lastname'] . $receivedData['firstname'] . ($num != 1 ? $num : ''));
-
     $charMap = [
         'á' => 'a',
         'é' => 'e',
@@ -70,11 +67,22 @@ function generateUsername($receivedData, $num = 1) {
         'ú' => 'u',
         'ü' => 'u',
         'ű' => 'u',
+        'Á' => 'a',
+        'É' => 'e',
+        'Í' => 'i',
+        'Ó' => 'o',
+        'Ö' => 'o',
+        'Ő' => 'o',
+        'Ú' => 'u',
+        'Ü' => 'u',
+        'Ű' => 'u',
+        ' ' => '',
     ];
 
     $username = str_replace(array_keys($charMap), array_values($charMap), $username);
 
-    if (\core_user::get_user_by_username($username) !== false) {
+    global $DB;
+    if ($DB->get_record('user', array('username' => $username), '*') !== false) {
         return generateUsername($receivedData, $num + 1);
     }
 
@@ -176,8 +184,8 @@ function getUserData($data) {
 
 function loginAndRedirect($user) {
     global $CFG;
-
     if (complete_user_login($user)) {
+        \core\session\manager::apply_concurrent_login_limit($user->id, session_id());
         redirect( $CFG->wwwroot . '/');
     } else {
         echo "Could not login, please contact system administrator!";
