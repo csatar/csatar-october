@@ -358,7 +358,7 @@ class OvamtvWorkPlan extends PatrolWorkPlanBase
         }
 
         if (!empty($this->patrol->team->google_calendar_id)) {
-            $calendarIds[] = $this->patrol->troop->team->google_calendar_id;
+            $calendarIds[] = $this->patrol->team->google_calendar_id;
         }
 
         if (!empty($this->patrol->team->district->google_calendar_id)) {
