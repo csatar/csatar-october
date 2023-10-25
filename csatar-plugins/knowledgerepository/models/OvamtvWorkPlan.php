@@ -313,6 +313,8 @@ class OvamtvWorkPlan extends PatrolWorkPlanBase
     }
 
     public function getEventCalendarAttribute() {
+        return null; //TODO fix this with CS-614 task
+
         if (empty($this->start_date)) {
             return null;
         }
