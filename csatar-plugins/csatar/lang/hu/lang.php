@@ -474,6 +474,7 @@ return [
                 'team' => 'Csapat',
                 'teams' => 'Csapatok',
                 'nameSuffix' => 'cserkészcsapat',
+                'nameSuffixForming' => 'alakuló/újraalakuló cserkészcsapat',
                 'teamNumber' => 'Csapatszám',
                 'foundationDate' => 'Alapítás dátuma',
                 'website' => 'Weboldal',

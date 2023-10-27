@@ -476,6 +476,7 @@ return [
                 'team' => 'Team',
                 'teams' => 'Teams',
                 'nameSuffix' => 'team',
+                'nameSuffixForming' => 'forming team',
                 'teamNumber' => 'Team number',
                 'foundationDate' => 'Foundation date',
                 'website' => 'Website',
