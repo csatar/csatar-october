@@ -298,7 +298,7 @@ class Team extends OrganizationBase
         if ($this->wasRecentlyCreated && $this->status == Status::ACTIVE) {
             $structureTree = Cache::pull('structureTree');
             if (empty($structureTree)) {
-                StructureTree::getStructureTree();
+                StructureTree::handleEmptyStructureTree();
                 return;
             }
 
@@ -331,7 +331,7 @@ class Team extends OrganizationBase
         ) {
             $structureTree = Cache::pull('structureTree');
             if (empty($structureTree)) {
-                StructureTree::getStructureTree();
+                StructureTree::handleEmptyStructureTree();
                 return;
             }
 

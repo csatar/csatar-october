@@ -195,7 +195,7 @@ class Association extends OrganizationBase
         ) {
             $structureTree = Cache::pull('structureTree');
             if (empty($structureTree)) {
-                StructureTree::getStructureTree();
+                StructureTree::handleEmptyStructureTree();
                 return;
             }
 

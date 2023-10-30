@@ -73,6 +73,10 @@ class StructureTree
         }));
     }
 
+    public static function handleEmptyStructureTree() {
+        StructureTree::updateassociationTreePermissions();
+    }
+
     public static function updateStructureTree() {
         $oldValue = Cache::pull('structureTree');
         $newValue = Cache::forever('structureTree', self::getStructureTree());
@@ -240,7 +244,7 @@ class StructureTree
 
         $structureTree = Cache::pull('structureTree');
         if (empty($structureTree)) {
-            StructureTree::getStructureTree();
+            StructureTree::handleEmptyStructureTree();
             return;
         }
 
@@ -307,8 +311,7 @@ class StructureTree
     public static function updateassociationTreePermissions() {
         $structureTree = Cache::pull('structureTree');
         if (empty($structureTree)) {
-            StructureTree::getStructureTree();
-            return;
+            $structureTree = StructureTree::getStructureTree();
         }
 
         foreach ($structureTree as $associationId => $association) {
@@ -369,7 +372,7 @@ class StructureTree
         // get old tree from cache and empty cache
         $structureTree = Cache::pull('structureTree');
             if (empty($structureTree)) {
-                StructureTree::getStructureTree();
+                StructureTree::handleEmptyStructureTree();
                 return;
             }
 
@@ -430,7 +433,7 @@ class StructureTree
         // get old tree from cache and empty cache
         $structureTree = Cache::pull('structureTree');
         if (empty($structureTree)) {
-            StructureTree::getStructureTree();
+            StructureTree::handleEmptyStructureTree();
             return;
         }
 
