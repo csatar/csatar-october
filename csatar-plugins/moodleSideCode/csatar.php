@@ -57,6 +57,7 @@ function generateUsername($receivedData, $num = 1) {
     }
 
     $username = strtolower($receivedData['lastname'] . $receivedData['firstname'] . ($num != 1 ? $num : ''));
+
     $charMap = [
         'á' => 'a',
         'é' => 'e',
@@ -77,10 +78,23 @@ function generateUsername($receivedData, $num = 1) {
         'Ü' => 'u',
         'Ű' => 'u',
         ' ' => '',
+        'ș' => 's',
+        'Ș' => 's',
+        'ț' => 't',
+        'Ț' => 't',
+        'ă' => 'a',
+        'Ă' => 'a',
+        'î' => 'i',
+        'Î' => 'i',
+        'â' => 'a',
+        'Â' => 'a'
+
     ];
 
     $username = str_replace(array_keys($charMap), array_values($charMap), $username);
 
+
+    $username = iconv('UTF-8','ASCII//TRANSLIT',$username);
     global $DB;
     if ($DB->get_record('user', array('username' => $username), '*') !== false) {
         return generateUsername($receivedData, $num + 1);
