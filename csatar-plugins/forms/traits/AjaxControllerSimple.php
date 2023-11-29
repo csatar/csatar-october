@@ -4,6 +4,7 @@ namespace Csatar\Forms\Traits;
 use Auth;
 use http\Env\Request;
 use DateTime;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Input;
 use Flash;
 use File;
@@ -21,6 +22,7 @@ use October\Rain\Exception\NotFoundException;
 use October\Rain\Database\Models\DeferredBinding;
 use October\Rain\Database\Collection;
 use Media\Widgets\MediaManager;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 trait AjaxControllerSimple {
 
@@ -97,7 +99,7 @@ trait AjaxControllerSimple {
             throw new NotFoundException();
         }
 
-        if ($record->is_hidden_fronend) {
+        if ($record->is_hidden_frontend) {
             throw new NotFoundException();
         }
 
@@ -422,7 +424,7 @@ trait AjaxControllerSimple {
 
         if ($edit && !$isHasManyRelation && $record->id) {  // edit relation, regular pivot, existing record
             $attachedModel = $record->{$relationName}->find($relationId);
-            $record->{$relationName}()->updateExistingPivot($attachedModel, $pivotData);
+            $attachedModel->update($pivotData);
         } else if ($edit && !$isHasManyRelation && !$record->id) {    // edit relation, regular pivot, new record
             $defRecord = DeferredBinding::where('master_field', $relationName)
                         ->where('session_key', $this->sessionKey)
@@ -432,7 +434,7 @@ trait AjaxControllerSimple {
             $defRecord->save();
         } else if ($edit) {   // edit relation, polimorphic
             $attachedModel = $record->$relationName()->getRelated()->find($relationId);
-            $record->{$relationName}()->updateExistingPivot($attachedModel, $pivotData['pivot']);
+            $attachedModel->update($pivotData);
         } else if (!$isHasManyRelation) { // add relation, regular pivot
             if (!$record->id) {      // new record
                 $modelToAttach = $record->$relationName()->getRelated()->find($relationId);
@@ -480,8 +482,8 @@ trait AjaxControllerSimple {
 
         $attachedModel1->pivot->sort_order = $sortOrder + $change;
         $attachedModel2->pivot->sort_order = $sortOrder;
-        $record->{$relationName}()->updateExistingPivot($attachedModel1, ['sort_order' => $sortOrder + $change]);
-        $record->{$relationName}()->updateExistingPivot($attachedModel2, ['sort_order' => $sortOrder]);
+        $attachedModel1->update(['sort_order' => $sortOrder + $change]);
+        $attachedModel2->update(['sort_order' => $sortOrder]);
 
         $record->refresh();
 
@@ -1096,12 +1098,7 @@ trait AjaxControllerSimple {
                 $settings['required'] = true;
             }
 
-            if ($isNewRecord) {
-                if (!$this->canCreate($attribute)) {
-                    unset($attributesArray[$attribute]);
-                    continue;
-                }
-            }
+
 
             if (!$isNewRecord) {
                 if (!$this->canUpdate($attribute) && !$this->canDelete($attribute)) {
@@ -1236,9 +1233,7 @@ trait AjaxControllerSimple {
                     continue;
                 }
 
-                if (!$this->canCreate($attribute)) {
-                    unset($data[$attribute]);
-                }
+
             }
         }
 
