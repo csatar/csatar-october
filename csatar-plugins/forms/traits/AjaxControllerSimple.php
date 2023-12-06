@@ -424,7 +424,7 @@ trait AjaxControllerSimple {
 
         if ($edit && !$isHasManyRelation && $record->id) {  // edit relation, regular pivot, existing record
             $attachedModel = $record->{$relationName}->find($relationId);
-            $attachedModel->update($pivotData);
+            $record->{$relationName}()->updateExistingPivot($attachedModel, $pivotData);
         } else if ($edit && !$isHasManyRelation && !$record->id) {    // edit relation, regular pivot, new record
             $defRecord = DeferredBinding::where('master_field', $relationName)
                         ->where('session_key', $this->sessionKey)
@@ -482,8 +482,8 @@ trait AjaxControllerSimple {
 
         $attachedModel1->pivot->sort_order = $sortOrder + $change;
         $attachedModel2->pivot->sort_order = $sortOrder;
-        $attachedModel1->update(['sort_order' => $sortOrder + $change]);
-        $attachedModel2->update(['sort_order' => $sortOrder]);
+        $record->{$relationName}()->updateExistingPivot($attachedModel1, ['sort_order' => $sortOrder + $change]);
+        $record->{$relationName}()->updateExistingPivot($attachedModel2, ['sort_order' => $sortOrder]);
 
         $record->refresh();
 
