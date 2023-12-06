@@ -41,6 +41,7 @@ class WeeklyWorkPlanActivityTypePivot extends CsatarPivot
      */
 
     public $rules = [
+        'programmable_id' => 'required',
         'duration' => 'required|numeric|min:0|max:99',
     ];
 
