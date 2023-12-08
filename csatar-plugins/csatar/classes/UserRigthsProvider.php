@@ -10,7 +10,7 @@ use Csatar\Csatar\Models\PermissionBasedAccess;
 class UserRigthsProvider
 {
 
-    public static function getUserRigths(Model $record, bool $ignoreCache)
+    public static function getUserRigths(?Model $record, bool $ignoreCache = false)
     {
         if (Auth::user()) {
             if (!empty(Auth::user()->scout) && $record instanceof PermissionBasedAccess) {

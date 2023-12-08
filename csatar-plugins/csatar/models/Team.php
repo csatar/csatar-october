@@ -298,7 +298,7 @@ class Team extends OrganizationBase
         if ($this->wasRecentlyCreated && $this->status == Status::ACTIVE) {
             $structureTree = Cache::pull('structureTree');
             if (empty($structureTree)) {
-                StructureTree::getStructureTree();
+                StructureTree::handleEmptyStructureTree();
                 return;
             }
 
@@ -331,7 +331,7 @@ class Team extends OrganizationBase
         ) {
             $structureTree = Cache::pull('structureTree');
             if (empty($structureTree)) {
-                StructureTree::getStructureTree();
+                StructureTree::handleEmptyStructureTree();
                 return;
             }
 
@@ -359,7 +359,7 @@ class Team extends OrganizationBase
         if (isset($this->attributes['team_number']) && isset($this->attributes['name'])) {
             $extendedName  = str_pad($this->attributes['team_number'], 3, '0', STR_PAD_LEFT);
             $extendedName .= ' - ' . $this->attributes['name'];
-            $extendedName .= ' ' . Lang::get('csatar.csatar::lang.plugin.admin.team.nameSuffix');
+            $extendedName .= ' ' . ($this->status == Status::FORMING ? Lang::get('csatar.csatar::lang.plugin.admin.team.nameSuffixForming') : Lang::get('csatar.csatar::lang.plugin.admin.team.nameSuffix'));
             return $extendedName;
         }
 
@@ -452,7 +452,10 @@ class Team extends OrganizationBase
 
     public function scopeActive($query)
     {
-        $query->where('status', Status::ACTIVE)->whereHas('scoutsActive')->orderByRaw('CONVERT(team_number, UNSIGNED) asc');
+        $query->where(function ($query) {
+            $query->where('status', Status::ACTIVE)
+                ->orWhere('status', Status::FORMING);
+        })->whereHas('scoutsActive')->orderByRaw('CONVERT(team_number, UNSIGNED) asc');
     }
 
     public function scopeActiveInDistrict($query, $districtId) {

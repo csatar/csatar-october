@@ -73,6 +73,10 @@ class StructureTree
         }));
     }
 
+    public static function handleEmptyStructureTree() {
+        StructureTree::updateassociationTreePermissions();
+    }
+
     public static function updateStructureTree() {
         $oldValue = Cache::pull('structureTree');
         $newValue = Cache::forever('structureTree', self::getStructureTree());
@@ -239,12 +243,81 @@ class StructureTree
         }
 
         $structureTree = Cache::pull('structureTree');
-            if (empty($structureTree)) {
-                StructureTree::getStructureTree();
-                return;
-            }
+        if (empty($structureTree)) {
+            StructureTree::handleEmptyStructureTree();
+            return;
+        }
+
+        $refreshedAssociation['associationTreePermissions'] = self::setassociationTreePermissions($associationId);
 
         $structureTree[$associationId] = $refreshedAssociation;
+
+        Cache::forever('structureTree', $structureTree);
+    }
+
+    public static function setassociationTreePermissions($associationId): array
+    {
+        $association = Association::find($associationId);
+
+        $district                 = new District();
+        $district->association    = $association;
+
+        $team                     = new Team();
+        $team->district           = $district;
+
+        $troop                    = new Troop();
+        $troop->team              = $team;
+
+        $patrol                   = new Patrol();
+        $patrol->team             = $team;
+
+        $scout                    = new Scout();
+        $scout->team              = $team;
+
+        return [
+            'association' => [
+                'guest' => [
+                    'read' => $association->getGuestRightsForModel()['MODEL_GENERAL']['read'] ?? 0,
+                ],
+            ],
+            'district' => [
+                'guest' => [
+                    'read' => $district->getGuestRightsForModel()['MODEL_GENERAL']['read'] ?? 0,
+                ],
+            ],
+            'team' => [
+                'guest' => [
+                    'read' => $team->getGuestRightsForModel()['MODEL_GENERAL']['read'] ?? 0,
+                ],
+            ],
+            'troop' => [
+                'guest' => [
+                    'read' => $troop->getGuestRightsForModel()['MODEL_GENERAL']['read'] ?? 0,
+                ],
+            ],
+            'patrol' => [
+                'guest' => [
+                    'read' => $patrol->getGuestRightsForModel()['MODEL_GENERAL']['read'] ?? 0
+                ],
+            ],
+            'scout' => [
+                'guest' => [
+                    'read' => $scout->getGuestRightsForModel()['MODEL_GENERAL']['read'] ?? 0,
+                ],
+            ],
+        ];
+    }
+
+    public static function updateassociationTreePermissions() {
+        $structureTree = Cache::pull('structureTree');
+        if (empty($structureTree)) {
+            $structureTree = StructureTree::getStructureTree();
+        }
+
+        foreach ($structureTree as $associationId => $association) {
+            $structureTree[$associationId]['associationTreePermissions'] = self::setassociationTreePermissions($associationId);
+        }
+
         Cache::forever('structureTree', $structureTree);
     }
 
@@ -299,7 +372,7 @@ class StructureTree
         // get old tree from cache and empty cache
         $structureTree = Cache::pull('structureTree');
             if (empty($structureTree)) {
-                StructureTree::getStructureTree();
+                StructureTree::handleEmptyStructureTree();
                 return;
             }
 
@@ -360,7 +433,7 @@ class StructureTree
         // get old tree from cache and empty cache
         $structureTree = Cache::pull('structureTree');
         if (empty($structureTree)) {
-            StructureTree::getStructureTree();
+            StructureTree::handleEmptyStructureTree();
             return;
         }
 

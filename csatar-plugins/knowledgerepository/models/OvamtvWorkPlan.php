@@ -313,6 +313,8 @@ class OvamtvWorkPlan extends PatrolWorkPlanBase
     }
 
     public function getEventCalendarAttribute() {
+        return null; //TODO fix this with CS-614 task
+
         if (empty($this->start_date)) {
             return null;
         }
@@ -358,7 +360,7 @@ class OvamtvWorkPlan extends PatrolWorkPlanBase
         }
 
         if (!empty($this->patrol->team->google_calendar_id)) {
-            $calendarIds[] = $this->patrol->troop->team->google_calendar_id;
+            $calendarIds[] = $this->patrol->team->google_calendar_id;
         }
 
         if (!empty($this->patrol->team->district->google_calendar_id)) {
