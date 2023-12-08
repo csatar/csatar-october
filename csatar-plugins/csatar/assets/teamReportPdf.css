@@ -1,5 +1,3 @@
-@import "commonPdf.css";
-
 p { page-break-after: always; }
 p:last-child { page-break-after: unset; }
 

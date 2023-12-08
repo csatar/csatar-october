@@ -100,13 +100,5 @@
 <script>
     $(document).on('ajaxSetup', function(event, context) {
         $('[data-validate-for]').removeClass('visible');
-
-        var $eventSelect = $('#Form-basicForm-field-data-address_county');
-
-        if ($eventSelect.val() == '') {
-            var cuc = $eventSelect.data();
-            console.log(cuc);
-        }
-
     })
 </script>

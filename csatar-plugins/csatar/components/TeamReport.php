@@ -223,7 +223,7 @@ class TeamReport extends ComponentBase
         }
 
         $data = [
-            'css' => \File::get(plugins_path('csatar/csatar/assets/teamReportPdf.css')),
+            'css' => \File::get(plugins_path('csatar/csatar/assets/teamReportPdf.css')) . '\n' . \File::get(plugins_path('csatar/csatar/assets/commonPdf.css')),
             'teamReport' => $teamReport,
             'extraFields' => $extraFields,
         ];

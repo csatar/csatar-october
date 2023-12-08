@@ -28,7 +28,7 @@ fields:
             card: scoutData
             position: subtitle
             order: 1
-            readOnlyIfPreselected: true
+            readOnlyIfPreselected: false
     troop:
         label: 'csatar.csatar::lang.plugin.admin.scout.troop'
         nameFrom: extendedName
@@ -323,7 +323,7 @@ fields:
         dependsOn:
             - address_zipcode
         attributes:
-            data-tags: true
+            data-tags: 1
         type: dropdown
         formBuilder:
             type: field
@@ -337,7 +337,7 @@ fields:
         dependsOn:
             - address_county
         attributes:
-            data-tags: true
+            data-tags: 1
         type: dropdown
         formBuilder:
             type: field
@@ -351,7 +351,7 @@ fields:
         dependsOn:
             - address_location
         attributes:
-            data-tags: true
+            data-tags: 1
         type: dropdown
         formBuilder:
             type: field
