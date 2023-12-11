@@ -289,6 +289,12 @@ class Scout extends OrganizationBase
                 $this->troop    = null;
             }
 
+            // if patrol_id is 0, it should be set to null and $this->patrol should be set to null as well
+            if ($this->patrol_id === 0 || $this->patrol_id === '0' || $this->patrol_id === 'null') {
+                $this->patrol_id = null;
+                $this->patrol    = null;
+            }
+
             // if the selected patrol does not belong to the selected team or to the selected troop, then throw and exception
             if ($this->patrol &&                                             // a Patrol is set
                 ($this->patrol->team->id != $this->team_id ||               // the Patrol does not belong to the selected Team
