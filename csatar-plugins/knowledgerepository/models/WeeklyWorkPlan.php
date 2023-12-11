@@ -19,8 +19,12 @@ class WeeklyWorkPlan extends PatrolWorkPlanBase
     use \Csatar\Csatar\Traits\History;
 
     public const NO_TOOL_REQUIRED = 'nem szükséges kellék';
+
+    public const OPENING_CEREMONY = 'Nyitó szertartás';
+    public const CLOSE_CEREMONY = 'Záró szertartás';
+
     public const SPECIAL_AGE_GROUP_ACTIVITIES = [
-        'Nyitó szertartás' => [
+        self::OPENING_CEREMONY => [
             'sort_order' => 1,
             'default_duration' => 5,
         ],
@@ -45,13 +49,13 @@ class WeeklyWorkPlan extends PatrolWorkPlanBase
         'Mozgós, szórakoztató játék' => [
             'sort_order' => 8,
         ],
-        'Záró szertartás' => [
+        self::CLOSE_CEREMONY => [
             'sort_order' => 9,
             'default_duration' => 5,
         ]
     ];
     public const DEFAULT_AGE_GROUP_ACTIVITIES = [
-        'Nyitó szertartás' => [
+        self::OPENING_CEREMONY => [
             'sort_order' => 1,
             'default_duration' => 5,
         ],
@@ -77,7 +81,7 @@ class WeeklyWorkPlan extends PatrolWorkPlanBase
         'Új játék' => [
             'sort_order' => 8,
         ],
-        'Záró szertartás' => [
+        self::CLOSE_CEREMONY => [
             'sort_order' => 9,
             'default_duration' => 5,
         ]

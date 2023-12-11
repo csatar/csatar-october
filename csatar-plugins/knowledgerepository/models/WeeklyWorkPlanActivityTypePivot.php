@@ -3,6 +3,8 @@
 namespace Csatar\KnowledgeRepository\Models;
 
 use Csatar\Csatar\Classes\CsatarPivot;
+use Csatar\KnowledgeRepository\Models\ActivityType;
+use Csatar\KnowledgeRepository\Models\WeeklyWorkPlan;
 
 class WeeklyWorkPlanActivityTypePivot extends CsatarPivot
 {
@@ -10,10 +12,14 @@ class WeeklyWorkPlanActivityTypePivot extends CsatarPivot
 
     use \October\Rain\Database\Traits\Nullable;
 
+    public $timestamps = false;
+
     /**
      * @var string The database table used by the model.
      */
     public $table = 'csatar_knowledgerepository_weekly_work_plan_activity_type';
+
+    public $otherKey = 'activity_type_id';
 
     /**
      * @var array Fillable values
@@ -41,12 +47,16 @@ class WeeklyWorkPlanActivityTypePivot extends CsatarPivot
      */
 
     public $rules = [
-        'programmable_id' => 'required',
+        'programmable_id' => 'required_unless:name,' . WeeklyWorkPlan::OPENING_CEREMONY . ',' . WeeklyWorkPlan::CLOSE_CEREMONY,
         'duration' => 'required|numeric|min:0|max:99',
     ];
 
     public $morphTo = [
         'programmable' => []
+    ];
+
+    public $customMessages = [
+        'programmable_id.required_unless' => 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.programNameRequired',
     ];
 
     public function beforeSave() {
@@ -58,5 +68,4 @@ class WeeklyWorkPlanActivityTypePivot extends CsatarPivot
             $this->programmable_id = null;
         }
     }
-
 }

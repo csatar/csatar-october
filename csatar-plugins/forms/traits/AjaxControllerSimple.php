@@ -3,6 +3,7 @@ namespace Csatar\Forms\Traits;
 
 use Auth;
 use http\Env\Request;
+use DB;
 use DateTime;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Input;
@@ -419,7 +420,7 @@ trait AjaxControllerSimple {
 
         $pivotData = $this->updateNullStringToNull($pivotData);
 
-        $this->handlePivotRelationValidation($model, $pivotData, $rules, $isHasManyRelation, $record, $relationName);
+        $this->handlePivotRelationValidation($model, $pivotData, $rules, $isHasManyRelation, $record, $relationName, $this->getPivotModelIfSet($relationName));
 
         if ($model && method_exists($model, 'beforeSaveFromForm')) {
             $model->beforeSaveFromForm($pivotData);
@@ -473,7 +474,7 @@ trait AjaxControllerSimple {
     public function onChangeSortOrder() {
         $record       = $this->getRecord();
         $relationName = Input::get('relationName');
-        $sortOrder    = Input::get('sortOrder');
+        $sortOrder    = intval(Input::get('sortOrder'));
         $direction    = Input::get('direction');
         $change       = $direction == 'up' ? -1 : 1;
 
@@ -485,10 +486,25 @@ trait AjaxControllerSimple {
             return false;
         }
 
-        $attachedModel1->pivot->sort_order = $sortOrder + $change;
-        $attachedModel2->pivot->sort_order = $sortOrder;
-        $record->{$relationName}()->updateExistingPivot($attachedModel1, ['sort_order' => $sortOrder + $change]);
-        $record->{$relationName}()->updateExistingPivot($attachedModel2, ['sort_order' => $sortOrder]);
+        if (($pivotClass = get_class($attachedModel1->pivot)) && $pivotClass != October\Rain\Database\Pivot::class) {
+            $parentKey = $attachedModel1->pivot->getForeignKey();
+            $otherKey  = $attachedModel1->pivot->getOtherKey();
+            $pivotModel1 = $pivotClass::where($parentKey, $attachedModel1->pivot->{$parentKey})
+                ->where($otherKey, $attachedModel1->pivot->{$otherKey})
+                ->where('sort_order', $sortOrder)
+                ->first();
+            $pivotModel2 = $pivotClass::where($parentKey, $attachedModel2->pivot->{$parentKey})
+                ->where($otherKey, $attachedModel2->pivot->{$otherKey})
+                ->where('sort_order', $sortOrder + $change)
+                ->first();
+            $pivotModel1->sort_order = $sortOrder + $change;
+            $pivotModel1->saveQuietly();
+            $pivotModel2->sort_order = $sortOrder;
+            $pivotModel2->saveQuietly();
+        } else {
+            $record->{$relationName}()->updateExistingPivot($attachedModel1, ['sort_order' => $sortOrder + $change]);
+            $record->{$relationName}()->updateExistingPivot($attachedModel2, ['sort_order' => $sortOrder]);
+        }
 
         $record->refresh();
 
@@ -1689,10 +1705,14 @@ trait AjaxControllerSimple {
      * @param  $relationName
      * @return void
      */
-    public function handlePivotRelationValidation($model, &$pivotData, array $rules, bool $isHasManyRelation, $record, $relationName): void
+    public function handlePivotRelationValidation($model, &$pivotData, array $rules, bool $isHasManyRelation, $record, $relationName, $pivotModel = null): void
     {
         if ($model && method_exists($model, 'beforeValidateFromForm')) {
             $model->beforeValidateFromForm($pivotData);
+        }
+
+        if ($pivotModel && method_exists($pivotModel, 'beforeValidateFromForm')) {
+            $pivotModel->beforeValidateFromForm($pivotData);
         }
 
         if (count($rules) > 0) {
@@ -1705,16 +1725,26 @@ trait AjaxControllerSimple {
                 $attributeNames[$key] = Lang::get($value['label']);
             }
 
+            $customMessages = array_merge($model->customMessages ?? [], $pivotModel->customMessages ?? []);
+            $customMessages = $this->getMessagesTranslations($customMessages);
+
             $validation = Validator::make(
                 $pivotData,
                 $rules,
-                [],
+                $customMessages,
                 $attributeNames,
             );
             if ($validation->fails()) {
                 throw new \ValidationException($validation);
             }
         }
+    }
+
+    public function getMessagesTranslations(array $messages): array
+    {
+        return array_map(function($message) {
+            return Lang::get($message);
+        }, $messages);
     }
 
     /**

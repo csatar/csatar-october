@@ -217,6 +217,7 @@ return [
                 'newMaterialEffectiveKnowledge' => 'New material effective knowledge',
                 'oldMaterialEffectiveKnowledge' => 'Old material effective knowledge',
                 'attachments' => 'Attachments',
+                'programNameRequired' => 'Program name is required!',
             ],
             'song' => [
                 'songTitle' => 'Song Title',

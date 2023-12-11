@@ -218,6 +218,7 @@ return [
                 'newMaterialEffectiveKnowledge' => 'Új anyag',
                 'oldMaterialEffectiveKnowledge' => 'Régi anyag',
                 'attachments' => 'Csatolmányok',
+                'programNameRequired' => 'A program neve kötelező!',
             ],
             'song' => [
                 'songTitle' => 'Dal cím',
