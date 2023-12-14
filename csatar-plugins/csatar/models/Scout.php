@@ -342,6 +342,8 @@ class Scout extends OrganizationBase
             $this->updateCache();
         }
 
+        $this->udpateUserEmail();
+
     }
 
     public function afterDelete() {
@@ -355,6 +357,14 @@ class Scout extends OrganizationBase
 
         if (!empty($this->team_id)) {
             StructureTree::updateTeamTree($this->team_id);
+        }
+    }
+
+    public function udpateUserEmail(): void
+    {
+        if (!empty($this->user) && $this->getOriginalValue('email')!= $this->email && $this->user->email != $this->email) {
+            $this->user->email = $this->email;
+            $this->user->save();
         }
     }
 
