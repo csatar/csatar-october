@@ -222,7 +222,6 @@ return [
                 'bulkDeletePartialSuccess' => ':deletedCount deleted from :totalCount. ',
                 'bulkDeleteError' => 'The following errors occurred: ',
                 'deleteWithPersonalData' => 'Delete with personal data',
-                'deletedScouts' => 'Deleted scouts',
                 'restoreDeletedScouts' => 'Restore deleted scout(s)',
                 'restoreDeletedScoutsConfirmation' => 'Are you sure you want to restore the selected scout(s)?',
                 'restoreSuccess' => 'Scout(s) successfully restored.',
@@ -234,6 +233,7 @@ return [
                 ],
                 'activeMember' => 'active member',
                 'inactiveMember' => 'inactive member',
+                'emailChangeWarning' => 'Warning! Changing the email address will also change the login email address!',
             ],
             'admin' => [
                 'menu' => [

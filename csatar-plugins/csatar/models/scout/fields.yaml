@@ -130,6 +130,7 @@ fields:
         label: 'csatar.csatar::lang.plugin.admin.general.email'
         span: auto
         type: text
+        comment: 'csatar.csatar::lang.plugin.admin.scout.emailChangeWarning'
         formBuilder:
             type: field
             card: scoutData
