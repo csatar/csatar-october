@@ -340,7 +340,7 @@ class Plugin extends PluginBase
             $scout = Scout::where('email', $user_details['profile']->email)->first();
 
             if (empty($scout)) {
-                throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.canNotFindScoutWithEmail'), 3);
+                throw new OAuthException(Lang::get('csatar.csatar::lang.plugin.oauth.canNotFindScoutWithEmail') . ' - ' . $user_details['profile']->email, 3);
             }
 
             if (empty($user)) {
