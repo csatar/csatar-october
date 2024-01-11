@@ -3,7 +3,8 @@
         <button
                 class="btn btn-xs rounded btn-primary m-1" data-request-flash="true"
                 data-request="onModifyPivotRelation"
-                data-request-data="relationName: '{{ relationName }}', relationId: '{{ relationId }}'"
+                data-request-data="relationName: '{{ relationName }}', relationId: '{{ relationId }}', pivotClass: '{{ pivotClass }}',
+                    pivotId: '{{ pivotId }}'"
                 onclick="document.getElementById('add-edit-{{ relationName }}').scrollIntoView({ behavior: 'smooth' });"
         >
             <i class="bi bi-pencil"></i>
@@ -19,7 +20,7 @@
         <button
                 class="btn btn-xs rounded btn-danger m-1" data-request-flash="true"
                 data-request="onDeletePivotRelation"
-                data-request-data="relationName: '{{ relationName }}', relationId: '{{ relationId }}'"
+                data-request-data="relationName: '{{ relationName }}', relationId: '{{ relationId }}', pivotClass: '{{ pivotClass }}', pivotId: '{{ pivotId }}'"
         >
             <i class="csat-binclosed-out-wh-sm"></i>
         </button>
@@ -37,7 +38,10 @@
                     relationName: '{{ relationName }}',
                     relationId: '{{ relationId }}',
                     direction: 'up',
-                    sortOrder: '{{ sortOrder }}'"
+                    sortOrder: '{{ sortOrder }}',
+                    pivotClass: '{{ pivotClass }}',
+                    pivotId: '{{ pivotId }}'
+                "
         >
             <i class="csat-arrowup-out-wh-sm"></i>
         </button>
@@ -48,7 +52,10 @@
                         relationName: '{{ relationName }}',
                         relationId: '{{ relationId }}',
                         direction: 'down',
-                        sortOrder: '{{ sortOrder }}'"
+                        sortOrder: '{{ sortOrder }}',
+                        pivotClass: '{{ pivotClass }}',
+                        pivotId: '{{ pivotId }}'
+                    "
         >
             <i class="csat-arrowdown-out-wh-sm"></i>
         </button>

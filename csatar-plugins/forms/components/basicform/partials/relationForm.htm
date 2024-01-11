@@ -8,6 +8,8 @@
 <input type="hidden" name="relationName" value="{{ relationName }}">
 <input type="hidden" name="relationId" value="{{ relationId }}">
 <input type="hidden" name="edit" value="{{ edit }}">
+<input type="hidden" name="pivotClass" value="{{ pivotClass }}">
+<input type="hidden" name="pivotId" value="{{ pivotId }}">
 
 {% if not edit %}
         <button class="btn btn-sm rounded btn-light" data-request="{{ __SELF__}}::onListAttachOptions" data-request-data="relationName: '{{ relationName }}'">{{ 'Vissza'|_ }}</button>

@@ -148,7 +148,7 @@ class WeeklyWorkPlan extends PatrolWorkPlanBase
             'Csatar\KnowledgeRepository\Models\ActivityType',
             'label' => 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.activityTypes',
             'table' => 'csatar_knowledgerepository_weekly_work_plan_activity_type',
-            'pivot' => ['programmable_type', 'programmable_id', 'description', 'sort_order', 'duration'],
+            'pivot' => ['id','programmable_type', 'programmable_id', 'description', 'sort_order', 'duration'],
             'pivotModel' => 'Csatar\KnowledgeRepository\Models\WeeklyWorkPlanActivityTypePivot',
             'renderableOnCreateForm' => false,
         ],
@@ -446,7 +446,9 @@ class WeeklyWorkPlan extends PatrolWorkPlanBase
     }
 
     public function getOvamtvWorkPlanOptions() {
+        $startDateLimit = date('n') <= 5 ? Carbon::createFromDate(date('Y') - 1, 5, 1) : Carbon::createFromDate(date('Y'), 5, 1);
         $options = OvamtvWorkPlan::where('patrol_id', $this->patrol_id)
+//            ->where('start_date', '>=', $startDateLimit->toDateString())
             ->get()
             ->sortBy('start_date')
             ->mapWithKeys(function ($ovamtvWorkPlan) {

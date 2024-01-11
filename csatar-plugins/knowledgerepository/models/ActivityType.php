@@ -47,7 +47,7 @@ class ActivityType extends Model
             'Csatar\KnowledgeRepository\Models\WeeklyWorkPlan',
             'label' => 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.activityTypes',
             'table' => 'csatar_knowledgerepository_weekly_work_plan_activity_type',
-            'pivot' => ['programmable_type', 'programmable_id', 'description', 'sort_order', 'duration'],
+            'pivot' => ['id', 'programmable_type', 'programmable_id', 'description', 'sort_order', 'duration'],
             'pivotModel' => 'Csatar\KnowledgeRepository\Models\WeeklyWorkPlanActivityTypePivot',
         ],
     ];
@@ -64,7 +64,7 @@ class ActivityType extends Model
         if (empty($this->model)) {
             $fields->{'pivot[programmable_id]'}->hidden = true;
         } else {
-            $fields->{'pivot[programmable_id]'}->required = true;
+//            $fields->{'pivot[programmable_id]'}->required = true; //Temporary removed with CS-647. Search code fore this comment to reverse.
         }
 
         if (empty($pivotData['sort_order']) && !isset($this->pivot['sort_order'])) {
