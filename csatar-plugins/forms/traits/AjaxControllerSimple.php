@@ -358,11 +358,14 @@ trait AjaxControllerSimple {
             $relatedModel = $relatedModelName::find($relationId);
             if ($edit) {
                 if (!$record->id) {
-                    $defRecord = DeferredBinding::where('master_field', $relationName)
+                    $defRecord                         = DeferredBinding::where('master_field', $relationName)
                         ->where('session_key', $this->sessionKey)
                         ->where('slave_id', $relationId)
                         ->first();
                     $relatedModel->attributes['pivot'] = $defRecord ? $defRecord->pivot_data : null;
+                } elseif (!empty(Input::get('pivotClass')) && !empty(Input::get('pivotId'))) {
+                    $pivotRecord                                  = Input::get('pivotClass')::find(Input::get('pivotId'));
+                    $relatedModel->attributes['pivot'] = $pivotRecord->attributes;
                 } else {
                     $relatedModel->attributes['pivot'] = $record->{$relationName}->find($relationId)->pivot->attributes;
                 }
@@ -389,6 +392,8 @@ trait AjaxControllerSimple {
                 'relationName' => $relationName,
                 'relationId' => $relationId,
                 'edit' => $edit,
+                'pivotClass' => Input::get('pivotClass'),
+                'pivotId' => Input::get('pivotId'),
             ])
         ];
     }
@@ -418,8 +423,6 @@ trait AjaxControllerSimple {
             $rules     = !empty($model->rules) ? $model->rules : [];
         }
 
-        $pivotData = $this->updateNullStringToNull($pivotData);
-
         $this->handlePivotRelationValidation($model, $pivotData, $rules, $isHasManyRelation, $record, $relationName, $this->getPivotModelIfSet($relationName));
 
         if ($model && method_exists($model, 'beforeSaveFromForm')) {
@@ -428,7 +431,13 @@ trait AjaxControllerSimple {
 
         $pivotData = $pivotData['pivot'] ?? $pivotData;
 
-        if ($edit && !$isHasManyRelation && $record->id) {  // edit relation, regular pivot, existing record
+        $pivotData = $this->updateNullStringToNull($pivotData);
+
+        if (!empty(Input::get('pivotClass')) && !empty(Input::get('pivotId'))) {
+            $pivotRecord = Input::get('pivotClass')::find(Input::get('pivotId'));
+            $pivotRecord->fill($pivotData);
+            $pivotRecord->saveQuietly();
+        } else if ($edit && !$isHasManyRelation && $record->id) {  // edit relation, regular pivot, existing record
             $attachedModel = $record->{$relationName}->find($relationId);
             $record->{$relationName}()->updateExistingPivot($attachedModel, $pivotData);
         } else if ($edit && !$isHasManyRelation && !$record->id) {    // edit relation, regular pivot, new record
@@ -930,13 +939,17 @@ trait AjaxControllerSimple {
 
         $isHasManyRelation = array_key_exists($relationName, $record->hasMany);
 
-        $defRecords = DeferredBinding::where('master_field', $relationName)
+        DeferredBinding::where('master_field', $relationName)
             ->where('session_key', $this->sessionKey)
             ->where('slave_id', $relationId)
             ->delete();
-        if (!$isHasManyRelation) {
+
+        if (!empty(Input::get('pivotClass')) && !empty(Input::get('pivotId'))) {
+            $pivotRecord = Input::get('pivotClass')::find(Input::get('pivotId'));
+            $pivotRecord->delete();
+        } elseif (!$isHasManyRelation) {
             $record->{$relationName}()->detach($relationId);
-        } else {
+        } else  {
             ($record->hasMany[$relationName][0])::where('id', $relationId)->delete();
         }
 
@@ -1429,14 +1442,21 @@ trait AjaxControllerSimple {
         }
 
         if (!$this->readOnly) {
-            $colButtons .= $this->renderPartial('@partials/pivotTableRowColButtons.htm', [
+            $varsToPass = [
                 'canUpdate'            => $this->canUpdate($relationName),
                 'canDelete'            => $this->canDelete($relationName),
                 'relationName'         => $relationName,
                 'relationId'           => $relatedRecord->id,
                 'sortOrder'            => $relatedRecord->pivot->sort_order ?? false,
                 'fieldsThatRequire2FA' => $this->fieldsThatRequire2FA,
-            ]);
+            ];
+
+            if (($pivotClass = get_class($relatedRecord->pivot)) && $pivotClass != October\Rain\Database\Pivot::class) {
+                // special handling for weekly workplan
+                $varsToPass['pivotClass'] = str_replace('\\', '\\\\', $pivotClass);
+                $varsToPass['pivotId']       = $relatedRecord->pivot->id;
+            }
+                $colButtons .= $this->renderPartial('@partials/pivotTableRowColButtons.htm', $varsToPass);
         }
 
         return $this->renderPartial('@partials/pivotTableRow', [
