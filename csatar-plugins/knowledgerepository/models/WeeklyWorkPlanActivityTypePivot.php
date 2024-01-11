@@ -47,7 +47,7 @@ class WeeklyWorkPlanActivityTypePivot extends CsatarPivot
      */
 
     public $rules = [
-        'programmable_id' => 'required_unless:name,' . WeeklyWorkPlan::OPENING_CEREMONY . ',' . WeeklyWorkPlan::CLOSE_CEREMONY,
+//        'programmable_id' => 'required_unless:name,' . WeeklyWorkPlan::OPENING_CEREMONY . ',' . WeeklyWorkPlan::CLOSE_CEREMONY, //Temporary removed with CS-647. Search code fore this comment to reverse.
         'duration' => 'required|numeric|min:0|max:99',
     ];
 
@@ -56,7 +56,7 @@ class WeeklyWorkPlanActivityTypePivot extends CsatarPivot
     ];
 
     public $customMessages = [
-        'programmable_id.required_unless' => 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.programNameRequired',
+//        'programmable_id.required_unless' => 'csatar.knowledgerepository::lang.plugin.admin.weeklyWorkPlan.programNameRequired', //Temporary removed with CS-647. Search code fore this comment to reverse.
     ];
 
     public function beforeSave() {

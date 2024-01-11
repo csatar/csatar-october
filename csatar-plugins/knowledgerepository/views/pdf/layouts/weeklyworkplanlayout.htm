@@ -75,7 +75,7 @@ name = "Weekly Work Plan layout"
                 <th>{{ 'Típus / Név'|_ }}</th>
                 <th>{{ 'Hogyan'|_ }}</th>
             </tr>
-            {% for activity in weeklyWorkPlan.activityTypes %}
+            {% for activity in weeklyWorkPlan.activityTypes|sort((a, b) => a.pivot.sort_order <=> b.pivot.sort_order) %}
                 <tr>
                     <td>{{ activity.when }}</td>
                     <td>{{ activity.pivot.duration }}</td>
