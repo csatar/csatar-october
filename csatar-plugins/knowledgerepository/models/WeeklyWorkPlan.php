@@ -446,9 +446,9 @@ class WeeklyWorkPlan extends PatrolWorkPlanBase
     }
 
     public function getOvamtvWorkPlanOptions() {
-        $startDateLimit = date('n') <= 5 ? Carbon::createFromDate(date('Y') - 1, 5, 1) : Carbon::createFromDate(date('Y'), 5, 1);
+        $startDateLimit = date('n') <= 9 ? Carbon::createFromDate(date('Y') - 1, 9, 1) : Carbon::createFromDate(date('Y'), 9, 1);
         $options = OvamtvWorkPlan::where('patrol_id', $this->patrol_id)
-//            ->where('start_date', '>=', $startDateLimit->toDateString())
+            ->where('start_date', '>=', $startDateLimit->toDateString())
             ->get()
             ->sortBy('start_date')
             ->mapWithKeys(function ($ovamtvWorkPlan) {
