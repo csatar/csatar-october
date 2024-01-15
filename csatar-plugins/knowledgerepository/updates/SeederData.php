@@ -469,31 +469,31 @@ class SeederData extends Seeder
         ],
         'methodologyTypes' => [
             [
-                'name' => 'Új (eddig az őrs még sosem találkozott az átadott anyaggal)',
+                'name' => 'CS - Új (eddig az őrs még sosem találkozott az átadott anyaggal)',
                 'sort_order' => 1
             ],
             [
-                'name' => 'Régi/ismétlés (ismétlés, az őrs már találkozott a megnevezett anyaggal)',
+                'name' => 'CS - Régi/ismétlés (ismétlés, az őrs már találkozott a megnevezett anyaggal)',
                 'sort_order' => 2
             ],
             [
-                'name' => 'Mindkettő',
+                'name' => 'Cserkész - Mindkettő',
                 'sort_order' => 3
             ],
             [
-                'name' => 'Új elmélet',
+                'name' => 'KCS - Új elmélet',
                 'sort_order' => 4
             ],
             [
-                'name' => 'Új gyakorlat',
+                'name' => 'KCS - Új gyakorlat',
                 'sort_order' => 5
             ],
             [
-                'name' => 'Régi elmélet',
+                'name' => 'KCS - Régi elmélet',
                 'sort_order' => 6
             ],
             [
-                'name' => 'Régi gyakorlat',
+                'name' => 'KCS - Régi gyakorlat',
                 'sort_order' => 7
             ],
         ],
