@@ -478,9 +478,11 @@ trait AjaxControllerSimple {
         $direction    = Input::get('direction');
         $change       = $direction == 'up' ? -1 : 1;
 
-        $attachedModels = $record->{$relationName};
-        $attachedModel1 = $attachedModels->firstWhere('pivot.sort_order', $sortOrder);
-        $attachedModel2 = $attachedModels->firstWhere('pivot.sort_order', $sortOrder + $change);
+        $attachedModels = $record->{$relationName}->sortBy('pivot.sort_order')->values();
+        $attachedModel1key = $attachedModels->search(function($item) use ($sortOrder ){return $item->pivot->sort_order == $sortOrder;});
+        $attachedModel1 = $attachedModels[$attachedModel1key];
+        $attachedModel2key = $attachedModel1key + $change;
+        $attachedModel2 = $attachedModels[$attachedModel2key] ?? null;
 
         if (empty($attachedModel1) || empty($attachedModel2)) {
             return false;
@@ -491,19 +493,19 @@ trait AjaxControllerSimple {
             $otherKey  = $attachedModel1->pivot->getOtherKey();
             $pivotModel1 = $pivotClass::where($parentKey, $attachedModel1->pivot->{$parentKey})
                 ->where($otherKey, $attachedModel1->pivot->{$otherKey})
-                ->where('sort_order', $sortOrder)
+                ->where('sort_order', $attachedModel1->pivot->sort_order)
                 ->first();
             $pivotModel2 = $pivotClass::where($parentKey, $attachedModel2->pivot->{$parentKey})
                 ->where($otherKey, $attachedModel2->pivot->{$otherKey})
-                ->where('sort_order', $sortOrder + $change)
+                ->where('sort_order', $attachedModel2->pivot->sort_order)
                 ->first();
-            $pivotModel1->sort_order = $sortOrder + $change;
+            $pivotModel1->sort_order = $attachedModel2->pivot->sort_order;
             $pivotModel1->saveQuietly();
-            $pivotModel2->sort_order = $sortOrder;
+            $pivotModel2->sort_order = $attachedModel1->pivot->sort_order;
             $pivotModel2->saveQuietly();
         } else {
-            $record->{$relationName}()->updateExistingPivot($attachedModel1, ['sort_order' => $sortOrder + $change]);
-            $record->{$relationName}()->updateExistingPivot($attachedModel2, ['sort_order' => $sortOrder]);
+            $record->{$relationName}()->updateExistingPivot($attachedModel1, ['sort_order' => $attachedModel2->pivot->sort_order]);
+            $record->{$relationName}()->updateExistingPivot($attachedModel2, ['sort_order' => $attachedModel1->pivot->sort_order]);
         }
 
         $record->refresh();
