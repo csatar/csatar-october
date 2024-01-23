@@ -1360,6 +1360,7 @@ trait AjaxControllerSimple {
             foreach ($defRecords as $defRecord) {
                 $record    = new $defRecord->slave_type();
                 $records[] = $record;
+                $records   = collect($records);
             }
         }
 
@@ -1451,10 +1452,10 @@ trait AjaxControllerSimple {
                 'fieldsThatRequire2FA' => $this->fieldsThatRequire2FA,
             ];
 
-            if (($pivotClass = get_class($relatedRecord->pivot)) && $pivotClass != October\Rain\Database\Pivot::class) {
+            if (!empty($relatedRecord->pivot) && ($pivotClass = get_class($relatedRecord->pivot)) && $pivotClass != October\Rain\Database\Pivot::class) {
                 // special handling for weekly workplan
                 $varsToPass['pivotClass'] = str_replace('\\', '\\\\', $pivotClass);
-                $varsToPass['pivotId']       = $relatedRecord->pivot->id;
+                $varsToPass['pivotId']       = $relatedRecord->pivot->id ?? '';
             }
                 $colButtons .= $this->renderPartial('@partials/pivotTableRowColButtons.htm', $varsToPass);
         }
@@ -1685,7 +1686,10 @@ trait AjaxControllerSimple {
                 ->get()->toArray());
 
             foreach ($defRecords as $defRecord) {
-                DeferredBinding::find($defRecord['id'])->delete();
+                $db = DeferredBinding::find($defRecord['id']);
+                if (!empty($db)) {
+                    $db->delete();
+                }
             }
         }
 

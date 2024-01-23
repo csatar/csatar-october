@@ -18,6 +18,7 @@ use Event;
 use Input;
 use Lang;
 use Media\Classes\MediaLibrary;
+use October\Rain\Auth\AuthException;
 use October\Rain\Exception\ApplicationException;
 use PolloZen\SimpleGallery\Controllers\Gallery as SimpleGalleryController;
 use RainLab\User\Models\User;
@@ -94,7 +95,8 @@ class Plugin extends PluginBase
             $this->extendUser();
 
         App::error(function (\October\Rain\Auth\AuthException $exception) {
-            return Lang::get('csatar.csatar::lang.frontEnd.authException');
+            // Here we can customize the returned error message based on the exception code if needed. Now the same message is returned for all AuthExceptions.
+            return \Response::make(Lang::get('csatar.csatar::lang.frontEnd.authException'), 500);
         });
 
         App::error(function(
