@@ -55,6 +55,10 @@ class TwoFactorAuthentication extends ComponentBase
     }
 
     private function prepareVariables() {
+        if (!Auth::user()) {
+            return;
+        }
+
         $scout           = Auth::user()->scout;
         $this->google2FA = new GoogleTwoFactorAuthentication();
 
