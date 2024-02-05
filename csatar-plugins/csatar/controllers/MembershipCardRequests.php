@@ -124,7 +124,7 @@ class MembershipCardRequests extends Controller
             'charset' => 'UTF-8',
         ];
 
-        return Response::download($csvPath, $fileName, $headers)->deleteFileAfterSend(true);
+        return Response::download($csvPath, $fileName, $headers);//->deleteFileAfterSend(true);
     }
 
 }
