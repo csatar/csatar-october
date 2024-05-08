@@ -61,6 +61,7 @@ return [
                 'specialWorkplanAgeGroupId' => 'A speciális munkaterv korosztálya',
                 'back' => 'Vissza',
                 'canNotDeleteUser' => 'Nem lehet törölni olyan felhasználót, amelyikhez cserkész tartozik vagy vannak hozzá kapcsolódó előzmények! Kérjük, helyette deaktiválja a felhasználót.',
+                'memberListDownload' => 'Tag lista letöltése'
             ],
             'history' => [
                 'histories' => 'Előzmények',
