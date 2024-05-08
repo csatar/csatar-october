@@ -336,3 +336,6 @@ fields:
             card: teamData
             position: image
             default: 'assets/images/groupimg_placeholder.webp'
+    tagListaLetoltese:
+      label: 'csatar.csatar::lang.plugin.admin.general.tagListaLetoltese'
+      hidden: 1
