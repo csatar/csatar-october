@@ -61,7 +61,7 @@ return [
                 'specialWorkplanAgeGroupId' => 'Special workplan age group',
                 'back' => 'Back',
                 'canNotDeleteUser' => 'It is not possible to delete the user that are connected to scouts or have history records! Please deactivate the user instead.',
-                'tagListaLetoltese' => 'Download member list'
+                'memberListDownload' => 'Download member list'
             ],
             'history' => [
                 'histories' => 'History',

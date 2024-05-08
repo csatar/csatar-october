@@ -52,7 +52,7 @@ class Team extends OrganizationBase
     ];
 
     public $additionalFieldsForPermissionMatrix = [
-        'tagListaLetoltese'
+        'memberListDownload'
     ];
 
     protected $appends = ['extended_name'];

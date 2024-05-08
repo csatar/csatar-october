@@ -62,7 +62,7 @@
         <div class="me-2">
             {% set orgPermissions = organizationUnitFrontend.permissions %}
             {% partial "@dataRequestButton"
-                permissionValue = orgPermissions['tagListaLetoltese']['create']
+                permissionValue = orgPermissions['memberListDownload']['create']
                 dataRequest = 'onExportScoutsToCsv'
                 dataRequestData = 'teamId: ' ~ team_id
                 btnExtraClasses = 'btn-sm btn-primary'
@@ -75,7 +75,7 @@
         <div class="me-2">
             {% set orgPermissions = organizationUnitFrontend.permissions %}
             {% partial "@dataRequestButton"
-            permissionValue = orgPermissions['tagListaLetoltese']['create']
+            permissionValue = orgPermissions['memberListDownload']['create']
             dataRequest = 'onExportScoutsToXlsx'
             dataRequestData = 'teamId: ' ~ team_id
             btnExtraClasses = 'btn-sm btn-primary'
