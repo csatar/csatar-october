@@ -18,7 +18,7 @@ class Sponsors
             [
                 'name' => Lang::get('csatar.csatar::lang.plugin.component.logos.sponsors.hungarianGovernment'),
                 'address' => 'https://bgazrt.hu/',
-                'logo' => '/home/sponsors/hungarian-government.webp',
+                'logo' => '/home/sponsors/bga.webp',
                 'class' => 'main-sponsor'
             ],
             [
