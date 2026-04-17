@@ -1,6 +1,6 @@
 #!/bin/bash
 
-imageName="octobercms/october-dev:latest"
+defaultImageName="october3-dev:latest"
 
 if ! [ -d octobercms-database ]; then
     echo "Creating the octobercms-database directory to store the MySQL files."
@@ -85,8 +85,15 @@ if [ -z "$containerName" ]; then
     fi
 fi
 
-echo "Pulling the latest October CMS Dev docker image..."
-docker pull $imageName
+if docker image inspect "$defaultImageName" > /dev/null 2>&1; then
+    echo "Using local image: $defaultImageName"
+else
+    echo "Pulling the latest October CMS Dev docker image..."
+    echo "Pulling image: $defaultImageName"
+    docker pull "$defaultImageName"
+fi
+
+imageName=$defaultImageName
 
 echo "Creating the container..."
 filesDirPath="${PWD}/octobercms-files"
@@ -95,12 +102,22 @@ ownThemeDirPath="${PWD}/csatar-october/csatar-theme"
 ownPluginDirPath="${PWD}/csatar-october/csatar-plugins"
 ownConfigDirPath="${PWD}/csatar-october/dev-config"
 
+echo "Enter MariaDB root password (leave empty to use 'root'): "
+read -s mysqlRootPassword
+echo ""
+if [ -z "$mysqlRootPassword" ]; then
+  mysqlRootPassword="root"
+fi
+
 docker run -d --name $containerName -p $port:80 -p $mysqlPort:3306 \
     -v $dataDirPath:/var/lib/october-mysql \
     -v $filesDirPath:/var/www/html \
     -v $ownThemeDirPath:/var/www/html/themes/csatar \
     -v $ownPluginDirPath:/var/www/html/plugins/csatar \
     -v $ownConfigDirPath:/var/www/html/config \
+    -e MYSQL_ROOT_PASSWORD="$mysqlRootPassword" \
+    -e MARIADB_ROOT_PASSWORD="$mysqlRootPassword" \
+    -e MYSQL_PWD="$mysqlRootPassword" \
     -e PHP_IDE_CONFIG="serverName=Docker" \
     -it $imageName
 if [ $? -ne 0 ]; then

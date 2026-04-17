@@ -1,0 +1,35 @@
+#!/usr/bin/env bash
+#
+# Builds the October CMS 3 base image.
+#
+# PHP 8.2 + Apache + MariaDB 10.11 + all extensions required by October CMS 3.
+# October CMS files are NOT baked in — they are cloned on first container start
+# if /var/www/html is empty, or used as-is if already populated (e.g. octobercms-files/).
+#
+
+set -e
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DEFAULT_NAME="october3-dev:latest"
+
+echo ""
+echo "October CMS 3 Base Image Builder"
+echo "================================="
+echo ""
+read -p "Image name [$DEFAULT_NAME]: " IMAGE_NAME
+IMAGE_NAME="${IMAGE_NAME:-$DEFAULT_NAME}"
+
+echo ""
+echo "Building: $IMAGE_NAME"
+echo ""
+
+docker build -t "$IMAGE_NAME" "$SCRIPT_DIR/docker/october3-dev/"
+
+echo ""
+echo "Done. Image built: $IMAGE_NAME"
+echo ""
+echo "To use with legacy init.sh projects, set:"
+echo "  defaultImageName=\"$IMAGE_NAME\""
+echo ""
+echo "To publish to Docker Hub:"
+echo "  docker push $IMAGE_NAME"
