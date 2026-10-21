@@ -12,7 +12,6 @@ use Input;
 use Lang;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Validator;
-use Vdomah\Excel\Classes\Excel;
 
 class Songs extends Controller
 {
@@ -74,7 +73,7 @@ class Songs extends Controller
 
         $import = new SongsXlsxImport($associationId, $owerwriteExistingData, $richTextColumns, $worksheetRaw, $uploaderCsatarCode, $approverCsatarCode);
 
-        Excel::import($import, $xlsxFile);
+        $import->import($xlsxFile);
 
         if (!empty($import->errors) && count($import->errors) > 0) {
             $this->vars['errors'] = $import->errors;

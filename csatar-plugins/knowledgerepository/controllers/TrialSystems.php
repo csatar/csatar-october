@@ -6,7 +6,6 @@ use Backend\Classes\Controller;
 use Csatar\Csatar\Models\Association;
 use Csatar\KnowledgeRepository\Classes\Xlsx\TrialSystemsXlsxImport;
 use Csatar\KnowledgeRepository\Classes\Xlsx\TrialSystemsXlsxImport2;
-use Vdomah\Excel\Classes\Excel;
 use Flash;
 use Input;
 use Lang;
@@ -78,7 +77,7 @@ class TrialSystems extends Controller
 
         $import = new TrialSystemsXlsxImport($associationId, true, $effectiveKnowledgeOnly, $worksheetRaw);
 
-        Excel::import($import, $xlsxFile);
+        $import->import($xlsxFile);
 
         if (!empty($import->errors) && count($import->errors) > 0) {
             $this->vars['errors'] = $import->errors;
