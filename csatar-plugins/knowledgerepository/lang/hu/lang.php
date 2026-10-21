@@ -71,6 +71,7 @@ return [
                 'import' => 'Importálás',
                 'row' => 'sor',
                 'file' => 'Fájl',
+                'downloadSample' => 'Minta xlsx fájl letöltése',
                 'select' => 'Válassz...',
                 'richTextColumns' => 'Richtext típusú oszlopok',
                 'richTextColumnsNote' => 'Azon oszlopok nevei (vesszővel elválasztva), amelyeket richtext formátumban kell importálni. Az oszlopneveknek meg kell egyezniük xlsx dokumentumban használt oszlopnevekkel.',

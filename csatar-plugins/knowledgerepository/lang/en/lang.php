@@ -70,6 +70,7 @@ return [
                 'import' => 'Import',
                 'row' => 'row',
                 'file' => 'File',
+                'downloadSample' => 'Download sample xlsx file',
                 'select' => 'Select...',
                 'richTextColumns' => 'Richtext columns',
                 'richTextColumnsNote' => 'Please fill the name of the columns (separated by comma) that should be imported as rich text. Please make sure you use the same column names as in the xlsx document.',
