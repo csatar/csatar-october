@@ -51,6 +51,10 @@ class Team extends OrganizationBase
         'logo' => 'image|nullable',
     ];
 
+    public $additionalFieldsForPermissionMatrix = [
+        'memberListDownload'
+    ];
+
     protected $appends = ['extended_name'];
 
     public $customAttributes = ['active_members_count'];
