@@ -1689,8 +1689,8 @@ trait AjaxControllerSimple {
                 $db = DeferredBinding::find($defRecord['id']);
                 if (!empty($db)) {
                     $db->delete();
-                }
             }
+        }
         }
 
         // save the record
